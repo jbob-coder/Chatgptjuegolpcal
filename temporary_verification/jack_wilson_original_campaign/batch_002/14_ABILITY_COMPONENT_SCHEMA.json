@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_ABILITY_COMPONENTS_V1",
+  "required_fields": ["ability_id","name","origin","rarity","grade","tags","activation","targeting","range","cost","scaling","duration","cooldown","resistance","failure_modes","side_effects","mastery","branches","compatibility","legal_status"],
+  "rarity": ["Common","Specialized","Rare","Singular"],
+  "grade_scale": {"0":"latent","1":"basic","2":"trained civilian","3":"professional","4":"specialist","5":"strategic local","6":"regional threat","7":"national threat","8":"continental threat"}
+}
