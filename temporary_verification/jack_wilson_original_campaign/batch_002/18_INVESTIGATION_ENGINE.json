@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_INVESTIGATION_V1",
+  "methods": ["observation","interview","record_search","physical_evidence","CM_forensics","surveillance","financial_analysis","route_analysis","timeline_reconstruction","controlled_test"],
+  "evidence_levels": ["INDICATOR","CORROBORATED_INDICATOR","PROBABLE","STRONG_EVIDENCE","DIRECT_EVIDENCE","DISPROVEN"]
+}
