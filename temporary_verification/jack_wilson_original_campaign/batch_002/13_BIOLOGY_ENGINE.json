@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_BIOLOGY_HUMAN_V1",
+  "tracked": ["hydration","calories","sleep_debt","stress","pain","blood_volume","oxygenation","temperature","infection_load","organ_integrity","muscle_fatigue","bone_damage","nerve_damage","CM_current","CM_max","CM_instability"],
+  "injury_types": ["blunt","cutting","piercing","thermal","chemical","electrical","radiative","biological","cellular_matrix"],
+  "recovery_rules": ["HP cannot erase untreated structural damage","CM may accelerate compatible healing but cannot create missing matter","permanent injury requires an explicit severe event"]
+}
