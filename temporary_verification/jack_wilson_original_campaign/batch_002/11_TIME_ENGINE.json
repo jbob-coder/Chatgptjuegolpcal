@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_TIME_HYBRID_V1",
+  "mode": "HYBRID",
+  "tiers": [
+    {
+      "tier": "HIGH",
+      "tick": "1-6 seconds",
+      "use": "Jack present, dialogue, combat, immediate danger"
+    },
+    {
+      "tier": "MEDIUM",
+      "tick": "1-10 minutes",
+      "use": "nearby important activity"
+    },
+    {
+      "tier": "LOW",
+      "tick": "1-24 hours",
+      "use": "remote politics, economy, weather, routines"
+    },
+    {
+      "tier": "ABSTRACT",
+      "tick": "1-30 days",
+      "use": "demography, research, long trends"
+    }
+  ],
+  "rules": [
+    "time skips require explicit duration",
+    "off-screen events resolve on schedule",
+    "promotion to higher detail cannot rewrite sealed results"
+  ]
+}
