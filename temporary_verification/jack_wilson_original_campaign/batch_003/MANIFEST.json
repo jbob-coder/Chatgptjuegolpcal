@@ -1,0 +1,18 @@
+{
+  "package":"jack_wilson_original_campaign_batch_003",
+  "version":"0.3.0",
+  "file_count":10,
+  "safe_file_limit_bytes":94371840,
+  "files":[
+    {"name":"22_PLANET_AND_CONTINENTS.json","bytes":1973,"sha256":"c3b6710a7953ce1cf3a4829dbe2632e7d6184e2df71692444613d531b6f18d37"},
+    {"name":"23_STATES_AND_GEOPOLITICS.json","bytes":1665,"sha256":"94ed0d80c612836e1460e99705465aa2f5bcb6922273bf0ea786323c076d8b57"},
+    {"name":"24_GREYBRIDGE_CITY.json","bytes":1720,"sha256":"a8da0d1b41fcca3576591d36733499c92cc7fa1c8a803955b200ff47f027e2cf"},
+    {"name":"25_BLOCK18_AND_APARTMENTS.json","bytes":1963,"sha256":"588d5b05edb32245bff72570a75ca57c6fbebb39666e404dc0ec8fc689116b0d"},
+    {"name":"26_NORTHSTAR_SERVICE_ACADEMY.json","bytes":2056,"sha256":"922bc831115a22ba4b5a94f6618aab63bec4c447968ec312bc8c0d706a4b757d"},
+    {"name":"27_TRANSPORT_ROUTE_AND_TIMING.json","bytes":1347,"sha256":"19d9335c94bdb98a8e1825e16cfa183ca7c16fa43e33a21c92bcfb23ba3eac29"},
+    {"name":"28_COUNTDOWN_MATH.json","bytes":594,"sha256":"4f0a29fe40d93f1869dd95fcbe386cd19caebc4c08c2431a907e54b7c07f0dda"},
+    {"name":"29_INTAKE_LOGISTICS.json","bytes":883,"sha256":"88ce4febc57ce50ac2edfb8da378a1535a98a2ee4e4c47611788740c84be7339"},
+    {"name":"30_OPEN_DESIGN_QUESTIONS.json","bytes":605,"sha256":"630344e561682dda842d7793b705f2deab7a0e18a7e15de44f17d6fb611ab5c0"},
+    {"name":"README.md","bytes":313,"sha256":"fbf5f8ca393dfc2c07e4b2210c1f8efafc9141a6a44b923532793e206ca9de7e"}
+  ]
+}
