@@ -1,0 +1,6 @@
+{
+  "schema_version":"1.0.0",
+  "intake_requirements":[{"item":"civic identity card","deadline":"departure"},{"item":"service notice","deadline":"departure"},{"item":"sealed luggage","deadline":"Frostwane 16, 18:00"},{"item":"medical declaration","deadline":"Frostwane 10, 16:00"},{"item":"CM baseline appointment","date":"Frostwane 10, 09:20"},{"item":"allowed personal luggage","limit_kg":18}],
+  "issued_at_academy":["uniform sets","boots","identity band","bedding","hygiene kit","training slate","basic protective gear"],
+  "prohibited":["unlicensed catalysts","concealed weapons","unregistered ability devices","corrosives","unauthorized drones"]
+}
