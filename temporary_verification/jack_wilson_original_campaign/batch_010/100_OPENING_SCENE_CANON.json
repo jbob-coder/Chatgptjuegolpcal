@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "SCENE_CH1_001",
+  "chapter": 1,
+  "chapter_title": "Fourteen Days",
+  "scene_title": "A Room That Was Not His",
+  "canon_status": "SEALED_OPENING_CANON",
+  "world_datetime": "Era 219, Frostwane 03, 19:42",
+  "location_id": "LOC_GREYBRIDGE_BLOCK18_APT6B",
+  "present_characters": ["CHAR_JACK_WILSON"],
+  "nearby_characters": ["CHAR_ELIAS_VALE"],
+  "opening_state": {"posture":"sitting on the edge of the bed","orientation":"conscious but recently disoriented","injuries":["mild headache"],"hunger":"moderate","hydration":"slightly low","HP":"34/34","CM":"120/120"},
+  "last_confirmed_event": "Jack regained consciousness in the body of sixteen-year-old Jack Wilson and recognized that the system interface was real."
+}
