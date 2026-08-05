@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.1.0",
+  "migration_id": "MIGRATION_RESOURCE_FORMULAS_V1_1",
+  "supersedes": "77_HP_AND_CM_GROWTH.json v1.0.0 formulas",
+  "effective_from_save": "SAVE_000001",
+  "HP": {"old_formula": "20 + Endurance + floor(character_level * 2.5)", "new_formula": "23 + Endurance + floor(character_level * 2.5)", "baseline_result": 34},
+  "CM": {"old_formula": "60 + Will*3 + Endurance*2 + Steal_mastery*5", "new_formula": "63 + Will*3 + Endurance*2 + Steal_mastery*5", "baseline_result": 120}
+}

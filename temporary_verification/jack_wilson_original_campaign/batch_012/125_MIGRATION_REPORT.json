@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "REPORT_MIGRATION_012",
+  "status": "PASS",
+  "runtime_state": {"HP": 34, "CM": 120, "level": 1, "steal_slots": "0/5", "save": "SAVE_000001", "event": "EVENT_000001"},
+  "open_blockers": []
+}

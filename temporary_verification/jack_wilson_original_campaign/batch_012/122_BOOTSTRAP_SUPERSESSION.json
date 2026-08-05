@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0",
+  "supersession_id": "SUPERSEDE_BOOTSTRAP_SAVE_001",
+  "target": "01_CURRENT_SAVE.json",
+  "new_status": "BOOTSTRAP_SUPERSEDED",
+  "must_not_load_as_current": true,
+  "authoritative_replacement": "109_CURRENT_POINTER_PLAYABLE.json -> 108_SAVE_000001.json"
+}
