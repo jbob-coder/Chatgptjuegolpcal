@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "relationships": [
+    {"from":"CHAR_JACK_WILSON","to":"CHAR_NIA_SOL","status":"mildly_positive","trust":12,"familiarity":18},
+    {"from":"CHAR_JACK_WILSON","to":"CHAR_TOMAS_REED","status":"neutral_competitive","trust":5,"familiarity":20},
+    {"from":"CHAR_JACK_WILSON","to":"CHAR_ELIAS_VALE","status":"stranger_neighbor","trust":0,"familiarity":6},
+    {"from":"CHAR_MARA_DENN","to":"CHAR_JACK_WILSON","status":"administrative_concern","trust":20,"familiarity":40}
+  ],
+  "scale":"-100 to +100",
+  "rule":"Relationships are directional and change only through events."
+}

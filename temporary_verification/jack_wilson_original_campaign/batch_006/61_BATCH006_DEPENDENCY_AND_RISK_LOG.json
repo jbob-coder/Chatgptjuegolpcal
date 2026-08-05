@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "dependencies": ["07_INITIAL_NPCS.json","39_NPC_ROUTINES_PRE_TRANSPORT.json","44_SQUAD_AND_COHORT_ASSIGNMENT.json","45_INSTRUCTOR_HIERARCHY.json"],
+  "risks": [
+    {"id":"R006_001","risk":"provisional assignments becoming mistaken for final canon","severity":"high","mitigation":"explicit provisional status"},
+    {"id":"R006_002","risk":"sealed secrets being revealed early","severity":"high","mitigation":"knowledge and discovery-path gating"},
+    {"id":"R006_003","risk":"NPC omniscience","severity":"high","mitigation":"per-character knowledge records"}
+  ]
+}

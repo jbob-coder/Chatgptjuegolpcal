@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_records": [
+    {"holder":"CHAR_MARA_DENN","claim":"Jack is scheduled for Northstar transport","source":"service record","confidence":100},
+    {"holder":"CHAR_NIA_SOL","claim":"Jack reads system-heavy fiction","source":"library interactions","confidence":70},
+    {"holder":"CHAR_TOMAS_REED","claim":"Jack is physically undertrained","source":"school observation","confidence":65},
+    {"holder":"CHAR_ELIAS_VALE","claim":"Apartment 6B became active at 19:42","source":"heard movement through shared wall","confidence":55},
+    {"holder":"CHAR_JACK_WILSON","claim":"Steal has five permanent slots","source":"system output","confidence":100}
+  ],
+  "separation_rule":"Knowledge does not equal objective truth."
+}

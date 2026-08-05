@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "room_candidate_id": "ROOM_NSA_R2_614",
+  "status": "PROVISIONAL_NOT_ASSIGNED_UNTIL_INTAKE",
+  "candidates": [
+    {"id": "CHAR_ELIAS_VALE", "reason": "same transport region; balanced cognitive profile"},
+    {"id": "CHAR_NIA_SOL", "reason": "compatible cohort schedule; low discipline risk"},
+    {"id": "CHAR_DARIUS_KENT", "reason": "strong physical baseline; moderate CM control"},
+    {"id": "CHAR_JACK_WILSON", "reason": "pending complete intake data"}
+  ],
+  "rule": "This is a planning candidate set, not guaranteed canon assignment."
+}
