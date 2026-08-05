@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "authority_id": "CANON_AUTHORITY_PLAYABLE_V1",
+  "tiers": [
+    {"tier":1,"name":"SEALED_RUNTIME","includes":["current pointer","sealed save","sealed events","explicit corrections"]},
+    {"tier":2,"name":"FOUNDATION_CANON","includes":["world systems","characters","locations","abilities"]},
+    {"tier":3,"name":"PROVISIONAL","includes":["candidate squads","candidate dorms","encounter windows"]},
+    {"tier":4,"name":"REFERENCE_ONLY","includes":["source analysis","temporary GitHub copies","ZIP backups"]}
+  ],
+  "supersessions": [
+    {"older":"01_CURRENT_SAVE.json","newer":"108_SAVE_000001.json","reason":"sealed playable state"},
+    {"older":"Batch 001 bootstrap status","newer":"109_CURRENT_POINTER_PLAYABLE.json","reason":"campaign is playable"}
+  ]
+}
