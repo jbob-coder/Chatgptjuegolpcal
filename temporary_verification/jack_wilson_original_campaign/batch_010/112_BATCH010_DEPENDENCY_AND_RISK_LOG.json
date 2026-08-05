@@ -1,0 +1,10 @@
+{
+  "schema_version":"1.0.0",
+  "dependencies":["01_CURRENT_SAVE.json","02_JACK_WILSON_CHARACTER.json","05_STEAL_ABILITY_CANON.json","25_BLOCK18_AND_APARTMENTS.json","28_COUNTDOWN_MATH.json","86_INPUT_CLASSIFICATION_ENGINE.json","95_SAVE_SEAL_AND_RECOVERY_PROTOCOL.json"],
+  "risks":[
+    {"id":"R010_001","risk":"opening reveals sealed information","severity":"high","mitigation":"observable-only fields"},
+    {"id":"R010_002","risk":"body memories grant omniscience","severity":"high","mitigation":"fragmentary memory rules"},
+    {"id":"R010_003","risk":"opening state contradicts prior bootstrap","severity":"high","mitigation":"SAVE_000001 supersedes bootstrap placeholder"},
+    {"id":"R010_004","risk":"neighbor activity becomes retconned","severity":"medium","mitigation":"exact activity remains sealed"}
+  ]
+}
