@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_MEDICINE_V1",
+  "care_levels": ["self-care","first aid","clinic","trauma center","CM stabilization unit","specialist reconstruction"],
+  "treatment_steps": ["assessment","stabilization","definitive treatment","monitoring","rehabilitation"],
+  "healing_ability_rules": ["Healing requires compatible tissue, energy, CM, and biological information.","Accelerated healing may increase metabolic demand, heat, pain, or CM instability.","Infection, toxins, foreign objects, and structural misalignment must be addressed.","Missing tissue cannot be restored without material or a specific regenerative mechanism."],
+  "recovery_tracking": ["HP","injury status","pain","mobility","sleep","nutrition","medication","therapy","CM stability"]
+}

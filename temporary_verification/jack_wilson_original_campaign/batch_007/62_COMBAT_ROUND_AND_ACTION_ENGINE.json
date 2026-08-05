@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_COMBAT_V1",
+  "round_seconds": 6,
+  "turn_components": ["movement","primary action","minor interaction","reaction when triggered"],
+  "initiative": "d20 + Agility modifier + awareness modifiers",
+  "actions": ["attack","defend","disengage","dash","grapple","shove","use item","use ability","assist","prepare reaction","stabilize"],
+  "rules": ["Combat time advances continuously in six-second rounds.","An action impossible under position, reach, restraints, or available equipment automatically fails without a roll.","Surprise affects awareness and reactions but does not erase agency.","NPCs use their knowledge, morale, injuries, and objectives rather than perfect tactics."]
+}

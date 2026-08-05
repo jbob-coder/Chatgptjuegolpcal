@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0",
+  "system_id": "SYS_ARMOR_V1",
+  "armor_functions": ["absorb energy","spread impact","prevent penetration","reduce burns","filter hazards"],
+  "armor_fields": ["coverage","resistance_by_damage_type","integrity","mobility_penalty","CM_interference","maintenance"],
+  "sample_classes": [{"class":"civil soft protection","best_against":["minor cuts","low-energy impacts"],"weak_against":["rifle penetration","high heat"]},{"class":"academy training vest","best_against":["blunt training impacts","low-energy fragments"],"weak_against":["live ammunition","high-tier abilities"]},{"class":"service composite armor","best_against":["fragments","moderate ballistic threats","some thermal exposure"],"weak_against":["repeated concentrated hits","joint attacks"]}],
+  "rule": "Armor converts or reduces injury risk; it never makes the wearer universally invulnerable."
+}

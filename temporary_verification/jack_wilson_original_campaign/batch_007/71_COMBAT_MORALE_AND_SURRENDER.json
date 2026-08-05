@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_MORALE_V1",
+  "morale_factors": ["goal importance","training","leadership","injury","losses","fear","escape route","beliefs","orders","relationships"],
+  "possible_responses": ["continue","seek cover","retreat","freeze","surrender","negotiate","protect ally","panic"],
+  "rule": "Enemies and allies are not required to fight to death. Surrender, retreat, and de-escalation remain valid outcomes."
+}

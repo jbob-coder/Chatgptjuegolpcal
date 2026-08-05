@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_ATTACK_DEFENSE_V1",
+  "attack": "d20 + relevant attribute modifier + proficiency + equipment modifiers",
+  "defense": "10 + Agility modifier + training + cover + active defense",
+  "cover": {"partial":2,"substantial":4,"near_total":"cannot be directly targeted without angle or penetration"},
+  "range_penalties": {"close":"0","standard":"0","long":"-2","extreme":"-5 or impossible"},
+  "critical_rule": "A natural 20 that hits improves damage or tactical effect; it does not bypass armor, anatomy, or hard physical limits.",
+  "called_shots": "Increase difficulty according to target size, movement, visibility, and anatomical protection."
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0",
+  "engine_id": "ENGINE_GRAPPLE_V1",
+  "contest": "Might or Agility + relevant proficiency versus defender's chosen valid defense",
+  "states": ["engaged","grappled","restrained","pinned","escaped"],
+  "effects": {"grappled":"movement limited by controlling opponent","restrained":"disadvantage on many physical actions; attacks against may gain advantage","pinned":"requires substantial control and valid body positioning"},
+  "rules": ["Size, leverage, footing, injuries, free hands, and multiple participants matter.","Grappling cannot silently become mind control.","Breaking restraint requires a valid method, not only a high roll."]
+}

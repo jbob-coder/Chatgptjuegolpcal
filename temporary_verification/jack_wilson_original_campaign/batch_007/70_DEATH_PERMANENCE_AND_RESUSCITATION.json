@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "system_id": "SYS_DEATH_V1",
+  "death_conditions": ["irreversible brain destruction","unrecoverable circulatory failure beyond intervention window","catastrophic organ destruction","explicit lethal CM failure"],
+  "resuscitation": {"possible_when":"the physiological cause is reversible and intervention occurs within a plausible window","methods":["CPR","defibrillation when indicated","airway support","blood replacement","surgery","compatible CM medical support"],"not_resurrection":"Successful resuscitation prevents or reverses clinical death; it does not restore an irreversibly destroyed person."},
+  "permanence": "Death is permanent unless a future canon mechanism is explicitly designed, costed, and approved. No unrestricted resurrection exists."
+}
