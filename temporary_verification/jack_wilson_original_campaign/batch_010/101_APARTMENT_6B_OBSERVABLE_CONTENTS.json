@@ -1,0 +1,8 @@
+{
+  "schema_version":"1.0.0",
+  "location_id":"LOC_GREYBRIDGE_BLOCK18_APT6B",
+  "visible_without_search":["single bed with grey blanket","desk and chair","wall display","wardrobe","mini refrigerator","sink","two-ring induction plate","storage cabinet","academy service notice on desk","budget slate-phone"],
+  "requires_search":["exact food count","wardrobe contents","cabinet contents","phone messages","documents beyond the visible notice"],
+  "environment":{"lighting":"single ceiling light plus city glow through window","temperature_c":20.4,"odor":"cleaning solvent, fabric, faint cooked grain","noise_floor_db":31},
+  "rule":"Only directly observable details are narrated without a search action."
+}
