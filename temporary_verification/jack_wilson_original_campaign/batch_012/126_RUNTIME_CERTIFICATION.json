@@ -1,8 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "certificate_id": "CERT_RUNTIME_STABLE_V1",
-  "status": "CERTIFIED",
-  "authoritative_store": "Google Drive",
-  "certified_values": {"HP": 34, "CM": 120, "save": "SAVE_000001", "event": "EVENT_000001"},
-  "known_blocking_conflicts": 0
-}

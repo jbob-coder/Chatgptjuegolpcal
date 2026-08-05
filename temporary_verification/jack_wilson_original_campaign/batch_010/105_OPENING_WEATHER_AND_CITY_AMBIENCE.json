@@ -1,7 +1,0 @@
-{
-  "schema_version":"1.0.0",
-  "weather_id":"WEATHER_GREYBRIDGE_FROSTWANE03_1942",
-  "conditions":{"temperature_c":7.8,"apparent_temperature_c":5.9,"humidity_percent":81,"wind_kmh":13,"cloud_cover_percent":88,"precipitation":"light intermittent rain","visibility_km":8.2},
-  "observable_from_apartment":["rain marks on window","distant electric bus noise","occasional tire hiss on wet road","city lights reflecting on pavement"],
-  "effects":["outside travel slightly slower","wet surfaces","cool air if window opened"]
-}

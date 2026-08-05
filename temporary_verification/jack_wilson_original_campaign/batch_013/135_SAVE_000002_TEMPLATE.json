@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "template_id": "TEMPLATE_SAVE_000002",
+  "save_id": "SAVE_000002",
+  "previous_save_id": "SAVE_000001",
+  "status": "TEMPLATE_NOT_CURRENT",
+  "required_runtime_fields": [
+    "created_at",
+    "last_event_id",
+    "world_datetime",
+    "location_id",
+    "player_state",
+    "projection_hashes",
+    "event_range",
+    "validation_report",
+    "save_hash",
+    "sealed"
+  ],
+  "rule": "This template does not become canonical until actual gameplay generates EVENT_000002 or later."
+}

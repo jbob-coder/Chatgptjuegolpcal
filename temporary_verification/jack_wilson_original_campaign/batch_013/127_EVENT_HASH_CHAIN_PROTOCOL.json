@@ -1,8 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "protocol_id": "PROTOCOL_EVENT_HASH_CHAIN_V1",
-  "canonicalization": "UTF-8 JSON, sorted keys, no insignificant whitespace",
-  "event_hash_formula": "SHA256(previous_event_hash || canonical_event_without_hash)",
-  "genesis_event": {"event_id": "EVENT_000001", "previous_hash": "GENESIS"},
-  "rules": ["Every event after EVENT_000001 must include previous_event_id and previous_event_hash.", "Changing any sealed event invalidates all later hashes.", "Corrections use superseding events; sealed history is never rewritten.", "Hash-chain verification runs before save sealing."]
-}

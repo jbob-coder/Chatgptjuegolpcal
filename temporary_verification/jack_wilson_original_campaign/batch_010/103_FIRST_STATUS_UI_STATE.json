@@ -1,7 +1,0 @@
-{
-  "schema_version":"1.0.0",
-  "ui_id":"UI_STATUS_INITIAL",
-  "displayed_to_jack":{"Name":"Jack Wilson","Age":16,"Level":1,"HP":"34/34","CM":"120/120","Might":8,"Agility":10,"Endurance":9,"Intellect":14,"Perception":12,"Will":13,"Presence":9,"Luck":10,"Ability":"Steal","Permanent Slots":"0/5","Steal Mastery":0},
-  "hidden_from_ui":["NPC secrets","future unlock requirements not yet discovered","exact probabilities unless an unlocked feature reveals them","sealed world facts"],
-  "interaction_rules":["Status UI is silent and visible only to Jack unless a later rule says otherwise.","Opening the UI is a meta/system action and does not count as spoken dialogue.","The UI reports current state but does not replace physical inspection."]
-}

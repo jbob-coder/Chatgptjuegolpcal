@@ -1,3 +1,0 @@
-{
-  "schema_version":"1.0.0","system_id":"SYS_CORRUPTION_V1","detections":["checksum mismatch","broken previous-event link","missing referenced file","projection replay mismatch","duplicate ID","future timestamp before parent event","pointer referencing unsealed save"],"quarantine":{"folder":"12_VALIDATION/QUARANTINE","contents":["suspect files","reason report","last known-good references"],"authority":"quarantined files are non-canon"}
-}

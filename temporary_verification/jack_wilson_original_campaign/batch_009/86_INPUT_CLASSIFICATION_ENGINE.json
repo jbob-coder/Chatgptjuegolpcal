@@ -1,7 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "engine_id": "ENGINE_INPUT_CLASSIFICATION_V1",
-  "classes": ["PLAYER_DIALOGUE","PLAYER_PHYSICAL_ACTION","PLAYER_INTENT","META_INSTRUCTION","CANON_CORRECTION","WORLD_PROPOSAL","QUESTION","AMBIGUOUS"],
-  "rules": ["One user message may contain multiple classified segments.","Exact user wording is preserved separately from normalized interpretation.","Meta instructions never become in-world dialogue unless explicitly stated.","Ambiguous segments are not silently resolved when the ambiguity can change consequences."],
-  "required_output": ["segment_id","source_text","classifications","actor","target","normalized_meaning","confidence","requires_clarification"]
-}

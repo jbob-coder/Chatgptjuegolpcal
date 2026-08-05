@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "test_suite_id": "TEST_RUNTIME_FAILURES_V1",
+  "tests": [
+    {"id": "T013_001", "fault": "event content altered after sealing", "expected": "hash-chain failure"},
+    {"id": "T013_002", "fault": "candidate save written but pointer update fails", "expected": "old pointer remains current"},
+    {"id": "T013_003", "fault": "pointer references missing save", "expected": "rollback or quarantine"},
+    {"id": "T013_004", "fault": "duplicate EVENT_000002 allocation", "expected": "hard failure"},
+    {"id": "T013_005", "fault": "projection differs from replay", "expected": "candidate save rejected"},
+    {"id": "T013_006", "fault": "crash after events before save", "expected": "WAL resume or rollback"},
+    {"id": "T013_007", "fault": "template mistaken for canon", "expected": "authority failure"}
+  ]
+}

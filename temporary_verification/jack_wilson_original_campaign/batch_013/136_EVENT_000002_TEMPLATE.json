@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "template_id": "TEMPLATE_EVENT_000002",
+  "event_id": "EVENT_000002",
+  "previous_event_id": "EVENT_000001",
+  "status": "TEMPLATE_NOT_CANON",
+  "required_runtime_fields": [
+    "world_datetime",
+    "location_id",
+    "source_input",
+    "normalized_interpretation",
+    "actors",
+    "targets",
+    "witnesses",
+    "preconditions",
+    "rolls",
+    "resolution",
+    "state_changes",
+    "knowledge_changes",
+    "relationship_changes",
+    "inventory_changes",
+    "time_advance",
+    "previous_event_hash",
+    "event_hash"
+  ],
+  "rule": "No resolution fields may be filled before the user takes the next in-world action."
+}

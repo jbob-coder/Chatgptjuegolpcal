@@ -1,6 +1,0 @@
-{
-  "schema_version":"1.0.0","engine_id":"ENGINE_ROLL_VISIBILITY_V1",
-  "visible_rolls":["player attacks","player skill checks when result awareness is immediate","declared contests"],
-  "hidden_rolls":["NPC deception","passive perception","secret detection","background events","uncertain memory","rumor propagation"],
-  "rules":["Hidden rolls record formula, modifiers, result, and reason in the event log.","The player sees observable consequences, not hidden numeric information.","No roll is fabricated after the outcome is chosen.","Rerolls require an explicit rule or changed approach."]
-}

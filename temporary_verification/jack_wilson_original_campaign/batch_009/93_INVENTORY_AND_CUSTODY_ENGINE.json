@@ -1,6 +1,0 @@
-{
-  "schema_version":"1.0.0","engine_id":"ENGINE_INVENTORY_V1",
-  "required_fields":["item_id","quantity","owner_id","holder_id","location_id","condition","legal_status","custody_history"],
-  "operations":["acquire","transfer","consume","equip","unequip","damage","repair","lose","seize","destroy"],
-  "rules":["Items cannot appear or disappear without an event.","Ownership and physical possession are separate.","Currency transfers require matching debit and credit records.","Academy-issued property retains institutional ownership unless explicitly transferred."]
-}

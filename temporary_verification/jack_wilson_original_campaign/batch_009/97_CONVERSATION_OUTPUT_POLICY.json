@@ -1,5 +1,0 @@
-{
-  "schema_version":"1.0.0","policy_id":"POLICY_PLAY_OUTPUT_V1",
-  "player_facing_output_order":["narrative result","observable consequences","dialogue","status changes when relevant","available actions only when useful"],
-  "rules":["Do not expose hidden rolls or sealed NPC knowledge.","Do not narrate Jack's unchosen thoughts as decisions.","Do not force actions beyond the user's input.","Do not turn meta instructions into story content.","Maintain detailed but causally grounded narration."]
-}

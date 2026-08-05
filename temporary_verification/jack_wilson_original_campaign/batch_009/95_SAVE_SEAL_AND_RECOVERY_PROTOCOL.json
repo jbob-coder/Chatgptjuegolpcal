@@ -1,6 +1,0 @@
-{
-  "schema_version":"1.0.0","engine_id":"ENGINE_SAVE_SEAL_V1",
-  "save_required":["save_id","created_at","previous_save_id","last_event_id","world_datetime","location_id","player_state_hash","projection_hashes","event_range","validation_report","sealed"],
-  "seal_sequence":["freeze event range","replay events","recalculate projections","compare hashes","write handoff","seal save","update current pointer"],
-  "failure_policy":"Keep the last known-good save active; place failed candidate in quarantine.","id_pattern":"SAVE_######"
-}

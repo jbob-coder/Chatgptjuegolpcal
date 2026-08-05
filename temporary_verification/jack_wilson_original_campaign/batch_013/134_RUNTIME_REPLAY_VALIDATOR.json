@@ -1,3 +1,0 @@
-{
-  "schema_version":"1.0.0","validator_id":"VALIDATOR_RUNTIME_REPLAY_V1","inputs":["sealed baseline save","ordered post-save events","system rules"],"outputs":["recomputed player state","NPC deltas","inventory deltas","relationship deltas","world clock","projection hashes"],"pass_condition":"All recomputed hashes exactly match candidate projections.","hard_fail":["missing event","out-of-order event","unresolved reference","negative impossible resource","knowledge-boundary violation"]
-}
