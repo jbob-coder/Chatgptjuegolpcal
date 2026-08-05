@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","system_id":"SYSTEM_MATRIX_INSURANCE_V1","coverage_types":["public basic care","academy service coverage","ability liability","occupational injury","private accelerated recovery"],"risk_factors":["ability grade","control history","CM collapse history","injury record","occupation","licensed equipment"],"rules":["Emergency stabilization cannot be denied.","Elective accelerated recovery may create debt.","Unregistered ability incidents can trigger investigation and reduced reimbursement.","Academy injuries are covered when duty-related and properly reported."]
+}

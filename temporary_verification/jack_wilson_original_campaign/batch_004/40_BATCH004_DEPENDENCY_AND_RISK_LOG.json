@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","batch":"004","dependencies":["31_ECONOMY_CORE.json","32_ABILITY_LAW_AND_LICENSING.json","33_MANDATORY_SERVICE_SYSTEM.json","38_FOURTEEN_DAY_OPERATIONAL_CALENDAR.json"],"open_risks":["Steal legal classification remains unknown to Jack.","National threat details need later geographic expansion.","Prices are anchors and require market simulation before scene-level purchases.","NPC private routines remain sealed."],"canon_status":"FOUNDATION_CANON"
+}

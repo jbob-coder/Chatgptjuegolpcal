@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_ECONOMY_V1","currency":"civic credits","unit":"cc","price_anchor":{"basic_meal":8,"weekly_groceries_single":92,"city_bus_fare":3,"budget_phone_monthly":24,"subsidized_housing_monthly_value":470,"median_monthly_income_greybridge":2860},"accounts":["cash balance","bank balance","restricted stipend","debt","escrow","academy pay ledger"],"simulation":{"household_tick":"daily","business_tick":"daily","district_tick":"weekly","state_tick":"monthly"},"rules":["Every payment creates a transaction event.","Prices may change from supply, demand, policy, shortages, transport, or manipulation.","Jack cannot spend funds not present in an accessible account.","Illegal markets use risk premiums and trust requirements."]
+}

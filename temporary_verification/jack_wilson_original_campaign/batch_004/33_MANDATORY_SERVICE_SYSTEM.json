@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","program_id":"PROGRAM_LYREN_SERVICE_TWO_YEAR","entry_age":16,"duration_months":24,"tracks":["civil defense","medical response","logistics","engineering","communications","security","field operations"],"assignment_factors":["medical limits","CM profile","aptitude tests","education record","regional demand","discipline record","voluntary preference"],"student_rights":["food","housing","medical care","counsel access","appeal of classification","protected rest minimum","incident reporting"],"student_obligations":["attendance","lawful orders","equipment custody","ability safety","confidentiality where lawfully designated"],"pay":{"training_day_cc":18,"hazard_stipend":"variable","performance_stipend":"earned, not guaranteed"}
+}

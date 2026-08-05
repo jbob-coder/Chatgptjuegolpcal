@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_CRIME_V1","crime_categories":["property","fraud","violent","ability-enabled","organized","institutional corruption","data crime","catalyst trafficking"],"enforcement_entities":["municipal police","Matrix Standards investigators","academy security","customs","financial crimes unit"],"case_state":["reported","triaged","investigating","charged","adjudicated","closed","cold"],"rules":["NPC crimes require motive, opportunity, means, and risk assessment.","Evidence and witnesses are tracked separately from truth.","Arrest does not equal guilt.","Enforcement capacity is finite and uneven."]
+}
