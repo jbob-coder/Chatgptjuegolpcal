@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "system_id": "SYS_JACK_PROGRESSION_V1",
+  "principles": ["Progression requires training, risk, discovery, successful application, or milestone completion.","Repeated trivial actions produce diminishing or zero progression.","Narrative importance alone does not grant power.","Permanent growth is slower than temporary buffs.","Every permanent increase must have a recorded source event."],
+  "progression_tracks": ["character_level","attribute_growth","proficiency_growth","Steal_mastery","ability_mastery","HP_growth","CM_growth"],
+  "character_level_cap_initial": 20
+}

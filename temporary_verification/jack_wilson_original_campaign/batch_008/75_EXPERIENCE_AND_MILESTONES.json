@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","system_id":"SYS_XP_V1","xp_sources":{"meaningful_success":"5-25","meaningful_failure_with_learning":"2-12","training_session":"1-8","major_discovery":"10-40","quest_milestone":"20-100","survival_under_real_risk":"10-60"},"level_threshold_formula":"100 * level^1.35 cumulative","anti_farm":["same trivial action within unchanged conditions gives no additional XP","manufactured risk may reduce or nullify XP","XP cannot be transferred or stolen","off-screen claimed training requires time, resources, and verification"]
+}

@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","system_id":"SYS_TRAINING_V1","session_fields":["activity","duration","intensity","technique_quality","coach","nutrition","sleep","injury_risk","CM_cost","adaptation_gain"],"intensity_bands":{"light":"recovery or technique","moderate":"sustainable adaptation","hard":"high adaptation with recovery need","maximal":"rare testing; high injury and overtraining risk"},"overtraining_flags":["declining performance","persistent soreness","sleep disruption","elevated resting pulse","CM instability","irritability"],"rules":["Training quality matters more than raw repetition.","Recovery debt reduces adaptation.","Injury can reverse progress.","Jack's mature prior-life perspective does not grant physical conditioning."]
+}

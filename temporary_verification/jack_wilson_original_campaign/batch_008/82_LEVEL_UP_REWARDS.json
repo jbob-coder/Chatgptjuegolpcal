@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","system_id":"SYS_LEVEL_REWARDS_V1","rewards":{"every_level":["1 proficiency point","small HP recalculation","access to one training focus"],"even_levels":["1 growth point"],"levels_5_10_15_20":["major perk selection"],"story_milestones":["may unlock Steal mastery requirement, not automatic mastery"]},"perk_categories":["survival","social","analysis","combat","CM_control","Steal_specialization"],"rule":"Perks modify options and efficiency; they do not override world physics or knowledge limits."
+}
