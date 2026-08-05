@@ -1,0 +1,8 @@
+{
+  "schema_version":"1.0.0",
+  "system_id":"SYS_BODY_MEMORY_ACCESS_V1",
+  "available_immediately":["name Jack Wilson","age sixteen","civic ward status","address","basic school routine","mandatory service notice","general familiarity with Greybridge"],
+  "fragmentary":["faces of classmates","daily habits","emotional associations","specific school incidents"],
+  "locked_until_triggered":["high-stress memories","rare childhood events","details never strongly encoded"],
+  "rules":["Memory access is not omniscient.","A successful Intellect or Will check may organize fragmentary memories.","New evidence can trigger recall.","Contradictory memory creates an uncertainty record."]
+}
