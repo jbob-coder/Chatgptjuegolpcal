@@ -1,0 +1,3 @@
+{
+  "name":"D20 Consequence Engine","check":"d20 + attribute modifier + proficiency + situational modifiers","attribute_modifier":"floor((attribute-10)/2)","difficulty_classes":{"5":"routine under pressure","8":"easy","11":"standard","14":"difficult","17":"expert","20":"elite","24":"extreme","28":"near-human-limit","32":"superhuman"},"rules":["Natural 20 never makes impossible possible.","Natural 1 never forces irrational incompetence.","Miss by 1-2 may yield mixed success when plausible.","Consequences persist.","No reroll without a defined resource or changed approach."]
+}
