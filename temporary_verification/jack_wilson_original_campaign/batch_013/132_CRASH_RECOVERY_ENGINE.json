@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_CRASH_RECOVERY_V1","startup_sequence":["read current pointer","verify pointer hash","read referenced save","verify save hash","verify event chain through last_event_id","replay projections","inspect incomplete WAL entries","select last known-good state"],"recovery_outcomes":["NORMAL_LOAD","RESUME_TRANSACTION","ROLLBACK_TO_LAST_GOOD","QUARANTINE"],"rule":"Recovery never invents missing player actions."
+}

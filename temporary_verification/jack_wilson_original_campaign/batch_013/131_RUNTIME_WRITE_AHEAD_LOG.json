@@ -1,0 +1,3 @@
+{
+  "schema_version":"1.0.0","protocol_id":"PROTOCOL_WAL_V1","states":["PREPARED","EVENTS_WRITTEN","PROJECTIONS_WRITTEN","SAVE_WRITTEN","POINTER_COMMITTED","ABORTED"],"required_fields":["transaction_id","started_at","base_pointer_hash","candidate_event_ids","candidate_save_id","state","checksums","error"],"recovery_rules":["PREPARED or EVENTS_WRITTEN without pointer commit may be safely rolled back or resumed.","POINTER_COMMITTED requires archive confirmation.","ABORTED transactions remain for audit.","A WAL entry never becomes gameplay canon by itself."]
+}
