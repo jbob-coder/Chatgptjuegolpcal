@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "planet_id": "PLANET_CINDERVALE_EARTH",
+  "name": "Cindervale Earth",
+  "canon_status": "FOUNDATION_CANON",
+  "physical": {"radius_km":6380,"surface_gravity_g":1.0,"day_hours":24,"axial_tilt_deg":23.2,"year_days":366,"moons":[{"id":"MOON_LUME","name":"Lume","orbital_period_days":29.6}],"oceans_percent":69},
+  "continents": [
+    {"id":"CONTINENT_ASTERREACH","name":"Asterreach","area_million_km2":31.4,"population_billion":2.2,"summary":"Temperate industrial core and location of Greybridge."},
+    {"id":"CONTINENT_SUNDARA","name":"Sundara","area_million_km2":25.1,"population_billion":1.9,"summary":"Tropical and subtropical trade corridor with dense coastal cities."},
+    {"id":"CONTINENT_KHARON","name":"Kharon","area_million_km2":18.3,"population_billion":0.8,"summary":"Dry interior, mineral-rich uplift zones, sparse population."},
+    {"id":"CONTINENT_VELIS","name":"Velis","area_million_km2":12.7,"population_billion":0.6,"summary":"Cold maritime states and catalyst research stations."},
+    {"id":"CONTINENT_ORINTH","name":"Orinth","area_million_km2":9.8,"population_billion":0.4,"summary":"Mountain arcs, seismic belts, and high CM anomaly density."}
+  ],
+  "global_history":{"postfall_event":"Sixty-eight years before campaign start, extradimensional debris fields entered the atmosphere and deposited altered minerals and biological catalysts.","major_effects":["CM-active humans emerged","infrastructure failures","regional wars","formation of Continental Security Accords","mandatory service academies"],"current_era":"Postfall Era 219"}
+}
