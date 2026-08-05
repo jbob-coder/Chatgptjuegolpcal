@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "certificate_id": "CERT_CONTINUATION_V1",
+  "status": "CONDITIONALLY_CERTIFIED",
+  "can_continue_from_any_chat": true,
+  "required_files": [
+    "00_PROJECT_AUTHORITY.json",
+    "116_BATCH011_CANON_AUTHORITY_AND_SUPERSESSION.json",
+    "115_BATCH011_LOAD_ORDER.json",
+    "109_CURRENT_POINTER_PLAYABLE.json",
+    "108_SAVE_000001.json",
+    "107_EVENT_000001_OPENING.json",
+    "110_SESSION_HANDOFF_000001.md"
+  ],
+  "conditions": [
+    "Use Google Drive as authority.",
+    "Do not recalculate opening HP or CM with the inconsistent Batch 008 formulas until migration.",
+    "Append events rather than editing EVENT_000001."
+  ]
+}
