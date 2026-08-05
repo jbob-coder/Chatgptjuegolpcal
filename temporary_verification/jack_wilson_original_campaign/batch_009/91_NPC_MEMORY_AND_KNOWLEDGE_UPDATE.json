@@ -1,0 +1,5 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_NPC_MEMORY_V1",
+  "memory_fields":["memory_id","holder_id","event_id","summary","sensory_basis","emotional_weight","confidence","accuracy_status","decay_rate","last_reinforced_at"],
+  "update_rules":["Direct witnesses receive direct-observation records.","Non-witnesses require testimony, records, inference, or rumor.","Emotional events decay more slowly but may distort more strongly.","Contradictory evidence updates confidence; it does not erase history.","NPCs cannot act on sealed information they do not know."]
+}

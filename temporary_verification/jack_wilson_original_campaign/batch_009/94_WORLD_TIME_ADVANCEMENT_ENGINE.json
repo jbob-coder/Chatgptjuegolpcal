@@ -1,0 +1,6 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_WORLD_TIME_ADVANCE_V1",
+  "advance_modes":["seconds","minutes","hours","days"],
+  "processing_order":["player action duration","immediate reactions","scheduled events crossed","resource recovery and consumption","NPC routines","weather/economy updates by resolution tier"],
+  "rules":["Time never advances by an unspecified amount.","Travel time derives from route and conditions.","Rest and sleep update CM, fatigue, hunger, hydration, and scheduled obligations.","Crossing an event deadline triggers or records the missed event."]
+}

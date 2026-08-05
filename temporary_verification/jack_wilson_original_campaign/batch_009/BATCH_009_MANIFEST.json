@@ -1,0 +1,20 @@
+{
+  "package":"batch_009","version":"0.9.0","file_count":15,
+  "files":[
+    {"name":"86_INPUT_CLASSIFICATION_ENGINE.json","bytes":808,"sha256":"af3d2d20fd0d9e935d86e8c8b3aee6b24decc54180fd0557b3712238cdb306ef"},
+    {"name":"87_ACTION_RESOLUTION_PIPELINE.json","bytes":716,"sha256":"8817020be0977356a33881b6521cc3581769f7a0a9bc01cace3e5ced1efc41e7"},
+    {"name":"88_VISIBLE_AND_HIDDEN_ROLLS.json","bytes":679,"sha256":"a0b1fa7a25e31ac07d5af122de60922e648fbd170b63f6116b1e06bac8987155"},
+    {"name":"89_EVENT_APPEND_ONLY_SCHEMA.json","bytes":662,"sha256":"1e8dc17a198c385245b003605a583d04261b07e3d11717f880b78bfae1a432bf"},
+    {"name":"90_STATE_PROJECTION_ENGINE.json","bytes":571,"sha256":"0e11b3b793e9247af6bdef68071d5d32b0f8b0431e8db93a5449e1cb71d07045"},
+    {"name":"91_NPC_MEMORY_AND_KNOWLEDGE_UPDATE.json","bytes":658,"sha256":"276e0c77a1f6ae437a9c0f2e178876d2675faf3a0fba418af099a27b07f1364f"},
+    {"name":"92_RELATIONSHIP_UPDATE_ENGINE.json","bytes":544,"sha256":"f32b2aa9ba607f00861b835d613c9a950b91b3a0dfa62bd2b8e442a5aff718cb"},
+    {"name":"93_INVENTORY_AND_CUSTODY_ENGINE.json","bytes":697,"sha256":"a9493aec8e3b02fe6d689c334e31534862daf540bdb39d8ad01e5bf0725b440e"},
+    {"name":"94_WORLD_TIME_ADVANCEMENT_ENGINE.json","bytes":671,"sha256":"aef976ef61647aeb68231945f05e9cdfbef807075024702ed9a83a09cee55c22"},
+    {"name":"95_SAVE_SEAL_AND_RECOVERY_PROTOCOL.json","bytes":645,"sha256":"5a79b70873f534541c08f3a5081067b76503ea70353d777228b89bf6adb5bfd3"},
+    {"name":"96_SESSION_HANDOFF_ENGINE.json","bytes":450,"sha256":"bad0987acf309fe50cd45c322483c3e145577722ff5c998421a7ae953f590e2c"},
+    {"name":"97_CONVERSATION_OUTPUT_POLICY.json","bytes":564,"sha256":"738de62236eec4a4ee1b5f164006fe80f4e690617df37cfe6c7345fd3fcffdc4"},
+    {"name":"98_BATCH009_TEST_CASES.json","bytes":1183,"sha256":"a0ddb0101ff5e1cbdb4aa8ff5fcf1b34170149d7ce7374b697929ba545fc00a6"},
+    {"name":"99_BATCH009_DEPENDENCY_AND_RISK_LOG.json","bytes":1140,"sha256":"78d6c0121a5ea250b22bb52210ee2c0d043b30cb7eb344c811e147d1af7abd69"},
+    {"name":"BATCH_009_README.md","bytes":219,"sha256":"64f9ef64f4346c34149c87d776cb424571ceb3f5b428f577daa5261f96294b08"}
+  ]
+}

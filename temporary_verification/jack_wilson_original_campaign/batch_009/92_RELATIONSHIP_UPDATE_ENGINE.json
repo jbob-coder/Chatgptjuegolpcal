@@ -1,0 +1,5 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_RELATIONSHIP_UPDATE_V1",
+  "dimensions":["trust","affection","fear","respect","familiarity","obligation","suspicion"],"range":"-100 to +100",
+  "rules":["Relationships are directional.","One event may change multiple dimensions.","Changes require observed or credibly reported causes.","Large changes require proportionally significant events.","Public reputation is stored separately from personal relationships."]
+}

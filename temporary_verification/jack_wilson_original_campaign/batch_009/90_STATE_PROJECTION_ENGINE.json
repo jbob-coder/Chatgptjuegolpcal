@@ -1,0 +1,5 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_STATE_PROJECTION_V1",
+  "projections":["player_state","npc_state","location_state","inventory_state","relationship_state","quest_state","world_clock","open_threads"],
+  "rules":["Projections are derived from latest sealed save plus subsequent events.","Projection files may be replaced only after event validation passes.","Any mismatch between projection and event replay is a hard failure.","Unknown values remain UNKNOWN rather than guessed."]
+}

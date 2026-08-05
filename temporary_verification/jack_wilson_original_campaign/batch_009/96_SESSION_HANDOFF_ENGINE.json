@@ -1,0 +1,5 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_HANDOFF_V1",
+  "required_sections":["exact continuation point","last confirmed action","present characters","current conditions","open decisions","unknowns not to invent","files required","validation status"],
+  "rule":"A new chat must read the bootstrap, current pointer, latest sealed save, post-save events, and latest handoff before narration."
+}

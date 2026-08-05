@@ -1,0 +1,5 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_EVENT_LOG_V1",
+  "required_fields":["event_id","session_id","sequence","world_datetime","location_id","source_input","normalized_interpretation","actors","targets","witnesses","preconditions","rolls","resolution","state_changes","knowledge_changes","relationship_changes","inventory_changes","time_advance","evidence_class","previous_event_id","hash"],
+  "immutability":"Sealed events cannot be edited. Corrections create superseding events and conflict records.","id_pattern":"EVENT_######"
+}

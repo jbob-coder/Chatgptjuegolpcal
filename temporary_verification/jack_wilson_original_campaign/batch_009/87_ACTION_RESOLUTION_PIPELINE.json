@@ -1,0 +1,5 @@
+{
+  "schema_version":"1.0.0","engine_id":"ENGINE_ACTION_RESOLUTION_V1",
+  "sequence":["parse input","separate meta and in-world content","identify actor and target","check current state","check knowledge and prerequisites","check physical and legal possibility","determine whether uncertainty exists","select visible or hidden roll","resolve consequences","write event","update projections","advance time","run off-screen reactions","validate saveability"],
+  "stop_conditions":["missing current save","contradictory location","unknown actor identity","required clarification","unresolved canon conflict"]
+}

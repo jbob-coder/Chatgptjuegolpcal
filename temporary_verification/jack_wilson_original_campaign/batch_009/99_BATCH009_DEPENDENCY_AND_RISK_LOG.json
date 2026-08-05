@@ -1,0 +1,11 @@
+{
+  "schema_version":"1.0.0",
+  "dependencies":["15_CAUSALITY_ENGINE.json","16_INFORMATION_ENGINE.json","19_SIMULATION_CORE.json","20_STABLE_ID_REGISTRY.json","21_WORLD_VALIDATION_RULES.json","56_RELATIONSHIP_BASELINES.json","57_NPC_KNOWLEDGE_INITIAL.json"],
+  "risks":[
+    {"id":"R009_001","risk":"meta instructions leaking into narrative","severity":"high","mitigation":"classification separation"},
+    {"id":"R009_002","risk":"hidden rolls manipulated after outcome","severity":"critical","mitigation":"record before resolution"},
+    {"id":"R009_003","risk":"projection drift from history","severity":"critical","mitigation":"event replay and hash comparison"},
+    {"id":"R009_004","risk":"NPC omniscience","severity":"critical","mitigation":"knowledge source requirement"},
+    {"id":"R009_005","risk":"save overwrite destroys recovery point","severity":"high","mitigation":"immutable sealed saves"}
+  ]
+}
