@@ -1,0 +1,10 @@
+{
+  "schema_version":"1.0.0","event_id":"EVENT_000001","session_id":"SESSION_000001","sequence":1,
+  "world_datetime":"Era 219, Frostwane 03, 19:42","location_id":"LOC_GREYBRIDGE_BLOCK18_APT6B",
+  "source_input":"Campaign initialization","normalized_interpretation":"Jack awakens, confirms identity, and receives initial system status.",
+  "actors":["CHAR_JACK_WILSON"],"targets":[],"witnesses":[],"preconditions":["reincarnation completed","body alive and stable"],"rolls":[],
+  "resolution":{"result":"Jack becomes fully conscious and recognizes the system interface.","observable_consequences":["mild headache","heightened alertness","status UI available"]},
+  "state_changes":["campaign_status -> PLAYABLE","current_scene -> SCENE_CH1_001","current_event -> EVENT_000001"],
+  "knowledge_changes":["Jack knows his name, age, location, service deadline, and Steal slot count."],
+  "relationship_changes":[],"inventory_changes":[],"time_advance_minutes":0,"evidence_class":"CONFIRMED_CANON","previous_event_id":"EVENT_000000","sealed":true
+}
