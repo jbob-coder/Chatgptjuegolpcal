@@ -1,0 +1,9 @@
+{
+  "schema_version":"1.0.0",
+  "states":[
+    {"id":"STATE_LYREN_COMMONWEALTH","name":"Lyren Commonwealth","continent_id":"CONTINENT_ASTERREACH","government":"federal parliamentary republic","capital":"CITY_HALDEN","population_million":118,"military_model":"professional core plus mandatory two-year service","currency":"civic credits","relations":"founding member of Continental Security Accords"},
+    {"id":"STATE_VAREL_UNION","name":"Varel Union","continent_id":"CONTINENT_ASTERREACH","government":"centralized technocratic union","capital":"CITY_MERIDION","population_million":96,"military_model":"state academies and industrial reserve","currency":"union marks","relations":"strategic rival and trade partner of Lyren"},
+    {"id":"STATE_SERAL_COAST","name":"Seral Coast Compact","continent_id":"CONTINENT_SUNDARA","government":"city-state compact","capital":"CITY_AURELIS_PORT","population_million":72,"military_model":"contract defense fleets","currency":"compact crowns","relations":"dominates sea trade"},
+    {"id":"STATE_KHARON_DIRECTORATE","name":"Kharon Resource Directorate","continent_id":"CONTINENT_KHARON","government":"corporate-state directorate","capital":"CITY_RED_MESA","population_million":41,"military_model":"licensed security companies","currency":"resource notes","relations":"exports catalysts under strict contracts"}
+  ]
+}
