@@ -1,0 +1,5 @@
+{
+  "schema_version":"1.0.0",
+  "dependencies":["26_NORTHSTAR_SERVICE_ACADEMY.json","29_INTAKE_LOGISTICS.json","32_ABILITY_LAW_AND_LICENSING.json","33_MANDATORY_SERVICE_SYSTEM.json"],
+  "risks":[{"id":"R005_001","risk":"Steal detection during intake","severity":"high","status":"open"},{"id":"R005_002","risk":"assignment details could become over-determined before play","severity":"medium","status":"controlled"},{"id":"R005_003","risk":"academy scale must remain logistically plausible","severity":"medium","status":"controlled"}]
+}

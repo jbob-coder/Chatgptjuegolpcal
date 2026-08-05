@@ -1,0 +1,11 @@
+{
+  "schema_version":"1.0.0",
+  "system_id":"SYS_NSA_ASSIGNMENT_V1",
+  "cohort_size":120,
+  "company_size":480,
+  "squad_size":8,
+  "platoon_size":32,
+  "assignment_algorithm":{"goal":"balanced baseline capability and manageable risk","inputs":["fitness","CM stability","cognitive score","ability grade","discipline risk","medical limits"],"prohibitions":["cannot group only by raw power","cannot reveal sealed records to students"]},
+  "jack_initial_assignment":"pending intake",
+  "relationship_effect":"roommates and squadmates receive high interaction frequency but no forced friendship"
+}

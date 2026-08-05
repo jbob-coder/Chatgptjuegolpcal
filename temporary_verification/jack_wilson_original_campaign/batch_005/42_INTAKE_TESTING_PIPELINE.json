@@ -1,0 +1,17 @@
+{
+  "schema_version":"1.0.0",
+  "pipeline_id":"PIPE_NSA_INTAKE_V1",
+  "sequence":[
+    {"step":1,"name":"identity verification","duration_min":20},
+    {"step":2,"name":"medical triage","duration_min":35},
+    {"step":3,"name":"CM baseline scan","duration_min":25},
+    {"step":4,"name":"physical readiness","duration_min":50},
+    {"step":5,"name":"cognitive assessment","duration_min":45},
+    {"step":6,"name":"ability declaration","duration_min":20},
+    {"step":7,"name":"controlled ability test","duration_min":60},
+    {"step":8,"name":"equipment issue","duration_min":30},
+    {"step":9,"name":"dorm and squad assignment","duration_min":15}
+  ],
+  "failure_handling":{"medical":"temporary hold or specialist review","undeclared_ability":"disciplinary investigation","CM_instability":"observation and re-test","identity_mismatch":"security hold"},
+  "jack_risk":"Steal is unregistered and must not be used during intake unless discovery is accepted."
+}

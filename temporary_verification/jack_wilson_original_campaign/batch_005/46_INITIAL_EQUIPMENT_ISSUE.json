@@ -1,0 +1,15 @@
+{
+  "schema_version":"1.0.0",
+  "issue_set_id":"KIT_NSA_YEAR1_BASIC",
+  "items":[
+    {"item_id":"ITEM_NSA_UNIFORM","qty":3,"custody":"student"},
+    {"item_id":"ITEM_NSA_BOOTS","qty":1,"custody":"student"},
+    {"item_id":"ITEM_NSA_ID_BAND","qty":1,"custody":"student","critical":true},
+    {"item_id":"ITEM_NSA_TRAINING_SLATE","qty":1,"custody":"student"},
+    {"item_id":"ITEM_NSA_PROTECTIVE_VEST","qty":1,"custody":"academy"},
+    {"item_id":"ITEM_NSA_EYE_EAR_PROTECTION","qty":1,"custody":"student"},
+    {"item_id":"ITEM_NSA_HYGIENE_KIT","qty":1,"custody":"student"},
+    {"item_id":"ITEM_NSA_BEDDING","qty":1,"custody":"academy"}
+  ],
+  "loss_rules":"negligent loss may create debt or discipline; documented damage during training is not automatically charged"
+}
