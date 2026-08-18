@@ -3,20 +3,76 @@
   "created_at": "2026-08-18T01:55:00-04:00",
   "file_count": 14,
   "files": [
-    {"bytes":4603,"path":"00_BOOTSTRAP/220_ACTIVE_LOAD_ORDER_V2.json","sha256":"a0756692df31139f6edcd4cf94b570c54f9aad1a80f14170ad891d02d1e05c29"},
-    {"bytes":47915,"path":"02_WORLD/264_START_DISTRICT_POPULATION_CENSUS_V1.json","sha256":"b395bc2936a418bb16a6063ade70f4cda7a5d892aa769591f5f624ebc68fe2b8"},
-    {"bytes":2835,"path":"03_CHARACTERS/282_ASSISTANT_COPLAYER_TALIA_VALE_V1.yaml","sha256":"af0cb2d2317de7939d388bafd7e02388986e4d332ed5e225fb49aaeaecd0b8e3"},
-    {"bytes":8464,"path":"10_SYSTEMS/227_STABLE_ID_REGISTRY_V2.json","sha256":"06013b0c24517b0b84c8e6fe3cd8bc6d945393cdf5393d28986b1d311edf7f8d"},
-    {"bytes":5151,"path":"10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json","sha256":"2928e111239c5a29905daf3889ca9c986306f4e2cb493ff80061490fe52afa99"},
-    {"bytes":1267,"path":"10_SYSTEMS/283_COPLAYER_AGENCY_RULES_V1.yaml","sha256":"ffc7ebc2215a5fbc395ac00fe280fae49fd372a134968c8f32de59fd6a67eb9a"},
-    {"bytes":1998,"path":"CLAUDE.md","sha256":"c54155c1e5852bc7fd1bf4e5bfaa404017f7afa0ce44d44dc2bb07028c12e921"},
-    {"bytes":1347,"path":"_shared/project_governance/CONTEXT.md","sha256":"fc00910f9b86a4534ce59a0a5ccd054dc10045596f921f3abcf258298d0c152a"},
-    {"bytes":1644,"path":"_shared/project_governance/CREATIVE_CHANGE_AUTHORITY.yaml","sha256":"a1a057d604d3d8aa2040574613177bd1fde74bb2360410f4196d8901e7c11d67"},
-    {"bytes":2099,"path":"_shared/project_governance/DESIGN_DECISION_LOG.md","sha256":"63642fdecffaf2c70ffe59c61a414539d8b5faf27321a095fa6287f82aa5c3b3"},
-    {"bytes":2244,"path":"_shared/project_governance/EXPERT_SELECTION_PROTOCOL.yaml","sha256":"c3d5e6a3bf9d8c7ca140f19741a4a4836b7ecbe449fc023b8e11af90d131753c"},
-    {"bytes":1413,"path":"_shared/project_governance/SCALABLE_WORLD_EXPANSION_POLICY.yaml","sha256":"4429e93d76bfdea182a997a1f4194cce6ea67bcbf0a0cb5e10aaac948fa3667d"},
-    {"bytes":2018,"path":"_shared/project_governance/USER_WORKING_PREFERENCES.md","sha256":"50282d82abdca2169b5b215fc9ea3a56fdd9600b3651c60399a498be16c1f54b"},
-    {"bytes":288,"path":"_templates/TASK_EXPERT_SELECTION.yaml","sha256":"becbe24a83a1fd72a6d41b7b95a505774021f65863bf0c2ce1795bc642814552"}
+    {
+      "bytes": 4603,
+      "path": "00_BOOTSTRAP/220_ACTIVE_LOAD_ORDER_V2.json",
+      "sha256": "a0756692df31139f6edcd4cf94b570c54f9aad1a80f14170ad891d02d1e05c29"
+    },
+    {
+      "bytes": 47915,
+      "path": "02_WORLD/264_START_DISTRICT_POPULATION_CENSUS_V1.json",
+      "sha256": "b395bc2936a418bb16a6063ade70f4cda7a5d892aa769591f5f624ebc68fe2b8"
+    },
+    {
+      "bytes": 2835,
+      "path": "03_CHARACTERS/282_ASSISTANT_COPLAYER_TALIA_VALE_V1.yaml",
+      "sha256": "af0cb2d2317de7939d388bafd7e02388986e4d332ed5e225fb49aaeaecd0b8e3"
+    },
+    {
+      "bytes": 8464,
+      "path": "10_SYSTEMS/227_STABLE_ID_REGISTRY_V2.json",
+      "sha256": "06013b0c24517b0b84c8e6fe3cd8bc6d945393cdf5393d28986b1d311edf7f8d"
+    },
+    {
+      "bytes": 5151,
+      "path": "10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json",
+      "sha256": "2928e111239c5a29905daf3889ca9c986306f4e2cb493ff80061490fe52afa99"
+    },
+    {
+      "bytes": 1267,
+      "path": "10_SYSTEMS/283_COPLAYER_AGENCY_RULES_V1.yaml",
+      "sha256": "ffc7ebc2215a5fbc395ac00fe280fae49fd372a134968c8f32de59fd6a67eb9a"
+    },
+    {
+      "bytes": 1998,
+      "path": "CLAUDE.md",
+      "sha256": "c54155c1e5852bc7fd1bf4e5bfaa404017f7afa0ce44d44dc2bb07028c12e921"
+    },
+    {
+      "bytes": 1347,
+      "path": "_shared/project_governance/CONTEXT.md",
+      "sha256": "fc00910f9b86a4534ce59a0a5ccd054dc10045596f921f3abcf258298d0c152a"
+    },
+    {
+      "bytes": 1644,
+      "path": "_shared/project_governance/CREATIVE_CHANGE_AUTHORITY.yaml",
+      "sha256": "a1a057d604d3d8aa2040574613177bd1fde74bb2360410f4196d8901e7c11d67"
+    },
+    {
+      "bytes": 2099,
+      "path": "_shared/project_governance/DESIGN_DECISION_LOG.md",
+      "sha256": "63642fdecffaf2c70ffe59c61a414539d8b5faf27321a095fa6287f82aa5c3b3"
+    },
+    {
+      "bytes": 2244,
+      "path": "_shared/project_governance/EXPERT_SELECTION_PROTOCOL.yaml",
+      "sha256": "c3d5e6a3bf9d8c7ca140f19741a4a4836b7ecbe449fc023b8e11af90d131753c"
+    },
+    {
+      "bytes": 1413,
+      "path": "_shared/project_governance/SCALABLE_WORLD_EXPANSION_POLICY.yaml",
+      "sha256": "4429e93d76bfdea182a997a1f4194cce6ea67bcbf0a0cb5e10aaac948fa3667d"
+    },
+    {
+      "bytes": 2018,
+      "path": "_shared/project_governance/USER_WORKING_PREFERENCES.md",
+      "sha256": "50282d82abdca2169b5b215fc9ea3a56fdd9600b3651c60399a498be16c1f54b"
+    },
+    {
+      "bytes": 288,
+      "path": "_templates/TASK_EXPERT_SELECTION.yaml",
+      "sha256": "becbe24a83a1fd72a6d41b7b95a505774021f65863bf0c2ce1795bc642814552"
+    }
   ],
   "notes": [
     "Primary architecture media are folders, Markdown and YAML; JSON remains a runtime/integrity add-on.",
