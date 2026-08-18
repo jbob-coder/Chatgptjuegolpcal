@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "package": "batch_021_district_completion_v2",
+  "status": "PROMOTED_TO_DRIVE_AND_READBACK_VERIFIED",
+  "drive_history_folder_id": "1bL_DGESbgIK_lkEnV58ZPK1UYkCHbcxT",
+  "drive_certificate_file_id": "1x8aktbrMT_E6iH5K60jfrgAZkzqmNa-f",
+  "drive_certificate_bytes": 9317,
+  "drive_certificate_sha256": "9843fa4fdd25a5b0fbf950e014a4363983955febaa91952612249c6f24f6f50a",
+  "drive_walk_test_file_id": "1eI9-42w89MxQ51ILC-pPHakK1GIx9ndy",
+  "drive_walk_test_bytes": 1366,
+  "drive_walk_test_sha256": "9b3c8fee4a3ab04291fd48a1ce992f7d875a1fc204c0a4edf62d9e63cc44cf71",
+  "payload_readback": {
+    "expected": 30,
+    "passed": 30,
+    "failed": 0,
+    "method": "Drive raw download; compare exact byte length and SHA-256 against BATCH_021_MANIFEST.json"
+  },
+  "game_state": {
+    "save_id": "SAVE_000002",
+    "save_mutated": false,
+    "world_time_advanced": false,
+    "working_year_ce": 2670,
+    "ready_locations": 18,
+    "active_boundaries": 5,
+    "generated_residents": 72,
+    "households": 28,
+    "service_npcs": 7
+  },
+  "raw_novel_read": false,
+  "v1_candidate_fragments": "SUPERSEDED_BY_V2"
+}
