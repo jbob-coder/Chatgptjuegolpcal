@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "certificate_id": "BATCH_020_DRIVE_PROMOTION_CERTIFICATE",
+  "authority": "POST_PROMOTION_READBACK_AUDIT",
+  "created_at": "2026-08-18T01:16:00-04:00",
+  "package": "batch_020_era_world_record",
+  "drive_history_folder_id": "1-jupjWPuV18-Pji65IPrw4qBDaOlKNus",
+  "github_verification": {
+    "repository": "jbob-coder/Chatgptjuegolpcal",
+    "branch": "main",
+    "candidate_head_before_post_promotion_audit": "e0473eb4c94a8d7adae05b5a8645b6dc1331d574"
+  },
+  "readback": {
+    "files_expected": 24,
+    "files_passed": 24,
+    "files_failed": 0,
+    "method": "Google Drive raw download -> exact byte comparison + byte length + SHA-256 comparison to BATCH_020_MANIFEST.json",
+    "manifest_sha256": "8f5254f8b1fb5aee015e0adc2a85844bf0de8502804296fcd4af6309f2a6ebc4"
+  },
+  "era": {
+    "working_year_ce": 2670,
+    "authority": "SECONDARY_EXTERNAL_CORROBORATION_PLUS_TRANSFORMED_SOURCE_COMPATIBILITY",
+    "confidence": "MEDIUM",
+    "exact_month_day": "UNKNOWN",
+    "relative_timeline_primary": true,
+    "save_time": "RELATIVE:T_MINUS_14_DAYS",
+    "transport_anchor": "RELATIVE:T0",
+    "rule": "2670 CE constrains theme/technology but does not replace unresolved source calendar facts."
+  },
+  "game_state": {
+    "save_id": "SAVE_000002",
+    "save_sealed": true,
+    "save_mutated_in_batch": false,
+    "pointer_status": "PLAYABLE",
+    "current_location": "ROOM_JACK_START_01",
+    "ready_location_count": 14,
+    "boundary_location_count": 2,
+    "world_time_advanced": false
+  },
+  "full_record": {
+    "coverage_domain_count": 40,
+    "coverage_status_counts": {
+      "DEFERRED": 1,
+      "PARTIAL": 26,
+      "READY": 11,
+      "UNKNOWN": 2
+    },
+    "gap_count": 20,
+    "gap_state_counts": {
+      "BLOCKED_SOURCE_READING_PAUSED": 3,
+      "MISSING": 2,
+      "PARTIAL": 7,
+      "UNKNOWN": 8
+    },
+    "rule": "The record is considered complete as an audit surface only when known facts, unknowns, partials, source-paused facts, assumptions, reversible filler, provenance, and validation state are all represented. It does not claim the fictional world itself is fully reconstructed."
+  },
+  "source_boundary": {
+    "raw_novel_read_during_batch": false,
+    "raw_chapter_or_ending_read_during_batch": false,
+    "transformed_snapshot": "WORLD_RECONSTRUCTION_STAGING_DELTA_422",
+    "transformed_snapshot_complete_through_chapter": 310,
+    "future_source_processing": "BLOCKED_SOURCE_READING_PAUSED"
+  },
+  "changes": {
+    "new_ready_civilian_locations": 8,
+    "new_boundary_locations": 1,
+    "new_immediate_service_npc_baselines": 3,
+    "finite_market_stock": true,
+    "era_consistency_gate_installed": true,
+    "world_record_completeness_engine_installed": true
+  },
+  "errors": [],
+  "overall": "PASS"
+}
