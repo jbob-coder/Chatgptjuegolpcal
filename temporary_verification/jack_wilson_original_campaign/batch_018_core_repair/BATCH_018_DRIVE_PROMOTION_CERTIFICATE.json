@@ -1,0 +1,47 @@
+{
+  "certificate_id": "CERT_BATCH_018_DRIVE_PROMOTION_V1",
+  "schema_version": "1.0.0",
+  "created_at": "2026-08-17T23:58:00-04:00",
+  "campaign_root_id": "1j2cKz-t1tqpp6MA9YXw9vKZjAXLQxG85",
+  "github_repository": "jbob-coder/Chatgptjuegolpcal",
+  "github_verified_head": "0c01f6d2f651abed5c5609f89f04dff1631b6d86",
+  "core_manifest_file_count": 32,
+  "drive_core_readback": {
+    "files_checked": 32,
+    "byte_size_matches": 32,
+    "sha256_matches": 32,
+    "failures": 0,
+    "result": "PASS"
+  },
+  "evidence_readback": {
+    "BATCH_018_MANIFEST.json": {
+      "sha256": "d4f627c1b621737d361d2097473e7e6e3f36ae949f1148a38c3a09d53588d75a",
+      "result": "PASS"
+    },
+    "BATCH_018_checksums.sha256": {
+      "sha256": "e91ca0b7ea7b0bb8271a78bcf71166268406af0b09913bf80d18c3b9f87cdd7b",
+      "result": "PASS"
+    },
+    "BATCH_018_VALIDATION.md": {
+      "sha256": "b5adb4d81b51c299d53dc0bd4d43d1f639ea649c42400e6fe99f0a98c0c34838",
+      "result": "PASS"
+    }
+  },
+  "topology_checks": {
+    "required_permanent_shelves_present": true,
+    "source_analysis_removed_from_active_root": true,
+    "legacy_replacement_setting_separated": true,
+    "batch_history_separated_from_validation": true,
+    "backups_separated": true,
+    "active_systems_separated_from_legacy_systems": true
+  },
+  "safety_and_authority": {
+    "raw_novel_read_during_repair": false,
+    "historical_sealed_save_deleted": false,
+    "legacy_records_silently_overwritten": false,
+    "current_gameplay_pointer": "MIGRATION_REQUIRED",
+    "narrative_advancement_allowed": false,
+    "reason": "No source-compatible active start location/jurisdiction has yet passed the pre-narration existence gate."
+  },
+  "result": "PROMOTED_AND_VERIFIED_WITH_PLAYABILITY_GATE_ACTIVE"
+}
