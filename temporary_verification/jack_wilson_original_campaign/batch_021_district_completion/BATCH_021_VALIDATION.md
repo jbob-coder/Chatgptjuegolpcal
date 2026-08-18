@@ -1,0 +1,28 @@
+# Batch 021 Validation — Immediate District Completion
+
+- JSON payloads parsed: 27
+- Total payload/control files: 28
+- Working era guardrail: 2670 CE
+- Exact civil month/day: UNKNOWN
+- Raw novel/chapter/ending read: NO
+- SAVE_000002 mutated: NO
+- World time advanced: NO
+- Generated civilian residents: 72
+- Generated households: 28
+- Explicit service NPC roster: 7
+- READY locations: 18
+- Active boundaries: 5
+- Location required-field validation: PASS
+- Adjacency/route target validation: PASS
+- Stable-ID registry coverage: PASS (197 candidate IDs checked)
+- Stable-ID duplicate check: PASS
+- Load-order duplicate check: PASS
+- Old 259 service-NPC file removed from active load order: PASS
+- Census household/member consistency: PASS
+- Service-NPC unique ID check: PASS
+- JSON parse check: PASS
+- Contemporary-brand scan: PASS
+- Vampire/legacy-replacement-theme scan in Batch 021 payloads: PASS
+- Coverage matrix: 40 domains = 11 READY, 29 PARTIAL
+- Gap ledger: 20 gaps = 3 BLOCKED_SOURCE_READING_PAUSED, 12 PARTIAL, 5 UNKNOWN, 0 MISSING
+- Candidate validation: **PASS**
