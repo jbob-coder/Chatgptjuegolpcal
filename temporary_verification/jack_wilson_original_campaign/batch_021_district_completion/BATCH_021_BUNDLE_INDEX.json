@@ -1,0 +1,27 @@
+{
+  "package": "batch_021_district_completion",
+  "compression": "gzip",
+  "transport_encoding": "base64",
+  "reassembly": "Concatenate part001 then part002 with no separators, base64-decode, then gzip-decompress to BATCH_021_BUNDLE.json.",
+  "part_count": 2,
+  "parts": [
+    {
+      "part": 1,
+      "file": "BATCH_021_BUNDLE_GZIP_B64.part001",
+      "chars": 9000,
+      "sha256_text": "a1bb2207bbd234fe8303f816e584c7427f635b5e4aab3bad89671272d94b6525"
+    },
+    {
+      "part": 2,
+      "file": "BATCH_021_BUNDLE_GZIP_B64.part002",
+      "chars": 27964,
+      "sha256_text": "ee25a990543839251ac1e9a3baecad44fd1ec13619478a59f032322f0ffe17a2"
+    }
+  ],
+  "gzip_bytes": 27721,
+  "gzip_sha256": "ae43841f19dfce92a719a1460ed959c0fa06a209e5fdb81d3bd786e5920e772c",
+  "bundle_utf8_bytes": 148266,
+  "bundle_sha256": "e94e79177960291e6270264a1f4364590b23d8598e96704b1d073964ed72e4e9",
+  "payload_file_count": 28,
+  "payload_manifest_sha256": "856d7a0437e0e212d55997cdd55ddb4f873e4b0eb7db7188ac69815018b430c5"
+}
