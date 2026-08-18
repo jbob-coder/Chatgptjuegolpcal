@@ -1,0 +1,21 @@
+{
+  "package": "batch_022_project_governance_coplayer",
+  "compression": "gzip",
+  "transport_encoding": "base64",
+  "reassembly": "Concatenate parts in numeric order with no separators, base64-decode, then gzip-decompress.",
+  "part_count": 6,
+  "parts": [
+    {"part":1,"file":"BATCH_022_BUNDLE_GZIP_B64.part001","chars":4000,"sha256_text":"df2bdd8376a5ed9fb8b22c804b6d67f98eb8bbd5b252a992974bc325e559dbdb"},
+    {"part":2,"file":"BATCH_022_BUNDLE_GZIP_B64.part002","chars":4000,"sha256_text":"782d86e23d71edc5a11d5a02475c65bafee1c0987b929c21d4c2361dc8b3cd15"},
+    {"part":3,"file":"BATCH_022_BUNDLE_GZIP_B64.part003","chars":4000,"sha256_text":"5742de3e58b2497c89ca369a6d8924e5910cc31c03d9ac479daef4479ccb8cb6"},
+    {"part":4,"file":"BATCH_022_BUNDLE_GZIP_B64.part004","chars":4000,"sha256_text":"72e24f19e08095810c4ca54c44a09850d86e98605288ddd15b2b0eda47df8a02"},
+    {"part":5,"file":"BATCH_022_BUNDLE_GZIP_B64.part005","chars":4000,"sha256_text":"acc85f535596ae260b630652b6e4a85bd4a1086ae49d560f97615ddd74384121"},
+    {"part":6,"file":"BATCH_022_BUNDLE_GZIP_B64.part006","chars":2132,"sha256_text":"dafbaf867278661dfed3faf68234c6fe017ac6e6e3398223942b5f3ed78636c1"}
+  ],
+  "gzip_bytes": 16598,
+  "gzip_sha256": "3f69dc3e4ef0ad004c76ca4f7d9c57caf4b685a1a86bf60da60fade79a6d6521",
+  "bundle_utf8_bytes": 92891,
+  "bundle_sha256": "eea74875a124ad53f564941779a5e61563b3eea52e1d04f7937ead7004fccba5",
+  "payload_file_count": 14,
+  "payload_manifest_sha256": "007252470f74d743717f3ec1680d4017bd286870b356ed79329579e3db404a32"
+}
