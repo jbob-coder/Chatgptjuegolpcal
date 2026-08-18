@@ -1,0 +1,19 @@
+{
+  "package": "icm_chatgpt_game_candidate_2026-08-17",
+  "version": "1.0.0",
+  "file_count": 12,
+  "files": [
+    {"path":"AGENTS.md","bytes":180,"sha256":"6e8d03b6fc5e2f80f969824f67aa69b62f1315d6c7777d35677bb33ad4df2937"},
+    {"path":"CLAUDE.md","bytes":1496,"sha256":"b467a74edab964a9cae0986aeb95c33b00299adba9ae3178800dbc7411ad720a"},
+    {"path":"CONTEXT.md","bytes":1449,"sha256":"fc079bacbde716a5f57d3e49b2afa281b8b4448059e568162ed6e301d2f28d18"},
+    {"path":"MIGRATION_MAP.md","bytes":1437,"sha256":"779a40c9a17967d941942391969095b793ef58ccc8b157445e4feab2ede13dd7"},
+    {"path":"WALK_TEST_CANDIDATE.md","bytes":888,"sha256":"829b76947fb801e6bf64071d33c836d0fc240560d49309cca101d6dcf0f60329"},
+    {"path":"_shared/ACTIVE_GAME_DIRECTIVE_2026-08-17.md","bytes":2217,"sha256":"21dab5b5c2c952b4d7ab36a98b46ce9817fb73581a7ea059fc2b0ba7c8415d74"},
+    {"path":"_shared/AUTHORITY_AND_STORAGE_POINTERS.md","bytes":1605,"sha256":"45b0cf4c1b9a076b94c9e710b4a2a475fe64d72b34582d4a9dad340e98f3c1ad"},
+    {"path":"_templates/CHANGE_BATCH.md","bytes":709,"sha256":"2622bbf11168abf05c0124bea96ec8f5c74072f313b6cda006d15802edad1d9c"},
+    {"path":"stages/01_SCOPE_CHANGE/CONTEXT.md","bytes":1105,"sha256":"fb3ddc5c6a4d21b57a4ca0c60f85bca3076825d51e2a265865b27a2507e7c325"},
+    {"path":"stages/01_SCOPE_CHANGE/output/2026-08-17_ACTIVE_GAME_ICM_RESTRUCTURE_PLAN.md","bytes":5173,"sha256":"9900057f0eb4e8042fcc303d2e6d0f6b96e29cf46cbbc2d345b978b9ff7676e5"},
+    {"path":"stages/02_BUILD_AND_FIX/CONTEXT.md","bytes":1030,"sha256":"70500b96f1d5972ad6c611e04ba8458a41d8c07ca276aa0b68e921f2b9bfac6f"},
+    {"path":"stages/03_VERIFY_AND_PROMOTE/CONTEXT.md","bytes":947,"sha256":"57f5d58d927ac1062846f28490b624cbadd0f978e1c9be2f0af3e6fd49ac2cc4"}
+  ]
+}
