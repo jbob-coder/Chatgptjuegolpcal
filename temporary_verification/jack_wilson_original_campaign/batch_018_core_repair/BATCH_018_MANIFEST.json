@@ -1,7 +1,7 @@
 {
   "authority": "USER_APPROVED_STAGE_2_REPAIR",
   "created_at": "2026-08-17T23:09:00-04:00",
-  "file_count": 30,
+  "file_count": 31,
   "files": [
     {"bytes":802,"path":"files/00_BOOTSTRAP/218_SAVE_LAYER_ARCHITECTURE_V2.json","sha256":"2779629d18eb94f4b965746d7ed6c2fc5242a729496ec8cb799ab5128c448b54"},
     {"bytes":886,"path":"files/00_BOOTSTRAP/219_CURRENT_POINTER_ACTIVE_GAME_V2.json","sha256":"007126aabc0d44e1f6dcae2ee22e107a758fc43aa4f2c767d06fbefea973cbf7"},
@@ -17,6 +17,7 @@
     {"bytes":1047,"path":"files/08_ITEMS/200_ITEM_SYSTEM_CORE_V1.json","sha256":"4863af7c49f549f20fe54f9eae6b8956951a37f8f682a28ee8c637a54a4d106f"},
     {"bytes":2024,"path":"files/09_ABILITIES/197_STEAL_ABILITY_CANON_V2.json","sha256":"9fdc0c9d4d1eb83acee8565b5c37a576ca0451681fef93b8b9023e34255240a3"},
     {"bytes":2272,"path":"files/09_ABILITIES/198_STEAL_BALANCE_CALIBRATION_V1.json","sha256":"cda86bfcb1de3676b140be3a13940188384890d3a70dba9a41b8659f76f0f1da"},
+    {"bytes":1870,"path":"files/10_SYSTEMS/206_CM_RESOURCE_CORE_V2.json","sha256":"8d3763041bc7c5530ba341a4e506daed52f4d76e5f486db346e71a4e3e866ec5"},
     {"bytes":1203,"path":"files/10_SYSTEMS/207_ACTION_VALIDATION_ENGINE_V2.json","sha256":"f613075b93b0bd2d2ab6fdd78711df6e3f1d987ee99188b79a20f11e6695ce26"},
     {"bytes":748,"path":"files/10_SYSTEMS/208_PLAYER_STATUS_SCHEMA_V2.json","sha256":"b49a6ad62eb6f71dd6fd34a04b1287bbb0087143da616cc7376a58ba69f1a40d"},
     {"bytes":1307,"path":"files/10_SYSTEMS/209_RULES_AND_LAW_FRAMEWORK_V2.json","sha256":"41821cee8da697a8230531b7356122fec5dc25abe968721a35af5cde1c8408e9"},
@@ -29,7 +30,7 @@
     {"bytes":1118,"path":"files/10_SYSTEMS/225_PRE_NARRATION_EXISTENCE_GATE_V2.json","sha256":"e2282e03e1353d8cadf2e566085f9602cb2789d688cc5d86726eb2186350f309"},
     {"bytes":809,"path":"files/10_SYSTEMS/227_STABLE_ID_REGISTRY_V2.json","sha256":"66184f4a640c20096a958cd34ee4cbfa635129cd4bc0845e489a0419ac6f9ddc"},
     {"bytes":1269,"path":"files/10_SYSTEMS/228_BALANCE_BASELINE_V1.json","sha256":"cd29e8846c96093aa5585f48d3cb78b9d259944a7e8d63bd827131644b7ce0fc"},
-    {"bytes":1317,"path":"files/10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json","sha256":"8f86c5f193b9c4a2c502b88f8c7edad86f42d3447c54936940a8253c42763853"},
+    {"bytes":1362,"path":"files/10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json","sha256":"e3b9545cbf664e666bfe04d56762116b4ae50955f14ae19f1e1c17b96a34fd79"},
     {"bytes":1163,"path":"files/10_SYSTEMS/237_GAMEPLAY_STATE_MACHINE_V1.json","sha256":"cb3b26ef5839876217f89d9bb9419b589f2bd6e4897ec3af7f5498161f72eacb"},
     {"bytes":1248,"path":"files/11_SIMULATION/204_SIMULATION_CORE_V2.json","sha256":"19fb5ffccd2c2d49743c3f7544badf5f7fc9e9a530f8c743c883a6d36e6efbbe"},
     {"bytes":876,"path":"files/12_VALIDATION/226_READINESS_METRICS_V2.json","sha256":"bed38cc27cef743a360bfe0be37cf0824b931c56196b3a2afdbb42ce28a63e79"}
