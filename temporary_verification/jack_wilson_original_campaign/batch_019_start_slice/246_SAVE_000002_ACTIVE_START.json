@@ -1,0 +1,46 @@
+{
+  "authority": "ACTIVE_CANON_MIGRATION",
+  "campaign_status": "PLAYABLE",
+  "created_at": "2026-08-18T00:28:00-04:00",
+  "currency_id": "CURRENCY_STANDARD_CREDIT",
+  "historical_save_relation": "SAVE_000001 remains sealed historical evidence; SAVE_000002 is a canon migration that does not reuse Greybridge/Lyren/Northstar location, law or currency facts.",
+  "jurisdiction_id": "JURISDICTION_PREACADEMY_CIVIL_01",
+  "last_event_id": "EVENT_000002",
+  "location_id": "ROOM_JACK_START_01",
+  "movement_rule": "Movement into any location not marked READY in the active location index triggers pre-narration generation/validation before narration.",
+  "narrative_advancement_since_migration": false,
+  "open_actions": [
+    "inspect room",
+    "open status",
+    "listen through shared wall",
+    "eat/drink/rest",
+    "use communicator",
+    "leave room to corridor",
+    "walk to building entry/curb",
+    "attempt Steal only when a valid living target/contact/action exists"
+  ],
+  "player_id": "CHAR_JACK_WILSON",
+  "pointers": {
+    "baseline_timeline": "../02_WORLD/248_BASELINE_TIMELINE_START_V1.json",
+    "economy": "../02_WORLD/241_START_ECONOMY_PROFILE_V1.json",
+    "inventory": "../08_ITEMS/242_START_INVENTORY_V1.json",
+    "lawset": "../02_WORLD/240_START_JURISDICTION_LAWSET_V1.json",
+    "locations": "../04_LOCATIONS/239_START_LOCATION_BLUEPRINTS_V1.json",
+    "player_status": "../03_CHARACTERS/244_INITIAL_PLAYER_STATUS_V2.json",
+    "source_neighbor_anchor": "../03_CHARACTERS/243_SOURCE_NEIGHBOR_ANCHOR_V1.json",
+    "world_slice": "../02_WORLD/238_START_SLICE_WORLD_BASE_V1.json"
+  },
+  "previous_save_id": "SAVE_000001",
+  "save_id": "SAVE_000002",
+  "schema_version": "2.0.0",
+  "sealed": true,
+  "transport_anchor": "RELATIVE:T0",
+  "validation": {
+    "json": "PASS",
+    "legacy_exclusion": "PASS",
+    "location_gate": "PASS",
+    "required_fields": "PASS",
+    "stable_ids": "PASS"
+  },
+  "world_datetime": "RELATIVE:T_MINUS_14_DAYS"
+}

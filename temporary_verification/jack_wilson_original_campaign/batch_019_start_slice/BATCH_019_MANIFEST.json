@@ -1,0 +1,32 @@
+{
+  "authority": "USER_DIRECTIVE_CONTINUE",
+  "created_at": "2026-08-18T00:28:00-04:00",
+  "file_count": 21,
+  "files": [
+    {"bytes":1650,"path":"196_JACK_WILSON_CHARACTER_ACTIVE_V2.json","sha256":"aadb621416fa700e359efa3fce4fdc91881a5d3b607e9f42baf56ffc11fcb5a9"},
+    {"bytes":1629,"path":"209_RULES_AND_LAW_FRAMEWORK_V2.json","sha256":"e004f575d70f53715637213480a2372c6a2a98855b1ab9df6ee971dade968b4d"},
+    {"bytes":1236,"path":"211_ECONOMY_TRANSACTION_ENGINE_V2.json","sha256":"b2966111cbf25b823c10124e0022f667c5e001346156d1a6f84b2416f956e8b1"},
+    {"bytes":1405,"path":"219_CURRENT_POINTER_ACTIVE_GAME_V2.json","sha256":"2a8eb7ada3398cc48fa327c3ea27cd9cb131d1bd1fa265113c6dacfc3ec2cb3d"},
+    {"bytes":2008,"path":"220_ACTIVE_LOAD_ORDER_V2.json","sha256":"7438672a84001552a55f07c722eb3ae90c20adada7adaf307be1481321384ca2"},
+    {"bytes":779,"path":"222_WORLD_BASE_STATUS.json","sha256":"1b21d753e6ba70e39435605f009905513c9885316d3b21999364c97549fe0d79"},
+    {"bytes":1232,"path":"224_LOCATION_READINESS_INDEX.json","sha256":"99e2f571bf929888cd6b236c6a20e1a1f7ec76d3f3a1c1e43e0e49369d5726f1"},
+    {"bytes":1361,"path":"226_READINESS_METRICS_V2.json","sha256":"11d20d9396fd4d958cb44f82717823f9af1e041f617858d8d694aaf8abf2da72"},
+    {"bytes":2189,"path":"227_STABLE_ID_REGISTRY_V2.json","sha256":"1b1a6a0b32066a21619895ca2373a1e409d5893d030377de3885bcb8ae69e271"},
+    {"bytes":2252,"path":"234_ACTIVE_SYSTEM_INDEX_V2.json","sha256":"4e3678da979c64865bacd0fe200f8a3ee62e98edd46b4286717f16449176979c"},
+    {"bytes":3844,"path":"238_START_SLICE_WORLD_BASE_V1.json","sha256":"c0b35bf25a93c21b2436556e7b0ab09e82793f5091230f823901eb59aa4be295"},
+    {"bytes":14896,"path":"239_START_LOCATION_BLUEPRINTS_V1.json","sha256":"8b99cc58536eedde559c6483ac4a17ca70f2750b9976c0326dd2eb3e093b8008"},
+    {"bytes":4974,"path":"240_START_JURISDICTION_LAWSET_V1.json","sha256":"5ead0949b51761c36e98b4b83ae4a5f6b90639676842e46691dedb80ab9e9e1d"},
+    {"bytes":2505,"path":"241_START_ECONOMY_PROFILE_V1.json","sha256":"46ff2cc0a6f92468eb519c881f9db67255dd77654d79c71029cb75ab43e950d3"},
+    {"bytes":1719,"path":"242_START_INVENTORY_V1.json","sha256":"76a185f0608b8205b0edbf2403058f65c93c19787ff7a36072e9d642983e12f4"},
+    {"bytes":1422,"path":"243_SOURCE_NEIGHBOR_ANCHOR_V1.json","sha256":"972d9c0dfe07c92382a9f78d614cd70017e28b400b348cc52e365f8c67a39411"},
+    {"bytes":1239,"path":"244_INITIAL_PLAYER_STATUS_V2.json","sha256":"4d4b2ab51ac1c044064912fc0582bfe1ca3d7bf8ad61ff80d3f543105d4b775e"},
+    {"bytes":1398,"path":"245_EVENT_MIGRATION_000002.json","sha256":"d552bd8f89d4bfb9d9e5d7116af7d8b0bf07b0a3ab6a86ef87d144364131f974"},
+    {"bytes":1965,"path":"246_SAVE_000002_ACTIVE_START.json","sha256":"23bb627322c8f73ce1388adb4968fac952ccbc56591cb6701f5197b0668d1aa7"},
+    {"bytes":2581,"path":"247_START_SLICE_PROVENANCE_V1.json","sha256":"76004f540f067a796a08c34decf550e91b8611eff1ae6bb728d5bf81e77c0466"},
+    {"bytes":1476,"path":"248_BASELINE_TIMELINE_START_V1.json","sha256":"617a87669dbbf13458dc02788498628ad2478e7a21df9c0247e4865a698a4571"}
+  ],
+  "notes": ["Raw novel reading remained paused.","Start slice uses transformed source constraints plus clearly labeled reversible gameplay reconstruction.","SAVE_000001 remains preserved; SAVE_000002 is a new sealed migration save."],
+  "package": "batch_019_start_slice",
+  "source_snapshot": {"authority":"STAGING_NOT_AUTHORITATIVE_MAPPING_RUN","drive_file_id":"1OX1hMRnnzRp2hB7pcvGzc3pDLa1_eUvA","snapshot_id":"WORLD_RECONSTRUCTION_STAGING_DELTA_422","source_complete_through_chapter":310,"usage_rule":"Transformed reconstruction reference only; no raw novel text was read for Batch 019."},
+  "version": "1.0.0"
+}

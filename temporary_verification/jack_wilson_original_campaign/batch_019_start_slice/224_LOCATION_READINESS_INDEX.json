@@ -1,0 +1,43 @@
+{
+  "active_blueprint_file": "239_START_LOCATION_BLUEPRINTS_V1.json",
+  "active_ready_locations": [
+    "ROOM_JACK_START_01",
+    "LOC_RESIDENCE_F2_CORRIDOR_01",
+    "LOC_RESIDENCE_SHARED_WASHROOM_01",
+    "LOC_RESIDENCE_STAIR_01",
+    "LOC_RESIDENCE_ENTRY_01",
+    "LOC_PICKUP_CURB_01"
+  ],
+  "authority": "CURRENT_USER_DIRECTIVE",
+  "boundary_locations": [
+    "ROOM_NEIGHBOR_SOURCE_ANCHOR_01"
+  ],
+  "created_at": "2026-08-17T23:09:00-04:00",
+  "current_player_location": "ROOM_JACK_START_01",
+  "index_id": "INDEX_ACTIVE_LOCATION_READINESS_V1",
+  "legacy_locations": "ARCHIVED_HISTORICAL_ONLY",
+  "readiness_required_fields": [
+    "stable_id",
+    "parent_region_building",
+    "placement_local_axes",
+    "length_width_height",
+    "doors_portals_vertical_circulation",
+    "adjacency_route_graph",
+    "furniture_equipment",
+    "decorations_materials",
+    "lighting",
+    "collision_obstacles",
+    "capacity",
+    "security_access_rules",
+    "normal_occupants_schedules",
+    "environmental_state",
+    "source_reference_provenance",
+    "assumptions",
+    "validation_state",
+    "revision",
+    "created_before_narration"
+  ],
+  "revision": 2,
+  "schema_version": "1.0.0",
+  "updated_at": "2026-08-18T00:28:00-04:00"
+}

@@ -1,0 +1,43 @@
+{
+  "authority": "SOURCE_CONSTRAINED_PLUS_USER_CAMPAIGN_PREMISE",
+  "created_at": "2026-08-18T00:28:00-04:00",
+  "events": [
+    {
+      "actors": [
+        "CHAR_SOURCE_TIMELINE_NEIGHBOR_ANCHOR",
+        "CHAR_JACK_WILSON"
+      ],
+      "authority_by_actor": {
+        "CHAR_JACK_WILSON": "EXPLICIT_USER_CAMPAIGN_PREMISE",
+        "CHAR_SOURCE_TIMELINE_NEIGHBOR_ANCHOR": "TRANSFORMED_SOURCE_ROUTE_ANCHOR"
+      },
+      "baseline_event_id": "BASELINE_TRANSPORT_T0",
+      "event": "scheduled boarding/transport toward military-school entry",
+      "preconditions": [
+        "transport not canceled/diverged",
+        "actor remains eligible/present"
+      ],
+      "route": {
+        "distance": "UNKNOWN",
+        "from": "residential start area",
+        "to": "SRC_BUS_INTERIOR then source arrival chain"
+      },
+      "world_time": "RELATIVE:T0"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "simulation_rule": "Do not invent source-neighbor actions merely to preserve source plot. Only simulate established goals/schedules or generate original filler NPCs separately.",
+  "time_model": {
+    "absolute_calendar": "UNRESOLVED",
+    "start": "RELATIVE:T_MINUS_14_DAYS",
+    "transport": "RELATIVE:T0"
+  },
+  "timeline_id": "BASELINE_START_WINDOW_V1",
+  "unknown_between_start_and_T0": [
+    "source-neighbor daily schedule",
+    "exact institutional notices/check-ins",
+    "exact law compelling attendance",
+    "exact pickup clock time",
+    "exact route distance"
+  ]
+}
