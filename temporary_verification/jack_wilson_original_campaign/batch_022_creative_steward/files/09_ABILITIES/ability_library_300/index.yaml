@@ -1,0 +1,20 @@
+schema_version: 1.0.0
+library_id: ABILITY_LIBRARY_300_V1
+status: STAGE2_CANDIDATE
+authority_on_promotion: ORIGINAL_CAMPAIGN_CANON
+working_year_ce: 2670
+theme_guardrail: post-war militarized science-fantasy / spacefaring ability society; finite resources; no omniscience; no free reality rewrite
+count: 300
+catalog_sha256: f6bca05734e086892a479ab044a44225b8933ee56305d71facb38e16b0efb2b0
+selection_policy: Each ability is level-1 usable and finite-CM constrained. Selection for Sol used one uniform audited draw across IDs 001-300 with no reroll.
+catalogs:
+- {path: catalog_01_kinetic_force_mobility_vector.yaml, categories: [kinetic_force, mobility_vector], count: 50, sha256: 547b16e382fe6c784bc36d8d7226d38459a5bd209bf53f6f5145892133c82712}
+- {path: catalog_02_sensory_perception_defensive_barrier.yaml, categories: [sensory_perception, defensive_barrier], count: 50, sha256: 92cdc46add3b33af8e830a8a2d29fe2750efef004d5ec426fc286419270c74a2}
+- {path: catalog_03_biological_vital_thermal_phase.yaml, categories: [biological_vital, thermal_phase], count: 50, sha256: 19ebef6bdcee165208dd5a38e0425db3a55d7eac28605dc050e40a1e04d7a28a}
+- {path: catalog_04_electromagnetic_material_structure.yaml, categories: [electromagnetic, material_structure], count: 50, sha256: e1ea2f41fcd175853739923e974cbacc0b9581968b0668f645b79e08dea3322d}
+- {path: catalog_05_spatial_gravity_cognitive_focus.yaml, categories: [spatial_gravity, cognitive_focus], count: 50, sha256: 7caefab19927976697a83e2801eb0995d79b43ac14d8adb68684898cd6b47765}
+- {path: catalog_06_signal_stealth_environmental_utility.yaml, categories: [signal_stealth, environmental_utility], count: 50, sha256: 8bfdc1d9bf0bd4a39d7a85465a0ab7d864c43a473bcda2afd9272172c073c161}
+registry_path: ability_registry.yaml
+selected_for_sol: {ability_id: ABILITY_ORIG_265, name: False Knock, assignment_path: ../285_SOL_RANDOM_ABILITY_V1.json}
+loading: Index loads as catalog. Individual catalogs are loaded on demand; do not inject all 300 entries into every gameplay context.
+definition_schema: ability_definition_schema.yaml
