@@ -1,0 +1,32 @@
+schema_version: 1.0.0
+simulation_id: SIM_MACRO_WORLD_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+tick_model:
+  active_scene: action-resolution time
+  nearby_offscreen: 5-15 minute coarse ticks when relevant
+  district: hourly coarse simulation
+  metro: 6-hour aggregate
+  regional_global: daily aggregate unless event-driven
+state_vectors:
+- population
+- utility capacity/load
+- inventory/supply
+- transit capacity
+- weather
+- institutional alerts
+- prices
+- public rumor
+- healthcare load
+- security posture
+causality:
+- no resource appears without source/production/import
+- travel consumes time
+- outages propagate through dependency graphs
+- NPCs can act while Jack is absent
+- news/rumors require transmission channels
+- institutions respond according to incentives and capacity
+randomness: Use seeded or auditable randomness for consequential generated events when practical; do not reroll
+  solely for a more convenient story.
+player_independence: World events may occur without Jack; Jack is not automatically the center of institutional
+  attention.
+maintenance_rule: Project maintenance never advances the simulation clock.

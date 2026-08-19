@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+education_id: EDU_ATLANTIC_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+structure:
+- stage: foundation
+  approx_age:
+  - 5
+  - 11
+  focus:
+  - literacy
+  - math
+  - civic basics
+  - physical development
+  - tool safety
+- stage: secondary
+  approx_age:
+  - 12
+  - 16
+  focus:
+  - advanced academics
+  - technical/civic rotation
+  - ability safety if applicable
+  - career sampling
+- stage: post-secondary/civic defense
+  approx_age:
+  - 16
+  - 19
+  focus:
+  - defense readiness term or approved deferment
+  - technical college
+  - apprenticeship integration
+assessment: mixed coursework, practical demonstrations and moderated adaptive testing; no single AI score determines
+  a life path
+technical_apprenticeships: paid supervised placements can count toward secondary/post-secondary credentials
+ability_education: manifesting students receive safety education and individualized control practice; non-manifesting
+  students receive bystander/emergency training
+jack_private_biography: NOT_BACKFILLED. The world education system is canon; Jack's exact prior school, grades,
+  friends and disciplinary history remain player/user-specific until established.
+sol_alignment: Sol's technical coursework/apprenticeship fits this system.

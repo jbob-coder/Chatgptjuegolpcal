@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+utilities_id: UTILITIES_ASTERLINE_UPSTREAM_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+power:
+  provider: Asterline Grid Cooperative
+  sources_percent:
+    regional_fusion: 42
+    offshore_wind: 19
+    solar_local: 14
+    geothermal_import: 9
+    storage_return: 10
+    other: 6
+  architecture: meshed regional grid with neighborhood islanding
+  residential_backup: building battery + emergency lighting; not indefinite
+water_air:
+  provider: Asterline Water-Air Reclamation Board
+  water_sources:
+  - surface catchment
+  - desalination reserve
+  - reclaimed water advanced treatment
+  critical_storage_hours: 48
+waste:
+  provider: Metropolitan Materials Loop
+  streams:
+  - organics
+  - metals
+  - polymers
+  - hazardous
+  - construction
+  - general residual
+communications:
+  provider_model: multiple interoperable carriers over civic fiber/mesh backbones
+  personal_latency_local_ms:
+  - 2
+  - 20
+  regional_ms:
+  - 10
+  - 45
+  outage_mode: local mesh and emergency text service persist where powered
+computing_ai:
+  personal_ai: narrow assistants common; high-autonomy systems are logged and bounded by law in safety-critical
+    roles
+  edge_compute: buildings/transit/utilities maintain local control even when cloud links fail
+  privacy: personal agents cannot lawfully inspect unrelated private records without authorization
+  cybersecurity: credentials use hardware-backed identity plus revocation; no system is automatically unhackable

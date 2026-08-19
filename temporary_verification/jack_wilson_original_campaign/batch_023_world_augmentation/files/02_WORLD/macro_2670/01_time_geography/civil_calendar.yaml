@@ -1,0 +1,32 @@
+schema_version: 1.0.0
+calendar_id: CALENDAR_COMMON_EARTH_2670
+authority: ORIGINAL_CAMPAIGN_CANON
+system: Common Earth Calendar
+basis: Gregorian-derived civil calendar retained for interregional compatibility
+working_year_ce: 2670
+start_absolute_datetime: '2670-08-31T06:00:00-04:00'
+transport_anchor_t0_absolute_datetime: '2670-09-14T06:00:00-04:00'
+relative_mapping:
+  RELATIVE:T_MINUS_14_DAYS: '2670-08-31T06:00:00-04:00'
+  RELATIVE:T0: '2670-09-14T06:00:00-04:00'
+local_time_zone:
+  id: TZ_ASTERLINE_CIVIC
+  display_name: Asterline Civic Time
+  utc_offset: -04:00
+  daylight_shift: not used; infrastructure time remains fixed-offset year-round
+week:
+  days: 7
+  day_names:
+  - Monday
+  - Tuesday
+  - Wednesday
+  - Thursday
+  - Friday
+  - Saturday
+  - Sunday
+month_day_policy: Exact calendar date is now original campaign canon; any future source-derived calendar is separate
+  evidence, not an automatic overwrite.
+timekeeping:
+  public_standard: 24-hour local civil time
+  network_standard: UTC plus signed local offset
+  offline_fallback: tamper-evident local clocks in civic infrastructure

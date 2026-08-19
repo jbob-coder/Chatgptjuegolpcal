@@ -1,0 +1,65 @@
+schema_version: 1.0.0
+index_id: INDEX_WORLD_MACRO_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+working_year_ce: 2670
+purpose: Route agents/gameplay to the minimum world module needed for a decision.
+critical_always_available:
+- 01_time_geography/civil_calendar.yaml
+- 01_time_geography/geography_regions.yaml
+modules:
+  time_geography:
+    context: 01_time_geography/CONTEXT.md
+    files:
+    - 01_time_geography/civil_calendar.yaml
+    - 01_time_geography/geography_regions.yaml
+    - 01_time_geography/climate_weather.yaml
+    - 01_time_geography/architecture_urbanism.yaml
+    - 01_time_geography/routes_distances.yaml
+  governance_law:
+    context: 02_governance_law/CONTEXT.md
+    files:
+    - 02_governance_law/political_structure.yaml
+    - 02_governance_law/civil_law_security.yaml
+    - 02_governance_law/military_civil_defense.yaml
+  economy_life:
+    context: 03_economy_life/CONTEXT.md
+    files:
+    - 03_economy_life/economy_currency_labor_welfare.yaml
+    - 03_economy_life/housing_food_water_clothing.yaml
+    - 03_economy_life/market_supply_crafting.yaml
+  services_infrastructure:
+    context: 04_services_infrastructure/CONTEXT.md
+    files:
+    - 04_services_infrastructure/utilities_communications_computing.yaml
+    - 04_services_infrastructure/transport_academy_corridor.yaml
+    - 04_services_infrastructure/healthcare_public_health.yaml
+  culture_education_media:
+    context: 05_culture_education_media/CONTEXT.md
+    files:
+    - 05_culture_education_media/culture_language_religion_holidays.yaml
+    - 05_culture_education_media/education_system.yaml
+    - 05_culture_education_media/media_entertainment.yaml
+  technology_abilities_space:
+    context: 06_technology_abilities_space/CONTEXT.md
+    files:
+    - 06_technology_abilities_space/technology_baseline.yaml
+    - 06_technology_abilities_space/ability_society.yaml
+    - 06_technology_abilities_space/portal_space_offworld.yaml
+  ecology_history:
+    context: 07_ecology_history/CONTEXT.md
+    files:
+    - 07_ecology_history/ecology_biosphere.yaml
+    - 07_ecology_history/world_history_2670.yaml
+  institutions:
+    context: 08_institutions/CONTEXT.md
+    files:
+    - 08_institutions/factions_institutions.yaml
+    - 08_institutions/emergency_disaster_response.yaml
+  simulation:
+    context: 09_world_simulation/CONTEXT.md
+    files:
+    - 09_world_simulation/macro_simulation_rules.yaml
+    - 09_world_simulation/resource_flows.yaml
+    - 09_world_simulation/generation_boundaries.yaml
+source_reading: PAUSED
+updated_at: '2026-08-19T01:05:00-04:00'

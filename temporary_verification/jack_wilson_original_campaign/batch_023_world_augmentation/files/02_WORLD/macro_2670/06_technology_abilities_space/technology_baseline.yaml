@@ -1,0 +1,35 @@
+schema_version: 1.0.0
+technology_id: TECH_CIVILIAN_2670_V2
+authority: ORIGINAL_CAMPAIGN_CANON
+principle: Mature technology is widespread but bounded by energy, materials, maintenance, law, latency and human
+  institutions.
+common:
+- high-density batteries
+- compact fusion-backed grid power
+- advanced composites
+- autonomous transport
+- dense sensor networks
+- AR/VR
+- medical regeneration support
+- general-purpose fabrication
+- service robots
+- high-quality translation
+uncommon_or_controlled:
+- military-grade exosystems
+- high-energy directed weapons
+- restricted biofabrication
+- strategic portal hardware
+- orbital propulsion systems
+- advanced counter-ability systems
+not_available_as_magic:
+- perfect surveillance
+- free matter creation
+- instant universal healing
+- true omniscient AI
+- unlimited energy
+- unbounded teleportation
+- automatic hacking
+- perfect lie detection
+maintenance: Every complex system has diagnostics, spare parts, service life and failure modes.
+human_interface: touch/voice/gesture/AR are common, but physical controls and manual isolation remain mandatory
+  in many safety-critical systems.

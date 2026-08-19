@@ -1,0 +1,42 @@
+schema_version: 1.0.0
+supply_id: SUPPLY_ASTERLINE_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+tiers:
+- tier: neighborhood
+  cycle_hours:
+  - 12
+  - 36
+  goods: food, hygiene, basic clothing, small parts, household consumables
+- tier: metro_distribution
+  cycle_hours:
+  - 4
+  - 24
+  goods: bulk food, medical consumables, technical parts, construction materials
+- tier: regional_freight
+  cycle_hours:
+  - 12
+  - 72
+  goods: industrial machinery, specialty medicine, rare electronics, academy/defense supplies
+- tier: offworld_import
+  cycle_days:
+  - 3
+  - 40
+  goods: specialty orbital materials, vacuum-rated components, rare catalysts
+finite_stock_rule: Shops carry explicit finite stock. Restock requires actual upstream inventory, route capacity
+  and budget.
+crafting:
+  civilian: repair, fabrication and 3D/field printing are common but constrained by feedstock, licenses and machine
+    capability
+  controlled:
+  - weapons components
+  - high-energy cells
+  - restricted medical agents
+  - security credential hardware
+  quality: fabrication skill and machine calibration affect reliability; recipes are not magic
+shortage_behavior:
+- price rise within anti-gouging bounds
+- rationing of essentials
+- substitution
+- delayed nonessential procurement
+- public emergency release
+waste_loop: high-value materials are reclaimed through municipal separation and industrial recycling contracts.

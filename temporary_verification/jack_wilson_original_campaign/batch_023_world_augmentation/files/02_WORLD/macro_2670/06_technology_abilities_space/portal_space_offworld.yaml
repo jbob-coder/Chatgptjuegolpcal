@@ -1,0 +1,27 @@
+schema_version: 1.0.0
+space_id: SPACE_TERRAN_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+earth_orbit:
+  settlements: permanent industrial, research and residential habitats
+  population_scale: millions across many stations, not a single city
+  access: credentialed civilian travel is routine for work/wealthy tourism but not daily commuting for most people
+lunar: industrial/scientific settlements and resource processing; governance under multiple Terran Compact members
+mars: permanent but smaller settlements with high logistics dependence
+deep_space: mining, research and defense outposts; travel remains expensive and time-consuming
+portal_network:
+  status: strategic, scarce, infrastructure-heavy
+  use: interplanetary/high-value logistics where established; not a personal teleport spell
+  constraints:
+  - fixed endpoints
+  - large power demand
+  - scheduling
+  - security clearance
+  - mass/energy throughput limits
+  - maintenance downtime
+  civilian_start_access: none by default
+orbital_link_near_start:
+  id: HUB_ATLANTIC_ORBITAL_LINK_01
+  distance_road_km: 188
+  function: regional passenger/freight interface to orbital launch/elevator infrastructure
+sol_history_fit: Tomas Vale's orbital salvage/maintenance contracts and Sol's low-orbit transfer visit are compatible
+  with this network.

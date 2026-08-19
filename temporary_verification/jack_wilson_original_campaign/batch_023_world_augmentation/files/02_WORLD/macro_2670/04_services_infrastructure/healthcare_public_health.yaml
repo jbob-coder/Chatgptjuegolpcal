@@ -1,0 +1,31 @@
+schema_version: 1.0.0
+health_id: HEALTH_ASTERLINE_NETWORK_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+tiers:
+- tier: 0
+  name: self/community care
+  capability: first aid, OTC medication, monitoring
+- tier: 1
+  name: neighborhood clinic
+  capability: triage, minor injury/illness, diagnostics, stabilization
+- tier: 2
+  name: district medical center
+  capability: imaging, surgery, inpatient care, specialist consultation
+  distance_from_start_km: 5.9
+- tier: 3
+  name: regional trauma/reconstruction center
+  capability: major trauma, advanced regenerative care, rare disease, ability-related injury
+  distance_from_start_km: 17.6
+public_health:
+- water/air monitoring
+- vaccination
+- outbreak tracing with privacy limits
+- sanitation inspection
+- occupational safety
+- mental-health crisis response
+regeneration_limit: 2670 medicine improves survival and tissue repair but does not make death or severe injury trivial;
+  brain destruction, massive systemic damage and time-to-treatment still matter.
+payment: emergency stabilization cannot be refused for inability to pay; nonemergency care uses public coverage
+  plus supplemental plans.
+ability_medicine: ability-related injuries are documented by mechanism; clinicians do not assume every unusual symptom
+  is ability-caused.

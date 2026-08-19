@@ -1,0 +1,24 @@
+schema_version: 1.0.0
+media_id: MEDIA_ASTERLINE_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+channels:
+- public civic bulletin network
+- commercial stream networks
+- creator cooperatives
+- local mesh channels
+- immersive VR venues
+- live event feeds
+ownership: mix of cooperatives, private firms and public-service channels; no single global media owner
+authentication: news outlets can sign source packets; forged or selectively edited media still exists
+entertainment:
+- immersive dramas
+- competitive simulations
+- sports
+- music
+- retro flat-screen/physical media subcultures
+- public VR commons
+advertising: targeted commercial messages exist but public-service spaces restrict behavioral profiling
+rumor_model: local rumor can move faster than verified public notices; character knowledge system must track who
+  actually received what.
+censorship: ordinary political criticism is legal in Asterline; specific military operational/security data can
+  be restricted under reviewable rules.

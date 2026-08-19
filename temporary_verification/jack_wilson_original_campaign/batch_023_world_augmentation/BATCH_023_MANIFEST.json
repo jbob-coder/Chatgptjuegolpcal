@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.1.0",
+  "batch_id": "BATCH_023",
+  "status": "CANDIDATE_VALIDATED",
+  "created_at": "2026-08-19T01:05:00-04:00",
+  "payload_file_count": 57,
+  "payload_total_bytes": 103923,
+  "integrity": {
+    "checksums_file": "BATCH_023_checksums.sha256",
+    "algorithm": "SHA-256",
+    "coverage": "every file under files/",
+    "entry_format": "<sha256><two spaces>files/<relative_path>"
+  },
+  "promotion": {
+    "replace_existing": [
+      "00_BOOTSTRAP/220_ACTIVE_LOAD_ORDER_V2.json",
+      "10_SYSTEMS/227_STABLE_ID_REGISTRY_V2.json",
+      "10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json",
+      "10_SYSTEMS/254_WORLD_RECORD_COMPLETENESS_ENGINE_V1.json",
+      "12_VALIDATION/226_READINESS_METRICS_V2.json",
+      "12_VALIDATION/255_GLOBAL_RECORD_COVERAGE_MATRIX_V1.json",
+      "12_VALIDATION/256_GLOBAL_GAP_LEDGER_V1.json",
+      "_shared/WORLD_RECORD_CATALOG.md"
+    ],
+    "create_tree_roots": [
+      "02_WORLD/macro_2670/",
+      "10_SYSTEMS/stable_ids/"
+    ],
+    "validation_new": [
+      "12_VALIDATION/313_WORLD_AUGMENTATION_BACKLOG_V1.yaml",
+      "12_VALIDATION/314_BATCH_023_WORLD_AUGMENTATION_READINESS.yaml"
+    ],
+    "history_only": [
+      "BATCH_023_AUTHORIZATION.md",
+      "BATCH_023_SCOPE.md",
+      "BATCH_023_SUMMARY.md",
+      "BATCH_023_VALIDATION.md"
+    ]
+  },
+  "validation": {
+    "overall": "PASS",
+    "parse": {
+      "yaml": 34,
+      "json": 7,
+      "markdown": 16,
+      "errors": []
+    },
+    "stable_ids": {
+      "published_count": 633,
+      "duplicates": 0,
+      "undeclared_prefixes": 0,
+      "layout": "router_plus_4_shards"
+    },
+    "coverage": {
+      "tracked_domains": 40,
+      "ready": 40
+    },
+    "operational_world_gap_count": 0,
+    "non_world_exceptions": {
+      "paused_source": 2,
+      "player_private": 1
+    },
+    "save_000002": {
+      "bytes": 1965,
+      "sha256": "23bb627322c8f73ce1388adb4968fac952ccbc56591cb6701f5197b0668d1aa7",
+      "mutation": false
+    },
+    "raw_source_reading": false,
+    "world_time_advance": false,
+    "real_money_action": false
+  },
+  "authority": "USER_DIRECTIVE_PLUS_ORIGINAL_CAMPAIGN_CANON",
+  "note": "The checksum sidecar is the authoritative per-file byte/hash manifest; this JSON records promotion semantics and validation summary."
+}

@@ -1,0 +1,36 @@
+schema_version: 1.0.0
+architecture_id: ARCH_ASTERLINE_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+principles:
+- repairable modular construction
+- flood resilience
+- service-access visibility
+- low-energy envelopes
+- mixed human/automation maintenance
+- reuse of prewar structural shells when safe
+common_materials:
+- fiber-reinforced geopolymer concrete
+- recycled alloy structural members
+- laminated smart glass with mechanical fallback
+- ceramic-composite facade panels
+- self-sealing utility membranes
+- recycled polymer interior panels
+residential:
+  typical_height_storeys:
+  - 4
+  - 18
+  typical_unit_m2:
+  - 42
+  - 105
+  service_spine: accessible vertical wet/electrical/data chase every stack
+  rooftops: solar/thermal, rain capture, gardens, drone-restricted maintenance zones
+street_design:
+  pedestrian_priority: high in dense civic zones
+  service_lanes: separate where possible
+  autonomous_vehicle_speed_kph:
+  - 20
+  - 45
+  stormwater: visible channels, permeable paving, buried overflow trunks
+  accessibility: step-free primary paths required in public construction
+visual_theme: 'functional post-war urbanism: durable, repaired, layered, technologically mature but not pristine
+  or magical'

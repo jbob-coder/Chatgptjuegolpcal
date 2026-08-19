@@ -1,0 +1,44 @@
+schema_version: 1.0.0
+life_id: LIFE_ASTERLINE_2670_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+housing:
+  tenure_mix_percent:
+    cooperative_rental: 38
+    private_rental: 27
+    owner_equity: 18
+    public_service_housing: 11
+    temporary_or_other: 6
+  typical_features:
+  - filtered ventilation
+  - smart metering with manual shutoff
+  - shared laundry or compact in-unit systems
+  - secure package lockers
+  - emergency battery lighting
+food_water:
+  water: municipal reclaimed-and-treated network with potable final treatment; emergency stored reserve 72h recommended
+  food_sources:
+  - regional vertical farms
+  - peri-urban greenhouses
+  - fermentation proteins
+  - conventional livestock in reduced share
+  - ocean/aquaculture products
+  - long-life reserve stock
+  ordinary_meals: recognizably human cooking; advanced production changes sourcing more than cuisine
+clothing:
+  baseline: layered durable everyday clothing; machine washable; repair patches common
+  materials:
+  - recycled cellulose blends
+  - engineered wool-like fibers
+  - durable synthetics
+  - hazard-specific smart fabrics
+  fashion: regional and personal variation; technology is subtle in civilian wear rather than glowing sci-fi costume
+    by default
+household_technology:
+- wall/portable displays
+- local environmental controls
+- service diagnostic ports
+- compact food preparation appliances
+- personal communicator
+- repairable household robotics in wealthier homes
+social_reality: High technology does not eliminate rent pressure, family obligations, maintenance failures, queues,
+  bureaucracy or unequal access.

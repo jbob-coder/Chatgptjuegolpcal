@@ -1,0 +1,38 @@
+schema_version: 1.0.0
+report_id: REPORT_BATCH_023_WORLD_AUGMENTATION_READINESS
+authority: AUDIT
+batch_id: BATCH_023
+status: CANDIDATE_VALIDATED_PENDING_GITHUB_AND_DRIVE_PROMOTION
+operational_world_structure:
+  tracked_domains: 40
+  ready_domains_after_promotion: 40
+  known_operational_world_gaps_after_promotion: 0
+  paused_source_questions: 2
+  player_private_questions: 1
+  local_instantiation_backlog: 12_VALIDATION/313_WORLD_AUGMENTATION_BACKLOG_V1.yaml
+time:
+  start_absolute: '2670-08-31T06:00:00-04:00'
+  transport_t0: '2670-09-14T06:00:00-04:00'
+  save_relative_mapping_preserved: true
+core_world_additions:
+- macro Earth geography and post-2026 political order
+- Asterline metro placement and climate
+- exact Ravelin academy route/distance/vehicle/time
+- governance and civil law
+- defense-readiness institution
+- credit issuer, wages, rents, welfare and labor
+- housing, food, water, clothing and crafting
+- regional utilities, communications and computing
+- healthcare/public health
+- culture, languages, holidays and media
+- education system without fabricating Jack's personal biography
+- technology ceiling, ability society and offworld/portal network
+- biosphere/ecology and original campaign history
+- factions/institutions, emergency response and macro simulation/resource flows
+save_000002:
+  expected_bytes: 1965
+  expected_sha256: 23bb627322c8f73ce1388adb4968fac952ccbc56591cb6701f5197b0668d1aa7
+  mutation_planned: false
+raw_source_reading: false
+world_time_advance: false
+real_money_action: false

@@ -1,0 +1,37 @@
+schema_version: 1.0.0
+transport_id: TRANSIT_ASTERLINE_RAVELIN_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+local:
+  modes:
+  - electric autonomous minibuses
+  - light rail
+  - pedestrian/cycle corridors
+  - service vans
+  - limited private vehicles
+  fare: low flat fare integrated with civic floor discounts
+  accessibility: step-free boarding standard
+regional:
+  modes:
+  - high-capacity electric rail
+  - guided express coach
+  - freight rail/road
+  - coastal ferry where available
+  academy_intake_vehicle:
+    id: VEH_RAVELIN_INTAKE_COACH_01
+    type: secured 42-seat electric regional coach
+    crew: 1 safety operator + 1 intake officer
+    range_km: 310
+    top_service_speed_kph: 95
+t0_trip:
+  route_id: ROUTE_START_TO_RAVELIN_ACADEMY
+  departure: '2670-09-14T06:00:00-04:00'
+  assembly: '2670-09-14T05:30:00-04:00'
+  road_km: 46.8
+  scheduled_duration_min: 71
+  rest_stops: 0
+  checkpoints: 1
+  destination: ACADEMY_RAVELIN_01
+traffic_simulation: Travel time varies by weather, incidents, security and maintenance. Vehicles cannot teleport
+  between nodes.
+portal_exclusion: Routine local civilian commuting does not use portals; portal infrastructure is strategic/long-distance
+  and separately controlled.
