@@ -1,0 +1,122 @@
+{
+  "ability_state": {
+    "reason": "Batch 022 does not create a new ability record; future assignment requires normal canon/balance validation.",
+    "steal_interaction": "If Sol later gains an ability, Jack's Steal resolves against him under the same contact/resistance/consequence rules as comparable characters.",
+    "system_ability": "NONE_ASSIGNED"
+  },
+  "age": 17,
+  "appearance": {
+    "build": "wiry, practical field-worker conditioning",
+    "distinctive_details": [
+      "thin pale scar across the right palm",
+      "usually keeps sleeves rolled to the forearms"
+    ],
+    "eyes": "amber-brown",
+    "hair": "black, short with an uneven self-trim",
+    "height_cm": 171,
+    "weight_kg": 60
+  },
+  "authority": "ORIGINAL_CAMPAIGN_CANON",
+  "background": {
+    "2670_era_fit": "comfortable with ordinary networked infrastructure and repair tools but not an elite technologist",
+    "education": "mixed civic technical coursework and supervised field apprenticeship",
+    "provenance": "ORIGINAL_CAMPAIGN_CANON",
+    "social_class": "working civilian household",
+    "summary": "A civilian maintenance apprentice and route-runner accustomed to carrying diagnostic parts, messages, and repair requests through dense urban infrastructure."
+  },
+  "control_owner": "ASSISTANT_DURING_PLAY",
+  "created_at": "2026-08-18T21:35:00-04:00",
+  "current_location_id": null,
+  "d20_stats": {
+    "Agility": 11,
+    "Endurance": 10,
+    "Intellect": 13,
+    "Luck": 9,
+    "Might": 9,
+    "Perception": 13,
+    "Presence": 10,
+    "Will": 12
+  },
+  "derived_baseline": {
+    "CM_max": 90,
+    "Carry_safe_kg": 17,
+    "Defense": 10,
+    "HP_max": 31,
+    "Initiative": 1
+  },
+  "fairness": {
+    "can_be_deceived": true,
+    "can_be_injured": true,
+    "can_disagree_with_player": true,
+    "can_fail": true,
+    "can_leave_party": true,
+    "mortality": "NORMAL",
+    "plot_armor": false,
+    "same_action_validation": true
+  },
+  "fears": [
+    "being trapped by obligations he never chose",
+    "causing preventable harm through overconfidence"
+  ],
+  "goals": [
+    "earn enough competence and independence to choose his own work",
+    "understand why infrastructure failures cluster in certain places",
+    "protect people he considers part of his circle without becoming anyone's obedient sidekick"
+  ],
+  "id": "CHAR_SOL_VALE",
+  "introduction_gate": {
+    "required": [
+      "explicit activation by a later approved batch or user instruction",
+      "placement in a READY location",
+      "valid introduction event appended to history",
+      "knowledge state initialized from what Sol can actually perceive/know",
+      "relationship initialized through encounter rather than prewritten loyalty"
+    ],
+    "save_000002_mutation": "FORBIDDEN_IN_BATCH_022"
+  },
+  "knowledge_boundary": {
+    "allowed_at_creation": [
+      "general 2670-era civilian norms encoded in active campaign canon",
+      "routine infrastructure knowledge appropriate to his background"
+    ],
+    "forbidden": [
+      "reference-novel plot/future",
+      "project files or hidden game state",
+      "Jack's private memories unless told in-world",
+      "unobserved player actions",
+      "GM-only information",
+      "private assistant reasoning"
+    ]
+  },
+  "level": 1,
+  "name": "Sol Vale",
+  "personality": {
+    "faults": [
+      "slow to trust sweeping claims",
+      "can over-investigate technical anomalies",
+      "dislikes being managed"
+    ],
+    "social_style": "plainspoken; prefers useful questions over ceremony",
+    "strengths": [
+      "notices physical inconsistencies",
+      "keeps commitments once made",
+      "can improvise with limited tools"
+    ],
+    "traits": [
+      "observant",
+      "dry-humored",
+      "practical",
+      "curious",
+      "risk-aware",
+      "stubborn when evidence contradicts authority"
+    ]
+  },
+  "relationship_state": {
+    "CHAR_JACK_WILSON": "NONE_UNMET"
+  },
+  "role": "ASSISTANT_CONTROLLED_PARTY_ELIGIBLE_NPC",
+  "schema_version": "1.0.0",
+  "species": "Baseline human",
+  "status": "DORMANT_UNINTRODUCED",
+  "world_privilege": "NONE"
+}
