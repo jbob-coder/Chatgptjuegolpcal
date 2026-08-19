@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "assignment_id": "ASSIGN_SOL_PRIMARY_ABILITY_V1",
+  "status": "STAGE2_CANDIDATE",
+  "authority_on_promotion": "USER_DIRECTIVE_PLUS_ORIGINAL_CAMPAIGN_CANON",
+  "character_id": "CHAR_SOL_VALE",
+  "identity_binding": "Sol Vale is the assistant's in-world character embodiment; this does not grant meta or GM privileges.",
+  "selection_method": "AUDITED_UNIFORM_RANDOM_FROM_300_NO_REROLL",
+  "selection_receipt": "ability_library_300/RANDOM_SELECTION_RECEIPT_SOL_ABILITY.json",
+  "ability_library": "ability_library_300/index.yaml",
+  "ability": {
+    "id": "ABILITY_ORIG_265",
+    "name": "False Knock",
+    "category": "signal_stealth",
+    "rarity": "UNCOMMON",
+    "provenance": "ORIGINAL_CAMPAIGN_CANON",
+    "era_theme": "2670 CE post-war militarized science-fantasy / spacefaring ability society",
+    "level_1_usable": true,
+    "summary": "Project a brief knock/tap sound from a visible nearby surface.",
+    "activation": {
+      "mode": "intent + CM expenditure",
+      "minimum_control": "conscious unless a listed defensive trigger says automatic",
+      "line_of_effect": "required for remote effects unless effect is self/touch",
+      "interruption": "loss of consciousness ends concentration effects"
+    },
+    "resource": {
+      "resource": "CM",
+      "level_1_base_cost": 14,
+      "sustain_cost_per_10s": 3,
+      "overdraw": "FORBIDDEN",
+      "cost_scaling": "Stronger area/range/output settings cost additional CM; no free maximum-output use."
+    },
+    "range_m_level_1": 6,
+    "targeting": "SELF_OR_VALID_TARGET_BY_EFFECT",
+    "duration_level_1": "up to 20s concentration",
+    "cooldown_s_level_1": 10,
+    "scaling": {
+      "levels": "1-20",
+      "rule": "Increase one of output/range/duration/efficiency at a time; typical effective gain ~6-10% per level with tier breakpoints at 5/10/15/20.",
+      "no_unbounded_growth": true
+    },
+    "resistance": "Opposed by Perception, sensors, environmental conditions, and prior alertness.",
+    "limitations": [
+      "Cannot create matter, knowledge, identity, memories, or legal authority from nothing.",
+      "Cannot bypass the campaign action validator, injury system, or location readiness gates.",
+      "Output is finite and constrained by CM, range, physical medium, and the specific effect."
+    ],
+    "counters": [
+      "multi-modal sensors",
+      "close inspection",
+      "active illumination",
+      "prior tracking"
+    ],
+    "failure_mode": "On invalid target/geometry the effect fails safely when possible; on contested failure CM is still partially spent according to the active balance resolver.",
+    "legal_social_risk": "MODERATE_IF_USED_TO_EVADE_LAWFUL_SECURITY",
+    "visible_signature": "localized acoustic/optical/thermal distortion appropriate to effect",
+    "technology_interaction": "May interact with 2670-era devices only through the physical/signal mechanism described; it does not grant hacking, credentials, or omniscient network access.",
+    "balance_tags": [
+      "uncommon",
+      "signal_stealth",
+      "level1_playable",
+      "finite_cm"
+    ]
+  },
+  "activation_state": "ASSIGNED_DORMANT_UNTIL_SOL_INTRODUCED",
+  "notes": [
+    "The random result is accepted even though it is not optimized for Sol's maintenance-apprentice background.",
+    "Ability remains subject to ordinary CM cost, action validation, law, injury, counters, and progression.",
+    "Jack's Steal can interact with this ability under the same rules as other stealable living-bearer abilities once Sol exists in-world."
+  ]
+}
