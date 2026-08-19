@@ -139,7 +139,10 @@
     "soul_structured": "sol_vale/SOL_SOUL_AND_IDENTITY.yaml",
     "soul_profile": "sol_vale/SOL_SOUL_PROFILE.md",
     "biography": "sol_vale/SOL_LIFE_HISTORY.yaml",
-    "memories": "sol_vale/SOL_MEMORY_LEDGER.yaml",
-    "dynamics": "sol_vale/SOL_CHARACTER_DYNAMICS.yaml"
+    "memory_index": "sol_vale/SOL_MEMORY_INDEX.yaml",
+    "relationships": "sol_vale/SOL_RELATIONSHIPS_AND_SUPPORTING_CAST.yaml",
+    "profile": "sol_vale/SOL_SKILLS_HABITS_PREFERENCES.yaml",
+    "moral_private_voice": "sol_vale/SOL_MORAL_SECRETS_VOICE.yaml",
+    "offscreen_ability_recall": "sol_vale/SOL_OFFSCREEN_ABILITY_RECALL.yaml"
   }
 }
