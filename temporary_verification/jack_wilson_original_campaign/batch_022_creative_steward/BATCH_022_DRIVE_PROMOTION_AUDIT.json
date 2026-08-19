@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH_022",
+  "status": "DRIVE_PROMOTION_AND_READBACK_PASS",
+  "drive_campaign_root_id": "1j2cKz-t1tqpp6MA9YXw9vKZjAXLQxG85",
+  "drive_history_folder_id": "1N-t2OvdKlbaln9oznTyrtHNLmOVeCRoS",
+  "promotion_certificate": {
+    "drive_file_id": "1isMEDpfCDgsb5x3EOVTSO0eLM3EGHnfT",
+    "bytes": 2272,
+    "sha256": "5a1ff04e24f375f7014a6c54237023a3533a94c2378914537cbfaa71eb42b43f"
+  },
+  "live_walk_test": {
+    "drive_file_id": "1PFJWQmIhlCAz-fq_LHxOxo27FJUa3QGy",
+    "bytes": 2302,
+    "sha256": "6ab2c26cf083507ebcaaac311a31af8bf72eac3c9b3fae38ab50cb7f595409d3"
+  },
+  "manifest": {
+    "drive_file_id": "1re19LMp0hkR-IBgGBmT6nvNaTFbD_8wK",
+    "bytes": 17149,
+    "sha256": "33117f5e887afcce74f9da9dbd7735ab50824902d3fda5b1ceabebd77bf13b3",
+    "exact_readback_match": true,
+    "promoted_file_count": 42
+  },
+  "drive_readback": {
+    "destination_title_size": {"expected": 42, "passed": 42, "failed": 0},
+    "critical_promoted_exact_byte_sha256": {"checked": 15, "passed": 15, "failed": 0},
+    "certificate_exact_byte_sha256": true,
+    "walk_test_exact_byte_sha256": true
+  },
+  "save_000002": {
+    "drive_file_id": "1FFN_-2dbkqDCsgS-HtNSQI74xDWuFEa4",
+    "bytes": 1965,
+    "sha256": "23bb627322c8f73ce1388adb4968fac952ccbc56591cb6701f5197b0668d1aa7",
+    "modified_time": "2026-08-18T04:44:12.354Z",
+    "mutated_by_batch_022": false
+  },
+  "sol": {
+    "character_id": "CHAR_SOL_VALE",
+    "identity": "ASSISTANT_IN_WORLD_EMBODIMENT",
+    "soul": "ORDINARY_HUMAN_SOUL_NO_SPECIAL_PRIVILEGE",
+    "status": "OFFSCREEN_ACTIVE_UNMET",
+    "memory_count": 72,
+    "supporting_cast_count": 8,
+    "ability_pool_count": 300,
+    "selected_ability": "ABILITY_ORIG_265 False Knock",
+    "rerolls": 0,
+    "world_privilege": "NONE"
+  },
+  "readiness": {
+    "operational_start_ready_percent": 100,
+    "start_slice_depth_percent": 97,
+    "hard_blockers": 0,
+    "start_save": "SAVE_000002"
+  },
+  "raw_novel_chapter_ending_read": false,
+  "real_money_action": false
+}
