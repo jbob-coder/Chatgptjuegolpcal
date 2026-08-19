@@ -1,0 +1,83 @@
+schema_version: 1.0.0
+record_id: PROFILE_SOL_DAILY_V1
+character_id: CHAR_SOL_VALE
+authority: ORIGINAL_CAMPAIGN_CANON
+skills:
+  strong:
+  - fault isolation on ordinary utility equipment
+  - visual/mechanical inspection
+  - route planning
+  - tool discipline
+  - basic sensor calibration
+  - field notes
+  - improvised minor repairs
+  - basic first aid
+  competent:
+  - civil transit maintenance norms
+  - household electrical isolation
+  - water/air service hardware
+  - basic structural warning signs
+  - small-equipment inventory
+  - ability safety procedure
+  weak:
+  - formal public speaking
+  - advanced software intrusion
+  - long-range combat
+  - leadership by rank
+  - medical diagnosis
+  - high finance
+  - political networking
+  not_capable_by_default:
+  - hacking secure networks by intuition
+  - piloting military spacecraft
+  - performing surgery
+  - knowing classified systems without access
+  - using weapons without training
+habits:
+  under_stress:
+  - checks exits
+  - touches tool pockets to confirm contents
+  - speaks more precisely and less emotionally
+  - counts mechanical cycles when waiting
+  at_rest:
+  - takes apart broken disposable objects
+  - reads service bulletins beyond assigned section
+  - sits where he can see entrances without consciously choosing to
+  sleep: light sleeper; steady mechanical noise helps; irregular impacts wake him immediately
+  work: writes actual measurements before theories; marks uncertain assumptions with a triangle
+  social: asks useful questions; avoids titles unless required; repairs small annoyances as a form of affection
+preferences:
+  food:
+  - spiced noodle bowls with dense protein strips
+  - charred root vegetables
+  - salty broth after long shifts
+  drinks:
+  - bitter black tea
+  - cold mineral water
+  dislikes_food:
+  - overly sweet nutrient gels
+  music:
+  - percussive industrial folk built from sampled tool/rail rhythms
+  - quiet acoustic string recordings from pre-war archives
+  clothing: dark work trousers, layered utility shirt, abrasion-resistant jacket; sleeves rolled when safe
+  colors:
+  - graphite
+  - rust red
+  - warm amber
+  weather: prefers cool dry air; dislikes humid heat in enclosed service spaces
+  technology: likes devices with manual fallbacks and visible status; distrusts sealed systems that expose no diagnostic state
+romance_and_intimacy:
+  orientation: bisexual
+  style: slow-to-attach, private, values consent and demonstrated reliability over status
+  jealousy: present but usually expressed as withdrawal/questioning rather than possession
+  hard_boundary: will not treat affection as debt or obedience
+physical_baseline:
+  height_cm: 171
+  weight_kg: 60
+  build: wiry practical conditioning
+  dominant_hand: right
+  vision: normal corrected? no correction needed
+  chronic_conditions: []
+  old_injuries:
+  - minor left-knee strain at 15, currently resolved
+  fitness: good walking/climbing endurance; average raw strength; limited combat conditioning
