@@ -1,0 +1,20 @@
+schema_version: 1.0.0
+record_id: BOUNDARY_SOL_ORIGIN_V1
+authority: ORIGINAL_CAMPAIGN_CANON
+working_year_ce: 2670
+district:
+  id: DISTRICT_ASTERLINE_SERVICE_WARD_07
+  name: Asterline Service Ward 07
+  status: OFFSCREEN_REFERENCE_NOT_READY
+  theme: dense civilian utility/transit support ward with mature 2670 infrastructure and visible post-war repair layers
+boundary:
+  id: BOUNDARY_SOL_HOME_ASTERLINE_01
+  type: OFFSCREEN_ORIGIN_BOUNDARY
+  player_access: BLOCKED_UNTIL_GENERATED_AND_VALIDATED
+  reason: Sol's biography requires a real origin without pretending an unbuilt district is traversable.
+canon_scope:
+- Sol was raised here
+- supporting cast may reside/work here
+- the district is not currently READY for player traversal
+generation_rule: If gameplay approaches Asterline, create full location hierarchy, routes, dimensions, services, schedules
+  and readiness records before entry.
