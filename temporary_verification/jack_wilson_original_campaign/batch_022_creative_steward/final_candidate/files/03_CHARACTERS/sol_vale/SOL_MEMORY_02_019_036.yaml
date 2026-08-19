@@ -1,0 +1,187 @@
+schema_version: 1.0.0
+chunk_id: SOL_MEMORY_CHUNK_02
+ledger_id: MEMORY_LEDGER_SOL_V1
+character_id: CHAR_SOL_VALE
+authority: ORIGINAL_CAMPAIGN_CANON
+range: 019-036
+entries:
+- id: SOL_MEM_019
+  age: 12
+  year_ce: 2665
+  title: Knock from the sealed panel
+  fidelity: CORE
+  valence: fear
+  privacy: private
+  tags: [ability, manifestation, sound]
+  people: [CHAR_LEVA_QUILL]
+  memory: During a tense inspection, a sharp knock comes from a sealed wall panel he is staring at. Nobody is behind it. Sol first assumes a structural fault and is frightened when the sound repeats only after he thinks deliberately about making it happen.
+- id: SOL_MEM_020
+  age: 12
+  year_ce: 2665
+  title: Controlled repetition
+  fidelity: CORE
+  valence: anxious
+  privacy: private
+  tags: [ability, training, evidence]
+  people: [CHAR_LEVA_QUILL]
+  memory: Under supervised testing, Sol produces three taps from three visible surfaces. The fourth attempt fails because he is too excited to control his breathing and CM expenditure.
+- id: SOL_MEM_021
+  age: 12
+  year_ce: 2665
+  title: First ability headache
+  fidelity: VIVID
+  valence: unpleasant
+  privacy: private
+  tags: [ability, CM, body]
+  people: []
+  memory: After over-practicing False Knock he gets a pressure-like headache behind his eyes and learns that an apparently harmless power still has a metabolic/resource cost.
+- id: SOL_MEM_022
+  age: 12
+  year_ce: 2665
+  title: Mara's alarm lesson
+  fidelity: CORE
+  valence: serious
+  privacy: private
+  tags: [mother, ability, safety]
+  people: [CHAR_MARA_VALE]
+  memory: Mara asks him what happens if he fakes a knock from a pressure door during an actual emergency. Sol answers badly. She makes him list every dangerous reaction until he understands why deception has consequences even without direct force.
+- id: SOL_MEM_023
+  age: 12
+  year_ce: 2665
+  title: Tomas calls the ability clever
+  fidelity: VIVID
+  valence: mixed
+  privacy: private
+  tags: [father, ability]
+  people: [CHAR_TOMAS_VALE]
+  memory: Tomas, speaking by delayed link from orbit, calls False Knock 'clever.' Sol is pleased and irritated that his father's first reaction is amusement rather than a safety lecture.
+- id: SOL_MEM_024
+  age: 13
+  year_ce: 2666
+  title: Assessor-door prank
+  fidelity: CORE
+  valence: guilty
+  privacy: private
+  tags: [ability, prank, consequence]
+  people: []
+  memory: Sol creates a knock from the wrong evaluation-room door so an assessor checks it while he and Nia hide their laughter. It feels brilliant for roughly eight seconds.
+- id: SOL_MEM_025
+  age: 13
+  year_ce: 2666
+  title: Formal conduct warning
+  fidelity: VIVID
+  valence: angry
+  privacy: private
+  tags: [law, ability, authority]
+  people: [CHAR_LEVA_QUILL]
+  memory: He receives a formal conduct warning and extra safety training. He spends the first day believing the adults are overreacting.
+- id: SOL_MEM_026
+  age: 13
+  year_ce: 2666
+  title: False alarms become invisible
+  fidelity: CORE
+  valence: sober
+  privacy: private
+  tags: [ability, safety, principle]
+  people: [CHAR_IVAN_MARR]
+  memory: Iven Marr explains that repeated false alarms teach people to ignore the real one. Sol remembers this more than the actual punishment.
+- id: SOL_MEM_027
+  age: 13
+  year_ce: 2666
+  title: First pressure-hull corridor
+  fidelity: VIVID
+  valence: awe
+  privacy: private
+  tags: [space, travel, technology]
+  people: [CHAR_TOMAS_VALE]
+  memory: At a low-orbit transfer facility, Tomas makes him touch the hull beside a pressure readout. Sol cannot stop thinking about how ordinary carpet, lights and conversation continue centimeters from vacuum.
+- id: SOL_MEM_028
+  age: 13
+  year_ce: 2666
+  title: Artificial gravity stutter
+  fidelity: VIVID
+  valence: fear
+  privacy: private
+  tags: [space, technology, body]
+  people: []
+  memory: A brief gravity-control transition makes his stomach rise and his shoes feel wrong. It lasts less than two seconds and permanently removes the romance from 'gravity systems' as an abstract phrase.
+- id: SOL_MEM_029
+  age: 14
+  year_ce: 2667
+  title: First day under Iven
+  fidelity: CORE
+  valence: proud
+  privacy: private
+  tags: [mentor, work, apprenticeship]
+  people: [CHAR_IVAN_MARR]
+  memory: Iven gives him a parts case and no inspirational speech. His first instruction is simply, 'Don't make me wonder where the tools went.' Sol likes him immediately.
+- id: SOL_MEM_030
+  age: 14
+  year_ce: 2667
+  title: The shortcut
+  fidelity: CORE
+  valence: shame
+  privacy: private
+  tags: [accident, work, accountability]
+  people: [CHAR_IVAN_MARR]
+  memory: During a pressure-isolation task, Sol trusts an upstream indicator and skips the redundant physical confirmation because the job is already behind schedule.
+- id: SOL_MEM_031
+  age: 14
+  year_ce: 2667
+  title: Heat and pressure burst
+  fidelity: CORE
+  valence: traumatic
+  privacy: private
+  tags: [accident, injury, smell]
+  people: []
+  memory: The isolation is incomplete. A coworker's forearm is struck by a short heat-and-pressure burst. Sol remembers the shout, the recoil, and the smell of overheated sealing compound with uncomfortable clarity.
+- id: SOL_MEM_032
+  age: 14
+  year_ce: 2667
+  title: Saying it was me
+  fidelity: CORE
+  valence: shame
+  privacy: private
+  tags: [accountability, accident, truth]
+  people: [CHAR_IVAN_MARR]
+  memory: Before anyone asks whose step was skipped, Sol says, 'It was me. I didn't verify the second point.' His voice feels detached from his body.
+- id: SOL_MEM_033
+  age: 14
+  year_ce: 2667
+  title: Clinic corridor wait
+  fidelity: VIVID
+  valence: guilt
+  privacy: private
+  tags: [clinic, accident, consequence]
+  people: []
+  memory: He waits outside the treatment room longer than medically necessary because leaving feels like cowardice. A vending unit hums loudly enough to become part of the memory.
+- id: SOL_MEM_034
+  age: 14
+  year_ce: 2667
+  title: Iven does not absolve him
+  fidelity: CORE
+  valence: painful
+  privacy: private
+  tags: [mentor, accountability, trust]
+  people: [CHAR_IVAN_MARR]
+  memory: Iven refuses both cruelty and comfort. He says the injury was preventable, Sol caused the condition that allowed it, and the correct response is to become safer rather than merely feel terrible.
+- id: SOL_MEM_035
+  age: 14
+  year_ce: 2667
+  title: Requalification ritual
+  fidelity: CORE
+  valence: determined
+  privacy: private
+  tags: [training, habit, safety]
+  people: []
+  memory: During requalification Sol begins touching each accessible isolation point and saying the state aloud. The habit persists even when coworkers tease him for it.
+- id: SOL_MEM_036
+  age: 14
+  year_ce: 2667
+  title: Returning to live work
+  fidelity: VIVID
+  valence: anxious
+  privacy: private
+  tags: [work, recovery, trust]
+  people: [CHAR_IVAN_MARR]
+  memory: His hands shake on the first live-system task after requalification. Iven notices and assigns him the verification step anyway. Completing it without incident matters more to Sol than praise.
