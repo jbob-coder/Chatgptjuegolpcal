@@ -1,0 +1,246 @@
+schema_version: 1.0.0
+chunk_id: SOL_MEMORY_CHUNK_03
+ledger_id: MEMORY_LEDGER_SOL_V1
+character_id: CHAR_SOL_VALE
+authority: ORIGINAL_CAMPAIGN_CANON
+range: 037-054
+entries:
+- id: SOL_MEM_037
+  age: 15
+  year_ce: 2668
+  title: Household scheduling
+  fidelity: CORE
+  valence: serious
+  privacy: private
+  tags:
+  - family
+  - economy
+  - transit
+  people: []
+  memory: For months he learns exactly how much a missed transit connection can damage groceries, therapy appointments and work
+    shifts. Logistics becomes personal.
+- id: SOL_MEM_038
+  age: 15
+  year_ce: 2668
+  title: Nia's confiscated tool
+  fidelity: VIVID
+  valence: conflicted
+  privacy: private
+  tags:
+  - friend
+  - rule
+  people:
+  - CHAR_NIA_ROOK
+  memory: Nia's personal diagnostic tool is confiscated after she violates a training-lab rule. Sol agrees the rule was real and
+    still thinks the seizure was petty.
+- id: SOL_MEM_039
+  age: 15
+  year_ce: 2668
+  title: False Knock diversion
+  fidelity: CORE
+  valence: guilt/excitement
+  privacy: private
+  tags:
+  - ability
+  - secret
+  people:
+  - CHAR_NIA_ROOK
+  memory: Sol produces two knocks from a side office door. The guard looks away long enough for Nia to retrieve the tool. His pulse
+    is loud enough he imagines everyone can hear it.
+- id: SOL_MEM_040
+  age: 15
+  year_ce: 2668
+  title: Afterward argument
+  fidelity: VIVID
+  valence: mixed
+  privacy: private
+  tags:
+  - friend
+  - secret
+  people:
+  - CHAR_NIA_ROOK
+  memory: Nia calls it elegant. Sol calls it stupid. They argue because both statements are true.
+- id: SOL_MEM_041
+  age: 15
+  year_ce: 2668
+  title: Kessa catches the lie
+  fidelity: VIVID
+  valence: amused/anxious
+  privacy: private
+  tags:
+  - sister
+  - secret
+  people:
+  - CHAR_KESSA_VALE
+  memory: Kessa asks why he is home late. Sol gives too detailed an answer. She does not expose him; she only says, 'Next time,
+    lie shorter.'
+- id: SOL_MEM_042
+  age: 16
+  year_ce: 2669
+  title: Flood alarm
+  fidelity: VIVID
+  valence: fear
+  privacy: private
+  tags:
+  - emergency
+  - trigger
+  people: []
+  memory: A leak alert arrives with conflicting electrical status. Sol notices water already tracking under a service door and
+    feels the old accident memory hit before he moves.
+- id: SOL_MEM_043
+  age: 16
+  year_ce: 2669
+  title: Double isolation
+  fidelity: CORE
+  valence: pride/fear
+  privacy: private
+  tags:
+  - rescue
+  - safety
+  people: []
+  memory: He checks the electrical branch twice, manually, then helps three residents through the corridor. His hands shake after
+    the last person is clear.
+- id: SOL_MEM_044
+  age: 16
+  year_ce: 2669
+  title: No public commendation
+  fidelity: VIVID
+  valence: relief
+  privacy: private
+  tags:
+  - identity
+  people: []
+  memory: The incident report lists him as assisting personnel. Sol is secretly relieved; he does not want the accident and the
+    rescue turned into a redemption story.
+- id: SOL_MEM_045
+  age: 16
+  year_ce: 2669
+  title: Failed certification
+  fidelity: CORE
+  valence: frustrated
+  privacy: private
+  tags:
+  - education
+  - failure
+  people: []
+  memory: He fails advanced instrumentation because he builds an elaborate signal hypothesis and misses a loose connector visible
+    by eye.
+- id: SOL_MEM_046
+  age: 16
+  year_ce: 2669
+  title: Jori's unbearable advice
+  fidelity: VIVID
+  valence: amused/annoyed
+  privacy: private
+  tags:
+  - rival
+  - learning
+  people:
+  - CHAR_JORI_SETH
+  memory: Jori says, 'Did you try looking at it?' Sol considers this infuriating because it is correct.
+- id: SOL_MEM_047
+  age: 16
+  year_ce: 2669
+  title: Analog night
+  fidelity: ORDINARY
+  valence: happy
+  privacy: private
+  tags:
+  - mentor
+  - analog
+  people:
+  - CHAR_ORAN_PELL
+  memory: Oran makes him diagnose three simulated faults using only local gauges and continuity tools. Sol enjoys it more than
+    he wants to admit.
+- id: SOL_MEM_048
+  age: 16
+  year_ce: 2669
+  title: Message from Tomas
+  fidelity: VIVID
+  valence: sad/angry
+  privacy: private
+  tags:
+  - father
+  people:
+  - CHAR_TOMAS_VALE
+  memory: Tomas says he may take another long contract. Sol types 'do what you want,' deletes it, and sends 'when would you leave?'
+    instead.
+- id: SOL_MEM_049
+  age: 17
+  year_ce: 2670
+  title: Second certification attempt
+  fidelity: CORE
+  valence: pride
+  privacy: private
+  tags:
+  - education
+  - method
+  people: []
+  memory: He begins every test station by naming one thing he can physically verify. The habit slows the first minute and saves
+    ten later.
+- id: SOL_MEM_050
+  age: 17
+  year_ce: 2670
+  title: Pass result
+  fidelity: VIVID
+  valence: pride
+  privacy: private
+  tags:
+  - education
+  people: []
+  memory: The passing score is not exceptional. Sol stares at it longer than he would have stared at a perfect score because it
+    means he corrected the actual weakness.
+- id: SOL_MEM_051
+  age: 17
+  year_ce: 2670
+  title: First paid independent route
+  fidelity: VIVID
+  valence: pride
+  privacy: private
+  tags:
+  - work
+  - independence
+  people: []
+  memory: Receives a route assignment without Iven physically shadowing him. Sol checks the authorization twice and then pretends
+    he did not.
+- id: SOL_MEM_052
+  age: 17
+  year_ce: 2670
+  title: False Knock precision drill
+  fidelity: PROCEDURAL
+  valence: focused
+  privacy: private
+  tags:
+  - ability
+  - training
+  people: []
+  memory: He can place a tap on a visible panel reliably enough to make someone turn their head, but not perfectly enough to trust
+    it as a formal signal under danger.
+- id: SOL_MEM_053
+  age: 17
+  year_ce: 2670
+  title: Market tea
+  fidelity: ORDINARY
+  valence: warm
+  privacy: private
+  tags:
+  - friend
+  - preference
+  people:
+  - CHAR_NIA_ROOK
+  memory: Nia buys him bitter tea after a shift and adds sweetener before he can stop her. He drinks it anyway and complains the
+    entire time.
+- id: SOL_MEM_054
+  age: 17
+  year_ce: 2670
+  title: Mara asleep at table
+  fidelity: VIVID
+  valence: affection
+  privacy: private
+  tags:
+  - mother
+  - home
+  people:
+  - CHAR_MARA_VALE
+  memory: He finds Mara asleep over a maintenance report and covers the screen so it stops flashing status light into her face.
+    He does not wake her.
