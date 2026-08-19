@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "START_READINESS_BATCH_022_REV_B",
+  "as_of": "2026-08-18T22:56:00-04:00",
+  "authoritative_base": "Drive through Batch 021",
+  "candidate_layer": "Batch 022 Stage 2 Revision B",
+  "status": "READY_TO_START_NOW_ON_BATCH_021; BATCH_022_FEATURES_PENDING_STAGE3",
+  "weighted_start_readiness_percent": 94,
+  "rubric": {
+    "sealed_save_and_pointer": {"weight": 20, "score": 20, "note": "SAVE_000002 preserved and playable."},
+    "start_location_and_traversal": {"weight": 20, "score": 20, "note": "18 READY locations and 5 explicit boundaries in immediate district."},
+    "core_rules_state_and_validation": {"weight": 20, "score": 19, "note": "Core systems, stable IDs, action validation, injuries, law/economy scaffolding and readiness gates exist."},
+    "civilian_simulation_and_services": {"weight": 15, "score": 14, "note": "72 residents, 28 households, schedules, utilities, clinic, security, transit, market, media and sanitation exist."},
+    "player_character_and_ability": {"weight": 10, "score": 10, "note": "Jack and Steal active."},
+    "assistant_character_and_ability": {"weight": 5, "score": 3, "note": "Sol + 300-ability pool fully built in GitHub Stage 2 candidate but not yet authoritative in Drive."},
+    "global_world_beyond_start_district": {"weight": 10, "score": 8, "note": "Boundary/gap system is explicit, but macro geography and broader world are intentionally incomplete."}
+  },
+  "blocking_for_start_game": [],
+  "not_blocking_but_unresolved": [
+    "exact civil month/day",
+    "exact macro geography/nation/city identity",
+    "broader academy transport/interior beyond boundary",
+    "source-exact macro law/government facts",
+    "world beyond immediate district"
+  ],
+  "recommendation": "The game can start now from SAVE_000002. Promote Batch 022 before Sol is introduced or his random ability is used."
+}
