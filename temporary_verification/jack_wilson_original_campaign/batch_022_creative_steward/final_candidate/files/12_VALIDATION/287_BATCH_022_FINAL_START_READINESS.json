@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.1.0",
+  "assessment_id": "START_READINESS_BATCH_022_FINAL",
+  "as_of": "2026-08-18T23:52:00-04:00",
+  "authoritative_base_before_promotion": "Drive through Batch 021",
+  "candidate": "Batch 022 final including Sol deep continuity + 300 ability library",
+  "start_game_operational_readiness_percent_after_successful_stage3": 100,
+  "global_world_completion_percent": "NOT_FINITE_OR_MEANINGFUL_FOR_OPEN_WORLD",
+  "start_slice_depth_estimate_percent": 97,
+  "blocking_for_start_game": [],
+  "remaining_non_blocking_boundaries": [
+    "exact civil month/day remains unspecified",
+    "macro geography beyond built/start-linked areas remains expansion-on-demand",
+    "academy transport/interior beyond current boundary must be generated before entry",
+    "world beyond immediate district remains intentionally generated/validated as approached"
+  ],
+  "sol": {
+    "identity": "assistant in-world embodiment",
+    "soul": "ordinary human soul; no meta privilege",
+    "biography": "complete pre-game baseline",
+    "memories": 72,
+    "supporting_cast": 8,
+    "ability_pool": 300,
+    "selected_ability": "ABILITY_ORIG_265 False Knock",
+    "selection": "audited no-reroll",
+    "direct_scene_status": "OFFSCREEN_ACTIVE_UNMET until introduction event"
+  },
+  "recommendation": "After Stage 3 Drive promotion and readback PASS, the game is fully ready to start from SAVE_000002. No further preparation is required before the user's first in-world action."
+}
