@@ -1,0 +1,244 @@
+schema_version: 1.0.0
+chunk_id: SOL_MEMORY_CHUNK_04
+ledger_id: MEMORY_LEDGER_SOL_V1
+character_id: CHAR_SOL_VALE
+authority: ORIGINAL_CAMPAIGN_CANON
+range: 055-072
+entries:
+- id: SOL_MEM_055
+  age: 17
+  year_ce: 2670
+  title: Kessa's spare tool
+  fidelity: CORE
+  valence: affection
+  privacy: private
+  tags:
+  - sister
+  - keepsake
+  people:
+  - CHAR_KESSA_VALE
+  memory: Kessa gives him an old insulated driver with a repaired grip and says it is because she bought a better one. Sol knows
+    that is only partly true.
+- id: SOL_MEM_056
+  age: 17
+  year_ce: 2670
+  title: Argument with Jori
+  fidelity: ORDINARY
+  valence: competitive
+  privacy: private
+  tags:
+  - rival
+  - work
+  people:
+  - CHAR_JORI_SETH
+  memory: They dispute a sensor drift reading for twenty minutes. Jori is right about the sensor; Sol is right about the mounting
+    vibration. Both are irritated by the shared answer.
+- id: SOL_MEM_057
+  age: 17
+  year_ce: 2670
+  title: Public security inspection
+  fidelity: ORDINARY
+  valence: amused
+  privacy: private
+  tags:
+  - law
+  - authority
+  people: []
+  memory: A security officer asks to inspect a work bag near a controlled service zone. Sol complies but asks for the exact access
+    basis first; the officer answers without conflict. Sol is mildly disappointed he had prepared an argument.
+- id: SOL_MEM_058
+  age: 17
+  year_ce: 2670
+  title: Maintenance memorial page
+  fidelity: VIVID
+  valence: somber
+  privacy: private
+  tags:
+  - death
+  - ritual
+  people: []
+  memory: He adds the name of an older worker who died in an unrelated accident to the private notebook page where he keeps names
+    of people whose work shaped his district. He does not consider it religious and never shows anyone.
+- id: SOL_MEM_059
+  age: 17
+  year_ce: 2670
+  title: Quiet orbital envy
+  fidelity: VIVID
+  valence: conflicted
+  privacy: private
+  tags:
+  - space
+  - future
+  people: []
+  memory: He watches a public feed of transfer traffic and feels a sharp desire to leave the district, immediately followed by
+    guilt for wanting what he resented in Tomas.
+- id: SOL_MEM_060
+  age: 17
+  year_ce: 2670
+  title: Tool pocket check
+  fidelity: PROCEDURAL
+  valence: neutral
+  privacy: private
+  tags:
+  - habit
+  - stress
+  people: []
+  memory: Before a difficult call he touches each tool pocket in the same order. He realizes halfway through that he is doing it
+    and does not stop.
+- id: SOL_MEM_061
+  age: 17
+  year_ce: 2670
+  title: Children at a broken dispenser
+  fidelity: ORDINARY
+  valence: warm
+  privacy: private
+  tags:
+  - community
+  - repair
+  people: []
+  memory: He repairs a public drink dispenser while three children offer mutually impossible diagnoses. He lets one press the reset
+    only after the physical fault is fixed.
+- id: SOL_MEM_062
+  age: 17
+  year_ce: 2670
+  title: False Knock and empty room
+  fidelity: VIVID
+  valence: uneasy
+  privacy: private
+  tags:
+  - ability
+  - superstition
+  people: []
+  memory: While testing the ability alone, he knocks on the far wall and experiences an irrational moment of unease waiting to
+    see if something answers.
+- id: SOL_MEM_063
+  age: 17
+  year_ce: 2670
+  title: No answer
+  fidelity: VIVID
+  valence: amused
+  privacy: private
+  tags:
+  - ability
+  - habit
+  people: []
+  memory: Nothing answers. He laughs at himself, then writes down the echo delay anyway.
+- id: SOL_MEM_064
+  age: 17
+  year_ce: 2670
+  title: Current self-assessment
+  fidelity: CORE
+  valence: reflective
+  privacy: private
+  tags:
+  - identity
+  people: []
+  memory: Sol believes he is good at finding physical inconsistencies, average at reading people, poor at accepting authority without
+    reasons and better at bravery after the first ten seconds than during them.
+- id: SOL_MEM_065
+  age: 17
+  year_ce: 2670
+  title: What he wants from friendship
+  fidelity: VIVID
+  valence: vulnerable
+  privacy: private
+  tags:
+  - identity
+  - attachment
+  people: []
+  memory: He writes privately that he wants people who do not require constant usefulness from him. He immediately crosses the
+    sentence out because it feels embarrassingly sincere.
+- id: SOL_MEM_066
+  age: 17
+  year_ce: 2670
+  title: What he fears about power
+  fidelity: CORE
+  valence: serious
+  privacy: private
+  tags:
+  - ability
+  - ethics
+  people: []
+  memory: He dislikes abilities that remove another person's choice more than abilities that simply break things. A broken object
+    can be repaired; violated consent is harder to restore.
+- id: SOL_MEM_067
+  age: 17
+  year_ce: 2670
+  title: Why he still carries paper
+  fidelity: ORDINARY
+  valence: amused
+  privacy: private
+  tags:
+  - technology
+  - habit
+  people: []
+  memory: A network outage during a routine shift makes his digital route board useless. His paper notes do not care. He feels
+    unbearably vindicated.
+- id: SOL_MEM_068
+  age: 17
+  year_ce: 2670
+  title: Unsent message
+  fidelity: VIVID
+  valence: vulnerable
+  privacy: private
+  tags:
+  - father
+  - future
+  people:
+  - CHAR_TOMAS_VALE
+  memory: He records a voice message to Tomas saying he wants to visit orbit again on his own terms, then saves it as draft instead
+    of sending it.
+- id: SOL_MEM_069
+  age: 17
+  year_ce: 2670
+  title: Iven's retirement rumor
+  fidelity: VIVID
+  valence: anxious
+  privacy: private
+  tags:
+  - mentor
+  - future
+  people:
+  - CHAR_IVEN_MARR
+  memory: Someone says Iven may retire within two years. Sol reacts by asking about staffing coverage instead of admitting the
+    idea unsettles him.
+- id: SOL_MEM_070
+  age: 17
+  year_ce: 2670
+  title: Nia asks about leaving
+  fidelity: VIVID
+  valence: conflicted
+  privacy: private
+  tags:
+  - friend
+  - future
+  people:
+  - CHAR_NIA_ROOK
+  memory: Nia asks whether he would leave Asterline if offered a better position. Sol says yes too quickly. Both notice.
+- id: SOL_MEM_071
+  age: 17
+  year_ce: 2670
+  title: Rule for unknown spaces
+  fidelity: PROCEDURAL
+  valence: neutral
+  privacy: private
+  tags:
+  - safety
+  - exploration
+  people: []
+  memory: 'Before entering unfamiliar infrastructure, Sol tells himself: exits, energy, pressure, people, then purpose. The order
+    is almost automatic now.'
+- id: SOL_MEM_072
+  age: 17
+  year_ce: 2670
+  title: Baseline before Jack
+  fidelity: CORE
+  valence: neutral
+  privacy: private
+  tags:
+  - jack
+  - agency
+  people:
+  - CHAR_JACK_WILSON
+  memory: At the campaign baseline Sol has never met Jack Wilson. Jack is not present in any childhood memory, school record, family
+    story or prewritten relationship. Whatever happens between them must begin in play.
