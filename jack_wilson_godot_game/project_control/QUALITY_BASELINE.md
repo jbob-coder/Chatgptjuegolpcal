@@ -1,22 +1,22 @@
 # Quality Baseline
 
+Last verified committed control state before Piece 008: dc18e83165f319b1770c03484eb1d200b6e5d8a0
 Last verified implementation commit: 69555333e8f2a14299d6bd4dcb7b82003ba0e007
-Previous repository commit: 7eb700fc031a32da53aa2ef656a99e6d5488a80e
-Baseline status before repair: STATIC_SUITE_REGRESSION_FOUND
-Static verifier count: 6
-Passing verifier count before repair: 5
-Failing verifier count before repair: 1
-Failing verifier before repair: tests/verify_movement.py
-Static verifier count after repair: 6
-Passing verifier count after repair: 6
-Static verification status after repair: PASS_RECONSTRUCTED_SNAPSHOT
-Committed readback status: PASS for tests/verify_movement.py and scripts/qa/verify_all.py at implementation commit 69555333e8f2a14299d6bd4dcb7b82003ba0e007
+Static verifier count before Piece 008: 6
+Passing verifier count before Piece 008: 6
+Static verifier count after proposed Piece 008: 7
+Passing verifier count after proposed Piece 008: 7
+Static verification status: PASS_RECONSTRUCTED_SNAPSHOT
 Runtime verification status: RUNTIME_GATE_NOT_EXECUTED
 Parser/runtime status: NOT_VERIFIED_BY_GODOT_ENGINE
-Broken references observed by static verifiers: 0 after repair
-Stable-ID violations observed: 0 after repair
-Source-provenance violations observed: 0 after repair
-Known warnings: Godot executable unavailable in the current execution environment; repository clone DNS unavailable.
-Architecture rules: Dedicated implementation root is jack_wilson_godot_game/; no new gameplay implementation outside it.
-Open regressions: 0 known static regressions after REG-0001 repair.
-Open blockers: Godot runtime gate cannot be executed in this environment.
+Broken references observed by static verifiers: 0
+Stable-ID violations observed: 0
+Source-provenance violations observed: 0
+Known warnings: Godot executable unavailable; execution container cannot resolve github.com for git clone, so static tests use a connector-fetched reconstructed snapshot.
+Architecture rules: Dedicated implementation root is jack_wilson_godot_game/; cumulative tests may not reject legitimate later completed features; no gameplay writes outside declared current piece scope.
+Performance constraints: None newly introduced by Piece 008.
+File-placement violations: 0 observed in Piece 008 scope.
+Legacy/prohibited content count: 0 newly introduced.
+Documentation completeness: continuation core complete after proposed Piece 008; QA-specific scripts and Godot reference docs remain planned.
+Open regressions: 0 known after REG-0001 repair.
+Open blockers: Godot runtime gate unavailable in this environment.

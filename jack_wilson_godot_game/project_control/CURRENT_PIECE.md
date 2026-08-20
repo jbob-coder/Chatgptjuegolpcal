@@ -1,69 +1,87 @@
 # Current Piece
 
-PIECE_ID: PIECE-007
-TITLE: Repair cumulative static verification regression
-STATUS: COMPLETE
-PURPOSE: Restore the cumulative static QA baseline before any new gameplay development.
+PIECE_ID: PIECE-008
+TITLE: Persistent continuation core
+STATUS: STATIC_VERIFIED
+PURPOSE: Add the minimum durable project-control records required for a future session to reconstruct the verified state without relying on chat memory.
 
 IN_SCOPE:
-- Remove the obsolete Piece 003 assertion that forbids the already-completed Piece 004 mouse-look implementation.
-- Add a cumulative static suite entry point.
-- Record the discovered regression and current static baseline.
+- MASTER_STATE.md
+- ROADMAP.md
+- DECISIONS.md
+- QUESTIONS_AND_ANSWERS.md
+- SOURCE_REGISTRY.md
+- KNOWN_UNKNOWNS.md
+- ISSUES.md
+- CHANGELOG.md
+- A static verifier for the project-control core.
 
 OUT_OF_SCOPE:
-- Gameplay behavior changes.
-- Gravity, jumping, sprinting, walls, ceiling, furniture, HUD, Steal, NPCs, world simulation.
-- Godot runtime claims.
+- Gameplay changes.
+- Remaining QA scripts beyond verify_all.py.
+- Godot documentation guide/reference-log content.
+- Campaign character/ability data contracts.
 
 FILES_ALLOWED_TO_CHANGE:
-- tests/verify_movement.py
-- scripts/qa/verify_all.py
+- project_control/MASTER_STATE.md
 - project_control/CURRENT_PIECE.md
+- project_control/ROADMAP.md
 - project_control/QUALITY_BASELINE.md
-- project_control/REGRESSION_LOG.md
-- project_control/piece_history/PIECE-007.md
+- project_control/DECISIONS.md
+- project_control/QUESTIONS_AND_ANSWERS.md
+- project_control/SOURCE_REGISTRY.md
+- project_control/KNOWN_UNKNOWNS.md
+- project_control/ISSUES.md
+- project_control/CHANGELOG.md
+- tests/verify_project_control_core.py
 
 FILES_EXPECTED_TO_CREATE:
-- scripts/qa/verify_all.py
-- project_control/CURRENT_PIECE.md
-- project_control/QUALITY_BASELINE.md
-- project_control/REGRESSION_LOG.md
-- project_control/piece_history/PIECE-007.md
+- project_control/MASTER_STATE.md
+- project_control/ROADMAP.md
+- project_control/DECISIONS.md
+- project_control/QUESTIONS_AND_ANSWERS.md
+- project_control/SOURCE_REGISTRY.md
+- project_control/KNOWN_UNKNOWNS.md
+- project_control/ISSUES.md
+- project_control/CHANGELOG.md
+- tests/verify_project_control_core.py
 
 SOURCE_FACTS_USED:
-- VERIFIED_REPOSITORY_FACT: Piece 004 intentionally added mouse capture/mouse-look to scripts/player_controller.gd.
-- VERIFIED_REPOSITORY_FACT: tests/verify_movement.py still forbade MOUSE_MODE_CAPTURED, so the cumulative suite failed.
+- USER_DIRECTIVE: repository must contain persistent operational memory.
+- VERIFIED_REPOSITORY_FACT: Piece 007 is sealed complete at current HEAD before Piece 008.
 
 ASSUMPTIONS:
-- None required for gameplay or canon.
+- None about unverified campaign recovery hints.
 
 KNOWN_UNKNOWNS:
-- Godot 4.7 runtime behavior remains unexecuted in the current environment.
+- Listed in project_control/KNOWN_UNKNOWNS.md.
 
 ACCEPTANCE_CRITERIA:
-- verify_movement.py continues to verify walking behavior.
-- verify_movement.py continues to forbid not-yet-implemented gravity, jump, and sprint behavior.
-- verify_movement.py no longer rejects the completed mouse-look behavior.
-- scripts/qa/verify_all.py returns non-zero if any static verifier fails.
-- All six existing static verifiers pass together in the reconstructed GitHub snapshot.
+- All required continuation-core files exist.
+- MASTER_STATE contains every mandatory continuation field.
+- MASTER_STATE points to the correct repository, game root, branch, completed piece, current piece, and next planned piece.
+- ROADMAP preserves completed pieces and identifies PIECE-009 next.
+- Source registry distinguishes read sources from pointer-only sources.
+- Known unknowns preserve reversible geometry and runtime uncertainty.
+- Cumulative static suite passes 7/7.
 
 TESTS_REQUIRED:
 - python scripts/qa/verify_all.py
 
 REGRESSION_GATES:
-- No gameplay files change.
-- Six existing static verifiers all pass cumulatively.
+- No gameplay file changes.
+- Existing six static verifiers remain passing.
+- New project-control verifier passes.
 
-STARTING_COMMIT: 7eb700fc031a32da53aa2ef656a99e6d5488a80e
-ENDING_COMMIT: 69555333e8f2a14299d6bd4dcb7b82003ba0e007
+STARTING_COMMIT: dc18e83165f319b1770c03484eb1d200b6e5d8a0
+ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: Repair commit was read back from GitHub. The committed movement verifier contains the cumulative guard fix, and the committed verify_all.py contains the cumulative runner that was tested against the reconstructed repository snapshot.
+RESULT: Persistent continuation core prepared and statically replayed in reconstructed snapshot.
 
 FAILURES_FOUND:
-- REG-0001: verify_movement.py rejected Piece 004 mouse look even though Piece 004 is already committed and documented complete.
+- None inside Piece 008 scope during local reconstructed verification.
 
 FIXES_APPLIED:
-- Removed only the obsolete mouse-look prohibition from the Piece 003 verifier.
-- Added cumulative verify_all.py orchestration.
+- N/A
 
-FINAL_STATUS: COMPLETE
+FINAL_STATUS: STATIC_VERIFIED
