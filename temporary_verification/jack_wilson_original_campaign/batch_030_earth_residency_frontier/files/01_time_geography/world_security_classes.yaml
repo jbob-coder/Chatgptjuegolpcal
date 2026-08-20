@@ -1,8 +1,10 @@
 schema_version: 2.0.0
 classification_id: WORLD_SECURITY_CLASSES_2670_V2
-authority: USER_DIRECTIVE_PLUS_SOURCE_TRANSFORMED_PLUS_ORIGINAL_CAMPAIGN_CANON
+authority: USER_DIRECTIVE_PLUS_SOURCE_DERIVED_PLUS_ORIGINAL_CAMPAIGN_CANON
 purpose: Controlling settlement-safety coding for Earth and portal-linked worlds.
-  Colors are ordinary civil language in the game edition.
+  Green/Orange/Red are retained from the verified source world structure; the game
+  adds Earth Bastion, explicit certification thresholds, relocation rules, and regional
+  classification.
 classes:
 - code: EARTH_BASTION
   display: Earth / Bastion
@@ -73,10 +75,18 @@ certification_rules:
   note: A planet may contain differently classified regions. A Green settlement does
     not automatically make an entire planet Green.
 source_transform_basis:
-- Transformed source worldbuilding establishes unequal portal-world danger, protected
-  shelters and cheap but risky offworld settlement.
-- Source audit chapters 597-598 establishes development of remote planetary scanning
-  intended to identify beast distributions and high-tier targets; the game expands
-  this into the Green certification survey standard.
-- User directive explicitly restores Green and Orange as the ordinary game-world settlement
-  classes.
+- 'Verified source-derived Chapter 59 reconstruction: portal destinations use green,
+  orange, and red colors.'
+- 'Verified source-derived Chapter 59 reconstruction: Green destinations are explored
+  worlds with established human shelters; even Green destinations remain dangerous.'
+- 'Verified source-derived Chapter 59 reconstruction: Orange destinations are incompletely
+  explored, may contain shelters, remain incompletely secured, and can contain beasts
+  too strong for normal settlement.'
+- 'Verified source-derived Chapter 59 reconstruction: Red destinations are unexplored
+  and have no shelters for ordinary civilians; normal exploration is military/Traveller
+  activity.'
+- 'Source audit Chapters 597-598: a remote planetary scan project was intended to
+  identify beast distributions including high-tier targets.'
+- 'User directive adds the stronger game-world Green rule: full civil scan and no
+  known threat judged capable of destroying the certified settlement under its validated
+  defense design; Orange remains livable but persistently lethal.'
