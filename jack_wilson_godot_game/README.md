@@ -21,11 +21,16 @@ Status: COMPLETE_STATIC
 - Active `Camera3D`.
 - Player scene instanced by the main scene.
 
-No movement logic is included yet.
+### Piece 003 — Four-direction walking
+Status: COMPLETE_STATIC
+- W/A/S/D actions are registered at runtime if absent.
+- Horizontal walking uses `Input.get_vector()`.
+- Player velocity is expressed in meters per second.
+- Motion is applied with `CharacterBody3D.move_and_slide()` from `_physics_process()`.
 
 ## Not implemented yet
-- movement
 - mouse look
+- gravity
 - jumping
 - sprinting
 - start room
