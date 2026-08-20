@@ -10,7 +10,7 @@ Ordered, bounded pieces. Completed implementation history is preserved; infrastr
 - Piece 006 — Start-room floor — COMPLETE_STATIC
 - Piece 007 — Repair cumulative static verification regression — COMPLETE
 - Piece 008 — Persistent continuation core — COMPLETE
-- Piece 009 — QA structure/state validators — IN_PROGRESS
+- Piece 009 — QA structure/state validators — COMPLETE
 - Piece 010 — Godot documentation baseline and implementation reference log — PLANNED
 - Piece 011 — Gravity — PLANNED
 - Piece 012 — Start-room wall A — PLANNED

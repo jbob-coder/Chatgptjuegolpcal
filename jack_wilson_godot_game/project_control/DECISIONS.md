@@ -44,3 +44,18 @@ TESTS REQUIRED: python scripts/qa/verify_all.py
 COMMIT: 2707ca1dd4794b29210594e1524d647e6d936c77
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
+
+## D-0004
+DECISION_ID: D-0004
+DATE: 2026-08-20
+QUESTION/PROBLEM: The QA layer needs to protect cumulative quality while remaining valid as transient project state advances.
+DECISION: Keep the QA scripts standard-library-only, make transient state checks relational across project-control records, and store minimum static-quality metrics as machine-readable fields in QUALITY_BASELINE.md.
+AUTHORITY: USER_DIRECTIVE plus QA-009-01 review finding.
+ALTERNATIVES CONSIDERED: Hard-code Piece 009/current runtime values; depend on a third-party Python test framework; keep verification manual.
+WHY SELECTED: Provides deterministic non-zero gates without creating the same stale-state failure class already found in Pieces 007 and 008.
+REVERSIBLE: YES
+FILES AFFECTED: scripts/qa/*; tests/verify_project_control_core.py; project_control/QUALITY_BASELINE.md
+TESTS REQUIRED: python scripts/qa/verify_all.py
+COMMIT: 94688bda38135ffbf43bc001c81a1ecabc180989
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE

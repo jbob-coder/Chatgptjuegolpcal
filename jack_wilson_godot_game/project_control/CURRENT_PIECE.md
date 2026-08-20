@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-009
 TITLE: QA structure/state validators
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 PURPOSE: Add bounded automated guards for project structure, state consistency, current-piece validity, and regression-baseline integrity, then make verify_all.py orchestrate them.
 
 IN_SCOPE:
@@ -35,6 +35,7 @@ FILES_ALLOWED_TO_CHANGE:
 - project_control/DECISIONS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
+- project_control/piece_history/PIECE-009.md
 
 FILES_EXPECTED_TO_CREATE:
 - scripts/qa/preflight.py
@@ -42,6 +43,7 @@ FILES_EXPECTED_TO_CREATE:
 - scripts/qa/verify_project_state.py
 - scripts/qa/verify_current_piece.py
 - scripts/qa/regression_guard.py
+- project_control/piece_history/PIECE-009.md
 
 SOURCE_FACTS_USED:
 - USER_DIRECTIVE: required QA scripts and non-zero failure behavior.
@@ -74,9 +76,9 @@ REGRESSION_GATES:
 - RUNTIME_GATE_NOT_EXECUTED remains explicit.
 
 STARTING_COMMIT: 3e6e77dce323031e4124b8e3857a83d7a2346594
-ENDING_COMMIT: PENDING_COMMIT_READBACK
+ENDING_COMMIT: 94688bda38135ffbf43bc001c81a1ecabc180989
 
-RESULT: Proposed QA validators pass in the connector-fetched reconstructed snapshot.
+RESULT: QA validators pass 12/12 in the connector-fetched reconstructed snapshot. GitHub readback confirmed the committed orchestrator and project-state validator at 94688bda38135ffbf43bc001c81a1ecabc180989.
 
 FAILURES_FOUND:
 - QA-009-01: Initial Piece 009 review found hard-coded RUNTIME_GATE_NOT_EXECUTED assertions in the existing project-control test and proposed state/regression validators. Those assertions would reject a future legitimate RUNTIME_VERIFIED state.
@@ -84,5 +86,6 @@ FAILURES_FOUND:
 FIXES_APPLIED:
 - Runtime-gate checks now validate consistency between MASTER_STATE and QUALITY_BASELINE instead of freezing the current transient value.
 - verify_project_state.py now handles an unavailable git executable as an explicit local limitation rather than crashing.
+- Sealed-state rehearsal also passed 12/12 before completion.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: COMPLETE
