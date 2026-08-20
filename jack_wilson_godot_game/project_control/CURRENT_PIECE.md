@@ -1,92 +1,88 @@
 # Current Piece
 
-PIECE_ID: PIECE-008
-TITLE: Persistent continuation core
-STATUS: COMPLETE
-PURPOSE: Add the minimum durable project-control records required for a future session to reconstruct the verified state without relying on chat memory.
+PIECE_ID: PIECE-009
+TITLE: QA structure/state validators
+STATUS: STATIC_VERIFIED
+PURPOSE: Add bounded automated guards for project structure, state consistency, current-piece validity, and regression-baseline integrity, then make verify_all.py orchestrate them.
 
 IN_SCOPE:
-- MASTER_STATE.md
-- ROADMAP.md
-- DECISIONS.md
-- QUESTIONS_AND_ANSWERS.md
-- SOURCE_REGISTRY.md
-- KNOWN_UNKNOWNS.md
-- ISSUES.md
-- CHANGELOG.md
-- A static verifier for the project-control core.
+- scripts/qa/preflight.py
+- scripts/qa/verify_structure.py
+- scripts/qa/verify_project_state.py
+- scripts/qa/verify_current_piece.py
+- scripts/qa/regression_guard.py
+- scripts/qa/verify_all.py orchestration
+- Project-control updates required to represent Piece 009 and its machine-readable quality baseline.
 
 OUT_OF_SCOPE:
 - Gameplay changes.
-- Remaining QA scripts beyond verify_all.py.
-- Godot documentation guide/reference-log content.
-- Campaign character/ability data contracts.
+- Godot API research/documentation baseline.
+- Godot runtime/parser claims.
+- Character/campaign data contracts.
 
 FILES_ALLOWED_TO_CHANGE:
+- scripts/qa/preflight.py
+- scripts/qa/verify_structure.py
+- scripts/qa/verify_project_state.py
+- scripts/qa/verify_current_piece.py
+- scripts/qa/regression_guard.py
+- scripts/qa/verify_all.py
+- tests/verify_project_control_core.py
 - project_control/MASTER_STATE.md
 - project_control/CURRENT_PIECE.md
 - project_control/ROADMAP.md
 - project_control/QUALITY_BASELINE.md
 - project_control/DECISIONS.md
-- project_control/QUESTIONS_AND_ANSWERS.md
-- project_control/SOURCE_REGISTRY.md
-- project_control/KNOWN_UNKNOWNS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
-- project_control/piece_history/PIECE-008.md
-- tests/verify_project_control_core.py
 
 FILES_EXPECTED_TO_CREATE:
-- project_control/MASTER_STATE.md
-- project_control/ROADMAP.md
-- project_control/DECISIONS.md
-- project_control/QUESTIONS_AND_ANSWERS.md
-- project_control/SOURCE_REGISTRY.md
-- project_control/KNOWN_UNKNOWNS.md
-- project_control/ISSUES.md
-- project_control/CHANGELOG.md
-- project_control/piece_history/PIECE-008.md
-- tests/verify_project_control_core.py
+- scripts/qa/preflight.py
+- scripts/qa/verify_structure.py
+- scripts/qa/verify_project_state.py
+- scripts/qa/verify_current_piece.py
+- scripts/qa/regression_guard.py
 
 SOURCE_FACTS_USED:
-- USER_DIRECTIVE: repository must contain persistent operational memory.
-- VERIFIED_REPOSITORY_FACT: Piece 007 was sealed complete at the starting HEAD for Piece 008.
+- USER_DIRECTIVE: required QA scripts and non-zero failure behavior.
+- VERIFIED_REPOSITORY_FACT: Piece 008 sealed complete before Piece 009 starts.
 
 ASSUMPTIONS:
-- None about unverified campaign recovery hints.
+- QA scripts must remain standard-library-only and runnable from the game root on Python 3.10+.
 
 KNOWN_UNKNOWNS:
-- Listed in project_control/KNOWN_UNKNOWNS.md.
+- Git object existence cannot be checked in a non-git reconstructed snapshot; verify_project_state performs the check when a real .git worktree is available and reports the limitation otherwise.
+- Godot runtime remains unavailable.
 
 ACCEPTANCE_CRITERIA:
-- All required continuation-core files exist.
-- MASTER_STATE contains every mandatory continuation field.
-- MASTER_STATE points to the correct repository, game root, branch, completed piece, current piece, and next planned piece.
-- ROADMAP preserves completed pieces and identifies the next bounded piece.
-- Source registry distinguishes read sources from pointer-only sources.
-- Known unknowns preserve reversible geometry and runtime uncertainty.
-- The project-control verifier remains valid when CURRENT_PIECE advances instead of hard-coding Piece 008.
-- Cumulative static suite passes 7/7.
+- preflight.py checks minimum local prerequisites and fails non-zero on missing requirements.
+- verify_structure.py validates the dedicated game root, required directories/control records, and the configured main scene.
+- verify_project_state.py validates relational continuity among MASTER_STATE, CURRENT_PIECE, ROADMAP, and commit-pointer formatting.
+- verify_current_piece.py validates all mandatory piece fields, allowed status, non-empty scope lists, and commit-pointer rules.
+- regression_guard.py enforces the machine-readable minimum quality baseline without hard-coding transient piece IDs.
+- verify_all.py runs all five QA validators plus all seven existing tests, and fails non-zero if any child check fails.
+- No gameplay file changes.
 
 TESTS_REQUIRED:
 - python scripts/qa/verify_all.py
 
 REGRESSION_GATES:
-- No gameplay file changes.
-- Existing six static verifiers remain passing.
-- New project-control verifier passes.
+- Existing seven tests continue to pass.
+- Five new QA validators pass.
+- Existing project-control core verification is future-proofed so a later legitimate runtime-gate promotion does not create a stale-test regression.
+- Total static checks: 12/12.
+- RUNTIME_GATE_NOT_EXECUTED remains explicit.
 
-STARTING_COMMIT: dc18e83165f319b1770c03484eb1d200b6e5d8a0
-ENDING_COMMIT: 2707ca1dd4794b29210594e1524d647e6d936c77
+STARTING_COMMIT: 3e6e77dce323031e4124b8e3857a83d7a2346594
+ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: Persistent continuation core was created, statically verified in the connector-fetched reconstructed snapshot, and read back from GitHub. The first committed verifier was rejected during readback because its transient piece-ID assertions would have become stale; the corrected committed verifier derives current/next IDs and status from project state.
+RESULT: Proposed QA validators pass in the connector-fetched reconstructed snapshot.
 
 FAILURES_FOUND:
-- QA-008-01: The first Piece 008 verifier hard-coded LAST_COMPLETED_PIECE=PIECE-007, CURRENT_PIECE=PIECE-008, NEXT_PLANNED_PIECE=PIECE-009, and STATIC_VERIFIED. It would have failed legitimately as soon as Piece 009 started, recreating the stale-test failure class repaired in REG-0001.
+- QA-009-01: Initial Piece 009 review found hard-coded RUNTIME_GATE_NOT_EXECUTED assertions in the existing project-control test and proposed state/regression validators. Those assertions would reject a future legitimate RUNTIME_VERIFIED state.
 
 FIXES_APPLIED:
-- Reworked verify_project_control_core.py to derive the current piece ID, current status, and next planned piece from the committed control records and validate their internal consistency instead of freezing transient IDs.
-- Retained fixed invariants for repository, game root, branch, source-read classification, reversible room uncertainty, and runtime-gate honesty.
-- Read back the corrected verifier and Piece 008 record from GitHub at 2707ca1dd4794b29210594e1524d647e6d936c77 before completion.
+- Runtime-gate checks now validate consistency between MASTER_STATE and QUALITY_BASELINE instead of freezing the current transient value.
+- verify_project_state.py now handles an unavailable git executable as an explicit local limitation rather than crashing.
 
-FINAL_STATUS: COMPLETE
+FINAL_STATUS: STATIC_VERIFIED

@@ -22,38 +22,15 @@ REQUIRED_FILES = (
 )
 
 MASTER_FIELDS = (
-    "PROJECT:",
-    "REPOSITORY:",
-    "GAME_ROOT:",
-    "TARGET_ENGINE:",
-    "CURRENT_BRANCH:",
-    "LAST_OBSERVED_HEAD:",
-    "LAST_VERIFIED_COMMIT:",
-    "LAST_COMPLETED_PIECE:",
-    "CURRENT_PIECE:",
-    "NEXT_PLANNED_PIECE:",
-    "CURRENT_GAMEPLAY_BOUNDARY:",
-    "CURRENT_IMPLEMENTED_SYSTEMS:",
-    "SYSTEMS_NOT_IMPLEMENTED:",
-    "OPEN_BLOCKERS:",
-    "OPEN_QUESTIONS:",
-    "KNOWN_UNKNOWNS:",
-    "AUTHORITATIVE_SOURCE_POINTERS:",
-    "QUALITY_GATE_STATUS:",
-    "RUNTIME_GATE_STATUS:",
-    "LAST_UPDATED:",
+    "PROJECT:", "REPOSITORY:", "GAME_ROOT:", "TARGET_ENGINE:", "CURRENT_BRANCH:",
+    "LAST_OBSERVED_HEAD:", "LAST_VERIFIED_COMMIT:", "LAST_COMPLETED_PIECE:",
+    "CURRENT_PIECE:", "NEXT_PLANNED_PIECE:", "CURRENT_GAMEPLAY_BOUNDARY:",
+    "CURRENT_IMPLEMENTED_SYSTEMS:", "SYSTEMS_NOT_IMPLEMENTED:", "OPEN_BLOCKERS:",
+    "OPEN_QUESTIONS:", "KNOWN_UNKNOWNS:", "AUTHORITATIVE_SOURCE_POINTERS:",
+    "QUALITY_GATE_STATUS:", "RUNTIME_GATE_STATUS:", "LAST_UPDATED:",
 )
 
-VALID_STATUSES = {
-    "PLANNED",
-    "IN_PROGRESS",
-    "BLOCKED",
-    "FAILED",
-    "REPAIRING",
-    "STATIC_VERIFIED",
-    "RUNTIME_VERIFIED",
-    "COMPLETE",
-}
+VALID_STATUSES = {"PLANNED", "IN_PROGRESS", "BLOCKED", "FAILED", "REPAIRING", "STATIC_VERIFIED", "RUNTIME_VERIFIED", "COMPLETE"}
 
 
 def require(condition: bool, message: str) -> None:
@@ -72,49 +49,40 @@ def field_value(text: str, field: str) -> str:
 def main() -> int:
     for name in REQUIRED_FILES:
         require((CONTROL / name).is_file(), f"missing project-control file: {name}")
-
     master = (CONTROL / "MASTER_STATE.md").read_text(encoding="utf-8")
     current = (CONTROL / "CURRENT_PIECE.md").read_text(encoding="utf-8")
     roadmap = (CONTROL / "ROADMAP.md").read_text(encoding="utf-8")
     sources = (CONTROL / "SOURCE_REGISTRY.md").read_text(encoding="utf-8")
     unknowns = (CONTROL / "KNOWN_UNKNOWNS.md").read_text(encoding="utf-8")
-
+    baseline = (CONTROL / "QUALITY_BASELINE.md").read_text(encoding="utf-8")
     for field in MASTER_FIELDS:
         require(field in master, f"MASTER_STATE missing field: {field}")
-
     require(field_value(master, "REPOSITORY") == "jbob-coder/Chatgptjuegolpcal", "repository pointer drift")
     require(field_value(master, "GAME_ROOT") == "jack_wilson_godot_game/", "game root pointer drift")
     require(field_value(master, "CURRENT_BRANCH") == "main", "branch pointer drift")
-
     current_id = field_value(current, "PIECE_ID")
     current_status = field_value(current, "STATUS")
     require(re.fullmatch(r"PIECE-\d{3}", current_id) is not None, "invalid current piece ID")
     require(current_status in VALID_STATUSES, "invalid current piece status")
     require(current_id in field_value(master, "CURRENT_PIECE"), "MASTER_STATE current-piece pointer mismatch")
-
     current_number = current_id.removeprefix("PIECE-")
     require(f"Piece {current_number}" in roadmap, "roadmap missing current piece")
-
     next_value = field_value(master, "NEXT_PLANNED_PIECE")
     next_match = re.search(r"PIECE-(\d{3})", next_value)
     require(next_match is not None, "MASTER_STATE next planned piece has no valid ID")
     require(f"Piece {next_match.group(1)}" in roadmap, "roadmap missing next planned piece")
-
     if current_status == "COMPLETE":
         require(current_id in field_value(master, "LAST_COMPLETED_PIECE"), "completed current piece not reflected as last completed")
-
     require("RAW_SOURCE_READ: NO" in sources, "pointer-only source classification missing")
     require("exact_source_dimensions_known=false" in unknowns, "room geometry unknown not preserved")
-    require(field_value(master, "RUNTIME_GATE_STATUS") == "RUNTIME_GATE_NOT_EXECUTED", "runtime uncertainty was promoted incorrectly")
-
+    require(field_value(master, "RUNTIME_GATE_STATUS") == field_value(baseline, "RUNTIME_VERIFICATION_STATUS"), "runtime gate disagrees with quality baseline")
     print("PASS: continuation-core files exist")
     print("PASS: MASTER_STATE mandatory fields")
     print("PASS: current/next piece pointers are state-relative")
     print("PASS: source-read classification")
-    print("PASS: known unknowns/runtime gate preserved")
+    print("PASS: known unknowns/runtime gate consistency")
     print("PROJECT_CONTROL_CORE_VERIFY_OK")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())
