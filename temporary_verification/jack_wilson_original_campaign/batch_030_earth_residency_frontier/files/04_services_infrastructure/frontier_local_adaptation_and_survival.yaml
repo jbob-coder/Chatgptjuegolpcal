@@ -1,0 +1,57 @@
+schema_version: 1.0.0
+system_id: FRONTIER_LOCAL_ADAPTATION_AND_SURVIVAL_2670_V1
+authority: USER_DIRECTIVE_PLUS_ORIGINAL_CAMPAIGN_CANON
+principle: Orange-world residents survive by becoming local specialists. Technology
+  helps, but survival depends on routines, terrain knowledge, beast behavior, community
+  discipline and equipment maintenance.
+adaptation_domains:
+  architecture:
+  - settlement walls designed against local mass/impact threats
+  - buried or hardened refuge cores
+  - airlocks or contamination vestibules where required
+  - roof/load shapes matched to climate and flying beasts
+  - redundant water and power nodes
+  - sacrificial outer structures that can be abandoned without losing the whole settlement
+  movement:
+  - marked safe corridors
+  - time-of-day travel rules
+  - convoy travel beyond perimeter
+  - offline route caches
+  - terrain-specific vehicles
+  - scout drones/sensors where effective
+  - fallback rally points
+  personal_gear:
+  - environment-adapted clothing
+  - crystal-powered lamps and tools
+  - beast-warning receivers
+  - respirators or sealed masks where needed
+  - reinforced boots/gloves
+  - medical sealants and trauma kits
+  - emergency heat/cold packs
+  - portable water treatment
+  - scent/noise management gear when local beasts react to those cues
+  weapons_and_hunting:
+  - settlement militia tools
+  - licensed hunting weapons
+  - beast-crystal harvesting kits
+  - restraint/trap equipment
+  - species-specific countermeasures
+  - flare/signal tools
+  - team extraction equipment
+  education:
+  - children learn alarm meanings and shelter routes
+  - new arrivals train on local beast signs
+  - schools teach local ecology alongside general curriculum
+  - workers certify on evacuation and first aid
+  - hunters maintain shared incident logs
+  culture:
+  - weather and beast migration shape festivals/work seasons
+  - locals develop shorthand for terrain hazards
+  - status often comes from practical competence
+  - equipment repair is socially valued
+  - people judge newcomers by whether they follow survival routines
+orange_world_rule: A strong local community can make an Orange settlement stable for
+  decades without making the entire planet safe. The unknown parts of the world remain
+  mechanically real and can produce new threats.
+gameplay_rule: When Jack or Sol enters an Orange world, generic Earth equipment may
+  be inferior to locally adapted tools even if the Earth item is more expensive.
