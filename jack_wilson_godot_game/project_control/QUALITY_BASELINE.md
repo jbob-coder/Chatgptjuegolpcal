@@ -1,6 +1,6 @@
 # Quality Baseline
 
-LAST_VERIFIED_COMMIT: 94688bda38135ffbf43bc001c81a1ecabc180989
+LAST_VERIFIED_COMMIT: 4c64bcbaabf2eaff5f23d3e94212175644a1263f
 STATIC_TEST_COUNT: 8
 STATIC_TEST_PASS_COUNT: 8
 QA_VALIDATOR_COUNT: 5
@@ -16,6 +16,6 @@ FILE_PLACEMENT_VIOLATIONS: 0
 OPEN_REGRESSIONS: 0
 OPEN_BLOCKERS: 1
 
-Known limitation: Godot executable is unavailable in the current execution environment. The execution container also cannot resolve github.com for git clone, so static verification is run on a connector-fetched reconstructed snapshot. Git commit existence checks are performed only when a real git worktree is available and are explicitly reported as unavailable otherwise.
+Known limitation: Godot executable is unavailable in the current execution environment. The execution container also cannot resolve github.com for git clone, so static verification is run on connector-fetched reconstructed repository state. Git commit existence checks are performed only when a real git worktree is available and are explicitly reported as unavailable otherwise.
 
-Architecture minimums: dedicated implementation root is `jack_wilson_godot_game/`; cumulative tests may not reject legitimate later completed features; project-control tests derive transient state rather than hard-coding it; source uncertainty remains explicit; runtime verification cannot be inferred from static checks.
+Architecture minimums: dedicated implementation root is `jack_wilson_godot_game/`; cumulative tests may not reject legitimate later completed features; project-control tests derive transient state rather than hard-coding it; source uncertainty remains explicit; repository observations in Godot documentation must match live referenced files; runtime verification cannot be inferred from static checks.

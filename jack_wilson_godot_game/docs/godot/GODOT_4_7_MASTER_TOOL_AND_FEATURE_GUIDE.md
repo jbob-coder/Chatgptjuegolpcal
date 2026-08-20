@@ -76,8 +76,9 @@ Relevant properties:
 - Godot 4.7 documentation recommends `screen_relative` over `relative` for mouse aiming while using `Input.MOUSE_MODE_CAPTURED`, so sensitivity remains consistent across stretch/content-scale configurations.
 
 Repository observation:
-- `scripts/player_controller.gd` currently uses `event.relative` for mouse look.
-- This is not promoted to a runtime failure because no runtime test was executed. It is recorded as a non-blocking quality issue for a dedicated future piece.
+- `scripts/player_controller.gd` currently uses `event.screen_relative` for both mouse-look axes.
+- `tests/verify_mouse_look.py` statically requires `event.screen_relative.x` and `event.screen_relative.y`.
+- No mouse-look migration is currently required. The prior Piece 010 statement that the controller used `event.relative` was stale and was repaired in Piece 011.
 
 Sources:
 - https://docs.godotengine.org/en/4.7/classes/class_inputeventmousemotion.html
@@ -95,7 +96,7 @@ Relevant settings:
 
 Anti-hallucination rule:
 - `Input.get_gravity()` is device accelerometer gravity and is not the game world's 3D gravity source. Do not use it for the player gravity implementation.
-- Piece 011 must use the documented project 3D gravity settings or another separately researched 4.7 world-gravity source; it may not guess an API from memory.
+- The future gravity piece must use the documented project 3D gravity settings or another separately researched 4.7 world-gravity source; it may not guess an API from memory.
 
 Source:
 - https://docs.godotengine.org/en/4.7/classes/class_projectsettings.html
@@ -130,3 +131,4 @@ For every important new Godot system:
 3. Separate documentation verification from repository verification and runtime verification.
 4. Add the implementation only in its bounded piece.
 5. Keep unresolved or version-ambiguous APIs as UNKNOWN rather than substituting an older/newer API.
+6. Any VERIFIED_REPOSITORY observation must be cross-checked against the live file before it is written or updated.

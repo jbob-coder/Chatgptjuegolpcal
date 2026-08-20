@@ -46,10 +46,8 @@ def main() -> int:
     require(current_id in field_value(master, "CURRENT_PIECE"), "MASTER_STATE current piece mismatch")
     require(f"Piece {current_id.removeprefix('PIECE-')}" in roadmap, "current piece absent from ROADMAP")
 
-    last_completed = field_value(master, "LAST_COMPLETED_PIECE")
-    require(PIECE_RE.search(last_completed) is not None, "LAST_COMPLETED_PIECE has no valid piece ID")
-    next_planned = field_value(master, "NEXT_PLANNED_PIECE")
-    next_match = PIECE_RE.search(next_planned)
+    require(PIECE_RE.search(field_value(master, "LAST_COMPLETED_PIECE")) is not None, "LAST_COMPLETED_PIECE has no valid piece ID")
+    next_match = PIECE_RE.search(field_value(master, "NEXT_PLANNED_PIECE"))
     require(next_match is not None, "NEXT_PLANNED_PIECE has no valid piece ID")
     require(f"Piece {next_match.group(1)}" in roadmap, "next planned piece absent from ROADMAP")
 
@@ -62,9 +60,11 @@ def main() -> int:
         if exists is None:
             print(f"LIMITATION: local git object existence unavailable for {field}={sha}")
 
+    require(field_value(master, "LAST_VERIFIED_COMMIT") == field_value(baseline, "LAST_VERIFIED_COMMIT"), "verified commit disagrees between MASTER_STATE and QUALITY_BASELINE")
     require(field_value(master, "RUNTIME_GATE_STATUS") == field_value(baseline, "RUNTIME_VERIFICATION_STATUS"), "runtime gate disagrees with quality baseline")
     print("PASS: MASTER/CURRENT/ROADMAP relational continuity")
     print("PASS: commit pointers are full SHA-1 values")
+    print("PASS: verified commit agrees with quality baseline")
     print("PASS: runtime gate agrees with quality baseline")
     print("PROJECT_STATE_VERIFY_OK")
     return 0

@@ -11,19 +11,19 @@ Required action: Execute pending runtime gates in an environment containing the 
 Status: OPEN
 Severity: TOOLING_LIMITATION
 Evidence: `git clone` failed because the container could not resolve github.com.
-Impact: Static tests are executed on a connector-fetched reconstructed snapshot rather than a network clone.
+Impact: Static tests are executed on connector-fetched reconstructed snapshot/state rather than a network clone.
 Required action: Continue authoritative reads/writes through the authenticated GitHub connector; preserve this limitation in evidence.
 
-## ISSUE-003 — Remaining mandatory Godot documentation infrastructure incomplete
-Status: OPEN
+## ISSUE-003 — Mandatory Godot documentation infrastructure
+Status: RESOLVED
 Severity: PROJECT_CONTROL
-Evidence: Piece 009 adds the required preflight/structure/state/current-piece/regression QA validators. The required Godot master tool guide and implementation reference log are still absent.
-Impact: Automated static governance is present, but important Godot implementation work still lacks the mandated repository-side documentation baseline.
-Required action: PIECE-010.
+Evidence: Piece 010 committed the required Godot master guide, implementation reference log, dedicated verifier, and structure requirement.
+Impact: Required repository-side Godot documentation baseline is present.
+Resolved by: PIECE-010 / 4c64bcbaabf2eaff5f23d3e94212175644a1263f
 
-## ISSUE-004 — Captured mouse look uses content-scaled relative motion
-Status: OPEN_NON_BLOCKING
+## ISSUE-004 — Captured mouse-look relative-motion claim
+Status: RESOLVED_STALE_DOCUMENTATION
 Severity: QUALITY
-Evidence: VERIFIED_REPOSITORY_FACT — scripts/player_controller.gd uses event.relative. VERIFIED_GODOT_DOCUMENTATION — Godot 4.7 InputEventMouseMotion documentation recommends screen_relative for mouse aiming with Input.MOUSE_MODE_CAPTURED because relative is content-scale adjusted.
-Impact: Mouse sensitivity may vary with stretch/content-scale configuration. No runtime failure is claimed.
-Required action: Dedicated Piece 017 migration/test unless superseded by newer authoritative evidence.
+Evidence: Live/historical repository reads show scripts/player_controller.gd already uses event.screen_relative for both axes and tests/verify_mouse_look.py requires it. Piece 010 documentation incorrectly described the live code as event.relative.
+Impact: No gameplay migration is required. The defect was documentation/repository-observation integrity, not the controller behavior.
+Resolved by: PIECE-011 repair; documentation verifier now cross-checks the live controller.

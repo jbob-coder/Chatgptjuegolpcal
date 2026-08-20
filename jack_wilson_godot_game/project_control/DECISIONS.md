@@ -74,3 +74,18 @@ TESTS_REQUIRED: python scripts/qa/verify_all.py
 COMMIT: 4c64bcbaabf2eaff5f23d3e94212175644a1263f
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
+
+## D-0006
+DECISION_ID: D-0006
+DATE: 2026-08-20
+QUESTION/PROBLEM: A Piece 010 VERIFIED_REPOSITORY observation contradicted the live controller, while related baseline/issue records also lagged the actual completed state.
+DECISION: Stop new feature/organization work, repair repository-truth drift first, and strengthen relational/cross-file verification so documentation observations and verified-commit pointers are checked against their referenced live state.
+AUTHORITY: VERIFIED_REPOSITORY_FACT plus zero-quality-downgrade/anti-hallucination directive.
+ALTERNATIVES_CONSIDERED: Ignore the stale documentation because gameplay is already correct; fix only the prose; continue Piece 011 organization and fold repairs into it.
+WHY_SELECTED: A false VERIFIED_REPOSITORY claim is a quality failure even when gameplay is unaffected. Repairing first prevents stale state from becoming future authority.
+REVERSIBLE: YES
+FILES_AFFECTED: docs/godot/*; tests/verify_godot_docs_baseline.py; scripts/qa/verify_project_state.py; project_control/*
+TESTS_REQUIRED: python tests/verify_godot_docs_baseline.py; python scripts/qa/verify_project_state.py; python scripts/qa/verify_all.py
+COMMIT: PENDING_PIECE_011
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE

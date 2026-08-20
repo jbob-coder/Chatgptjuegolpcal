@@ -9,7 +9,7 @@ AUTHORITY_LEVEL: 1
 VERSION: 2026-08-20
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: project governance, QA, continuity, source classification
-FACTS EXTRACTED: Dedicated game root; main branch rule; one-piece loop; mandatory control records; runtime/static distinction; no hallucinated verification; no raw novel prose; Godot 4.7.x target.
+FACTS_EXTRACTED: Dedicated game root; main branch rule; one-piece loop; mandatory control records; runtime/static distinction; no hallucinated verification; no raw novel prose; Godot 4.7.x target.
 LIMITATIONS: Does not by itself verify recovery-hint campaign values against newer authoritative project/source records.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
@@ -20,10 +20,10 @@ NAME: Current GitHub repository implementation
 LOCATION: jbob-coder/Chatgptjuegolpcal main, jack_wilson_godot_game/
 TYPE: VERIFIED_REPOSITORY
 AUTHORITY_LEVEL: 4
-VERSION: observed through 5e0aac0d8857e5ce18889da3cd12dc83a248cc7e
+VERSION: observed through e2c217b98b54ba985a5599bb151f2afacab25426
 DATE_ACCESSED: 2026-08-20
-RELEVANT_SYSTEM: all currently implemented game and QA pieces
-FACTS EXTRACTED: Pieces 001–006 gameplay/static implementation; Piece 007 QA repair; Piece 008 persistent continuation core; Piece 009 QA validators; current scenes/scripts/data/tests/project-control records; README status.
+RELEVANT_SYSTEM: all currently implemented game, QA, docs, and project-control pieces
+FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; mouse-look verifier requires screen_relative; Piece 010 docs contained a stale contradictory repository observation.
 LIMITATIONS: Static repository inspection does not prove Godot runtime/parser behavior.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
@@ -37,7 +37,7 @@ AUTHORITY_LEVEL: 2 when directly verified; currently pointer-only
 VERSION: UNKNOWN
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: ROOM_JACK_START_01 source provenance
-FACTS EXTRACTED: None directly from the external source in this session.
+FACTS_EXTRACTED: None directly from the external source in this session.
 LIMITATIONS: RAW SOURCE NOT READ in this session. The active repository record classifies its shell geometry as reversible gameplay reconstruction.
 RAW_SOURCE_READ: NO
 DERIVED_ONLY: YES
@@ -51,7 +51,7 @@ AUTHORITY_LEVEL: 5
 VERSION: Godot 4.7
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: engine version, CharacterBody3D, Input, InputMap, InputEventMouseMotion, ProjectSettings gravity
-FACTS EXTRACTED: Version-specific API and behavioral facts recorded in docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md.
+FACTS_EXTRACTED: Version-specific API and behavioral facts recorded in docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md.
 LIMITATIONS: Documentation evidence does not prove this repository parses or runs in the engine.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
@@ -65,7 +65,21 @@ AUTHORITY_LEVEL: 5
 VERSION: accessed 2026-08-20
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: target engine support status
-FACTS EXTRACTED: Godot 4.7 is listed as a June 2026 supported release.
+FACTS_EXTRACTED: Godot 4.7 is listed as a June 2026 supported release.
 LIMITATIONS: Release policy is version-status evidence, not per-API implementation evidence.
+RAW_SOURCE_READ: YES
+DERIVED_ONLY: NO
+
+## SOURCE-006
+SOURCE_ID: SOURCE-006
+NAME: Historical/current mouse-look repository readback
+LOCATION: scripts/player_controller.gd and tests/verify_mouse_look.py at commits 7eb700fc031a32da53aa2ef656a99e6d5488a80e and e2c217b98b54ba985a5599bb151f2afacab25426
+TYPE: VERIFIED_REPOSITORY
+AUTHORITY_LEVEL: 4
+VERSION: Piece 006 through Piece 011 starting state
+DATE_ACCESSED: 2026-08-20
+RELEVANT_SYSTEM: mouse-look repository observation integrity
+FACTS_EXTRACTED: Player controller blob b7677eccaaae0c522375edca78e251a5b4a8407b uses event.screen_relative for both axes; current mouse-look verifier requires screen_relative.
+LIMITATIONS: Proves repository content, not runtime behavior.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
