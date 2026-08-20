@@ -44,11 +44,20 @@ Status: COMPLETE_STATIC
 - Preserves the neighboring room as a shared-wall, no-portal, non-enterable boundary.
 - Explicitly records that the selected shell size is gameplay reconstruction, not an exact source measurement.
 
+### Piece 006 — Start-room floor
+Status: COMPLETE_STATIC
+- Adds one visible floor mesh sized from the start-room data contract.
+- Adds matching `StaticBody3D` + `BoxShape3D` collision.
+- Instances the start-room scene from the project main scene.
+- Does not add walls, ceiling, furniture, or lighting yet.
+
 ## Not implemented yet
 - gravity
 - jumping
 - sprinting
-- start-room geometry
+- start-room walls
+- start-room ceiling
+- furniture
 - HUD
 - Steal
 - NPCs
