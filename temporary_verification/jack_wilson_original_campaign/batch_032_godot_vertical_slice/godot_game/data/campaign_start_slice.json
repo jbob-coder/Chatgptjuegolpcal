@@ -3,24 +3,62 @@
   "candidate_id": "GODOT_BATCH_032_START_SLICE_V1",
   "provenance": "ORIGINAL_CAMPAIGN_ADAPTATION_FROM_DRIVE_AUTHORITY",
   "authority_note": "This file is an implementation projection. Google Drive campaign records remain authoritative.",
-  "world": {"working_year_ce":2670,"exact_month_day":"UNKNOWN","relative_time":"T_MINUS_14_DAYS"},
+  "world": {
+    "working_year_ce": 2670,
+    "exact_month_day": "UNKNOWN",
+    "relative_time": "T_MINUS_14_DAYS"
+  },
   "player": {
-    "stable_id":"CHAR_JACK_WILSON","name":"Jack Wilson","age":16,"level":1,"level_cap":20,"species":"Baseline human",
-    "hp":{"current":34,"max":34},"cm":{"current":120,"max":120},
-    "d20_stats":{"Agility":10,"Endurance":9,"Intellect":14,"Luck":10,"Might":8,"Perception":12,"Presence":9,"Will":13},
-    "active_location_id":"ROOM_JACK_START_01"
+    "stable_id": "CHAR_JACK_WILSON",
+    "name": "Jack Wilson",
+    "age": 16,
+    "level": 1,
+    "level_cap": 20,
+    "species": "Baseline human",
+    "hp": {"current": 34, "max": 34},
+    "cm": {"current": 120, "max": 120},
+    "d20_stats": {
+      "Agility": 10,
+      "Endurance": 9,
+      "Intellect": 14,
+      "Luck": 10,
+      "Might": 8,
+      "Perception": 12,
+      "Presence": 9,
+      "Will": 13
+    },
+    "active_location_id": "ROOM_JACK_START_01"
   },
   "ability_steal": {
-    "stable_id":"ABILITY_STEAL","permanent_ability_slots":5,"modes":["COPY","REMOVE"],"direct_physical_contact_required":true,
-    "acquisition_cm_formula":"8 + (10 * ability_level)","failure_cm_formula":"max(4, ceil(full_cost * 0.25))","prototype_resolution_enabled":false
+    "stable_id": "ABILITY_STEAL",
+    "permanent_ability_slots": 5,
+    "modes": ["COPY", "REMOVE"],
+    "direct_physical_contact_required": true,
+    "acquisition_cm_formula": "8 + (10 * ability_level)",
+    "failure_cm_formula": "max(4, ceil(full_cost * 0.25))",
+    "prototype_resolution_enabled": false
   },
   "locations": {
     "ROOM_JACK_START_01": {
-      "validation_state":"READY","dimensions_m":{"length":4.2,"width":3.6,"height":2.7},"floor_area_m2":15.12,
-      "corridor_door_m":{"width":0.9,"height":2.05},"obstacles":["bed","desk","chair","wardrobe","door swing zone"],
-      "neighbor_boundary":{"stable_id":"ROOM_NEIGHBOR_SOURCE_ANCHOR_01","connection":"shared_wall_no_portal","enterable":false}
+      "validation_state": "READY",
+      "dimensions_m": {"length": 4.2, "width": 3.6, "height": 2.7},
+      "floor_area_m2": 15.12,
+      "corridor_door_m": {"width": 0.9, "height": 2.05},
+      "obstacles": ["bed", "desk", "chair", "wardrobe", "door swing zone"],
+      "neighbor_boundary": {
+        "stable_id": "ROOM_NEIGHBOR_SOURCE_ANCHOR_01",
+        "connection": "shared_wall_no_portal",
+        "enterable": false
+      }
     },
-    "LOC_RESIDENCE_F2_CORRIDOR_01":{"validation_state":"READY","dimensions_m":{"length":8.0,"width":1.6,"height":2.7},"floor_area_m2":12.8}
+    "LOC_RESIDENCE_F2_CORRIDOR_01": {
+      "validation_state": "READY",
+      "dimensions_m": {"length": 8.0, "width": 1.6, "height": 2.7},
+      "floor_area_m2": 12.8
+    }
   },
-  "prototype_layout_policy":{"furniture_exact_placement":"REVERSIBLE_PROTOTYPE_ONLY_NOT_SPATIAL_CANON","downstream_corridor_end":"TEMPORARY_COLLISION_BOUNDARY_UNTIL_NEXT_SLICE"}
+  "prototype_layout_policy": {
+    "furniture_exact_placement": "REVERSIBLE_PROTOTYPE_ONLY_NOT_SPATIAL_CANON",
+    "downstream_corridor_end": "TEMPORARY_COLLISION_BOUNDARY_UNTIL_NEXT_SLICE"
+  }
 }
