@@ -5,16 +5,29 @@ Dedicated Godot game root. This directory is intentionally separate from audit, 
 ## Development rule
 Build one small piece at a time. A piece must be finished and verified before the next piece begins.
 
-## Piece 001 — Project foundation
+## Completed pieces
+
+### Piece 001 — Project foundation
 Status: COMPLETE_STATIC
-
-Scope:
 - Godot project descriptor.
-- One empty 3D main scene.
-- One deterministic foundation verifier.
+- Empty 3D main scene.
+- Foundation verifier.
 
-Out of scope for Piece 001:
-- player controller
+### Piece 002 — Static first-person player shell
+Status: COMPLETE_STATIC
+- `CharacterBody3D` player root.
+- Capsule collision shape.
+- Head pivot.
+- Active `Camera3D`.
+- Player scene instanced by the main scene.
+
+No movement logic is included yet.
+
+## Not implemented yet
+- movement
+- mouse look
+- jumping
+- sprinting
 - start room
 - HUD
 - Steal
