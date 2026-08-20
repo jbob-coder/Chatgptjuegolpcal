@@ -36,15 +36,22 @@ Status: COMPLETE_STATIC
 - Pitch is clamped to ±85 degrees.
 - Escape toggles mouse capture/visibility.
 
+### Piece 005 — Start-room data contract
+Status: COMPLETE_STATIC
+- Adds `ROOM_JACK_START_01` as a GitHub-side Godot world-build input.
+- Preserves the 4.2 × 3.6 × 2.7 m reversible shell and 15.12 m² floor area.
+- Preserves the 0.9 × 2.05 m corridor door contract.
+- Preserves the neighboring room as a shared-wall, no-portal, non-enterable boundary.
+- Explicitly records that the selected shell size is gameplay reconstruction, not an exact source measurement.
+
 ## Not implemented yet
 - gravity
 - jumping
 - sprinting
-- start room
+- start-room geometry
 - HUD
 - Steal
 - NPCs
 - world simulation
-- imported campaign data
 
 Target engine: Godot 4.7.x stable.

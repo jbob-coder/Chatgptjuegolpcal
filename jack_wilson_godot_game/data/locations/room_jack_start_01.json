@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "stable_id": "ROOM_JACK_START_01",
+  "validation_state": "READY",
+  "implementation_role": "GODOT_WORLD_BUILD_INPUT",
+  "source_reference": {
+    "title": "239_START_LOCATION_BLUEPRINTS_V1.json",
+    "drive_file_id": "1fiTHfvlEwXc-kIdk4zZMWT4-RMYiRyYN",
+    "authority": "USER_AUTHORIZED_GAMEPLAY_RECONSTRUCTION",
+    "geometry_authority": "ORIGINAL_FILLER_GAMEPLAY_RECONSTRUCTION",
+    "exact_source_dimensions_known": false,
+    "reversible": true
+  },
+  "dimensions_m": {
+    "length": 4.2,
+    "width": 3.6,
+    "height": 2.7,
+    "floor_area_m2": 15.12
+  },
+  "door_to_corridor": {
+    "width_m": 0.9,
+    "height_m": 2.05,
+    "swing": "inward",
+    "to": "LOC_RESIDENCE_F2_CORRIDOR_01"
+  },
+  "adjacency": [
+    {
+      "to": "LOC_RESIDENCE_F2_CORRIDOR_01",
+      "via": "door",
+      "distance_m": 0.9
+    },
+    {
+      "to": "ROOM_NEIGHBOR_SOURCE_ANCHOR_01",
+      "via": "shared_wall_no_portal",
+      "distance_m": 0.12,
+      "enterable": false
+    }
+  ],
+  "collision_obstacles": [
+    "bed",
+    "desk",
+    "chair",
+    "wardrobe",
+    "door swing zone"
+  ],
+  "access": {
+    "jack_has_access": true,
+    "neighbor_room_access": false,
+    "private_room": true
+  },
+  "implementation_notes": [
+    "Do not treat the selected shell dimensions as exact source measurements.",
+    "Do not create an entrance through the shared wall to ROOM_NEIGHBOR_SOURCE_ANCHOR_01.",
+    "Exact furniture placement remains unresolved until implemented as separately labeled reversible game layout."
+  ]
+}
