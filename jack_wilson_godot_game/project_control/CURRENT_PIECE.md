@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-007
 TITLE: Repair cumulative static verification regression
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 PURPOSE: Restore the cumulative static QA baseline before any new gameplay development.
 
 IN_SCOPE:
@@ -21,12 +21,14 @@ FILES_ALLOWED_TO_CHANGE:
 - project_control/CURRENT_PIECE.md
 - project_control/QUALITY_BASELINE.md
 - project_control/REGRESSION_LOG.md
+- project_control/piece_history/PIECE-007.md
 
 FILES_EXPECTED_TO_CREATE:
 - scripts/qa/verify_all.py
 - project_control/CURRENT_PIECE.md
 - project_control/QUALITY_BASELINE.md
 - project_control/REGRESSION_LOG.md
+- project_control/piece_history/PIECE-007.md
 
 SOURCE_FACTS_USED:
 - VERIFIED_REPOSITORY_FACT: Piece 004 intentionally added mouse capture/mouse-look to scripts/player_controller.gd.
@@ -53,9 +55,9 @@ REGRESSION_GATES:
 - Six existing static verifiers all pass cumulatively.
 
 STARTING_COMMIT: 7eb700fc031a32da53aa2ef656a99e6d5488a80e
-ENDING_COMMIT: PENDING_COMMIT_READBACK
+ENDING_COMMIT: 69555333e8f2a14299d6bd4dcb7b82003ba0e007
 
-RESULT: Static repair prepared and locally replayed from connector-fetched repository bytes.
+RESULT: Repair commit was read back from GitHub. The committed movement verifier contains the cumulative guard fix, and the committed verify_all.py contains the cumulative runner that was tested against the reconstructed repository snapshot.
 
 FAILURES_FOUND:
 - REG-0001: verify_movement.py rejected Piece 004 mouse look even though Piece 004 is already committed and documented complete.
@@ -64,4 +66,4 @@ FIXES_APPLIED:
 - Removed only the obsolete mouse-look prohibition from the Piece 003 verifier.
 - Added cumulative verify_all.py orchestration.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: COMPLETE

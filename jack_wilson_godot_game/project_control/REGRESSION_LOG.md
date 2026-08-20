@@ -12,5 +12,6 @@ SEVERITY: HIGH_QA_INTEGRITY
 FILES_AFFECTED: tests/verify_movement.py
 FIX_ATTEMPTS: 1
 FINAL_FIX: Remove only the obsolete MOUSE_MODE_CAPTURED prohibition; retain walking assertions and guards against not-yet-implemented gravity, jump, and sprint. Add scripts/qa/verify_all.py to run every committed static verifier together.
-TEST_EVIDENCE: `python scripts/qa/verify_all.py` passes all six static verifiers in the reconstructed GitHub snapshot.
-RESOLVED_COMMIT: PENDING_COMMIT_READBACK
+TEST_EVIDENCE: `python scripts/qa/verify_all.py` passed all six static verifiers in the reconstructed GitHub snapshot. GitHub readback confirmed the committed repair content.
+RESOLVED_COMMIT: 69555333e8f2a14299d6bd4dcb7b82003ba0e007
+STATUS: RESOLVED
