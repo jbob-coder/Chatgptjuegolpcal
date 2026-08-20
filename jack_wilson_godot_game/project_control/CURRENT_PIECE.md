@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-008
 TITLE: Persistent continuation core
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 PURPOSE: Add the minimum durable project-control records required for a future session to reconstruct the verified state without relying on chat memory.
 
 IN_SCOPE:
@@ -33,6 +33,7 @@ FILES_ALLOWED_TO_CHANGE:
 - project_control/KNOWN_UNKNOWNS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
+- project_control/piece_history/PIECE-008.md
 - tests/verify_project_control_core.py
 
 FILES_EXPECTED_TO_CREATE:
@@ -44,11 +45,12 @@ FILES_EXPECTED_TO_CREATE:
 - project_control/KNOWN_UNKNOWNS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
+- project_control/piece_history/PIECE-008.md
 - tests/verify_project_control_core.py
 
 SOURCE_FACTS_USED:
 - USER_DIRECTIVE: repository must contain persistent operational memory.
-- VERIFIED_REPOSITORY_FACT: Piece 007 is sealed complete at the starting HEAD for Piece 008.
+- VERIFIED_REPOSITORY_FACT: Piece 007 was sealed complete at the starting HEAD for Piece 008.
 
 ASSUMPTIONS:
 - None about unverified campaign recovery hints.
@@ -75,9 +77,9 @@ REGRESSION_GATES:
 - New project-control verifier passes.
 
 STARTING_COMMIT: dc18e83165f319b1770c03484eb1d200b6e5d8a0
-ENDING_COMMIT: PENDING_COMMIT_READBACK
+ENDING_COMMIT: 2707ca1dd4794b29210594e1524d647e6d936c77
 
-RESULT: Persistent continuation core prepared and statically replayed in the reconstructed snapshot. The first committed verifier was rejected during readback because its transient piece-ID assertions would have become stale; the corrected verifier derives current/next IDs and status from project state.
+RESULT: Persistent continuation core was created, statically verified in the connector-fetched reconstructed snapshot, and read back from GitHub. The first committed verifier was rejected during readback because its transient piece-ID assertions would have become stale; the corrected committed verifier derives current/next IDs and status from project state.
 
 FAILURES_FOUND:
 - QA-008-01: The first Piece 008 verifier hard-coded LAST_COMPLETED_PIECE=PIECE-007, CURRENT_PIECE=PIECE-008, NEXT_PLANNED_PIECE=PIECE-009, and STATIC_VERIFIED. It would have failed legitimately as soon as Piece 009 started, recreating the stale-test failure class repaired in REG-0001.
@@ -85,5 +87,6 @@ FAILURES_FOUND:
 FIXES_APPLIED:
 - Reworked verify_project_control_core.py to derive the current piece ID, current status, and next planned piece from the committed control records and validate their internal consistency instead of freezing transient IDs.
 - Retained fixed invariants for repository, game root, branch, source-read classification, reversible room uncertainty, and runtime-gate honesty.
+- Read back the corrected verifier and Piece 008 record from GitHub at 2707ca1dd4794b29210594e1524d647e6d936c77 before completion.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: COMPLETE

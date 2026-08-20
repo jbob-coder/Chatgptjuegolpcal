@@ -20,10 +20,10 @@ NAME: Current GitHub repository implementation
 LOCATION: jbob-coder/Chatgptjuegolpcal main, jack_wilson_godot_game/
 TYPE: VERIFIED_REPOSITORY
 AUTHORITY_LEVEL: 4
-VERSION: observed through dc18e83165f319b1770c03484eb1d200b6e5d8a0
+VERSION: observed through 2707ca1dd4794b29210594e1524d647e6d936c77
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: all currently implemented game and QA pieces
-FACTS EXTRACTED: Pieces 001–006 implementation; Piece 007 QA repair; current scenes/scripts/data/tests; README status.
+FACTS EXTRACTED: Pieces 001–006 implementation; Piece 007 QA repair; Piece 008 persistent continuation core and state-relative verifier; current scenes/scripts/data/tests.
 LIMITATIONS: Static repository inspection does not prove Godot runtime/parser behavior.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO

@@ -21,11 +21,26 @@ DATE: 2026-08-20
 QUESTION/PROBLEM: New gameplay was ready to continue, but the mandatory persistent project-control system was missing.
 DECISION: Restore project-control continuity and QA infrastructure in bounded pieces before adding gameplay.
 AUTHORITY: USER_DIRECTIVE.
-ALTERNATIVES_CONSIDERED: Continue with gravity immediately; create every requested infrastructure file in one oversized commit.
-WHY_SELECTED: Repairs continuity without mixing unrelated gameplay and infrastructure or creating unverified bulk scaffolding.
+ALTERNATIVES CONSIDERED: Continue with gravity immediately; create every requested infrastructure file in one oversized commit.
+WHY SELECTED: Repairs continuity without mixing unrelated gameplay and infrastructure or creating unverified bulk scaffolding.
 REVERSIBLE: YES
-FILES_AFFECTED: project_control/*; tests/verify_project_control_core.py
-TESTS_REQUIRED: python scripts/qa/verify_all.py
-COMMIT: PENDING_PIECE_008
+FILES AFFECTED: project_control/*; tests/verify_project_control_core.py
+TESTS REQUIRED: python scripts/qa/verify_all.py
+COMMIT: 2707ca1dd4794b29210594e1524d647e6d936c77
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE
+
+## D-0003
+DECISION_ID: D-0003
+DATE: 2026-08-20
+QUESTION/PROBLEM: The first Piece 008 control-core verifier encoded transient current/next piece IDs and would become stale on normal project progression.
+DECISION: Project-control verification must validate relationships between recorded fields and roadmap state rather than hard-code the current transient piece ID or transient status.
+AUTHORITY: VERIFIED_REPOSITORY_FACT plus zero-quality-downgrade rule.
+ALTERNATIVES CONSIDERED: Rewrite the test at every piece transition; remove current-piece checks.
+WHY SELECTED: Prevents recurrence of the stale-test class while retaining meaningful continuity validation.
+REVERSIBLE: YES
+FILES AFFECTED: tests/verify_project_control_core.py
+TESTS REQUIRED: python scripts/qa/verify_all.py
+COMMIT: 2707ca1dd4794b29210594e1524d647e6d936c77
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
