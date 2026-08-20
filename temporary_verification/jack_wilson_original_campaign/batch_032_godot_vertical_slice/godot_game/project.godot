@@ -1,0 +1,21 @@
+; Engine configuration file.
+; Jack Wilson Original Campaign — first Godot vertical slice.
+config_version=5
+
+[application]
+config/name="Jack Wilson: 2670 Prototype"
+run/main_scene="res://scenes/main.tscn"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
+[physics]
+common/physics_ticks_per_second=60

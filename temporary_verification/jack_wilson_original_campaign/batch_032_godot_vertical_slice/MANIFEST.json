@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH_032_GODOT_VERTICAL_SLICE",
+  "status": "TEMPORARY_VERIFICATION_CANDIDATE",
+  "authority": "GITHUB_TEMPORARY_VERIFICATION_ONLY",
+  "payload_file_count": 12,
+  "payload_files": [
+    {"path":"CONTEXT.md","size_bytes":1915,"sha256":"af5f5f7dc1dd889cfd7d112e1e3a9187e01289f2fa29260f34563999ebeddfe9"},
+    {"path":"godot_game/.gitignore","size_bytes":14,"sha256":"222c6925c1e8c1074e0ba2608e6395592fcfe1370d4a662ee0af1a4b4d3a5100"},
+    {"path":"godot_game/README.md","size_bytes":725,"sha256":"af8f7ac97987e92776215d4705b51b67ecae56a679d2744c28c109187d52b3e8"},
+    {"path":"godot_game/data/campaign_start_slice.json","size_bytes":2066,"sha256":"89ba252bcb557cdd07b6d2d3037c9460c8eefc9f1ad32c8852a707bc64f7486b"},
+    {"path":"godot_game/docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md","size_bytes":1300,"sha256":"8b3f8333c2aad935f180ff1186dd4acc26b8d0f0fd1ece350d79feb21ab75908"},
+    {"path":"godot_game/project.godot","size_bytes":551,"sha256":"9770fa2273e4f5af07f2891257b1b81c95b2a439614d02d0579d80b37f9d2dbc"},
+    {"path":"godot_game/scenes/main.tscn","size_bytes":169,"sha256":"db057226a45ac85ab681260949f17e3eb5657b6a89cb9a64163d3215d983e292"},
+    {"path":"godot_game/scenes/player.tscn","size_bytes":770,"sha256":"b631c9c103ee5a65a63594ee6dd2d91e8bc4bda1d289c6a32b06817eef6a2481"},
+    {"path":"godot_game/scripts/main.gd","size_bytes":6915,"sha256":"0dcc556172fa408fba6fdf9c0c9623939863d83ad87ce09059525aa262dcf6c1"},
+    {"path":"godot_game/scripts/player_controller.gd","size_bytes":3438,"sha256":"73c5745f8f4a5454a33c58f76ee028f95cc21e35d23cf9b07da66cbc182621e8"},
+    {"path":"godot_game/scripts/steal_system.gd","size_bytes":900,"sha256":"2adf7ebf1c366056bca35285d603e03e92440e5cb5b0694ecdf2016db9e5f33e"},
+    {"path":"godot_game/tests/verify_prototype.py","size_bytes":3703,"sha256":"5a22832be5fc358a5ca8a882c6de8d954cdb397f64657e73f63dded0ccf7f6b2"}
+  ],
+  "runtime_gate": {"godot_target":"4.7.x stable","status":"NOT_EXECUTED_ENVIRONMENT_BINARY_UNAVAILABLE"}
+}
