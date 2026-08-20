@@ -27,8 +27,8 @@ def main() -> int:
     require("move_and_slide()" in controller, "movement must use move_and_slide")
     require("walk_speed: float = 4.2" in controller, "walk speed baseline drift")
 
-    # Scope guards: later movement features remain separate pieces.
-    require("MOUSE_MODE_CAPTURED" not in controller, "mouse-look leaked into walking piece")
+    # Cumulative scope guards: completed later pieces may share this controller.
+    # Only movement features that are still intentionally unimplemented are forbidden here.
     require("get_gravity" not in controller, "gravity leaked into walking piece")
     require('"jump"' not in controller, "jump leaked into walking piece")
     require('"sprint"' not in controller, "sprint leaked into walking piece")
@@ -36,7 +36,7 @@ def main() -> int:
     print("PASS: W/A/S/D walking input")
     print("PASS: horizontal velocity")
     print("PASS: move_and_slide physics movement")
-    print("PASS: Piece 003 scope isolation")
+    print("PASS: Piece 003 cumulative movement invariants")
     print("MOVEMENT_VERIFY_OK")
     return 0
 
