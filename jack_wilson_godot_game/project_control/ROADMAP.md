@@ -11,7 +11,7 @@ Ordered, bounded pieces. Completed implementation history is preserved; infrastr
 - Piece 007 — Repair cumulative static verification regression — COMPLETE
 - Piece 008 — Persistent continuation core — COMPLETE
 - Piece 009 — QA structure/state validators — COMPLETE
-- Piece 010 — Godot documentation baseline and implementation reference log — PLANNED
+- Piece 010 — Godot documentation baseline and implementation reference log — IN_PROGRESS
 - Piece 011 — Gravity — PLANNED
 - Piece 012 — Start-room wall A — PLANNED
 - Piece 013 — Start-room wall B — PLANNED
@@ -20,3 +20,5 @@ Ordered, bounded pieces. Completed implementation history is preserved; infrastr
 - Piece 016 — Start-room ceiling — PLANNED
 
 Do not combine adjacent pieces merely because they touch the same scene or controller.
+
+- Piece 017 — Mouse-look screen-relative input migration — PLANNED (non-blocking ISSUE-004)

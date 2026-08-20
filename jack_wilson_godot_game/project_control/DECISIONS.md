@@ -59,3 +59,18 @@ TESTS REQUIRED: python scripts/qa/verify_all.py
 COMMIT: 94688bda38135ffbf43bc001c81a1ecabc180989
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
+
+## D-0005
+DECISION_ID: D-0005
+DATE: 2026-08-20
+QUESTION/PROBLEM: How should Godot technical knowledge be persisted without front-loading speculative research or using unstable-version APIs?
+DECISION: Maintain an incremental Godot 4.7 master guide and implementation reference log. Fully research only systems required by the active bounded piece, mark future subjects PLANNED, and use exact `/en/4.7/` documentation as primary technical authority.
+AUTHORITY: USER_DIRECTIVE plus VERIFIED_GODOT_DOCUMENTATION.
+ALTERNATIVES CONSIDERED: Fill a large guide from model memory; use `latest` documentation; defer all documentation until after implementation.
+WHY_SELECTED: Prevents API/version hallucination while avoiding over-engineered speculative documentation.
+REVERSIBLE: YES
+FILES AFFECTED: docs/godot/*; tests/verify_godot_docs_baseline.py; scripts/qa/verify_structure.py
+TESTS REQUIRED: python scripts/qa/verify_all.py
+COMMIT: PENDING_PIECE_010
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE

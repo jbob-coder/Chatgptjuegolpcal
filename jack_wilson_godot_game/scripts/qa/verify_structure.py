@@ -7,12 +7,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CONTROL = ROOT / "project_control"
 
-REQUIRED_DIRS = ("project_control", "data", "scenes", "scripts", "tests", "scripts/qa", "project_control/piece_history")
+REQUIRED_DIRS = ("project_control", "data", "scenes", "scripts", "tests", "scripts/qa", "project_control/piece_history", "docs", "docs/godot")
 REQUIRED_CONTROL = (
     "MASTER_STATE.md", "CURRENT_PIECE.md", "ROADMAP.md", "QUALITY_BASELINE.md",
     "DECISIONS.md", "QUESTIONS_AND_ANSWERS.md", "SOURCE_REGISTRY.md",
     "KNOWN_UNKNOWNS.md", "ISSUES.md", "REGRESSION_LOG.md", "CHANGELOG.md",
 )
+REQUIRED_GODOT_DOCS = ("GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md", "GODOT_IMPLEMENTATION_REFERENCE_LOG.md")
 FORBIDDEN_NESTED_DIRS = ("temporary_verification", "audit", "governance", "third_party")
 
 
@@ -28,6 +29,8 @@ def main() -> int:
         require((ROOT / rel).is_dir(), f"required directory missing: {rel}")
     for name in REQUIRED_CONTROL:
         require((CONTROL / name).is_file(), f"required project-control file missing: {name}")
+    for name in REQUIRED_GODOT_DOCS:
+        require((ROOT / "docs" / "godot" / name).is_file(), f"required Godot documentation missing: {name}")
     for name in FORBIDDEN_NESTED_DIRS:
         require(not (ROOT / name).exists(), f"forbidden nested repository area inside game root: {name}")
 
@@ -40,6 +43,7 @@ def main() -> int:
 
     print("PASS: dedicated game root structure")
     print("PASS: required project-control records")
+    print("PASS: required Godot documentation baseline")
     print("PASS: configured main scene remains inside game root")
     print("STRUCTURE_VERIFY_OK")
     return 0

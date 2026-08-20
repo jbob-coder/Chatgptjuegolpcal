@@ -1,91 +1,82 @@
 # Current Piece
 
-PIECE_ID: PIECE-009
-TITLE: QA structure/state validators
-STATUS: COMPLETE
-PURPOSE: Add bounded automated guards for project structure, state consistency, current-piece validity, and regression-baseline integrity, then make verify_all.py orchestrate them.
+PIECE_ID: PIECE-010
+TITLE: Godot 4.7 documentation baseline and implementation reference log
+STATUS: STATIC_VERIFIED
+PURPOSE: Establish the repository-side, version-specific Godot technical authority baseline before adding another engine behavior.
 
 IN_SCOPE:
-- scripts/qa/preflight.py
-- scripts/qa/verify_structure.py
-- scripts/qa/verify_project_state.py
-- scripts/qa/verify_current_piece.py
-- scripts/qa/regression_guard.py
-- scripts/qa/verify_all.py orchestration
-- Project-control updates required to represent Piece 009 and its machine-readable quality baseline.
+- docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md
+- docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md
+- tests/verify_godot_docs_baseline.py
+- Teach verify_structure.py that the two Godot baseline records are now mandatory.
+- Record documentation findings and non-blocking implementation issues without changing gameplay.
 
 OUT_OF_SCOPE:
-- Gameplay changes.
-- Godot API research/documentation baseline.
-- Godot runtime/parser claims.
-- Character/campaign data contracts.
+- Gravity implementation.
+- Mouse-look behavior changes.
+- Godot runtime execution.
+- Exhaustive research of systems not yet needed by an implementation piece.
 
 FILES_ALLOWED_TO_CHANGE:
-- scripts/qa/preflight.py
+- docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md
+- docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md
+- tests/verify_godot_docs_baseline.py
 - scripts/qa/verify_structure.py
-- scripts/qa/verify_project_state.py
-- scripts/qa/verify_current_piece.py
-- scripts/qa/regression_guard.py
-- scripts/qa/verify_all.py
-- tests/verify_project_control_core.py
 - project_control/MASTER_STATE.md
 - project_control/CURRENT_PIECE.md
 - project_control/ROADMAP.md
 - project_control/QUALITY_BASELINE.md
+- project_control/SOURCE_REGISTRY.md
 - project_control/DECISIONS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
-- project_control/piece_history/PIECE-009.md
 
 FILES_EXPECTED_TO_CREATE:
-- scripts/qa/preflight.py
-- scripts/qa/verify_structure.py
-- scripts/qa/verify_project_state.py
-- scripts/qa/verify_current_piece.py
-- scripts/qa/regression_guard.py
-- project_control/piece_history/PIECE-009.md
+- docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md
+- docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md
+- tests/verify_godot_docs_baseline.py
 
 SOURCE_FACTS_USED:
-- USER_DIRECTIVE: required QA scripts and non-zero failure behavior.
-- VERIFIED_REPOSITORY_FACT: Piece 008 sealed complete before Piece 009 starts.
+- VERIFIED_GODOT_DOCUMENTATION: official Godot 4.7 versioned documentation exists and 4.7 is a supported release.
+- VERIFIED_GODOT_DOCUMENTATION: CharacterBody3D velocity/move_and_slide semantics; Input.get_vector; InputMap action APIs; InputEventMouseMotion.screen_relative guidance; ProjectSettings 3D gravity settings.
+- VERIFIED_REPOSITORY_FACT: current player mouse look uses event.relative; current player gravity is not implemented.
 
 ASSUMPTIONS:
-- QA scripts must remain standard-library-only and runnable from the game root on Python 3.10+.
+- The master guide grows incrementally per bounded system rather than inventing entries for unresearched systems.
 
 KNOWN_UNKNOWNS:
-- Git object existence cannot be checked in a non-git reconstructed snapshot; verify_project_state performs the check when a real .git worktree is available and reports the limitation otherwise.
-- Godot runtime remains unavailable.
+- Godot runtime/parser behavior remains unexecuted.
+- Future systems in the guide's research matrix are PLANNED, not verified.
 
 ACCEPTANCE_CRITERIA:
-- preflight.py checks minimum local prerequisites and fails non-zero on missing requirements.
-- verify_structure.py validates the dedicated game root, required directories/control records, and the configured main scene.
-- verify_project_state.py validates relational continuity among MASTER_STATE, CURRENT_PIECE, ROADMAP, and commit-pointer formatting.
-- verify_current_piece.py validates all mandatory piece fields, allowed status, non-empty scope lists, and commit-pointer rules.
-- regression_guard.py enforces the machine-readable minimum quality baseline without hard-coding transient piece IDs.
-- verify_all.py runs all five QA validators plus all seven existing tests, and fails non-zero if any child check fails.
-- No gameplay file changes.
+- Both required Godot documentation records exist.
+- All implementation-authority URLs for currently validated systems are official Godot 4.7 pages.
+- Guide distinguishes official documentation evidence, repository evidence, static verification, planned research, and runtime verification.
+- Reference log records class/API/restriction/decision evidence for current movement/input and planned gravity.
+- Device sensor Input.get_gravity is explicitly separated from world 3D gravity.
+- Existing event.relative use is recorded as a non-blocking quality issue, not silently changed.
+- Cumulative static suite passes 13/13.
 
 TESTS_REQUIRED:
 - python scripts/qa/verify_all.py
 
 REGRESSION_GATES:
-- Existing seven tests continue to pass.
-- Five new QA validators pass.
-- Existing project-control core verification is future-proofed so a later legitimate runtime-gate promotion does not create a stale-test regression.
-- Total static checks: 12/12.
+- Five QA validators pass.
+- Eight static tests pass.
+- Total static checks: 13/13.
+- No gameplay file changes.
 - RUNTIME_GATE_NOT_EXECUTED remains explicit.
 
-STARTING_COMMIT: 3e6e77dce323031e4124b8e3857a83d7a2346594
-ENDING_COMMIT: 94688bda38135ffbf43bc001c81a1ecabc180989
+STARTING_COMMIT: 5e0aac0d8857e5ce18889da3cd12dc83a248cc7e
+ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: QA validators pass 12/12 in the connector-fetched reconstructed snapshot. GitHub readback confirmed the committed orchestrator and project-state validator at 94688bda38135ffbf43bc001c81a1ecabc180989.
+RESULT: Godot 4.7 documentation baseline prepared from official sources and statically verified in the reconstructed snapshot.
 
 FAILURES_FOUND:
-- QA-009-01: Initial Piece 009 review found hard-coded RUNTIME_GATE_NOT_EXECUTED assertions in the existing project-control test and proposed state/regression validators. Those assertions would reject a future legitimate RUNTIME_VERIFIED state.
+- ISSUE-004 identified: current mouse-look code uses event.relative, while Godot 4.7 recommends screen_relative for captured mouse aiming to avoid content-scale sensitivity changes.
 
 FIXES_APPLIED:
-- Runtime-gate checks now validate consistency between MASTER_STATE and QUALITY_BASELINE instead of freezing the current transient value.
-- verify_project_state.py now handles an unavailable git executable as an explicit local limitation rather than crashing.
-- Sealed-state rehearsal also passed 12/12 before completion.
+- No gameplay fix inside this documentation-only piece; the finding is recorded for a dedicated bounded implementation piece.
 
-FINAL_STATUS: COMPLETE
+FINAL_STATUS: STATIC_VERIFIED

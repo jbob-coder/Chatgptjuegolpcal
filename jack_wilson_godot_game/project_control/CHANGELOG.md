@@ -20,3 +20,9 @@
 - Found QA-009-01 during review: hard-coded current runtime-gate assertions would become stale after a future legitimate runtime verification. Replaced them with relational MASTER_STATE/QUALITY_BASELINE consistency checks.
 - Reconstructed static suite passes 12/12; committed QA orchestrator/state validator readback confirmed at 94688bda38135ffbf43bc001c81a1ecabc180989; Godot runtime remains unexecuted.
 - No gameplay files changed.
+
+## 2026-08-20 — Piece 010 (in progress)
+- Established the incremental Godot 4.7 documentation authority baseline from official versioned sources.
+- Added a versioned implementation-reference log for CharacterBody3D, Input, InputMap, captured mouse motion, and planned 3D gravity.
+- Added a documentation baseline verifier and taught structure validation that the two Godot reference records are now mandatory.
+- Recorded ISSUE-004 for current event.relative mouse-look usage; no gameplay behavior was changed.
