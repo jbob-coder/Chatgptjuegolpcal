@@ -17,12 +17,14 @@
 - Added preflight, structure, project-state, current-piece, and regression-baseline validators.
 - Expanded verify_all.py to orchestrate five QA validators plus seven existing static tests.
 - Added machine-readable minimum quality metrics to QUALITY_BASELINE.md.
-- Found QA-009-01 during review: hard-coded current runtime-gate assertions would become stale after a future legitimate runtime verification. Replaced them with relational MASTER_STATE/QUALITY_BASELINE consistency checks.
-- Reconstructed static suite passes 12/12; committed QA orchestrator/state validator readback confirmed at 94688bda38135ffbf43bc001c81a1ecabc180989; Godot runtime remains unexecuted.
+- Found QA-009-01 during review and replaced transient runtime-gate assertions with relational consistency checks.
+- Reconstructed static suite passed 12/12; Godot runtime remained unexecuted.
 - No gameplay files changed.
 
-## 2026-08-20 — Piece 010 (in progress)
+## 2026-08-20 — Piece 010
 - Established the incremental Godot 4.7 documentation authority baseline from official versioned sources.
 - Added a versioned implementation-reference log for CharacterBody3D, Input, InputMap, captured mouse motion, and planned 3D gravity.
-- Added a documentation baseline verifier and taught structure validation that the two Godot reference records are now mandatory.
+- Added a documentation baseline verifier and taught structure validation that the two Godot reference records are mandatory.
 - Recorded ISSUE-004 for current event.relative mouse-look usage; no gameplay behavior was changed.
+- Reconstructed static suite passed 13/13 and committed documentation/verifier readback was completed at 4c64bcbaabf2eaff5f23d3e94212175644a1263f.
+- Piece 010 sealed COMPLETE; repository organization is next as Piece 011.

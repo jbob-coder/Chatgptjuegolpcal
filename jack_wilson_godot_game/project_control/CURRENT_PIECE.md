@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-010
 TITLE: Godot 4.7 documentation baseline and implementation reference log
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 PURPOSE: Establish the repository-side, version-specific Godot technical authority baseline before adding another engine behavior.
 
 IN_SCOPE:
@@ -31,11 +31,13 @@ FILES_ALLOWED_TO_CHANGE:
 - project_control/DECISIONS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
+- project_control/piece_history/PIECE-010.md
 
 FILES_EXPECTED_TO_CREATE:
 - docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md
 - docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md
 - tests/verify_godot_docs_baseline.py
+- project_control/piece_history/PIECE-010.md
 
 SOURCE_FACTS_USED:
 - VERIFIED_GODOT_DOCUMENTATION: official Godot 4.7 versioned documentation exists and 4.7 is a supported release.
@@ -57,6 +59,7 @@ ACCEPTANCE_CRITERIA:
 - Device sensor Input.get_gravity is explicitly separated from world 3D gravity.
 - Existing event.relative use is recorded as a non-blocking quality issue, not silently changed.
 - Cumulative static suite passes 13/13.
+- Committed documentation and verifier are readable back from GitHub.
 
 TESTS_REQUIRED:
 - python scripts/qa/verify_all.py
@@ -69,9 +72,9 @@ REGRESSION_GATES:
 - RUNTIME_GATE_NOT_EXECUTED remains explicit.
 
 STARTING_COMMIT: 5e0aac0d8857e5ce18889da3cd12dc83a248cc7e
-ENDING_COMMIT: PENDING_COMMIT_READBACK
+ENDING_COMMIT: 4c64bcbaabf2eaff5f23d3e94212175644a1263f
 
-RESULT: Godot 4.7 documentation baseline prepared from official sources and statically verified in the reconstructed snapshot.
+RESULT: Godot 4.7 documentation baseline committed, statically verified at 13/13 in the reconstructed snapshot, and read back from GitHub.
 
 FAILURES_FOUND:
 - ISSUE-004 identified: current mouse-look code uses event.relative, while Godot 4.7 recommends screen_relative for captured mouse aiming to avoid content-scale sensitivity changes.
@@ -79,4 +82,4 @@ FAILURES_FOUND:
 FIXES_APPLIED:
 - No gameplay fix inside this documentation-only piece; the finding is recorded for a dedicated bounded implementation piece.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: COMPLETE
