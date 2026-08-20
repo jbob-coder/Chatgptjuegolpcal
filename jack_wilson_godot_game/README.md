@@ -28,8 +28,15 @@ Status: COMPLETE_STATIC
 - Player velocity is expressed in meters per second.
 - Motion is applied with `CharacterBody3D.move_and_slide()` from `_physics_process()`.
 
+### Piece 004 — Mouse look
+Status: COMPLETE_STATIC
+- Mouse is captured when the player initializes.
+- Horizontal mouse motion yaws the player body.
+- Vertical mouse motion pitches the head pivot.
+- Pitch is clamped to ±85 degrees.
+- Escape toggles mouse capture/visibility.
+
 ## Not implemented yet
-- mouse look
 - gravity
 - jumping
 - sprinting

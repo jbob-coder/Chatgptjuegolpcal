@@ -1,10 +1,25 @@
 extends CharacterBody3D
 
 @export var walk_speed: float = 4.2
+@export var mouse_sensitivity: float = 0.0022
+
+@onready var head: Node3D = $Head
 
 
 func _ready() -> void:
 	_ensure_input_actions()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		rotate_y(-event.screen_relative.x * mouse_sensitivity)
+		head.rotate_x(-event.screen_relative.y * mouse_sensitivity)
+		head.rotation.x = clampf(head.rotation.x, deg_to_rad(-85.0), deg_to_rad(85.0))
+		return
+
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_CAPTURED
 
 
 func _physics_process(_delta: float) -> void:
