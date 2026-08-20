@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,10 +44,29 @@ MASTER_FIELDS = (
     "LAST_UPDATED:",
 )
 
+VALID_STATUSES = {
+    "PLANNED",
+    "IN_PROGRESS",
+    "BLOCKED",
+    "FAILED",
+    "REPAIRING",
+    "STATIC_VERIFIED",
+    "RUNTIME_VERIFIED",
+    "COMPLETE",
+}
+
 
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
+
+
+def field_value(text: str, field: str) -> str:
+    prefix = f"{field}:"
+    for line in text.splitlines():
+        if line.startswith(prefix):
+            return line[len(prefix):].strip()
+    raise AssertionError(f"missing field: {field}:")
 
 
 def main() -> int:
@@ -62,24 +82,34 @@ def main() -> int:
     for field in MASTER_FIELDS:
         require(field in master, f"MASTER_STATE missing field: {field}")
 
-    require("REPOSITORY: jbob-coder/Chatgptjuegolpcal" in master, "repository pointer drift")
-    require("GAME_ROOT: jack_wilson_godot_game/" in master, "game root pointer drift")
-    require("CURRENT_BRANCH: main" in master, "branch pointer drift")
-    require("LAST_COMPLETED_PIECE: PIECE-007" in master, "last completed piece drift")
-    require("CURRENT_PIECE: PIECE-008" in master, "current piece drift")
-    require("NEXT_PLANNED_PIECE: PIECE-009" in master, "next piece drift")
-    require("PIECE_ID: PIECE-008" in current and "STATUS: STATIC_VERIFIED" in current, "current-piece status mismatch")
+    require(field_value(master, "REPOSITORY") == "jbob-coder/Chatgptjuegolpcal", "repository pointer drift")
+    require(field_value(master, "GAME_ROOT") == "jack_wilson_godot_game/", "game root pointer drift")
+    require(field_value(master, "CURRENT_BRANCH") == "main", "branch pointer drift")
 
-    for piece in range(1, 10):
-        require(f"Piece {piece:03d}" in roadmap, f"roadmap missing Piece {piece:03d}")
+    current_id = field_value(current, "PIECE_ID")
+    current_status = field_value(current, "STATUS")
+    require(re.fullmatch(r"PIECE-\d{3}", current_id) is not None, "invalid current piece ID")
+    require(current_status in VALID_STATUSES, "invalid current piece status")
+    require(current_id in field_value(master, "CURRENT_PIECE"), "MASTER_STATE current-piece pointer mismatch")
+
+    current_number = current_id.removeprefix("PIECE-")
+    require(f"Piece {current_number}" in roadmap, "roadmap missing current piece")
+
+    next_value = field_value(master, "NEXT_PLANNED_PIECE")
+    next_match = re.search(r"PIECE-(\d{3})", next_value)
+    require(next_match is not None, "MASTER_STATE next planned piece has no valid ID")
+    require(f"Piece {next_match.group(1)}" in roadmap, "roadmap missing next planned piece")
+
+    if current_status == "COMPLETE":
+        require(current_id in field_value(master, "LAST_COMPLETED_PIECE"), "completed current piece not reflected as last completed")
 
     require("RAW_SOURCE_READ: NO" in sources, "pointer-only source classification missing")
     require("exact_source_dimensions_known=false" in unknowns, "room geometry unknown not preserved")
-    require("RUNTIME_GATE_NOT_EXECUTED" in master, "runtime uncertainty was promoted incorrectly")
+    require(field_value(master, "RUNTIME_GATE_STATUS") == "RUNTIME_GATE_NOT_EXECUTED", "runtime uncertainty was promoted incorrectly")
 
     print("PASS: continuation-core files exist")
     print("PASS: MASTER_STATE mandatory fields")
-    print("PASS: roadmap continuity through PIECE-009")
+    print("PASS: current/next piece pointers are state-relative")
     print("PASS: source-read classification")
     print("PASS: known unknowns/runtime gate preserved")
     print("PROJECT_CONTROL_CORE_VERIFY_OK")

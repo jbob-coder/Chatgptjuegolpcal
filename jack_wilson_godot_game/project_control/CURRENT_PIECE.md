@@ -48,7 +48,7 @@ FILES_EXPECTED_TO_CREATE:
 
 SOURCE_FACTS_USED:
 - USER_DIRECTIVE: repository must contain persistent operational memory.
-- VERIFIED_REPOSITORY_FACT: Piece 007 is sealed complete at current HEAD before Piece 008.
+- VERIFIED_REPOSITORY_FACT: Piece 007 is sealed complete at the starting HEAD for Piece 008.
 
 ASSUMPTIONS:
 - None about unverified campaign recovery hints.
@@ -60,9 +60,10 @@ ACCEPTANCE_CRITERIA:
 - All required continuation-core files exist.
 - MASTER_STATE contains every mandatory continuation field.
 - MASTER_STATE points to the correct repository, game root, branch, completed piece, current piece, and next planned piece.
-- ROADMAP preserves completed pieces and identifies PIECE-009 next.
+- ROADMAP preserves completed pieces and identifies the next bounded piece.
 - Source registry distinguishes read sources from pointer-only sources.
 - Known unknowns preserve reversible geometry and runtime uncertainty.
+- The project-control verifier remains valid when CURRENT_PIECE advances instead of hard-coding Piece 008.
 - Cumulative static suite passes 7/7.
 
 TESTS_REQUIRED:
@@ -76,12 +77,13 @@ REGRESSION_GATES:
 STARTING_COMMIT: dc18e83165f319b1770c03484eb1d200b6e5d8a0
 ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: Persistent continuation core prepared and statically replayed in reconstructed snapshot.
+RESULT: Persistent continuation core prepared and statically replayed in the reconstructed snapshot. The first committed verifier was rejected during readback because its transient piece-ID assertions would have become stale; the corrected verifier derives current/next IDs and status from project state.
 
 FAILURES_FOUND:
-- None inside Piece 008 scope during local reconstructed verification.
+- QA-008-01: The first Piece 008 verifier hard-coded LAST_COMPLETED_PIECE=PIECE-007, CURRENT_PIECE=PIECE-008, NEXT_PLANNED_PIECE=PIECE-009, and STATIC_VERIFIED. It would have failed legitimately as soon as Piece 009 started, recreating the stale-test failure class repaired in REG-0001.
 
 FIXES_APPLIED:
-- N/A
+- Reworked verify_project_control_core.py to derive the current piece ID, current status, and next planned piece from the committed control records and validate their internal consistency instead of freezing transient IDs.
+- Retained fixed invariants for repository, game root, branch, source-read classification, reversible room uncertainty, and runtime-gate honesty.
 
 FINAL_STATUS: STATIC_VERIFIED
