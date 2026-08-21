@@ -26,13 +26,12 @@
 - Added a versioned implementation-reference log for CharacterBody3D, Input, InputMap, captured mouse motion, and planned 3D gravity.
 - Added a documentation baseline verifier and taught structure validation that the two Godot reference records are mandatory.
 - Reconstructed static suite passed 13/13 and committed documentation/verifier readback was completed at 4c64bcbaabf2eaff5f23d3e94212175644a1263f.
-- Piece 010 sealed COMPLETE.
+- Piece 010 sealed COMPLETE, but Piece 011 later corrected truth/authority defects introduced in Piece 010 records/seal.
 
-## 2026-08-20 — Piece 011 (static verified; commit pending)
+## 2026-08-20 — Piece 011 (static verified; final repair commit/readback pending)
 - Detected REG-0002: Piece 010 falsely recorded that the live controller used event.relative; live and Piece 006 historical reads show event.screen_relative.
-- Stopped repository-organization work before commit.
-- Repaired the Godot guide/reference log and added a live-code cross-check to the documentation verifier.
-- Repaired stale verified-commit baseline and stale ISSUE-003/ISSUE-004 records.
-- Added a project-state guard requiring MASTER_STATE and QUALITY_BASELINE verified-commit pointers to agree.
-- Reconstructed cumulative static suite passes 13/13 after the repair candidate.
+- Concurrent repair commit 921fbaf8abc09e61d0b98fc4f286cef1ecb367ba corrected the Godot guide/reference log, live-code docs verifier, verified-commit relation, and stale ISSUE-003/ISSUE-004 records.
+- Audit of that repair found REG-0003: Piece 010 seal and first repair still retained four repository-organization systems tied to an unregistered separation directive.
+- Merged repair removes those unsupported systems from the active roadmap, registers Q-0002/U-0005, restores gravity as next, and adds a source-pointer QA guard.
+- Reconstructed cumulative static suite passes 13/13 after the merged repair candidate.
 - No gameplay code changes are in scope.

@@ -74,12 +74,25 @@ def main() -> int:
     if current_status == "COMPLETE":
         require(current_id in field_value(master, "LAST_COMPLETED_PIECE"), "completed current piece not reflected as last completed")
     require("RAW_SOURCE_READ: NO" in sources, "pointer-only source classification missing")
+
+    # Any free-text `current user ... directive` pointer in MASTER_STATE must map to
+    # identifiable text in SOURCE_REGISTRY. This prevents unregistered user authority
+    # from being invented during roadmap/control updates.
+    source_text = sources.lower().replace("-", " ")
+    for pointer in (item.strip() for item in field_value(master, "AUTHORITATIVE_SOURCE_POINTERS").split(";")):
+        lowered = pointer.lower()
+        if lowered.startswith("current user ") and lowered.endswith(" directive"):
+            label = lowered[len("current user "):-len(" directive")].replace("-", " ")
+            tokens = [token for token in re.findall(r"[a-z0-9]+", label) if len(token) >= 4]
+            require(tokens and all(token in source_text for token in tokens), f"unregistered current-user directive pointer: {pointer}")
+
     require("exact_source_dimensions_known=false" in unknowns, "room geometry unknown not preserved")
     require(field_value(master, "RUNTIME_GATE_STATUS") == field_value(baseline, "RUNTIME_VERIFICATION_STATUS"), "runtime gate disagrees with quality baseline")
     print("PASS: continuation-core files exist")
     print("PASS: MASTER_STATE mandatory fields")
     print("PASS: current/next piece pointers are state-relative")
     print("PASS: source-read classification")
+    print("PASS: current-user directive pointers map to SOURCE_REGISTRY")
     print("PASS: known unknowns/runtime gate consistency")
     print("PROJECT_CONTROL_CORE_VERIFY_OK")
     return 0

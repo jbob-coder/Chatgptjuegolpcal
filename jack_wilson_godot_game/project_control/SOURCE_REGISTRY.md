@@ -10,7 +10,7 @@ VERSION: 2026-08-20
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: project governance, QA, continuity, source classification
 FACTS_EXTRACTED: Dedicated game root; main branch rule; one-piece loop; mandatory control records; runtime/static distinction; no hallucinated verification; no raw novel prose; Godot 4.7.x target.
-LIMITATIONS: Does not by itself verify recovery-hint campaign values against newer authoritative project/source records.
+LIMITATIONS: Does not authorize the four-plane routing, ownership-folder migration, action/resource graph, or automatic projection systems temporarily inserted by the Piece 010 seal. No separation directive authorizing those systems is registered in this source registry.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
 
@@ -20,11 +20,11 @@ NAME: Current GitHub repository implementation
 LOCATION: jbob-coder/Chatgptjuegolpcal main, jack_wilson_godot_game/
 TYPE: VERIFIED_REPOSITORY
 AUTHORITY_LEVEL: 4
-VERSION: observed through e2c217b98b54ba985a5599bb151f2afacab25426
+VERSION: observed through 921fbaf8abc09e61d0b98fc4f286cef1ecb367ba
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: all currently implemented game, QA, docs, and project-control pieces
-FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; mouse-look verifier requires screen_relative; Piece 010 docs contained a stale contradictory repository observation.
-LIMITATIONS: Static repository inspection does not prove Godot runtime/parser behavior.
+FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; mouse-look verifier requires screen_relative; Piece 010 docs contained a stale contradictory repository observation; Piece 010 seal inserted four organization systems without a registered source/decision; concurrent Piece 011 repair corrected the mouse and verified-commit truth drift but retained those unsupported systems.
+LIMITATIONS: Static repository inspection does not prove Godot runtime/parser behavior. Repository facts must be read from current committed files rather than copied from prior summaries.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
 

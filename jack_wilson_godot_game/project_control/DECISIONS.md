@@ -86,6 +86,21 @@ WHY_SELECTED: A false VERIFIED_REPOSITORY claim is a quality failure even when g
 REVERSIBLE: YES
 FILES_AFFECTED: docs/godot/*; tests/verify_godot_docs_baseline.py; scripts/qa/verify_project_state.py; project_control/*
 TESTS_REQUIRED: python tests/verify_godot_docs_baseline.py; python scripts/qa/verify_project_state.py; python scripts/qa/verify_all.py
+COMMIT: 921fbaf8abc09e61d0b98fc4f286cef1ecb367ba
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE
+
+## D-0007
+DECISION_ID: D-0007
+DATE: 2026-08-20
+QUESTION/PROBLEM: Piece 010 seal and the first Piece 011 repair both retained four future repository-organization systems while citing a separation directive that is absent from SOURCE_REGISTRY and from the current user instruction.
+DECISION: Keep those four systems out of the active roadmap until authoritative user/source evidence is registered. Preserve the missing authority as Q-0002/U-0005 and resume the prior evidence-backed gameplay sequence with gravity after Piece 011.
+AUTHORITY: USER_DIRECTIVE source-of-truth/unknown/roadmap-decision rules plus VERIFIED_REPOSITORY_FACT from REG-0003.
+ALTERNATIVES_CONSIDERED: Invent a separation-directive source; implement the unverified systems; delete all history of the insertion; block unrelated gameplay indefinitely.
+WHY_SELECTED: Restores traceable authority without discarding history and leaves a reversible path to re-add the systems if genuine user evidence later appears.
+REVERSIBLE: YES
+FILES_AFFECTED: project_control/MASTER_STATE.md; project_control/ROADMAP.md; project_control/SOURCE_REGISTRY.md; project_control/QUESTIONS_AND_ANSWERS.md; project_control/KNOWN_UNKNOWNS.md; project_control/REGRESSION_LOG.md; tests/verify_project_control_core.py
+TESTS_REQUIRED: python tests/verify_project_control_core.py; python scripts/qa/verify_all.py
 COMMIT: PENDING_PIECE_011
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
