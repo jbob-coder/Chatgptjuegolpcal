@@ -93,14 +93,29 @@ SUPERSEDED_BY: NONE
 ## D-0007
 DECISION_ID: D-0007
 DATE: 2026-08-20
-QUESTION/PROBLEM: Piece 010 seal and the first Piece 011 repair both retained four future repository-organization systems while citing a separation directive that is absent from SOURCE_REGISTRY and from the current user instruction.
-DECISION: Keep those four systems out of the active roadmap until authoritative user/source evidence is registered. Preserve the missing authority as Q-0002/U-0005 and resume the prior evidence-backed gameplay sequence with gravity after Piece 011.
+QUESTION/PROBLEM: Piece 010 seal and the first Piece 011 repair both retained four future repository-organization systems while citing a separation directive that was absent from SOURCE_REGISTRY at that time.
+DECISION: Keep those four systems out of the active roadmap until authoritative user/source evidence is registered.
 AUTHORITY: USER_DIRECTIVE source-of-truth/unknown/roadmap-decision rules plus VERIFIED_REPOSITORY_FACT from REG-0003.
 ALTERNATIVES_CONSIDERED: Invent a separation-directive source; implement the unverified systems; delete all history of the insertion; block unrelated gameplay indefinitely.
-WHY_SELECTED: Restores traceable authority without discarding history and leaves a reversible path to re-add the systems if genuine user evidence later appears.
+WHY_SELECTED: Correct at the time of the audit because the source evidence had not yet been registered.
 REVERSIBLE: YES
 FILES_AFFECTED: project_control/MASTER_STATE.md; project_control/ROADMAP.md; project_control/SOURCE_REGISTRY.md; project_control/QUESTIONS_AND_ANSWERS.md; project_control/KNOWN_UNKNOWNS.md; project_control/REGRESSION_LOG.md; tests/verify_project_control_core.py
 TESTS_REQUIRED: python tests/verify_project_control_core.py; python scripts/qa/verify_all.py
-COMMIT: PENDING_PIECE_011
+COMMIT: 9128ff679028621baf6e99b29b04483c4a456e9c
 SUPERSEDES: NONE
+SUPERSEDED_BY: D-0008
+
+## D-0008
+DECISION_ID: D-0008
+DATE: 2026-08-20
+QUESTION/PROBLEM: Q-0002 was UNKNOWN because the explicit repository-separation user instruction from the current conversation had not been registered, causing the organization sequence to be removed from the roadmap.
+DECISION: Register the user instruction as SOURCE-007, mark Q-0002/U-0005 resolved, and restore the organization sequence as four bounded pieces before gravity: user surface/four-plane routing; control-plane ownership migration; action/resource graph; generated user projections.
+AUTHORITY: SOURCE-007 / USER_DIRECTIVE and confirmed Q-0002.
+ALTERNATIVES_CONSIDERED: Continue gravity first; collapse all organization work into one commit; leave the authority conflict unresolved.
+WHY_SELECTED: This directly follows the user's explicit instruction while preserving the audit history that the directive was initially unregistered. Splitting the architecture avoids a large untestable migration.
+REVERSIBLE: YES
+FILES_AFFECTED: project_control/*; docs/user/*; future project_control/registry/*; future graph records; QA routing/projection validators.
+TESTS_REQUIRED: python scripts/qa/verify_all.py plus piece-specific routing/migration/graph/projection tests.
+COMMIT: PENDING_AUTHORITY_RESOLUTION
+SUPERSEDES: D-0007
 SUPERSEDED_BY: NONE
