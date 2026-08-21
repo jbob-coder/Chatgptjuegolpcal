@@ -10,7 +10,7 @@ VERSION: 2026-08-20
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: project governance, QA, continuity, source classification
 FACTS_EXTRACTED: Dedicated game root; main branch rule; one-piece loop; mandatory control records; runtime/static distinction; no hallucinated verification; no raw novel prose; Godot 4.7.x target.
-LIMITATIONS: Does not authorize the four-plane routing, ownership-folder migration, action/resource graph, or automatic projection systems temporarily inserted by the Piece 010 seal. No separation directive authorizing those systems is registered in this source registry.
+LIMITATIONS: Does not by itself authorize the four-plane routing, ownership-folder migration, action/resource graph, or automatic projection systems.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
 
@@ -20,10 +20,10 @@ NAME: Current GitHub repository implementation
 LOCATION: jbob-coder/Chatgptjuegolpcal main, jack_wilson_godot_game/
 TYPE: VERIFIED_REPOSITORY
 AUTHORITY_LEVEL: 4
-VERSION: observed through 921fbaf8abc09e61d0b98fc4f286cef1ecb367ba
+VERSION: observed through 9128ff679028621baf6e99b29b04483c4a456e9c
 DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: all currently implemented game, QA, docs, and project-control pieces
-FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; mouse-look verifier requires screen_relative; Piece 010 docs contained a stale contradictory repository observation; Piece 010 seal inserted four organization systems without a registered source/decision; concurrent Piece 011 repair corrected the mouse and verified-commit truth drift but retained those unsupported systems.
+FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; mouse-look verifier requires screen_relative; Piece 010 docs contained a stale contradictory repository observation; Piece 011 repaired the resulting truth/authority drift.
 LIMITATIONS: Static repository inspection does not prove Godot runtime/parser behavior. Repository facts must be read from current committed files rather than copied from prior summaries.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
@@ -81,5 +81,19 @@ DATE_ACCESSED: 2026-08-20
 RELEVANT_SYSTEM: mouse-look repository observation integrity
 FACTS_EXTRACTED: Player controller blob b7677eccaaae0c522375edca78e251a5b4a8407b uses event.screen_relative for both axes; current mouse-look verifier requires screen_relative.
 LIMITATIONS: Proves repository content, not runtime behavior.
+RAW_SOURCE_READ: YES
+DERIVED_ONLY: NO
+
+## SOURCE-007
+SOURCE_ID: SOURCE-007
+NAME: User repository separation / routing / graph directive
+LOCATION: Current project conversation, user instructions on 2026-08-20 immediately before and including “Go to GitHub and do as you said” and “Solve problems and continue”.
+TYPE: USER_DIRECTIVE
+AUTHORITY_LEVEL: 1
+VERSION: 2026-08-20
+DATE_ACCESSED: 2026-08-20
+RELEVANT_SYSTEM: repository organization, user-facing projection, control-plane ownership, action/resource graph, QA routing
+FACTS_EXTRACTED: Separate what the user needs to see from internal engineering state; keep game runtime separate; use explicit folder ownership so files have deterministic destinations; use graph semantics NODES=VERBS/ACTIONS and EDGES=NOUNS/RESOURCES; create and enforce the structure in GitHub; solve discovered problems automatically and continue.
+LIMITATIONS: This directive defines repository/control architecture. It does not itself authorize unrelated gameplay/canon changes.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
