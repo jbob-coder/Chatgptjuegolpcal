@@ -47,10 +47,11 @@ STATUS: OPEN
 ## U-0005
 UNKNOWN_ID: U-0005
 DESCRIPTION: Authority for the four repository-organization systems temporarily inserted by the Piece 010 seal.
-WHY UNKNOWN: The seal names a latest/current user separation directive, but no corresponding source entry or decision exists in the repository and no such directive is present in the current instruction.
-RELATED SOURCE: Q-0002
-IMPACT: Those systems cannot be treated as USER_DIRECTIVE or active roadmap requirements.
-SAFE REVERSIBLE FALLBACK: Keep them out of the active roadmap and continue unrelated evidence-backed pieces; re-add only after authoritative user/source evidence is registered.
-BLOCKS PROGRESS: NO for gravity and existing gameplay roadmap; YES for implementing the four removed organization systems
-RESOLUTION NEEDED FROM: explicit authoritative user instruction or registered source evidence
-STATUS: OPEN
+WHY UNKNOWN: The repository had not registered the separation directive when Piece 011 audited it.
+RELATED SOURCE: Q-0002; SOURCE-007
+IMPACT: Previously blocked treating the organization systems as user-authorized.
+SAFE REVERSIBLE FALLBACK: N/A after resolution.
+BLOCKS PROGRESS: NO
+RESOLUTION NEEDED FROM: resolved by explicit current-conversation user directive registered as SOURCE-007.
+STATUS: RESOLVED
+RESOLUTION: User explicitly instructed the repository separation/routing/graph architecture and ordered its execution in GitHub. Q-0002 is ANSWERED/CONFIRMED.
