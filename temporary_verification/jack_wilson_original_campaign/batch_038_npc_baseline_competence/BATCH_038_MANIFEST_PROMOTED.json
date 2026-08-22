@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "038",
+  "title": "NPC Baseline Competence Materialization",
+  "status": "PASS_PROMOTED",
+  "created_at": "2026-08-22T17:33:00-04:00",
+  "counts": {
+    "payload_files": 13,
+    "payload_bytes": 79085
+  },
+  "guardrails": {
+    "save_mutated": false,
+    "world_time_advanced": false,
+    "rank_awards_during_install": false
+  },
+  "active_targets": [
+    "10_SYSTEMS/ranking/NPC_BASELINE_EVIDENCE_SCHEMA_V1.json",
+    "10_SYSTEMS/ranking/NPC_BASELINE_COMPETENCE_MATERIALIZATION_ENGINE_V1.json",
+    "03_CHARACTERS/rank_evidence/NPC_COMPETENCE_SEED_REGISTRY_V1.json",
+    "03_CHARACTERS/rank_profiles/DISTRICT_SERVICE_NPC_RANK_STATE_V3.json",
+    "10_SYSTEMS/ranking/RANK_UPDATE_TRANSACTION_ENGINE_V3.json",
+    "10_SYSTEMS/237_GAMEPLAY_STATE_MACHINE_V3.json",
+    "10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json",
+    "10_SYSTEMS/227_STABLE_ID_REGISTRY_V2.json",
+    "10_SYSTEMS/stable_ids/core_system_ids.yaml",
+    "WORLD_RECORD_CATALOG.md"
+  ],
+  "verified_at": "2026-08-22T17:40:00-04:00",
+  "promotion_certificate": "BATCH_038_PROMOTION_CERTIFICATE.json"
+}
