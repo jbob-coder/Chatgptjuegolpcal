@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "035",
+  "title": "NPC Rank Integration and Introduction",
+  "status": "CANDIDATE_VALIDATED",
+  "created_at": "2026-08-22T17:07:00-04:00",
+  "counts": {"payload_files":11,"payload_bytes":49859},
+  "guardrails": {"save_mutated":false,"world_time_advanced":false,"invented_exact_npc_ranks":false},
+  "active_targets": [
+    "10_SYSTEMS/ranking/NPC_RANK_STATE_SCHEMA_V1.json",
+    "10_SYSTEMS/ranking/RANK_VISIBILITY_INTRODUCTION_PROTOCOL_V1.json",
+    "10_SYSTEMS/ranking/ENCOUNTER_COMPARISON_ENGINE_V1.json",
+    "03_CHARACTERS/rank_profiles/DISTRICT_SERVICE_NPC_RANK_STATE_V1.json",
+    "10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json",
+    "10_SYSTEMS/stable_ids/core_system_ids.yaml",
+    "10_SYSTEMS/227_STABLE_ID_REGISTRY_V2.json",
+    "WORLD_RECORD_CATALOG.md"
+  ]
+}
