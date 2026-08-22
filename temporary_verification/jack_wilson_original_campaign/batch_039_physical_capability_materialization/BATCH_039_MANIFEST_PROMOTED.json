@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "039",
+  "title": "Species-Gated Physical Capability Materialization",
+  "status": "PASS_PROMOTED",
+  "created_at": "2026-08-22T17:50:00-04:00",
+  "counts": {"payload_files": 13, "payload_bytes": 73305},
+  "guardrails": {
+    "save_mutated": false,
+    "world_time_advanced": false,
+    "species_assigned_during_install": false,
+    "physical_stats_assigned_during_install": false,
+    "unknown_abilities_materialized": false
+  },
+  "active_targets": [
+    "10_SYSTEMS/stat_scaling/ACTOR_PHYSICAL_CAPABILITY_SCHEMA_V1.json",
+    "10_SYSTEMS/stat_scaling/PHYSICAL_CAPABILITY_MATERIALIZATION_ENGINE_V1.json",
+    "03_CHARACTERS/capability_profiles/PHYSICAL_CAPABILITY_SEED_REGISTRY_V1.json",
+    "03_CHARACTERS/capability_profiles/DISTRICT_SERVICE_NPC_PHYSICAL_STATE_V1.json",
+    "10_SYSTEMS/237_GAMEPLAY_STATE_MACHINE_V4.json",
+    "10_SYSTEMS/234_ACTIVE_SYSTEM_INDEX_V2.json",
+    "10_SYSTEMS/227_STABLE_ID_REGISTRY_V2.json",
+    "10_SYSTEMS/stable_ids/core_system_ids.yaml",
+    "WORLD_RECORD_CATALOG.md"
+  ],
+  "verified_at": "2026-08-22T17:56:00-04:00",
+  "promotion_certificate": "BATCH_039_PROMOTION_CERTIFICATE.json"
+}

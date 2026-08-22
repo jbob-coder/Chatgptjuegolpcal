@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "039",
+  "title": "Species-Gated Physical Capability Materialization",
+  "status": "DRIVE_PROMOTION_AND_EXACT_READBACK_PASS",
+  "verified_at": "2026-08-22T17:56:00-04:00",
+  "authoritative_store": "Google Drive Jack_Wilson_Original_Campaign",
+  "batch_history_folder_id": "1f_4Fiyq7h0svrKnxkQwOm9IANzgOlbha",
+  "stat_scaling_folder_id": "1ChinOpbd-bk3dtGUwYbOekKsHLRHQpp2",
+  "capability_profiles_folder_id": "1XeV-WBRyUcPOEisjbWFmQjDmgHWKizgI",
+  "readback": {
+    "ACTOR_PHYSICAL_CAPABILITY_SCHEMA_V1.json": {"candidate_name":"ACTOR_PHYSICAL_CAPABILITY_SCHEMA_V1.json","bytes":3600,"sha256":"7f5774a77989f813b98b624e03f8ab3a945b76236a25a203f1df8466328726ff","exact_candidate_match":true},
+    "PHYSICAL_CAPABILITY_MATERIALIZATION_ENGINE_V1.json": {"candidate_name":"PHYSICAL_CAPABILITY_MATERIALIZATION_ENGINE_V1.json","bytes":5996,"sha256":"57c53eb961edd0cacad5064ba98ff5ee4d39c7efc24a0d1dd17e8db94745a432","exact_candidate_match":true},
+    "PHYSICAL_CAPABILITY_SEED_REGISTRY_V1.json": {"candidate_name":"PHYSICAL_CAPABILITY_SEED_REGISTRY_V1.json","bytes":3313,"sha256":"04ab3ce31cca937d8726e807114acc4c8a4c1c190ded8da9df4577695ea997c0","exact_candidate_match":true},
+    "DISTRICT_SERVICE_NPC_PHYSICAL_STATE_V1.json": {"candidate_name":"DISTRICT_SERVICE_NPC_PHYSICAL_STATE_V1.json","bytes":14103,"sha256":"657416d2bfce4b892d940a579c51aa28765641ea1dc5cbbc84d6947b6d0d95b2","exact_candidate_match":true},
+    "237_GAMEPLAY_STATE_MACHINE_V4.json": {"candidate_name":"237_GAMEPLAY_STATE_MACHINE_V4.json","bytes":3446,"sha256":"f42c6da0436726a7fd76e09e31d2787c1a061d3f15087660d8e3e90fb14c901f","exact_candidate_match":true},
+    "234_ACTIVE_SYSTEM_INDEX_V2.json": {"candidate_name":"234_ACTIVE_SYSTEM_INDEX_V2_UPDATED_BATCH039.json","bytes":11062,"sha256":"8323eaed52ef9b36daee034a3916e931f5e285d0674a3706fbb8e003d9b7ab24","exact_candidate_match":true},
+    "227_STABLE_ID_REGISTRY_V2.json": {"candidate_name":"227_STABLE_ID_REGISTRY_V2_UPDATED_BATCH039.json","bytes":3058,"sha256":"21387b8f7349003baf9b2cb43bb18e69c5b9fc530bed23deb29adcc28b4a15fd","exact_candidate_match":true},
+    "core_system_ids.yaml": {"candidate_name":"core_system_ids_BATCH039.yaml","bytes":4263,"sha256":"7c8f6716ef71342bb95a66b26d5438572f6c92e38054e369e589ee518f1bfb9e","exact_candidate_match":true},
+    "WORLD_RECORD_CATALOG.md": {"candidate_name":"WORLD_RECORD_CATALOG_BATCH039.md","bytes":19683,"sha256":"0b0ed32f7fc6710c27a0956d9341c34585f7ea122c71f7145851884800226d10","exact_candidate_match":true}
+  },
+  "stable_id_changes": {
+    "old_published_count": 1065,
+    "new_published_count": 1070,
+    "added_ids": ["ENGINE_GAMEPLAY_STATE_MACHINE_V4","ENGINE_PHYSICAL_CAPABILITY_MATERIALIZATION_V1","PROFILE_DISTRICT_SERVICE_NPC_PHYSICAL_STATE_V1","REGISTRY_PHYSICAL_CAPABILITY_SEEDS_V1","SCHEMA_ACTOR_PHYSICAL_CAPABILITY_V1"]
+  },
+  "guardrails": {"save_000002_mutated_by_batch":false,"world_time_advanced_by_batch":false,"species_assigned_during_install":false,"physical_stats_assigned_during_install":false,"unknown_abilities_materialized":false},
+  "known_remaining_boundary": "Current service NPC roster does not establish species; physical materialization blocks at SPECIES_IDENTITY_MATERIALIZATION_REQUIRED until a governed species/body-plan identity fact exists."
+}
