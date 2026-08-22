@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "037",
+  "title": "Role Domain Expansion",
+  "status": "DRIVE_PROMOTION_AND_EXACT_READBACK_PASS",
+  "verified_at": "2026-08-22T17:31:00-04:00",
+  "authoritative_store": "Google Drive Jack_Wilson_Original_Campaign",
+  "batch_history_folder_id": "10qEqDaHt6phH23ITU_Ye6RZRROGncgxD",
+  "readback": {
+    "ROLE_DOMAIN_REGISTRY_V1.json": {"sha256":"f89b8b1dc458d20a52902d45590aed2939a206eb7e8186d5f7657292c1c33a63","bytes":7205,"exact_candidate_match":true},
+    "RANK_UPDATE_TRANSACTION_ENGINE_V2.json": {"sha256":"f4cdc97c9deb8bf916b523665d1f9832745ed7feb1beed2dfe2537dbd23ee701","bytes":5409,"exact_candidate_match":true},
+    "DISTRICT_SERVICE_NPC_RANK_STATE_V2.json": {"sha256":"7ba74cec6fa8f7de9e01b2d99a20d4f6f79a6a52d1590f2e24de0aed68c828e4","bytes":10472,"exact_candidate_match":true},
+    "234_ACTIVE_SYSTEM_INDEX_V2.json": {"sha256":"cefd6e153ae0ba5c90fe30ad851c8b4c8d5743530254e1c6bf49ddc771148ba0","bytes":10083,"exact_candidate_match":true},
+    "WORLD_RECORD_CATALOG.md": {"sha256":"09bdd4402f1703522a570ba5dee4966237b68a886c1694439fdb5f5e933d5913","bytes":16473,"exact_candidate_match":true},
+    "core_system_ids.yaml": {"sha256":"8b4d840df4f21775c30be05ddf36a676cf66615627c7dc01e827c649985c316e","bytes":3816,"exact_candidate_match":true},
+    "227_STABLE_ID_REGISTRY_V2.json": {"sha256":"2133d0169b7eb009b4bc2a04e5bad2bf5f813935fd40a634c479d414bbef7551","bytes":3058,"exact_candidate_match":true}
+  },
+  "stable_id_changes": {"old_published_count":1056,"new_published_count":1059,"added_ids":["ENGINE_RANK_UPDATE_TRANSACTION_V2","PROFILE_DISTRICT_SERVICE_NPC_RANK_STATE_V2","REGISTRY_ROLE_DOMAINS_V1"]},
+  "guardrails": {"save_mutated":false,"world_time_advanced":false,"rank_awards":false}
+}
