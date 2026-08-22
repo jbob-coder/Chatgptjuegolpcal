@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "033",
+  "status": "PASS_PROMOTED",
+  "created_at": "2026-08-22T00:31:00-04:00",
+  "checks": {
+    "json_parse": "PASS",
+    "ucr_roundtrip": "PASS",
+    "human_caps_monotonic": "PASS",
+    "hybrid_no_default_overcap": "PASS_BY_RULE",
+    "d20_no_longer_raw_magnitude": "PASS_BY_RULE",
+    "jack_legacy_values_preserved": "PASS",
+    "save_000002_mutated": false,
+    "world_time_advanced": false,
+    "raw_source_read": false,
+    "active_records_exact_readback": "PASS_10_OF_10",
+    "active_router_exact_readback": "PASS",
+    "jack_character_exact_readback": "PASS",
+    "world_catalog_routing_updated": "PASS"
+  },
+  "promotion_certificate": "BATCH_033_PROMOTION_CERTIFICATE.json"
+}

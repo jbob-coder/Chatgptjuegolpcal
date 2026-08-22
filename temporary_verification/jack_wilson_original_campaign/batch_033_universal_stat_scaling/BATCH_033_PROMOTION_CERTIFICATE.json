@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "033",
+  "title": "Universal Stat Scaling",
+  "status": "DRIVE_PROMOTION_AND_EXACT_READBACK_PASS",
+  "verified_at": "2026-08-22T00:48:00-04:00",
+  "authoritative_store": "Google Drive Jack_Wilson_Original_Campaign",
+  "active_system_folder_id": "1ChinOpbd-bk3dtGUwYbOekKsHLRHQpp2",
+  "jack_capability_folder_id": "1XeV-WBRyUcPOEisjbWFmQjDmgHWKizgI",
+  "batch_history_folder_id": "1pj_I-bAWHG1Q46Ci6b7mC1u04Q-zwQLs",
+  "readback": {
+    "UNIVERSAL_CAPABILITY_SCALE_V1.json": {"bytes":8760,"sha256":"ccf0325117201c4de3ce669e8c80badb1ed1bc172b5b2b7ade2a0c80124ab807","exact_candidate_match":true},
+    "SPECIES_PHYSIOLOGY_ENVELOPES_V1.json": {"bytes":5843,"sha256":"d2bad28420f479984b0eafbcf30583e8064a77f05abc2c318588992c9f879034","exact_candidate_match":true},
+    "HYBRID_TRAIT_INHERITANCE_V1.json": {"bytes":2039,"sha256":"7e0a4831a030351a50017179f7c33d6cbb2e21ba3f8cc518b8220b6a3d7bd799","exact_candidate_match":true},
+    "ACTION_VALIDATION_ENGINE_V3.json": {"bytes":3124,"sha256":"4523315330d9eee3c5392f9312b125d3c4182be5fb33b45ad31ab7cbec12711f","exact_candidate_match":true},
+    "PLAYER_STATUS_SCHEMA_V3.json": {"bytes":1814,"sha256":"bc4456694e8a4aed8d5d9462009615fc8be9e845861f6faa39029675c8f3d23f","exact_candidate_match":true},
+    "BALANCE_BASELINE_V2.json": {"bytes":3210,"sha256":"0944e0e3623244b523fa5f337ca931f88e48ef0e2ca4562276c6771feb5cc6ae","exact_candidate_match":true},
+    "COMBAT_CORE_V3.json": {"bytes":2005,"sha256":"d259128a8fc9fe74e21eefc454cdf932550c51980553b1d7414c5228c68c10f3","exact_candidate_match":true},
+    "PROGRESSION_TRAINING_CORE_V3.json": {"bytes":1620,"sha256":"36938297b50050804fb8b5d4af81b27dd9fad5b7f8a410236af52b81933db29b","exact_candidate_match":true},
+    "STAT_DISPLAY_PROTOCOL_V1.json": {"bytes":1815,"sha256":"03ac90281f09bcf02e5d64244bd3e690e64da3e8a73e7cabcc60b169861cabb4","exact_candidate_match":true},
+    "JACK_WILSON_CAPABILITY_PROFILE_V1.json": {"bytes":3365,"sha256":"3f32fc069ac885acfd29b380cfc4f207f1326ca3b8fc0fa22345de53f8a8fd00","exact_candidate_match":true},
+    "234_ACTIVE_SYSTEM_INDEX_V2.json": {"bytes":8683,"sha256":"77df750c4b05e9e2148c68ce3ac833535d60c04f27a3414b6baae1aadddaa301","candidate_sha256":"77df750c4b05e9e2148c68ce3ac833535d60c04f27a3414b6baae1aadddaa301","exact_candidate_match":true},
+    "196_JACK_WILSON_CHARACTER_ACTIVE_V2.json": {"bytes":1890,"sha256":"9f333a20558c2583234383287304cef4e4364de7632f2130eb89c6d416150c22","candidate_sha256":"9f333a20558c2583234383287304cef4e4364de7632f2130eb89c6d416150c22","exact_candidate_match":true}
+  },
+  "router":{"file_id":"1UGnFuC1qKsSSlXTzHvbjjl8mJltFHO7t","revision":12,"status":"PASS"},
+  "jack_character":{"file_id":"1kQlDFxGJ7Aguom1tqQQs7P1P5gCXDc7C","record_revision":3,"legacy_d20_preserved":true,"status":"PASS"},
+  "guardrails":{"SAVE_000002_mutated":false,"world_time_advanced":false,"raw_source_read":false,"vampire_content_added":false},
+  "science_calibration":{"classification":"EXTERNAL_RESEARCH_INFORMS_REVERSIBLE_GAME_BALANCE_NOT_IN_WORLD_CANON","sources":["PMID 18172672","PMID 25859198","World Athletics 100 metres rules/record","PMID 1548993"]},
+  "result":"ACTIVE_CHAT_GAME_STAT_SYSTEM_PROMOTED"
+}
