@@ -1,43 +1,43 @@
 # Current Piece
 
-PIECE_ID: PIECE-015
-TITLE: Pinned spatial source loader and chunk index
-STATUS: STATIC_VERIFIED
-PURPOSE: Make the complete compact Asterline authority safely queryable as a read-only, five-file, fail-closed bundle with exact source-derived ward/start-block chunks before any terrain or world geometry is created.
+PIECE_ID: PIECE-025
+TITLE: Nine-block terrain surface and seam contract
+STATUS: IN_PROGRESS
+PURPOSE: Turn the authoritative Asterline start-ring terrain data into one source-derived, construction-safe terrain package and standalone Godot world scene without modifying block, ROW, parcel, building, utility, easement, water, or protected-start ownership.
 
 IN_SCOPE:
-- Verify Godot 4.7 FileAccess, JSON, Dictionary, and runtime-file-loading documentation.
-- Create a source-derived chunk index with seven ward-coarse chunks and nine start-block detail chunks.
-- Pin the index to city/start semantic source fingerprints, manifest IDs, coordinate contract, and construction guard.
-- Add one read-only GDScript loader that publishes no partial bundle and returns structured failures.
-- Add stable-ID lookup and source-point query helpers using AABB broad phase plus exact polygon narrow phase.
-- Define detail-over-coarse metadata priority without authorizing duplicate geometry.
-- Add exhaustive Python verification that re-derives all 16 chunks and 36 start-ring building memberships from the existing manifests.
-- Register/document all new files and update continuation records.
+- Re-read the active Batch040/043 source hierarchy and the exact nine-block start-ring source.
+- Extract the authoritative 100 m terrain samples required around the complete nine-block ring with a one-sample border.
+- Record exact ring extents, source anchor, block polygons, elevations, surface/flood classes, and source fingerprints.
+- Add folder-local README ownership maps for world data, world scenes, and world scripts so later construction cannot silently reuse assigned paths or spatial responsibilities.
+- Add a full-city construction map describing every ward's exact source envelope, counts, elevation bands, theme, and expansion order without duplicating the large source corpus.
+- Create a standalone source-driven start-ring terrain scene/script only if the construction guard and source data allow a non-overlapping terrain substrate contract.
+- Add focused static verification and update routing/control records.
+- Preserve Piece 016-024 work as deferred, not completed or deleted; SOURCE-008 makes the existing Piece 025 spatial chain the current priority.
 
 OUT_OF_SCOPE:
-- Integrating the loader into `main.tscn`, an Autoload, or any gameplay scene.
-- Copying full Drive ward/interior payloads into GitHub.
-- Threaded/background loading, caching, unloading, LOD/HLOD, or visibility policy.
-- Creating terrain, roads, buildings, interiors, collision, navigation, utilities, NPCs, or world objects.
-- Resolving runtime save/network overlays or live Drive synchronization.
-- Changing source polygons, stable IDs, coordinate transform, construction guard, room dimensions, campaign state, or private neighbor contents.
-- Godot parser/runtime claims.
+- Changing any authoritative city, ward, block, parcel, building, ROW, water, utility, easement, room, or protected-anchor geometry.
+- Treating centroid routes as physical roads.
+- Creating road/ROW meshes, buildings, parcels, utilities, public-realm objects, interiors, navigation, NPCs, or semantic occupancy.
+- Integrating the standalone terrain scene into `main.tscn` before start-residence/player source alignment is explicitly solved.
+- Advancing world time, mutating campaign/save state, or changing Jack's room dimensions.
+- Claiming Godot parser/runtime success without an executed Godot 4.7 runtime gate.
 
 FILES_ALLOWED_TO_CHANGE:
 - README.md
 - docs/user/CURRENT_STATUS.md
 - docs/world/README.md
-- docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md
-- docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md
-- docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md
-- data/world/asterline/city_spatial_manifest.json
-- data/world/asterline/start_area_manifest.json
-- data/world/asterline/chunk_index.json
-- scripts/world/asterline_spatial_loader.gd
-- scripts/qa/verify_city_spatial_bridge.py
+- docs/world/ASTERLINE_CONSTRUCTION_MAP.md
+- docs/world/START_RING_TERRAIN_CONTRACT.md
+- data/world/asterline/README.md
+- data/world/asterline/start_ring_terrain_manifest.json
+- scenes/world/README.md
+- scenes/world/start_ring_terrain.tscn
+- scripts/world/README.md
+- scripts/world/start_ring_terrain.gd
+- scripts/qa/verify_start_ring_terrain.py
 - scripts/qa/verify_structure.py
-- tests/verify_asterline_spatial_loader.py
+- tests/verify_start_ring_terrain_scene.py
 - project_control/ARCHITECTURE.md
 - project_control/registry/ARTIFACT_REGISTRY.json
 - project_control/MASTER_STATE.md
@@ -49,47 +49,58 @@ FILES_ALLOWED_TO_CHANGE:
 - project_control/SOURCE_REGISTRY.md
 - project_control/KNOWN_UNKNOWNS.md
 - project_control/ISSUES.md
+- project_control/REGRESSION_LOG.md
 - project_control/CHANGELOG.md
-- project_control/piece_history/PIECE-015.md
+- project_control/piece_history/PIECE-025.md
 
 FILES_EXPECTED_TO_CREATE:
-- data/world/asterline/chunk_index.json
-- scripts/world/asterline_spatial_loader.gd
-- docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md
-- tests/verify_asterline_spatial_loader.py
-- project_control/piece_history/PIECE-015.md
+- docs/world/ASTERLINE_CONSTRUCTION_MAP.md
+- docs/world/START_RING_TERRAIN_CONTRACT.md
+- data/world/asterline/README.md
+- data/world/asterline/start_ring_terrain_manifest.json
+- scenes/world/README.md
+- scenes/world/start_ring_terrain.tscn
+- scripts/world/README.md
+- scripts/world/start_ring_terrain.gd
+- scripts/qa/verify_start_ring_terrain.py
+- tests/verify_start_ring_terrain_scene.py
+- project_control/piece_history/PIECE-025.md
 
 SOURCE_FACTS_USED:
-- SOURCE-009: seven authoritative ward polygons represent all 7,000 blocks and 23,480 building shells; source coordinates remain `[east,north,up]`.
-- SOURCE-010: nine exact start-ring block polygons contain 36 buildings and the protected start anchors.
-- SOURCE-011: AABBs cannot replace full XY/Z ownership and additions fail closed.
-- SOURCE-012: the versioned source-to-Godot transform and anchor policy already exist.
-- SOURCE-013: FileAccess READ plus diagnostic instance JSON.parse and safe Dictionary access support a read-only fail-closed bundle.
+- SOURCE-008: continue city construction from the starting block outward while documenting dimensions, folder ownership, theme, and no-overlap boundaries.
+- SOURCE-009: the active 290.08 km² Batch043 city authority contains 7 wards, 7,000 blocks, 23,480 buildings, physical ROW/reservations, and a fail-closed full-XY/Z construction guard.
+- SOURCE-010: the nine-block W03 Riverbend ring is fully materialized and contains the protected start anchors and 36 exact building shells.
+- SOURCE-011: physical ROW comes from actual free space and must not be replaced by centroid-to-centroid route hints.
+- SOURCE-012: absolute source ENU coordinates map reversibly into rebased Godot coordinates.
+- Drive Batch040 `CITY_RUNTIME_SUPPORT_V1.json`: 28,999 source terrain samples at 100 m spacing; the start-ring sample envelope is W03 residential urban terrain.
+- Drive Batch040 `CITY_ALL_WARD_SPATIAL_RECORDS_V1.jsonl`: 7,000 exact block records and 23,480 building shells are already mapped citywide.
 
 ASSUMPTIONS:
-- Ward chunks are coarse query/source-routing envelopes, not physical chunk geometry.
-- Start-detail chunks legally overlap W03 only as a higher-resolution metadata layer.
-- Exact source polygons, not their AABBs, decide final point containment.
-- Stable chunk ID order is a deterministic same-layer boundary tie-break; it does not change ownership.
-- Loading five compact files synchronously is acceptable for this bounded contract; threaded/loading performance belongs to a later measured piece.
+- The current work may reprioritize Piece 025 ahead of Pieces 016-024 because SOURCE-008 explicitly prioritizes spatial city construction; deferred pieces remain valid future work.
+- A terrain substrate may underlie later authorized surface layers only when the source/guard contract explicitly treats it as terrain rather than as competing ROW/building ownership.
+- The standalone terrain scene will remain unreferenced by `main.tscn` until start-room/player world alignment is solved.
+- Large authoritative Drive payloads remain source-of-truth; GitHub stores compact source-derived construction inputs and provenance.
 
 KNOWN_UNKNOWNS:
-- Godot parser/runtime behavior and exported `res://` availability for all five JSON files.
-- Actual load/parse time and memory footprint in a target build.
-- Future full ward/block payload fetch, cache, eviction, LOD, and background-thread architecture.
-- Runtime interaction with live origin rebasing, navigation, physics, and multiplayer.
+- Godot 4.7 parser/runtime behavior for any new procedural terrain script.
+- Exact runtime performance and collision cost on the user's target PC.
+- Final material/shader asset choice for terrain surfaces.
+- The correct integration transaction for moving the current origin-local start room/player shell into the source-anchored city scene.
+- Whether later citywide terrain should use generated mesh cells, imported terrain assets, or a hybrid after profiling.
 
 ACCEPTANCE_CRITERIA:
-- Chunk index pins all four source contracts and exact city/start semantic fingerprints.
-- Seven ward chunks exactly reproduce source polygons, AABBs, centroids, elevation bands, neighborhood membership, and 7,000/23,480 totals.
-- Nine start chunks exactly reproduce block polygons, AABBs, centroids, vertical envelopes, 36 building memberships, and protected anchors.
-- Chunk IDs are unique; detail priority is above coarse; AABB-only selection is forbidden; all geometry flags remain false.
-- Loader opens exactly five `res://` JSON files with `FileAccess.READ`, diagnostic `JSON.parse()`, Dictionary/schema/ID/fingerprint/nested-record validation, and structured failures.
-- Loader contains no write APIs, Node/mesh instantiation, or main-scene integration.
-- New files have deterministic artifact/path ownership and readable folder documentation.
-- Piece-specific content checks pass; the known stale-local-object ISSUE-007 remains explicit and no validator is weakened.
+- Piece 015 is sealed to authenticated GitHub commit `71a35e95cc869022c0c90f52c330386f6504ba3f` before Piece 025 construction work is published.
+- The start-ring terrain manifest is deterministically derived from pinned source files and contains no invented block or building geometry.
+- Ring source AABB, all nine block IDs/polygons/elevations, source anchor, and terrain sample grid are explicit and internally consistent.
+- Folder READMEs state what belongs where and prohibit overlapping authority or hand-placed source truth.
+- The city construction map covers all seven wards and preserves exact source counts/themes/envelopes rather than inventing a second city map.
+- Any standalone terrain scene is source-driven, not wired into `main.tscn`, and creates no road/building/utility/public-realm geometry.
+- Static terrain/source/scene checks pass where executable; known ISSUE-007 remains explicit and no existing validator is weakened.
+- Runtime status remains `RUNTIME_GATE_NOT_EXECUTED` unless Godot is actually run.
 
 TESTS_REQUIRED:
+- python scripts/qa/verify_start_ring_terrain.py
+- python tests/verify_start_ring_terrain_scene.py
 - python tests/verify_asterline_spatial_loader.py
 - python tests/verify_asterline_coordinates.py
 - python scripts/qa/verify_city_spatial_bridge.py
@@ -97,28 +108,26 @@ TESTS_REQUIRED:
 - python scripts/qa/verify_structure.py
 - python scripts/qa/verify_all.py
 - git diff --check
-- exact GitHub branch/tree/blob readback after commit
+- authenticated GitHub branch/commit/tree/blob readback after commit
 
 REGRESSION_GATES:
-- Nine previous static gameplay/control/world tests remain passing where executable.
-- Seven QA validators remain unchanged and strict.
-- Piece 013 containment/non-overlap/source-pin/private-boundary checks remain passing.
-- Piece 014 transform/inverse/origin checks remain passing.
-- Existing scene/player/room/campaign files remain unchanged.
-- No runtime, geometry, threaded-loading, or partial-bundle claim is introduced.
-- ISSUE-007 is not hidden by weakening local commit-existence validation.
+- Existing start-room, player, campaign, city/source, coordinate, chunk-loader, and no-overlap authority remain unchanged.
+- No source polygon, stable ID, source fingerprint, protected anchor, or room dimension is rewritten.
+- No centroid logical route becomes physical road geometry.
+- No new game-root file is left without deterministic route ownership.
+- ISSUE-007 is not hidden by weakening local commit-object validation.
+- No runtime success is inferred from static verification.
 
-STARTING_COMMIT: 1452610082d2f2e4c2ac5708a384d52e22534757
+STARTING_COMMIT: 71a35e95cc869022c0c90f52c330386f6504ba3f
 ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: Exact 7-ward/9-start-block index, five-file read-only loader, diagnostics, exact-polygon queries, source re-derivation tests, documentation, and routing pass every content/structure gate. The accumulated runner passes 16 of 17 checks and fails only the previously recorded ISSUE-007 stale-local-commit object probe; commit/readback is pending.
+RESULT: Piece 025 opened after authenticated Piece 015 readback. Source extraction, terrain construction contract, standalone scene work, and verification are in progress.
 
 FAILURES_FOUND:
-- QA-015-01: First review found that malformed nested source-contract/AABB records could reach unchecked `.get()`/indexing paths and raise a runtime error instead of returning the promised structured fail-closed response.
-- ISSUE-007 persists: the local clone lacks connector-written remote commits because the environment rejected fetch, so `verify_project_state.py` cannot pass its strict local commit-object probe. All other 16 Piece 015 candidate checks pass.
+- None yet for Piece 025.
 
 FIXES_APPLIED:
-- Added schema checks; required nested contract keys/types; city/start fingerprint comparison; polygon-point, AABB, counts/runtime, and manifest-runtime validations before any query bundle can publish. Expanded the static regression test to require these guards.
-- Kept the local commit-existence validator unchanged and reported the 16/17 result rather than claiming a full cumulative pass.
+- Piece 015 commit/readback truth is being sealed before new geometry work.
+- Pieces 016-024 are preserved but deferred behind the user-directed spatial construction chain.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: IN_PROGRESS

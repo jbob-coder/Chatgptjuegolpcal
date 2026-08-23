@@ -1,8 +1,8 @@
 # Piece 015 — Pinned spatial source loader and chunk index
 
-STATUS: STATIC_VERIFIED_WITH_KNOWN_ENVIRONMENT_GATE
+STATUS: COMPLETE
 STARTING_COMMIT: 1452610082d2f2e4c2ac5708a384d52e22534757
-IMPLEMENTATION_COMMIT: PENDING_COMMIT_READBACK
+IMPLEMENTATION_COMMIT: 71a35e95cc869022c0c90f52c330386f6504ba3f
 RUNTIME_GATE: RUNTIME_GATE_NOT_EXECUTED
 
 Purpose:
@@ -16,7 +16,7 @@ Official Godot 4.7 evidence:
 - Static `JSON.parse_string()` lacks diagnostic error handling.
 - JSON objects become Dictionary values; `get()`, `has()`, and `has_all()` support safe validation.
 
-Implemented candidate:
+Implemented:
 - Five-file pinned bundle: city, start ring, coordinate contract, construction guard, and chunk index.
 - Seven ward-coarse chunks reproducing all ward polygons/counts/neighborhood memberships.
 - Nine start-block detail chunks reproducing all block polygons, vertical envelopes, 36 building memberships, and protected start anchors.
@@ -27,12 +27,14 @@ Implemented candidate:
 Scope guard:
 - No scene/autoload references the loader.
 - No FileAccess write/store operation exists.
-- No terrain, mesh, Node3D, collision, navigation, NPC, utility, interior, thread, cache, LOD, or unload behavior is implemented.
+- No terrain, mesh, Node3D, collision, navigation, NPC, utility, interior, thread, cache, LOD, or unload behavior was implemented.
 - All index/manifest geometry-created flags remain false.
 
 Verification:
-- Focused loader/index, coordinate, city bridge, routing, structure, current-piece, regression, JSON, Python compilation, and whitespace gates pass.
+- Focused loader/index, coordinate, city bridge, routing, structure, current-piece, regression, JSON, Python compilation, and whitespace gates passed before the implementation commit.
 - QA-015-01 hardened malformed nested source-contract/AABB handling before commit.
-- Accumulated runner: 16/17 pass; only `verify_project_state.py` fails at ISSUE-007's missing connector-written local commit object.
-- No validator was weakened and no 17/17 result is claimed.
-- GitHub commit/readback remains pending.
+- Candidate accumulated runner: 16/17 pass; only `verify_project_state.py` fails at ISSUE-007's missing connector-written local commit object.
+- No validator was weakened and no 17/17 local result is claimed.
+- Authenticated GitHub `main` readback on 2026-08-23 resolved to implementation commit `71a35e95cc869022c0c90f52c330386f6504ba3f`, message `Add Piece 015 pinned spatial loader and chunk index`, parent `1452610082d2f2e4c2ac5708a384d52e22534757`, and tree `7e5f7cef0873c6ffc6061f84eee7f7a4b3b5b884`.
+- Current committed `project.godot`, chunk/source files, loader/index documentation, and Piece 015 history were read back through the authenticated GitHub connector.
+- Runtime/parser execution remains unverified because the Godot executable is unavailable in this environment.
