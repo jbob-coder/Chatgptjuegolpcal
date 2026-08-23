@@ -19,10 +19,10 @@ NAME: Current GitHub repository implementation
 LOCATION: jbob-coder/Chatgptjuegolpcal main, jack_wilson_godot_game/
 TYPE: VERIFIED_REPOSITORY
 AUTHORITY_LEVEL: 4
-VERSION: observed through d816448c3fb9dee56254d95190909ae8ab62048a
+VERSION: observed through 231355040900182ce2e8fac65110681cc041b547
 DATE_ACCESSED: 2026-08-23
 RELEVANT_SYSTEM: all currently implemented game, QA, docs, and project-control pieces
-FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; Piece 011 repaired prior truth/authority drift; Piece 012 established and sealed deterministic four-plane routing at 7a70f8a7b01baa00f86d29df8f22a1989beabd65; Piece 013 sealed the Asterline spatial-authority bridge at d816448c3fb9dee56254d95190909ae8ab62048a.
+FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; Piece 011 repaired prior truth/authority drift; Piece 012 sealed deterministic four-plane routing at 7a70f8a7b01baa00f86d29df8f22a1989beabd65; Piece 013 sealed the Asterline spatial bridge at d816448c3fb9dee56254d95190909ae8ab62048a; Piece 014 committed the coordinate/origin contract at 231355040900182ce2e8fac65110681cc041b547.
 LIMITATIONS: Static repository inspection does not prove Godot runtime/parser behavior. Repository facts must be read from current committed files rather than copied from prior summaries.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO

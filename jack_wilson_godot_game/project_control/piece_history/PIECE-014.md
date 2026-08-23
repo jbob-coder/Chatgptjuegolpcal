@@ -1,8 +1,8 @@
 # Piece 014 — Source-to-Godot coordinate transform and floating-origin contract
 
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 STARTING_COMMIT: d816448c3fb9dee56254d95190909ae8ab62048a
-IMPLEMENTATION_COMMIT: PENDING_COMMIT_READBACK
+IMPLEMENTATION_COMMIT: 231355040900182ce2e8fac65110681cc041b547
 RUNTIME_GATE: RUNTIME_GATE_NOT_EXECUTED
 
 Purpose:
@@ -35,4 +35,8 @@ Verification:
 - `python scripts/qa/verify_city_spatial_bridge.py`: PASS.
 - Full cumulative verification: 7 QA validators + 9 static tests = 16/16 PASS.
 - `git diff --check`: PASS.
-- GitHub commit and exact readback remain pending.
+- Live `main` and commit resolved to `231355040900182ce2e8fac65110681cc041b547`.
+- Recursive tree `d79d414980d2b07c522981c275ac384c747e8241` was complete (`truncated=false`, 649 entries).
+- All 26 intended file blobs matched their locally verified Git blob identities; mismatches: 0.
+- QA-014-01 / ISSUE-007: the environment rejected the post-commit local fetch, so the strict local object-existence gate cannot rerun in this stale clone. The validator remains unchanged; remote connector evidence proves the commit/tree/blob state.
+- Seal-state rerun preserved 15 passing executable checks and failed only `verify_project_state.py` at the explicitly recorded missing local commit object; `git diff --check` still passed. This is not represented as a 16/16 seal-state run.

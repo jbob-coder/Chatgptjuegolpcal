@@ -42,3 +42,10 @@ Severity: SOURCE_INTEGRITY_GATE
 Evidence: Piece 013 pins Drive file ID, modified time, byte size, and normalized semantic SHA-256 for its structured sources.
 Impact: Any changed pin makes the committed projection stale; geometry publication must stop until the delta is classified.
 Required action: Fail closed and run a dedicated source-reconciliation piece when a pin changes; do not auto-accept remote changes.
+
+## ISSUE-007 — Connector-written Piece 014 commit absent from stale local object database
+Status: OPEN_ENVIRONMENT_ONLY
+Severity: TOOLING_LIMITATION
+Evidence: Live GitHub `main`, commit 231355040900182ce2e8fac65110681cc041b547, complete tree d79d414980d2b07c522981c275ac384c747e8241, and all 26 intended blob identities matched exact connector readback. The environment rejected the subsequent `git fetch origin main`; read-only `git cat-file` confirms that commit is absent from this stale clone.
+Impact: The implementation passed 16/16 before commit and remote integrity is proven, but the seal-stage local `verify_project_state.py` object-existence probe cannot pass in this worktree until a normal fetch/clone is allowed.
+Required action: In a future environment that permits normal GitHub fetch/clone, obtain the sealed head and rerun `python scripts/qa/verify_all.py`. Do not weaken or bypass the commit-existence assertion.

@@ -1,7 +1,7 @@
 # Repository Architecture Contract
 
 AUTHORITY: SOURCE-007 / D-0008
-STATUS: PIECE-014_ACTIVE
+STATUS: PIECE-014_COMPLETE_PIECE-015_NEXT
 
 ## Primary rule
 Every project artifact belongs to exactly one primary plane. Do not mix planes merely because files are related.

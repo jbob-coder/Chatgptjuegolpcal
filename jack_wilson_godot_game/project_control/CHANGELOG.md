@@ -1,12 +1,15 @@
 # Changelog
 
-## 2026-08-23 — Piece 014 candidate
+## 2026-08-23 — Piece 014
 - Added a versioned source-to-Godot contract mapping Asterline `[east, north, up]` to local `[east-east0, up-up0, -(north-north0)]`, with exact inverse and determinant +1.
 - Added a stateless GDScript utility for conversion, 100 m floor-based source cells, anchors, horizontal-origin distance, a 1,600 m rebase request, and rebase delta.
 - Recorded official Godot 4.7 axis, large-world precision, origin-shifting, `floori()`, `Vector2i`, and static-function evidence.
 - Added readable coordinate-layer/persistence/rebase documentation and manifest pointers without creating or claiming geometry.
 - Added a static verifier covering direction mapping, inverse and distance preservation, negative coordinates, all start-ring block/building footprint round trips, GDScript contract tokens, and no premature scene integration.
-- Cumulative static verification passes 7 QA validators + 9 static tests = 16/16; `git diff --check` passes. GitHub commit/readback remains pending.
+- Cumulative precommit verification passed 7 QA validators + 9 static tests = 16/16; `git diff --check` passed.
+- Published `231355040900182ce2e8fac65110681cc041b547`; live `main`, complete tree `d79d414980d2b07c522981c275ac384c747e8241`, and all 26 intended blobs matched exact readback with zero mismatches.
+- QA-014-01 / ISSUE-007 records that the environment rejected the post-commit local fetch. The strict local commit-existence validator was not weakened; future normal clone/fetch must rerun the seal suite.
+- The seal-state local runner preserved the other 15 checks and failed only the recorded local commit-object probe; it is not falsely reported as a 16/16 post-commit run.
 
 ## 2026-08-23 — Piece 013 candidate
 - Verified the active Asterline Batch040–043 Drive authority instead of inventing a second city.

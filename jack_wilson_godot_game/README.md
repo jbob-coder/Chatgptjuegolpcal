@@ -59,8 +59,9 @@ The selected 4.2 × 3.6 × 2.7 m room shell is still classified as reversible ga
 - Piece 011: repository truth/authority drift repair.
 - Piece 012: four-plane user/control/runtime/verification routing contract, committed and exact-readback verified.
 - Piece 013: Asterline spatial-authority bridge, committed and exact-readback verified.
+- Piece 014: source-to-Godot coordinate transform and floating-origin contract, committed and exact-readback verified.
 
-Piece 014 is static-verified locally and awaiting commit/readback: it defines the source-to-Godot coordinate transform and floating-origin contract. The bridge still does not create Godot terrain.
+Piece 015 is next: the pinned spatial source loader and chunk index. The bridge and coordinate contract still do not create Godot terrain.
 
 ## Asterline spatial boundary
 

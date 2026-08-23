@@ -175,6 +175,6 @@ WHY_SELECTED: The transform maps east/up/north to Godot right/up/forward, has de
 REVERSIBLE: YES; the mapping/rebase policy is versioned and all persisted geometry remains in absolute source coordinates.
 FILES_AFFECTED: data/world/asterline/*; scripts/world/asterline_coordinates.gd; docs/world/ASTERLINE_TO_GODOT_COORDINATES.md; docs/godot/*; tests/verify_asterline_coordinates.py.
 TESTS_REQUIRED: python tests/verify_asterline_coordinates.py; python scripts/qa/verify_city_spatial_bridge.py; python scripts/qa/verify_all.py; future Godot parser/runtime and multi-system rebase tests.
-COMMIT: PENDING_PIECE_014_COMMIT_READBACK
+COMMIT: 231355040900182ce2e8fac65110681cc041b547
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE

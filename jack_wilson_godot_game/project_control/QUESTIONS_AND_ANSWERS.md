@@ -61,5 +61,5 @@ Answer source: SOURCE-009 / SOURCE-012 / D-0012
 Confidence: HIGH_STATIC
 Status: ANSWERED_RUNTIME_GATE_OPEN
 Implementation impact: All future world loaders and geometry producers must consume the versioned contract; no scene is integrated until the loader piece. A rebase must move every participating loaded subsystem transactionally.
-Resolved by commit: PENDING_PIECE_014_COMMIT_READBACK
+Resolved by commit: 231355040900182ce2e8fac65110681cc041b547
 Notes: Static math and source-manifest round trips are verified; Godot parser/runtime and live rebasing remain unexecuted.

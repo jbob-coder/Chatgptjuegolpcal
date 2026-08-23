@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-014
 TITLE: Source-to-Godot coordinate transform and floating-origin contract
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 PURPOSE: Define the one reversible, tested conversion from authoritative Asterline `[east, north, up]` coordinates to Godot-local X/Y/Z and the precision-safe origin policy that every future loader, terrain, building, road, utility, interior anchor, save, and streaming system must follow.
 
 IN_SCOPE:
@@ -104,14 +104,14 @@ REGRESSION_GATES:
 - Runtime gate remains RUNTIME_GATE_NOT_EXECUTED.
 
 STARTING_COMMIT: d816448c3fb9dee56254d95190909ae8ab62048a
-ENDING_COMMIT: PENDING_COMMIT_READBACK
+ENDING_COMMIT: 231355040900182ce2e8fac65110681cc041b547
 
-RESULT: Coordinate/origin contract, GDScript utility, documentation, manifest pointers, artifact routing, and exhaustive start-ring round trips pass the cumulative 16/16 static suite; commit/readback is pending.
+RESULT: Coordinate/origin contract, GDScript utility, documentation, manifest pointers, artifact routing, and exhaustive start-ring round trips pass the cumulative 16/16 static suite; implementation commit/tree and all 26 intended blobs matched exact live GitHub readback.
 
 FAILURES_FOUND:
-- None yet in Piece 014.
+- QA-014-01: After exact GitHub readback, the environment rejected `git fetch origin main`, so the connector-written implementation commit could not be added to this stale local clone's object database for the seal-stage `git cat-file` check. The live commit, tree, and blobs were independently verified through the authenticated GitHub connector; no repository content was damaged.
 
 FIXES_APPLIED:
-- None yet in Piece 014.
+- Kept `verify_project_state.py` strict, did not fabricate a local object or weaken its commit-existence assertion, and recorded the environment-only limitation as ISSUE-007. The implementation bytes had already passed 16/16 before commit and matched the complete live GitHub tree after commit.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: COMPLETE
