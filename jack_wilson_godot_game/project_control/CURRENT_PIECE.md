@@ -1,42 +1,43 @@
 # Current Piece
 
-PIECE_ID: PIECE-014
-TITLE: Source-to-Godot coordinate transform and floating-origin contract
-STATUS: COMPLETE
-PURPOSE: Define the one reversible, tested conversion from authoritative Asterline `[east, north, up]` coordinates to Godot-local X/Y/Z and the precision-safe origin policy that every future loader, terrain, building, road, utility, interior anchor, save, and streaming system must follow.
+PIECE_ID: PIECE-015
+TITLE: Pinned spatial source loader and chunk index
+STATUS: STATIC_VERIFIED
+PURPOSE: Make the complete compact Asterline authority safely queryable as a read-only, five-file, fail-closed bundle with exact source-derived ward/start-block chunks before any terrain or world geometry is created.
 
 IN_SCOPE:
-- Verify Godot 4.7 axis, Vector3, large-world precision, origin-shifting, `floori()`, `Vector2i`, and static-function documentation.
-- Create a versioned machine-readable coordinate/origin contract.
-- Add one stateless GDScript conversion/cell/rebase-decision utility without scene integration.
-- Document forward/inverse formulas, coordinate layers, start-area example, negative-coordinate rule, and future all-participant rebase transaction.
-- Update full-city/start-ring manifests to point to the defined contract while preserving `geometry_created_by_this_manifest=false`.
-- Add deterministic static tests for matrix handedness, inverse/distance preservation, direction mapping, negative cells, start-ring footprint round trips, GDScript tokens, and scope boundary.
-- Register every new file and update continuation/technical records.
+- Verify Godot 4.7 FileAccess, JSON, Dictionary, and runtime-file-loading documentation.
+- Create a source-derived chunk index with seven ward-coarse chunks and nine start-block detail chunks.
+- Pin the index to city/start semantic source fingerprints, manifest IDs, coordinate contract, and construction guard.
+- Add one read-only GDScript loader that publishes no partial bundle and returns structured failures.
+- Add stable-ID lookup and source-point query helpers using AABB broad phase plus exact polygon narrow phase.
+- Define detail-over-coarse metadata priority without authorizing duplicate geometry.
+- Add exhaustive Python verification that re-derives all 16 chunks and 36 start-ring building memberships from the existing manifests.
+- Register/document all new files and update continuation records.
 
 OUT_OF_SCOPE:
-- Loading a Drive or GitHub source payload at runtime.
-- Integrating `AsterlineCoordinates` into `main.tscn` or any gameplay scene.
-- Creating terrain, road, building, interior, collision, navigation, LOD, or streaming geometry.
-- Executing a live origin rebase or claiming multi-system rebasing works.
-- Requiring or producing a custom double-precision Godot build.
-- Changing source atlas coordinates, stable IDs, room dimensions, campaign state, or private neighbor contents.
+- Integrating the loader into `main.tscn`, an Autoload, or any gameplay scene.
+- Copying full Drive ward/interior payloads into GitHub.
+- Threaded/background loading, caching, unloading, LOD/HLOD, or visibility policy.
+- Creating terrain, roads, buildings, interiors, collision, navigation, utilities, NPCs, or world objects.
+- Resolving runtime save/network overlays or live Drive synchronization.
+- Changing source polygons, stable IDs, coordinate transform, construction guard, room dimensions, campaign state, or private neighbor contents.
 - Godot parser/runtime claims.
 
 FILES_ALLOWED_TO_CHANGE:
 - README.md
 - docs/user/CURRENT_STATUS.md
 - docs/world/README.md
-- docs/world/ASTERLINE_TO_GODOT_COORDINATES.md
+- docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md
 - docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md
 - docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md
 - data/world/asterline/city_spatial_manifest.json
 - data/world/asterline/start_area_manifest.json
-- data/world/asterline/coordinate_transform.json
-- scripts/world/asterline_coordinates.gd
+- data/world/asterline/chunk_index.json
+- scripts/world/asterline_spatial_loader.gd
 - scripts/qa/verify_city_spatial_bridge.py
 - scripts/qa/verify_structure.py
-- tests/verify_asterline_coordinates.py
+- tests/verify_asterline_spatial_loader.py
 - project_control/ARCHITECTURE.md
 - project_control/registry/ARTIFACT_REGISTRY.json
 - project_control/MASTER_STATE.md
@@ -49,45 +50,47 @@ FILES_ALLOWED_TO_CHANGE:
 - project_control/KNOWN_UNKNOWNS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
-- project_control/piece_history/PIECE-014.md
+- project_control/piece_history/PIECE-015.md
 
 FILES_EXPECTED_TO_CREATE:
-- data/world/asterline/coordinate_transform.json
-- scripts/world/asterline_coordinates.gd
-- docs/world/ASTERLINE_TO_GODOT_COORDINATES.md
-- tests/verify_asterline_coordinates.py
-- project_control/piece_history/PIECE-014.md
+- data/world/asterline/chunk_index.json
+- scripts/world/asterline_spatial_loader.gd
+- docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md
+- tests/verify_asterline_spatial_loader.py
+- project_control/piece_history/PIECE-015.md
 
 SOURCE_FACTS_USED:
-- SOURCE-009 / AUTHORITATIVE_SOURCE: Asterline absolute coordinates use `[east_m, north_m, up_m]` in `ASTERLINE_LOCAL_METRIC_V1` across a 290.08 km² city.
-- SOURCE-010 / AUTHORITATIVE_SOURCE: start-block/residence points provide exact source-coordinate examples for the transform.
-- SOURCE-012 / VERIFIED_GODOT_DOCUMENTATION: Godot is +X right, +Y up, -Z global forward; default Vector3 precision degrades away from origin; origin shifting is supported as an alternative to double precision; `floori()` floors negative values; `Vector2i` and static GDScript functions support deterministic helpers.
-- VERIFIED_REPOSITORY_FACT: Piece 013 manifests forbid direct source-Y to Godot-Y mapping and contain complete start-ring polygons for round-trip testing.
+- SOURCE-009: seven authoritative ward polygons represent all 7,000 blocks and 23,480 building shells; source coordinates remain `[east,north,up]`.
+- SOURCE-010: nine exact start-ring block polygons contain 36 buildings and the protected start anchors.
+- SOURCE-011: AABBs cannot replace full XY/Z ownership and additions fail closed.
+- SOURCE-012: the versioned source-to-Godot transform and anchor policy already exist.
+- SOURCE-013: FileAccess READ plus diagnostic instance JSON.parse and safe Dictionary access support a read-only fail-closed bundle.
 
 ASSUMPTIONS:
-- Godot global -Z represents Asterline north so +X remains east and +Y remains up.
-- A conservative 1,600 m horizontal threshold below Godot's documented 2,048 m lower first-person guidance is sufficient until runtime profiling proves a stricter bound is required.
-- A 100 m source cell aligns with the authoritative terrain-cell scale and remains a reversible anchoring choice.
-- Source altitude anchor is zero in the cell contract; building-local interiors remain building-local and use their building source anchor when instantiated.
+- Ward chunks are coarse query/source-routing envelopes, not physical chunk geometry.
+- Start-detail chunks legally overlap W03 only as a higher-resolution metadata layer.
+- Exact source polygons, not their AABBs, decide final point containment.
+- Stable chunk ID order is a deterministic same-layer boundary tie-break; it does not change ownership.
+- Loading five compact files synchronously is acceptable for this bounded contract; threaded/loading performance belongs to a later measured piece.
 
 KNOWN_UNKNOWNS:
-- Godot 4.7 parser/runtime result for the GDScript utility.
-- Runtime behavior of a future transaction moving physics, navigation, particles, audio, AI, and other loaded subsystems together.
-- Whether later profiling will require a lower rebase threshold or a double-precision build.
-- Exact streaming/chunk loader API, which belongs to Piece 015.
+- Godot parser/runtime behavior and exported `res://` availability for all five JSON files.
+- Actual load/parse time and memory footprint in a target build.
+- Future full ward/block payload fetch, cache, eviction, LOD, and background-thread architecture.
+- Runtime interaction with live origin rebasing, navigation, physics, and multiplayer.
 
 ACCEPTANCE_CRITERIA:
-- The machine contract defines forward/inverse formulas, matrix, determinant +1, units, source/Godot persistence roles, cell selection, threshold, rebase invariants, and runtime gate.
-- East maps to +X, north to -Z, and up to +Y; inverse conversion round-trips all tested points and preserves distances.
-- Negative source coordinates select cells with mathematical floor rather than truncation.
-- Every start-ring block/building footprint point round-trips under the contract.
-- City and start manifests point to one contract/utility and still claim no created geometry.
-- GDScript utility exactly implements contract formulas and is not integrated into the main scene.
-- Readable docs explain coordinate layers, start anchor, and why local coordinates cannot be persisted alone.
-- New files have deterministic artifact/path ownership.
-- Cumulative suite passes with 7 QA validators plus 9 static tests and no prior regression.
+- Chunk index pins all four source contracts and exact city/start semantic fingerprints.
+- Seven ward chunks exactly reproduce source polygons, AABBs, centroids, elevation bands, neighborhood membership, and 7,000/23,480 totals.
+- Nine start chunks exactly reproduce block polygons, AABBs, centroids, vertical envelopes, 36 building memberships, and protected anchors.
+- Chunk IDs are unique; detail priority is above coarse; AABB-only selection is forbidden; all geometry flags remain false.
+- Loader opens exactly five `res://` JSON files with `FileAccess.READ`, diagnostic `JSON.parse()`, Dictionary/schema/ID/fingerprint/nested-record validation, and structured failures.
+- Loader contains no write APIs, Node/mesh instantiation, or main-scene integration.
+- New files have deterministic artifact/path ownership and readable folder documentation.
+- Piece-specific content checks pass; the known stale-local-object ISSUE-007 remains explicit and no validator is weakened.
 
 TESTS_REQUIRED:
+- python tests/verify_asterline_spatial_loader.py
 - python tests/verify_asterline_coordinates.py
 - python scripts/qa/verify_city_spatial_bridge.py
 - python scripts/qa/verify_artifact_routing.py
@@ -97,21 +100,25 @@ TESTS_REQUIRED:
 - exact GitHub branch/tree/blob readback after commit
 
 REGRESSION_GATES:
-- Eight previous static gameplay/control tests remain passing.
-- Seven existing QA validators remain passing.
-- Piece 013 city/start geometry counts, containment, non-overlap, source pins, private boundary, and no-geometry claim remain intact.
-- `scenes/main.tscn` and all existing gameplay code remain unchanged.
-- Runtime gate remains RUNTIME_GATE_NOT_EXECUTED.
+- Nine previous static gameplay/control/world tests remain passing where executable.
+- Seven QA validators remain unchanged and strict.
+- Piece 013 containment/non-overlap/source-pin/private-boundary checks remain passing.
+- Piece 014 transform/inverse/origin checks remain passing.
+- Existing scene/player/room/campaign files remain unchanged.
+- No runtime, geometry, threaded-loading, or partial-bundle claim is introduced.
+- ISSUE-007 is not hidden by weakening local commit-existence validation.
 
-STARTING_COMMIT: d816448c3fb9dee56254d95190909ae8ab62048a
-ENDING_COMMIT: 231355040900182ce2e8fac65110681cc041b547
+STARTING_COMMIT: 1452610082d2f2e4c2ac5708a384d52e22534757
+ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: Coordinate/origin contract, GDScript utility, documentation, manifest pointers, artifact routing, and exhaustive start-ring round trips pass the cumulative 16/16 static suite; implementation commit/tree and all 26 intended blobs matched exact live GitHub readback.
+RESULT: Exact 7-ward/9-start-block index, five-file read-only loader, diagnostics, exact-polygon queries, source re-derivation tests, documentation, and routing pass every content/structure gate. The accumulated runner passes 16 of 17 checks and fails only the previously recorded ISSUE-007 stale-local-commit object probe; commit/readback is pending.
 
 FAILURES_FOUND:
-- QA-014-01: After exact GitHub readback, the environment rejected `git fetch origin main`, so the connector-written implementation commit could not be added to this stale local clone's object database for the seal-stage `git cat-file` check. The live commit, tree, and blobs were independently verified through the authenticated GitHub connector; no repository content was damaged.
+- QA-015-01: First review found that malformed nested source-contract/AABB records could reach unchecked `.get()`/indexing paths and raise a runtime error instead of returning the promised structured fail-closed response.
+- ISSUE-007 persists: the local clone lacks connector-written remote commits because the environment rejected fetch, so `verify_project_state.py` cannot pass its strict local commit-object probe. All other 16 Piece 015 candidate checks pass.
 
 FIXES_APPLIED:
-- Kept `verify_project_state.py` strict, did not fabricate a local object or weaken its commit-existence assertion, and recorded the environment-only limitation as ISSUE-007. The implementation bytes had already passed 16/16 before commit and matched the complete live GitHub tree after commit.
+- Added schema checks; required nested contract keys/types; city/start fingerprint comparison; polygon-point, AABB, counts/runtime, and manifest-runtime validations before any query bundle can publish. Expanded the static regression test to require these guards.
+- Kept the local commit-existence validator unchanged and reported the 16/17 result rather than claiming a full cumulative pass.
 
-FINAL_STATUS: COMPLETE
+FINAL_STATUS: STATIC_VERIFIED

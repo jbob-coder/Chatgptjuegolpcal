@@ -23,11 +23,11 @@ REQUIRED_REGISTRIES = ("ARTIFACT_REGISTRY.json", "PATH_REGISTRY.json")
 REQUIRED_WORLD_DOCS = (
     "README.md", "ASTERLINE_CITY_SPATIAL_AUTHORITY.md",
     "START_AREA_AND_NINE_BLOCK_RING.md", "SPATIAL_PLACEMENT_AND_NO_OVERLAP.md",
-    "ASTERLINE_TO_GODOT_COORDINATES.md",
+    "ASTERLINE_TO_GODOT_COORDINATES.md", "ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md",
 )
 REQUIRED_WORLD_DATA = (
     "city_spatial_manifest.json", "start_area_manifest.json", "spatial_construction_guard.json",
-    "coordinate_transform.json",
+    "coordinate_transform.json", "chunk_index.json",
 )
 FORBIDDEN_NESTED_DIRS = ("temporary_verification", "audit", "governance", "third_party")
 
@@ -61,6 +61,7 @@ def main() -> int:
     for name in REQUIRED_WORLD_DATA:
         require((ROOT / "data" / "world" / "asterline" / name).is_file(), f"required world data bridge missing: {name}")
     require((ROOT / "scripts" / "world" / "asterline_coordinates.gd").is_file(), "Asterline coordinate utility is missing")
+    require((ROOT / "scripts" / "world" / "asterline_spatial_loader.gd").is_file(), "Asterline spatial loader is missing")
     for name in FORBIDDEN_NESTED_DIRS:
         require(not (ROOT / name).exists(), f"forbidden nested repository area inside game root: {name}")
 

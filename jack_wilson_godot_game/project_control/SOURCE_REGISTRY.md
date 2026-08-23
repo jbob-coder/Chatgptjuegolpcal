@@ -166,3 +166,17 @@ FACTS_EXTRACTED: Godot uses +X right, +Y up, and -Z global forward/north under t
 LIMITATIONS: Documentation verifies API/precision principles but does not prove the project script parses or that a future multi-system rebase transaction works at runtime.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
+
+## SOURCE-013
+SOURCE_ID: SOURCE-013
+NAME: Official Godot 4.7 FileAccess, JSON, Dictionary, and runtime-file-loading documentation
+LOCATION: https://docs.godotengine.org/en/4.7/classes/class_fileaccess.html; https://docs.godotengine.org/en/4.7/classes/class_json.html; https://docs.godotengine.org/en/4.7/classes/class_dictionary.html; https://docs.godotengine.org/en/4.7/tutorials/io/runtime_file_loading_and_saving.html
+TYPE: VERIFIED_GODOT_DOCUMENTATION
+AUTHORITY_LEVEL: 5
+VERSION: Godot 4.7
+DATE_ACCESSED: 2026-08-23
+RELEVANT_SYSTEM: read-only runtime JSON file access, diagnostic parsing, Dictionary validation, pinned spatial bundle loading
+FACTS_EXTRACTED: FileAccess can check existence and open with READ; open returns null on failure and exposes get_open_error; get_as_text reads UTF-8; JSON instance parse returns an Error with message/line diagnostics while parse_string lacks error handling; JSON objects become Dictionary; safe key access uses get/has/has_all.
+LIMITATIONS: Documentation verifies API contracts but does not prove this repository's loader parses or executes in Godot. Threaded loading, import/export behavior, and large-payload streaming remain future research.
+RAW_SOURCE_READ: YES
+DERIVED_ONLY: NO

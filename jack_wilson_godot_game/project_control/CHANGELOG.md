@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-23 — Piece 015 candidate
+- Added a source-derived index with 7 ward-coarse and 9 start-block detail chunks, all exact source polygons with AABB broad-phase bounds and zero geometry claims.
+- Preserved complete-city 7,000-block / 23,480-building counts and all 36 detailed start-ring building memberships.
+- Added a read-only GDScript loader for one five-file city/start/coordinate/guard/index bundle with schema, ID, source-fingerprint, nested-record, duplicate-ID, polygon, AABB, and geometry fail-closed checks.
+- Added stable chunk lookup and AABB-plus-exact-polygon source-point queries; start detail has higher metadata priority than W03 coarse context.
+- Added Godot 4.7 FileAccess/JSON/Dictionary documentation, readable chunk/folder guidance, artifact routing, and an exhaustive source re-derivation test.
+- QA-015-01 review hardened schema, nested contract, source-fingerprint, polygon-point, AABB, count/runtime, and manifest-runtime failures so malformed records return structured errors before bundle publication.
+- Focused content/structure gates pass. The accumulated runner is 16/17 because ISSUE-007 prevents only the stale clone's strict remote-commit object probe; no validator is weakened and no 17/17 result is claimed.
+- Commit/readback remains pending.
+
 ## 2026-08-23 — Piece 014
 - Added a versioned source-to-Godot contract mapping Asterline `[east, north, up]` to local `[east-east0, up-up0, -(north-north0)]`, with exact inverse and determinant +1.
 - Added a stateless GDScript utility for conversion, 100 m floor-based source cells, anchors, horizontal-origin distance, a 1,600 m rebase request, and rebase delta.

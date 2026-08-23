@@ -336,6 +336,38 @@
       "plane": "VERIFICATION",
       "authority_role": "STATIC_TEST",
       "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_CHUNK_INDEX",
+      "current_path": "data/world/asterline/chunk_index.json",
+      "canonical_path": "data/world/asterline/chunk_index.json",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_SOURCE_DERIVED_INDEX",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_SPATIAL_LOADER",
+      "current_path": "scripts/world/asterline_spatial_loader.gd",
+      "canonical_path": "scripts/world/asterline_spatial_loader.gd",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_READ_ONLY_LOADER",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_DOC_SPATIAL_LOADER",
+      "current_path": "docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md",
+      "canonical_path": "docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "TECHNICAL_SPATIAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_TEST_ASTERLINE_SPATIAL_LOADER",
+      "current_path": "tests/verify_asterline_spatial_loader.py",
+      "canonical_path": "tests/verify_asterline_spatial_loader.py",
+      "plane": "VERIFICATION",
+      "authority_role": "STATIC_TEST",
+      "status": "ACTIVE"
     }
   ]
 }

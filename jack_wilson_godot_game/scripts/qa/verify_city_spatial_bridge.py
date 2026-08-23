@@ -143,6 +143,9 @@ def verify_city(city: dict) -> None:
     require(contract["godot_world_transform_status"] == "DEFINED_PIECE_014_STATIC_RUNTIME_GATE_OPEN", "Godot transform status drift")
     require(contract["coordinate_transform_contract"] == "data/world/asterline/coordinate_transform.json", "coordinate contract pointer drift")
     require(contract["coordinate_utility"] == "scripts/world/asterline_coordinates.gd", "coordinate utility pointer drift")
+    require(contract["chunk_index"] == "data/world/asterline/chunk_index.json", "chunk-index pointer drift")
+    require(contract["spatial_loader"] == "scripts/world/asterline_spatial_loader.gd", "spatial-loader pointer drift")
+    require(contract["spatial_loader_status"] == "DEFINED_PIECE_015_STATIC_RUNTIME_GATE_OPEN", "spatial-loader status drift")
     require(contract["direct_source_y_to_godot_y_forbidden"] is True, "source/Godot axis guard missing")
     require(contract["geometry_created_by_this_manifest"] is False, "bridge falsely claims geometry")
 

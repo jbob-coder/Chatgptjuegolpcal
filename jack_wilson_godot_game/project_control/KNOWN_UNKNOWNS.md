@@ -78,3 +78,14 @@ SAFE REVERSIBLE FALLBACK: Fail closed, retain the committed pinned projection, r
 BLOCKS PROGRESS: NO while pins match; YES for publishing geometry from a mismatched source
 RESOLUTION NEEDED FROM: source reconciliation when and only when a pin changes
 STATUS: OPEN_CONDITIONAL
+
+## U-0008
+UNKNOWN_ID: U-0008
+DESCRIPTION: Godot 4.7 parser/runtime behavior of `AsterlineSpatialLoader`, packaged `res://` JSON availability, and live exact-polygon queries.
+WHY UNKNOWN: The current environment has no Godot executable. Python/static inspection cannot prove GDScript parsing, export packaging, FileAccess behavior, or Variant typing at runtime.
+RELATED SOURCE: SOURCE-013; scripts/world/asterline_spatial_loader.gd; data/world/asterline/chunk_index.json
+IMPACT: The loader/index may be used as a static contract and future implementation input, but cannot be described as engine-executed or production-streaming-ready.
+SAFE REVERSIBLE FALLBACK: Keep loader absent from scenes/autoloads, retain fail-closed static validation, and add a Godot runtime fixture before first scene integration.
+BLOCKS PROGRESS: NO for static chunk/index work; YES for runtime-loader claims and physical streaming integration
+RESOLUTION NEEDED FROM: Godot 4.7 parser/runtime environment with packaged resource and point-query fixtures
+STATUS: OPEN

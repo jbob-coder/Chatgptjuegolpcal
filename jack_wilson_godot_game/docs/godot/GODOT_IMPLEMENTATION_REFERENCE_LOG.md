@@ -133,3 +133,16 @@ CLASSES/FUNCTIONS: `floori()`; `Vector2i`; `class_name`; static functions
 FACTS_VERIFIED: `floori()` rounds toward negative infinity, while integer conversion truncates toward zero; `Vector2i` represents integer 2D coordinates; GDScript supports named classes and static functions.
 IMPLEMENTATION_DECISION: Cell selection uses `Vector2i(floori(east / 100.0), floori(north / 100.0))`, including negative coordinates. `AsterlineCoordinates` is a stateless `RefCounted` utility and is not integrated into a scene in this piece.
 RUNTIME_VALIDATION: NOT_EXECUTED
+
+## REF-0011 — Read-only JSON spatial loading
+
+DATE: 2026-08-23
+PIECE: PIECE-015
+VERSION: Godot 4.7
+TOPIC: Fail-closed loading of pinned runtime JSON records
+SOURCES: https://docs.godotengine.org/en/4.7/classes/class_fileaccess.html; https://docs.godotengine.org/en/4.7/classes/class_json.html; https://docs.godotengine.org/en/4.7/classes/class_dictionary.html; https://docs.godotengine.org/en/4.7/tutorials/io/runtime_file_loading_and_saving.html
+CLASSES: FileAccess; JSON; Dictionary
+METHODS/ENUMS: FileAccess.file_exists(); FileAccess.open(); FileAccess.get_open_error(); FileAccess.READ; FileAccess.get_as_text(); JSON.new(); JSON.parse(); JSON.get_error_message(); JSON.get_error_line(); Dictionary.get(); Dictionary.has(); Dictionary.has_all()
+FACTS_VERIFIED: `FileAccess.open(path, FileAccess.READ)` returns null on failure and `get_open_error()` exposes the open error; `get_as_text()` reads UTF-8 text; instance `JSON.parse()` returns an Error and preserves line/message diagnostics; static `JSON.parse_string()` does not handle errors; JSON objects become Dictionary values; safe Dictionary access uses `get()`/`has()`.
+IMPLEMENTATION_DECISION: Load the city, start ring, coordinate contract, construction guard, and chunk index as one read-only bundle. Reject missing/malformed/non-Dictionary/wrong-ID/duplicate-chunk/geometry-claim states before publishing any bundle. Use exact polygon narrow-phase after AABB broad-phase. Do not integrate the loader into a scene in Piece 015.
+RUNTIME_VALIDATION: NOT_EXECUTED

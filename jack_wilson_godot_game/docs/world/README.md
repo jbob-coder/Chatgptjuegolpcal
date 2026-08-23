@@ -11,7 +11,8 @@ This folder explains where Asterline's world information lives and which record 
 2. `START_AREA_AND_NINE_BLOCK_RING.md` — the exact starting block, eight surrounding blocks, residence, interior spaces, and pickup curb.
 3. `SPATIAL_PLACEMENT_AND_NO_OVERLAP.md` — mandatory ownership, reservation, containment, and collision rules.
 4. `ASTERLINE_TO_GODOT_COORDINATES.md` — the one allowed source-to-Godot axis transform, origin cell, inverse, and rebase boundary.
-5. `project_control/ROADMAP.md` — the ordered construction sequence from source bridge to full-city runtime streaming.
+5. `ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md` — the five-file fail-closed bundle, 7 ward chunks, 9 start-detail chunks, and exact query rules.
+6. `project_control/ROADMAP.md` — the ordered construction sequence from source bridge to full-city runtime streaming.
 
 ## Folder and file ownership
 

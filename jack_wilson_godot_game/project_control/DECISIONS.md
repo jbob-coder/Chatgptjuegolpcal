@@ -178,3 +178,18 @@ TESTS_REQUIRED: python tests/verify_asterline_coordinates.py; python scripts/qa/
 COMMIT: 231355040900182ce2e8fac65110681cc041b547
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
+
+## D-0013
+DECISION_ID: D-0013
+DATE: 2026-08-23
+QUESTION/PROBLEM: How can the game query a complete 290.08 km² city and detailed start area without loading the full source corpus, inventing a second chunk grid, or accidentally instantiating overlapping coarse/detail geometry?
+DECISION: Load five compact pinned JSON records as one read-only fail-closed bundle. Index seven ward-coarse source polygons plus nine exact start-block detail polygons. Treat AABBs as broad phase only, exact source polygons as narrow phase, start detail as higher-priority metadata refinement, and every index/loader artifact as geometry-free.
+AUTHORITY: SOURCE-008–SOURCE-012 plus SOURCE-013 / VERIFIED_GODOT_DOCUMENTATION.
+ALTERNATIVES_CONSIDERED: Copy all Drive payloads into GitHub; create a uniform invented grid; query only AABBs; load partial records after failures; integrate loader and geometry together; allow coarse/detail layers to instantiate independently.
+WHY_SELECTED: It preserves existing source boundaries and stable IDs, keeps the repository compact, fails before publishing inconsistent state, supports the complete city and exact start ring, and prevents legal metadata overlap from becoming duplicate physical geometry.
+REVERSIBLE: YES; the index is wholly derived from pinned source records and contains no world geometry.
+FILES_AFFECTED: data/world/asterline/*; scripts/world/asterline_spatial_loader.gd; docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md; docs/godot/*; tests/verify_asterline_spatial_loader.py; project_control/*.
+TESTS_REQUIRED: python tests/verify_asterline_spatial_loader.py; python scripts/qa/verify_all.py; exact GitHub tree/blob readback; future Godot parser/runtime loader test.
+COMMIT: PENDING_PIECE_015_COMMIT_READBACK
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE

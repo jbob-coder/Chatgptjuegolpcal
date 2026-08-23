@@ -16,7 +16,7 @@ Ordered, bounded pieces. Repair work supersedes new feature development whenever
 - Piece 012 — User surface and four-plane routing contract — COMPLETE
 - Piece 013 — Asterline spatial-authority bridge — COMPLETE
 - Piece 014 — Source-to-Godot coordinate transform and floating-origin contract — COMPLETE
-- Piece 015 — Pinned spatial source loader and chunk index — PLANNED
+- Piece 015 — Pinned spatial source loader and chunk index — IN_PROGRESS
 - Piece 016 — Gravity — PLANNED
 - Piece 017 — Start-room wall A — PLANNED
 - Piece 018 — Start-room wall B — PLANNED

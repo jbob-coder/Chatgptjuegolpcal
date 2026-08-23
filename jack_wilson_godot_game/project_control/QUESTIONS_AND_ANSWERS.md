@@ -63,3 +63,19 @@ Status: ANSWERED_RUNTIME_GATE_OPEN
 Implementation impact: All future world loaders and geometry producers must consume the versioned contract; no scene is integrated until the loader piece. A rebase must move every participating loaded subsystem transactionally.
 Resolved by commit: 231355040900182ce2e8fac65110681cc041b547
 Notes: Static math and source-manifest round trips are verified; Godot parser/runtime and live rebasing remain unexecuted.
+
+## Q-0005
+Question: What are the first runtime query chunks, and how do they avoid overlapping or replacing the authoritative city geometry?
+Why this matters: A second invented grid or AABB-only partition could assign space incorrectly, while W03 and the detailed start blocks legitimately overlap as different resolutions.
+Asked by: ASSISTANT / ENGINE_CONTRACT
+Date: 2026-08-23
+Related piece: PIECE-015 onward
+Related files: data/world/asterline/chunk_index.json; scripts/world/asterline_spatial_loader.gd; docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md
+Evidence available: SOURCE-009 defines seven ward polygons and complete-city counts; SOURCE-010 defines nine exact start blocks and 36 buildings; SOURCE-011 requires full XY/Z ownership; SOURCE-013 defines diagnostic read-only JSON loading.
+Answer: Use seven ward-coarse metadata chunks and nine higher-priority start-block detail chunks, all copied exactly from pinned source polygons. AABBs reject obvious misses, exact polygons decide containment, and layer overlap is metadata refinement only—no layer creates geometry in Piece 015.
+Answer source: SOURCE-009 / SOURCE-010 / SOURCE-011 / SOURCE-013 / D-0013
+Confidence: HIGH_STATIC
+Status: ANSWERED_RUNTIME_GATE_OPEN
+Implementation impact: Future loaders may request stable chunk IDs and source points from this index, but physical construction still requires the coordinate contract and placement guard and may not instantiate duplicate coarse/detail geometry.
+Resolved by commit: PENDING_PIECE_015_COMMIT_READBACK
+Notes: Godot parser/runtime, threaded streaming, geometry creation, and unloading remain future gates.

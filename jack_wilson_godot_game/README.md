@@ -61,7 +61,7 @@ The selected 4.2 × 3.6 × 2.7 m room shell is still classified as reversible ga
 - Piece 013: Asterline spatial-authority bridge, committed and exact-readback verified.
 - Piece 014: source-to-Godot coordinate transform and floating-origin contract, committed and exact-readback verified.
 
-Piece 015 is next: the pinned spatial source loader and chunk index. The bridge and coordinate contract still do not create Godot terrain.
+Piece 015 is active: a pinned read-only spatial loader and exact 7-ward/9-start-block chunk index. The bridge, transform, loader, and index still create no Godot terrain.
 
 ## Asterline spatial boundary
 
@@ -71,7 +71,7 @@ GitHub stores a compact pinned bridge. The large authoritative corpus stays in D
 
 No future terrain or object may be placed from visual judgment alone. It must resolve a full polygon, Z interval, owning ward/space, theme, access, and reservation status through `data/world/asterline/spatial_construction_guard.json`.
 
-The one coordinate route is recorded in `docs/world/ASTERLINE_TO_GODOT_COORDINATES.md`: absolute `[east, north, up]` source positions remain authoritative, while Godot uses derived local `[east-east0, up-up0, -(north-north0)]` positions around a declared source-cell anchor.
+The one coordinate route is recorded in `docs/world/ASTERLINE_TO_GODOT_COORDINATES.md`: absolute `[east, north, up]` source positions remain authoritative, while Godot uses derived local `[east-east0, up-up0, -(north-north0)]` positions around a declared source-cell anchor. Read/query ownership is recorded in `docs/world/ASTERLINE_SPATIAL_LOADER_AND_CHUNKS.md`.
 
 ## Verification
 

@@ -13037,6 +13037,9 @@
     "all_other_start_ring_interiors_remain_source_pointer_only": true,
     "godot_world_transform_status": "DEFINED_PIECE_014_STATIC_RUNTIME_GATE_OPEN",
     "coordinate_transform_contract": "data/world/asterline/coordinate_transform.json",
-    "coordinate_utility": "scripts/world/asterline_coordinates.gd"
+    "coordinate_utility": "scripts/world/asterline_coordinates.gd",
+    "chunk_index": "data/world/asterline/chunk_index.json",
+    "spatial_loader": "scripts/world/asterline_spatial_loader.gd",
+    "spatial_loader_status": "DEFINED_PIECE_015_STATIC_RUNTIME_GATE_OPEN"
   }
 }

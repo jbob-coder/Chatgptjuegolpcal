@@ -128,6 +128,31 @@ Sources:
 - https://docs.godotengine.org/en/4.7/classes/class_vector2i.html
 - https://docs.godotengine.org/en/4.7/tutorials/scripting/gdscript/gdscript_basics.html
 
+### Read-only JSON spatial loading
+
+Status: VERIFIED_4_7_DOCS + VERIFIED_REPOSITORY + STATIC_ONLY; scene integration PLANNED
+
+Official APIs:
+- `FileAccess.file_exists(path)` checks the required resource path.
+- `FileAccess.open(path, FileAccess.READ)` opens without write authority and returns null on failure.
+- `FileAccess.get_open_error()` reports the last open failure.
+- `FileAccess.get_as_text()` reads the complete UTF-8 file.
+- `JSON.new().parse(text)` returns an Error and retains parse line/message diagnostics.
+- Parsed JSON objects become `Dictionary`; safe access uses `get()`, `has()`, and `has_all()`.
+
+Repository contract:
+- `AsterlineSpatialLoader` opens exactly five pinned files: city, start ring, coordinate transform, construction guard, and chunk index.
+- It publishes no partial bundle. Missing files, parse errors, non-object roots, city/contract ID mismatch, duplicate chunk IDs, invalid polygons, or geometry claims fail closed.
+- The chunk index has seven complete-city ward envelopes and nine detailed start-block envelopes. Start detail refines W03 metadata; it does not authorize duplicate geometry.
+- AABB tests are broad phase only. Source polygon containment is the required narrow phase.
+- Piece 015 performs no writes, no scene integration, no threaded loading, and no geometry construction.
+
+Sources:
+- https://docs.godotengine.org/en/4.7/classes/class_fileaccess.html
+- https://docs.godotengine.org/en/4.7/classes/class_json.html
+- https://docs.godotengine.org/en/4.7/classes/class_dictionary.html
+- https://docs.godotengine.org/en/4.7/tutorials/io/runtime_file_loading_and_saving.html
+
 ## Required future research matrix
 
 These subjects are mandatory when their implementation piece becomes active. Their presence here does not mean they have been researched yet.

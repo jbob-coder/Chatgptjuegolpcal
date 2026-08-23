@@ -1,7 +1,7 @@
 # Repository Architecture Contract
 
 AUTHORITY: SOURCE-007 / D-0008
-STATUS: PIECE-014_COMPLETE_PIECE-015_NEXT
+STATUS: PIECE-015_ACTIVE
 
 ## Primary rule
 Every project artifact belongs to exactly one primary plane. Do not mix planes merely because files are related.
@@ -50,6 +50,9 @@ If those answers are not clear, do not create the file yet.
 
 ## World coordinate authority
 Absolute Asterline vectors use `[east_m, north_m, up_m]`. Runtime-local Godot vectors are derived by the versioned Piece 014 contract at `data/world/asterline/coordinate_transform.json`; source `[E,N,U]` maps to local `[E-E0,U-U0,-(N-N0)]`. Source data, saves, and future network state must retain absolute source coordinates plus stable IDs. No subsystem may invent a second axis swap or persist unlabeled transient local coordinates.
+
+## World loading and chunk authority
+`data/world/asterline/chunk_index.json` derives 7 ward-coarse and 9 start-detail metadata chunks from the pinned manifests. `scripts/world/asterline_spatial_loader.gd` opens city/start/coordinate/guard/index as one read-only fail-closed bundle. AABBs are broad phase only; exact source polygons decide containment. Start detail refines W03 metadata and may not instantiate duplicate geometry. No scene consumes the loader in Piece 015.
 
 ## Graph semantics reserved for Piece 040
 NODES = VERBS / ACTIONS.
