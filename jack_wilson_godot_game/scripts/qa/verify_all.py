@@ -11,6 +11,7 @@ TESTS_DIR = ROOT / "tests"
 QA_CHECKS = (
     "preflight.py",
     "verify_structure.py",
+    "verify_artifact_routing.py",
     "verify_project_state.py",
     "verify_current_piece.py",
     "regression_guard.py",

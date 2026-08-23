@@ -116,6 +116,21 @@ WHY_SELECTED: This directly follows the user's explicit instruction while preser
 REVERSIBLE: YES
 FILES_AFFECTED: project_control/*; docs/user/*; future project_control/registry/*; future graph records; QA routing/projection validators.
 TESTS_REQUIRED: python scripts/qa/verify_all.py plus piece-specific routing/migration/graph/projection tests.
-COMMIT: PENDING_AUTHORITY_RESOLUTION
+COMMIT: 5fc00575de3150513068184eaea5c735c3f1841f
 SUPERSEDES: D-0007
+SUPERSEDED_BY: NONE
+
+## D-0009
+DECISION_ID: D-0009
+DATE: 2026-08-23
+QUESTION/PROBLEM: How can new files receive deterministic ownership without prematurely moving every existing project-control record?
+DECISION: Establish FIRST_MATCH_WINS path routing across USER_SURFACE, CONTROL_PLANE, GAME_RUNTIME, and VERIFICATION; register important active artifacts at their current paths; record Piece 013 destinations separately; enforce routing, projection authority, and runtime-file separation in a standard-library QA validator.
+AUTHORITY: SOURCE-007 / USER_DIRECTIVE and Q-0002.
+ALTERNATIVES_CONSIDERED: Move all control files during Piece 012; rely only on prose; register every future file manually without path rules; let broad scripts/** routing capture QA code.
+WHY_SELECTED: It makes file ownership enforceable now, preserves live references until the dedicated migration piece, and prevents QA/runtime ambiguity through specific-before-general precedence.
+REVERSIBLE: YES
+FILES_AFFECTED: README.md; docs/user/*; project_control/ARCHITECTURE.md; project_control/registry/*; scripts/qa/verify_artifact_routing.py; scripts/qa/verify_all.py; scripts/qa/verify_structure.py; project_control/*.
+TESTS_REQUIRED: python scripts/qa/verify_artifact_routing.py; python scripts/qa/verify_structure.py; python scripts/qa/verify_all.py.
+COMMIT: PENDING_PIECE_012_IMPLEMENTATION_READBACK
+SUPERSEDES: NONE
 SUPERSEDED_BY: NONE

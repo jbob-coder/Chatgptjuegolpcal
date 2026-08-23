@@ -8,11 +8,12 @@ Impact: Runtime/parser verification cannot be claimed.
 Required action: Execute pending runtime gates in an environment containing the target Godot 4.7.x engine.
 
 ## ISSUE-002 — Local GitHub clone unavailable in execution container
-Status: OPEN
+Status: RESOLVED_ENVIRONMENT_CHANGED
 Severity: TOOLING_LIMITATION
-Evidence: `git clone` failed because the container could not resolve github.com.
-Impact: Static tests are executed on connector-fetched reconstructed snapshot/state rather than a network clone.
-Required action: Continue authoritative reads/writes through the authenticated GitHub connector; preserve this limitation in evidence.
+Historical evidence: A prior container could not resolve github.com, so earlier static tests used connector-fetched reconstructed state.
+Resolution evidence: On 2026-08-23 a clean `git clone --branch main --single-branch` succeeded and resolved live main at ce08a2d2d6628f7392d4c86c3bf13b561b7910e4.
+Current impact: Static tests and commit-object checks can run against a real clone. Authenticated remote writes still use the GitHub connector.
+Resolved in: PIECE-012 candidate; final commit/readback pending.
 
 ## ISSUE-003 — Mandatory Godot documentation infrastructure
 Status: RESOLVED

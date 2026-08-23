@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "REGISTRY_GAME_PATH_ROUTING_V1",
+  "authority": "CONTROL_PLANE",
+  "matching": "FIRST_MATCH_WINS",
+  "planes": [
+    "USER_SURFACE",
+    "CONTROL_PLANE",
+    "GAME_RUNTIME",
+    "VERIFICATION"
+  ],
+  "rules": [
+    {
+      "priority": 10,
+      "pattern": "project.godot",
+      "plane": "GAME_RUNTIME",
+      "owner": "engine_project"
+    },
+    {
+      "priority": 20,
+      "pattern": "README.md",
+      "plane": "USER_SURFACE",
+      "owner": "project_entry_point"
+    },
+    {
+      "priority": 30,
+      "pattern": "docs/user/**",
+      "plane": "USER_SURFACE",
+      "owner": "user_projections"
+    },
+    {
+      "priority": 40,
+      "pattern": "project_control/**",
+      "plane": "CONTROL_PLANE",
+      "owner": "project_control"
+    },
+    {
+      "priority": 50,
+      "pattern": "docs/godot/**",
+      "plane": "CONTROL_PLANE",
+      "owner": "technical_authority"
+    },
+    {
+      "priority": 60,
+      "pattern": "scripts/qa/**",
+      "plane": "VERIFICATION",
+      "owner": "qa_automation"
+    },
+    {
+      "priority": 70,
+      "pattern": "tests/**",
+      "plane": "VERIFICATION",
+      "owner": "static_tests"
+    },
+    {
+      "priority": 80,
+      "pattern": "scenes/**",
+      "plane": "GAME_RUNTIME",
+      "owner": "scene_content"
+    },
+    {
+      "priority": 90,
+      "pattern": "data/**",
+      "plane": "GAME_RUNTIME",
+      "owner": "runtime_data"
+    },
+    {
+      "priority": 100,
+      "pattern": "scripts/**",
+      "plane": "GAME_RUNTIME",
+      "owner": "runtime_code"
+    },
+    {
+      "priority": 110,
+      "pattern": "assets/**",
+      "plane": "GAME_RUNTIME",
+      "owner": "runtime_assets"
+    }
+  ],
+  "invariants": [
+    "Every tracked game-root file resolves to exactly one primary plane by first-match precedence.",
+    "scripts/qa/** must match VERIFICATION before scripts/** can match GAME_RUNTIME.",
+    "USER_SURFACE files are non-authoritative projections.",
+    "Godot runtime resource types cannot be stored in USER_SURFACE or CONTROL_PLANE paths."
+  ]
+}

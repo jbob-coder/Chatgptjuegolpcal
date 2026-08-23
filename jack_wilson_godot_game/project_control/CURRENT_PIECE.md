@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-012
 TITLE: User surface and four-plane routing contract
-STATUS: IN_PROGRESS
+STATUS: STATIC_VERIFIED
 PURPOSE: Establish a small enforceable separation between user-facing information, internal control state, game runtime content, and verification material without moving existing control files yet.
 
 IN_SCOPE:
@@ -27,12 +27,15 @@ FILES_ALLOWED_TO_CHANGE:
 - scripts/qa/verify_artifact_routing.py
 - scripts/qa/verify_all.py
 - scripts/qa/verify_structure.py
+- scripts/qa/regression_guard.py
 - project_control/MASTER_STATE.md
 - project_control/CURRENT_PIECE.md
 - project_control/ROADMAP.md
 - project_control/QUALITY_BASELINE.md
 - project_control/DECISIONS.md
 - project_control/CHANGELOG.md
+- project_control/ISSUES.md
+- README.md
 - project_control/piece_history/PIECE-012.md
 
 FILES_EXPECTED_TO_CREATE:
@@ -83,12 +86,18 @@ REGRESSION_GATES:
 STARTING_COMMIT: 5fc00575de3150513068184eaea5c735c3f1841f
 ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: Piece 012 started from registered SOURCE-007 authority; implementation pending.
+RESULT: Four planes, deterministic routing precedence, artifact ownership, user projections, and migration destinations are implemented and locally static-verified; GitHub commit/readback remains pending.
 
 FAILURES_FOUND:
-- None yet inside Piece 012 scope.
+- TOOLING_STATE-012-01: ISSUE-002 and QUALITY_BASELINE still described normal GitHub cloning as unavailable, but a clean clone of live main succeeded in this environment at ce08a2d2d6628f7392d4c86c3bf13b561b7910e4.
+- QA-012-01: The first cumulative run failed because regression_guard.py's explicit QA validator inventory still contained the previous five validators after the routing validator became the sixth.
 
 FIXES_APPLIED:
-- N/A
+- Added deterministic four-plane path and artifact registries.
+- Added a routing validator and integrated it into the cumulative suite.
+- Updated the regression guard's explicit inventory so the six-validator baseline is measured rather than merely recorded.
+- Extended structure validation to require the user surface and registries.
+- Marked the former clone limitation resolved for the current environment without rewriting its historical evidence.
+- Rebuilt the root README as the folder/authority entry point requested by the user.
 
-FINAL_STATUS: IN_PROGRESS
+FINAL_STATUS: STATIC_VERIFIED

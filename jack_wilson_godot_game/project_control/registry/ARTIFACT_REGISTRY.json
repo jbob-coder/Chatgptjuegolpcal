@@ -1,0 +1,245 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "REGISTRY_GAME_ARTIFACTS_V1",
+  "authority": "CONTROL_PLANE",
+  "routing_registry": "project_control/registry/PATH_REGISTRY.json",
+  "migration_mode": "FLAT_COMPATIBILITY_UNTIL_PIECE_013",
+  "artifacts": [
+    {
+      "artifact_id": "ART_PROJECT_README",
+      "current_path": "README.md",
+      "canonical_path": "README.md",
+      "plane": "USER_SURFACE",
+      "authority_role": "PROJECTION",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_PROJECT_DESCRIPTOR",
+      "current_path": "project.godot",
+      "canonical_path": "project.godot",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_MAIN_SCENE",
+      "current_path": "scenes/main.tscn",
+      "canonical_path": "scenes/main.tscn",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_PLAYER_SCENE",
+      "current_path": "scenes/player.tscn",
+      "canonical_path": "scenes/player.tscn",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_START_ROOM_SCENE",
+      "current_path": "scenes/locations/start_room.tscn",
+      "canonical_path": "scenes/locations/start_room.tscn",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_PLAYER_CONTROLLER",
+      "current_path": "scripts/player_controller.gd",
+      "canonical_path": "scripts/player_controller.gd",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_START_ROOM_DATA",
+      "current_path": "data/locations/room_jack_start_01.json",
+      "canonical_path": "data/locations/room_jack_start_01.json",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_INPUT_WITH_PROVENANCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_USER_START_HERE",
+      "current_path": "docs/user/START_HERE.md",
+      "canonical_path": "docs/user/START_HERE.md",
+      "plane": "USER_SURFACE",
+      "authority_role": "PROJECTION",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_USER_CURRENT_STATUS",
+      "current_path": "docs/user/CURRENT_STATUS.md",
+      "canonical_path": "docs/user/CURRENT_STATUS.md",
+      "plane": "USER_SURFACE",
+      "authority_role": "PROJECTION",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_USER_QUESTIONS",
+      "current_path": "docs/user/QUESTIONS_FOR_USER.md",
+      "canonical_path": "docs/user/QUESTIONS_FOR_USER.md",
+      "plane": "USER_SURFACE",
+      "authority_role": "PROJECTION",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_MASTER_STATE",
+      "current_path": "project_control/MASTER_STATE.md",
+      "canonical_path": "project_control/MASTER_STATE.md",
+      "planned_path": "project_control/state/MASTER_STATE.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_CURRENT_PIECE",
+      "current_path": "project_control/CURRENT_PIECE.md",
+      "canonical_path": "project_control/CURRENT_PIECE.md",
+      "planned_path": "project_control/state/CURRENT_PIECE.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_ROADMAP",
+      "current_path": "project_control/ROADMAP.md",
+      "canonical_path": "project_control/ROADMAP.md",
+      "planned_path": "project_control/planning/ROADMAP.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_QUALITY_BASELINE",
+      "current_path": "project_control/QUALITY_BASELINE.md",
+      "canonical_path": "project_control/QUALITY_BASELINE.md",
+      "planned_path": "project_control/state/QUALITY_BASELINE.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_ARCHITECTURE",
+      "current_path": "project_control/ARCHITECTURE.md",
+      "canonical_path": "project_control/ARCHITECTURE.md",
+      "planned_path": "project_control/knowledge/ARCHITECTURE.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_DECISIONS",
+      "current_path": "project_control/DECISIONS.md",
+      "canonical_path": "project_control/DECISIONS.md",
+      "planned_path": "project_control/knowledge/DECISIONS.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_QUESTIONS",
+      "current_path": "project_control/QUESTIONS_AND_ANSWERS.md",
+      "canonical_path": "project_control/QUESTIONS_AND_ANSWERS.md",
+      "planned_path": "project_control/knowledge/QUESTIONS_AND_ANSWERS.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_SOURCES",
+      "current_path": "project_control/SOURCE_REGISTRY.md",
+      "canonical_path": "project_control/SOURCE_REGISTRY.md",
+      "planned_path": "project_control/knowledge/SOURCE_REGISTRY.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_UNKNOWNS",
+      "current_path": "project_control/KNOWN_UNKNOWNS.md",
+      "canonical_path": "project_control/KNOWN_UNKNOWNS.md",
+      "planned_path": "project_control/knowledge/KNOWN_UNKNOWNS.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_ISSUES",
+      "current_path": "project_control/ISSUES.md",
+      "canonical_path": "project_control/ISSUES.md",
+      "planned_path": "project_control/state/ISSUES.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_REGRESSION_LOG",
+      "current_path": "project_control/REGRESSION_LOG.md",
+      "canonical_path": "project_control/REGRESSION_LOG.md",
+      "planned_path": "project_control/history/REGRESSION_LOG.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_CHANGELOG",
+      "current_path": "project_control/CHANGELOG.md",
+      "canonical_path": "project_control/CHANGELOG.md",
+      "planned_path": "project_control/history/CHANGELOG.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_ARTIFACT_REGISTRY",
+      "current_path": "project_control/registry/ARTIFACT_REGISTRY.json",
+      "canonical_path": "project_control/registry/ARTIFACT_REGISTRY.json",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_CONTROL_PATH_REGISTRY",
+      "current_path": "project_control/registry/PATH_REGISTRY.json",
+      "canonical_path": "project_control/registry/PATH_REGISTRY.json",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "CONTROL_CANONICAL",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_GODOT_MASTER_GUIDE",
+      "current_path": "docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md",
+      "canonical_path": "docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "TECHNICAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_GODOT_REFERENCE_LOG",
+      "current_path": "docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md",
+      "canonical_path": "docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "TECHNICAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_QA_RUNNER",
+      "current_path": "scripts/qa/verify_all.py",
+      "canonical_path": "scripts/qa/verify_all.py",
+      "plane": "VERIFICATION",
+      "authority_role": "QA_GATE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_QA_ROUTING",
+      "current_path": "scripts/qa/verify_artifact_routing.py",
+      "canonical_path": "scripts/qa/verify_artifact_routing.py",
+      "plane": "VERIFICATION",
+      "authority_role": "QA_GATE",
+      "status": "ACTIVE"
+    }
+  ]
+}

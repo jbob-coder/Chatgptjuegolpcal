@@ -1,66 +1,77 @@
 # Jack Wilson Godot Game
 
-Dedicated Godot game root. This directory is intentionally separate from audit, reconstruction, temporary-verification, and story-storage material elsewhere in the repository.
+AUDIENCE: USER
+ROLE: USER_SURFACE_PROJECTION
+AUTHORITATIVE: NO
+
+This is the isolated Godot 4.7.x game root inside `jbob-coder/Chatgptjuegolpcal`. Game implementation must stay here and must not be mixed into repository-level `audit/`, `governance/`, `temporary_verification/`, or `third_party/` areas.
+
+## Read first
+
+1. `docs/user/START_HERE.md` — short user-facing entry point.
+2. `docs/user/CURRENT_STATUS.md` — current implementation and verification status.
+3. `project_control/MASTER_STATE.md` — canonical continuation pointer.
+4. `project_control/CURRENT_PIECE.md` — the only active bounded work item.
+5. `project_control/ROADMAP.md` — ordered future pieces.
+
+This README and `docs/user/` are projections. If they conflict with canonical project-control or runtime files, repair the projection; do not overwrite the authoritative record to match a summary.
+
+## Folder ownership
+
+| Path | Plane | Purpose | Authority |
+|---|---|---|---|
+| `README.md`, `docs/user/` | USER_SURFACE | Concise status and questions for the user | Projection only |
+| `project_control/` | CONTROL_PLANE | State, decisions, sources, unknowns, issues, history, registries | Canonical project control |
+| `docs/godot/` | CONTROL_PLANE | Version-specific Godot technical evidence | Technical authority log |
+| `project.godot`, `scenes/`, `data/`, `scripts/` | GAME_RUNTIME | Files loaded or executed by the game | Implemented runtime state |
+| `tests/`, `scripts/qa/` | VERIFICATION | Static/runtime gates and regression protection | Evidence and gates |
+
+Deterministic routing is defined by `project_control/registry/PATH_REGISTRY.json`. Important artifacts and their present/planned paths are listed in `project_control/registry/ARTIFACT_REGISTRY.json`. `scripts/qa/**` is deliberately routed before the broader `scripts/**` rule so QA code cannot be mistaken for game runtime code.
 
 ## Development rule
-Build one small piece at a time. A piece must be finished and verified before the next piece begins.
 
-## Completed pieces
+Build one bounded piece at a time:
 
-### Piece 001 — Project foundation
-Status: COMPLETE_STATIC
-- Godot project descriptor.
-- Empty 3D main scene.
-- Foundation verifier.
+`READ → VERIFY → IMPLEMENT → TEST → REGRESSION CHECK → RECORD → COMMIT → READ BACK → COMPLETE`
 
-### Piece 002 — Static first-person player shell
-Status: COMPLETE_STATIC
-- `CharacterBody3D` player root.
-- Capsule collision shape.
-- Head pivot.
-- Active `Camera3D`.
-- Player scene instanced by the main scene.
+Do not begin the next piece while the active piece is failing or has not been read back from GitHub. Never weaken an earlier valid test merely to make later work pass.
 
-### Piece 003 — Four-direction walking
-Status: COMPLETE_STATIC
-- W/A/S/D actions are registered at runtime if absent.
-- Horizontal walking uses `Input.get_vector()`.
-- Player velocity is expressed in meters per second.
-- Motion is applied with `CharacterBody3D.move_and_slide()` from `_physics_process()`.
+## Implemented gameplay boundary
 
-### Piece 004 — Mouse look
-Status: COMPLETE_STATIC
-- Mouse is captured when the player initializes.
-- Horizontal mouse motion yaws the player body.
-- Vertical mouse motion pitches the head pivot.
-- Pitch is clamped to ±85 degrees.
-- Escape toggles mouse capture/visibility.
+- Godot project and main 3D scene.
+- `CharacterBody3D` first-person player shell with capsule collision, head pivot, and active camera.
+- W/A/S/D walking.
+- Captured mouse look using `event.screen_relative`, with ±85° pitch and Escape release/capture.
+- Reversible `ROOM_JACK_START_01` data contract.
+- Visible/collidable 3.6 × 4.2 m start-room floor.
 
-### Piece 005 — Start-room data contract
-Status: COMPLETE_STATIC
-- Adds `ROOM_JACK_START_01` as a GitHub-side Godot world-build input.
-- Preserves the 4.2 × 3.6 × 2.7 m reversible shell and 15.12 m² floor area.
-- Preserves the 0.9 × 2.05 m corridor door contract.
-- Preserves the neighboring room as a shared-wall, no-portal, non-enterable boundary.
-- Explicitly records that the selected shell size is gameplay reconstruction, not an exact source measurement.
+The selected 4.2 × 3.6 × 2.7 m room shell is still classified as reversible gameplay reconstruction, not an exact source measurement.
 
-### Piece 006 — Start-room floor
-Status: COMPLETE_STATIC
-- Adds one visible floor mesh sized from the start-room data contract.
-- Adds matching `StaticBody3D` + `BoxShape3D` collision.
-- Instances the start-room scene from the project main scene.
-- Does not add walls, ceiling, furniture, or lighting yet.
+## Completed engineering pieces
 
-## Not implemented yet
-- gravity
-- jumping
-- sprinting
-- start-room walls
-- start-room ceiling
-- furniture
-- HUD
-- Steal
-- NPCs
-- world simulation
+- Pieces 001–006: foundation, player, walking, mouse look, room contract, and floor.
+- Piece 007: cumulative verifier regression repair.
+- Piece 008: persistent continuation core.
+- Piece 009: QA structure/state validators.
+- Piece 010: Godot 4.7 technical documentation baseline.
+- Piece 011: repository truth/authority drift repair.
+- Piece 012: four-plane user/control/runtime/verification routing contract (static candidate pending committed readback while this file was written).
 
-Target engine: Godot 4.7.x stable.
+## Verification
+
+Run from this directory:
+
+```bash
+python scripts/qa/verify_all.py
+```
+
+Static verification is not Godot runtime verification. The runtime/parser gate remains open until the project is executed with Godot 4.7.x.
+
+## Not implemented in Godot yet
+
+- gravity, jumping, and sprinting;
+- start-room walls, ceiling, furniture, and lighting;
+- full residence, starting block, terrain, city streaming, and world simulation;
+- HUD, Steal gameplay, and NPCs.
+
+Future city/world files must first receive a canonical owner, dimensions, coordinate frame, and collision/reservation checks. Do not place geometry merely because an untested location appears visually empty.

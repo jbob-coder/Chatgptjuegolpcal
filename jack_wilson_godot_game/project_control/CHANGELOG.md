@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-23 — Piece 012 candidate
+- Added explicit USER_SURFACE, CONTROL_PLANE, GAME_RUNTIME, and VERIFICATION ownership.
+- Added path and artifact registries with current paths and Piece 013 migration destinations.
+- Added a first-match routing validator covering duplicate IDs/paths, missing registered artifacts, unrouted files, QA precedence, runtime-file leakage, and user-projection authority.
+- Added required user-surface/registry structure gates and expanded cumulative QA from 5 to 6 validators.
+- The first cumulative run exposed QA-012-01 (stale validator inventory in the regression guard); the inventory was repaired before advancement.
+- Rebuilt the game-root README as a folder and authority map.
+- Re-verified repository access and resolved the former clone/DNS limitation for the current environment.
+- No gameplay files changed; Godot runtime remains unexecuted.
+
 ## 2026-08-20 — Piece 007
 - Detected REG-0001 in the cumulative static test suite.
 - Repaired the stale Piece 003 mouse-look prohibition without changing gameplay code.

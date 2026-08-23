@@ -8,7 +8,14 @@ CONTROL = ROOT / "project_control"
 BASELINE = CONTROL / "QUALITY_BASELINE.md"
 QA_DIR = ROOT / "scripts" / "qa"
 TESTS_DIR = ROOT / "tests"
-QA_VALIDATORS = ("preflight.py", "verify_structure.py", "verify_project_state.py", "verify_current_piece.py", "regression_guard.py")
+QA_VALIDATORS = (
+    "preflight.py",
+    "verify_structure.py",
+    "verify_artifact_routing.py",
+    "verify_project_state.py",
+    "verify_current_piece.py",
+    "regression_guard.py",
+)
 
 
 def require(condition: bool, message: str) -> None:
