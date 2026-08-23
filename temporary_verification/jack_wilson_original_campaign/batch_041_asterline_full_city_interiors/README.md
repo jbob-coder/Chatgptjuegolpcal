@@ -1,0 +1,3 @@
+# Batch 041 audit mirror
+
+Google Drive is authoritative for the ~1.16 GB city interior/public-realm corpus. This repository mirror records promotion evidence and control-state checksums rather than duplicating the large ward payloads. Batch 041 materialized deterministic interiors for all 23,480 buildings, 125,452 floors, 5,369,196 modules, 15,134,905 fixed derived rooms, 46,056,964 fixed fixture/equipment groups, 14,471 routes, 306,391 public-realm objects and 35,000 block utility/service objects. Thirty-five reversible Batch 040 start-ring filler interiors were repaired; BUILDING_PREACADEMY_RESIDENCE_01 and Jack's 4.2 x 3.6 x 2.7 m room were preserved. SAVE_000002 and world time were unchanged.
