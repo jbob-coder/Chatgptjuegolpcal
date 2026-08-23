@@ -1,39 +1,44 @@
 # Current Piece
 
-PIECE_ID: PIECE-013
-TITLE: Asterline spatial-authority bridge
-STATUS: COMPLETE
-PURPOSE: Bridge the already materialized Asterline city and nine-block start area into the isolated Godot game root with explicit folder ownership, pinned source identity, dimensions, coordinate authority, and fail-closed no-overlap checks—without duplicating the large source corpus or fabricating Godot geometry.
+PIECE_ID: PIECE-014
+TITLE: Source-to-Godot coordinate transform and floating-origin contract
+STATUS: STATIC_VERIFIED
+PURPOSE: Define the one reversible, tested conversion from authoritative Asterline `[east, north, up]` coordinates to Godot-local X/Y/Z and the precision-safe origin policy that every future loader, terrain, building, road, utility, interior anchor, save, and streaming system must follow.
 
 IN_SCOPE:
-- Register the newest user directive to continue from the start block outward to a full city without overlap.
-- Verify and pin the active Drive Batch040–043 city atlas, readiness index, composite index, construction guard, spatial docs, and start-area materialization.
-- Create readable docs/world folder/file, full-city, start-ring, and placement-rule maps.
-- Create compact data/world/asterline runtime projections for the full city skeleton, complete nine-block ring, and construction guard.
-- Include all 7 ward polygons, 28 neighborhood polygons, 5 water features, 14 trunk routes, 9 start blocks, 36 start-ring building/parcel envelopes, protected residence interior, and 24 start-area public objects.
-- Add deterministic routing/artifact ownership and a standard-library containment/collision/source-pin validator.
-- Reorder the roadmap from the starting room and block outward to full-city streaming while preserving deferred authorized organization work.
+- Verify Godot 4.7 axis, Vector3, large-world precision, origin-shifting, `floori()`, `Vector2i`, and static-function documentation.
+- Create a versioned machine-readable coordinate/origin contract.
+- Add one stateless GDScript conversion/cell/rebase-decision utility without scene integration.
+- Document forward/inverse formulas, coordinate layers, start-area example, negative-coordinate rule, and future all-participant rebase transaction.
+- Update full-city/start-ring manifests to point to the defined contract while preserving `geometry_created_by_this_manifest=false`.
+- Add deterministic static tests for matrix handedness, inverse/distance preservation, direction mapping, negative cells, start-ring footprint round trips, GDScript tokens, and scope boundary.
+- Register every new file and update continuation/technical records.
 
 OUT_OF_SCOPE:
-- Copying the approximately 1.16 GB authoritative Drive corpus into GitHub.
-- Selecting or implementing the source-to-Godot axis transform or floating-origin policy.
-- Generating Godot terrain, roads, buildings, utilities, interiors, meshes, collision shapes, or navigation.
-- Changing ROOM_JACK_START_01 dimensions or their reversible reconstruction provenance.
-- Revealing private neighbor-room contents.
-- Advancing campaign time, occupancy, schedules, locks, damage, or player knowledge.
-- Godot runtime/parser claims.
+- Loading a Drive or GitHub source payload at runtime.
+- Integrating `AsterlineCoordinates` into `main.tscn` or any gameplay scene.
+- Creating terrain, road, building, interior, collision, navigation, LOD, or streaming geometry.
+- Executing a live origin rebase or claiming multi-system rebasing works.
+- Requiring or producing a custom double-precision Godot build.
+- Changing source atlas coordinates, stable IDs, room dimensions, campaign state, or private neighbor contents.
+- Godot parser/runtime claims.
 
 FILES_ALLOWED_TO_CHANGE:
 - README.md
 - docs/user/CURRENT_STATUS.md
-- docs/world/*
-- data/world/asterline/*
+- docs/world/README.md
+- docs/world/ASTERLINE_TO_GODOT_COORDINATES.md
+- docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md
+- docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md
+- data/world/asterline/city_spatial_manifest.json
+- data/world/asterline/start_area_manifest.json
+- data/world/asterline/coordinate_transform.json
+- scripts/world/asterline_coordinates.gd
 - scripts/qa/verify_city_spatial_bridge.py
-- scripts/qa/verify_all.py
-- scripts/qa/regression_guard.py
 - scripts/qa/verify_structure.py
+- tests/verify_asterline_coordinates.py
 - project_control/ARCHITECTURE.md
-- project_control/registry/*
+- project_control/registry/ARTIFACT_REGISTRY.json
 - project_control/MASTER_STATE.md
 - project_control/CURRENT_PIECE.md
 - project_control/ROADMAP.md
@@ -44,50 +49,46 @@ FILES_ALLOWED_TO_CHANGE:
 - project_control/KNOWN_UNKNOWNS.md
 - project_control/ISSUES.md
 - project_control/CHANGELOG.md
-- project_control/piece_history/PIECE-013.md
+- project_control/piece_history/PIECE-014.md
 
 FILES_EXPECTED_TO_CREATE:
-- docs/world/README.md
-- docs/world/ASTERLINE_CITY_SPATIAL_AUTHORITY.md
-- docs/world/START_AREA_AND_NINE_BLOCK_RING.md
-- docs/world/SPATIAL_PLACEMENT_AND_NO_OVERLAP.md
-- data/world/asterline/city_spatial_manifest.json
-- data/world/asterline/start_area_manifest.json
-- data/world/asterline/spatial_construction_guard.json
-- scripts/qa/verify_city_spatial_bridge.py
-- project_control/piece_history/PIECE-013.md
+- data/world/asterline/coordinate_transform.json
+- scripts/world/asterline_coordinates.gd
+- docs/world/ASTERLINE_TO_GODOT_COORDINATES.md
+- tests/verify_asterline_coordinates.py
+- project_control/piece_history/PIECE-014.md
 
 SOURCE_FACTS_USED:
-- SOURCE-008 / USER_DIRECTIVE: continue the world from the ready terrain/start point through surrounding blocks to a full city; record folders, positions, dimensions, inside/outside space, theme, and anti-overlap rules; proceed without asking.
-- SOURCE-009 / AUTHORITATIVE_SOURCE: active Asterline Batch043 atlas/guard/readiness/composite records define 290.08 km², 7 wards, 28 neighborhoods, 7,000 blocks, 23,480 building shells, physical ROW/easements/strata/utilities, and zero true 3D building collisions.
-- SOURCE-010 / AUTHORITATIVE_SOURCE: START_AREA_FULL_MATERIALIZATION_V1 defines the exact nine-block ring, 36 building/parcel envelopes, protected start residence and interior, pickup curb, and public realm.
-- SOURCE-011 / AUTHORITATIVE_SOURCE: active spatial Markdown records define folder authority, reserved space, physical transport, and the mandatory no-overlap/change workflow.
-- VERIFIED_REPOSITORY_FACT: Piece 012 already provides deterministic USER_SURFACE / CONTROL_PLANE / GAME_RUNTIME / VERIFICATION routing.
+- SOURCE-009 / AUTHORITATIVE_SOURCE: Asterline absolute coordinates use `[east_m, north_m, up_m]` in `ASTERLINE_LOCAL_METRIC_V1` across a 290.08 km² city.
+- SOURCE-010 / AUTHORITATIVE_SOURCE: start-block/residence points provide exact source-coordinate examples for the transform.
+- SOURCE-012 / VERIFIED_GODOT_DOCUMENTATION: Godot is +X right, +Y up, -Z global forward; default Vector3 precision degrades away from origin; origin shifting is supported as an alternative to double precision; `floori()` floors negative values; `Vector2i` and static GDScript functions support deterministic helpers.
+- VERIFIED_REPOSITORY_FACT: Piece 013 manifests forbid direct source-Y to Godot-Y mapping and contain complete start-ring polygons for round-trip testing.
 
 ASSUMPTIONS:
-- The active Drive source is the city authority; GitHub manifests are pinned compact projections and must not become a divergent second city.
-- Source coordinates remain [east, north, up] until Piece 014 establishes a tested Godot transform.
-- Semantic SHA-256 values fingerprint normalized parsed JSON content, not raw Drive byte streams.
-- No geometry is free merely because it appears visually empty.
+- Godot global -Z represents Asterline north so +X remains east and +Y remains up.
+- A conservative 1,600 m horizontal threshold below Godot's documented 2,048 m lower first-person guidance is sufficient until runtime profiling proves a stricter bound is required.
+- A 100 m source cell aligns with the authoritative terrain-cell scale and remains a reversible anchoring choice.
+- Source altitude anchor is zero in the cell contract; building-local interiors remain building-local and use their building source anchor when instantiated.
 
 KNOWN_UNKNOWNS:
-- Exact source-to-Godot axis transform and floating-origin/chunk-origin policy.
-- Whether a future Drive revision will intentionally supersede any pinned file; pin drift must fail closed until reconciled.
-- Godot parser/runtime behavior remains unexecuted.
-- Original-source exact Jack-room dimensions remain unknown even though the active materialization preserves the reversible 4.2 × 3.6 × 2.7 m reconstruction.
+- Godot 4.7 parser/runtime result for the GDScript utility.
+- Runtime behavior of a future transaction moving physics, navigation, particles, audio, AI, and other loaded subsystems together.
+- Whether later profiling will require a lower rebase threshold or a double-precision build.
+- Exact streaming/chunk loader API, which belongs to Piece 015.
 
 ACCEPTANCE_CRITERIA:
-- docs/world explains what belongs in each folder and where city, start-ring, and placement information lives.
-- Full-city manifest pins file identity/modified time/size/semantic fingerprint and embeds city bounds, theme, 7 wards, 28 neighborhoods, water, routes, and integrity counts.
-- Start manifest contains nine unique non-overlapping block polygons, 36 unique non-overlapping building footprints within owning blocks/parcels, exact elevations/exteriors, protected residence spaces within envelope, and 24 public objects.
-- Guard mirrors the active placement precedence, twelve mandatory checks, and fail-closed rule.
-- Existing reversible room provenance remains false-for-exact-source and reversible.
-- Source Y cannot be silently treated as Godot Y; geometry claims remain false.
-- Routing and artifact registries give every new file one deterministic owner.
-- Cumulative suite passes with 7 QA validators plus 8 existing static tests.
-- No gameplay scene, GDScript, existing room data, or campaign state changes.
+- The machine contract defines forward/inverse formulas, matrix, determinant +1, units, source/Godot persistence roles, cell selection, threshold, rebase invariants, and runtime gate.
+- East maps to +X, north to -Z, and up to +Y; inverse conversion round-trips all tested points and preserves distances.
+- Negative source coordinates select cells with mathematical floor rather than truncation.
+- Every start-ring block/building footprint point round-trips under the contract.
+- City and start manifests point to one contract/utility and still claim no created geometry.
+- GDScript utility exactly implements contract formulas and is not integrated into the main scene.
+- Readable docs explain coordinate layers, start anchor, and why local coordinates cannot be persisted alone.
+- New files have deterministic artifact/path ownership.
+- Cumulative suite passes with 7 QA validators plus 9 static tests and no prior regression.
 
 TESTS_REQUIRED:
+- python tests/verify_asterline_coordinates.py
 - python scripts/qa/verify_city_spatial_bridge.py
 - python scripts/qa/verify_artifact_routing.py
 - python scripts/qa/verify_structure.py
@@ -96,26 +97,21 @@ TESTS_REQUIRED:
 - exact GitHub branch/tree/blob readback after commit
 
 REGRESSION_GATES:
-- Eight existing static gameplay/control tests remain passing.
-- Six previous QA validators remain passing.
-- New city-spatial validator passes without weakening prior checks.
-- No existing gameplay/runtime file changes outside new data/world projections.
+- Eight previous static gameplay/control tests remain passing.
+- Seven existing QA validators remain passing.
+- Piece 013 city/start geometry counts, containment, non-overlap, source pins, private boundary, and no-geometry claim remain intact.
+- `scenes/main.tscn` and all existing gameplay code remain unchanged.
 - Runtime gate remains RUNTIME_GATE_NOT_EXECUTED.
-- Source pins, stable IDs, private neighbor boundary, and reversible room provenance remain intact.
 
-STARTING_COMMIT: 7a70f8a7b01baa00f86d29df8f22a1989beabd65
-ENDING_COMMIT: e5eb014293e96ca08586603f7bdc46679c31aaa7
+STARTING_COMMIT: d816448c3fb9dee56254d95190909ae8ab62048a
+ENDING_COMMIT: PENDING_COMMIT_READBACK
 
-RESULT: Source projections, documentation, routing, containment/collision guard, and source pins are static-verified 15/15, committed, and exact-readback verified from live GitHub main with zero blob mismatches.
+RESULT: Coordinate/origin contract, GDScript utility, documentation, manifest pointers, artifact routing, and exhaustive start-ring round trips pass the cumulative 16/16 static suite; commit/readback is pending.
 
 FAILURES_FOUND:
-- QA-013-01: The first city-spatial verifier run used 290.081 km² as the expected sum of rounded ward records; the authoritative ward values actually sum to 290.079 km² while the city boundary reports 290.08 km².
-- QA-013-02 / REG-0004: A local section-sorting cleanup matched no ledger sections and temporarily reduced DECISIONS.md and SOURCE_REGISTRY.md to their headings before commit.
-- QA-013-03: The first combined suite/whitespace gate passed all 15 static checks but `git diff --check` rejected one extra terminal blank line in each restored ledger.
+- None yet in Piece 014.
 
 FIXES_APPLIED:
-- Corrected the verifier to the exact published ward-record sum and documented the 0.001 km² rounding relationship without altering source geometry.
-- Stopped feature work, restored both ledgers from the exact sealed 7a70 GitHub baseline, reapplied D-0010/D-0011 and SOURCE-008–SOURCE-011 explicitly in ID order, and strengthened structure QA so truncated/duplicate authority ledgers fail.
-- Removed only the two extra terminal blank lines and reran the whitespace gate; no record content changed.
+- None yet in Piece 014.
 
-FINAL_STATUS: COMPLETE
+FINAL_STATUS: STATIC_VERIFIED

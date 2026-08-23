@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-08-23 — Piece 014 candidate
+- Added a versioned source-to-Godot contract mapping Asterline `[east, north, up]` to local `[east-east0, up-up0, -(north-north0)]`, with exact inverse and determinant +1.
+- Added a stateless GDScript utility for conversion, 100 m floor-based source cells, anchors, horizontal-origin distance, a 1,600 m rebase request, and rebase delta.
+- Recorded official Godot 4.7 axis, large-world precision, origin-shifting, `floori()`, `Vector2i`, and static-function evidence.
+- Added readable coordinate-layer/persistence/rebase documentation and manifest pointers without creating or claiming geometry.
+- Added a static verifier covering direction mapping, inverse and distance preservation, negative coordinates, all start-ring block/building footprint round trips, GDScript contract tokens, and no premature scene integration.
+- Cumulative static verification passes 7 QA validators + 9 static tests = 16/16; `git diff --check` passes. GitHub commit/readback remains pending.
+
 ## 2026-08-23 — Piece 013 candidate
 - Verified the active Asterline Batch040–043 Drive authority instead of inventing a second city.
 - Added readable world folder, full-city, nine-block start-ring, and no-overlap maps under `docs/world/`.

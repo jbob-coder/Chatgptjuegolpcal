@@ -59,13 +59,14 @@ RESOLUTION: User explicitly instructed the repository separation/routing/graph a
 ## U-0006
 UNKNOWN_ID: U-0006
 DESCRIPTION: Exact source-to-Godot axis transform, floating-origin policy, and chunk-origin contract for ASTERLINE_LOCAL_METRIC_V1.
-WHY UNKNOWN: The authoritative source uses X east, Y north, Z up, while Godot is Y-up; no verified project decision or implementation yet defines conversion, precision, or rebasing.
-RELATED SOURCE: SOURCE-009; data/world/asterline/city_spatial_manifest.json
-IMPACT: Source geometry may be stored and validated, but must not yet be instantiated as Godot world geometry.
-SAFE REVERSIBLE FALLBACK: Preserve source coordinates unchanged in data, explicitly forbid direct source-Y to Godot-Y mapping, and defer geometry to Piece 014.
-BLOCKS PROGRESS: NO for the compact authority bridge; YES for physical Godot city geometry
-RESOLUTION NEEDED FROM: Piece 014 design, official Godot 4.7 technical verification, tests, and committed readback
-STATUS: OPEN
+WHY UNKNOWN: The authoritative source uses X east, Y north, Z up, while Godot is Y-up; Piece 013 intentionally deferred conversion until official Godot evidence and deterministic tests existed.
+RELATED SOURCE: SOURCE-009; SOURCE-012; D-0012; data/world/asterline/coordinate_transform.json
+IMPACT: Resolved for static source conversion and future loader input. Physical world geometry still requires a loader and runtime verification.
+SAFE REVERSIBLE FALLBACK: Absolute source coordinates remain authoritative, so the versioned transform/rebase policy can be replaced transactionally without rewriting source geometry.
+BLOCKS PROGRESS: NO for Piece 015 source loading; YES for claims that runtime rebasing or scene integration already works
+RESOLUTION NEEDED FROM: Godot 4.7 parser/runtime execution and future loaded-subsystem rebase tests
+STATUS: RESOLVED_STATIC_RUNTIME_OPEN
+RESOLUTION: Piece 014 defines `[E-E0,U-U0,-(N-N0)]`, inverse conversion, 100 m floor-based source cells, and a 1,600 m rebase request threshold. Static round-trip/distance/source-manifest tests pass; runtime remains open.
 
 ## U-0007
 UNKNOWN_ID: U-0007

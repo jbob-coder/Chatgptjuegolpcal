@@ -304,6 +304,38 @@
       "plane": "VERIFICATION",
       "authority_role": "QA_GATE",
       "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_COORDINATE_CONTRACT",
+      "current_path": "data/world/asterline/coordinate_transform.json",
+      "canonical_path": "data/world/asterline/coordinate_transform.json",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_TRANSFORM_CONTRACT_WITH_PROVENANCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_DOC_COORDINATES",
+      "current_path": "docs/world/ASTERLINE_TO_GODOT_COORDINATES.md",
+      "canonical_path": "docs/world/ASTERLINE_TO_GODOT_COORDINATES.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "TECHNICAL_SPATIAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_COORDINATE_UTILITY",
+      "current_path": "scripts/world/asterline_coordinates.gd",
+      "canonical_path": "scripts/world/asterline_coordinates.gd",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_COORDINATE_UTILITY",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_TEST_ASTERLINE_COORDINATES",
+      "current_path": "tests/verify_asterline_coordinates.py",
+      "canonical_path": "tests/verify_asterline_coordinates.py",
+      "plane": "VERIFICATION",
+      "authority_role": "STATIC_TEST",
+      "status": "ACTIVE"
     }
   ]
 }

@@ -19,10 +19,10 @@ NAME: Current GitHub repository implementation
 LOCATION: jbob-coder/Chatgptjuegolpcal main, jack_wilson_godot_game/
 TYPE: VERIFIED_REPOSITORY
 AUTHORITY_LEVEL: 4
-VERSION: observed through e5eb014293e96ca08586603f7bdc46679c31aaa7
+VERSION: observed through d816448c3fb9dee56254d95190909ae8ab62048a
 DATE_ACCESSED: 2026-08-23
 RELEVANT_SYSTEM: all currently implemented game, QA, docs, and project-control pieces
-FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; Piece 011 repaired prior truth/authority drift; Piece 012 established and sealed deterministic four-plane routing at 7a70f8a7b01baa00f86d29df8f22a1989beabd65.
+FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; Piece 011 repaired prior truth/authority drift; Piece 012 established and sealed deterministic four-plane routing at 7a70f8a7b01baa00f86d29df8f22a1989beabd65; Piece 013 sealed the Asterline spatial-authority bridge at d816448c3fb9dee56254d95190909ae8ab62048a.
 LIMITATIONS: Static repository inspection does not prove Godot runtime/parser behavior. Repository facts must be read from current committed files rather than copied from prior summaries.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO
@@ -150,5 +150,19 @@ DATE_ACCESSED: 2026-08-23
 RELEVANT_SYSTEM: folder authority, reserved space, physical ROW, no-overlap workflow, transactional publication
 FACTS_EXTRACTED: Batch040–043 folder/layer ownership; eleven spatial assignment rules; roads use physical ROW rather than centroid hints; additions resolve ownership and full XY/Z, preserve access/theme/stable bindings, run global checks, and promote geometry/docs/checksums/registries together.
 LIMITATIONS: Readable docs summarize structured authority; exact geometry remains in the referenced JSON/JSONL/GeoJSON sources.
+RAW_SOURCE_READ: YES
+DERIVED_ONLY: NO
+
+## SOURCE-012
+SOURCE_ID: SOURCE-012
+NAME: Official Godot 4.7 coordinate, vector, large-world, flooring, and GDScript documentation
+LOCATION: https://docs.godotengine.org/en/4.7/tutorials/3d/using_transforms.html; https://docs.godotengine.org/en/4.7/classes/class_vector3.html; https://docs.godotengine.org/en/4.7/tutorials/physics/large_world_coordinates.html; https://docs.godotengine.org/en/4.7/classes/class_%40globalscope.html; https://docs.godotengine.org/en/4.7/classes/class_vector2i.html; https://docs.godotengine.org/en/4.7/tutorials/scripting/gdscript/gdscript_basics.html
+TYPE: VERIFIED_GODOT_DOCUMENTATION
+AUTHORITY_LEVEL: 5
+VERSION: Godot 4.7
+DATE_ACCESSED: 2026-08-23
+RELEVANT_SYSTEM: source-to-Godot coordinate conversion, world-origin precision, source-cell selection, stateless GDScript coordinate utility
+FACTS_EXTRACTED: Godot uses +X right, +Y up, and -Z global forward/north under the selected convention; default Vector3 precision decreases away from origin; official first-person guidance begins at a 2,048–4,096 m maximum range; origin shifting is an alternative to double-precision builds; floori rounds toward negative infinity; Vector2i and static GDScript functions support deterministic cell helpers.
+LIMITATIONS: Documentation verifies API/precision principles but does not prove the project script parses or that a future multi-system rebase transaction works at runtime.
 RAW_SOURCE_READ: YES
 DERIVED_ONLY: NO

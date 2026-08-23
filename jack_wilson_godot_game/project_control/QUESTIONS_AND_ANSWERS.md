@@ -47,3 +47,19 @@ Status: ANSWERED
 Implementation impact: GitHub stores compact pinned projections and runtime systems; large authoritative payloads remain in Drive. Every future geometry piece consumes the source manifests and guard.
 Resolved by commit: e5eb014293e96ca08586603f7bdc46679c31aaa7
 Notes: This answer authorizes integration and scaling, not bulk copying or unverified runtime claims.
+
+## Q-0004
+Question: What exact coordinate transform and origin policy must every future Asterline terrain, building, road, utility, and object use in Godot?
+Why this matters: A wrong axis swap would turn northing into elevation, invert the city, or make independently streamed pieces disagree; a permanent city-scale origin would also expose first-person physics/rendering to avoidable single-precision drift.
+Asked by: ASSISTANT / ENGINE_CONTRACT
+Date: 2026-08-23
+Related piece: PIECE-014 onward
+Related files: data/world/asterline/coordinate_transform.json; scripts/world/asterline_coordinates.gd; docs/world/ASTERLINE_TO_GODOT_COORDINATES.md
+Evidence available: SOURCE-009 defines `[east, north, up]`; SOURCE-012 verifies Godot +X right, +Y up, -Z forward, precision limits, origin shifting, and negative-coordinate flooring.
+Answer: Source `[E,N,U]` maps to Godot local `[E-E0,U-U0,-(N-N0)]`. Select anchors on the 100 m source grid with mathematical floor, request rebasing above 1,600 m horizontal local distance, and persist absolute source coordinates plus stable IDs.
+Answer source: SOURCE-009 / SOURCE-012 / D-0012
+Confidence: HIGH_STATIC
+Status: ANSWERED_RUNTIME_GATE_OPEN
+Implementation impact: All future world loaders and geometry producers must consume the versioned contract; no scene is integrated until the loader piece. A rebase must move every participating loaded subsystem transactionally.
+Resolved by commit: PENDING_PIECE_014_COMMIT_READBACK
+Notes: Static math and source-manifest round trips are verified; Godot parser/runtime and live rebasing remain unexecuted.

@@ -1,7 +1,7 @@
 # Repository Architecture Contract
 
 AUTHORITY: SOURCE-007 / D-0008
-STATUS: PIECE-013_ACTIVE
+STATUS: PIECE-014_ACTIVE
 
 ## Primary rule
 Every project artifact belongs to exactly one primary plane. Do not mix planes merely because files are related.
@@ -47,6 +47,9 @@ If those answers are not clear, do not create the file yet.
 
 ## World spatial authority
 `docs/world/**` contains readable projections of pinned authoritative Drive sources. `data/world/**` contains compact machine-readable runtime projections. Neither may silently invent coordinates. The active construction guard requires full polygon/Z ownership checks before any world geometry is published.
+
+## World coordinate authority
+Absolute Asterline vectors use `[east_m, north_m, up_m]`. Runtime-local Godot vectors are derived by the versioned Piece 014 contract at `data/world/asterline/coordinate_transform.json`; source `[E,N,U]` maps to local `[E-E0,U-U0,-(N-N0)]`. Source data, saves, and future network state must retain absolute source coordinates plus stable IDs. No subsystem may invent a second axis swap or persist unlabeled transient local coordinates.
 
 ## Graph semantics reserved for Piece 040
 NODES = VERBS / ACTIONS.

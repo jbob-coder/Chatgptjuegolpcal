@@ -163,3 +163,18 @@ TESTS_REQUIRED: python scripts/qa/verify_city_spatial_bridge.py; future Piece 01
 COMMIT: e5eb014293e96ca08586603f7bdc46679c31aaa7
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
+
+## D-0012
+DECISION_ID: D-0012
+DATE: 2026-08-23
+QUESTION/PROBLEM: How should the source atlas `[east, north, up]` coordinates map into Godot's Y-up 3D frame across a 290.08 km² city without losing absolute authority or accumulating first-person precision drift?
+DECISION: Preserve absolute Asterline source coordinates as authority; derive Godot local `[east-east0, up-up0, -(north-north0)]`; use a deterministic 100 m source-cell anchor; request an all-participant physics-frame rebase above 1,600 m horizontal local distance; persist stable IDs plus absolute source coordinates rather than transient local positions.
+AUTHORITY: SOURCE-009 plus SOURCE-012 / VERIFIED_GODOT_DOCUMENTATION.
+ALTERNATIVES_CONSIDERED: Directly reuse source X/Y/Z; map north to +Z; use one permanent city-scale origin; require a custom double-precision Godot build immediately; store local coordinates in saves.
+WHY_SELECTED: The transform maps east/up/north to Godot right/up/forward, has determinant +1, preserves metric geometry, and keeps source data reversible. The threshold stays below the official 2,048 m lower first-person precision guidance while avoiding premature custom-engine requirements.
+REVERSIBLE: YES; the mapping/rebase policy is versioned and all persisted geometry remains in absolute source coordinates.
+FILES_AFFECTED: data/world/asterline/*; scripts/world/asterline_coordinates.gd; docs/world/ASTERLINE_TO_GODOT_COORDINATES.md; docs/godot/*; tests/verify_asterline_coordinates.py.
+TESTS_REQUIRED: python tests/verify_asterline_coordinates.py; python scripts/qa/verify_city_spatial_bridge.py; python scripts/qa/verify_all.py; future Godot parser/runtime and multi-system rebase tests.
+COMMIT: PENDING_PIECE_014_COMMIT_READBACK
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE

@@ -96,3 +96,40 @@ SOURCE: live GitHub reads of scripts/player_controller.gd and tests/verify_mouse
 FACTS_VERIFIED: The controller uses event.screen_relative for both mouse axes; the mouse-look test requires screen_relative; the behavior was already present by Piece 006.
 IMPLEMENTATION_DECISION: Repository-observation claims in technical documentation must be checked against the live referenced file, and the documentation verifier cross-checks the mouse observation against the controller.
 RUNTIME_VALIDATION: NOT_EXECUTED
+
+## REF-0008 — Asterline/Godot coordinate axes
+
+DATE: 2026-08-23
+PIECE: PIECE-014
+VERSION: Godot 4.7
+TOPIC: Right-handed source-to-engine coordinate conversion
+SOURCE: https://docs.godotengine.org/en/4.7/tutorials/3d/using_transforms.html
+SUPPLEMENTAL_SOURCE: https://docs.godotengine.org/en/4.7/classes/class_vector3.html
+CLASSES: Transform3D; Basis; Vector3
+FACTS_VERIFIED: Godot 3D uses X for right, Y for up, and Z for forward/back; `Vector3.RIGHT` is `(1, 0, 0)`, `Vector3.UP` is `(0, 1, 0)`, and global `Vector3.FORWARD` is `(0, 0, -1)`.
+IMPLEMENTATION_DECISION: Map Asterline source `[east, north, up]` deltas to Godot local `[east, up, -north]`. The matrix has determinant +1, so handedness, distances, and angles are preserved. Absolute source coordinates remain authoritative; Godot-local coordinates are derived.
+RUNTIME_VALIDATION: NOT_EXECUTED
+
+## REF-0009 — Large-world precision and origin shifting
+
+DATE: 2026-08-23
+PIECE: PIECE-014
+VERSION: Godot 4.7
+TOPIC: Precision envelope and floating-origin policy
+SOURCE: https://docs.godotengine.org/en/4.7/tutorials/physics/large_world_coordinates.html
+FACTS_VERIFIED: Default `Vector3` components are single-precision; precision decreases with distance from the origin; the official first-person 3D guidance identifies 2,048–4,096 m as the maximum range before noticeable jitter can begin; origin shifting is a documented alternative to a double-precision build, with additional implementation complexity.
+IMPLEMENTATION_DECISION: Use a 100 m source-cell anchor and request a rebase when horizontal Godot-local distance exceeds 1,600 m, below the documented 2,048 m lower first-person bound. Keep saves/network records in absolute source coordinates and rebase all participating world systems as one future physics-frame transaction. Do not require a custom double-precision Godot build under this contract.
+RUNTIME_VALIDATION: NOT_EXECUTED
+
+## REF-0010 — Deterministic cell selection and static utility
+
+DATE: 2026-08-23
+PIECE: PIECE-014
+VERSION: Godot 4.7
+TOPIC: Negative-coordinate flooring, integer cell IDs, and stateless GDScript helpers
+SOURCE: https://docs.godotengine.org/en/4.7/classes/class_%40globalscope.html
+SUPPLEMENTAL_SOURCES: https://docs.godotengine.org/en/4.7/classes/class_vector2i.html; https://docs.godotengine.org/en/4.7/tutorials/scripting/gdscript/gdscript_basics.html
+CLASSES/FUNCTIONS: `floori()`; `Vector2i`; `class_name`; static functions
+FACTS_VERIFIED: `floori()` rounds toward negative infinity, while integer conversion truncates toward zero; `Vector2i` represents integer 2D coordinates; GDScript supports named classes and static functions.
+IMPLEMENTATION_DECISION: Cell selection uses `Vector2i(floori(east / 100.0), floori(north / 100.0))`, including negative coordinates. `AsterlineCoordinates` is a stateless `RefCounted` utility and is not integrated into a scene in this piece.
+RUNTIME_VALIDATION: NOT_EXECUTED

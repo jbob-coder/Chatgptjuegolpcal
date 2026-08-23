@@ -30,11 +30,11 @@ Impact: No gameplay migration is required. The defect was documentation/reposito
 Resolved by: PIECE-011 repair; documentation verifier now cross-checks the live controller.
 
 ## ISSUE-005 — Source-to-Godot city transform not yet defined
-Status: OPEN_PLANNED
+Status: RESOLVED_STATIC_RUNTIME_OPEN
 Severity: GEOMETRY_GATE
-Evidence: SOURCE-009 defines ASTERLINE_LOCAL_METRIC_V1 as X east/Y north/Z up; current project has no verified coordinate conversion or floating-origin contract.
-Impact: Piece 013 may pin and validate source geometry but cannot create correctly oriented Godot terrain/buildings yet.
-Required action: Complete Piece 014 before any city geometry scene is promoted.
+Evidence: SOURCE-009 defines ASTERLINE_LOCAL_METRIC_V1 as X east/Y north/Z up. Piece 014 adds the versioned transform/origin contract, stateless GDScript utility, official Godot 4.7 evidence, and exhaustive static start-ring round trips.
+Impact: Piece 015 may consume the transform in a pinned source loader. No runtime rebase or city geometry is claimed yet.
+Required action: Execute the Godot parser/runtime gate when available and implement all-participant rebasing only in a later bounded loader/streaming piece.
 
 ## ISSUE-006 — External city source pin drift requires reconciliation
 Status: OPEN_CONDITIONAL

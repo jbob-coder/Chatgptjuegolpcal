@@ -101,6 +101,33 @@ Anti-hallucination rule:
 Source:
 - https://docs.godotengine.org/en/4.7/classes/class_projectsettings.html
 
+### Asterline coordinate conversion and floating origin
+
+Status: VERIFIED_4_7_DOCS + VERIFIED_REPOSITORY + STATIC_ONLY; scene integration PLANNED
+
+Godot axis facts:
+- `Vector3.RIGHT` is +X.
+- `Vector3.UP` is +Y.
+- Global `Vector3.FORWARD` is -Z.
+
+Repository contract:
+- Asterline absolute source vectors remain `[east_m, north_m, up_m]`.
+- For a selected source anchor `[E₀, N₀, U₀]`, Godot local is `[E-E₀, U-U₀, -(N-N₀)]`.
+- The inverse is `[E₀+X, N₀-Z, U₀+Y]`.
+- The transform is right-handed, unit-scale, and distance preserving.
+- A 100 m source-cell anchor plus a conservative 1,600 m horizontal rebase threshold keeps loaded first-person space below the official 2,048 m lower guidance boundary.
+- Negative source cells use `floori()`, not truncation toward zero.
+- Saves and future network state store absolute source coordinates and stable IDs, never unlabeled transient Godot-local positions.
+- A future loader/streaming piece must implement the all-participant physics-frame rebase transaction; Piece 014 defines and tests the contract only.
+
+Sources:
+- https://docs.godotengine.org/en/4.7/tutorials/3d/using_transforms.html
+- https://docs.godotengine.org/en/4.7/classes/class_vector3.html
+- https://docs.godotengine.org/en/4.7/tutorials/physics/large_world_coordinates.html
+- https://docs.godotengine.org/en/4.7/classes/class_%40globalscope.html
+- https://docs.godotengine.org/en/4.7/classes/class_vector2i.html
+- https://docs.godotengine.org/en/4.7/tutorials/scripting/gdscript/gdscript_basics.html
+
 ## Required future research matrix
 
 These subjects are mandatory when their implementation piece becomes active. Their presence here does not mean they have been researched yet.

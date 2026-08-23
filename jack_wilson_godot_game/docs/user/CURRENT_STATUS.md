@@ -5,16 +5,17 @@ ROLE: USER_SURFACE_PROJECTION
 AUTHORITATIVE: NO
 
 ## Current development state
-- Last completed piece: Piece 013 — Asterline spatial-authority bridge, committed at `e5eb014293e96ca08586603f7bdc46679c31aaa7` with exact tree/blob readback.
-- Active checkpoint: Piece 013 is COMPLETE.
-- Next planned piece: Piece 014 — source-to-Godot coordinate transform and floating-origin contract.
+- Last completed piece: Piece 013 — Asterline spatial-authority bridge, sealed at `d816448c3fb9dee56254d95190909ae8ab62048a` after exact readback.
+- Active checkpoint: Piece 014 — source-to-Godot coordinate transform and floating-origin contract — is STATIC_VERIFIED locally; commit/readback is pending.
+- Next planned piece: Piece 015 — pinned spatial source loader and chunk index.
 - Gameplay implemented: project foundation, first-person player shell, W/A/S/D walking, captured mouse look, reversible start-room data contract, visible/collidable start-room floor.
 - Gameplay not yet implemented: gravity, jumping, sprinting, room walls/ceiling/furniture, HUD, Steal gameplay, NPCs, world simulation.
 
 ## Quality state
 - Piece 012 sealed baseline: 8 static tests + 6 QA validators = 14/14 PASS.
 - Piece 013: 8 existing static tests + 7 QA validators = 15/15 PASS; all 28 committed blobs match exact readback.
-- World source status: active Asterline full-city and start-ring sources are pinned into compact manifests; Godot geometry remains unbuilt until the coordinate transform is verified.
+- Piece 014 candidate: 9 static tests + 7 QA validators = 16/16 PASS; commit/readback pending.
+- World source status: active Asterline full-city/start-ring sources and the coordinate/origin contract are static-verified; Godot geometry remains deliberately unbuilt, and the pinned source loader is next.
 - A normal GitHub clone is available in the current environment; the former clone/DNS limitation is resolved for this session.
 - Godot runtime/parser gate: NOT EXECUTED because the target executable is unavailable in the current environment.
 

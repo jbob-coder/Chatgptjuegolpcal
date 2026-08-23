@@ -140,7 +140,9 @@ def verify_city(city: dict) -> None:
     require("civilian realism first" in theme["city_theme"], "city theme drift")
     require("no medieval-fantasy bleed" in theme["anti_drift"], "theme anti-drift guard missing")
     contract = city["runtime_contract"]
-    require(contract["godot_world_transform_status"] == "PENDING_PIECE_014", "unverified Godot transform was promoted")
+    require(contract["godot_world_transform_status"] == "DEFINED_PIECE_014_STATIC_RUNTIME_GATE_OPEN", "Godot transform status drift")
+    require(contract["coordinate_transform_contract"] == "data/world/asterline/coordinate_transform.json", "coordinate contract pointer drift")
+    require(contract["coordinate_utility"] == "scripts/world/asterline_coordinates.gd", "coordinate utility pointer drift")
     require(contract["direct_source_y_to_godot_y_forbidden"] is True, "source/Godot axis guard missing")
     require(contract["geometry_created_by_this_manifest"] is False, "bridge falsely claims geometry")
 

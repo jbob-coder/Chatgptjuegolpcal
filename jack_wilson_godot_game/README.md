@@ -58,10 +58,9 @@ The selected 4.2 × 3.6 × 2.7 m room shell is still classified as reversible ga
 - Piece 010: Godot 4.7 technical documentation baseline.
 - Piece 011: repository truth/authority drift repair.
 - Piece 012: four-plane user/control/runtime/verification routing contract, committed and exact-readback verified.
-
 - Piece 013: Asterline spatial-authority bridge, committed and exact-readback verified.
 
-Piece 014 is next: define and verify the source-to-Godot coordinate transform and floating-origin contract. The bridge still does not create Godot terrain.
+Piece 014 is static-verified locally and awaiting commit/readback: it defines the source-to-Godot coordinate transform and floating-origin contract. The bridge still does not create Godot terrain.
 
 ## Asterline spatial boundary
 
@@ -70,6 +69,8 @@ The active source already defines a 290.08 km² city with 7 wards, 28 neighborho
 GitHub stores a compact pinned bridge. The large authoritative corpus stays in Drive so the game repository does not become a second divergent city or absorb roughly 1.16 GB of source payloads.
 
 No future terrain or object may be placed from visual judgment alone. It must resolve a full polygon, Z interval, owning ward/space, theme, access, and reservation status through `data/world/asterline/spatial_construction_guard.json`.
+
+The one coordinate route is recorded in `docs/world/ASTERLINE_TO_GODOT_COORDINATES.md`: absolute `[east, north, up]` source positions remain authoritative, while Godot uses derived local `[east-east0, up-up0, -(north-north0)]` positions around a declared source-cell anchor.
 
 ## Verification
 
