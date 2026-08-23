@@ -23,6 +23,8 @@ This README and `docs/user/` are projections. If they conflict with canonical pr
 | `README.md`, `docs/user/` | USER_SURFACE | Concise status and questions for the user | Projection only |
 | `project_control/` | CONTROL_PLANE | State, decisions, sources, unknowns, issues, history, registries | Canonical project control |
 | `docs/godot/` | CONTROL_PLANE | Version-specific Godot technical evidence | Technical authority log |
+| `docs/world/` | CONTROL_PLANE | Source-derived city map, start-ring map, folder ownership, and placement rules | Pinned spatial reference projection |
+| `data/world/asterline/` | GAME_RUNTIME | Compact full-city/start-ring manifests and fail-closed construction guard | Runtime input with source provenance |
 | `project.godot`, `scenes/`, `data/`, `scripts/` | GAME_RUNTIME | Files loaded or executed by the game | Implemented runtime state |
 | `tests/`, `scripts/qa/` | VERIFICATION | Static/runtime gates and regression protection | Evidence and gates |
 
@@ -57,6 +59,16 @@ The selected 4.2 × 3.6 × 2.7 m room shell is still classified as reversible ga
 - Piece 011: repository truth/authority drift repair.
 - Piece 012: four-plane user/control/runtime/verification routing contract, committed and exact-readback verified.
 
+Active Piece 013 bridges the existing Asterline atlas into compact, dimensioned game data and readable world maps. It does not create Godot terrain yet.
+
+## Asterline spatial boundary
+
+The active source already defines a 290.08 km² city with 7 wards, 28 neighborhoods, 7,000 blocks, 23,480 building shells, complete interiors, physical ROW, utilities, water exclusions, and a fully materialized nine-block start ring. Start at `docs/world/README.md` for the folder/file map and construction rules.
+
+GitHub stores a compact pinned bridge. The large authoritative corpus stays in Drive so the game repository does not become a second divergent city or absorb roughly 1.16 GB of source payloads.
+
+No future terrain or object may be placed from visual judgment alone. It must resolve a full polygon, Z interval, owning ward/space, theme, access, and reservation status through `data/world/asterline/spatial_construction_guard.json`.
+
 ## Verification
 
 Run from this directory:
@@ -71,7 +83,7 @@ Static verification is not Godot runtime verification. The runtime/parser gate r
 
 - gravity, jumping, and sprinting;
 - start-room walls, ceiling, furniture, and lighting;
-- full residence, starting block, terrain, city streaming, and world simulation;
+- rendered full residence, starting block, terrain, city streaming, and world simulation (the source map/compact bridge exists; physical Godot realization does not);
 - HUD, Steal gameplay, and NPCs.
 
 Future city/world files must first receive a canonical owner, dimensions, coordinate frame, and collision/reservation checks. Do not place geometry merely because an untested location appears visually empty.

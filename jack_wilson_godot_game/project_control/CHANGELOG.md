@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-08-23 — Piece 013 candidate
+- Verified the active Asterline Batch040–043 Drive authority instead of inventing a second city.
+- Added readable world folder, full-city, nine-block start-ring, and no-overlap maps under `docs/world/`.
+- Added compact runtime projections under `data/world/asterline/`: full 7-ward/28-neighborhood city skeleton, 9 blocks with 36 building/parcel envelopes, protected residence interior, 24 public objects, and fail-closed construction guard.
+- Pinned source IDs, modified times, sizes, and normalized semantic SHA-256 fingerprints while leaving the large source corpus in Drive.
+- Added a global static validator for source pins, counts, stable IDs, polygon containment/non-overlap, interior envelope fit, private-neighbor protection, axis safety, routing, and documentation.
+- First validation exposed QA-013-01: the rounded ward records sum to 290.079 km², not the initial expected 290.081 km²; corrected the expectation and documented its relationship to the 290.08 km² city boundary.
+- REG-0004: a local ledger-sorting defect temporarily truncated the decision/source ledgers before commit; restored both from the sealed GitHub baseline, reapplied new entries explicitly, and added a truncation/duplicate-ID regression gate.
+- QA-013-03: removed two terminal blank lines caught by `git diff --check` after the content suite had passed.
+- No existing scene, GDScript, room data, campaign state, or Godot runtime claim changed.
+
 ## 2026-08-23 — Piece 012
 - Added explicit USER_SURFACE, CONTROL_PLANE, GAME_RUNTIME, and VERIFICATION ownership.
 - Added path and artifact registries with current paths and Piece 013 migration destinations.

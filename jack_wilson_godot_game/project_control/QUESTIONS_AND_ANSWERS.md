@@ -31,3 +31,19 @@ Status: ANSWERED
 Implementation impact: Restore the bounded organization sequence before gravity: user surface/routing contract, ownership-folder migration, action/resource graph, then generated user projections. Preserve the prior UNKNOWN record through this superseding answer rather than deleting its history.
 Resolved by commit: 4636b848dcb2bd8801c82f83c4a8a1d79ce31784
 Notes: The organization directive does not authorize unrelated gameplay or canon changes.
+
+## Q-0003
+Question: Should the Godot project invent a new city map, or bridge and progressively realize the already active Asterline city atlas?
+Why this matters: A second invented map would duplicate authority, break stable spatial IDs, and create uncontrolled overlap with already assigned blocks, parcels, buildings, ROW, utilities, water, and interiors.
+Asked by: SOURCE_CONFLICT
+Date: 2026-08-23
+Related piece: PIECE-013 onward
+Related files: docs/world/*; data/world/asterline/*; project_control/ROADMAP.md
+Evidence available: SOURCE-008 orders continued full-city construction with dimension/no-overlap records. SOURCE-009–SOURCE-011 verify an active complete Asterline Batch040–043 atlas and a fail-closed construction guard. SOURCE-010 verifies the complete nine-block start ring.
+Answer: Bridge the active Asterline atlas and build runtime realization outward from its protected start anchors. Do not invent, reroll, resize, or duplicate the city.
+Answer source: USER_ANSWER plus SOURCE-009 / SOURCE-010 / SOURCE-011
+Confidence: CONFIRMED
+Status: ANSWERED
+Implementation impact: GitHub stores compact pinned projections and runtime systems; large authoritative payloads remain in Drive. Every future geometry piece consumes the source manifests and guard.
+Resolved by commit: PENDING_PIECE_013_IMPLEMENTATION_READBACK
+Notes: This answer authorizes integration and scaling, not bulk copying or unverified runtime claims.

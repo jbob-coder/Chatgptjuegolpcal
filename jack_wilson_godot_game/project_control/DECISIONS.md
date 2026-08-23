@@ -14,7 +14,6 @@ TESTS_REQUIRED: python scripts/qa/verify_all.py
 COMMIT: 69555333e8f2a14299d6bd4dcb7b82003ba0e007
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
-
 ## D-0002
 DECISION_ID: D-0002
 DATE: 2026-08-20
@@ -118,7 +117,7 @@ FILES_AFFECTED: project_control/*; docs/user/*; future project_control/registry/
 TESTS_REQUIRED: python scripts/qa/verify_all.py plus piece-specific routing/migration/graph/projection tests.
 COMMIT: 5fc00575de3150513068184eaea5c735c3f1841f
 SUPERSEDES: D-0007
-SUPERSEDED_BY: NONE
+SUPERSEDED_BY: D-0010 (SCHEDULING ONLY)
 
 ## D-0009
 DECISION_ID: D-0009
@@ -132,5 +131,35 @@ REVERSIBLE: YES
 FILES_AFFECTED: README.md; docs/user/*; project_control/ARCHITECTURE.md; project_control/registry/*; scripts/qa/verify_artifact_routing.py; scripts/qa/verify_all.py; scripts/qa/verify_structure.py; project_control/*.
 TESTS_REQUIRED: python scripts/qa/verify_artifact_routing.py; python scripts/qa/verify_structure.py; python scripts/qa/verify_all.py.
 COMMIT: b7e3a31523603e8ff203ab13762821c221a4ced1
+SUPERSEDES: NONE
+SUPERSEDED_BY: NONE
+
+## D-0010
+DECISION_ID: D-0010
+DATE: 2026-08-23
+QUESTION/PROBLEM: The newest directive requires dimension-aware construction from the start block through a complete city, while the prior roadmap scheduled internal control migration/graph/projection work next and the active Drive source already contains a full Asterline atlas.
+DECISION: Reorder the roadmap around a pinned Asterline spatial-authority bridge and progressive source-to-runtime realization from the protected start anchors outward. Preserve the authorized control migration, action/resource graph, and projection generator as later pieces. Do not invent or duplicate a second city and do not copy the approximately 1.16 GB source corpus into GitHub.
+AUTHORITY: SOURCE-008 / USER_DIRECTIVE plus SOURCE-009–SOURCE-011 and Q-0003.
+ALTERNATIVES_CONSIDERED: Continue the previous internal-only order; invent a new map; bulk-copy Drive into GitHub; hand-place only the visible start area without full-city authority.
+WHY_SELECTED: It follows the newest instruction, preserves stable IDs and already validated geometry, prevents overlap by construction, scales to the full city, and keeps GitHub compact enough to verify and maintain.
+REVERSIBLE: YES for roadmap ordering; NO for silently replacing existing spatial authority.
+FILES_AFFECTED: project_control/*; docs/world/*; data/world/asterline/*; scripts/qa/*; README.md.
+TESTS_REQUIRED: python scripts/qa/verify_city_spatial_bridge.py; python scripts/qa/verify_all.py; exact GitHub readback.
+COMMIT: PENDING_PIECE_013_IMPLEMENTATION_READBACK
+SUPERSEDES: D-0008 scheduling only; D-0008's authorization and audit correction remain valid.
+SUPERSEDED_BY: NONE
+
+## D-0011
+DECISION_ID: D-0011
+DATE: 2026-08-23
+QUESTION/PROBLEM: Asterline source coordinates are X-east/Y-north/Z-up, but Godot world coordinates are Y-up; direct import would rotate/misplace the city and corrupt elevation.
+DECISION: Preserve all Piece 013 geometry in source-axis form, label vector order explicitly, forbid direct source-Y to Godot-Y use, and create no world geometry until Piece 014 defines and tests the transform/floating-origin contract.
+AUTHORITY: SOURCE-009 / AUTHORITATIVE_SOURCE plus anti-hallucination and zero-quality-downgrade rules.
+ALTERNATIVES_CONSIDERED: Assume a transform from memory; silently swap axes in the data; build near the origin and reconcile later.
+WHY_SELECTED: It keeps the source projection lossless and prevents city-wide axis/elevation drift before an engine-specific decision is verified.
+REVERSIBLE: YES
+FILES_AFFECTED: data/world/asterline/*; docs/world/*; scripts/qa/verify_city_spatial_bridge.py.
+TESTS_REQUIRED: python scripts/qa/verify_city_spatial_bridge.py; future Piece 014 transform tests.
+COMMIT: PENDING_PIECE_013_IMPLEMENTATION_READBACK
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE

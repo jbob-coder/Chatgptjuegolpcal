@@ -1,7 +1,7 @@
 # Repository Architecture Contract
 
 AUTHORITY: SOURCE-007 / D-0008
-STATUS: PIECE-012_ACTIVE
+STATUS: PIECE-013_ACTIVE
 
 ## Primary rule
 Every project artifact belongs to exactly one primary plane. Do not mix planes merely because files are related.
@@ -14,13 +14,13 @@ Allowed examples: current status, playable summary, controls, questions requirin
 Forbidden examples: runtime `.gd`/`.tscn` content, canonical QA history, independent source-of-truth state.
 
 ## 2. CONTROL_PLANE
-Canonical areas: `project_control/` and technical authority records under `docs/godot/`.
+Canonical areas: `project_control/` and technical/source authority records under `docs/godot/` and `docs/world/`.
 Purpose: persistent engineering state, decisions, questions, unknowns, sources, regressions, registries, histories, architecture, and technical provenance.
 Authority rule: canonical for project-management/control facts according to the source hierarchy.
-Current compatibility mode: `FLAT_COMPATIBILITY`. Existing control records remain at their current flat paths during Piece 012. Piece 013 will migrate them into ownership folders atomically and update every validator/reference in the same bounded piece.
+Current compatibility mode: `FLAT_COMPATIBILITY`. Existing control records remain at their current flat paths. The atomic ownership-folder migration remains authorized but is deferred to Piece 039 by the newer city-spatial directive.
 
 ## 3. GAME_RUNTIME
-Canonical areas: `project.godot`, `scenes/`, `data/`, `scripts/` except `scripts/qa/`, and future `assets/`.
+Canonical areas: `project.godot`, `scenes/`, `data/`, `scripts/` except `scripts/qa/`, and future `assets/`. `data/world/**` is explicitly owned by world spatial runtime data.
 Purpose: content read or executed by the game and its runtime implementation.
 Authority rule: canonical for implemented game behavior/data, subject to user/source authority and tests.
 Forbidden: project-control ledgers and user projections.
@@ -45,10 +45,13 @@ Before creating a file determine:
 5. What is its canonical path?
 If those answers are not clear, do not create the file yet.
 
-## Graph semantics reserved for Piece 014
+## World spatial authority
+`docs/world/**` contains readable projections of pinned authoritative Drive sources. `data/world/**` contains compact machine-readable runtime projections. Neither may silently invent coordinates. The active construction guard requires full polygon/Z ownership checks before any world geometry is published.
+
+## Graph semantics reserved for Piece 040
 NODES = VERBS / ACTIONS.
 EDGES = NOUNS / RESOURCES.
-The graph is not implemented in Piece 012; this statement fixes semantics only so later implementation cannot invert them.
+The graph is not implemented; this statement fixes semantics only so later implementation cannot invert them.
 
 ## Future migration
-Piece 013 will create ownership folders such as `project_control/state/`, `knowledge/`, `history/`, and `registry/` as justified, move existing canonical records, and update QA references atomically. Until then, registry `planned_path` values are plans, not current locations.
+Piece 039 will create ownership folders such as `project_control/state/`, `knowledge/`, `history/`, and `registry/` as justified, move existing canonical records, and update QA references atomically. Until then, registry `planned_path` values are plans, not current locations.

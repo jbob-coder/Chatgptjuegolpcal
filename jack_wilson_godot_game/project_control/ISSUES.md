@@ -28,3 +28,17 @@ Severity: QUALITY
 Evidence: Live/historical repository reads show scripts/player_controller.gd already uses event.screen_relative for both axes and tests/verify_mouse_look.py requires it. Piece 010 documentation incorrectly described the live code as event.relative.
 Impact: No gameplay migration is required. The defect was documentation/repository-observation integrity, not the controller behavior.
 Resolved by: PIECE-011 repair; documentation verifier now cross-checks the live controller.
+
+## ISSUE-005 — Source-to-Godot city transform not yet defined
+Status: OPEN_PLANNED
+Severity: GEOMETRY_GATE
+Evidence: SOURCE-009 defines ASTERLINE_LOCAL_METRIC_V1 as X east/Y north/Z up; current project has no verified coordinate conversion or floating-origin contract.
+Impact: Piece 013 may pin and validate source geometry but cannot create correctly oriented Godot terrain/buildings yet.
+Required action: Complete Piece 014 before any city geometry scene is promoted.
+
+## ISSUE-006 — External city source pin drift requires reconciliation
+Status: OPEN_CONDITIONAL
+Severity: SOURCE_INTEGRITY_GATE
+Evidence: Piece 013 pins Drive file ID, modified time, byte size, and normalized semantic SHA-256 for its structured sources.
+Impact: Any changed pin makes the committed projection stale; geometry publication must stop until the delta is classified.
+Required action: Fail closed and run a dedicated source-reconciliation piece when a pin changes; do not auto-accept remote changes.

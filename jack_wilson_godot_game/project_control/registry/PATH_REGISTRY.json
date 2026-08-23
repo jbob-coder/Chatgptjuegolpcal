@@ -35,6 +35,12 @@
       "owner": "project_control"
     },
     {
+      "priority": 45,
+      "pattern": "docs/world/**",
+      "plane": "CONTROL_PLANE",
+      "owner": "spatial_authority_bridge"
+    },
+    {
       "priority": 50,
       "pattern": "docs/godot/**",
       "plane": "CONTROL_PLANE",
@@ -59,6 +65,12 @@
       "owner": "scene_content"
     },
     {
+      "priority": 85,
+      "pattern": "data/world/**",
+      "plane": "GAME_RUNTIME",
+      "owner": "world_spatial_runtime_data"
+    },
+    {
       "priority": 90,
       "pattern": "data/**",
       "plane": "GAME_RUNTIME",
@@ -81,6 +93,8 @@
     "Every tracked game-root file resolves to exactly one primary plane by first-match precedence.",
     "scripts/qa/** must match VERIFICATION before scripts/** can match GAME_RUNTIME.",
     "USER_SURFACE files are non-authoritative projections.",
-    "Godot runtime resource types cannot be stored in USER_SURFACE or CONTROL_PLANE paths."
+    "Godot runtime resource types cannot be stored in USER_SURFACE or CONTROL_PLANE paths.",
+    "docs/world/** contains source-derived spatial control references; data/world/** contains compact runtime projections, never independently invented coordinates.",
+    "World geometry requires an owning polygon/Z interval and the fail-closed spatial construction guard before publication."
   ]
 }

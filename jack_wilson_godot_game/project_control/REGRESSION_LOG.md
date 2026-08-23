@@ -1,5 +1,6 @@
 # Regression Log
 
+
 ## REG-0001
 
 REGRESSION_ID: REG-0001
@@ -15,6 +16,7 @@ FINAL_FIX: Remove only the obsolete MOUSE_MODE_CAPTURED prohibition; retain walk
 TEST_EVIDENCE: `python scripts/qa/verify_all.py` passed all six static verifiers in the reconstructed GitHub snapshot. GitHub readback confirmed the committed repair content.
 RESOLVED_COMMIT: 69555333e8f2a14299d6bd4dcb7b82003ba0e007
 STATUS: RESOLVED
+
 
 ## REG-0002
 
@@ -32,6 +34,7 @@ TEST_EVIDENCE: Commit 921fbaf8abc09e61d0b98fc4f286cef1ecb367ba contains the repa
 RESOLVED_COMMIT: PENDING_PIECE_011_FINAL_READBACK
 STATUS: REPAIR_CANDIDATE_VERIFIED
 
+
 ## REG-0003
 
 REGRESSION_ID: REG-0003
@@ -47,3 +50,19 @@ FINAL_FIX: Remove unverified systems from the active roadmap; register the autho
 TEST_EVIDENCE: Merged Piece 011 candidate passes the complete 13-check reconstructed static suite; committed readback pending.
 RESOLVED_COMMIT: PENDING_PIECE_011_FINAL_READBACK
 STATUS: REPAIR_CANDIDATE_VERIFIED
+
+## REG-0004
+
+REGRESSION_ID: REG-0004
+DISCOVERED_IN_PIECE: PIECE-013
+BEFORE_STATE: DECISIONS.md contained D-0001–D-0009 and SOURCE_REGISTRY.md contained SOURCE-001–SOURCE-007 at the exact sealed Piece 012 baseline.
+AFTER_STATE: A local section-ordering expression matched zero records and temporarily left each file with only its title. The defect was not committed or published.
+EVIDENCE: Immediate `wc -l` reported two lines in each ledger; section-header searches returned none.
+ROOT_CAUSE: The dynamic regular expression used an incorrectly escaped pattern and the generated replacement was applied before validating the parsed section count.
+SEVERITY: HIGH_GOVERNANCE_INTEGRITY_LOCAL
+FILES_AFFECTED: project_control/DECISIONS.md; project_control/SOURCE_REGISTRY.md; scripts/qa/verify_structure.py
+FIX_ATTEMPTS: 1
+FINAL_FIX: Restore exact ledgers from sealed GitHub commit 7a70f8a7b01baa00f86d29df8f22a1989beabd65; append new records explicitly in order; add structure gates requiring at least eleven unique decision and source IDs.
+TEST_EVIDENCE: Restored ledgers contain eleven unique IDs each; structure regression gate passes; full Piece 013 candidate suite passes 15/15; committed readback pending.
+RESOLVED_COMMIT: PENDING_PIECE_013_IMPLEMENTATION_READBACK
+STATUS: RESOLVED_LOCAL_BEFORE_COMMIT

@@ -9,7 +9,8 @@ CONTROL = ROOT / "project_control"
 
 REQUIRED_DIRS = (
     "project_control", "project_control/piece_history", "project_control/registry",
-    "data", "scenes", "scripts", "scripts/qa", "tests", "docs", "docs/godot", "docs/user",
+    "data", "data/world", "data/world/asterline", "scenes", "scripts", "scripts/qa", "tests",
+    "docs", "docs/godot", "docs/user", "docs/world",
 )
 REQUIRED_CONTROL = (
     "MASTER_STATE.md", "CURRENT_PIECE.md", "ROADMAP.md", "QUALITY_BASELINE.md",
@@ -19,6 +20,13 @@ REQUIRED_CONTROL = (
 REQUIRED_GODOT_DOCS = ("GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md", "GODOT_IMPLEMENTATION_REFERENCE_LOG.md")
 REQUIRED_USER_DOCS = ("START_HERE.md", "CURRENT_STATUS.md", "QUESTIONS_FOR_USER.md")
 REQUIRED_REGISTRIES = ("ARTIFACT_REGISTRY.json", "PATH_REGISTRY.json")
+REQUIRED_WORLD_DOCS = (
+    "README.md", "ASTERLINE_CITY_SPATIAL_AUTHORITY.md",
+    "START_AREA_AND_NINE_BLOCK_RING.md", "SPATIAL_PLACEMENT_AND_NO_OVERLAP.md",
+)
+REQUIRED_WORLD_DATA = (
+    "city_spatial_manifest.json", "start_area_manifest.json", "spatial_construction_guard.json",
+)
 FORBIDDEN_NESTED_DIRS = ("temporary_verification", "audit", "governance", "third_party")
 
 
@@ -34,12 +42,22 @@ def main() -> int:
         require((ROOT / rel).is_dir(), f"required directory missing: {rel}")
     for name in REQUIRED_CONTROL:
         require((CONTROL / name).is_file(), f"required project-control file missing: {name}")
+    decisions = (CONTROL / "DECISIONS.md").read_text(encoding="utf-8")
+    sources = (CONTROL / "SOURCE_REGISTRY.md").read_text(encoding="utf-8")
+    decision_ids = re.findall(r"^## (D-\d{4})$", decisions, flags=re.MULTILINE)
+    source_ids = re.findall(r"^## (SOURCE-\d{3})$", sources, flags=re.MULTILINE)
+    require(len(decision_ids) >= 11 and len(decision_ids) == len(set(decision_ids)), "decision ledger was truncated or has duplicate IDs")
+    require(len(source_ids) >= 11 and len(source_ids) == len(set(source_ids)), "source ledger was truncated or has duplicate IDs")
     for name in REQUIRED_GODOT_DOCS:
         require((ROOT / "docs" / "godot" / name).is_file(), f"required Godot documentation missing: {name}")
     for name in REQUIRED_USER_DOCS:
         require((ROOT / "docs" / "user" / name).is_file(), f"required user projection missing: {name}")
     for name in REQUIRED_REGISTRIES:
         require((CONTROL / "registry" / name).is_file(), f"required routing registry missing: {name}")
+    for name in REQUIRED_WORLD_DOCS:
+        require((ROOT / "docs" / "world" / name).is_file(), f"required world documentation missing: {name}")
+    for name in REQUIRED_WORLD_DATA:
+        require((ROOT / "data" / "world" / "asterline" / name).is_file(), f"required world data bridge missing: {name}")
     for name in FORBIDDEN_NESTED_DIRS:
         require(not (ROOT / name).exists(), f"forbidden nested repository area inside game root: {name}")
 
@@ -52,8 +70,10 @@ def main() -> int:
 
     print("PASS: dedicated game root structure")
     print("PASS: required project-control records")
+    print("PASS: authority ledgers retain unique recorded history")
     print("PASS: required Godot documentation baseline")
     print("PASS: required user surface and routing registries")
+    print("PASS: required Asterline spatial bridge records")
     print("PASS: configured main scene remains inside game root")
     print("STRUCTURE_VERIFY_OK")
     return 0

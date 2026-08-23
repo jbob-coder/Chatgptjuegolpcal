@@ -12,6 +12,7 @@ QA_CHECKS = (
     "preflight.py",
     "verify_structure.py",
     "verify_artifact_routing.py",
+    "verify_city_spatial_bridge.py",
     "verify_project_state.py",
     "verify_current_piece.py",
     "regression_guard.py",

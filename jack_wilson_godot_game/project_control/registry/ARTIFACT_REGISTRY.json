@@ -3,7 +3,7 @@
   "registry_id": "REGISTRY_GAME_ARTIFACTS_V1",
   "authority": "CONTROL_PLANE",
   "routing_registry": "project_control/registry/PATH_REGISTRY.json",
-  "migration_mode": "FLAT_COMPATIBILITY_UNTIL_PIECE_013",
+  "migration_mode": "FLAT_COMPATIBILITY_UNTIL_DEDICATED_CONTROL_MIGRATION_PIECE",
   "artifacts": [
     {
       "artifact_id": "ART_PROJECT_README",
@@ -237,6 +237,70 @@
       "artifact_id": "ART_QA_ROUTING",
       "current_path": "scripts/qa/verify_artifact_routing.py",
       "canonical_path": "scripts/qa/verify_artifact_routing.py",
+      "plane": "VERIFICATION",
+      "authority_role": "QA_GATE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_DOC_README",
+      "current_path": "docs/world/README.md",
+      "canonical_path": "docs/world/README.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "SOURCE_DERIVED_SPATIAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_DOC_CITY_AUTHORITY",
+      "current_path": "docs/world/ASTERLINE_CITY_SPATIAL_AUTHORITY.md",
+      "canonical_path": "docs/world/ASTERLINE_CITY_SPATIAL_AUTHORITY.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "SOURCE_DERIVED_SPATIAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_DOC_START_RING",
+      "current_path": "docs/world/START_AREA_AND_NINE_BLOCK_RING.md",
+      "canonical_path": "docs/world/START_AREA_AND_NINE_BLOCK_RING.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "SOURCE_DERIVED_SPATIAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_DOC_PLACEMENT",
+      "current_path": "docs/world/SPATIAL_PLACEMENT_AND_NO_OVERLAP.md",
+      "canonical_path": "docs/world/SPATIAL_PLACEMENT_AND_NO_OVERLAP.md",
+      "plane": "CONTROL_PLANE",
+      "authority_role": "SOURCE_DERIVED_SPATIAL_REFERENCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_CITY_MANIFEST",
+      "current_path": "data/world/asterline/city_spatial_manifest.json",
+      "canonical_path": "data/world/asterline/city_spatial_manifest.json",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_INPUT_WITH_PROVENANCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_START_MANIFEST",
+      "current_path": "data/world/asterline/start_area_manifest.json",
+      "canonical_path": "data/world/asterline/start_area_manifest.json",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_INPUT_WITH_PROVENANCE",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_WORLD_CONSTRUCTION_GUARD",
+      "current_path": "data/world/asterline/spatial_construction_guard.json",
+      "canonical_path": "data/world/asterline/spatial_construction_guard.json",
+      "plane": "GAME_RUNTIME",
+      "authority_role": "RUNTIME_FAIL_CLOSED_GUARD",
+      "status": "ACTIVE"
+    },
+    {
+      "artifact_id": "ART_QA_CITY_SPATIAL_BRIDGE",
+      "current_path": "scripts/qa/verify_city_spatial_bridge.py",
+      "canonical_path": "scripts/qa/verify_city_spatial_bridge.py",
       "plane": "VERIFICATION",
       "authority_role": "QA_GATE",
       "status": "ACTIVE"

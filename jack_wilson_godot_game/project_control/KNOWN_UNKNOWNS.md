@@ -3,12 +3,12 @@
 ## U-0001
 UNKNOWN_ID: U-0001
 DESCRIPTION: Exact authoritative source dimensions of ROOM_JACK_START_01.
-WHY UNKNOWN: Active repository data explicitly says exact_source_dimensions_known=false; external source was not read in this session.
-RELATED SOURCE: SOURCE-003
+WHY UNKNOWN: Active repository data says exact_source_dimensions_known=false. SOURCE-010 was read and explicitly preserves the already-promoted gameplay reconstruction rather than establishing an original-source measurement.
+RELATED SOURCE: SOURCE-003; SOURCE-010
 IMPACT: Exact geometry cannot be claimed as canon.
 SAFE REVERSIBLE FALLBACK: Use the current 4.2 × 3.6 × 2.7 m gameplay shell while preserving reversible/non-canon classification.
 BLOCKS PROGRESS: NO
-RESOLUTION NEEDED FROM: authoritative source verification
+RESOLUTION NEEDED FROM: an original source that explicitly fixes exact dimensions; current active city materialization does not
 STATUS: OPEN
 
 ## U-0002
@@ -55,3 +55,25 @@ BLOCKS PROGRESS: NO
 RESOLUTION NEEDED FROM: resolved by explicit current-conversation user directive registered as SOURCE-007.
 STATUS: RESOLVED
 RESOLUTION: User explicitly instructed the repository separation/routing/graph architecture and ordered its execution in GitHub. Q-0002 is ANSWERED/CONFIRMED.
+
+## U-0006
+UNKNOWN_ID: U-0006
+DESCRIPTION: Exact source-to-Godot axis transform, floating-origin policy, and chunk-origin contract for ASTERLINE_LOCAL_METRIC_V1.
+WHY UNKNOWN: The authoritative source uses X east, Y north, Z up, while Godot is Y-up; no verified project decision or implementation yet defines conversion, precision, or rebasing.
+RELATED SOURCE: SOURCE-009; data/world/asterline/city_spatial_manifest.json
+IMPACT: Source geometry may be stored and validated, but must not yet be instantiated as Godot world geometry.
+SAFE REVERSIBLE FALLBACK: Preserve source coordinates unchanged in data, explicitly forbid direct source-Y to Godot-Y mapping, and defer geometry to Piece 014.
+BLOCKS PROGRESS: NO for the compact authority bridge; YES for physical Godot city geometry
+RESOLUTION NEEDED FROM: Piece 014 design, official Godot 4.7 technical verification, tests, and committed readback
+STATUS: OPEN
+
+## U-0007
+UNKNOWN_ID: U-0007
+DESCRIPTION: Whether future Drive revisions will intentionally supersede one or more Piece 013 source pins.
+WHY UNKNOWN: Drive files can receive later revisions after this snapshot.
+RELATED SOURCE: SOURCE-009; SOURCE-010; SOURCE-011
+IMPACT: A changed ID/modified time/size/semantic fingerprint cannot be silently treated as the same spatial authority.
+SAFE REVERSIBLE FALLBACK: Fail closed, retain the committed pinned projection, re-read the changed source, classify the delta, and update manifests/docs/tests transactionally in a dedicated piece.
+BLOCKS PROGRESS: NO while pins match; YES for publishing geometry from a mismatched source
+RESOLUTION NEEDED FROM: source reconciliation when and only when a pin changes
+STATUS: OPEN_CONDITIONAL
