@@ -19,7 +19,7 @@ NAME: Current GitHub repository implementation
 LOCATION: jbob-coder/Chatgptjuegolpcal main, jack_wilson_godot_game/
 TYPE: VERIFIED_REPOSITORY
 AUTHORITY_LEVEL: 4
-VERSION: observed through 7a70f8a7b01baa00f86d29df8f22a1989beabd65
+VERSION: observed through e5eb014293e96ca08586603f7bdc46679c31aaa7
 DATE_ACCESSED: 2026-08-23
 RELEVANT_SYSTEM: all currently implemented game, QA, docs, and project-control pieces
 FACTS_EXTRACTED: Current scenes/scripts/data/tests/control records; player controller uses event.screen_relative; Piece 011 repaired prior truth/authority drift; Piece 012 established and sealed deterministic four-plane routing at 7a70f8a7b01baa00f86d29df8f22a1989beabd65.

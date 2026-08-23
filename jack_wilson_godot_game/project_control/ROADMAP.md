@@ -14,7 +14,7 @@ Ordered, bounded pieces. Repair work supersedes new feature development whenever
 - Piece 010 — Godot documentation baseline and implementation reference log — COMPLETE_WITH_REPAIR_NOTE
 - Piece 011 — Repair post-Piece-010 truth/state and authority drift — COMPLETE
 - Piece 012 — User surface and four-plane routing contract — COMPLETE
-- Piece 013 — Asterline spatial-authority bridge — IN_PROGRESS
+- Piece 013 — Asterline spatial-authority bridge — COMPLETE
 - Piece 014 — Source-to-Godot coordinate transform and floating-origin contract — PLANNED
 - Piece 015 — Pinned spatial source loader and chunk index — PLANNED
 - Piece 016 — Gravity — PLANNED

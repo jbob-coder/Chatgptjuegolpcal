@@ -10,6 +10,7 @@
 - REG-0004: a local ledger-sorting defect temporarily truncated the decision/source ledgers before commit; restored both from the sealed GitHub baseline, reapplied new entries explicitly, and added a truncation/duplicate-ID regression gate.
 - QA-013-03: removed two terminal blank lines caught by `git diff --check` after the content suite had passed.
 - No existing scene, GDScript, room data, campaign state, or Godot runtime claim changed.
+- Published `e5eb014293e96ca08586603f7bdc46679c31aaa7`; live `main`, commit tree `d672d65d15c60c129529b2e173be6357ea0b9f96`, and all 28 intended blobs matched exact readback with zero mismatches.
 
 ## 2026-08-23 — Piece 012
 - Added explicit USER_SURFACE, CONTROL_PLANE, GAME_RUNTIME, and VERIFICATION ownership.

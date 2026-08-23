@@ -59,7 +59,9 @@ The selected 4.2 × 3.6 × 2.7 m room shell is still classified as reversible ga
 - Piece 011: repository truth/authority drift repair.
 - Piece 012: four-plane user/control/runtime/verification routing contract, committed and exact-readback verified.
 
-Active Piece 013 bridges the existing Asterline atlas into compact, dimensioned game data and readable world maps. It does not create Godot terrain yet.
+- Piece 013: Asterline spatial-authority bridge, committed and exact-readback verified.
+
+Piece 014 is next: define and verify the source-to-Godot coordinate transform and floating-origin contract. The bridge still does not create Godot terrain.
 
 ## Asterline spatial boundary
 

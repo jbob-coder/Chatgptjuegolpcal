@@ -5,15 +5,15 @@ ROLE: USER_SURFACE_PROJECTION
 AUTHORITATIVE: NO
 
 ## Current development state
-- Last completed piece: Piece 012 — user surface and four-plane routing contract, sealed at `7a70f8a7b01baa00f86d29df8f22a1989beabd65`.
-- Active piece: Piece 013 — Asterline spatial-authority bridge.
+- Last completed piece: Piece 013 — Asterline spatial-authority bridge, committed at `e5eb014293e96ca08586603f7bdc46679c31aaa7` with exact tree/blob readback.
+- Active checkpoint: Piece 013 is COMPLETE.
 - Next planned piece: Piece 014 — source-to-Godot coordinate transform and floating-origin contract.
 - Gameplay implemented: project foundation, first-person player shell, W/A/S/D walking, captured mouse look, reversible start-room data contract, visible/collidable start-room floor.
 - Gameplay not yet implemented: gravity, jumping, sprinting, room walls/ceiling/furniture, HUD, Steal gameplay, NPCs, world simulation.
 
 ## Quality state
 - Piece 012 sealed baseline: 8 static tests + 6 QA validators = 14/14 PASS.
-- Piece 013 candidate: 8 existing static tests + 7 QA validators = 15/15 PASS locally; GitHub commit/readback remains pending.
+- Piece 013: 8 existing static tests + 7 QA validators = 15/15 PASS; all 28 committed blobs match exact readback.
 - World source status: active Asterline full-city and start-ring sources are pinned into compact manifests; Godot geometry remains unbuilt until the coordinate transform is verified.
 - A normal GitHub clone is available in the current environment; the former clone/DNS limitation is resolved for this session.
 - Godot runtime/parser gate: NOT EXECUTED because the target executable is unavailable in the current environment.

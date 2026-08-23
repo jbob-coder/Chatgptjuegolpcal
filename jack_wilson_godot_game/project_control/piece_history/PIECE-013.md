@@ -1,8 +1,8 @@
 # Piece 013 — Asterline spatial-authority bridge
 
-STATUS: STATIC_VERIFIED_PENDING_GITHUB_READBACK
+STATUS: COMPLETE
 STARTING_COMMIT: 7a70f8a7b01baa00f86d29df8f22a1989beabd65
-IMPLEMENTATION_COMMIT: PENDING
+IMPLEMENTATION_COMMIT: e5eb014293e96ca08586603f7bdc46679c31aaa7
 RUNTIME_GATE: RUNTIME_GATE_NOT_EXECUTED
 
 Purpose:
@@ -38,4 +38,6 @@ Verification:
 - `python scripts/qa/verify_city_spatial_bridge.py` passed after QA-013-01 repair.
 - Full cumulative verification: 7 QA validators + 8 static tests = 15/15 PASS.
 - `git diff --check`: PASS after QA-013-03 repair.
-- GitHub commit/readback remains pending.
+- Live `main` and commit resolved to `e5eb014293e96ca08586603f7bdc46679c31aaa7`.
+- Recursive tree `d672d65d15c60c129529b2e173be6357ea0b9f96` was complete (`truncated=false`).
+- All 28 intended file blobs matched their locally verified Git blob identities; mismatches: 0.

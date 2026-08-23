@@ -145,7 +145,7 @@ WHY_SELECTED: It follows the newest instruction, preserves stable IDs and alread
 REVERSIBLE: YES for roadmap ordering; NO for silently replacing existing spatial authority.
 FILES_AFFECTED: project_control/*; docs/world/*; data/world/asterline/*; scripts/qa/*; README.md.
 TESTS_REQUIRED: python scripts/qa/verify_city_spatial_bridge.py; python scripts/qa/verify_all.py; exact GitHub readback.
-COMMIT: PENDING_PIECE_013_IMPLEMENTATION_READBACK
+COMMIT: e5eb014293e96ca08586603f7bdc46679c31aaa7
 SUPERSEDES: D-0008 scheduling only; D-0008's authorization and audit correction remain valid.
 SUPERSEDED_BY: NONE
 
@@ -160,6 +160,6 @@ WHY_SELECTED: It keeps the source projection lossless and prevents city-wide axi
 REVERSIBLE: YES
 FILES_AFFECTED: data/world/asterline/*; docs/world/*; scripts/qa/verify_city_spatial_bridge.py.
 TESTS_REQUIRED: python scripts/qa/verify_city_spatial_bridge.py; future Piece 014 transform tests.
-COMMIT: PENDING_PIECE_013_IMPLEMENTATION_READBACK
+COMMIT: e5eb014293e96ca08586603f7bdc46679c31aaa7
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE

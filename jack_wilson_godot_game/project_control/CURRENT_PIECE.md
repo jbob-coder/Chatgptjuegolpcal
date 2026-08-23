@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-013
 TITLE: Asterline spatial-authority bridge
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 PURPOSE: Bridge the already materialized Asterline city and nine-block start area into the isolated Godot game root with explicit folder ownership, pinned source identity, dimensions, coordinate authority, and fail-closed no-overlap checks—without duplicating the large source corpus or fabricating Godot geometry.
 
 IN_SCOPE:
@@ -104,9 +104,9 @@ REGRESSION_GATES:
 - Source pins, stable IDs, private neighbor boundary, and reversible room provenance remain intact.
 
 STARTING_COMMIT: 7a70f8a7b01baa00f86d29df8f22a1989beabd65
-ENDING_COMMIT: PENDING_COMMIT_READBACK
+ENDING_COMMIT: e5eb014293e96ca08586603f7bdc46679c31aaa7
 
-RESULT: Source projections, documentation, routing, containment/collision guard, and source pins are locally static-verified 15/15 with a clean whitespace gate; completion still requires GitHub commit and exact readback.
+RESULT: Source projections, documentation, routing, containment/collision guard, and source pins are static-verified 15/15, committed, and exact-readback verified from live GitHub main with zero blob mismatches.
 
 FAILURES_FOUND:
 - QA-013-01: The first city-spatial verifier run used 290.081 km² as the expected sum of rounded ward records; the authoritative ward values actually sum to 290.079 km² while the city boundary reports 290.08 km².
@@ -118,4 +118,4 @@ FIXES_APPLIED:
 - Stopped feature work, restored both ledgers from the exact sealed 7a70 GitHub baseline, reapplied D-0010/D-0011 and SOURCE-008–SOURCE-011 explicitly in ID order, and strengthened structure QA so truncated/duplicate authority ledgers fail.
 - Removed only the two extra terminal blank lines and reran the whitespace gate; no record content changed.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: COMPLETE

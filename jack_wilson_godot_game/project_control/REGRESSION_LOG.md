@@ -63,6 +63,6 @@ SEVERITY: HIGH_GOVERNANCE_INTEGRITY_LOCAL
 FILES_AFFECTED: project_control/DECISIONS.md; project_control/SOURCE_REGISTRY.md; scripts/qa/verify_structure.py
 FIX_ATTEMPTS: 1
 FINAL_FIX: Restore exact ledgers from sealed GitHub commit 7a70f8a7b01baa00f86d29df8f22a1989beabd65; append new records explicitly in order; add structure gates requiring at least eleven unique decision and source IDs.
-TEST_EVIDENCE: Restored ledgers contain eleven unique IDs each; structure regression gate passes; full Piece 013 candidate suite passes 15/15; committed readback pending.
-RESOLVED_COMMIT: PENDING_PIECE_013_IMPLEMENTATION_READBACK
-STATUS: RESOLVED_LOCAL_BEFORE_COMMIT
+TEST_EVIDENCE: Restored ledgers contain eleven unique IDs each; structure regression gate passes; full Piece 013 suite passes 15/15; exact GitHub readback matched all 28 intended blobs.
+RESOLVED_COMMIT: e5eb014293e96ca08586603f7bdc46679c31aaa7
+STATUS: RESOLVED

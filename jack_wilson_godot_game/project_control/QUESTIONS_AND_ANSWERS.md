@@ -45,5 +45,5 @@ Answer source: USER_ANSWER plus SOURCE-009 / SOURCE-010 / SOURCE-011
 Confidence: CONFIRMED
 Status: ANSWERED
 Implementation impact: GitHub stores compact pinned projections and runtime systems; large authoritative payloads remain in Drive. Every future geometry piece consumes the source manifests and guard.
-Resolved by commit: PENDING_PIECE_013_IMPLEMENTATION_READBACK
+Resolved by commit: e5eb014293e96ca08586603f7bdc46679c31aaa7
 Notes: This answer authorizes integration and scaling, not bulk copying or unverified runtime claims.
