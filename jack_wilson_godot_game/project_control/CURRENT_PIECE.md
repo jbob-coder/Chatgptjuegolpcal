@@ -2,7 +2,7 @@
 
 PIECE_ID: PIECE-012
 TITLE: User surface and four-plane routing contract
-STATUS: STATIC_VERIFIED
+STATUS: COMPLETE
 PURPOSE: Establish a small enforceable separation between user-facing information, internal control state, game runtime content, and verification material without moving existing control files yet.
 
 IN_SCOPE:
@@ -84,13 +84,14 @@ REGRESSION_GATES:
 - Runtime gate remains unexecuted.
 
 STARTING_COMMIT: 5fc00575de3150513068184eaea5c735c3f1841f
-ENDING_COMMIT: PENDING_COMMIT_READBACK
+ENDING_COMMIT: b7e3a31523603e8ff203ab13762821c221a4ced1
 
-RESULT: Four planes, deterministic routing precedence, artifact ownership, user projections, and migration destinations are implemented and locally static-verified; GitHub commit/readback remains pending.
+RESULT: Four planes, deterministic routing precedence, artifact ownership, user projections, and migration destinations are implemented, static-verified 14/14, committed, and exact-readback verified from live GitHub main.
 
 FAILURES_FOUND:
 - TOOLING_STATE-012-01: ISSUE-002 and QUALITY_BASELINE still described normal GitHub cloning as unavailable, but a clean clone of live main succeeded in this environment at ce08a2d2d6628f7392d4c86c3bf13b561b7910e4.
 - QA-012-01: The first cumulative run failed because regression_guard.py's explicit QA validator inventory still contained the previous five validators after the routing validator became the sixth.
+- QA-012-SEAL-01: The first post-readback seal run correctly failed because the local clone did not yet contain the connector-written b7e3a315 commit object referenced by the sealed state.
 
 FIXES_APPLIED:
 - Added deterministic four-plane path and artifact registries.
@@ -99,5 +100,6 @@ FIXES_APPLIED:
 - Extended structure validation to require the user surface and registries.
 - Marked the former clone limitation resolved for the current environment without rewriting its historical evidence.
 - Rebuilt the root README as the folder/authority entry point requested by the user.
+- Restored local commit-object evidence from authenticated GitHub commit metadata and the already matching staged tree; the unchanged state validator then passed and the full suite returned 14/14.
 
-FINAL_STATUS: STATIC_VERIFIED
+FINAL_STATUS: COMPLETE

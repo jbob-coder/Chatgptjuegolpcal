@@ -5,9 +5,9 @@ REPOSITORY: jbob-coder/Chatgptjuegolpcal
 GAME_ROOT: jack_wilson_godot_game/
 TARGET_ENGINE: Godot 4.7.x stable
 CURRENT_BRANCH: main
-LAST_OBSERVED_HEAD: ce08a2d2d6628f7392d4c86c3bf13b561b7910e4
-LAST_VERIFIED_COMMIT: 9128ff679028621baf6e99b29b04483c4a456e9c
-LAST_COMPLETED_PIECE: PIECE-011 — Repair post-Piece-010 truth/state and authority drift
+LAST_OBSERVED_HEAD: b7e3a31523603e8ff203ab13762821c221a4ced1
+LAST_VERIFIED_COMMIT: b7e3a31523603e8ff203ab13762821c221a4ced1
+LAST_COMPLETED_PIECE: PIECE-012 — User surface and four-plane routing contract
 CURRENT_PIECE: PIECE-012 — User surface and four-plane routing contract
 NEXT_PLANNED_PIECE: PIECE-013 — Control-plane ownership-folder migration
 CURRENT_GAMEPLAY_BOUNDARY: Project foundation, first-person player shell, four-direction walking, captured mouse look using screen_relative, reversible start-room data contract, and start-room floor only.
@@ -17,6 +17,6 @@ OPEN_BLOCKERS: Godot executable is unavailable in the current execution environm
 OPEN_QUESTIONS: No question blocks PIECE-012. Q-0002 is ANSWERED/CONFIRMED by SOURCE-007.
 KNOWN_UNKNOWNS: exact source dimensions for ROOM_JACK_START_01; exact furniture placement; runtime/parser status under Godot 4.7.x; recovery-hint campaign values not yet represented by verified active project records.
 AUTHORITATIVE_SOURCE_POINTERS: project.godot; scripts/player_controller.gd; tests/verify_mouse_look.py; docs/godot/GODOT_4_7_MASTER_TOOL_AND_FEATURE_GUIDE.md; docs/godot/GODOT_IMPLEMENTATION_REFERENCE_LOG.md; project_control/SOURCE_REGISTRY.md; project_control/registry/ARTIFACT_REGISTRY.json; project_control/registry/PATH_REGISTRY.json; data/locations/room_jack_start_01.json; current user repository separation directive.
-QUALITY_GATE_STATUS: Piece 011 committed baseline remains 13/13 at 9128ff679028621baf6e99b29b04483c4a456e9c; Piece 012 candidate expands the suite to 14/14 and is STATIC_VERIFIED pending GitHub commit/readback.
+QUALITY_GATE_STATUS: Piece 012 is COMPLETE at b7e3a31523603e8ff203ab13762821c221a4ced1; 8 static tests and 6 QA validators pass (14/14), and exact GitHub branch/tree/blob readback found zero mismatches.
 RUNTIME_GATE_STATUS: RUNTIME_GATE_NOT_EXECUTED
 LAST_UPDATED: 2026-08-23

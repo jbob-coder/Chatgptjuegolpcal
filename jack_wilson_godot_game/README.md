@@ -55,7 +55,7 @@ The selected 4.2 × 3.6 × 2.7 m room shell is still classified as reversible ga
 - Piece 009: QA structure/state validators.
 - Piece 010: Godot 4.7 technical documentation baseline.
 - Piece 011: repository truth/authority drift repair.
-- Piece 012: four-plane user/control/runtime/verification routing contract (static candidate pending committed readback while this file was written).
+- Piece 012: four-plane user/control/runtime/verification routing contract, committed and exact-readback verified.
 
 ## Verification
 

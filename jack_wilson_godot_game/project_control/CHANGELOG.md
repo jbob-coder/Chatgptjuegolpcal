@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-08-23 — Piece 012 candidate
+## 2026-08-23 — Piece 012
 - Added explicit USER_SURFACE, CONTROL_PLANE, GAME_RUNTIME, and VERIFICATION ownership.
 - Added path and artifact registries with current paths and Piece 013 migration destinations.
 - Added a first-match routing validator covering duplicate IDs/paths, missing registered artifacts, unrouted files, QA precedence, runtime-file leakage, and user-projection authority.
@@ -8,6 +8,8 @@
 - The first cumulative run exposed QA-012-01 (stale validator inventory in the regression guard); the inventory was repaired before advancement.
 - Rebuilt the game-root README as a folder and authority map.
 - Re-verified repository access and resolved the former clone/DNS limitation for the current environment.
+- Published commit `b7e3a31523603e8ff203ab13762821c221a4ced1`; exact live branch/tree/readback matched all 16 intended Git blobs with zero mismatches.
+- The first sealed-state rerun exposed a missing local commit object for the connector-written SHA; exact GitHub metadata and the matching staged tree restored the object, after which the unchanged cumulative suite passed 14/14.
 - No gameplay files changed; Godot runtime remains unexecuted.
 
 ## 2026-08-20 — Piece 007

@@ -13,7 +13,7 @@ Ordered, bounded pieces. Repair work supersedes new feature development whenever
 - Piece 009 — QA structure/state validators — COMPLETE
 - Piece 010 — Godot documentation baseline and implementation reference log — COMPLETE_WITH_REPAIR_NOTE
 - Piece 011 — Repair post-Piece-010 truth/state and authority drift — COMPLETE
-- Piece 012 — User surface and four-plane routing contract — STATIC_VERIFIED_PENDING_READBACK
+- Piece 012 — User surface and four-plane routing contract — COMPLETE
 - Piece 013 — Control-plane ownership-folder migration — PLANNED
 - Piece 014 — Action/resource graph core (nodes=verbs/actions, edges=nouns/resources) — PLANNED
 - Piece 015 — User projection generator and stale-projection guard — PLANNED

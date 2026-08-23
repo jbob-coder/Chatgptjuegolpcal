@@ -131,6 +131,6 @@ WHY_SELECTED: It makes file ownership enforceable now, preserves live references
 REVERSIBLE: YES
 FILES_AFFECTED: README.md; docs/user/*; project_control/ARCHITECTURE.md; project_control/registry/*; scripts/qa/verify_artifact_routing.py; scripts/qa/verify_all.py; scripts/qa/verify_structure.py; project_control/*.
 TESTS_REQUIRED: python scripts/qa/verify_artifact_routing.py; python scripts/qa/verify_structure.py; python scripts/qa/verify_all.py.
-COMMIT: PENDING_PIECE_012_IMPLEMENTATION_READBACK
+COMMIT: b7e3a31523603e8ff203ab13762821c221a4ced1
 SUPERSEDES: NONE
 SUPERSEDED_BY: NONE
