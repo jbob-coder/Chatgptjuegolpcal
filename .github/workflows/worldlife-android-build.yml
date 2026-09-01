@@ -64,8 +64,8 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           cmdline-tools-version: '15859902'
-          accept-android-sdk-licenses: 'yes'
-          log-accepted-android-sdk-licenses: 'false'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
           packages: 'platform-tools'
 
       - name: Install Android SDK 37
