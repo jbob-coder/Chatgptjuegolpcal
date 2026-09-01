@@ -1,8 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "engine_id": "ENGINE_TRAUMA_V1",
-  "bleeding_levels": {"none":0,"minor":1,"moderate":2,"severe":3,"catastrophic":4},
-  "shock_factors": ["blood loss","pain","burn area","organ trauma","temperature","fear","CM collapse"],
-  "incapacitation": {"at_zero_hp":"fall unconscious unless a rule explicitly permits remaining conscious","death_save":"d20 + Endurance modifier versus DC based on trauma","three_successes":"stabilized but still injured","three_failures":"death if injuries are medically capable of causing death","natural_20":"regain 1 HP only if physiology permits","natural_1":"counts as two failures"},
-  "first_aid": ["control bleeding","maintain airway","prevent movement","treat shock","call medical support"]
-}

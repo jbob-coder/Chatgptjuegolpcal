@@ -1,6 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "registry_id": "REGISTRY_STABLE_IDS_V1",
-  "prefixes": ["ENGINE","LAW","PLANET","CONTINENT","STATE","REGION","CITY","DISTRICT","BLOCK","BUILDING","FLOOR","ROOM","LOC","CHAR","ORG","ITEM","ABILITY","EVENT","KNOW","RUMOR","QUEST","SAVE","SESSION","CONFLICT"],
-  "rules": ["IDs never change","renaming does not change ID","deleted entities remain tombstoned","IDs are never reused"]
-}

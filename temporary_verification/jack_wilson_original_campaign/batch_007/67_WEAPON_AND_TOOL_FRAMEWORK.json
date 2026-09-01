@@ -1,8 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "system_id": "SYS_WEAPONS_V1",
-  "weapon_fields": ["weapon_id","category","damage_profile","reach","range","accuracy","rate","ammunition","reliability","concealability","legal_class","maintenance"],
-  "categories": ["unarmed","improvised","melee","less-lethal","sidearm","longarm","support","ability-focus tool"],
-  "academy_policy": "First-year students initially train with inert, simulated, or reduced-energy systems.",
-  "rules": ["Weapon effectiveness depends on operator skill, condition, range, target, and environment.","A weapon does not grant proficiency.","Ammunition, battery, heat, wear, and custody are tracked."]
-}

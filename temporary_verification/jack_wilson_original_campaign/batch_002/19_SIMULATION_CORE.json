@@ -1,7 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "engine_id": "ENGINE_SIMULATION_CORE_V1",
-  "npc_minimum_state": ["character_id","location_id","health","CM","schedule","goals","resources","inventory","relationships","knowledge","stress","legal_status"],
-  "offscreen_priority": ["survival needs","scheduled obligations","active goals","relationship commitments","institutional orders","opportunistic actions"],
-  "anti_cheat": ["NPCs cannot react to unknown facts","hidden events cannot change retroactively just to surprise Jack","world does not auto-scale to Jack"]
-}

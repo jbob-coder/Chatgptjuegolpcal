@@ -1,6 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "engine_id": "ENGINE_INFORMATION_V1",
-  "source_types": ["DIRECT_OBSERVATION","HEARD_SPEECH","DOCUMENT","SYSTEM_OUTPUT","TESTIMONY","INFERENCE","RUMOR","MEMORY"],
-  "rules": ["belief and truth are separate","memory may decay or distort","system output reveals mechanics, not unrelated world facts","secrets require valid discovery"]
-}

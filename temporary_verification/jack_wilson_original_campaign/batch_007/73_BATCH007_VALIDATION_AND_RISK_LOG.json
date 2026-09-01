@@ -1,5 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "dependencies": ["03_D20_CONSEQUENCE_ENGINE.json","04_CM_SYSTEM.json","05_STEAL_ABILITY_CANON.json","13_BIOLOGY_ENGINE.json","46_INITIAL_EQUIPMENT_ISSUE.json"],
-  "risks": [{"id":"R007_001","risk":"HP replacing anatomical injury","severity":"high","mitigation":"dual HP/injury model"},{"id":"R007_002","risk":"combat becoming arbitrary lethality","severity":"high","mitigation":"causal injury and trauma thresholds"},{"id":"R007_003","risk":"Steal bypassing resistance in combat","severity":"high","mitigation":"action cost, contest, concentration, detection"},{"id":"R007_004","risk":"armor or natural 20 creating invulnerability/impossibility","severity":"medium","mitigation":"physical limits remain authoritative"}]
-}

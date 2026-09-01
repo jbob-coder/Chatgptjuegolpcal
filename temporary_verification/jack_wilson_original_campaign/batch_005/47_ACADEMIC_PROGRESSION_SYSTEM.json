@@ -1,8 +1,0 @@
-{
-  "schema_version":"1.0.0",
-  "system_id":"SYS_NSA_PROGRESSION_V1",
-  "terms_per_year":3,
-  "grading":{"components":{"academic":30,"physical":20,"technical":20,"ability_safety":15,"teamwork":10,"conduct":5},"pass_mark":60,"honors":85,"probation_below":55},
-  "advancement":{"automatic":"pass all mandatory safety modules and total score >=60","remedial":"one failed module with acceptable conduct","repeat_term":"multiple failures or severe medical interruption","dismissal":"rare; requires legal and administrative process"},
-  "power_rule":"ability grade alone cannot determine class rank"
-}

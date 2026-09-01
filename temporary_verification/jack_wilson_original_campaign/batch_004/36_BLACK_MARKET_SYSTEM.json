@@ -1,3 +1,0 @@
-{
-  "schema_version":"1.0.0","engine_id":"ENGINE_BLACK_MARKET_V1","goods":["unlicensed catalysts","forged licenses","identity masking","stolen medical compounds","ability training data","restricted sensors","military surplus"],"access_requirements":["referral","reputation","payment capacity","risk tolerance"],"pricing":{"base_multiplier_range":[1.4,6.0],"factors":["scarcity","heat","seller trust","buyer desperation","traceability"]},"risks":["fraud","contamination","surveillance","robbery","informants","legal penalties"],"rule":"The black market is not a universal shop. Each network has limited stock, territory, knowledge, and trust."
-}

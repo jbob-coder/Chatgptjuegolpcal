@@ -1,3 +1,0 @@
-{
-  "schema_version":"1.0.0","dependencies":["02_JACK_WILSON_CHARACTER.json","03_D20_CONSEQUENCE_ENGINE.json","04_CM_SYSTEM.json","05_STEAL_ABILITY_CANON.json","72_STEAL_COMBAT_INTERACTIONS.json"],"risks":[{"id":"R008_001","risk":"infinite stat farming","severity":"critical","mitigation":"fragment anti-farm and conversion cooldown"},{"id":"R008_002","risk":"Steal level outrunning story","severity":"high","mitigation":"campaign mastery cap"},{"id":"R008_003","risk":"temporary HP/CM becoming permanent accidentally","severity":"high","mitigation":"separate temporary and permanent ledgers"},{"id":"R008_004","risk":"training producing implausibly rapid physical growth","severity":"medium","mitigation":"adaptation, recovery, and milestone requirements"}]
-}

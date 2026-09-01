@@ -1,9 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "batch": "036",
-  "title": "Rank Evidence Transactions",
-  "status": "PASS_PROMOTED",
-  "created_at": "2026-08-22T17:16:00-04:00",
-  "counts": {"files":15,"bytes":51314},
-  "guardrails": {"save_mutated":false,"world_time_advanced":false,"rank_awards_during_install":false}
-}

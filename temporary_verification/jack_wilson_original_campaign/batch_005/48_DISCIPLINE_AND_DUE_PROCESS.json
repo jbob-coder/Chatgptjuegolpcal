@@ -1,7 +1,0 @@
-{
-  "schema_version":"1.0.0",
-  "system_id":"SYS_NSA_DISCIPLINE_V1",
-  "levels":[{"level":1,"name":"corrective counseling"},{"level":2,"name":"written warning"},{"level":3,"name":"restricted privileges"},{"level":4,"name":"formal probation"},{"level":5,"name":"suspension or removal review"}],
-  "rights":["notice of allegation","opportunity to respond","access to non-classified evidence","written outcome","appeal within stated deadline"],
-  "serious_offenses":["intentional lethal ability use","sabotage","identity fraud","repeat contraband trafficking","assault with aggravating factors"]
-}

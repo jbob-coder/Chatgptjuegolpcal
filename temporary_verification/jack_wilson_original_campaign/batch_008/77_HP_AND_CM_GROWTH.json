@@ -1,3 +1,0 @@
-{
-  "schema_version":"1.0.0","system_id":"SYS_RESOURCE_GROWTH_V1","HP":{"base_formula":"20 + Endurance + floor(character_level * 2.5)","temporary_changes":"Stat Siphon or effects may modify current and maximum HP temporarily","permanent_sources":["Endurance growth","level milestones","medical reconstruction when justified"],"restriction":"HP growth does not erase structural injury"},"CM":{"base_formula":"60 + Will*3 + Endurance*2 + Steal_mastery*5","permanent_sources":["safe CM conditioning","Steal mastery","rare converted CM fragments"],"soft_cap_initial":250,"overcap_rule":"temporary overcharge may exceed max but creates instability and decays"}
-}

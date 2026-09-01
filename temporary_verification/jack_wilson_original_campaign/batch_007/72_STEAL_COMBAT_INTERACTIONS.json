@@ -1,6 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "system_id": "SYS_STEAL_COMBAT_V1",
-  "rules": ["Target Lock requires perception or a maintained valid sensory link.","Ability Theft during combat consumes the declared action unless a later mastery explicitly changes it.","Taking damage may force a concentration check.","A failed theft may alert the target through pain, suppression, telemetry, or instinct.","Stat Siphon cannot reduce a target below biologically viable minima through ordinary use.","HP Siphon transfers vitality but does not erase Jack's structural injuries.","CM Siphon efficiency and overcharge limits still apply in combat."],
-  "concentration_check": "d20 + Will modifier + Steal mastery versus DC 10 or half incoming damage, whichever is higher"
-}
