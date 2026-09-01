@@ -29,7 +29,11 @@ jobs:
           echo "e0c1bac78f6e8d222a18a51c2c2326b29bf56b9f374e356eb3a93662e60f42fb  worldlife_build/source.part02" | sha256sum -c -
           echo "9230bfaa6f52bd6df941d5618b8df134d0408653611b58eed694616f19dca5b5  worldlife_build/source.part03" | sha256sum -c -
           echo "a17cace1fbbaa1c2cef200efb04fc0eb09c3ee682cdafad8d5bf6434b69bc2ec  worldlife_build/source.part04" | sha256sum -c -
-          echo "b3569147bf1718c4e7fd3f1bc0b7f4e7378a8e49d9362160e55a2233fdf5c6b5  worldlife_build/source.part05" | sha256sum -c -
+          echo "7a3d420732704255d1dbdc7c999b48b4401dfca870b0d9ba0275c3967dbdd88b  worldlife_build/source.part05a" | sha256sum -c -
+          echo "6fd0b0121687a8a1e58f2e34ed077a301e17854d252cc3740ec84b85b44e4071  worldlife_build/source.part05b" | sha256sum -c -
+          echo "f703379c87dc2f3861950efac553f2b056d3023d0cb9addfbefe323207754d8e  worldlife_build/source.part05c" | sha256sum -c -
+          echo "5c1e423be17438f998c5802286d09e1d0fef4f296bef79592802247590a5e145  worldlife_build/source.part05d" | sha256sum -c -
+          echo "0f37c11f5efc3d38ada47cb7ee74d554b4aff408b7a4bcac031f4b2c929a588b  worldlife_build/source.part05e" | sha256sum -c -
           echo "6c8376cf259d7e3904f88a936c3345d184fd6c974f9cce763647f0636b3cd557  worldlife_build/source.part06" | sha256sum -c -
           echo "f7c5e75522b9899be4c9d252464c7d535c1010e752ae0c1dc87200e81427077b  worldlife_build/source.part07" | sha256sum -c -
           echo "308b58fb3fa573b1298bd4bcef408d62c92668268b39e90b6dfd1edd14105955  worldlife_build/source.part08" | sha256sum -c -
