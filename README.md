@@ -1,32 +1,32 @@
 # WorldLife RPG — Google Drive Primary Mirror
 
-Google Drive is the authoritative project store. This branch is a billing-safe pointer/history mirror only.
+Google Drive is authoritative. This branch is a billing-safe pointer/history mirror only.
 
-## Rules
-- No `.github/workflows` directory.
-- No GitHub Actions builds.
-- No source ZIP, APK, signing material, or binary art duplication.
+## Cost/storage rules
+- No `.github/workflows` directory and no GitHub Actions builds.
+- No source archive, APK, signing key, or binary art duplication in this mirror.
 - No Git LFS, paid runners, Codespaces, paid APIs, or metered services.
-- Working file ceiling for a 100 MiB destination: 90 MiB = 94,371,840 bytes.
+- Working-file ceiling for a 100 MiB destination: 90 MiB = 94,371,840 bytes.
 
 ## Drive authority
-Root: https://drive.google.com/drive/folders/1hsdyIqh_t231jqiq8O-kgBTEs8F8N8AE
-Source/v0.5.2: https://drive.google.com/drive/folders/1q2Tl0HQ29eKBqHGSlGxMdG2WL7qR-88a
-Source archive: https://drive.google.com/file/d/1kbvTIkgiC6gRNS2iPnoiLeeBe_aksW0i/view?usp=drivesdk
-Assets/v0.4.3: https://drive.google.com/drive/folders/1FV0Ji5cVqIOIqK9v0i3z7OawL9bqRu4P
-Builds root: https://drive.google.com/drive/folders/1zhdPquR_ue_WCtkzErgAYfrkTA9FTcU7
+- Source/v0.5.3: https://drive.google.com/drive/folders/1EMzo6mQ9R_Ze8ypI3Kf8cvDBRJLcjK9M
+- Archive: https://drive.google.com/file/d/1rS7-PTlapNqlEk1Q3CG-AyZqNsv2OWsJ/view?usp=drivesdk
+- Assets/v0.4.3: https://drive.google.com/drive/folders/1FV0Ji5cVqIOIqK9v0i3z7OawL9bqRu4P
 
-## v0.5.2 change
-- Undiscovered locations no longer appear as grey map dots.
-- Cyan world-space destination markers render only for discovered locations.
-- Physical storefront/landmark structures remain naturally visible.
-- Short in-world discovery feedback appears when deterministic exploration discovers a location.
-- v0.5.1 engine-authoritative TravelQuote remains active.
+## v0.5.3
+- Save schema 3 adds authoritative date-scoped `dailyActivityUsage`.
+- Location activities and NPC TALK share deterministic daily limits.
+- Work/social actions default to once/day; home/meal/study/gym have explicit controlled repeat limits.
+- Pending events block location actions consistently with NPC TALK.
+- Midnight/year rollover prunes previous-day usage; annual age advancement clears the ledger.
+- Repair drops unknown/stale records, merges duplicates, and clamps counts to catalog limits.
+- Landscape prompts display use counts and explicit lock reasons.
 
 ## Verification
-- 532-check world regression: PASS.
-- Travel authority compatibility: PASS.
-- 168 weekly schedule states + six NPC interactions + journal/year compatibility: PASS.
-- Discovery path harness: PASS.
+- Repository tests: PASS (41 methods through local kotlin-test runner).
+- Dedicated daily-activity harness: PASS.
+- Prior world regression: PASS (532 checks; 1,893 walkable / 507 blocked / 512 corner cases).
+- Weekly/social/journal/year/travel/discovery compatibility: PASS.
+- Serializer source compile-check with local DataStore/JSON API stubs: PASS.
 - Static/UI/XML checks: PASS.
 - Android/SceneView APK compile remains pending a free local Android toolchain. Last fully APK-verified build: v0.4.0.
