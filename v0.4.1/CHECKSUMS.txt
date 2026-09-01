@@ -1,0 +1,5 @@
+74a1601566c64f882ed30beb30622184e55e44c6321edb81c0018822457e3d00  WorldLifeRPG-source-v0.4.1-drive-primary.zip
+159caa37569d8b17e04b6a37c6376d66b52fc4aeb97b6945c07a3d947eeb31b9  WorldLifeRPG-assets-v0.4.1.zip
+989a34cc3799cbf3a634c7153b4e54bb47504f2d85525c9f8ca883eaa9aac7e1  WorldLifeRPG-v0.4.1-scale-photo.patch
+
+Full binaries and source archive are in the Google Drive links documented in README.md and IMPLEMENTATION.md.
