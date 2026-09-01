@@ -24,17 +24,43 @@ jobs:
       - name: Reconstruct and verify open-world source archive
         shell: bash
         run: |
-          set -euo pipefail
-          echo "83792c0f999ddbd43608eda757baf618b69397fb97b48851b1b573f14c385832  worldlife_build_v2/source.v2.part01" | sha256sum -c -
-          echo "d8573e1e36505b6513c46abc776f8a679f697c8d7a306fb75065c22307eba1f8  worldlife_build_v2/source.v2.part02" | sha256sum -c -
-          echo "ccffd1bf17955160b290204273ae97f2fe4d8e8fc2afb9cff941138180c8ad56  worldlife_build_v2/source.v2.part03" | sha256sum -c -
-          echo "10af4bea908e12420c150e299fd51b3e62534b8bce16402f6b5e16fbee87de43  worldlife_build_v2/source.v2.part04" | sha256sum -c -
-          echo "fb177a7184fc8e5e77d8e4e67c1a414d544835a7489730093f5f898556b284ff  worldlife_build_v2/source.v2.part05" | sha256sum -c -
-          echo "e19c59b5319f19412d65f22d2eba38704bc66f1711dda6353e84865548859380  worldlife_build_v2/source.v2.part06" | sha256sum -c -
-          echo "64dc7f718fffd94dbe768edc852fb7483076ed0784b8b3b200159c17f33054aa  worldlife_build_v2/source.v2.part07" | sha256sum -c -
-          echo "5f2f4dbda521232b87b3660c61876c3d6c68496b918f95c06ee2c194a9af29ee  worldlife_build_v2/source.v2.part08" | sha256sum -c -
-          echo "c9bd889f980b4bd5a04befe2221f4d95c07c0ec149c285f1c5d5df48500ec961  worldlife_build_v2/source.v2.part09" | sha256sum -c -
-          cat worldlife_build_v2/source.v2.part* > /tmp/worldlife_v2.b64
+          set -uo pipefail
+          failed=0
+          check_part() {
+            expected="$1"
+            file="$2"
+            echo "$expected  $file" | sha256sum -c - || failed=1
+          }
+          check_part 83792c0f999ddbd43608eda757baf618b69397fb97b48851b1b573f14c385832 worldlife_build_v2/source.v2.part01
+          check_part 423adf4356ca000b73dcba261196c9dbe41763e1523c5b09810ffff4902c3e18 worldlife_build_v2/source.v2.part020
+          check_part 369c045916c9633d2e88e4840783bf8bb11df5a4cbe7dcd8a73c904685ac1b1e worldlife_build_v2/source.v2.part021
+          check_part 36826f55715691bc0458f441176b683e1ee96749e8612ca6f59165fa3253267d worldlife_build_v2/source.v2.part022
+          check_part 781f32ca2c133e2041f2306d9a9e52eb7e08a67b1e76e39368e1ade6498b153a worldlife_build_v2/source.v2.part023
+          check_part ccffd1bf17955160b290204273ae97f2fe4d8e8fc2afb9cff941138180c8ad56 worldlife_build_v2/source.v2.part03
+          check_part 10af4bea908e12420c150e299fd51b3e62534b8bce16402f6b5e16fbee87de43 worldlife_build_v2/source.v2.part04
+          check_part fb177a7184fc8e5e77d8e4e67c1a414d544835a7489730093f5f898556b284ff worldlife_build_v2/source.v2.part05
+          check_part e19c59b5319f19412d65f22d2eba38704bc66f1711dda6353e84865548859380 worldlife_build_v2/source.v2.part06
+          check_part 64dc7f718fffd94dbe768edc852fb7483076ed0784b8b3b200159c17f33054aa worldlife_build_v2/source.v2.part07
+          check_part 5f2f4dbda521232b87b3660c61876c3d6c68496b918f95c06ee2c194a9af29ee worldlife_build_v2/source.v2.part08
+          check_part c9bd889f980b4bd5a04befe2221f4d95c07c0ec149c285f1c5d5df48500ec961 worldlife_build_v2/source.v2.part09
+          if [ "$failed" -ne 0 ]; then
+            echo "One or more source transport segments failed integrity verification."
+            exit 1
+          fi
+          cat \
+            worldlife_build_v2/source.v2.part01 \
+            worldlife_build_v2/source.v2.part020 \
+            worldlife_build_v2/source.v2.part021 \
+            worldlife_build_v2/source.v2.part022 \
+            worldlife_build_v2/source.v2.part023 \
+            worldlife_build_v2/source.v2.part03 \
+            worldlife_build_v2/source.v2.part04 \
+            worldlife_build_v2/source.v2.part05 \
+            worldlife_build_v2/source.v2.part06 \
+            worldlife_build_v2/source.v2.part07 \
+            worldlife_build_v2/source.v2.part08 \
+            worldlife_build_v2/source.v2.part09 \
+            > /tmp/worldlife_v2.b64
           echo "9602d56236f4d74ea7fceb63f8a9e00051cc7f812d67818258223191a44be31b  /tmp/worldlife_v2.b64" | sha256sum -c -
           base64 -d /tmp/worldlife_v2.b64 > /tmp/WorldLifeRPG-openworld-source-ci.zip
           echo "58686f5de9bcf4151b071792c618d6b3388bf6abe4a8aea11daa0563b5a0b03e  /tmp/WorldLifeRPG-openworld-source-ci.zip" | sha256sum -c -
