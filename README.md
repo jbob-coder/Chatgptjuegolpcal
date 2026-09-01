@@ -1,39 +1,15 @@
 # WorldLife RPG — Google Drive Primary Mirror
 
-This branch is a billing-safe mirror. Google Drive is the authoritative project store.
+Google Drive is authoritative. This branch is a lightweight history/pointer export only.
 
-## Rules
-- Do not run GitHub Actions from this mirror.
-- The mirror intentionally contains no `.github/workflows` directory.
-- Source archives, binary art assets, APKs, and checksums are stored in Google Drive first.
-- GitHub is used only for lightweight source/history mirroring after Drive verification.
-- Do not use Git LFS, paid runners, Codespaces, paid APIs, or metered services.
-- Working file ceiling for a destination with a 100 MiB limit: 90 MiB = 94,371,840 bytes.
+- Version: 0.4.7
+- Drive source folder: https://drive.google.com/drive/folders/1lQlrKNSWL8MghaFni9tOSTWk0gy00F6r
+- Drive source ZIP: https://drive.google.com/file/d/1Dpjjn30575sWhxzZV4obRvdE_CJgz7qG/view?usp=drivesdk
+- SHA-256: 92174724f6a512ca049df4c431358c465eabf0fda864d357219253e149fcb85d
+- Size: 1,433,148 bytes
+- GitHub Actions: forbidden for routine project development unless the user explicitly re-authorizes them.
+- `.github/workflows`: intentionally absent.
+- Git LFS / paid runners / Codespaces / metered services: not used.
+- Project transfer ceiling: 90 MiB = 94,371,840 bytes per file.
 
-## Drive authority
-Root: https://drive.google.com/drive/folders/1hsdyIqh_t231jqiq8O-kgBTEs8F8N8AE
-Source/v0.4.6: https://drive.google.com/drive/folders/1QAi6Dv5JlqM3CJIbTC2iOHdB6wR9ikbD
-Assets/v0.4.3: https://drive.google.com/drive/folders/1FV0Ji5cVqIOIqK9v0i3z7OawL9bqRu4P
-Builds root: https://drive.google.com/drive/folders/1zhdPquR_ue_WCtkzErgAYfrkTA9FTcU7
-
-## v0.4.6 current source state
-- Scene scale remains 4.0 m per simulation tile: 30 x 20 district = 120 x 80 m.
-- Roads 6.4 m; sidewalks 1.8 m; human-scale player/NPC/buildings.
-- Full-stick normal traversal calibrated to ~3.5 m/s; sprint ~6.2 m/s while preserving 4 m simulation steps through interpolation.
-- Generated road, sidewalk, crosswalk, facade, door, window, tree, bench, and hydrant images are used directly in the SceneView world.
-- Generated photo facades are reused across multiple building elevations.
-- Generated bench, hydrant, and tree crops have neutral sheet backgrounds removed for in-world alpha use.
-- HUD/action controls scale to landscape screen height; camera is 4.2 m over-the-shoulder with 0.55 m offset.
-- Joystick/action generated WebP assets remain active in the mobile HUD.
-
-## Verification state
-Static source verification PASS. Pure Kotlin game-core compile PASS. Android/SceneView compile for v0.4.6 is still pending because routine GitHub Actions are disabled by user cost policy and this sandbox does not currently contain a full Android SDK/Gradle dependency cache. The last fully Android-compiled/signature-verified APK remains v0.4.0 in Drive/Builds/verified.
-
-### v0.4.6 additional repairs
-- Shared `OpenWorldGeometry` is authoritative for renderer and engine collision.
-- Engine rejects solid movement and diagonal corner cutting.
-- Legacy blocked saves relocate deterministically to the nearest walkable cell.
-- Map fast-travel is active for discovered locations and displays fare/affordability.
-- Unaffordable interactions are disabled with explicit feedback.
-- Follow camera shortens against shared building/landmark geometry.
-- NPCs/player use human-scale procedural bodies; location beacons are reduced; daylight intensity follows game time.
+v0.4.7 adds engine-authoritative scheduled NPC TALK interactions for Maya Ortiz and Theo Park. The existing single contextual action control changes to TALK when the scheduled NPC is physically present at the player's current location; interactions advance world time, append monotonic journal entries, and update relationship/stat state deterministically. All v0.4.6 geometry/collision/save-repair behavior remains intact.
