@@ -1,11 +1,11 @@
 {
   "project": "WorldLife RPG",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "authority": "google_drive",
-  "source_folder": "https://drive.google.com/drive/folders/1WeQxTyV9CLIV_HV94yhnnDUZ4Fb0xM-P",
-  "source_archive": "https://drive.google.com/file/d/1jF6o5EpY_-uCvd6vfbjmzedPEN7Zxu5W/view?usp=drivesdk",
-  "source_sha256": "5c2cf65ea2d784f872785db8473c50b4e383a49957a50f6ac2e3f507b51729e7",
-  "archive_bytes": 1463302,
+  "source_folder": "https://drive.google.com/drive/folders/1q2Tl0HQ29eKBqHGSlGxMdG2WL7qR-88a",
+  "source_archive": "https://drive.google.com/file/d/1kbvTIkgiC6gRNS2iPnoiLeeBe_aksW0i/view?usp=drivesdk",
+  "source_sha256": "98bec93907c6a158a03a985af71f7148e8b9b3ed0ab09cff5626944d818aa8c7",
+  "archive_bytes": 1467689,
   "github_actions_allowed": false,
   "github_role": "pointer_history_mirror_only",
   "last_android_verified_apk": "0.4.0"
