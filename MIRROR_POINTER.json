@@ -1,15 +1,13 @@
 {
   "project": "WorldLife RPG",
-  "version": "0.4.4",
-  "version_code": 9,
-  "authority": "google_drive",
-  "drive_source_folder": "https://drive.google.com/drive/folders/1L6sQs8Fs27lnwd5mhjYstfeLR8cJup8A",
-  "drive_source_archive": "https://drive.google.com/file/d/15T7lDHMsKhNcgmcFyxE4VmksNg4lzqWy/view?usp=drivesdk",
-  "source_zip_size_bytes": 1429726,
-  "source_zip_sha256": "adb8148a4cb1569f1345ffae3d1daa7dbfe7573f2c4017ef5172df3eb64984be",
+  "version": "0.4.6",
+  "authority": "Google Drive",
+  "source_folder": "https://drive.google.com/drive/folders/1QAi6Dv5JlqM3CJIbTC2iOHdB6wR9ikbD",
+  "source_zip": "https://drive.google.com/file/d/1PpeG-OiRTnvT56ByF-Dm4qft7Emc9Rld/view?usp=drivesdk",
+  "source_sha256": "1663e47fc781f4ddd529ee4189bf5166c76adba4db9b846ebe57fa6b9782d5ca",
+  "source_size_bytes": 1440961,
+  "asset_authority": "https://drive.google.com/drive/folders/1lKz-2vljN6nK0caS8rEhPl4S-nPRlFXU",
   "github_actions_allowed": false,
-  "git_lfs_allowed": false,
-  "max_working_file_bytes": 94371840,
-  "android_apk_status": "not_compiled_for_v0.4.4",
-  "last_fully_compiled_apk": "0.4.0"
+  "mirror_contains_workflows": false,
+  "file_ceiling_bytes": 94371840
 }

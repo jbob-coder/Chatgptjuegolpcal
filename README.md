@@ -1,36 +1,39 @@
-# WorldLife RPG v0.4.4 — Drive-primary mirror
+# WorldLife RPG — Google Drive Primary Mirror
 
-Google Drive is authoritative. This branch is a billing-safe mirror record and intentionally contains no `.github/workflows` directory.
+This branch is a billing-safe mirror. Google Drive is the authoritative project store.
 
-## Authority
-- Drive root: https://drive.google.com/drive/folders/1hsdyIqh_t231jqiq8O-kgBTEs8F8N8AE
-- Source v0.4.4: https://drive.google.com/drive/folders/1L6sQs8Fs27lnwd5mhjYstfeLR8cJup8A
-- Source archive: https://drive.google.com/file/d/15T7lDHMsKhNcgmcFyxE4VmksNg4lzqWy/view?usp=drivesdk
-- Runtime/master art remains under Drive Assets; v0.4.4 reuses the verified v0.4.3 image set.
+## Rules
+- Do not run GitHub Actions from this mirror.
+- The mirror intentionally contains no `.github/workflows` directory.
+- Source archives, binary art assets, APKs, and checksums are stored in Google Drive first.
+- GitHub is used only for lightweight source/history mirroring after Drive verification.
+- Do not use Git LFS, paid runners, Codespaces, paid APIs, or metered services.
+- Working file ceiling for a destination with a 100 MiB limit: 90 MiB = 94,371,840 bytes.
 
-## Exact source snapshot
-- versionCode: 9
-- versionName: 0.4.4
-- source ZIP size: 1,429,726 bytes
-- source ZIP SHA-256: adb8148a4cb1569f1345ffae3d1daa7dbfe7573f2c4017ef5172df3eb64984be
-- project file safety ceiling: 90 MiB = 94,371,840 bytes when the destination limit is 100 MiB
+## Drive authority
+Root: https://drive.google.com/drive/folders/1hsdyIqh_t231jqiq8O-kgBTEs8F8N8AE
+Source/v0.4.6: https://drive.google.com/drive/folders/1QAi6Dv5JlqM3CJIbTC2iOHdB6wR9ikbD
+Assets/v0.4.3: https://drive.google.com/drive/folders/1FV0Ji5cVqIOIqK9v0i3z7OawL9bqRu4P
+Builds root: https://drive.google.com/drive/folders/1zhdPquR_ue_WCtkzErgAYfrkTA9FTcU7
 
-## v0.4.4 gameplay changes
-- Eight-direction camera-relative joystick movement.
-- Diagonal repeat/animation timing uses sqrt(2) normalization so diagonals do not move faster than cardinal travel.
-- Building footprints from the same deterministic `BuildingSpec` geometry used by SceneView block traversal.
-- Location anchors remove overlapping procedural buildings and reserve 2.25 m clearance so destinations remain reachable.
-- Player collision radius: 0.38 m.
-- Geometry audit: all 10 interaction locations reachable; 0 blocked locations; 1,873/2,400 grid cells reachable from the home start with 8-direction traversal.
-- Existing v0.4.3 scale/photo corrections retained: 4.0 m/tile, 6.4 m roads, 1.8 m sidewalks, 4.2 m over-shoulder camera, responsive landscape HUD, generated image assets used in-world.
+## v0.4.6 current source state
+- Scene scale remains 4.0 m per simulation tile: 30 x 20 district = 120 x 80 m.
+- Roads 6.4 m; sidewalks 1.8 m; human-scale player/NPC/buildings.
+- Full-stick normal traversal calibrated to ~3.5 m/s; sprint ~6.2 m/s while preserving 4 m simulation steps through interpolation.
+- Generated road, sidewalk, crosswalk, facade, door, window, tree, bench, and hydrant images are used directly in the SceneView world.
+- Generated photo facades are reused across multiple building elevations.
+- Generated bench, hydrant, and tree crops have neutral sheet backgrounds removed for in-world alpha use.
+- HUD/action controls scale to landscape screen height; camera is 4.2 m over-the-shoulder with 0.55 m offset.
+- Joystick/action generated WebP assets remain active in the mobile HUD.
 
-## Verification
-- Source manifest: PASS (66 tracked entries)
-- Static verifier: PASS
-- Kotlin production core compile: PASS
-- v0.4.4 diagonal core harness: PASS (5 checks)
-- Collision/reachability audit: PASS
-- Full Android/SceneView APK compile: PENDING because routine GitHub Actions are disabled under the project cost policy and the current sandbox has no complete local Android SDK/Gradle toolchain.
+## Verification state
+Static source verification PASS. Pure Kotlin game-core compile PASS. Android/SceneView compile for v0.4.6 is still pending because routine GitHub Actions are disabled by user cost policy and this sandbox does not currently contain a full Android SDK/Gradle dependency cache. The last fully Android-compiled/signature-verified APK remains v0.4.0 in Drive/Builds/verified.
 
-## Cost rules
-Do not add GitHub Actions workflows, Git LFS, paid runners, Codespaces, paid APIs, paid asset packs, or any metered service without explicit user authorization.
+### v0.4.6 additional repairs
+- Shared `OpenWorldGeometry` is authoritative for renderer and engine collision.
+- Engine rejects solid movement and diagonal corner cutting.
+- Legacy blocked saves relocate deterministically to the nearest walkable cell.
+- Map fast-travel is active for discovered locations and displays fare/affordability.
+- Unaffordable interactions are disabled with explicit feedback.
+- Follow camera shortens against shared building/landmark geometry.
+- NPCs/player use human-scale procedural bodies; location beacons are reduced; daylight intensity follows game time.
