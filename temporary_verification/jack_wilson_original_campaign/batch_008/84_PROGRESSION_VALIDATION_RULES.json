@@ -1,3 +1,0 @@
-{
-  "schema_version":"1.0.0","validator_id":"VALIDATOR_PROGRESSION_V1","gates":["source_event_exists","time_cost_recorded","CM_cost_recorded","recovery_accounted","caps_respected","anti_farm_passed","no_duplicate_reward","state_recalculation_passed"],"hard_fail":["permanent growth without source event","slot count above five without explicit future rule","negative CM cost","fragment conversion during prohibited cooldown","level reward granted twice"]
-}

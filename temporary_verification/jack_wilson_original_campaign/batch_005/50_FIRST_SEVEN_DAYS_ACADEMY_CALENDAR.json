@@ -1,6 +1,0 @@
-{
-  "schema_version":"1.0.0",
-  "calendar_id":"CAL_NSA_WEEK1_V1",
-  "days":[{"day":1,"focus":"intake, medical, equipment, dorm assignment"},{"day":2,"focus":"orientation, law, safety, baseline fitness"},{"day":3,"focus":"academic diagnostics, CM theory"},{"day":4,"focus":"team exercises and communication"},{"day":5,"focus":"controlled ability testing"},{"day":6,"focus":"logistics and emergency response"},{"day":7,"focus":"recovery, review, limited personal time"}],
-  "continuity_note":"This calendar starts after arrival; it does not alter the fourteen-day pre-transport opening."
-}

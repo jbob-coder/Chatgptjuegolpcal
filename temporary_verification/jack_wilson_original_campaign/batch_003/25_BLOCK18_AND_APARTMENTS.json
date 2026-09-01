@@ -1,8 +1,0 @@
-{
-  "schema_version":"1.0.0","building_id":"BUILDING_GREYBRIDGE_BLOCK18","name":"Greybridge Civic Housing Block 18","district_id":"DISTRICT_CIVIC_EAST","address":"18 Calder Row","floors":8,"construction_year":189,"structure":"reinforced composite frame with concrete acoustic partitions",
-  "utilities":["grid electricity","district heat","municipal water","fiber network","basic CM incident sensors"],
-  "security":["street camera","lobby access reader","stairwell cameras","no interior apartment surveillance"],
-  "floor6":{"corridor_length_m":24.0,"corridor_width_m":1.8,"apartments":["APT6A","APT6B","APT6C","APT6D"],"stair_distance_from_6B_m":9.5,"elevator_distance_from_6B_m":13.2},
-  "apartments":{"LOC_GREYBRIDGE_BLOCK18_APT6A":{"area_m2":31.5,"occupant":"CHAR_ELIAS_VALE","rooms":["entry","bathroom","combined living-bedroom","kitchenette"],"adjacent_to_6B":"east shared wall","shared_wall_length_m":4.2,"wall_stc_estimate":48},"LOC_GREYBRIDGE_BLOCK18_APT6B":{"area_m2":29.8,"occupant":"CHAR_JACK_WILSON","rooms":["entry","bathroom","combined living-bedroom","kitchenette"],"bed_to_shared_wall_m":1.4,"desk_to_window_m":0.8,"contents":["single bed","desk","chair","wall display","wardrobe","mini refrigerator","sink","two-ring induction plate","storage cabinet"]}},
-  "sound_rules":{"normal_conversation_through_wall":"usually indistinct","raised_voice":"muffled but potentially understandable with Perception check","impact_noise":"clearly detectable","night_background_db":31}
-}

@@ -1,1 +1,0 @@
-WorldLife v0.4 text-only patch transport. Chunks reconstruct worldlife_patch_v040_textonly.b64 in order: part000, part001a, part001b, part002, part003, part004. CI verifies each chunk, the concatenated Base64, and the decoded ZIP before applying it.

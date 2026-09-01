@@ -1,6 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "engine_id": "ENGINE_RUMOR_V1",
-  "fields": ["rumor_id","origin_claim","truth_status","originator","created_at","current_versions","spread_networks","credibility","emotional_charge","beneficiaries","victims"],
-  "rules": ["retelling may omit context","emotion increases spread and distortion","authority endorsement increases credibility","contradictory evidence slows but does not erase spread"]
-}

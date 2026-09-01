@@ -1,8 +1,0 @@
-{
-  "schema_version":"1.0.0",
-  "system_id":"SYS_NSA_DORMS_V1",
-  "room_model":{"occupants":4,"area_m2":28,"beds":"stacked","lockers":4,"shared_desk":2,"bathroom":"shared per two rooms"},
-  "assignment_factors":["sex","medical needs","security flags","training cohort","conflict separation","capacity"],
-  "resident_rules":["lights out 22:30","quiet hours 22:00-05:30","weekly inspection","contraband prohibited","room damage charged unless documented","private lockers subject to lawful inspection"],
-  "privacy":"moderate; no interior cameras, but access and corridor movement are logged"
-}

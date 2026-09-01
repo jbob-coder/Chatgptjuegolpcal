@@ -1,7 +1,0 @@
-{
-  "schema_version":"1.0.0","route_id":"ROUTE_GREYBRIDGE_TO_NORTHSTAR_INTAKE",
-  "departure":{"datetime":"Era 219, Frostwane 17, 06:30","location":"Northline Civic Service Staging Terminal","report_by":"06:00"},
-  "legs":[{"sequence":1,"mode":"municipal electric bus","from":"Block 18","to":"Northline terminal","distance_km":8.6,"scheduled_minutes":32,"buffer_minutes":13},{"sequence":2,"mode":"secured academy coach","from":"Northline terminal","to":"Northstar checkpoint","distance_km":278,"scheduled_minutes":255,"rest_stop_minutes":20,"security_stop_minutes":15},{"sequence":3,"mode":"internal shuttle","from":"checkpoint","to":"intake processing","distance_km":4.1,"scheduled_minutes":12}],
-  "total":{"travel_minutes":319,"buffers_and_stops_minutes":48,"door_to_intake_minutes":367,"estimated_arrival":"12:37"},
-  "calculation_notes":["Urban leg uses 16.1 km/h effective speed including stops.","Coach leg uses 65.4 km/h effective moving speed.","Schedule includes one rest stop and one security checkpoint.","Weather or incident delays remain possible."]
-}

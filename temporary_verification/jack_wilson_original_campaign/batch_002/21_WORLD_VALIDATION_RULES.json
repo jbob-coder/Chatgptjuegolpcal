@@ -1,6 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "validator_id": "VALIDATOR_WORLD_CORE_V1",
-  "gates": ["JSON_PARSE","REQUIRED_FIELDS","UNIQUE_IDS","REFERENCE_INTEGRITY","CHRONOLOGY","SPATIAL_CONNECTIVITY","RESOURCE_CONSERVATION","KNOWLEDGE_BOUNDARIES","ABILITY_COSTS","CANON_AUTHORITY","COPYRIGHT_BOUNDARY"],
-  "hard_fail": ["duplicate stable ID","missing required reference","time reversal without migration","unauthorized canon overwrite","copied protected content"]
-}

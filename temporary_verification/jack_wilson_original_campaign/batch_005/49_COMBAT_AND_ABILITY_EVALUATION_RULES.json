@@ -1,7 +1,0 @@
-{
-  "schema_version":"1.0.0",
-  "system_id":"SYS_NSA_EVAL_V1",
-  "evaluation_dimensions":["control","efficiency","precision","adaptability","judgment","team safety","recovery"],
-  "rules":["victory is not the only metric","unsafe output can reduce score despite success","hidden abilities are not presumed","simulation difficulty does not scale automatically to student level","injury ends the exercise when medical thresholds are crossed"],
-  "steal_interaction":"Using Steal would generate anomalous telemetry if it affects another participant."
-}

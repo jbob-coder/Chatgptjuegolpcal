@@ -1,6 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "engine_id": "ENGINE_CAUSALITY_V1",
-  "event_required_fields": ["event_id","timestamp","location_id","actors","observers","cause_event_ids","immediate_cause","root_cause","preconditions","action","resolution","state_changes","consequences_immediate","consequences_delayed","information_created","evidence_class"],
-  "rules": ["narrative convenience is not a cause","deaths, arrests, injuries, payments, transfers, and promotions require linked events"]
-}

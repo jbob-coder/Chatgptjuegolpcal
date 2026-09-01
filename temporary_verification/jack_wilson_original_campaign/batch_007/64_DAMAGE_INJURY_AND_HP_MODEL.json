@@ -1,9 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "engine_id": "ENGINE_DAMAGE_V1",
-  "principle": "HP measures immediate combat viability; injuries track physical reality.",
-  "damage_types": ["blunt","cutting","piercing","thermal","chemical","electrical","radiative","biological","cellular_matrix"],
-  "injury_thresholds": [{"condition":"single hit >= 25% max HP","effect":"injury check"},{"condition":"single hit >= 50% max HP","effect":"serious injury check"},{"condition":"HP <= 50%","effect":"pain and fatigue may impose penalties"},{"condition":"HP <= 0","effect":"incapacitation and death-save process"}],
-  "injury_fields": ["body_region","tissue","severity","bleeding","pain","function_loss","treatment","recovery_time","sequelae"],
-  "rules": ["Restoring HP does not automatically repair fractures, organ damage, blood loss, or infection.","Damage cannot be reduced below zero.","Lethal outcomes require a causally adequate injury, not HP arithmetic alone."]
-}

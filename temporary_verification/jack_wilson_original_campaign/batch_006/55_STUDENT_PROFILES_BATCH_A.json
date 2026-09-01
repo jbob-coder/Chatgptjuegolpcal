@@ -1,9 +1,0 @@
-{
-  "schema_version": "1.0.0",
-  "students": [
-    {"id":"CHAR_DARIUS_KENT","name":"Darius Kent","age":16,"ability":"Load Bearing","grade":1.3,"traits":["steady","literal","loyal"],"background":"freight-worker family","public_goal":"earn technical logistics placement"},
-    {"id":"CHAR_LINA_MORROW","name":"Lina Morrow","age":16,"ability":"Pulse Thread","grade":1.1,"traits":["precise","empathetic","self-critical"],"background":"clinic volunteer","public_goal":"qualify for medical support track"},
-    {"id":"CHAR_KEV_ARLO","name":"Kev Arlo","age":17,"ability":"Conductive Touch","grade":1.5,"traits":["inventive","irreverent","social"],"background":"repair cooperative","public_goal":"enter engineering maintenance"},
-    {"id":"CHAR_SENNA_VALEK","name":"Senna Valek","age":16,"ability":"Farline Sense","grade":1.4,"traits":["quiet","suspicious","spatially gifted"],"background":"rural relocation program","public_goal":"gain navigation certification"}
-  ]
-}
