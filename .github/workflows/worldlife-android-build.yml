@@ -25,7 +25,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo "07997582d282eb98fb17d8390ab214d0cb7406538b9948ba685353d275c574a4  worldlife_build/source.part01" | sha256sum -c -
+          echo "e0c1bac78f6e8d222a18a51c2c2326b29bf56b9f374e356eb3a93662e60f42fb  worldlife_build/source.part02" | sha256sum -c -
+          echo "9230bfaa6f52bd6df941d5618b8df134d0408653611b58eed694616f19dca5b5  worldlife_build/source.part03" | sha256sum -c -
+          echo "a17cace1fbbaa1c2cef200efb04fc0eb09c3ee682cdafad8d5bf6434b69bc2ec  worldlife_build/source.part04" | sha256sum -c -
+          echo "b3569147bf1718c4e7fd3f1bc0b7f4e7378a8e49d9362160e55a2233fdf5c6b5  worldlife_build/source.part05" | sha256sum -c -
+          echo "6c8376cf259d7e3904f88a936c3345d184fd6c974f9cce763647f0636b3cd557  worldlife_build/source.part06" | sha256sum -c -
+          echo "f7c5e75522b9899be4c9d252464c7d535c1010e752ae0c1dc87200e81427077b  worldlife_build/source.part07" | sha256sum -c -
+          echo "308b58fb3fa573b1298bd4bcef408d62c92668268b39e90b6dfd1edd14105955  worldlife_build/source.part08" | sha256sum -c -
           cat worldlife_build/source.part* > /tmp/worldlife.b64
+          echo "960e2c5b0cbc81f5406189340b9c83e46b2c48cede24cd19b8af46dee0153665  /tmp/worldlife.b64" | sha256sum -c -
           base64 -d /tmp/worldlife.b64 > /tmp/WorldLifeRPG-Android-vertical-slice.zip
           echo "ff72f4f3ad98a06e50df909eebce3977f5229e9fd88897c24216da5f9cd05af2  /tmp/WorldLifeRPG-Android-vertical-slice.zip" | sha256sum -c -
           mkdir -p /tmp/worldlife
