@@ -25,34 +25,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "07997582d282eb98fb17d8390ab214d0cb7406538b9948ba685353d275c574a4  worldlife_build/source.part01" | sha256sum -c -
-          echo "e0c1bac78f6e8d222a18a51c2c2326b29bf56b9f374e356eb3a93662e60f42fb  worldlife_build/source.part02" | sha256sum -c -
-          echo "9230bfaa6f52bd6df941d5618b8df134d0408653611b58eed694616f19dca5b5  worldlife_build/source.part03" | sha256sum -c -
-          echo "a17cace1fbbaa1c2cef200efb04fc0eb09c3ee682cdafad8d5bf6434b69bc2ec  worldlife_build/source.part04" | sha256sum -c -
-          echo "7a3d420732704255d1dbdc7c999b48b4401dfca870b0d9ba0275c3967dbdd88b  worldlife_build/source.part05a" | sha256sum -c -
-          echo "6fd0b0121687a8a1e58f2e34ed077a301e17854d252cc3740ec84b85b44e4071  worldlife_build/source.part05b" | sha256sum -c -
-          echo "f703379c87dc2f3861950efac553f2b056d3023d0cb9addfbefe323207754d8e  worldlife_build/source.part05c" | sha256sum -c -
-          echo "5c1e423be17438f998c5802286d09e1d0fef4f296bef79592802247590a5e145  worldlife_build/source.part05d" | sha256sum -c -
-          echo "0f37c11f5efc3d38ada47cb7ee74d554b4aff408b7a4bcac031f4b2c929a588b  worldlife_build/source.part05e" | sha256sum -c -
-          echo "2c63357ca54cdb8c6aa667db02da17d99f51d29c268394ea98ab1aa301075d87  worldlife_build/source.part06a" | sha256sum -c -
-          echo "86c8582dc092bb46e769483d270bc0b9f41877d33144e75e8240e5b1cf444ccb  worldlife_build/source.part06b" | sha256sum -c -
-          echo "e00b6270c30458c552e68e3bcf3996c995807013b741c85001d058f26b83118f  worldlife_build/source.part06c" | sha256sum -c -
-          echo "22879d2c96838bd51f91bd438b5ad03472a06a777947690b7f309f6c026d352a  worldlife_build/source.part06d" | sha256sum -c -
-          echo "d688a583bcc95f86dfc76ac381cdfd1f614b9b3b2340aee95e1aa7c12b795a18  worldlife_build/source.part06e" | sha256sum -c -
-          echo "a8fe585b0e1579a9b5558008046decbb4b290689f124e901dacd0558c70178c1  worldlife_build/source.part07a" | sha256sum -c -
-          echo "de78c94b666b36e03614bafc55727c803738b39cab59a0cb718eb4d139a2e838  worldlife_build/source.part07b" | sha256sum -c -
-          echo "ae3842503eb2fa94d8e82ec0ccdbcd376c1b5b3069dcd55089921820b82d53bc  worldlife_build/source.part07c" | sha256sum -c -
-          echo "56998b6f700ed85d3839f9088ec9e23c931aca4202de7d1e1cdfe5fb2362c1b3  worldlife_build/source.part07d" | sha256sum -c -
-          echo "d7058029f685aceff4ee46c614dad692eb0b7e79b8971ef0b0e48b88c15b63b4  worldlife_build/source.part07e" | sha256sum -c -
-          echo "dc3f8797b5c1e48fb0ff1d8756cdd2d2eb9fa115fc9a3e224f9e190610198896  worldlife_build/source.part08a" | sha256sum -c -
-          echo "40c5e7c5d8d5092d325bec20387e71953bdea814a305548a81dce7820edef466  worldlife_build/source.part08b" | sha256sum -c -
-          echo "7843d3378f1d2233c10533a8098d56e14bb438689fd662970479402435901b29  worldlife_build/source.part08c" | sha256sum -c -
           cat worldlife_build/source.part* > /tmp/worldlife.b64
           echo "960e2c5b0cbc81f5406189340b9c83e46b2c48cede24cd19b8af46dee0153665  /tmp/worldlife.b64" | sha256sum -c -
           base64 -d /tmp/worldlife.b64 > /tmp/WorldLifeRPG-Android-vertical-slice.zip
           echo "ff72f4f3ad98a06e50df909eebce3977f5229e9fd88897c24216da5f9cd05af2  /tmp/WorldLifeRPG-Android-vertical-slice.zip" | sha256sum -c -
           mkdir -p /tmp/worldlife
           unzip -q /tmp/WorldLifeRPG-Android-vertical-slice.zip -d /tmp/worldlife
+
+      - name: Apply verified AGP compatibility repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE=/tmp/worldlife/worldlife-rpg-android/build.gradle.kts
+          grep -F 'version "9.1.2"' "$FILE"
+          sed -i 's/version "9.1.2"/version "9.1.1"/' "$FILE"
+          grep -F 'id("com.android.application") version "9.1.1" apply false' "$FILE"
 
       - name: Set up Java 17
         uses: actions/setup-java@v5
@@ -68,11 +55,12 @@ jobs:
           log-accepted-android-sdk-licenses: false
           packages: 'platform-tools'
 
-      - name: Install Android SDK 37
+      - name: Install Android SDK 37 preview
         shell: bash
         run: |
           set -euo pipefail
-          android sdk install platforms/android-37 build-tools/37.0.0
+          android sdk install --canary platforms/android-37 build-tools/37.0.0
+          test -f "$ANDROID_SDK_ROOT/platforms/android-37/android.jar"
 
       - name: Set up Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v6
