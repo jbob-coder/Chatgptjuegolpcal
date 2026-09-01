@@ -24,29 +24,22 @@ jobs:
       - name: Reconstruct and verify open-world source archive
         shell: bash
         run: |
-          set -uo pipefail
-          failed=0
-          check_part() {
-            expected="$1"
-            file="$2"
-            echo "$expected  $file" | sha256sum -c - || failed=1
-          }
-          check_part 83792c0f999ddbd43608eda757baf618b69397fb97b48851b1b573f14c385832 worldlife_build_v2/source.v2.part01
-          check_part 423adf4356ca000b73dcba261196c9dbe41763e1523c5b09810ffff4902c3e18 worldlife_build_v2/source.v2.part020
-          check_part 369c045916c9633d2e88e4840783bf8bb11df5a4cbe7dcd8a73c904685ac1b1e worldlife_build_v2/source.v2.part021
-          check_part 36826f55715691bc0458f441176b683e1ee96749e8612ca6f59165fa3253267d worldlife_build_v2/source.v2.part022
-          check_part 781f32ca2c133e2041f2306d9a9e52eb7e08a67b1e76e39368e1ade6498b153a worldlife_build_v2/source.v2.part023
-          check_part ccffd1bf17955160b290204273ae97f2fe4d8e8fc2afb9cff941138180c8ad56 worldlife_build_v2/source.v2.part03
-          check_part 10af4bea908e12420c150e299fd51b3e62534b8bce16402f6b5e16fbee87de43 worldlife_build_v2/source.v2.part04
-          check_part fb177a7184fc8e5e77d8e4e67c1a414d544835a7489730093f5f898556b284ff worldlife_build_v2/source.v2.part05
-          check_part e19c59b5319f19412d65f22d2eba38704bc66f1711dda6353e84865548859380 worldlife_build_v2/source.v2.part06
-          check_part 64dc7f718fffd94dbe768edc852fb7483076ed0784b8b3b200159c17f33054aa worldlife_build_v2/source.v2.part07
-          check_part 5f2f4dbda521232b87b3660c61876c3d6c68496b918f95c06ee2c194a9af29ee worldlife_build_v2/source.v2.part08
-          check_part c9bd889f980b4bd5a04befe2221f4d95c07c0ec149c285f1c5d5df48500ec961 worldlife_build_v2/source.v2.part09
-          if [ "$failed" -ne 0 ]; then
-            echo "One or more source transport segments failed integrity verification."
-            exit 1
-          fi
+          set -euo pipefail
+          echo "83792c0f999ddbd43608eda757baf618b69397fb97b48851b1b573f14c385832  worldlife_build_v2/source.v2.part01" | sha256sum -c -
+          echo "423adf4356ca000b73dcba261196c9dbe41763e1523c5b09810ffff4902c3e18  worldlife_build_v2/source.v2.part020" | sha256sum -c -
+          echo "369c045916c9633d2e88e4840783bf8bb11df5a4cbe7dcd8a73c904685ac1b1e  worldlife_build_v2/source.v2.part021" | sha256sum -c -
+          echo "36826f55715691bc0458f441176b683e1ee96749e8612ca6f59165fa3253267d  worldlife_build_v2/source.v2.part022" | sha256sum -c -
+          echo "781f32ca2c133e2041f2306d9a9e52eb7e08a67b1e76e39368e1ade6498b153a  worldlife_build_v2/source.v2.part023" | sha256sum -c -
+          echo "ccffd1bf17955160b290204273ae97f2fe4d8e8fc2afb9cff941138180c8ad56  worldlife_build_v2/source.v2.part03" | sha256sum -c -
+          echo "10af4bea908e12420c150e299fd51b3e62534b8bce16402f6b5e16fbee87de43  worldlife_build_v2/source.v2.part04" | sha256sum -c -
+          echo "fb177a7184fc8e5e77d8e4e67c1a414d544835a7489730093f5f898556b284ff  worldlife_build_v2/source.v2.part05" | sha256sum -c -
+          echo "4cad0c85ddf03f6c2242b90a8c33e43115bfacedfe01dbef14024a314e50d05b  worldlife_build_v2/source.v2.part060" | sha256sum -c -
+          echo "0b088f6f76f80152d68959ab4ca2fd982ea72e729ab683ae9a8576de5734cb4f  worldlife_build_v2/source.v2.part061" | sha256sum -c -
+          echo "771ee35b4966565e52c7447baba66cb679dc0250148e57ff658f8038386c9866  worldlife_build_v2/source.v2.part062" | sha256sum -c -
+          echo "8660f46287b56842e1d294d274c47291483f640fa03534d1ee1e5d05eca13b97  worldlife_build_v2/source.v2.part063" | sha256sum -c -
+          echo "64dc7f718fffd94dbe768edc852fb7483076ed0784b8b3b200159c17f33054aa  worldlife_build_v2/source.v2.part07" | sha256sum -c -
+          echo "5f2f4dbda521232b87b3660c61876c3d6c68496b918f95c06ee2c194a9af29ee  worldlife_build_v2/source.v2.part08" | sha256sum -c -
+          echo "c9bd889f980b4bd5a04befe2221f4d95c07c0ec149c285f1c5d5df48500ec961  worldlife_build_v2/source.v2.part09" | sha256sum -c -
           cat \
             worldlife_build_v2/source.v2.part01 \
             worldlife_build_v2/source.v2.part020 \
@@ -56,7 +49,10 @@ jobs:
             worldlife_build_v2/source.v2.part03 \
             worldlife_build_v2/source.v2.part04 \
             worldlife_build_v2/source.v2.part05 \
-            worldlife_build_v2/source.v2.part06 \
+            worldlife_build_v2/source.v2.part060 \
+            worldlife_build_v2/source.v2.part061 \
+            worldlife_build_v2/source.v2.part062 \
+            worldlife_build_v2/source.v2.part063 \
             worldlife_build_v2/source.v2.part07 \
             worldlife_build_v2/source.v2.part08 \
             worldlife_build_v2/source.v2.part09 \
