@@ -1,4 +1,4 @@
-name: WorldLife Self-Updating Android APK
+name: WorldLife Third-Person Android APK
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
     paths:
       - 'worldlife_build_v2/**'
       - 'worldlife_patch_v021/**'
+      - 'worldlife_patch_v030/**'
       - '.github/workflows/worldlife-android-build.yml'
   workflow_dispatch:
 
@@ -61,8 +62,8 @@ jobs:
           echo "9602d56236f4d74ea7fceb63f8a9e00051cc7f812d67818258223191a44be31b  /tmp/worldlife_v2.b64" | sha256sum -c -
           base64 -d /tmp/worldlife_v2.b64 > /tmp/WorldLifeRPG-openworld-source-ci.zip
           echo "58686f5de9bcf4151b071792c618d6b3388bf6abe4a8aea11daa0563b5a0b03e  /tmp/WorldLifeRPG-openworld-source-ci.zip" | sha256sum -c -
-          mkdir -p /tmp/worldlife-v021
-          unzip -q /tmp/WorldLifeRPG-openworld-source-ci.zip -d /tmp/worldlife-v021
+          mkdir -p /tmp/worldlife-v030
+          unzip -q /tmp/WorldLifeRPG-openworld-source-ci.zip -d /tmp/worldlife-v030
 
       - name: Verify and apply self-updater patch
         shell: bash
@@ -75,17 +76,38 @@ jobs:
           echo "559dc3ad2ced659929499a30c3670aec4b87710c2011b6f91516dab766a86811  worldlife_patch_v021/app/src/main/AndroidManifest.xml" | sha256sum -c -
           echo "018bed4a9510140cdd22a016d8a210dc2ea6bb74237d2e2f1e5aa9cdc594a0ea  worldlife_patch_v021/app/build.gradle.kts" | sha256sum -c -
           echo "43067a3c7ab4e5097265f4e9781125ec7b6ec35805613c5f9c245f884126ca7c  worldlife_patch_v021/app/src/main/res/xml/update_file_paths.xml" | sha256sum -c -
-          ROOT=/tmp/worldlife-v021/worldlife-rpg-android
+          ROOT=/tmp/worldlife-v030/worldlife-rpg-android
           cp -a worldlife_patch_v021/app/. "$ROOT/app/"
           grep -F 'versionCode = 3' "$ROOT/app/build.gradle.kts"
           grep -F 'versionName = "0.2.1"' "$ROOT/app/build.gradle.kts"
           grep -F 'android.permission.INTERNET' "$ROOT/app/src/main/AndroidManifest.xml"
           grep -F 'android.permission.REQUEST_INSTALL_PACKAGES' "$ROOT/app/src/main/AndroidManifest.xml"
-          grep -F 'io.github.sceneview:sceneview:4.33.0' "$ROOT/app/build.gradle.kts"
-          grep -F 'androidx.core:core-ktx:1.19.0' "$ROOT/app/build.gradle.kts"
           test -s "$ROOT/app/dev-signing.jks"
-          test -s "$ROOT/app/src/main/java/com/jackwilson/worldlife/data/WorldLifeUpdater.kt"
-          test -s "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/UpdateHost.kt"
+
+      - name: Verify and apply third-person v0.3 patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=/tmp/worldlife-v030/worldlife-rpg-android
+          echo "d428510938687ee7d84b773f29e45ec0d02a4c48be17a510874ea9e1b5ac6f75  worldlife_patch_v030/OpenWorldScreen.kt.gz.b64" | sha256sum -c -
+          echo "25a037aa256658d08f4ae5808833fb8dcab75a12d65a91a2d4594c91308e65fe  worldlife_patch_v030/WorldLifeApp.kt.gz.b64" | sha256sum -c -
+          echo "e1bd7884e4a245513d23f6592914940616bb327144779ae162d5bcb8d68af0b8  worldlife_patch_v030/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt" | sha256sum -c -
+          echo "314dd08bfcd15a58faaa3b203277992ab483e05689bbf26ec7a3a9b6ebbbbcb4  worldlife_patch_v030/app/build.gradle.kts" | sha256sum -c -
+          echo "1f7a555dd5c4a42d4dffd41d7566d865e1ac7274cd9080032ee92f76039cdd6c  worldlife_patch_v030/app/src/main/java/com/jackwilson/worldlife/BuildConfig.kt" | sha256sum -c -
+          base64 -d worldlife_patch_v030/OpenWorldScreen.kt.gz.b64 | gzip -d > "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/OpenWorldScreen.kt"
+          base64 -d worldlife_patch_v030/WorldLifeApp.kt.gz.b64 | gzip -d > "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
+          cp worldlife_patch_v030/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt "$ROOT/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt"
+          cp worldlife_patch_v030/app/build.gradle.kts "$ROOT/app/build.gradle.kts"
+          cp worldlife_patch_v030/app/src/main/java/com/jackwilson/worldlife/BuildConfig.kt "$ROOT/app/src/main/java/com/jackwilson/worldlife/BuildConfig.kt"
+          echo "d96830a9d13c00c24ea0df73503e3b44517a1a8f037a25bf486c395e57e41d4c  $ROOT/app/src/main/java/com/jackwilson/worldlife/ui/OpenWorldScreen.kt" | sha256sum -c -
+          echo "cccda0867d300bf61f559b9340e68bd32ba34c3d8bdee1b3850066b8008d04ea  $ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt" | sha256sum -c -
+          grep -F 'versionCode = 4' "$ROOT/app/build.gradle.kts"
+          grep -F 'versionName = "0.3.0"' "$ROOT/app/build.gradle.kts"
+          grep -F 'const val VERSION_NAME = "0.3.0"' "$ROOT/app/src/main/java/com/jackwilson/worldlife/BuildConfig.kt"
+          grep -F 'const val MINUTES_PER_STEP = 1' "$ROOT/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt"
+          grep -F 'cameraManipulator = null' "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/OpenWorldScreen.kt"
+          grep -F 'io.github.sceneview:sceneview:4.33.0' "$ROOT/app/build.gradle.kts"
+          test -s "$ROOT/app/dev-signing.jks"
 
       - name: Set up Java 17
         uses: actions/setup-java@v5
@@ -117,18 +139,18 @@ jobs:
           gradle-version: '9.3.1'
 
       - name: Test game core
-        working-directory: /tmp/worldlife-v021/worldlife-rpg-android
+        working-directory: /tmp/worldlife-v030/worldlife-rpg-android
         run: gradle --no-daemon :game-core:test
 
-      - name: Build self-updating APK
-        working-directory: /tmp/worldlife-v021/worldlife-rpg-android
+      - name: Build third-person APK
+        working-directory: /tmp/worldlife-v030/worldlife-rpg-android
         run: gradle --no-daemon :app:assembleDebug
 
       - name: Verify APK
         shell: bash
         run: |
           set -euo pipefail
-          APK=/tmp/worldlife-v021/worldlife-rpg-android/app/build/outputs/apk/debug/app-debug.apk
+          APK=/tmp/worldlife-v030/worldlife-rpg-android/app/build/outputs/apk/debug/app-debug.apk
           test -s "$APK"
           unzip -t "$APK" >/dev/null
           cp "$APK" /tmp/WorldLifeRPG.apk
@@ -138,27 +160,27 @@ jobs:
             "$ANDROID_SDK_ROOT/build-tools/37.0.0/apksigner" verify --verbose /tmp/WorldLifeRPG.apk
           fi
 
-      - name: Publish WorldLife update release
+      - name: Publish WorldLife v0.3 release
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          TAG="worldlife-v0.2.1"
+          TAG="worldlife-v0.3.0"
           if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release upload "$TAG" /tmp/WorldLifeRPG.apk --clobber --repo "$GITHUB_REPOSITORY"
           else
             gh release create "$TAG" /tmp/WorldLifeRPG.apk \
               --repo "$GITHUB_REPOSITORY" \
               --target "$GITHUB_SHA" \
-              --title "WorldLife RPG 0.2.1" \
-              --notes "Open-world Android prototype with built-in self-update support."
+              --title "WorldLife RPG 0.3.0" \
+              --notes "Third-person mobile prototype with follow camera, left movement joystick, right-side camera look, sprint/recenter/actions, and procedural streets, buildings, lights, trees, NPCs, and location markers."
           fi
 
-      - name: Upload WorldLife self-updating APK
+      - name: Upload WorldLife v0.3 APK
         uses: actions/upload-artifact@v4
         with:
-          name: WorldLifeRPG-v0.2.1-self-updating-apk
+          name: WorldLifeRPG-v0.3.0-third-person-apk
           path: /tmp/WorldLifeRPG.apk
           if-no-files-found: error
           retention-days: 7
