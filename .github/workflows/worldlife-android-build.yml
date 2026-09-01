@@ -60,14 +60,18 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
+      - name: Set up current Android SDK tools
         uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: '15859902'
+          accept-android-sdk-licenses: 'yes'
+          log-accepted-android-sdk-licenses: 'false'
+          packages: 'platform-tools'
 
       - name: Install Android SDK 37
         shell: bash
         run: |
           set -euo pipefail
-          yes | sdkmanager --licenses >/dev/null || true
           sdkmanager "platforms;android-37" "build-tools;37.0.0"
 
       - name: Set up Gradle 9.3.1
