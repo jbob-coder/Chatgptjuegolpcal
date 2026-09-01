@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import androidx.core.content.FileProvider
+import com.jackwilson.worldlife.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -37,8 +38,7 @@ internal class WorldLifeUpdater(private val context: Context) {
         if (!tag.startsWith(RELEASE_TAG_PREFIX)) return@withContext null
 
         val version = tag.removePrefix(RELEASE_TAG_PREFIX)
-        val installedVersion = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "0"
-        if (!isNewerVersion(version, installedVersion)) return@withContext null
+        if (!isNewerVersion(version, BuildConfig.VERSION_NAME)) return@withContext null
 
         val assets = release.getJSONArray("assets")
         var result: WorldLifeUpdateInfo? = null
@@ -109,7 +109,7 @@ internal class WorldLifeUpdater(private val context: Context) {
     fun launchInstaller(apk: File) {
         val uri = FileProvider.getUriForFile(
             context,
-            "${context.packageName}.files",
+            "${BuildConfig.APPLICATION_ID}.files",
             apk,
         )
         val intent = Intent(Intent.ACTION_INSTALL_PACKAGE).apply {
