@@ -90,13 +90,14 @@ jobs:
           set -euo pipefail
           ROOT=/tmp/worldlife-v030/worldlife-rpg-android
           echo "707376145dc1a5c561e732f5bd7163f0ac35153593dd2c335ee32b0a384c3797  worldlife_patch_v030/OpenWorldScreen.fixed.kt.gz.b64" | sha256sum -c -
-          echo "c385077868ee6cf28826f87f45649bdd8db5a41469c4487df5fb046b65da8873  worldlife_patch_v030/WorldLifeApp.fixed.kt.gz.b64" | sha256sum -c -
+          echo "25a037aa256658d08f4ae5808833fb8dcab75a12d65a91a2d4594c91308e65fe  worldlife_patch_v030/WorldLifeApp.kt.gz.b64" | sha256sum -c -
           echo "a4495e29776971530a56752089901e8a60973533a49320e7aa1d787180b3b904  worldlife_patch_v030/app/src/main/java/com/jackwilson/worldlife/MainActivity.kt" | sha256sum -c -
           echo "e1bd7884e4a245513d23f6592914940616bb327144779ae162d5bcb8d68af0b8  worldlife_patch_v030/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt" | sha256sum -c -
           echo "314dd08bfcd15a58faaa3b203277992ab483e05689bbf26ec7a3a9b6ebbbbcb4  worldlife_patch_v030/app/build.gradle.kts" | sha256sum -c -
           echo "1f7a555dd5c4a42d4dffd41d7566d865e1ac7274cd9080032ee92f76039cdd6c  worldlife_patch_v030/app/src/main/java/com/jackwilson/worldlife/BuildConfig.kt" | sha256sum -c -
           base64 -d worldlife_patch_v030/OpenWorldScreen.fixed.kt.gz.b64 | gzip -d > "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/OpenWorldScreen.kt"
-          base64 -d worldlife_patch_v030/WorldLifeApp.fixed.kt.gz.b64 | gzip -d > "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
+          base64 -d worldlife_patch_v030/WorldLifeApp.kt.gz.b64 | gzip -d > "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
+          sed -i 's/^fun WorldLifeRoot(/internal fun WorldLifeRoot(/' "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
           cp worldlife_patch_v030/app/src/main/java/com/jackwilson/worldlife/MainActivity.kt "$ROOT/app/src/main/java/com/jackwilson/worldlife/MainActivity.kt"
           cp worldlife_patch_v030/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt "$ROOT/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt"
           cp worldlife_patch_v030/app/build.gradle.kts "$ROOT/app/build.gradle.kts"
