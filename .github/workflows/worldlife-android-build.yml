@@ -55,11 +55,19 @@ jobs:
           log-accepted-android-sdk-licenses: false
           packages: 'platform-tools'
 
-      - name: Install Android SDK 37 preview
+      - name: Discover and install Android 17 SDK
         shell: bash
         run: |
           set -euo pipefail
-          android sdk install --canary platforms/android-37 build-tools/37.0.0
+          echo '--- Android 17 related SDK packages ---'
+          android sdk list --all --all-versions --canary '.*(37|Cinnamon|cinnamon).*' || true
+          echo '--- Installing Cinnamon Bun platform ---'
+          android sdk install --canary platforms/android-CinnamonBun build-tools/37.0.0
+          echo '--- Installed platform directories ---'
+          find "$ANDROID_SDK_ROOT/platforms" -maxdepth 2 -type f -name android.jar -print || true
+          if [ -f "$ANDROID_SDK_ROOT/platforms/android-CinnamonBun/android.jar" ] && [ ! -e "$ANDROID_SDK_ROOT/platforms/android-37" ]; then
+            ln -s "$ANDROID_SDK_ROOT/platforms/android-CinnamonBun" "$ANDROID_SDK_ROOT/platforms/android-37"
+          fi
           test -f "$ANDROID_SDK_ROOT/platforms/android-37/android.jar"
 
       - name: Set up Gradle 9.3.1
