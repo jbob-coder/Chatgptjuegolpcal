@@ -1,0 +1,169 @@
+name: WorldLife v0.4 Landscape Android APK
+
+on:
+  push:
+    branches:
+      - worldlife-apk-build
+    paths:
+      - 'worldlife_patch_v040/**'
+      - '.github/workflows/worldlife-v040-landscape.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout build branch
+        uses: actions/checkout@v6
+
+      - name: Reconstruct verified open-world source
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "83792c0f999ddbd43608eda757baf618b69397fb97b48851b1b573f14c385832  worldlife_build_v2/source.v2.part01" | sha256sum -c -
+          echo "423adf4356ca000b73dcba261196c9dbe41763e1523c5b09810ffff4902c3e18  worldlife_build_v2/source.v2.part020" | sha256sum -c -
+          echo "369c045916c9633d2e88e4840783bf8bb11df5a4cbe7dcd8a73c904685ac1b1e  worldlife_build_v2/source.v2.part021" | sha256sum -c -
+          echo "36826f55715691bc0458f441176b683e1ee96749e8612ca6f59165fa3253267d  worldlife_build_v2/source.v2.part022" | sha256sum -c -
+          echo "781f32ca2c133e2041f2306d9a9e52eb7e08a67b1e76e39368e1ade6498b153a  worldlife_build_v2/source.v2.part023" | sha256sum -c -
+          echo "ccffd1bf17955160b290204273ae97f2fe4d8e8fc2afb9cff941138180c8ad56  worldlife_build_v2/source.v2.part03" | sha256sum -c -
+          echo "10af4bea908e12420c150e299fd51b3e62534b8bce16402f6b5e16fbee87de43  worldlife_build_v2/source.v2.part04" | sha256sum -c -
+          echo "fb177a7184fc8e5e77d8e4e67c1a414d544835a7489730093f5f898556b284ff  worldlife_build_v2/source.v2.part05" | sha256sum -c -
+          echo "4cad0c85ddf03f6c2242b90a8c33e43115bfacedfe01dbef14024a314e50d05b  worldlife_build_v2/source.v2.part060" | sha256sum -c -
+          echo "0b088f6f76f80152d68959ab4ca2fd982ea72e729ab683ae9a8576de5734cb4f  worldlife_build_v2/source.v2.part061" | sha256sum -c -
+          echo "771ee35b4966565e52c7447baba66cb679dc0250148e57ff658f8038386c9866  worldlife_build_v2/source.v2.part062" | sha256sum -c -
+          echo "8660f46287b56842e1d294d274c47291483f640fa03534d1ee1e5d05eca13b97  worldlife_build_v2/source.v2.part063" | sha256sum -c -
+          echo "64dc7f718fffd94dbe768edc852fb7483076ed0784b8b3b200159c17f33054aa  worldlife_build_v2/source.v2.part07" | sha256sum -c -
+          echo "5f2f4dbda521232b87b3660c61876c3d6c68496b918f95c06ee2c194a9af29ee  worldlife_build_v2/source.v2.part08" | sha256sum -c -
+          echo "c9bd889f980b4bd5a04befe2221f4d95c07c0ec149c285f1c5d5df48500ec961  worldlife_build_v2/source.v2.part09" | sha256sum -c -
+          cat \
+            worldlife_build_v2/source.v2.part01 \
+            worldlife_build_v2/source.v2.part020 \
+            worldlife_build_v2/source.v2.part021 \
+            worldlife_build_v2/source.v2.part022 \
+            worldlife_build_v2/source.v2.part023 \
+            worldlife_build_v2/source.v2.part03 \
+            worldlife_build_v2/source.v2.part04 \
+            worldlife_build_v2/source.v2.part05 \
+            worldlife_build_v2/source.v2.part060 \
+            worldlife_build_v2/source.v2.part061 \
+            worldlife_build_v2/source.v2.part062 \
+            worldlife_build_v2/source.v2.part063 \
+            worldlife_build_v2/source.v2.part07 \
+            worldlife_build_v2/source.v2.part08 \
+            worldlife_build_v2/source.v2.part09 \
+            > /tmp/worldlife_v2.b64
+          echo "9602d56236f4d74ea7fceb63f8a9e00051cc7f812d67818258223191a44be31b  /tmp/worldlife_v2.b64" | sha256sum -c -
+          base64 -d /tmp/worldlife_v2.b64 > /tmp/WorldLifeRPG-openworld-source.zip
+          echo "58686f5de9bcf4151b071792c618d6b3388bf6abe4a8aea11daa0563b5a0b03e  /tmp/WorldLifeRPG-openworld-source.zip" | sha256sum -c -
+          mkdir -p /tmp/worldlife-v040
+          unzip -q /tmp/WorldLifeRPG-openworld-source.zip -d /tmp/worldlife-v040
+
+      - name: Apply self-updater baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "f594bca854776fdaf90fdecd84b92d8d92f6fe7604e61f9ba524c30b23e5473b  worldlife_patch_v021/app/src/main/java/com/jackwilson/worldlife/data/WorldLifeUpdater.kt" | sha256sum -c -
+          echo "50a7ccd1df24d187b45a3533a841b434846815735283750ec1ec11565782066a  worldlife_patch_v021/app/src/main/java/com/jackwilson/worldlife/ui/UpdateViewModel.kt" | sha256sum -c -
+          echo "58b1218b856c6758ac0190b1982040870681dee6634d40e8ea2e28da5e4087d8  worldlife_patch_v021/app/src/main/java/com/jackwilson/worldlife/ui/UpdateHost.kt" | sha256sum -c -
+          ROOT=/tmp/worldlife-v040/worldlife-rpg-android
+          cp -a worldlife_patch_v021/app/. "$ROOT/app/"
+          test -s "$ROOT/app/dev-signing.jks"
+          test -s "$ROOT/app/src/main/java/com/jackwilson/worldlife/data/WorldLifeUpdater.kt"
+
+      - name: Apply and verify landscape v0.4 rework
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=/tmp/worldlife-v040/worldlife-rpg-android
+          PATCH=worldlife_patch_v040/worldlife_patch_v040.zip
+          echo "1fa74ee939d09d5de1d3bfd2988b10592b18c5e89e4505edaa7a8b9357832c28  $PATCH" | sha256sum -c -
+          unzip -qo "$PATCH" -d "$ROOT"
+          sed -E -i 's/const val MINUTES_PER_STEP = [0-9]+/const val MINUTES_PER_STEP = 1/' "$ROOT/game-core/src/main/kotlin/com/jackwilson/worldlife/core/OpenWorldCatalog.kt"
+          grep -F 'versionCode = 5' "$ROOT/app/build.gradle.kts"
+          grep -F 'versionName = "0.4.0"' "$ROOT/app/build.gradle.kts"
+          grep -F 'android:screenOrientation="landscape"' "$ROOT/app/src/main/AndroidManifest.xml"
+          grep -F 'R.drawable.joystick_base' "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/OpenWorldScreen.kt"
+          grep -F 'LightManager.Type.SUN' "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/OpenWorldScreen.kt"
+          ! grep -F 'unlit =' "$ROOT/app/src/main/java/com/jackwilson/worldlife/ui/OpenWorldScreen.kt"
+          python "$ROOT/scripts/verify_static.py"
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK tools
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: '15859902'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
+          packages: 'platform-tools'
+
+      - name: Verify Android 17 SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "$ANDROID_SDK_ROOT/platforms/android-37.0/android.jar"
+          if [ ! -e "$ANDROID_SDK_ROOT/platforms/android-37" ]; then
+            ln -s "$ANDROID_SDK_ROOT/platforms/android-37.0" "$ANDROID_SDK_ROOT/platforms/android-37"
+          fi
+          test -f "$ANDROID_SDK_ROOT/platforms/android-37/android.jar"
+
+      - name: Set up Gradle 9.3.1 without remote cache
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '9.3.1'
+          cache-disabled: true
+
+      - name: Test game core
+        working-directory: /tmp/worldlife-v040/worldlife-rpg-android
+        run: gradle --no-daemon :game-core:test
+
+      - name: Build landscape third-person APK
+        working-directory: /tmp/worldlife-v040/worldlife-rpg-android
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Verify APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK=/tmp/worldlife-v040/worldlife-rpg-android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          unzip -t "$APK" >/dev/null
+          cp "$APK" /tmp/WorldLifeRPG.apk
+          sha256sum /tmp/WorldLifeRPG.apk | tee /tmp/WorldLifeRPG.apk.sha256
+          "$ANDROID_SDK_ROOT/build-tools/37.0.0/apksigner" verify --verbose /tmp/WorldLifeRPG.apk
+
+      - name: Publish WorldLife v0.4 release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="worldlife-v0.4.0"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" /tmp/WorldLifeRPG.apk /tmp/WorldLifeRPG.apk.sha256 --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$TAG" /tmp/WorldLifeRPG.apk /tmp/WorldLifeRPG.apk.sha256 \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "WorldLife RPG 0.4.0 — Landscape Third Person" \
+              --notes "Landscape-first third-person gameplay rework with follow camera, shooter-style mobile controls, in-world overlays, and optimized generated UI assets."
+          fi
+
+      - name: Upload verified v0.4 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: WorldLifeRPG-v0.4.0-landscape-third-person
+          path: |
+            /tmp/WorldLifeRPG.apk
+            /tmp/WorldLifeRPG.apk.sha256
+          if-no-files-found: error
+          retention-days: 7
