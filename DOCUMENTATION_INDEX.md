@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-Map the entire new game from basic player experience down to mechanics, stats/effects, deterministic behavior, code, data, performance, testing and creator tooling.
+Map the entire new game from basic player experience down to mechanics, stats/effects, deterministic behavior, crystal life force, mutation/ecology, code, data, performance, testing and creator tooling.
 
 Future work should not reconstruct the project from chat memory. Read the correct authoritative layer, then inspect verified source/tests once implementation exists.
 
@@ -28,23 +28,24 @@ Future work should not reconstruct the project from chat memory. Read the correc
 8. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics/state interactions.
 9. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` — six primary attributes, derived stats, equipment bonuses, modifier stacking/caps, statuses, terrain/weather effects, hit quality and calculation traces.
 10. `BEHAVIOR_PATTERN_SYSTEM.md` — deterministic NPC/creature schedules, phases, `IF` conditions, priorities, cooldowns, situation adaptation and trace/debug rules. This replaces any old AI-behavior assumption.
-11. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
+11. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md` — life-force crystal reserve, Tier/Rank/Quality/Element, desperation/berserk rules, mutation architecture, elemental habitat relationships and bounded ecosystem simulation.
+12. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
 
 ## Layer 3 — Internal architecture/code/content
-12. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
-13. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
-14. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
-15. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; the newer dedicated authorities override overlaps where more specific.
+13. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
+14. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
+15. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
+16. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; the newer dedicated authorities override overlaps where more specific.
 
 ## Layer 4 — Performance/debug/creator/QA
-16. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
-17. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
-18. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
+17. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
+18. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
+19. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
 
 ## Layer 5 — Build/continuity
-19. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
-20. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
-21. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
+20. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
+21. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
+22. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
 
 # Authority order by claim type
 
@@ -81,6 +82,7 @@ A design file does not prove implementation. Compilation does not prove phone be
 - `MECHANICAL_SYSTEMS_GUIDE.md`
 - `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
 - `BEHAVIOR_PATTERN_SYSTEM.md`
+- `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
 - `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
 ## Architecture / code / content
@@ -103,12 +105,18 @@ A design file does not prove implementation. Compilation does not prove phone be
 
 - autonomous NPC/creature behavior is deterministic authored patterns/conditions, not AI;
 - current six-role attribute direction: Might, Finesse, Agility, Endurance, Perception, Resolve;
-- one shared effect/modifier pipeline is used by equipment, statuses, terrain, weather, posture and action context;
+- one shared effect/modifier pipeline is used by equipment, statuses, terrain, weather, posture, crystal/mutation effects and action context;
 - AP/reaction scaling is tightly constrained;
 - modifiers use explicit stack rules/caps;
 - terrain can affect movement, footing, visibility, tracking and tactical legality;
 - contextual hit quality is preferred over a generic hidden critical-hit system;
-- development calculation/behavior traces are required.
+- crystal-bearing creatures use an internal life-force reserve;
+- crystal energy reaching zero means creature death;
+- desperation/berserk spends that same life-force reserve;
+- crystal Tier, Rank, Quality, Element, current Energy and structural Condition are separate concepts;
+- mutation is data-driven, bounded and can alter anatomy/capabilities/stats/behavior/terrain adaptation/harvest;
+- off-screen ecology uses aggregate region/species state rather than full per-creature simulation;
+- development calculation/behavior/crystal/mutation traces are required.
 
 # Source-adjacent docs to create only when source exists
 
@@ -119,6 +127,7 @@ After engine selection/implementation authorization, create only when matching i
 - combat action API/schema;
 - stat/effect schema/API tied to actual code;
 - behavior-rule schema/API tied to actual code;
+- crystal/mutation/ecology schema/API tied to actual code;
 - monster/anatomy schema;
 - region/encounter schema;
 - asset provenance registry;
@@ -146,6 +155,8 @@ When durable truth changes:
 `STATS_EFFECTS_SYSTEM_DESIGNED = YES`
 `DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES`
 `AI_BEHAVIOR_SYSTEM = NO`
+`CRYSTAL_LIFE_FORCE_SYSTEM_DESIGNED = YES`
+`MUTATION_ECOSYSTEM_SYSTEM_DESIGNED = YES`
 `VISUAL_BEHAVIOR_DOCUMENTED = YES`
 `CODE_STRUCTURE_PLANNED = YES`
 `PERFORMANCE_CAPS_PLANNED = YES`
