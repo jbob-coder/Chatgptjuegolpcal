@@ -89,11 +89,21 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android API 37 and build tools
+      - name: Install Android platform and build tools
         shell: bash
         run: |
-          yes | sdkmanager --licenses >/dev/null || true
-          sdkmanager "platforms;android-37" "build-tools;36.0.0" "platform-tools"
+          set -euo pipefail
+          if sdkmanager --channel=3 "platforms;android-37" "build-tools;36.0.0" "platform-tools"; then
+            echo "ANDROID_TEST_API=37" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Android API 37 is not currently exposed by sdkmanager; using API 36 for this functional test APK only."
+            sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
+            sed -i 's/compileSdk = 37/compileSdk = 36/' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+            sed -i 's/targetSdk = 37/targetSdk = 36/' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+            grep -F 'compileSdk = 36' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+            grep -F 'targetSdk = 36' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+            echo "ANDROID_TEST_API=36" >> "$GITHUB_ENV"
+          fi
 
       - name: Set up Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v6
@@ -125,6 +135,7 @@ jobs:
           sha256sum "$OUT" > "$OUT.sha256"
           cat "$OUT.sha256"
           stat -c 'APK_SIZE_BYTES=%s' "$OUT"
+          echo "ANDROID_TEST_API=${ANDROID_TEST_API:-unknown}"
 
       - name: Upload verified APK artifact
         uses: actions/upload-artifact@v4
