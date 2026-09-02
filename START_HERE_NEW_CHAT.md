@@ -6,9 +6,11 @@ Last reconciled: 2026-09-02.
 
 WorldLife is under a **full design reboot** ordered by the user.
 
-The former v0.5.8 Android life-simulation/third-person project is no longer the active gameplay direction. It remains preserved only as frozen legacy history until the user finishes the reboot discussion and explicitly resolves archive/deletion cleanup.
+The former v0.5.8 Android life-simulation/third-person game is no longer the active gameplay direction and is approved for removal from the active project area.
 
-Do **not** resume v0.5.8 phone stabilization, apartment free-roam, city expansion, or Admin Panel expansion as active development.
+The **same GitHub/Google Drive project area will be reused for the new game** after cleanup. Do not create a separate active project just to preserve the old implementation.
+
+A rollback-only archive may remain outside the active working path for EVOLVE recovery, but the old gameplay source must not remain mixed into the reboot source tree.
 
 Do **not** create reboot gameplay code yet. The user explicitly ordered a design discussion before implementation.
 
@@ -18,12 +20,12 @@ Do **not** create reboot gameplay code yet. The user explicitly ordered a design
 2. `WORLDLIFE_REBOOT_MASTER_PLAN.md`
 3. `WORLDLIFE_REBOOT_ARCHITECTURE_VISUAL_BIBLE.md`
 4. `WORLDLIFE_REBOOT_DISCUSSION_CHECKLIST.md`
-5. `README.md`
-6. `WORLDLIFE_PROJECT_HANDOFF.md`
-7. `WORLDLIFE_DEVELOPMENT_REFERENCE.md`
-8. `WORLDLIFE_SYSTEMS_GUIDE.md`
-9. `WORLDLIFE_EVOLVE_ALIGNMENT.md`
-10. Inspect legacy frozen source only when a historical/cleanup claim requires it.
+5. `WORLDLIFE_REBOOT_ENGINE_DECISION.md`
+6. `README.md`
+7. `WORLDLIFE_PROJECT_HANDOFF.md`
+8. `WORLDLIFE_DEVELOPMENT_REFERENCE.md`
+9. `WORLDLIFE_SYSTEMS_GUIDE.md`
+10. `WORLDLIFE_EVOLVE_ALIGNMENT.md`
 
 ## New game direction
 
@@ -39,49 +41,39 @@ The reboot is planned as a monster-hunting tactical RPG with:
 - crafting/progression built from harvested materials;
 - one authoritative domain state shared by exploration, combat, harvest and presentation.
 
-The complete system/action list is in `WORLDLIFE_REBOOT_MASTER_PLAN.md`.
-
 ## Current technology status
 
 Engine is **not locked**.
 
-Current discussion recommendation is to test Godot 4.7 with Compatibility rendering against the real Android target phone because the reboot needs integrated 2D+3D scenes, animation, game input and first-person/aerial presentation. LibGDX/Kotlin remains a candidate. Continuing Compose+SceneView is not the preferred default because too much game-engine functionality would remain custom.
+Current discussion recommendation is to test Godot 4.7 with Compatibility rendering against the real Android target phone. LibGDX/Kotlin remains a candidate. Compose+SceneView is not the preferred default for the reboot.
 
-No engine decision becomes authoritative until the user approves it and a tiny target-phone probe verifies compatibility.
+## Legacy cleanup decision
 
-## Legacy source authority
+Confirmed:
 
-Frozen legacy source:
+- delete/remove the old active WorldLife implementation from the active project area;
+- remove old active APK/build/runtime artifacts from the area used by the reboot;
+- reuse the same GitHub/Drive project area for the new game;
+- do not migrate old gameplay code into the new source tree by default;
+- keep at most a rollback-only archive outside the active path.
 
-- version: `0.5.8`
-- package: `com.jackwilson.worldlife`
-- Drive folder: `https://drive.google.com/drive/folders/1WABizspRFJxOURbTpqbPdIAda2Uv00Qp`
-- SHA-256: `478d99cd5cafbc350910ad5820d47d6ac656d80332c1cc6ddc85d9cdecef8822`
+Still open:
 
-This source is historical evidence only. Do not mutate it into the reboot.
-
-## Destructive cleanup rule
-
-The user requested deletion of the old game, but also ordered this planning pass and discussion before creation.
-
-Following EVOLVE destructive-operation rules, permanent deletion is staged rather than executed blindly:
-
-- preserve rollback/history now;
-- discuss exactly which Drive source/APKs/GitHub branches/package/save data should be deleted;
-- after explicit post-discussion execution approval, perform bounded cleanup and verify post-state.
-
-Never destroy valuable legacy state merely because reconstruction seems possible.
+- phone-installed old package/save deletion;
+- package ID/signing lineage;
+- whether any old assets are intentionally salvaged after review.
 
 ## Current exact next action
 
 **DISCUSS THE REBOOT DESIGN WITH THE USER.**
 
-Resolve the open decisions in `WORLDLIFE_REBOOT_DISCUSSION_CHECKLIST.md` and revise the master plan as decisions are made.
+No gameplay implementation starts until the user explicitly ends the discussion hold.
 
 Status gates:
 
 - `REBOOT_DESIGN_RECORDED = YES`
 - `REBOOT_SOURCE_CREATED = NO`
-- `LEGACY_SOURCE_DELETED = NO`
+- `LEGACY_ACTIVE_PROJECT_CLEANUP_APPROVED = YES`
+- `ACTIVE_PROJECT_AREA_REUSE = YES`
 - `IMPLEMENTATION_AUTHORIZED = NO`
 - `NEXT_ACTION = DISCUSSION`
