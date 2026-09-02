@@ -5,128 +5,146 @@ Last reconciled: 2026-09-02
 
 This repository/project area is being reused for a completely new game. WorldLife RPG is no longer the active project and is not the implementation base.
 
-`Unnamed Hunt RPG` is only a temporary working label.
+`Unnamed Hunt RPG` is a temporary working label.
 
 # 1. What this game is
 
 A grounded stylized monster-hunting tactical RPG with two connected modes:
 
-1. **Exploration** — angled aerial 2.5D/3D wilderness presentation, physically traversed and readable like a living illustrated diorama.
+1. **Exploration** — angled aerial 2.5D/3D wilderness presentation, physically traversed like a living illustrated diorama.
 2. **Combat** — first-person turn-based tactical encounters using the same monster, injuries, terrain, cover, range and encounter context.
 
 Core loop:
-
-`PREPARE → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → CRAFT/UPGRADE/RESEARCH → HUNT HARDER PREY`
+`PREPARE → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → CRAFT/EQUIP/UPGRADE/RESEARCH → HUNT HARDER PREY`
 
 # 2. Visual identity
 
-The world should have the readable dimensional-overview philosophy discussed with Paper Mario as a point of comparison, but it is **not** made of paper/cardboard and does not copy Paper Mario's art.
+The world uses the readable dimensional-overview philosophy discussed with Paper Mario only as a camera/readability comparison. It is **not** a paper/cardboard game and does not copy Paper Mario art.
 
-The intended identity is:
-
+Identity:
 **an illustrated hunting world brought to life**
 
 Current direction:
 - grounded stylized wilderness/frontier fantasy;
-- aerial camera roughly 40–50° downward as current target;
-- player and major monsters preferably stylized 3D;
-- 2D/billboard/impostor details used selectively when they improve Android performance;
-- nature and major silhouettes before tiny decorative density;
-- settlements use wood, stone, metal, canvas, rope, leather, ceramic, bone, shell/hide and monster-derived materials;
-- UI resembles practical hunter field tools/notes rather than generic glossy mobile menus.
+- aerial camera around 40–50° downward as current target;
+- player/major monsters preferably stylized 3D;
+- selective 2D/billboard/impostor details for Android efficiency;
+- nature and strong silhouettes before decorative density;
+- frontier settlement materials such as wood, stone, metal, canvas, rope, leather, ceramic, bone/shell/hide;
+- practical hunter field-document UI rather than glossy generic mobile menus.
 
 See `GAME_EXPERIENCE_BIBLE.md` and `VISUAL_WORLD_BEHAVIOR_BIBLE.md`.
 
 # 3. Game introduction and feel
 
 Planned player flow:
+`LAUNCH → TITLE → NEW/CONTINUE → INTRODUCTION → HUB/OUTPOST → FIRST ASSIGNMENT → TRACKING → FIRST MONSTER → FIRST TACTICAL BATTLE → HARVEST → FIRST CRAFT/EQUIP UPGRADE`
 
-`LAUNCH → TITLE → NEW/CONTINUE → INTRODUCTION → HUB/OUTPOST → FIRST ASSIGNMENT → TRACKING → FIRST MONSTER → FIRST TACTICAL BATTLE → HARVEST → FIRST CRAFT/UPGRADE`
+Tutorial teaches the real hunt loop through play.
 
-The tutorial should teach the complete hunt loop through play rather than a long lore dump.
+Music is state-based: title, hub, exploration, threat/tension, encounter sting, combat, phase/enrage intensity, victory/post-hunt and harvest/return ambience.
 
-Music is state-based:
-- title identity;
-- safer hub theme;
-- sparse region exploration;
-- nearby-threat tension;
-- encounter sting;
-- combat base;
-- monster phase/enrage intensification;
-- victory/post-hunt release;
-- harvest/return ambience.
-
-Critical monster telegraph/audio information outranks decorative ambience and music.
+Critical telegraph/audio information outranks ambience/music.
 
 # 4. Exploration behavior
 
 Exploration is physical, not a menu map.
 
-Regions contain:
-- terrain/traversal;
-- landmarks;
-- monster territories;
-- tracks/signs;
-- cover/hazards;
-- camps;
-- resources;
-- encounter-capable areas;
-- region exits/transitions.
+Regions contain terrain/traversal, landmarks, monster territories, deterministic NPC/creature routines, tracks/signs, cover/hazards, camps, resources, encounter-capable areas and exits.
 
-The world communicates through footprints, broken vegetation, scratches, blood, calls, feeding remains, nests and environmental damage before relying on glowing waypoint UI.
+The world communicates through footprints, broken vegetation, scratches, blood, calls, feeding remains, nests and environmental damage before relying on glowing waypoints.
 
 # 5. Combat behavior
 
-Combat begins by transitioning the camera down from the aerial world into first person.
+Combat transitions the camera from the aerial world into first person while preserving encounter context.
 
-The player may eventually choose among actions such as:
-- reposition left/right/forward/back;
-- close/open distance;
-- flank/circle;
-- enter/leave cover;
-- crouch/brace/guard;
-- dodge/block/parry when legal;
-- attack with weapon techniques;
-- select a specific body part;
-- inspect/analyze;
-- use items/tools/traps;
-- prepare reactions;
-- recover stamina;
-- escape/retreat when legal.
+Possible actions include repositioning, range control, flanking, cover, posture, dodge/block/parry, targeted attacks, inspection, tools/traps, reactions, stamina recovery and escape.
 
-The current prototype candidate uses Action Points + stamina + a limited reaction resource, but final numbers/rules remain discussion decisions.
+Current action-economy candidate: small Action Point budget + stamina + limited reaction resource. Exact values remain open.
 
-# 6. Anatomy and harvesting
+# 6. Stats and attributes
+
+Detailed authority: `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
+
+Current six-role design direction:
+- **Might** — force/heavy handling/break/stagger;
+- **Finesse** — precision execution/sever/technique;
+- **Agility** — movement/dodge/initiative/footing;
+- **Endurance** — stamina/sustain/environmental strain;
+- **Perception** — tracking/target acquisition/inspection/telegraph reading;
+- **Resolve** — composure/stagger/shock/fear resistance where used.
+
+Attributes are bounded. Current recommended internal scale is 1–100, while actual practical ranges/growth are still balance decisions.
+
+AP/reaction economy does not scale freely from attributes or gear.
+
+# 7. Equipment, status and terrain effects
+
+Equipment, statuses, terrain, weather, posture and tactical context all use one shared effect/modifier system.
+
+Conceptual order:
+`BASE → PROGRESSION → EQUIPMENT → INJURY/ANATOMY → STATUS → POSTURE → TERRAIN/WEATHER → COVER/RANGE/BEARING → ACTION → TARGET DEFENSE → CAPS`
+
+Important rules:
+- explicit stacking policy;
+- bounded bonuses/penalties;
+- duplicate sources cannot stack infinitely;
+- movement/AP/stamina costs have floors;
+- resistance has caps unless explicit immunity exists;
+- development builds can show the exact calculation trace;
+- derived stats are cached and recalculated only when inputs change;
+- contextual hit quality is preferred over a generic hidden critical-hit chance.
+
+Terrain is real gameplay context. Mud, water, brush, elevation, slopes, narrow ground, ice and similar surfaces can affect movement, footing, visibility, tracks and legal tactics through explicit reusable effects.
+
+# 8. Deterministic NPC and creature behavior
+
+Detailed authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
+
+**There is no AI behavior system.**
+
+NPCs and creatures use authored patterns built from:
+- states/phases;
+- schedules where relevant;
+- explicit `IF / ELSE IF / ELSE` conditions;
+- priorities;
+- cooldowns;
+- capability requirements;
+- situation/terrain/weather flags;
+- deterministic tie policy;
+- optional seeded variation only where explicitly authored.
+
+Simple NPCs have simple patterns. Important monsters/bosses can have layered conditions/phases, but every decision remains inspectable and reproducible.
+
+Behavior requests the same legal domain actions as normal gameplay and cannot bypass AP, anatomy, terrain or status rules.
+
+# 9. Anatomy and harvesting
 
 Monster anatomy is gameplay authority.
 
-Body parts can have:
-- integrity;
-- armor/structure;
-- exposure rules;
-- break/sever/destroy states;
-- capability effects;
-- harvest capacities.
+Parts can have integrity, protection, exposure, break/sever/destroy states, capability effects and harvest capacity.
 
 Examples:
-- broken leg affects locomotion;
+- broken leg affects movement;
 - broken wing affects flight;
 - severed tail removes tail actions;
-- broken armor exposes vulnerable structure;
-- damaged eye affects perception/accuracy.
+- broken armor exposes structure;
+- damaged eye affects perception/targeting.
 
-Harvest is derived from what remains physically usable. A destroyed unique structure cannot yield a pristine duplicate reward.
+Harvest is derived from what remains usable. Destroyed unique anatomy cannot produce pristine duplicate rewards.
 
-# 7. Architecture law
+# 10. Architecture law
 
 There is one authoritative game state.
 
 ```text
-INPUT / AI INTENT
+PLAYER INPUT / AUTHORED BEHAVIOR PATTERN INTENT
         ↓
 ACTION REQUEST
         ↓
 VALIDATION
+        ↓
+SHARED CONTEXT / EFFECT EVALUATION
         ↓
 DOMAIN RESOLUTION
         ↓
@@ -137,77 +155,62 @@ SAVE / REPLAY / DEBUG
 PRESENTATION / ANIMATION / AUDIO / UI
 ```
 
-UI, animation and rendering never secretly decide hits, severing, loot, tactical position or persistent progression.
+UI, animation and rendering never secretly decide hits, severing, loot, tactical position or progression.
 
-# 8. Internal structure
+# 11. Internal structure
 
-The future source is planned around separated responsibilities:
-- world/region/exploration domain;
-- encounter/turn domain;
-- creature/anatomy/damage domain;
-- AI;
+Future source is separated into:
+- world/region/exploration;
+- encounter/turn;
+- creature/anatomy;
+- stats/effects/status/terrain;
+- damage;
+- deterministic behavior patterns;
 - harvest;
 - inventory/equipment;
 - crafting;
 - research/progression;
 - persistence;
 - content definitions;
-- aerial presentation;
-- combat presentation;
+- aerial/combat presentation;
 - audio/VFX/UI;
-- admin/debug/creator tooling;
+- admin/debug/creator tools;
 - tests/validators.
 
 See `SYSTEM_ARCHITECTURE_BLUEPRINT.md` and `CODE_GUIDE.md`.
 
-# 9. Content structure
+# 12. Content structure
 
-Content is data-driven where practical:
-- species;
-- anatomy;
-- attacks;
-- behavior profiles;
-- weapons/techniques;
-- materials;
-- harvest sources;
-- recipes;
-- regions;
-- encounter layouts;
-- statuses/knowledge later.
+Data-driven definitions can include species, NPCs, anatomy, attacks, behavior profiles/rules, attributes, effects, statuses, terrain/weather, weapons/equipment, techniques, materials, harvest, recipes, regions and encounter layouts.
 
-Stable IDs are never replaced casually after saves depend on them.
+Stable IDs are never casually reused after saves depend on them.
 
 See `CONTENT_DATA_GUIDE.md`.
 
-# 10. Performance and bug isolation
+# 13. Performance and bug isolation
 
-The project must use explicit caps/budgets rather than letting systems grow unbounded.
+Explicit caps/budgets are required.
 
-Protect first:
-1. input responsiveness;
-2. gameplay correctness;
-3. monster anatomy readability;
-4. telegraphs;
-5. camera stability;
-6. frame pacing;
-7. world readability;
-8. audio cues;
-9. decoration.
+Protect input, gameplay correctness, anatomy readability, telegraphs, camera/frame pacing, world readability and audio cues before decorative detail.
 
-Development builds should be able to independently disable/isolate expensive systems such as particles, shadows, foliage, ambient wildlife, high-detail monster rendering, music, damage decals and roaming AI.
+Development builds should isolate particles, shadows, foliage, ambient wildlife, high-detail monster rendering, audio/music, damage decals, roaming behavior evaluation, calculation tracing and other scalable systems independently.
+
+Behavior is event/decision-driven rather than evaluated every frame. Derived stats are cached rather than recalculated every frame.
 
 See `PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
-# 11. Admin / Creator system
+# 14. Admin / Creator system
 
-The future Admin system is not just cheats. It is a creation and debugging workbench.
+The future Admin system is a creation/debug workbench.
 
 Planned capabilities:
-- state inspectors;
-- anatomy tree/part condition inspector;
-- live combat debugger;
-- typed admin test commands;
-- creature/anatomy/attack editors;
+- state/stat/modifier inspectors;
+- exact calculation traces;
+- status/terrain/weather test controls;
+- deterministic behavior-rule debugger/editor;
+- anatomy/combat inspector;
+- typed test commands;
+- creature/NPC/equipment/effect editors;
 - harvest simulator;
 - encounter layout builder;
 - region debug overlays;
@@ -216,41 +219,38 @@ Planned capabilities:
 - performance dashboard;
 - content validation/import/export.
 
-Creator tools operate through validated domain/content services; they do not become a hidden second rules engine.
+Creator tools use validated domain/content services and never become a second rules engine.
 
-See `ADMIN_CREATOR_SYSTEM.md`.
+# 15. Development order
 
-# 12. How development proceeds
-
-The build order is deliberately layered:
-
-`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/CRAFTING → EXPLORATION DOMAIN → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT EXTENSIBILITY → WORLD EXPANSION`
+`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → EXPLORATION DOMAIN → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
 
 See `IMPLEMENTATION_ROADMAP.md`.
 
-# 13. First vertical slice
+# 16. First vertical slice
 
 Only after explicit implementation authorization:
 - one compact region;
 - one hunter;
 - one monster species/instance;
-- one weapon family;
+- one deterministic behavior profile;
+- one weapon/equipment set;
+- six prototype attributes;
+- shared effect system;
+- small terrain/status set;
 - aerial tracking/approach;
 - same-world transition to first-person combat;
-- roughly 6–8 meaningful targetable parts;
-- tactical movement/cover/defense;
-- break and sever behavior;
-- monster capability changes;
+- roughly 6–8 targetable parts;
+- tactical movement/cover/terrain/defense;
+- break/sever;
+- anatomy-dependent behavior changes;
 - condition-based harvest;
-- one craftable upgrade;
+- one craft/equip upgrade;
 - save/reload;
-- target Android phone verification.
+- target Android verification.
 
-Do not scale into a huge bestiary/map/crafting tree before this loop is proven.
+# 17. Documentation order — basic to detailed
 
-# 14. Documentation order — basic to detailed
-
-Read:
 1. `START_HERE_NEW_CHAT.md`
 2. `README.md`
 3. `PROJECT_HANDOFF.md`
@@ -259,42 +259,34 @@ Read:
 6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 7. `NEW_GAME_MASTER_PLAN.md`
 8. `MECHANICAL_SYSTEMS_GUIDE.md`
-9. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-10. `CONTENT_DATA_GUIDE.md`
-11. `CODE_GUIDE.md`
-12. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-13. `ADMIN_CREATOR_SYSTEM.md`
-14. `TESTING_VERIFICATION_PLAN.md`
-15. `IMPLEMENTATION_ROADMAP.md`
-16. `DEVELOPMENT_REFERENCE.md`
-17. `EVOLVE_ALIGNMENT.md`
-18. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+9. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+10. `BEHAVIOR_PATTERN_SYSTEM.md`
+11. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+12. `CONTENT_DATA_GUIDE.md`
+13. `CODE_GUIDE.md`
+14. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+15. `ADMIN_CREATOR_SYSTEM.md`
+16. `TESTING_VERIFICATION_PLAN.md`
+17. `IMPLEMENTATION_ROADMAP.md`
+18. `DEVELOPMENT_REFERENCE.md`
+19. `EVOLVE_ALIGNMENT.md`
+20. `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
-`DOCUMENTATION_INDEX.md` explains what each file owns.
+# 18. Verification discipline
 
-# 15. Verification discipline
-
-Use precise states:
-- DESIGNED;
-- IMPLEMENTED;
-- STATIC_VERIFIED;
-- CONTENT_VALIDATED;
-- UNIT_TESTED;
-- INTEGRATION_TESTED;
-- COMPILED;
-- APK_BUILD_VERIFIED;
-- PHONE_RUNTIME_VERIFIED;
-- VISUAL_QUALITY_VERIFIED;
-- PERFORMANCE_VERIFIED.
+Use precise gates: DESIGNED, IMPLEMENTED, STATIC_VERIFIED, CONTENT_VALIDATED, UNIT_TESTED, INTEGRATION_TESTED, COMPILED, APK_BUILD_VERIFIED, PHONE_RUNTIME_VERIFIED, VISUAL_QUALITY_VERIFIED, PERFORMANCE_VERIFIED.
 
 Do not claim a higher state from lower evidence.
 
-# 16. Current state
+# 19. Current state
 
 - NEW_GAME_DESIGN_RECORDED = YES
 - PLAYER_EXPERIENCE_GUIDE = YES
 - VISUAL_WORLD_BEHAVIOR_DESIGNED = YES
 - MECHANICAL_SYSTEMS_GUIDE = YES
+- STATS_EFFECTS_SYSTEM_DESIGNED = YES
+- DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
+- AI_BEHAVIOR_SYSTEM = NO
 - SYSTEM_ARCHITECTURE_PLANNED = YES
 - CONTENT_DATA_PIPELINE_PLANNED = YES
 - CODE_STRUCTURE_PLANNED = YES
