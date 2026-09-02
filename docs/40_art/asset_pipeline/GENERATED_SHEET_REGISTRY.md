@@ -7,8 +7,11 @@ Last reconciled: 2026-09-02
 
 Track the planned/generated Hunter Base 01 and Monster 01 sheet sequence.
 
-Cross-lane identity, lineage, parent/master relationships and permitted-use authority now belong to:
+Cross-lane identity, lineage, parent/master relationships and permitted-use authority belong to:
 `ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`.
+
+Per-asset QA decisions live under:
+`docs/40_art/reviews/`.
 
 This registry remains the task-order/view-specific sheet tracker.
 
@@ -17,6 +20,7 @@ This registry remains the task-order/view-specific sheet tracker.
 - `PLANNED` — specification exists; image not generated.
 - `GENERATED_UNREVIEWED` — pixels exist but dedicated QA review has not completed.
 - `GENERATED_PERSISTENCE_UNVERIFIED` — local/generated output was reported, but current Drive persistence has not been read back.
+- `REVIEWED_WITH_ISSUES` — dedicated QA completed and current revision requires correction before promotion.
 - `SELECTED_REFERENCE` — explicitly approved to guide visual/modeling work.
 - `CONVERSION_INPUT_CANDIDATE` — clean enough for image-to-3D test after conversion preflight.
 - `RUNTIME_2D_CANDIDATE` — may be cleaned/exported for actual 2D game use.
@@ -48,29 +52,61 @@ Direct runtime use: NO
 Current file:
 `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
 
-Drive destination/current verified location:
+Drive location:
 `01_Modeling_References/Hunter`
 Drive file ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
-Current status: `GENERATED_UNREVIEWED`
 
-Required QA before selection:
-- front/side/back consistency;
-- neutral pose validity;
-- silhouette/anatomy defects;
-- numeric scale reconciliation to 1.75 m;
-- generated labels ignored/corrected;
-- native-pixel and close-detail review.
+Current status: `REVIEWED_WITH_ISSUES`
+Current decision: `REVISE`
+Permitted use: `DISCUSSION_ONLY`
+QA record: `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
 
-Do not copy to `03_3D_Conversion_Inputs/Hunter` until conversion preflight passes.
+Main v001 defects:
+- real figure detail is too soft for technical modeling despite large composed canvas;
+- face/hands/boots/harness seams lack trustworthy native detail;
+- front/side/back gear construction is inconsistent;
+- no required clean 3/4 confirmation view;
+- views are illustrative, not conversion-safe multiview references;
+- neutral production base is too close to a fixed armored male-ranger identity.
+
+Preserve in v002:
+- grounded frontier direction;
+- realistic adult general proportion;
+- readable boot/shoulder/layered-garment silhouette;
+- restrained practical material family;
+- numeric height remains 1.75 m from Markdown.
+
+Do **not** copy v001 to `03_3D_Conversion_Inputs/Hunter`.
 
 #### H01 derivative
 File:
 `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
 Drive file ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
-Status: `GENERATED_UNREVIEWED`
+Status: `REVIEWED_WITH_ISSUES`
 Class: reference derivative only.
+Permitted use: `DISCUSSION_ONLY`.
 
-It may assist close visual inspection but cannot create authoritative missing detail or automatically replace the original as conversion input.
+The upscale can improve viewing comfort but cannot recover authoritative missing hand/face/gear construction or become the next technical master.
+
+#### H01 required next revision
+Planned new filename:
+`HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png`
+
+Required:
+- clean front;
+- clean left side;
+- clean back;
+- right side if practical;
+- separate clean 3/4 confirmation;
+- neutral modeling stance;
+- identical body/gear construction across views;
+- less metal coverage for neutral base;
+- modular protection boundaries;
+- no held weapon;
+- no strong final protagonist identity;
+- enough native pixels for hands/boots/harness seams without relying on upscale invention.
+
+Status: `PLANNED REVISION`.
 
 ### SHEET-H02 — Hunter modular-equipment silhouettes
 Current file:
@@ -81,8 +117,10 @@ Drive location:
 Drive file ID: `1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
 Current status: `GENERATED_UNREVIEWED`
 
-Required review:
-- same base-body scale across variants;
+Do not review/promote H04 until H02 v002 establishes the corrected neutral base. Otherwise equipment variants may be judged against a base silhouette already known to be wrong.
+
+Required later review:
+- same corrected base-body scale across variants;
 - light / balanced / reinforced silhouette separation;
 - no visible generated weapon treated as locked weapon design;
 - modular gear seams remain practical;
@@ -180,18 +218,16 @@ a separately registered/cleaned bestiary illustration crop may become a `RUNTIME
 
 ## Current generation/review order
 
-Generation occurred through the seven-sheet sequence, but persistence and review are incomplete.
+The previous queue is intentionally paused.
 
-Current next bounded action is **not** to generate another sheet.
+Current bounded order:
+1. create `HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png` from the recorded v001 QA revision request;
+2. review v002 against the same gates;
+3. only if v002 becomes acceptable, review/revise H04 against that corrected base;
+4. then return to Monster 01 visual QA;
+5. restore/verify Monster M02–M05 Drive persistence before claiming those sheets are safely stored.
 
-Next:
-1. review `SHEET-H01` using `ASSET_QA_GATES.md`;
-2. decide `SELECT`, `REVISE`, or `REJECT`;
-3. update manifest/registry;
-4. only then review `SHEET-H02`;
-5. continue one sheet at a time.
-
-Separately, before Monster M02–M05 can enter review, their current Drive persistence must be verified or restored.
+Do not bulk-generate another full queue before the earliest broken dependency is corrected.
 
 ## Review law
 
@@ -211,7 +247,10 @@ For runtime 2D derivatives:
 
 ## Current gate
 
-`SHEET_H01 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
+`SHEET_H01_V001 = REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
+`SHEET_H01_V001_TECHNICAL_MODELING_USE = NO`
+`SHEET_H01_V001_CONVERSION_USE = NO`
+`SHEET_H01_V002 = PLANNED REVISION`
 `SHEET_H02 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
 `SHEET_M01 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
 `SHEET_M02 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
