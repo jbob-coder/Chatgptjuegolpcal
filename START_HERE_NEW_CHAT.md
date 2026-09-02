@@ -24,22 +24,23 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 4. `DOCUMENTATION_INDEX.md`
 5. `GAME_EXPERIENCE_BIBLE.md`
 6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
-7. `NEW_GAME_MASTER_PLAN.md`
-8. `MECHANICAL_SYSTEMS_GUIDE.md`
-9. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-10. `BEHAVIOR_PATTERN_SYSTEM.md`
-11. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-12. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-13. `CONTENT_DATA_GUIDE.md`
-14. `CODE_GUIDE.md`
-15. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-16. `ADMIN_CREATOR_SYSTEM.md`
-17. `TESTING_VERIFICATION_PLAN.md`
-18. `IMPLEMENTATION_ROADMAP.md`
-19. `DEVELOPMENT_REFERENCE.md`
-20. `EVOLVE_ALIGNMENT.md`
-21. `NEW_GAME_DISCUSSION_CHECKLIST.md`
-22. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
+7. `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
+8. `NEW_GAME_MASTER_PLAN.md`
+9. `MECHANICAL_SYSTEMS_GUIDE.md`
+10. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+11. `BEHAVIOR_PATTERN_SYSTEM.md`
+12. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+13. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+14. `CONTENT_DATA_GUIDE.md`
+15. `CODE_GUIDE.md`
+16. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+17. `ADMIN_CREATOR_SYSTEM.md`
+18. `TESTING_VERIFICATION_PLAN.md`
+19. `IMPLEMENTATION_ROADMAP.md`
+20. `DEVELOPMENT_REFERENCE.md`
+21. `EVOLVE_ALIGNMENT.md`
+22. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+23. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
 
 ## Locked direction so far
 
@@ -52,6 +53,21 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 - first-person combat entered from same encounter context;
 - restrained hunter-field-document UI;
 - state-based music/audio.
+
+### World/map structure
+- no single enormous always-loaded open world;
+- macro World Atlas for long-distance geography/travel;
+- settlements/hubs are dense safe social/service runtime spaces;
+- frontier gate/outpost transition separates civilization from active wilderness;
+- hunting regions are physical aerial spaces divided into streamable sectors;
+- first-person battlefields are local tactical footprints derived from the exact wilderness location;
+- danger gradient: `Settlement Core → Frontier/Outpost → Field Camp → Wilderness → Deep Territory/Nest`;
+- ordinary random monster combat does not occur in settlement cores;
+- rare authored settlement emergencies remain a future option;
+- long-distance/fast travel may remove empty repetition but cannot skip directly to an undiscovered monster;
+- off-screen world/ecology state uses bounded persistent aggregates rather than running everything everywhere.
+
+Detailed authority: `MAP_WORLD_SETTLEMENT_STRUCTURE.md`.
 
 ### Gameplay
 - physical region exploration/tracking;
@@ -86,8 +102,7 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 - crystal **Tier, Rank, Quality, Element, Energy and Condition** are distinct concepts;
 - mutation is data-driven and can change anatomy, capabilities, effects, elemental/terrain adaptation, deterministic behavior and harvest;
 - mutation combinations are bounded through prerequisites/incompatibilities/support limits;
-- off-screen ecology uses region/species aggregate state rather than full individual simulation;
-- long-term hunting-pressure/migration/population feedback is a later expansion candidate, not a first-slice requirement.
+- off-screen ecology uses region/species aggregate state rather than full individual simulation.
 
 ### Architecture
 - one authoritative game state;
@@ -103,7 +118,7 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 
 Anything scalable requires a cap/budget, cleanup/unload behavior, instrumentation, isolation toggle when practical and target-device verification.
 
-Behavior evaluation is decision/event-driven, derived stats are cached, mutation generation occurs only at explicit boundaries, and off-screen ecology uses aggregates.
+Settlement, frontier, hunting-region and combat spaces use different simulation/render budgets. Current/adjacent wilderness sectors get full activity; distant/off-screen state is reduced or aggregate.
 
 Do not sacrifice input/tactical readability/anatomy/telegraphs/simulation correctness before decoration.
 
@@ -114,14 +129,13 @@ Future development tools should include:
 - calculation traces;
 - status/effect/terrain test tools;
 - deterministic behavior pattern trace/editor;
-- crystal Energy/Tier/Rank/Quality/Element/Condition inspector;
-- berserk drain debugger;
-- mutation editor/validator;
-- ecosystem pressure/population simulator;
+- crystal/mutation/ecology tools;
+- world-atlas node/route editor;
+- settlement anchor/service overlays;
+- region-sector/streaming/ecology overlays;
+- encounter-footprint/tactical-node/cover preview;
 - anatomy/attack editors;
 - harvest simulator;
-- encounter builder;
-- region overlays;
 - replay/save/performance tools;
 - content validation/export.
 
@@ -129,25 +143,21 @@ They never become a hidden second rules engine.
 
 ## Implementation sequence
 
-`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CRYSTAL/MUTATION CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → EXPLORATION DOMAIN → ECOLOGY AGGREGATE → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
+`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CRYSTAL/MUTATION CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → SETTLEMENT/REGION STRUCTURE → EXPLORATION DOMAIN → ECOLOGY AGGREGATE → AERIAL PRESENTATION → COMPLETE SETTLEMENT↔HUNT LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
 
 ## Current exact next action
 
 Continue design discussion, especially:
+- first settlement layout/services/identity;
+- first hunting-region biome and sector arrangement;
+- settlement gate/loading transition style;
+- field-camp/fast-travel/save rules;
+- settlement defense lore and human crystal use;
 - exact crystal tier/rank/quality/element structure;
-- normal crystal-energy recovery;
-- exact berserk rules;
+- normal crystal-energy recovery and berserk rules;
 - mutation origin/inheritance;
-- human relationship/use of crystals;
-- exact starting attributes/growth;
-- health/stamina/AP/reaction model;
-- equipment slots/burden;
-- first status/terrain effects;
-- damage/hit-quality/resistance formulas;
-- first monster behavior/mutation/crystal profile;
-- world premise/history;
-- hunter role;
-- first hub/region/weapon;
+- starting attributes/growth and health/stamina/AP/reaction model;
+- first monster/weapon/status/terrain set;
 - target Android/engine.
 
 Do not create gameplay source until the user explicitly says to begin.
@@ -156,6 +166,8 @@ Do not create gameplay source until the user explicitly says to begin.
 
 DESIGN_RECORDED = YES
 DOCUMENTATION_SYSTEM_RECORDED = YES
+WORLD_MAP_STRUCTURE_DESIGNED = YES
+SETTLEMENT_HUNTING_REGION_SEPARATION_DESIGNED = YES
 MECHANICS_DOCUMENTED = YES
 STATS_EFFECTS_SYSTEM_DESIGNED = YES
 DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
