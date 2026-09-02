@@ -10,26 +10,35 @@ WorldLife is not active and must not be resumed.
 
 `Unnamed Hunt RPG` remains a temporary working name.
 
+## Mandatory first read
+
+**Read `EVOLVE_ALIGNMENT.md` before every bounded pass.**
+
+Do not rely on remembered EVOLVE state.
+
+After EVOLVE, read this file, the current handoff, readiness matrix and the owning source/package for the exact task.
+
 ## Current phase
 
-**STAGE 1 ENGINE/ANDROID PROBE SOURCE CREATED + VERIFICATION PENDING**
+**STAGE 1 ENGINE/ANDROID PROBE SOURCE CREATED + VERIFICATION PENDING / COMBAT DESIGN CONTINUES IN BOUNDED PACKETS**
 
 Implementation authorization is active.
 
 Implementation still follows EVOLVE and the Build Readiness Gate Matrix. Authorization does not permit skipping directly to production combat or the full vertical slice.
 
-## Read first
+## Read order
 
-1. `START_HERE_NEW_CHAT.md`
-2. `README.md`
-3. `PROJECT_HANDOFF.md`
-4. `DOCUMENTATION_INDEX.md`
-5. `docs/README.md`
-6. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-7. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
-8. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
-9. `probes/android_stage1/README.md`
-10. owning package for the current bounded task.
+1. `EVOLVE_ALIGNMENT.md`
+2. `START_HERE_NEW_CHAT.md`
+3. `README.md`
+4. `PROJECT_HANDOFF.md`
+5. `DOCUMENTATION_INDEX.md`
+6. `docs/README.md`
+7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
+8. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
+9. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
+10. `probes/android_stage1/README.md`
+11. owning package for the current bounded task.
 
 ## Build readiness classes
 
@@ -46,7 +55,7 @@ Primary law:
 Current gate state:
 - engine probe: **SOURCE CREATED / EXECUTION PENDING**;
 - domain implementation: blocked by engine/phone probe evidence;
-- combat design: partial;
+- combat design: **PARTIAL / ACTION ECONOMY + RESOLUTION RECORDED**;
 - vertical slice: partial;
 - expansion: intentionally open.
 
@@ -92,7 +101,7 @@ This source is deliberately isolated from the future production game/domain sour
 **Verify the existing probe in Godot before adding anything else.**
 
 Required next evidence:
-1. open `probes/android_stage1/project.godot` with Godot 4.7;
+1. open `probes/android_stage1/project.godot` with Godot 4.7-family tooling;
 2. fix any project/scene/GDScript parse errors;
 3. run Boot;
 4. enter ProbeWorld;
@@ -109,11 +118,50 @@ Only after that passes:
 
 Do not add real combat, harvesting, crafting or final production assets before the existing skeleton passes its current verification gate.
 
+## Combat design — recorded
+
+Package:
+`docs/20_gameplay/combat/`.
+
+### Action economy
+Authority:
+`ACTION_ECONOMY_CONTRACT.md`.
+
+Selected first-slice prototype:
+- 4 AP;
+- 1 RP;
+- persistent Stamina;
+- AP does not bank;
+- explicit reaction windows;
+- reaction recursion blocked.
+
+### Combat resolution / hit quality / defense
+Authority:
+`COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
+
+Selected architecture:
+- deterministic hard legality/exposure/cover/anatomy truth;
+- one frozen resolution context;
+- AttackControl vs DefenseControl;
+- selected-part contact distinct from general body contact;
+- directional physical cover;
+- Dodge/Block/Parry/Brace have distinct purposes;
+- one bounded seeded variance source per committed attack resolution;
+- no separate hidden random critical-hit roll;
+- hit-quality classes: `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- local cover/guard/armor/anatomy protection ordering;
+- off-target body contact when the technique explicitly allows it;
+- mandatory development calculation trace.
+
+Numeric thresholds remain balance-open.
+
 ## Independent next design piece
 
-`Combat Resolution / Hit Quality and Defense Contract`.
+**First Weapon Family Contract**.
 
-This can proceed independently because final hit formulas are not required for the renderer/device probe.
+This should define one weapon family only and instantiate the existing action-economy and hit-resolution architecture.
+
+Do not create a large weapon roster yet.
 
 ## Locked game direction
 
@@ -144,18 +192,6 @@ Selected:
 **HYBRID / EQUIPMENT + MASTERY + KNOWLEDGE WEIGHTED.**
 
 No universal gear-score treadmill; AP is not routine progression; anatomy/terrain/preparation remain relevant.
-
-### Combat economy
-Selected first-slice prototype:
-- 4 AP;
-- 1 RP;
-- persistent Stamina;
-- AP does not bank;
-- explicit reaction windows;
-- reaction recursion blocked.
-
-Authority:
-`docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`.
 
 ### Crystal/mutation
 - crystal Energy is life force;
@@ -209,8 +245,8 @@ S06 Nesting Shelf/Crystal Fault
 `FINAL_ENGINE_SELECTED = NO / PROBE_PENDING`
 `DOMAIN_IMPLEMENTATION = BLOCKED_BY_STAGE_1_GATE`
 `COMBAT_ACTION_ECONOMY = RECORDED`
-`COMBAT_RESOLUTION_PACKET = NOT YET RECORDED`
-`COMBAT_IMPLEMENTATION = BLOCKED`
+`COMBAT_RESOLUTION_CONTRACT = RECORDED`
+`COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`
 `VERTICAL_SLICE_IMPLEMENTATION = BLOCKED`
 
-Current explicit user instruction > current owning repository authority > verified source/test/device evidence > older documents > chat memory.
+Current explicit user instruction > current verified source/tests > current owning repository authority > verified build/runtime/device evidence > older documents > chat memory.
