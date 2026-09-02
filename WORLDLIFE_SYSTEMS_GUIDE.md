@@ -1,129 +1,214 @@
 # WorldLife RPG — Systems Guide
 
-Current reference: `0.5.8`.
+Status: `REBOOT DESIGN ONLY`.
 Last reconciled: 2026-09-02.
 
-Frozen source authority:
-`https://drive.google.com/drive/folders/1WABizspRFJxOURbTpqbPdIAda2Uv00Qp`
+No reboot gameplay system below is implemented yet. This document maps intended authority and subsystem relationships for discussion.
 
 ## Authority map
 
-- `GameState` — persistent simulation truth.
-- `GameEngine` — authoritative gameplay actions, admin commands, repair, quotes, time advancement.
-- `AdminCommand` — explicit creator/debug mutation vocabulary, separate from normal gameplay actions.
-- `OpenWorldCatalog` / geometry — exterior locations, schedules, collision/travel support.
-- `WorldCalendar` — deterministic weekday/year behavior.
-- `WorldLayoutCatalog` — save-stable Arclight Core and expansion seams.
-- `InteriorCatalog` — metre-scale room/portal topology.
-- `InteriorSessionState` — persisted fact that the player is inside a runtime-enabled interior.
-- `GameSaveJsonCodec` / DataStore — Android persistence/migration.
-- Compose/SceneView — presentation and input dispatch only.
+- `GameState` / equivalent reboot root state — persistent game truth.
+- `ExplorationState` — region/player/monster exploration state.
+- `EncounterState` — authoritative turn-based battle state.
+- `CombatResolver` — action legality and combat resolution.
+- `AnatomySystem` — body-part definitions/states and functional dependencies.
+- `MonsterAI` — chooses legal intentions/actions from encounter state.
+- `HarvestResolver` — converts accessible anatomy condition into bounded material results.
+- `Inventory/Equipment/Crafting` — persistent material/player progression.
+- presentation layers — aerial exploration and first-person combat rendering/input only.
 
-Core rule: presentation must not silently become a second gameplay engine.
+Core rule: presentation does not become a second game engine.
 
-## Persistent simulation loop
+## High-level gameplay loop
 
-Input/action → repository/DataStore transaction → `GameEngine` validates/mutates authoritative state → repair/invariants → persisted `GameState` → UI renders the resulting snapshot.
+`EXPLORE → TRACK → PREPARE → ENCOUNTER → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE/WIN/ESCAPE → HARVEST → CRAFT/UPGRADE → NEXT HUNT`
 
-Deterministic RNG, journal/history, player stats, money/reputation, world metrics, relationships, daily limits, calendar/year rollover and save migration all participate in the same persistent model.
+## Exploration loop
 
-## Exterior loop
+Aerial 2D/3D hybrid presentation reads authoritative exploration state.
 
-Move → engine validates geometry → time advances → discovery/location changes → SceneView presents state.
+Planned responsibilities:
 
-Fast travel, location actions and NPC TALK use engine quote/action APIs rather than duplicating legality in UI.
+- movement/collision;
+- region/sector loading;
+- monster roaming;
+- tracks/clues;
+- gathering;
+- terrain/cover tags;
+- encounter initiation;
+- camps/safe zones;
+- map/bestiary/quest access.
 
-Current save-stable exterior:
+Encounter creation snapshots relevant world state into `EncounterState` rather than creating an unrelated combat copy.
 
-- `60 × 40` simulation cells;
-- `4.0 m` per cell;
-- approximately `240 m × 160 m`;
-- four Arclight Core districts/sectors;
-- eight-direction movement;
-- diagonal corner-cut rejection;
-- human-scale roads/sidewalks/buildings;
-- third-person camera;
-- left movement joystick/right drag camera.
+## Combat loop
 
-Future growth attaches streamed sectors; old coordinates are not rescaled.
+`TURN START → choose movement/posture/attack/support action → validate AP/stamina/position/cover/target → resolve → emit events/mutate state → monster/next actor turn`
 
-## Social loop
+Player options are designed to include:
 
-Six stable residents have weekday/weekend location schedules, relationships, contextual TALK effects, daily-use limits and save-safe migration.
+- move/step left/right/forward/back;
+- close/create distance;
+- flank/circle;
+- enter/leave/reposition cover;
+- stand/crouch/brace/guard;
+- dodge/block/parry/reaction where legal;
+- quick/basic/heavy/precision attacks;
+- target a specific body part;
+- inspect/analyze;
+- items/tools/traps;
+- stamina recovery;
+- terrain interaction;
+- wait/pass;
+- retreat/escape.
 
-Stable resident IDs:
+Exact action economy remains open: AP pool is preferred for prototyping; Move/Main/Reaction is an alternative.
 
-- `npc_maya_ortiz`
-- `npc_theo_park`
-- `npc_priya_shah`
-- `npc_marcus_reed`
-- `npc_lena_brooks`
-- `npc_elena_ruiz`
+## Spatial combat loop
 
-City-wide schedules may remain simulated as data while only nearby bodies are rendered.
+Recommended first model: tactical nodes/range bands rather than unrestricted first-person locomotion.
 
-## Interior loop
+Each combat position may define:
 
-Current authority/presentation path:
+- range;
+- bearing;
+- cover;
+- elevation;
+- terrain;
+- movement links/costs;
+- escape link.
 
-Exterior home → `GameEngine.interiorEntryQuote()` → ENTER action → persisted `InteriorSessionState` → Android renders `InteriorWorldScreen` → EXIT action → exact exterior portal.
+First-person camera animates between authoritative positions.
 
-The first apartment uses the authoritative `8 m × 7 m` catalog footprint, room zones, human-scale furniture massing, residential materials/lighting, right-side camera look and cosmetic idle/breathing presentation.
+## Anatomy loop
 
-Interior local player position/collision/free-roam is still missing from core. The UI therefore must not fake gameplay-relevant indoor movement.
+Every monster has data-defined body parts.
 
-Required future order after phone stabilization:
+Part state progression can include:
 
-`core local position → bounds/collision → room detection → save/repair/tests → left-stick movement → locomotion presentation → interactions/animations`
+`INTACT → WOUNDED → BROKEN and/or SEVERED → DESTROYED`
 
-## Cheat/Admin loop
+Exact transitions depend on part definition.
 
-v0.5.8 establishes a creator/debug mutation path:
+Body parts own:
 
-System UI → Cheat/Admin command → `GameViewModel.applyAdminCommand()` → `AndroidGameRepository.dispatchAdmin()` → `GameEngine.applyAdminCommand()` → repaired/persisted `GameState` → UI re-renders observed state.
+- integrity;
+- armor/tissue/bone response;
+- hit difficulty;
+- break/sever thresholds;
+- function tags;
+- harvest capacities.
 
-Current foundation includes quick player-stat/money/revive/discovery/relationship/activity-limit controls plus deeper calendar/world/teleport/event/RNG/state-inspection editing.
+Attack definitions can require functional anatomy tags. Destroying anatomy therefore changes legal monster behavior.
 
-Admin edits do not become ordinary player life-journal actions.
+## Damage loop
 
-Advanced creator builders — NPC/event/choice/quest/world/district/sector/building/interior/room/item/property/vehicle/job/education/economy/legal/family/material/visual/animation/import-export tools — remain goals until implemented and tested.
+`ACTION → target part → accuracy/cover/evasion → damage type vs structure → integrity/wound change → break/sever evaluation → function change → behavior/harvest state update`
 
-## World-scale loop
+Primary planned physical damage types:
 
-The current Arclight Core is permanent save-stable space. Future growth uses attached streamed sectors, approximately `120 m × 80 m` as the current planning target, with one expensive active high-detail area, lower-detail neighboring proxies and bounded NPC/physics/render budgets.
+- cutting;
+- piercing;
+- blunt.
 
-## Visual/animation loop
+Additional damage categories depend on final setting.
 
-Animation represents authoritative simulation state; it does not invent it. Cosmetic breathing/idle/camera motion may remain presentation-only.
+## Monster AI loop
 
-Planned progression:
+`PERCEIVE AUTHORITATIVE STATE → enumerate legal actions → score → choose → validate/resolve through same domain rules → present`
 
-procedural idle/breathing → core-owned indoor locomotion → walk/run → TALK gestures → doors/furniture → reusable rigged humanoid → modular characters → visibility/distance-based NPC animation budgets.
+AI may consider:
 
-## Build/runtime status
+- distance/bearing;
+- player cover;
+- monster anatomy injuries;
+- stamina/status;
+- fear/rage/pain;
+- escape routes;
+- species behavior;
+- hazards/environment.
 
-The v0.5.8 functional Android test APK was successfully built by GitHub Actions run `33596655227` from branch `worldlife-v058-apk-test`, commit `5726bab2d671e1af1260e5c524a5feb775c72abf`.
+## Harvest loop
 
-`APK_BUILD_VERIFIED`: YES.
+Harvest is derived from actual anatomical state.
 
-Passed gates include core tests, Android assemble, APK ZIP integrity, signature, package/version and artifact upload.
+`CARCASS/SEVERED PART + tool/skill/choice → validate access/capacity → calculate condition/mass/quality → extract material → reduce remaining capacity → persist result`
 
-`PHONE_RUNTIME_VERIFIED`: NO.
+Invariants:
 
-`VISUAL_PARITY_VERIFIED`: NO.
+- yield cannot exceed anatomical capacity;
+- one unique organ cannot duplicate itself;
+- destroyed material cannot produce an intact component by random roll;
+- damage type/condition can alter material quality/quantity;
+- clean break/sever strategies can be intentionally rewarded.
 
-The workflow applies one explicit compatibility correction by removing the invalid explicit Compose `weight` import and may create 1×1 fallback PNGs for missing build-transport visuals. Functional testing is valid; final art-quality judgment is not.
+## Crafting/progression loop
 
-## Current runtime-validation loop
+Harvested materials feed:
 
-Use `WORLDLIFE_PHONE_RUNTIME_VALIDATION.md`.
+- weapons;
+- armor;
+- tools;
+- traps/consumables;
+- upgrades;
+- research/bestiary;
+- quests/economy later.
 
-Phone observation → record evidence → classify severity → inspect owning source → bounded root-cause repair → test/build → phone retest → update durable state.
+Equipment-driven progression is the current preferred direction, but final progression remains a discussion decision.
 
-Do not convert build success into assumed runtime PASS values.
+## Visual loop
+
+Exploration:
+- angled aerial 2.5D/hybrid stylized realism.
+
+Combat:
+- human-height first-person tactical view;
+- context-sensitive body-part targeting;
+- visible monster telegraphs and anatomy damage;
+- restrained HUD designed for landscape touch.
+
+Animation receives resolved domain events. It does not determine results.
+
+## Save loop
+
+The reboot should start a new save lineage rather than migrate unrelated life-sim saves into hunting-RPG state.
+
+Planned requirements:
+
+- schema versioning;
+- stable IDs;
+- validation/repair;
+- deterministic encounter seed/state where practical;
+- recovery/backups;
+- old legacy saves remain separate unless explicitly handled.
+
+## Tooling/creator loop
+
+Creator tools come after stable data models.
+
+Preferred order:
+
+`stable content schemas → validators → domain behavior → tests → inspector/simulator → creator UI/import/export`
+
+Useful future tools:
+
+- monster builder;
+- anatomy graph editor;
+- attack builder;
+- harvest table editor;
+- weapon/material/recipe editor;
+- encounter simulator;
+- stable ID generator;
+- validation dashboard;
+- balance reports.
+
+Do not build creator UI that writes transient presentation state before content/domain contracts exist.
 
 ## Current next milestone
 
-Phone runtime validation of the v0.5.8 functional test APK.
+Discussion and design approval only.
 
-After runtime stabilization, resume engine-authoritative apartment free-roam/collision, then indoor locomotion/interaction presentation, visual-parity build work and later streamed-sector expansion.
+`IMPLEMENTED = NO`
+`TESTED = NO`
+`REBOOT_APK_BUILD_VERIFIED = NO`
+`REBOOT_PHONE_RUNTIME_VERIFIED = NO`
