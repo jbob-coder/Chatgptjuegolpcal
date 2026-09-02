@@ -66,7 +66,7 @@ jobs:
           tar -xJf /tmp/v058_overlay.tar.xz -C "$WORLDLIFE_ROOT"
           grep -F 'versionCode = 23' "$WORLDLIFE_ROOT/app/build.gradle.kts"
           grep -F 'versionName = "0.5.8"' "$WORLDLIFE_ROOT/app/build.gradle.kts"
-          grep -F 'AdminToolsScreen' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
+          grep -F 'AdminPanelScreen' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
           grep -F 'InteriorWorldScreen' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
 
       - name: Ensure required test visual resources exist
