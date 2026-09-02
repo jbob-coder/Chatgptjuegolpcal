@@ -12,11 +12,11 @@ WorldLife is not active and must not be resumed.
 
 ## Current phase
 
-**STAGE 1 ENGINE/ANDROID PROBE AUTHORIZED + BOUNDED DESIGN CONTINUES**
+**STAGE 1 ENGINE/ANDROID PROBE SOURCE CREATED + VERIFICATION PENDING**
 
-The previous implementation hold has been lifted by explicit user instruction.
+Implementation authorization is active.
 
-Implementation must still follow EVOLVE and readiness gates. Authorization does not permit jumping directly into full combat/vertical-slice production.
+Implementation still follows EVOLVE and the Build Readiness Gate Matrix. Authorization does not permit skipping directly to production combat or the full vertical slice.
 
 ## Read first
 
@@ -27,7 +27,9 @@ Implementation must still follow EVOLVE and readiness gates. Authorization does 
 5. `docs/README.md`
 6. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
 7. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
-8. owning package for the current bounded task.
+8. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
+9. `probes/android_stage1/README.md`
+10. owning package for the current bounded task.
 
 ## Build readiness classes
 
@@ -42,9 +44,9 @@ Primary law:
 **an open question blocks only the earliest implementation gate that genuinely needs its answer.**
 
 Current gate state:
-- engine probe: **READY / AUTHORIZED**;
+- engine probe: **SOURCE CREATED / EXECUTION PENDING**;
 - domain implementation: blocked by engine/phone probe evidence;
-- combat: partial;
+- combat design: partial;
 - vertical slice: partial;
 - expansion: intentionally open.
 
@@ -54,36 +56,64 @@ Authority:
 `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`.
 
 Selected Stage 1 candidate:
-- Godot 4.7;
+- Godot 4.7 family;
 - GDScript;
 - GL Compatibility renderer;
 - Android;
 - Samsung Galaxy A03s baseline phone;
 - stable 30 FPS representative-scene target.
 
-Godot is not yet the permanent engine. It becomes selected only after the Galaxy A03s probe passes.
+Godot remains a probe candidate until real Galaxy A03s evidence passes the engine-phone gate.
+
+## Current implementation source
+
+Probe-only root:
+`probes/android_stage1/`.
+
+Created:
+- `project.godot`;
+- Boot/title scene;
+- primitive 3D probe scene;
+- 1.75 m Hunter placeholder;
+- large moving Monster placeholder;
+- touch directional input placeholder;
+- desktop WASD fallback;
+- aerial ↔ first-person toggle;
+- runtime renderer/driver readout;
+- FPS/frame-time/debug-memory readout;
+- Android export setup guide;
+- Galaxy A03s test protocol;
+- probe-local `.gitignore`.
+
+This source is deliberately isolated from the future production game/domain source.
 
 ## Exact next implementation piece
 
-Create only the smallest Godot 4.7 probe skeleton:
-- Compatibility renderer;
-- landscape orientation;
-- boot/title probe scene;
-- one simple 3D test scene;
-- hunter placeholder;
-- basic touch/input plumbing;
-- development performance readout;
-- Android export configuration documentation.
+**Verify the existing probe in Godot before adding anything else.**
 
-Then verify boot behavior and prepare the first Galaxy A03s install/runtime test.
+Required next evidence:
+1. open `probes/android_stage1/project.godot` with Godot 4.7;
+2. fix any project/scene/GDScript parse errors;
+3. run Boot;
+4. enter ProbeWorld;
+5. verify movement;
+6. verify aerial ↔ first-person camera toggle;
+7. confirm actual runtime rendering method/driver shown in HUD;
+8. verify metrics HUD;
+9. record warnings/errors.
 
-Do not add real combat, harvesting, crafting or final production assets in this first piece.
+Only after that passes:
+- create Android export preset;
+- build debug APK;
+- install/test on Galaxy A03s using `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`.
+
+Do not add real combat, harvesting, crafting or final production assets before the existing skeleton passes its current verification gate.
 
 ## Independent next design piece
 
 `Combat Resolution / Hit Quality and Defense Contract`.
 
-The engine probe does not need final combat-hit formulas, so this design work may proceed independently in its own bounded pass.
+This can proceed independently because final hit formulas are not required for the renderer/device probe.
 
 ## Locked game direction
 
@@ -97,17 +127,17 @@ The engine probe does not need final combat-hit formulas, so this design work ma
 - walkable settlement;
 - physical hunter-gate/frontier transition;
 - continuous streamed hunting-region sectors where practical;
-- local camera rather than showing the entire region as a board-game map;
+- local exploration camera;
 - `1 world unit = 1 meter`.
 
 ### Behavior
 **NO AI behavior system.**
-NPCs and creatures use deterministic authored states, schedules, conditions, priorities, cooldowns and phases.
+NPCs/creatures use deterministic authored states, schedules, conditions, priorities, cooldowns and phases.
 
 ### Stats/effects
 Might / Finesse / Agility / Endurance / Perception / Resolve.
 
-One shared modifier/effect pipeline owns equipment, statuses, terrain, weather, posture, injuries, crystal/mutation effects and calculation traces.
+One shared typed modifier/effect pipeline owns equipment, statuses, terrain, weather, posture, injuries and crystal/mutation effects.
 
 ### Progression
 Selected:
@@ -132,9 +162,9 @@ Authority:
 - zero usable Energy means death;
 - berserk spends that reserve;
 - Tier / Rank / Quality / Element / Energy / Condition are separate;
-- mutations are bounded and data-driven.
+- mutations are bounded/data-driven.
 
-## Current content packages
+## Current content references
 
 ### Settlement 01
 Compact defensible frontier settlement with Hunter Service Loop, 2–3 elevation bands and walkable service spaces.
@@ -151,8 +181,7 @@ S06 Nesting Shelf/Crystal Fault
 ### Hunter Base 01
 - 1.75 m prototype scale;
 - reusable grounded humanoid production base;
-- technical generated multiview route paused after repeated QA failure;
-- DCC blockout specification recorded but not required for the Stage 1 placeholder probe.
+- final production geometry is not required for Stage 1 placeholder testing.
 
 ### Monster 01 — Mudcrest Raker
 - ~6.6 m long;
@@ -161,24 +190,27 @@ S06 Nesting Shelf/Crystal Fault
 - dorsal plates;
 - mud-adapted feet;
 - severable distal tail;
-- internal crystal;
+- internal life crystal;
 - deterministic Region 01 patterns.
 
-## Current status
+## Current verification truth
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `STAGE_1_ENGINE_ANDROID_PROBE_AUTHORIZED = YES`
-`ENGINE_PROBE_READINESS = READY`
-`ENGINE_PROBE_CANDIDATE = GODOT_4_7_GDSCRIPT_GL_COMPATIBILITY`
+`STAGE_1_PROBE_SOURCE_CREATED = YES`
+`SOURCE_READBACK_VERIFIED = YES`
+`GODOT_PARSE_VERIFIED = NO`
+`EDITOR_RUN_VERIFIED = NO`
+`ANDROID_PRESET_CREATED = NO`
+`APK_BUILD_VERIFIED = NO`
+`GALAXY_A03S_INSTALL_VERIFIED = NO`
+`PHONE_RUNTIME_VERIFIED = NO`
+`PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO / PROBE_PENDING`
-`TARGET_BASELINE_DEVICE = SAMSUNG_GALAXY_A03S`
-`BASELINE_DEVICE_FRAME_TARGET = STABLE_30_FPS_PROBE_TARGET`
 `DOMAIN_IMPLEMENTATION = BLOCKED_BY_STAGE_1_GATE`
 `COMBAT_ACTION_ECONOMY = RECORDED`
 `COMBAT_RESOLUTION_PACKET = NOT YET RECORDED`
 `COMBAT_IMPLEMENTATION = BLOCKED`
 `VERTICAL_SLICE_IMPLEMENTATION = BLOCKED`
-`APK_BUILD_VERIFIED = NO`
-`PHONE_RUNTIME_VERIFIED = NO`
 
 Current explicit user instruction > current owning repository authority > verified source/test/device evidence > older documents > chat memory.
