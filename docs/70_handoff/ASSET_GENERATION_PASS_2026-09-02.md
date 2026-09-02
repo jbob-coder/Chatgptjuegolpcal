@@ -1,17 +1,20 @@
 # Asset Generation / Lineage Pass — 2026-09-02
 
-Status: ACTIVE HANDOFF / REFERENCE GENERATION PAUSED FOR QA / GAMEPLAY IMPLEMENTATION STILL NOT AUTHORIZED
+Status: ACTIVE HANDOFF / HUNTER H02 v001 REVIEWED / REVISION REQUIRED / GAMEPLAY IMPLEMENTATION STILL NOT AUTHORIZED
 
 ## Current objective
 
-Control the first Hunter Base 01 and Monster 01 asset set through explicit lineage, review and promotion rather than continuing to generate quantity without review.
+Correct the earliest broken visual-production dependency before reviewing or generating additional downstream sheets.
+
+Hunter H02 v001 has now been reviewed against the asset QA gates.
+
+Decision:
+**`REVISE`**.
 
 Current bounded next action:
-**review Hunter H02 turnaround/scale v001 against `ASSET_QA_GATES.md`, then SELECT / REVISE / REJECT.**
+**create Hunter H02 v002 only from `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`, then review v002 before advancing to H04 or Monster 01.**
 
-Reference-image generation remains allowed by user instruction, but the quality pipeline currently pauses additional generation until existing sheets are reconciled/reviewed.
-
-Gameplay code, engine project, scenes, APK and final game-ready 3D implementation remain not authorized.
+Reference-image generation remains authorized. Gameplay code, engine project, scenes, APK and final game-ready 3D implementation remain not authorized.
 
 ---
 
@@ -61,9 +64,13 @@ Primary:
 - `PNG_TO_3D_AUTOMATION_PIPELINE.md`
 - `EXTERNAL_3D_TOOL_EVALUATION.md`
 
-## New lineage law
+Review archive:
+- `docs/40_art/reviews/README.md`
+- `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
 
-The manifest, not the folder or filename, determines:
+## Lineage law
+
+The manifest, not folder or filename, determines:
 - stable asset identity;
 - master/parent lineage;
 - class;
@@ -93,6 +100,70 @@ Production/modeling base only; not final protagonist identity.
 
 ---
 
+# Hunter H02 v001 QA result
+
+Reviewed file:
+`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
+Drive file ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
+
+Decision: `REVISE`.
+Review state: `REVIEWED_WITH_ISSUES`.
+Permitted use: `DISCUSSION_ONLY`.
+
+Do not use v001 as:
+- technical modeling authority;
+- detail reference;
+- image-to-3D conversion input;
+- runtime 2D asset.
+
+Primary defects:
+- useful figure detail is far lower than the large composed canvas suggests;
+- face/hands/boots/gear seams lack trustworthy native detail;
+- front/side/back armor/harness construction changes across views;
+- no clean 3/4 confirmation;
+- views are illustrative rather than conversion-safe orthographic/multiview references;
+- neutral reusable base is too close to a fixed armored male-ranger identity;
+- metal coverage is heavier than desired for the neutral base.
+
+Directions worth preserving:
+- grounded frontier tone;
+- realistic adult overall proportion;
+- readable shoulder/boot/layered-garment silhouette;
+- restrained practical material family;
+- 1.75 m Markdown scale authority.
+
+Upscaled H02 derivative:
+`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
+Drive file ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
+Disposition: `DISCUSSION_ONLY`; preserve for inspection/provenance, never treat enlarged pixels as recovered technical information.
+
+## Required H02 v002
+
+Planned filename:
+`HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png`
+
+Required:
+- front orthographic-like neutral view;
+- left side neutral view;
+- back neutral view;
+- right side when practical;
+- separate clean 3/4 confirmation;
+- consistent pose/body/gear across views;
+- arms slightly separated from torso;
+- hands and boots unobstructed;
+- no held weapon;
+- layered cloth/leather foundation;
+- limited removable protection;
+- explicit modular equipment boundaries;
+- less identity-specific face/hair;
+- no generated labels touching figure;
+- plain/transparent background;
+- enough native figure pixels to inspect hands, boots, harness and shoulder attachments without relying on upscale invention.
+
+If one image cannot provide adequate close details, create separate detail references later rather than overloading the turnaround.
+
+---
+
 # Monster 01 selected design
 
 Working name: **Mudcrest Raker**.
@@ -113,36 +184,30 @@ Working name: **Mudcrest Raker**.
 - berserk consumes crystal life-force and cannot restore destroyed anatomy;
 - mutation candidates: Mirestep Pads, Bastion Plates, Deep-Scent Crest, Resonant Core Veins.
 
+Monster 01 visual review remains downstream of the corrected Hunter H02 dependency for the current bounded sequence.
+
 ---
 
 # Current reconciled sheet state
 
-## Drive-verified Hunter files
+## Hunter H02 v001 source
+`REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
 
-### Hunter H02 source reference
-`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
-Drive file ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
-State: `GENERATED_UNREVIEWED`
+## Hunter H02 upscaled derivative
+`REVIEWED_WITH_ISSUES / DISCUSSION_ONLY / DRIVE_VERIFIED`
 
-### Hunter H02 inspection upscale
-`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
-Drive file ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
-State: `GENERATED_UNREVIEWED / REFERENCE_DERIVATIVE`
+## Hunter H02 v002
+`PLANNED REVISION`
 
-### Hunter H04 silhouette reference
-`HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001_DRAFT_REFERENCE.png`
-Drive file ID: `1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
-State: `GENERATED_UNREVIEWED`
+## Hunter H04 silhouette reference
+`GENERATED_UNREVIEWED / DRIVE_VERIFIED`
 
-## Drive-verified Monster file
+Do not review/promote H04 until v002 establishes the corrected neutral base.
 
-### Monster M01/M02 hero + turnaround
-`MONSTER_01_M01_M02_HERO_TURNAROUND_v001_VISUAL_CANDIDATE.png`
-Drive file ID: `1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
-State: `GENERATED_UNREVIEWED`
+## Monster M01/M02 hero + turnaround
+`GENERATED_UNREVIEWED / DRIVE_VERIFIED`
 
 ## Generated but current Drive persistence not verified
-
 - `MONSTER_01_M03_ANATOMY_v001_TECHNICAL_OVERLAY.png`
 - `MONSTER_01_M04_DAMAGE_STATES_v001_DRAFT_REFERENCE.png`
 - `MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001_TECHNICAL_CONCEPT.png`
@@ -164,7 +229,7 @@ Use:
 - mip/LOD strategy later in engine;
 - AI upscaling only as reference enhancement, not technical truth.
 
-The H02 upscaled copy is therefore a child reference derivative, not the authoritative master.
+H02 v001 demonstrates why this matters: a large composed PNG can still contain a low-detail embedded figure source.
 
 ---
 
@@ -196,28 +261,6 @@ No 3D reconstruction service has been invoked.
 
 ---
 
-# Current quality gate
-
-The correct next step is review, not more generation.
-
-For Hunter H02:
-1. verify source file/ID;
-2. inspect native pixels;
-3. inspect critical close-detail areas;
-4. reconcile body height/proportion against 1.75 m authority;
-5. check front/side/back consistency;
-6. identify generated artifacts or contradictions;
-7. classify result:
-   - SELECT;
-   - REVISE;
-   - REJECT;
-8. update manifest and registry;
-9. only if SELECTED, consider creating a separate clean conversion-input derivative.
-
-Do not evaluate several sheets and silently promote all of them in one pass.
-
----
-
 # Current gates
 
 `ASSET_DRIVE_STRUCTURE_CREATED = YES`
@@ -228,10 +271,16 @@ Do not evaluate several sheets and silently promote all of them in one pass.
 `RUNTIME_2D_POLICY_RECORDED = YES`
 `PNG_TO_3D_PIPELINE_RECORDED = YES`
 `ASSET_QA_GATES_RECORDED = YES`
+`ASSET_REVIEW_ARCHIVE_CREATED = YES`
 `HUNTER_BASE_01_DESIGNED = YES`
 `MONSTER_01_DESIGNED = YES`
-`REFERENCE_SHEET_GENERATION = PAUSED_FOR_QA`
-`SELECTED_REFERENCE_PROMOTIONS = NONE THIS LINEAGE PASS`
+`HUNTER_H02_V001 = REVIEWED_WITH_ISSUES`
+`HUNTER_H02_V001_DECISION = REVISE`
+`HUNTER_H02_V001_MODELING_USE = NOT PERMITTED`
+`HUNTER_H02_V001_CONVERSION_USE = NOT PERMITTED`
+`HUNTER_H02_V002 = PLANNED REVISION`
+`REFERENCE_SHEET_GENERATION = PAUSED_AT_REVISION_GATE`
+`SELECTED_REFERENCE_PROMOTIONS = NONE`
 `APPROVED_RUNTIME_2D = NONE`
 `GAME_READY_3D = NONE`
 `GAMEPLAY_SOURCE = NOT CREATED`
@@ -240,6 +289,4 @@ Do not evaluate several sheets and silently promote all of them in one pass.
 
 ## Exact next action
 
-**Review Hunter H02 only.**
-
-After that one sheet is resolved, choose the next bounded piece from its actual result rather than following a stale batch plan.
+**Generate Hunter H02 v002 only from the QA revision request, then review that revision before touching H04 or Monster 01.**
