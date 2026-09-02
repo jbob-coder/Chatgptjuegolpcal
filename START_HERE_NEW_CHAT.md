@@ -28,17 +28,18 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 8. `MECHANICAL_SYSTEMS_GUIDE.md`
 9. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
 10. `BEHAVIOR_PATTERN_SYSTEM.md`
-11. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-12. `CONTENT_DATA_GUIDE.md`
-13. `CODE_GUIDE.md`
-14. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-15. `ADMIN_CREATOR_SYSTEM.md`
-16. `TESTING_VERIFICATION_PLAN.md`
-17. `IMPLEMENTATION_ROADMAP.md`
-18. `DEVELOPMENT_REFERENCE.md`
-19. `EVOLVE_ALIGNMENT.md`
-20. `NEW_GAME_DISCUSSION_CHECKLIST.md`
-21. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
+11. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+12. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+13. `CONTENT_DATA_GUIDE.md`
+14. `CODE_GUIDE.md`
+15. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+16. `ADMIN_CREATOR_SYSTEM.md`
+17. `TESTING_VERIFICATION_PLAN.md`
+18. `IMPLEMENTATION_ROADMAP.md`
+19. `DEVELOPMENT_REFERENCE.md`
+20. `EVOLVE_ALIGNMENT.md`
+21. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+22. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
 
 ## Locked direction so far
 
@@ -64,7 +65,7 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 ### Stats/effects
 - current six-role attributes: Might, Finesse, Agility, Endurance, Perception, Resolve;
 - current internal bounded-scale recommendation: 1–100, exact practical values open;
-- equipment/status/terrain/weather/posture/context all use one shared typed modifier pipeline;
+- equipment/status/terrain/weather/posture/context/crystal/mutation all use one shared typed modifier pipeline;
 - explicit stacking/caps/floors;
 - AP/reaction scaling tightly restricted;
 - development calculation traces required;
@@ -76,6 +77,17 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 - explicit conditions, priorities, cooldowns, phases and capability checks;
 - simple actors have simple patterns; complex monsters can have layered authored patterns;
 - behavior uses normal domain action requests and remains inspectable/reproducible.
+
+### Crystal life force / mutation / ecology
+- crystal-bearing creatures have an internal life crystal;
+- current crystal energy is an authoritative life-force reserve;
+- zero usable crystal energy means death;
+- desperate creatures can burn life force for berserk/overdrive through deterministic behavior rules;
+- crystal **Tier, Rank, Quality, Element, Energy and Condition** are distinct concepts;
+- mutation is data-driven and can change anatomy, capabilities, effects, elemental/terrain adaptation, deterministic behavior and harvest;
+- mutation combinations are bounded through prerequisites/incompatibilities/support limits;
+- off-screen ecology uses region/species aggregate state rather than full individual simulation;
+- long-term hunting-pressure/migration/population feedback is a later expansion candidate, not a first-slice requirement.
 
 ### Architecture
 - one authoritative game state;
@@ -91,7 +103,7 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 
 Anything scalable requires a cap/budget, cleanup/unload behavior, instrumentation, isolation toggle when practical and target-device verification.
 
-Behavior evaluation is decision/event-driven, not every-frame. Derived stats are cached until inputs change.
+Behavior evaluation is decision/event-driven, derived stats are cached, mutation generation occurs only at explicit boundaries, and off-screen ecology uses aggregates.
 
 Do not sacrifice input/tactical readability/anatomy/telegraphs/simulation correctness before decoration.
 
@@ -102,6 +114,10 @@ Future development tools should include:
 - calculation traces;
 - status/effect/terrain test tools;
 - deterministic behavior pattern trace/editor;
+- crystal Energy/Tier/Rank/Quality/Element/Condition inspector;
+- berserk drain debugger;
+- mutation editor/validator;
+- ecosystem pressure/population simulator;
 - anatomy/attack editors;
 - harvest simulator;
 - encounter builder;
@@ -113,23 +129,25 @@ They never become a hidden second rules engine.
 
 ## Implementation sequence
 
-`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → EXPLORATION DOMAIN → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
+`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CRYSTAL/MUTATION CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → EXPLORATION DOMAIN → ECOLOGY AGGREGATE → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
 
 ## Current exact next action
 
 Continue design discussion, especially:
+- exact crystal tier/rank/quality/element structure;
+- normal crystal-energy recovery;
+- exact berserk rules;
+- mutation origin/inheritance;
+- human relationship/use of crystals;
 - exact starting attributes/growth;
-- health/stamina derivation;
-- AP/reaction model;
+- health/stamina/AP/reaction model;
 - equipment slots/burden;
-- first status list;
-- first terrain effects;
+- first status/terrain effects;
 - damage/hit-quality/resistance formulas;
-- first monster behavior-pattern complexity;
+- first monster behavior/mutation/crystal profile;
 - world premise/history;
-- creature ecology;
 - hunter role;
-- first hub/region/monster/weapon;
+- first hub/region/weapon;
 - target Android/engine.
 
 Do not create gameplay source until the user explicitly says to begin.
@@ -142,6 +160,8 @@ MECHANICS_DOCUMENTED = YES
 STATS_EFFECTS_SYSTEM_DESIGNED = YES
 DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
 AI_BEHAVIOR_SYSTEM = NO
+CRYSTAL_LIFE_FORCE_SYSTEM_DESIGNED = YES
+MUTATION_ECOSYSTEM_SYSTEM_DESIGNED = YES
 CODE_STRUCTURE_PLANNED = YES
 PERFORMANCE_CAPS_PLANNED = YES
 ADMIN_CREATOR_SYSTEM_PLANNED = YES
