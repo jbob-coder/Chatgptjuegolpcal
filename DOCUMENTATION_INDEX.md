@@ -76,53 +76,55 @@ Region 01 package-local authorities:
 33. `docs/20_gameplay/combat/README.md`
 34. `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`
 35. `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`
-36. `NEW_GAME_MASTER_PLAN.md`
-37. `MECHANICAL_SYSTEMS_GUIDE.md`
-38. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-39. `BEHAVIOR_PATTERN_SYSTEM.md`
-40. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-41. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+36. `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`
+37. `NEW_GAME_MASTER_PLAN.md`
+38. `MECHANICAL_SYSTEMS_GUIDE.md`
+39. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+40. `BEHAVIOR_PATTERN_SYSTEM.md`
+41. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+42. `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
 Current next independent gameplay packet:
-**First Weapon Family Contract**.
+**Stamina Prototype Scale and Recovery Contract**.
 
-Do not create a broad weapon roster yet.
+Do not combine it with Initiative, statuses, Monster 01 attack authoring or terrain-number finalization.
 
 ## Layer 5 — art/model/runtime-2D/3D conversion
-42. `docs/40_art/README.md`
-43. `docs/40_art/asset_pipeline/README.md`
-44. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
-45. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
-46. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
-47. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
-48. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
-49. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
-50. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
-51. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
-52. `docs/40_art/reviews/README.md`
-53. specific Hunter H02/H02A QA records when relevant.
+43. `docs/40_art/README.md`
+44. `docs/40_art/asset_pipeline/README.md`
+45. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
+46. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
+47. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
+48. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
+49. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
+50. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
+51. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
+52. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
+53. `docs/40_art/reviews/README.md`
+54. specific Hunter H02/H02A QA records when relevant.
 
 Hunter same-method technical multiview generation is paused by QA. The DCC blockout specification is recorded, but final Hunter geometry is not required for the Stage 1 engine probe.
 
 ## Layer 6 — architecture/code/data
-54. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-55. `CONTENT_DATA_GUIDE.md`
-56. `CODE_GUIDE.md`
-57. `docs/50_technical/README.md`
-58. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
+55. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+56. `CONTENT_DATA_GUIDE.md`
+57. `CODE_GUIDE.md`
+58. `docs/50_technical/README.md`
+59. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
 
 ## Layer 7 — performance/debug/creator/testing
-59. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-60. `ADMIN_CREATOR_SYSTEM.md`
-61. `TESTING_VERIFICATION_PLAN.md`
+60. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+61. `ADMIN_CREATOR_SYSTEM.md`
+62. `TESTING_VERIFICATION_PLAN.md`
 
 ## Layer 8 — continuity/build discipline
-62. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
-63. `docs/70_handoff/COMBAT_ACTION_ECONOMY_PASS_2026-09-02.md`
-64. `docs/70_handoff/COMBAT_RESOLUTION_PASS_2026-09-02.md`
-65. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when art/model work is active.
-66. `DEVELOPMENT_REFERENCE.md`
-67. `EVOLVE_ALIGNMENT.md`
+63. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
+64. `docs/70_handoff/COMBAT_ACTION_ECONOMY_PASS_2026-09-02.md`
+65. `docs/70_handoff/COMBAT_RESOLUTION_PASS_2026-09-02.md`
+66. `docs/70_handoff/FIRST_WEAPON_FAMILY_PASS_2026-09-02.md`
+67. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when art/model work is active.
+68. `DEVELOPMENT_REFERENCE.md`
+69. `EVOLVE_ALIGNMENT.md`
 
 # 2. Build readiness taxonomy
 
@@ -139,7 +141,7 @@ Classes:
 Current state:
 - engine probe — source created / execution verification pending;
 - domain implementation — blocked by engine-phone probe;
-- combat design — partial, with action economy + combat resolution recorded;
+- combat design — partial/advanced, with action economy + combat resolution + first weapon family recorded;
 - vertical slice — partial;
 - expansion decisions — intentionally open.
 
@@ -157,7 +159,8 @@ docs/
 │   └── combat/
 │       ├── README.md
 │       ├── ACTION_ECONOMY_CONTRACT.md
-│       └── COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md
+│       ├── COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md
+│       └── FIRST_WEAPON_FAMILY_CONTRACT.md
 ├── 30_content/
 │   ├── hunters/HUNTER_BASE_01/
 │   └── monsters/MONSTER_01/
@@ -211,6 +214,17 @@ Combat resolution:
 - local protection/anatomy ordering;
 - explainable development traces.
 
+First weapon family:
+- technical ID `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- working name Field Poleblade;
+- two-handed long-hafted hunting blade;
+- cutting/sever primary;
+- piercing/control secondary;
+- limited impact;
+- directional Guard/restricted Parry;
+- intentionally not a universal best weapon;
+- first technique packet maps into the 2/3/4 AP economy and explicit hit-quality/fallback policies.
+
 Crystal:
 Energy is life force; zero usable Energy means death; berserk spends the same reserve; intrinsic crystal properties remain distinct from runtime Energy/Condition.
 
@@ -225,7 +239,7 @@ Mudcrest Raker, ~6.6 m long / ~3.0 m shoulder-body height, breakable horn/plates
 Do not add further Stage-1 features or proceed into Stage 2 until the existing source passes its current verification gate.
 
 ## Design
-**First Weapon Family Contract** may proceed independently as its own bounded EVOLVE pass.
+**Stamina Prototype Scale and Recovery Contract** may proceed independently as its own bounded EVOLVE pass.
 
 # 6. Maintenance
 
