@@ -1,0 +1,195 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/probe_world.gd" id="1_probe"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.18, 0.27, 0.16, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_floor"]
+material = SubResource("Mat_floor")
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="BoxShape3D" id="Shape_floor"]
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="StandardMaterial3D" id="Mat_hunter"]
+albedo_color = Color(0.46, 0.36, 0.24, 1)
+roughness = 0.9
+
+[sub_resource type="CapsuleMesh" id="Mesh_hunter"]
+material = SubResource("Mat_hunter")
+radius = 0.32
+height = 1.75
+
+[sub_resource type="CapsuleShape3D" id="Shape_hunter"]
+radius = 0.32
+height = 1.75
+
+[sub_resource type="StandardMaterial3D" id="Mat_monster"]
+albedo_color = Color(0.31, 0.24, 0.16, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="Mesh_monster"]
+material = SubResource("Mat_monster")
+size = Vector3(2.5, 2.4, 5.8)
+
+[node name="ProbeWorld" type="Node3D"]
+script = ExtResource("1_probe")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-52, -28, 0)
+light_energy = 1.05
+shadow_enabled = true
+directional_shadow_max_distance = 35.0
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.25, 0)
+mesh = SubResource("Mesh_floor")
+
+[node name="FloorCollider" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorCollider"]
+shape = SubResource("Shape_floor")
+
+[node name="Hunter" type="CharacterBody3D" parent="."]
+position = Vector3(0, 0.875, 2.5)
+
+[node name="Body" type="MeshInstance3D" parent="Hunter"]
+mesh = SubResource("Mesh_hunter")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hunter"]
+shape = SubResource("Shape_hunter")
+
+[node name="FirstPersonCamera" type="Camera3D" parent="Hunter"]
+position = Vector3(0, 0.68, -0.08)
+current = false
+fov = 68.0
+near = 0.05
+far = 80.0
+
+[node name="Monster" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.2, -5.5)
+mesh = SubResource("Mesh_monster")
+
+[node name="AerialCamera" type="Camera3D" parent="."]
+position = Vector3(0, 9.5, 10.5)
+current = true
+fov = 52.0
+near = 0.1
+far = 100.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="MetricsPanel" type="PanelContainer" parent="HUD"]
+offset_left = 18.0
+offset_top = 18.0
+offset_right = 540.0
+offset_bottom = 168.0
+
+[node name="Metrics" type="VBoxContainer" parent="HUD/MetricsPanel"]
+layout_mode = 2
+
+[node name="Probe" type="Label" parent="HUD/MetricsPanel/Metrics"]
+layout_mode = 2
+text = "STAGE 1 / GALAXY A03s PROBE"
+
+[node name="FPS" type="Label" parent="HUD/MetricsPanel/Metrics"]
+layout_mode = 2
+text = "FPS: --"
+
+[node name="Renderer" type="Label" parent="HUD/MetricsPanel/Metrics"]
+layout_mode = 2
+text = "Renderer: --"
+
+[node name="Memory" type="Label" parent="HUD/MetricsPanel/Metrics"]
+layout_mode = 2
+text = "Debug static memory: --"
+
+[node name="Mode" type="Label" parent="HUD/MetricsPanel/Metrics"]
+layout_mode = 2
+text = "View: AERIAL"
+
+[node name="Touch" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Up" type="Button" parent="HUD/Touch"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+offset_top = -205.0
+offset_right = 200.0
+offset_bottom = -125.0
+text = "▲"
+
+[node name="Left" type="Button" parent="HUD/Touch"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -120.0
+offset_right = 110.0
+offset_bottom = -40.0
+text = "◀"
+
+[node name="Down" type="Button" parent="HUD/Touch"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+offset_top = -120.0
+offset_right = 200.0
+offset_bottom = -40.0
+text = "▼"
+
+[node name="Right" type="Button" parent="HUD/Touch"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_top = -120.0
+offset_right = 290.0
+offset_bottom = -40.0
+text = "▶"
+
+[node name="ToggleView" type="Button" parent="HUD/Touch"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -120.0
+offset_right = -24.0
+offset_bottom = -40.0
+text = "AERIAL / FIRST PERSON"
+
+[node name="Help" type="Label" parent="HUD/Touch"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -230.0
+offset_top = -48.0
+offset_right = 230.0
+offset_bottom = -16.0
+text = "Desktop: WASD • Phone: touch buttons • View toggle does not alter authoritative position"
+horizontal_alignment = 1
+
+[connection signal="button_down" from="HUD/Touch/Up" to="." method="_on_up_down"]
+[connection signal="button_up" from="HUD/Touch/Up" to="." method="_on_up_up"]
+[connection signal="button_down" from="HUD/Touch/Left" to="." method="_on_left_down"]
+[connection signal="button_up" from="HUD/Touch/Left" to="." method="_on_left_up"]
+[connection signal="button_down" from="HUD/Touch/Down" to="." method="_on_down_down"]
+[connection signal="button_up" from="HUD/Touch/Down" to="." method="_on_down_up"]
+[connection signal="button_down" from="HUD/Touch/Right" to="." method="_on_right_down"]
+[connection signal="button_up" from="HUD/Touch/Right" to="." method="_on_right_up"]
+[connection signal="pressed" from="HUD/Touch/ToggleView" to="." method="_on_toggle_view_pressed"]
