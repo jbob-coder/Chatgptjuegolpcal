@@ -12,7 +12,7 @@ Define a mechanically correct architecture before engine-specific source exists.
 There is one authoritative game model.
 
 ```text
-INPUT / AI INTENT
+PLAYER INPUT / AUTHORED BEHAVIOR PATTERN INTENT
       ↓
 ACTION REQUEST
       ↓
@@ -30,6 +30,8 @@ AERIAL EXPLORATION OR FIRST-PERSON COMBAT UI/ANIMATION/AUDIO
 ```
 
 Presentation can request. Presentation cannot decree.
+
+Autonomous NPCs/creatures use deterministic authored patterns and conditions. There is no AI decision subsystem.
 
 ## 2. Logical layers
 
@@ -55,8 +57,8 @@ Subdomains:
 - Exploration;
 - Encounter/Turn;
 - Creature/Anatomy;
-- Damage/Status;
-- Monster AI;
+- Damage/Status/Effects;
+- Behavior Patterns;
 - Harvest;
 - Inventory/Equipment;
 - Crafting;
@@ -64,12 +66,12 @@ Subdomains:
 - Contracts/Story later.
 
 ### C. Content Definitions
-Read-only definitions describing species, parts, attacks, weapons, materials, recipes, regions and encounter templates.
+Read-only definitions describing species, parts, attacks, weapons, materials, recipes, regions, encounter templates, statuses, terrain effects and behavior profiles.
 
 Definitions are not mutable runtime instances.
 
 ### D. Runtime State
-Mutable player/monster/world/encounter state that references stable content IDs.
+Mutable player/monster/NPC/world/encounter/status state that references stable content IDs.
 
 ### E. Persistence
 Save schema, serialization, migration, validation, backup/recovery.
@@ -78,7 +80,7 @@ Save schema, serialization, migration, validation, backup/recovery.
 Exploration renderer/camera/HUD and combat renderer/camera/HUD, animation, VFX, audio and transitions.
 
 ### G. Tooling/QA
-Validators, deterministic simulation, replay, debug inspectors, performance measurements and later creator tools.
+Validators, deterministic simulation, replay, debug inspectors, modifier traces, behavior-rule traces, performance measurements and later creator tools.
 
 ## 3. Definition versus instance rule
 
@@ -102,14 +104,14 @@ Conceptual only:
 - world state;
 - active hunt/contract;
 - active encounter optional;
-- inventory/crafting/progression;
+- inventory/equipment/crafting/progression;
 - knowledge state;
 - deterministic sequence metadata where required.
 
 `WorldState`
 - current region;
 - player world position;
-- persistent monster instances;
+- persistent monster/NPC instances as required;
 - region flags/interactables;
 - camps/discoveries;
 - environment gameplay state where needed.
@@ -120,17 +122,17 @@ Conceptual only:
 - participants;
 - turn order/index;
 - tactical nodes;
-- cover/hazard state;
+- cover/hazard/terrain state;
 - AP/stamina/reactions;
 - monster anatomy states;
-- statuses;
-- pending telegraphs/intents;
+- statuses/effects;
+- pending telegraphs/pattern intents;
 - encounter outcome;
 - event history/replay seed as needed.
 
 ## 5. Action-command model
 
-All consequential player intent becomes a typed domain request.
+All consequential player or behavior-pattern intent becomes a typed domain request.
 
 Conceptual families:
 
@@ -167,20 +169,53 @@ CraftAction:
 - Equip;
 - Dismantle if later approved.
 
-A request may be rejected with an explicit reason. UI should render the reason instead of duplicating legality rules.
+A request may be rejected with an explicit reason. UI and behavior controllers should consume the reason instead of duplicating legality rules.
 
 ## 6. Resolver rule
 
 Each action family has one authoritative resolver/owner.
 
 Example:
-`AttackRequest → CombatResolver → Anatomy/Damage services → StateDelta + CombatEvents`
+`AttackRequest → CombatResolver → Stats/Effects Context → Anatomy/Damage services → StateDelta + CombatEvents`
 
-Do not implement the same attack math in AI, UI and test helpers independently.
+Do not implement the same attack math in behavior logic, UI and test helpers independently.
 
-AI submits or selects the same legal domain action types used by player-controlled actors wherever practical.
+Behavior patterns submit the same normal action types used by player-controlled actors wherever practical.
 
-## 7. Domain event model
+## 7. Stats/effect evaluation service
+
+One shared contextual modifier system evaluates attributes, equipment, injuries, statuses, posture, terrain, weather, cover, action-specific modifiers and target protections.
+
+Detailed authority: `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
+
+Required properties:
+- typed modifier definitions;
+- explicit stack groups/rules;
+- caps/clamps;
+- deterministic processing order;
+- cached derived stats with event-driven invalidation;
+- optional calculation trace in development builds;
+- no UI-side bonus math;
+- no independent terrain/status/equipment math engines.
+
+Conceptual:
+
+```text
+BASE DATA
+→ PROGRESSION
+→ EQUIPMENT
+→ INJURY/ANATOMY
+→ STATUS
+→ POSTURE
+→ TERRAIN/WEATHER
+→ COVER/RANGE/BEARING
+→ ACTION CONTEXT
+→ TARGET DEFENSE
+→ CAPS
+→ FINAL RESULT + TRACE
+```
+
+## 8. Domain event model
 
 Domain resolution emits facts for presentation and logging.
 
@@ -198,6 +233,9 @@ Examples:
 - MonsterEnraged;
 - MonsterFled;
 - PlayerEscaped;
+- StatusApplied;
+- StatusRemoved;
+- TerrainConditionChanged;
 - MonsterDefeated;
 - HarvestExtracted;
 - ItemCrafted;
@@ -205,7 +243,7 @@ Examples:
 
 Events report what occurred. They do not become a second persistent truth source unless the project later adopts event sourcing deliberately.
 
-## 8. Presentation adapter rule
+## 9. Presentation adapter rule
 
 Presentation reads:
 - current authoritative snapshot;
@@ -218,7 +256,7 @@ Transient presentation state must be reconstructible/disposable without corrupti
 
 If the app is suspended mid-animation, restore from authoritative state, not from animation frame assumptions.
 
-## 9. Exploration-to-combat transfer
+## 10. Exploration-to-combat transfer
 
 One transfer service builds EncounterState from WorldState.
 
@@ -230,13 +268,13 @@ Required mapping:
 - relative approach/bearing;
 - distance;
 - nearby combat nodes derived from encounter geometry/content;
-- cover/hazards;
+- cover/hazards/terrain tags;
 - escape path;
 - gameplay-relevant environment conditions.
 
 The source monster is not cloned into unrelated combat health.
 
-## 10. Combat-to-world transfer
+## 11. Combat-to-world transfer
 
 On encounter completion, one result service updates WorldState.
 
@@ -249,7 +287,7 @@ Possible outcomes:
 
 No double-awarding harvest when changing modes.
 
-## 11. Anatomy graph
+## 12. Anatomy graph
 
 Body parts form a validated graph/tree with stable IDs and attachment relationships.
 
@@ -273,9 +311,9 @@ Validator must catch:
 - attack dependencies on nonexistent functions;
 - harvest sources on nonexistent parts.
 
-## 12. Capability/tag system
+## 13. Capability/tag system
 
-Use capabilities to connect anatomy to behavior.
+Use capabilities to connect anatomy, equipment, terrain adaptation and behavior.
 
 Example tags:
 - CAN_FLY;
@@ -283,15 +321,48 @@ Example tags:
 - CAN_CHARGE;
 - FUNCTIONAL_LEFT_FORELIMB;
 - FUNCTIONAL_VENOM_GLAND;
-- CAN_BITE.
+- CAN_BITE;
+- SURE_FOOTED;
+- MUD_RESISTANT;
+- SWIMMER;
+- CLIMBER.
 
-Capability computation uses current anatomy/status state.
+Capability computation uses current anatomy/equipment/status state.
 
-Attacks declare requirements. AI queries legal actions from current capabilities.
+Attacks and behavior rules declare requirements. This prevents hundreds of monster-specific conditional branches.
 
-This prevents hundreds of monster-specific conditional branches.
+## 14. Deterministic behavior-pattern architecture
 
-## 13. Tactical geometry structure
+Detailed authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
+
+There is no AI decision layer.
+
+Conceptual behavior flow:
+
+```text
+READ AUTHORITATIVE FACTS
+→ READ CURRENT PATTERN/PHASE
+→ EVALUATE EXPLICIT CONDITIONS
+→ FILTER BY CAPABILITY/COOLDOWN/LEGALITY
+→ SELECT BY PRIORITY/TIE POLICY
+→ SUBMIT NORMAL DOMAIN ACTION
+→ RECORD TRACE/PATTERN MEMORY
+```
+
+Behavior data may define:
+- states/phases;
+- explicit conditions;
+- priority;
+- cooldown;
+- range/bearing requirements;
+- situation flags;
+- capability requirements;
+- deterministic sequence or seeded variation group;
+- state transitions.
+
+Behavior must not duplicate health, anatomy, terrain or inventory truth.
+
+## 15. Tactical geometry structure
 
 Combat geometry should be authored/derived separately from render meshes.
 
@@ -302,13 +373,14 @@ Combat geometry should be authored/derived separately from render meshes.
 - bearings;
 - cover references;
 - elevation;
+- terrain tags;
 - hazards;
 - escape nodes;
 - visual anchors.
 
 Render geometry can change visual detail without silently changing tactical rules.
 
-## 14. Save architecture
+## 16. Save architecture
 
 New save lineage starts at schema 1 when persistence implementation begins.
 
@@ -318,14 +390,18 @@ Validate on load:
 - schema;
 - required IDs;
 - bounded numeric values;
+- attributes/derived-state inputs;
+- equipment references;
+- status instances;
 - anatomy states;
 - inventory quantities;
 - current region/encounter references;
+- behavior state/cooldowns only where persistence requires them;
 - impossible duplicate unique structures where relevant.
 
 Repair only what can be repaired deterministically and safely. Do not conceal corruption by inventing major player progress.
 
-## 15. Content versioning
+## 17. Content versioning
 
 Persistent saves reference stable content IDs.
 
@@ -336,31 +412,35 @@ When content definitions change after release:
 - define defaults for newly added runtime fields;
 - add regression fixtures.
 
-## 16. RNG architecture
+## 18. RNG architecture
 
 Randomness can exist for uncertainty/variation, but consequential random systems should be controllable for testing.
 
 Prefer:
 - seeded RNG per game/encounter or recorded deterministic sequence;
 - explicit RNG dependency passed into resolvers;
-- no hidden UI randomness determining combat/loot.
+- no hidden UI randomness determining combat/loot;
+- seeded variation only inside explicitly authored behavior groups where used.
 
 Harvest cannot use randomness to violate anatomical capacity.
 
-## 17. Content dependency graph
+## 19. Content dependency graph
 
 Typical dependency direction:
 
-`Region → Species/EncounterTemplate`
-`Species → Anatomy + Attacks + Behavior`
-`Attack → DamageProfile + CapabilityRequirements + PresentationRefs`
+`Region → Species/EncounterTemplate + Terrain/Weather Profiles`
+`Species → Anatomy + Attacks + BehaviorProfile + BaseAttributes`
+`Attack → DamageProfile + AttributeContributions + CapabilityRequirements + PresentationRefs`
 `AnatomyPart → HarvestSources + VisualTargetRefs`
+`Equipment → BaseProperties + EffectDefinitions + Techniques`
+`Status → EffectDefinitions + StackPolicy + Timing`
+`TerrainProfile → TerrainTags + EffectDefinitions`
 `HarvestSource → Material`
 `Recipe → Materials → Item/Upgrade`
 
 Validation should fail early when references break.
 
-## 18. Engine-facing scene structure after engine selection
+## 20. Engine-facing scene structure after engine selection
 
 Logical scene responsibilities should map approximately to:
 - AppShell;
@@ -375,7 +455,7 @@ Logical scene responsibilities should map approximately to:
 
 Do not put the entire game in one monolithic scene/controller.
 
-## 19. Proposed repository/source organization after implementation authorization
+## 21. Proposed repository/source organization after implementation authorization
 
 Exact syntax depends on engine, but logical organization should resemble:
 
@@ -391,14 +471,20 @@ Exact syntax depends on engine, but logical organization should resemble:
       encounter/
       creature/
       anatomy/
+      stats_effects/
       damage/
+      behavior/
       harvest/
       inventory/
       crafting/
       progression/
     content/
       species/
+      behaviors/
+      statuses/
+      terrain/
       attacks/
+      equipment/
       items/
       materials/
       recipes/
@@ -423,7 +509,7 @@ Exact syntax depends on engine, but logical organization should resemble:
 
 Do not create this source tree until engine selection/implementation is authorized; it is a structural target.
 
-## 20. Dependency law
+## 22. Dependency law
 
 Preferred dependency direction:
 
@@ -439,7 +525,7 @@ Preferred dependency direction:
 
 The domain core should not import camera, Android View, Compose UI, SceneView or equivalent engine rendering concepts.
 
-## 21. Error handling
+## 23. Error handling
 
 Domain rejections should be typed and explainable:
 - insufficient AP;
@@ -447,33 +533,41 @@ Domain rejections should be typed and explainable:
 - target not exposed;
 - target severed/unavailable;
 - range invalid;
+- terrain/action incompatible;
 - cover blocks action;
 - item unavailable;
 - reaction already spent;
+- status prevents action;
 - escape route unavailable.
 
 UI maps domain reasons into player-facing language.
 
-## 22. Performance separation
+## 24. Performance separation
 
 Simulation complexity and rendering complexity are separate budgets.
 
 A creature may have rich simulated anatomy while using simplified distant visuals.
 
-A region can logically contain more creatures than are fully rendered/animated at once.
+A region can logically contain more creatures/NPCs than are fully rendered/animated or fully evaluated at once.
+
+Behavior evaluation is event-driven/decision-driven and tiered by relevance rather than evaluated continuously every frame.
+
+Derived stats are cached and invalidated when relevant inputs change rather than fully recalculated every frame.
 
 Never keep expensive first-person monster rigs/effects active for distant aerial monsters unless profiling supports it.
 
-## 23. Mechanic implementation checklist
+## 25. Mechanic implementation checklist
 
 Before coding any mechanic:
 - owner defined;
 - input action defined;
 - required state defined;
+- effect/modifier inputs defined where relevant;
 - output/events defined;
 - invariants defined;
 - save impact defined;
 - content references defined;
+- behavior-pattern interaction defined where relevant;
 - UI/presentation responsibility defined;
 - tests defined;
 - performance risk considered;
