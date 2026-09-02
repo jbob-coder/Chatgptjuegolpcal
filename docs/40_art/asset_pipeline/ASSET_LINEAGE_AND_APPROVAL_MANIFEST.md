@@ -28,6 +28,7 @@ Folder location, filename, upload success and visual polish do not prove approva
 10. Approved exports receive integrity records/checksums when the real export pipeline exists.
 11. Generated text inside concept/reference images is not project authority.
 12. Technical source images and communication infographics are separate asset classes.
+13. Repeated generation using the same method must stop when the same architectural failure repeats across reviewed revisions.
 
 ---
 
@@ -98,8 +99,6 @@ Examples:
 
 Materially changed pixels/geometry require a new revision/asset ID.
 
-Filename may change for naming cleanup without changing logical identity only when the underlying source is unchanged.
-
 Avoid volatile filename words such as `FINAL`, `LATEST`, `CURRENT`, `APPROVED`.
 
 ---
@@ -160,10 +159,6 @@ Approved exports:
 # 6. Current Hunter records
 
 ## HUNTER01-H02-REF-001
-
-Entity: `HUNTER_BASE_01`
-Purpose: first turnaround + scale candidate
-Class: `REFERENCE_MASTER`
 File: `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
 Drive ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
 Review state: `REVIEWED_WITH_ISSUES`
@@ -171,19 +166,7 @@ Decision: `REVISE`
 Permitted use: `DISCUSSION_ONLY`
 QA: `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
 
-Primary defects:
-- low real figure detail inside large composed canvas;
-- cross-view gear inconsistency;
-- missing clean 3/4 confirmation;
-- too identity/heavy-armor specific for neutral reusable base;
-- not conversion-safe.
-
-Numeric authority remains 1.75 m from Markdown.
-
 ## HUNTER01-H02-UPSCALEREF-001
-
-Purpose: inspection enlargement of v001
-Class: `REFERENCE_DERIVATIVE`
 File: `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
 Drive ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
 Parent/Master: `HUNTER01-H02-REF-001`
@@ -192,64 +175,54 @@ Permitted use: `DISCUSSION_ONLY`
 Restriction: enlarged pixels do not become new technical detail.
 
 ## HUNTER01-H02-REF-002
-
-Entity: `HUNTER_BASE_01`
-Purpose: v002 turnaround + scale revision
-Class: `REFERENCE_MASTER`
 File: `HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png`
 Drive ID: `1kkRFXV2Mtk1sWyhjxdnSGm7l6xQRMZE4`
-Drive lane: `01_Modeling_References/Hunter`
 Observed dimensions: `1536 × 1024`
-Parent design revision: `HUNTER01-H02-REF-001`
-Master: SELF for v002 pixels
 Review state: `REVIEWED_WITH_ISSUES`
 Decision: `REVISE`
 Permitted use: `DISCUSSION_ONLY`
 QA: `docs/40_art/reviews/HUNTER_BASE_01_H02_v002_QA.md`
+Primary blocker: overloaded infographic/contact-sheet architecture and insufficient native subject occupancy.
 
-What improved:
-- front/left/back/right/3-4 views present;
-- broader body/gear coherence improved;
-- modular grounded clothing direction improved;
-- silhouette reads well.
+## HUNTER01-H02A-REF-003
+Entity: `HUNTER_BASE_01`
+Purpose: clean high-occupancy orthographic/multiview technical source attempt
+Class: `REFERENCE_MASTER`
+File: `HUNTER_BASE_01_H02A_ORTHO_REF_v003.png`
+Drive ID: `1EjeitWONWZ2PHPbVkI-dvcVIoiL7bcfE`
+Drive lane: `01_Modeling_References/Hunter`
+Observed dimensions: `1536 × 1024`
+Parent design lineage: H02 v002 QA + Hunter technical source-pack standard + proportion/attachment contract
+Master: SELF for v003 pixels
+Review state: `REVIEWED_WITH_ISSUES`
+Decision: `REVISE_METHOD`
+Permitted use: `DISCUSSION_ONLY`
+QA: `docs/40_art/reviews/HUNTER_BASE_01_H02A_v003_QA.md`
 
-Primary blockers:
-- still an overloaded infographic instead of high-occupancy technical source imagery;
-- each full-body figure receives too few native pixels;
-- close-up panels are separately generated concepts, not guaranteed magnifications of main views;
-- views remain illustrative rather than verified orthographic/multiview geometry;
-- generated image claims about permissions/date/PBR/file format/checksum are not authority;
-- final-story face identity remains too specific for neutral production base;
+What it proved:
+- the current image-generation route continues to produce infographic/contact-sheet content despite the source-only contract;
+- the four primary views are broadly visually coherent enough for discussion;
+- the output still allocates most raster area to non-source panels rather than technical body views;
+- generated detail panels cannot prove exact magnification of the same construction;
+- generated embedded dates, permissions, technical claims, landmark tables and checksums are not authority;
 - conversion preflight fails.
 
 Explicitly NOT permitted:
-- technical modeling detail authority;
-- 3D conversion test;
+- exact modeling geometry authority;
+- detail authority;
+- 3D conversion testing;
 - runtime 2D use.
 
-## HUNTER01-H02A-REF-003 — PLANNED NEXT
+Escalation:
+**do not generate H02A v004 with the same method.**
 
-Purpose: clean high-occupancy orthographic/multiview technical source
-Class: future `REFERENCE_MASTER`
-Planned file: `HUNTER_BASE_01_H02A_ORTHO_REF_v003.png`
-Parent design lineage: v002 review + Hunter Base 01 design
-Status: `PLANNED`
-Authority:
-`docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
+Next geometric path when explicitly authorized:
+`1.75 m controlled DCC mannequin → blockout/landmark/clearance review → orthographic renders from one model → technical H02A source derived from real geometry`.
 
-Required:
-- hunter figures dominate ~75–90% usable raster height where practical;
-- front/left/back/right where practical;
-- same neutral gear/pose;
-- no infographic panels/monster/material chart/checksum metadata;
-- no held weapon;
-- plain/transparent background;
-- low protagonist identity specificity;
-- base cloth/leather + limited modular protection.
+Blockout specification:
+`docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`.
 
 ## HUNTER01-H04-REF-001
-
-Purpose: modular equipment silhouette study
 File: `HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001_DRAFT_REFERENCE.png`
 Drive ID: `1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
 Review state: `GENERATED_UNREVIEWED`
@@ -261,7 +234,6 @@ Review blocked until neutral Hunter technical source is selected.
 # 7. Current Monster 01 records
 
 ## MONSTER01-M01M02-REF-001
-
 Working species: Mudcrest Raker
 File: `MONSTER_01_M01_M02_HERO_TURNAROUND_v001_VISUAL_CANDIDATE.png`
 Drive ID: `1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
@@ -331,18 +303,17 @@ When asset automation begins, this Markdown authority should produce/align with 
 `ASSET_LINEAGE_AUTHORITY = RECORDED`
 `HUNTER_H02_V001 = REVIEWED_WITH_ISSUES / REVISE`
 `HUNTER_H02_V002 = REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
-`HUNTER_H02_V002_CONVERSION_USE = NOT PERMITTED`
-`HUNTER_H02A_V003 = PLANNED / NEXT`
+`HUNTER_H02A_V003 = REVIEWED_WITH_ISSUES / REVISE_METHOD / DRIVE_VERIFIED`
+`REPEATED_HUNTER_AI_MULTIVIEW_REGENERATION = PAUSED`
+`HUNTER_DCC_BLOCKOUT_SPECIFICATION = RECORDED`
+`DCC_BLOCKOUT_IMPLEMENTATION = NOT AUTHORIZED`
 `HUNTER_H04 = GENERATED_UNREVIEWED / BLOCKED`
 `MONSTER_M01M02 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
-`MONSTER_M03_DRIVE_PERSISTENCE = NOT VERIFIED`
-`MONSTER_M04_DRIVE_PERSISTENCE = NOT VERIFIED`
-`MONSTER_M05_DRIVE_PERSISTENCE = NOT VERIFIED`
-`MONSTER_M08_DRIVE_PERSISTENCE = NOT VERIFIED`
+`MONSTER_M03_M04_M05_M08_DRIVE_PERSISTENCE = NOT VERIFIED`
 `SELECTED_HUNTER_TECHNICAL_REFERENCE = NONE`
 `HUNTER_CONVERSION_INPUT = NONE`
 `APPROVED_RUNTIME_2D = NONE`
 `GAME_READY_3D = NONE`
 
-Next bounded asset-quality piece:
-**generate Hunter H02A v003 only from `HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`, then review it before H02B/H03/H04 or Monster 01.**
+Next bounded quality action while implementation remains blocked:
+**do not generate H02A v004 with the same method. Reconcile continuity, then choose another independent documentation/design packet rather than repeating a failed generation path.**
