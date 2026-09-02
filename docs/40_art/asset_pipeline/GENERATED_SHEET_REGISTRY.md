@@ -16,6 +16,12 @@ Per-asset QA records:
 Technical Hunter source-pack structure:
 `HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`.
 
+Hunter geometry contract:
+`docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
+
+Future DCC escalation specification:
+`HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`.
+
 Uploading does not approve an asset.
 
 ## Status vocabulary
@@ -31,7 +37,9 @@ Uploading does not approve an asset.
 - `REJECTED`
 - `SUPERSEDED`
 
-## Existing selected general boards
+---
+
+# Existing selected general boards
 
 ### REF-MODEL-001
 `Unnamed Hunt RPG - Art Direction Overview.png`
@@ -51,122 +59,75 @@ Runtime 2D: NO.
 
 # Hunter Base 01
 
-## H02 v001 — turnaround + scale
-File:
-`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
-
-Drive ID:
-`1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
-
+## H02 v001
+File: `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
+Drive ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
 Status: `REVIEWED_WITH_ISSUES`
 Decision: `REVISE`
-Permitted use: `DISCUSSION_ONLY`
-QA:
-`docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
+Use: `DISCUSSION_ONLY`
+QA: `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
 
-Main defects:
-- embedded figure detail too soft;
-- cross-view gear inconsistency;
-- no clean 3/4 confirmation;
-- not conversion-safe;
-- too identity-specific/heavy for reusable neutral base.
-
-Do not use for technical modeling or conversion.
-
-### v001 inspection derivative
-File:
-`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
-Drive ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
-Status: `REVIEWED_WITH_ISSUES`
-Use: `DISCUSSION_ONLY`.
-The upscale does not create missing technical detail.
-
-## H02 v002 — turnaround/scale revision
-File:
-`HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png`
-Drive ID:
-`1kkRFXV2Mtk1sWyhjxdnSGm7l6xQRMZE4`
-Observed raster: `1536 × 1024`.
-
+## H02 v002
+File: `HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png`
+Drive ID: `1kkRFXV2Mtk1sWyhjxdnSGm7l6xQRMZE4`
+Observed raster: `1536 × 1024`
 Status: `REVIEWED_WITH_ISSUES`
 Decision: `REVISE`
-Permitted use: `DISCUSSION_ONLY`
-QA:
-`docs/40_art/reviews/HUNTER_BASE_01_H02_v002_QA.md`
+Use: `DISCUSSION_ONLY`
+QA: `docs/40_art/reviews/HUNTER_BASE_01_H02_v002_QA.md`
 
-Improvements:
-- front/left/back/right/3-4 views present;
-- improved overall cross-view body coherence;
-- modular practical clothing direction improved;
-- close-up concept areas included;
-- broad silhouette reads well.
+Primary blocker:
+source was still an overloaded infographic rather than high-occupancy technical source imagery.
 
-Remaining blockers:
-- still an overloaded infographic rather than a technical source image;
-- each full-body figure receives too few native pixels;
-- close-up panels may independently redesign details and are not guaranteed magnifications of the body views;
-- views remain illustrative rather than verified orthographic/multiview geometry;
-- generated embedded metadata/permissions/date/PBR guidance are not authority;
-- face remains more identity-specific than needed for reusable base;
-- not suitable for 3D-conversion input.
+## H02A v003 — orthographic source attempt
+File: `HUNTER_BASE_01_H02A_ORTHO_REF_v003.png`
+Stable ID: `HUNTER01-H02A-REF-003`
+Drive ID: `1EjeitWONWZ2PHPbVkI-dvcVIoiL7bcfE`
+Observed raster: `1536 × 1024`
+Status: `REVIEWED_WITH_ISSUES`
+Decision: `REVISE_METHOD`
+Use: `DISCUSSION_ONLY`
+QA: `docs/40_art/reviews/HUNTER_BASE_01_H02A_v003_QA.md`
 
-Do not copy v002 to `03_3D_Conversion_Inputs/Hunter`.
+Why v003 is not selected:
+- generation again produced a dense infographic/contact sheet;
+- orthographic figures do not dominate raster height as required;
+- material, detail, loadout, monster-comparison, readability, note and metadata panels were added despite explicit exclusions;
+- generated detail panels cannot prove exact identity with the main views;
+- generated landmark/status/permission/checksum text is not authority;
+- source is not isolated or conversion-safe;
+- exact cross-view geometry still cannot be proven from independent generated illustrations.
 
-## H02 v003 source pack — NEXT
+Quality escalation:
+**do not generate H02A v004 using the same independent image-generation approach.**
 
-The next revision is no longer one infographic.
+When DCC/art-production implementation is explicitly authorized, follow:
+`HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
+→ create one 1.75 m geometric mannequin
+→ validate proportions/clearances
+→ derive front/left/back/right renders from that single model.
 
-Authority:
-`docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`.
+### H02B v003
+Status: `BLOCKED`.
+Reason: H02A has no selected technical source.
 
-### H02A v003 — orthographic/multiview source
-Planned filename:
-`HUNTER_BASE_01_H02A_ORTHO_REF_v003.png`
-
-Planned stable ID:
-`HUNTER01-H02A-REF-003`
-
-Required:
-- front/left/back/right where practical;
-- same neutral gear and pose;
-- hunter figures use roughly 75–90% of usable raster height;
-- plain/transparent background;
-- no infographic panels;
-- no monster comparison;
-- no PBR/material chart;
-- no file/checksum/status metadata;
-- no weapon;
-- low identity specificity;
-- base clothing + limited modular protection.
-
-Current status: `PLANNED`.
-
-### H02B v003 — 3/4 confirmation
-Generate only after H02A is reviewed/accepted enough to justify it, unless produced as one controlled revision set.
-Current status: `BLOCKED BY H02A`.
-
-### H03 — detail source
-Hands/boots/harness/belt/collar/knee-shin detail only if H02A still lacks sufficient native detail.
-Current status: `CONDITIONAL`.
+### H03 details
+Status: `BLOCKED/CONDITIONAL`.
+Reason: generated detail references should not expand until one geometric base exists.
 
 ## H04 v001 — modular equipment silhouettes
-File:
-`HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001_DRAFT_REFERENCE.png`
-Drive ID:
-`1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
+File: `HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001_DRAFT_REFERENCE.png`
+Drive ID: `1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
 Status: `GENERATED_UNREVIEWED`.
-
-Review is blocked until a neutral Hunter base is selected. H04 must be judged against the corrected base rather than v001/v002.
+Review blocked until a neutral Hunter technical base is selected.
 
 ---
 
 # Monster 01 — Mudcrest Raker
 
 ## M01/M02 hero + turnaround
-File:
-`MONSTER_01_M01_M02_HERO_TURNAROUND_v001_VISUAL_CANDIDATE.png`
-Drive ID:
-`1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
+File: `MONSTER_01_M01_M02_HERO_TURNAROUND_v001_VISUAL_CANDIDATE.png`
+Drive ID: `1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
 Status: `GENERATED_UNREVIEWED`.
 
 Must later reconcile against:
@@ -182,26 +143,22 @@ Must later reconcile against:
 No conversion copy yet.
 
 ## M03 anatomy overlay
-Expected file:
-`MONSTER_01_M03_ANATOMY_v001_TECHNICAL_OVERLAY.png`
+Expected file: `MONSTER_01_M03_ANATOMY_v001_TECHNICAL_OVERLAY.png`
 Drive persistence: NOT VERIFIED.
 Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
 ## M04 damage/break/sever
-Expected file:
-`MONSTER_01_M04_DAMAGE_STATES_v001_DRAFT_REFERENCE.png`
+Expected file: `MONSTER_01_M04_DAMAGE_STATES_v001_DRAFT_REFERENCE.png`
 Drive persistence: NOT VERIFIED.
 Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
 ## M05 crystal/mutation variants
-Expected file:
-`MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001_TECHNICAL_CONCEPT.png`
+Expected file: `MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001_TECHNICAL_CONCEPT.png`
 Drive persistence: NOT VERIFIED.
 Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
 ## M08 three-distance readability
-Expected file:
-`MONSTER_01_M08_THREE_DISTANCE_v001_VISUAL_CANDIDATE.png`
+Expected file: `MONSTER_01_M08_THREE_DISTANCE_v001_VISUAL_CANDIDATE.png`
 Drive persistence: NOT VERIFIED.
 Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
@@ -209,26 +166,28 @@ No Monster visual asset is selected/technical/conversion-approved yet.
 
 ---
 
-# Current review order
+# Current review/order decision
 
-1. **Generate H02A v003 only.**
-2. Review H02A using native-pixel, cross-view, scale and conversion-preflight gates.
-3. If acceptable, create/review H02B 3/4 confirmation.
-4. Create H03 detail sources only where H02A/H02B prove insufficient.
-5. Select the neutral Hunter source pack before reviewing H04.
-6. Then return to Monster 01 visual QA.
-7. Restore/verify M03/M04/M05/M08 Drive persistence before claiming those files are safely stored.
+The Hunter AI-multiview generation branch is paused because v001, v002 and v003 repeated the same technical-source problem.
 
-Do not bulk-generate the queue.
+Do not consume more generation attempts by producing H02A v004 with the same method.
+
+Current safe order:
+1. preserve/reconcile H02A v003 as `REVISE_METHOD`;
+2. keep DCC blockout specification ready but unimplemented until explicit authorization;
+3. while DCC remains blocked, move only to an **independent** documentation/design packet that does not rely on a selected Hunter geometry source;
+4. do not approve H04 against an unresolved base;
+5. do not claim M03/M04/M05/M08 are Drive-safe until persistence is restored/read back.
 
 ## Current gate
 
 `H02_V001 = REVIEWED_WITH_ISSUES / REVISE`
-`H02_V002 = REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
-`H02_V002_CONVERSION_USE = NO`
-`H02A_V003 = PLANNED / NEXT`
-`H02B_V003 = BLOCKED BY H02A`
-`H03_DETAILS = CONDITIONAL`
+`H02_V002 = REVIEWED_WITH_ISSUES / REVISE`
+`H02A_V003 = REVIEWED_WITH_ISSUES / REVISE_METHOD / DRIVE_VERIFIED`
+`H02A_V004_SAME_METHOD = DO_NOT_GENERATE`
+`HUNTER_DCC_BLOCKOUT_SPEC = RECORDED / IMPLEMENTATION_BLOCKED`
+`H02B_V003 = BLOCKED`
+`H03_DETAILS = BLOCKED/CONDITIONAL`
 `H04_V001 = GENERATED_UNREVIEWED / BLOCKED BY NEUTRAL BASE`
 `MONSTER_M01M02 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
 `MONSTER_M03 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
