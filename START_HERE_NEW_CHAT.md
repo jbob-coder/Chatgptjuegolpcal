@@ -6,17 +6,15 @@ Last reconciled: 2026-09-02
 
 This is a completely new game using the same repository/project area that previously contained WorldLife RPG.
 
-WorldLife is no longer the active project. Do not resume WorldLife phone stabilization, life-sim systems, apartment work, city expansion or Admin Panel development.
+WorldLife is no longer active. Do not resume WorldLife life-sim/city/apartment/Admin work.
 
-`Unnamed Hunt RPG` is a temporary working label only.
+`Unnamed Hunt RPG` is temporary.
 
 ## Current phase
 
-The project is in **DESIGN / STRUCTURE / DOCUMENTATION**.
+**DESIGN / STRUCTURE / DOCUMENTATION**
 
 No gameplay code, engine project, scenes, APK or production assets are authorized yet.
-
-The current task is to define the game correctly from basic player experience down to mechanics, code ownership, performance caps, testing and creator tooling before implementation starts.
 
 ## Mandatory read order — basic to detailed
 
@@ -28,104 +26,111 @@ The current task is to define the game correctly from basic player experience do
 6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 7. `NEW_GAME_MASTER_PLAN.md`
 8. `MECHANICAL_SYSTEMS_GUIDE.md`
-9. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-10. `CONTENT_DATA_GUIDE.md`
-11. `CODE_GUIDE.md`
-12. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-13. `ADMIN_CREATOR_SYSTEM.md`
-14. `TESTING_VERIFICATION_PLAN.md`
-15. `IMPLEMENTATION_ROADMAP.md`
-16. `DEVELOPMENT_REFERENCE.md`
-17. `EVOLVE_ALIGNMENT.md`
-18. `NEW_GAME_DISCUSSION_CHECKLIST.md`
-19. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when its supporting detail is needed.
-
-`DOCUMENTATION_INDEX.md` explains ownership and which file to read for each topic.
+9. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+10. `BEHAVIOR_PATTERN_SYSTEM.md`
+11. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+12. `CONTENT_DATA_GUIDE.md`
+13. `CODE_GUIDE.md`
+14. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+15. `ADMIN_CREATOR_SYSTEM.md`
+16. `TESTING_VERIFICATION_PLAN.md`
+17. `IMPLEMENTATION_ROADMAP.md`
+18. `DEVELOPMENT_REFERENCE.md`
+19. `EVOLVE_ALIGNMENT.md`
+20. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+21. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
 
 ## Locked direction so far
 
 ### Visual/player experience
 - grounded stylized wilderness/frontier monster-hunting fantasy;
-- illustrated-world/dimensional-diorama overview philosophy, not literal paper/craft visuals;
-- aerial exploration around a 40–50° downward target angle;
-- stylized 3D player/major monsters for continuity;
-- selective 2D/billboard/impostor detail for Android performance;
-- first-person combat entered through a camera/world transition rather than an unrelated battle screen;
+- illustrated dimensional overview, not literal paper/craft;
+- aerial exploration around 40–50° downward target;
+- stylized 3D player/major monsters;
+- selective 2D/billboard/impostor details;
+- first-person combat entered from same encounter context;
 - restrained hunter-field-document UI;
-- state-based music/audio structure.
+- state-based music/audio.
 
 ### Gameplay
-- physical region exploration;
-- tracking/observation;
-- tactical first-person turn-based combat;
-- movement/cover/bearing/posture;
-- targetable monster anatomy;
-- wound/break/sever/destroy states;
-- anatomy-dependent monster capability changes;
-- condition-based harvesting;
-- material-driven crafting/upgrades/research.
+- physical region exploration/tracking;
+- first-person turn-based tactical combat;
+- movement/cover/bearing/posture/terrain;
+- targetable anatomy;
+- wound/break/sever/destroy;
+- condition-based harvest;
+- material-driven crafting/equipment/research.
+
+### Stats/effects
+- current six-role attributes: Might, Finesse, Agility, Endurance, Perception, Resolve;
+- current internal bounded-scale recommendation: 1–100, exact practical values open;
+- equipment/status/terrain/weather/posture/context all use one shared typed modifier pipeline;
+- explicit stacking/caps/floors;
+- AP/reaction scaling tightly restricted;
+- development calculation traces required;
+- contextual hit quality preferred over generic hidden critical chance.
+
+### Autonomous behavior
+- **NO AI behavior system**;
+- NPCs/creatures use deterministic authored schedules/patterns;
+- explicit conditions, priorities, cooldowns, phases and capability checks;
+- simple actors have simple patterns; complex monsters can have layered authored patterns;
+- behavior uses normal domain action requests and remains inspectable/reproducible.
 
 ### Architecture
 - one authoritative game state;
 - presentation does not decide gameplay outcomes;
-- content definitions separate from runtime instances;
-- stable IDs;
-- data-driven content;
-- deterministic/replay-friendly domain rules where practical;
+- definitions separate from runtime instances;
+- stable IDs/data-driven content;
+- deterministic/replay-friendly rules where practical;
 - new save lineage;
 - bounded scalable systems;
-- Admin/Creator tools use validated commands/schemas.
+- Admin/Creator tools use validated schemas/commands.
 
 ## Performance/bug rule
 
-Anything that can grow expensive must have:
-- a budget/cap;
-- cleanup/unload behavior;
-- development instrumentation;
-- a way to isolate/disable it when practical;
-- target-device verification before its cost is considered acceptable.
+Anything scalable requires a cap/budget, cleanup/unload behavior, instrumentation, isolation toggle when practical and target-device verification.
 
-Do not sacrifice input, tactical readability, anatomy, telegraphs or simulation correctness before decorative effects/detail.
+Behavior evaluation is decision/event-driven, not every-frame. Derived stats are cached until inputs change.
+
+Do not sacrifice input/tactical readability/anatomy/telegraphs/simulation correctness before decoration.
 
 ## Admin/Creator rule
 
-The future development Admin system should make the game easier to build and debug through:
-- state/performance inspectors;
-- deterministic replay;
-- typed test commands;
-- creature/anatomy/attack editors;
+Future development tools should include:
+- state/stat/modifier inspectors;
+- calculation traces;
+- status/effect/terrain test tools;
+- deterministic behavior pattern trace/editor;
+- anatomy/attack editors;
 - harvest simulator;
-- encounter layout builder;
+- encounter builder;
 - region overlays;
+- replay/save/performance tools;
 - content validation/export.
 
-It must not become a second hidden rules engine.
+They never become a hidden second rules engine.
 
 ## Implementation sequence
 
-The high-level dependency order is:
-
-`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/CRAFTING → EXPLORATION DOMAIN → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
-
-Read `IMPLEMENTATION_ROADMAP.md` for gates.
+`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → EXPLORATION DOMAIN → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
 
 ## Current exact next action
 
-Continue design discussion and lock the remaining fundamentals, especially:
+Continue design discussion, especially:
+- exact starting attributes/growth;
+- health/stamina derivation;
+- AP/reaction model;
+- equipment slots/burden;
+- first status list;
+- first terrain effects;
+- damage/hit-quality/resistance formulas;
+- first monster behavior-pattern complexity;
 - world premise/history;
-- creature ecology/origin;
-- player/hunter role;
-- technology/magic level;
-- first hub;
-- first region;
-- first monster;
-- first weapon;
-- solo/party baseline;
-- exact combat action economy;
-- gore/harvesting depth;
-- progression/failure rules;
-- target Android device;
-- engine.
+- creature ecology;
+- hunter role;
+- first hub/region/monster/weapon;
+- target Android/engine.
 
 Do not create gameplay source until the user explicitly says to begin.
 
@@ -134,6 +139,9 @@ Do not create gameplay source until the user explicitly says to begin.
 DESIGN_RECORDED = YES
 DOCUMENTATION_SYSTEM_RECORDED = YES
 MECHANICS_DOCUMENTED = YES
+STATS_EFFECTS_SYSTEM_DESIGNED = YES
+DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
+AI_BEHAVIOR_SYSTEM = NO
 CODE_STRUCTURE_PLANNED = YES
 PERFORMANCE_CAPS_PLANNED = YES
 ADMIN_CREATOR_SYSTEM_PLANNED = YES
