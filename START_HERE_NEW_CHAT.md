@@ -17,25 +17,33 @@ Before consequential work read:
 2. `README.md`
 3. `PROJECT_HANDOFF.md`
 4. `NEW_GAME_MASTER_PLAN.md`
-5. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
-6. `DEVELOPMENT_REFERENCE.md`
-7. `EVOLVE_ALIGNMENT.md`
-8. `NEW_GAME_DISCUSSION_CHECKLIST.md`
-9. verified source/tests only after implementation begins.
+5. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
+6. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
+7. `DEVELOPMENT_REFERENCE.md`
+8. `EVOLVE_ALIGNMENT.md`
+9. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+10. verified source/tests only after implementation begins.
 
 ## Current directive
 
 The user wants:
 - aerial/top-down angled 2D/3D hybrid exploration;
+- a Paper-Mario-like dimensional overview philosophy for readability, without a literal paper aesthetic;
+- a grounded stylized wilderness/frontier hunting theme described as **an illustrated hunting world brought to life**;
+- a roughly 40–50° elevated exploration camera as the current prototype target;
 - first-person turn-based combat when a battle starts;
+- a continuous camera/world transition so combat happens in the same physical encounter context;
 - tactical movement and positioning options;
 - cover where the environment supports it;
 - selectable attack types and selectable body parts;
 - authoritative break/sever/destroy anatomy states;
-- monster behavior altered by damaged anatomy;
+- monster visuals/behavior altered by damaged anatomy;
 - harvesting whose quantity/quality depends on how much usable material remains on each part;
 - crafting/progression connected to harvested materials;
+- practical hunter-style UI and field/bestiary presentation rather than generic glossy mobile UI;
 - comprehensive planning and EVOLVE documentation before creation.
+
+Detailed visual/environment/runtime behavior is in `VISUAL_WORLD_BEHAVIOR_BIBLE.md`.
 
 ## Implementation hold
 
@@ -45,6 +53,7 @@ Therefore:
 - GAMEPLAY_SOURCE_CREATED = NO
 - IMPLEMENTATION_AUTHORIZED = NO
 - ENGINE_SELECTED = NO
+- VISUAL_PROTOTYPE_IMPLEMENTED = NO
 - NEXT_ACTION = DESIGN_DISCUSSION
 
 Do not create gameplay code, APKs, scenes, combat prototypes, or final assets until explicitly authorized.
@@ -60,7 +69,8 @@ Aerial and first-person presentation must not independently decide gameplay outc
 One complete vertical hunt slice only:
 - one region;
 - one creature;
-- one encounter transition;
+- illustrated aerial wilderness presentation;
+- continuous aerial-to-first-person encounter transition;
 - first-person tactical battle;
 - meaningful anatomy break/sever interaction;
 - condition-based harvest;
