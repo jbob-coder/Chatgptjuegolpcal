@@ -1,14 +1,16 @@
 # WorldLife RPG
 
+> **CURRENT HANDOFF — READ FIRST:** `START_HERE_NEW_CHAT.md` is the current runtime/build handoff as of 2026-09-02. It supersedes older v0.5.7 runtime-status wording preserved later in this README. Current frozen source is v0.5.8, and a GitHub-built v0.5.8 functional test APK has successfully passed core tests, Android compilation, APK integrity, package/version, and signature verification. Permanent test APK: https://drive.google.com/file/d/1CE5wmIVNcbnVy8XvWpt6SBLrAlHO01P0/view?usp=drivesdk
+
 WorldLife RPG is an original Android life-simulation RPG built around a persistent simulated city rather than a menu-only life simulator. The player physically exists in Arclight City, moves through a third-person world, meets scheduled residents, performs location activities, makes life-event choices, enters persistent world states, and carries permanent consequences in one authoritative `GameState`.
 
 The project may share the broad genre idea of life simulation with games such as BitLife, but it does **not** copy BitLife UI, event text, branding, assets, writing, or protected content.
 
 ## Current source state
 
-- Source version: `0.5.7`
+- Source version: `0.5.8`
 - Android application ID: `com.jackwilson.worldlife`
-- `versionCode`: `22`
+- `versionCode`: `23`
 - Minimum Android SDK: `26`
 - Compile / target SDK: `37`
 - Java language target: `17`
@@ -16,24 +18,29 @@ The project may share the broad genre idea of life simulation with games such as
 - Android Gradle Plugin: `9.1.1`
 - SceneView: `4.33.0`
 - Save schema: `4`
-- Last fully Android-compiled/signature-verified APK: `0.4.0`
-- Current Drive source folder: `https://drive.google.com/drive/folders/1ZFD7TQl5rxco8kAPQuzgMcAdaPdjoQ-T`
-- Strict GitHub mirror: `worldlife-v057-drive-mirror`
+- Frozen Drive source folder: `https://drive.google.com/drive/folders/1WABizspRFJxOURbTpqbPdIAda2Uv00Qp`
+- Frozen source SHA-256: `478d99cd5cafbc350910ad5820d47d6ac656d80332c1cc6ddc85d9cdecef8822`
+- Successful GitHub APK test branch: `worldlife-v058-apk-test`
+- Successful build commit: `5726bab2d671e1af1260e5c524a5feb775c72abf`
+- Successful GitHub Actions run: `33596655227`
+- Verified test APK SHA-256: `e1e10e6910d2bcc1a1ca87bfc9946727f1307c9a008020dfc03d12aa58ad7c0f`
+- Verified test APK size: `44,012,114` bytes
+- Permanent Drive test APK: `https://drive.google.com/file/d/1CE5wmIVNcbnVy8XvWpt6SBLrAlHO01P0/view?usp=drivesdk`
 
-`0.5.7` adds the first Android/SceneView player-apartment presentation slice on top of the verified schema-4 interior-session authority. It is source/core/static verified only until a free local Android toolchain actually compiles and runs it. Do not describe v0.5.7 as APK-verified or phone-tested before that runtime gate.
+`0.5.8` adds the Cheat/Admin Panel foundation and durable project-editing/admin-goal documentation on top of the v0.5.7 apartment presentation slice. The GitHub functional test APK is Android-compiled and signature-verified, but phone runtime/playability remains pending user installation and testing. Its workflow may create tiny fallback PNG resources when authoritative art is absent from GitHub transport, so do not judge final visual fidelity from that test APK.
 
 ## Start here
 
-For substantial work, read the authoritative Drive copies in this order:
+For substantial work, read in this order:
 
-1. `README.md` — project orientation and current state.
-2. `WORLDLIFE_PROJECT_HANDOFF.md` — exact continuation point, blockers, decisions, risks, next action.
-3. `WORLDLIFE_DEVELOPMENT_REFERENCE.md` — how to work on the project without breaking authority, saves, storage policy, or verification discipline.
-4. `WORLDLIFE_SYSTEMS_GUIDE.md` — how each implemented game system works and which file owns it.
-5. `ARCHITECTURE.md` — module boundaries and mutation/persistence flow.
-6. `WORLD_LAYOUT_MASTER_PLAN.md` — save-stable exterior scale and future city expansion seams.
-7. `WORLD_ART_BIBLE.md` — world skin, district identities, materials, scale growth, interiors, asset quality, and performance rules.
-8. `ANIMATION_RUNTIME_PLAN.md` — animation authority, locomotion, NPC/object motion, and performance plan.
+1. `START_HERE_NEW_CHAT.md` — exact current runtime/build state and immediate next action.
+2. `README.md` — project orientation.
+3. `WORLDLIFE_PROJECT_HANDOFF.md` — continuation point, blockers, decisions and risks.
+4. `WORLDLIFE_DEVELOPMENT_REFERENCE.md` — safe development workflow.
+5. `WORLDLIFE_SYSTEMS_GUIDE.md` — system ownership and behavior.
+6. `WORLDLIFE_EVOLVE_ALIGNMENT.md` — EVOLVE operating/continuity rules.
+7. Inspect the Drive-authoritative v0.5.8 source/manifest for factual source claims.
+8. For build work, inspect `.github/workflows/worldlife-v058-apk.yml` on `worldlife-v058-apk-test` and successful run `33596655227` before changing anything.
 
 Google Drive/repository files outrank chat memory when they conflict.
 
@@ -99,7 +106,14 @@ Future city growth attaches streamed sectors. Existing coordinates are permanent
 - v0.5.7 switches Android presentation to `InteriorWorldScreen` when the session is active.
 - The first apartment uses the authoritative `8 m × 7 m` catalog footprint, room zones, furniture massing, residential materials/lighting, third-person camera look, and cosmetic idle/breathing motion.
 
-**Still pending:** real Android/SceneView compile/runtime verification and engine-authoritative interior local movement/collision. The UI intentionally does not fake an indoor movement authority.
+**Still pending:** engine-authoritative interior local movement/collision and phone runtime validation of the v0.5.8 test APK.
+
+### v0.5.8 Cheat/Admin foundation
+- System overlay exposes separate Cheat Panel and Admin Panel surfaces.
+- Admin mutations are separated from normal gameplay mutations through an explicit admin-command path.
+- Current quick tools include money/stats/revive/location discovery/relationships/activity-limit controls.
+- Deeper admin controls include exact state editing, calendar/world metrics, teleportation, event forcing/clearing, per-NPC relationship editing, RNG control and state inspection.
+- Long-term goal: make the Admin Panel the primary creator/debug/scenario/content-authoring interface, including NPC/event/world/interior/property/job/economy/material/animation tools, validation and import/export.
 
 ## Visual direction
 
@@ -141,42 +155,41 @@ GameSaveJsonCodec / DataStore<GameSave>
 
 Core rule: **the UI is not a second game engine**.
 
-## Storage/cost policy
+## Storage/build policy
 
-Google Drive is authoritative. GitHub version branches are pointer/history mirrors; this reference branch exists only for convenient reading.
+Google Drive is authoritative for frozen source snapshots and durable APK copies. GitHub reference/version branches provide readable history and build transport.
 
-Do not use without explicit authorization: GitHub Actions, paid runners, Codespaces, Git LFS, paid build services, metered APIs, or paid asset packs.
+The user explicitly authorized GitHub Actions for WorldLife APK building. For future APK builds, use the successful SHA-gated GitHub reconstruction pattern unless a cleaner exact-source transport is implemented and verified. Do not use the failed private-Drive-download approach: GitHub runners previously received Google wrapper/access responses instead of the archive.
 
 Per-file working safety ceiling: `90 MiB = 94,371,840 bytes`.
 
-## v0.5.7 verification
+## v0.5.8 GitHub test-build verification
 
-Observed gates:
-- v0.5.6 input SHA rechecked: PASS.
-- Production game-core byte-identical to v0.5.6: PASS, 11 files / 0 changed.
-- Pure Kotlin core compilation: PASS.
-- Repository tests: PASS, 45 tests.
-- Apartment renderer Kotlin/type check against local Compose/SceneView API-shaped stubs: PASS.
-- UI authority structure: PASS.
-- Schema-4 serializer Kotlin/type check with local API-shaped stubs: PASS.
-- Android XML parse: PASS, 6 files.
-- Static source verifier: PASS, 58 required files.
-- Final source manifest: PASS, 203 tracked files.
-- Cost/policy audit: PASS, 0 workflows / 0 files over 90 MiB.
-- Drive archive readback: PASS.
-- Android/SceneView APK compile/runtime: **NOT EXECUTED**.
+Observed in successful run `33596655227`:
+- source/bootstrap SHA gates: PASS.
+- exact v0.5.8 compile overlay SHA gates: PASS.
+- stable dev-signing key SHA gate: PASS.
+- Gradle `:game-core:test`: PASS.
+- Android `:app:assembleDebug`: PASS.
+- APK ZIP integrity: PASS.
+- APK signature v2: PASS, one signer.
+- package: `com.jackwilson.worldlife`.
+- versionCode `23`, versionName `0.5.8`.
+- compile/target SDK `37`, min SDK `26`.
+- APK size: `44,012,114` bytes.
+- APK SHA-256: `e1e10e6910d2bcc1a1ca87bfc9946727f1307c9a008020dfc03d12aa58ad7c0f`.
+- Drive readback of test APK: PASS at same size/SHA.
+- Phone runtime/playability: **NOT YET VERIFIED**.
 
-Frozen archive: 1,566,683 bytes; SHA-256 `454269095114963f18f446efc4e3eb4cb0f36a002a9ebd90d114c83e7e210366`.
+## Next bounded piece
 
-## Next bounded gameplay piece
+**Phone runtime validation of the v0.5.8 GitHub test APK.** Install it, test launch/black-screen behavior, controls, scaling, save/load, apartment ENTER/EXIT, Cheat/Admin Panel, NPC TALK, map/travel and crashes. Record observed runtime defects before unrelated expansion.
 
-**Engine-authoritative apartment free-roam movement and collision.**
-
-Then: runtime-verify apartment → generalize interiors → implement stable sector streaming → add first attached `120 m × 80 m` exterior expansion sector without moving/rescaling the original Arclight Core.
+After runtime stabilization: engine-authoritative apartment free-roam/collision → character animation → final visual-resource parity build → streamed sector expansion.
 
 ## Version continuity
 
-- `0.4.0` — last fully Android-compiled/signature-verified APK baseline.
+- `0.4.0` — earlier fully Android-compiled/signature-verified baseline.
 - `0.4.6` — shared exterior collision/camera authority.
 - `0.4.7` — scheduled NPC TALK.
 - `0.4.8` — six-resident social migration.
@@ -189,3 +202,4 @@ Then: runtime-verify apartment → generalize interiors → implement stable sec
 - `0.5.5` — schema-4 interior-session authority/handoff.
 - `0.5.6` — documentation/continuity integrity refresh.
 - `0.5.7` — first apartment SceneView presentation slice + visual/animation/world-scale standards.
+- `0.5.8` — Cheat/Admin Panel foundation + systematic editing/admin-goal documentation + successful GitHub functional test APK build.
