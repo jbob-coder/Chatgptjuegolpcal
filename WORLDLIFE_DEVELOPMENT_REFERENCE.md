@@ -1,162 +1,153 @@
 # WorldLife RPG — Development Reference
 
-Current reference: `0.5.8`.
+Status: `REBOOT DESIGN / NO IMPLEMENTATION`.
 Last reconciled: 2026-09-02.
 
-Frozen source authority:
-`https://drive.google.com/drive/folders/1WABizspRFJxOURbTpqbPdIAda2Uv00Qp`
+## Current development boundary
 
-Frozen source SHA-256:
-`478d99cd5cafbc350910ad5820d47d6ac656d80332c1cc6ddc85d9cdecef8822`
+The old v0.5.8 life-sim implementation is legacy history and must not be extended as the active game.
+
+No reboot gameplay code may be created until the user completes the design discussion and explicitly lifts the implementation hold.
+
+Read first:
+
+1. `START_HERE_NEW_CHAT.md`
+2. `WORLDLIFE_REBOOT_MASTER_PLAN.md`
+3. `WORLDLIFE_REBOOT_ARCHITECTURE_VISUAL_BIBLE.md`
+4. `WORLDLIFE_REBOOT_DISCUSSION_CHECKLIST.md`
+5. `WORLDLIFE_REBOOT_ENGINE_DECISION.md`
+6. this file
+7. `WORLDLIFE_EVOLVE_ALIGNMENT.md`
 
 ## Non-negotiable development rules
 
-1. Inspect the latest checksum-verified Drive source before project-specific source edits.
-2. Do not edit a frozen Drive source snapshot in place; create a new rollback-safe source version for future code changes.
-3. `GameState` is persistent authority; `GameEngine` owns mutation, legality, repair and authoritative quotes.
-4. Compose/SceneView renders state and dispatches actions/commands. Never create a second gameplay authority in UI code.
-5. Keep `AdminCommand` separate from normal `GameAction`.
-6. Preserve stable IDs, save migrations, application ID, signing lineage, and existing Arclight coordinates unless an explicit compatible migration is designed and tested.
-7. Make one bounded/reversible piece at a time and add behavior tests where practical.
-8. Distinguish `IMPLEMENTED`, `STATIC_VERIFIED`, `COMPILED`, `TESTED`, `APK_BUILD_VERIFIED`, `PHONE_RUNTIME_VERIFIED`, and `VISUAL_PARITY_VERIFIED`.
-9. Never claim current phone/runtime behavior from source/static/build evidence alone.
-10. Google Drive is primary for frozen source/permanent APKs. GitHub is readable reference/history/build transport.
-11. GitHub Actions are explicitly authorized for WorldLife APK builds. Reuse the proven SHA-gated pattern unless a better exact-source path is deliberately implemented and verified.
-12. Do not use unrelated paid runners, Codespaces, Git LFS, paid APIs/builds/assets without explicit approval.
-13. Keep files below the 90 MiB (`94,371,840` byte) working ceiling when targeting a 100 MiB service limit.
-14. If required reference docs conflict, resolve from higher-authority evidence and repair the stale docs before unrelated implementation.
+1. Current explicit reboot decisions outrank legacy v0.5.8 design assumptions.
+2. Preserve the old checksum-verified source as historical rollback until deletion/archive scope is explicitly resolved.
+3. Do not mutate old life-sim source into the new game by default.
+4. Build the reboot around one authoritative domain state.
+5. Aerial exploration and first-person combat are presentation modes, not separate rules engines.
+6. Body-part integrity, break/sever/destroy state, combat position, cover, harvest quantity, inventory and progression are domain-owned.
+7. Animations/cameras/UI consume resolved state/events and never decide hit/sever/loot outcomes.
+8. Use stable IDs from the first content definition.
+9. New save lineage should begin cleanly; do not pretend old life-sim saves are compatible with the hunting RPG.
+10. Establish verification before content scale.
+11. Make one bounded/reversible piece at a time.
+12. Never fabricate build/test/runtime results.
+13. Verify the actual Android target phone early before freezing engine/render requirements.
+14. Do not use unrelated paid services, runners, assets, APIs or storage without explicit user approval.
 
-## Current architecture boundary
+## Planned domain boundary
 
 ```text
-Compose + SceneView
-    ↓ actions / admin commands
-GameViewModel
-    ↓
-AndroidGameRepository
-    ↓ DataStore transaction
-GameEngine (:game-core)
-    ↓ authoritative mutation / repair
-GameState
-    ↓
-GameSaveJsonCodec / DataStore<GameSave>
+Input
+  ↓
+Action Request
+  ↓
+Domain Validation
+  ↓
+Exploration/Turn/Combat/Harvest Resolver
+  ↓
+Authoritative State + Domain Events
+  ↓
+Persistence / Replay / Debug Record
+  ↓
+Presentation
 ```
 
-The UI is not a second game engine.
+## Planned ownership
 
-## v0.5.8 current boundary
+### Domain
 
-v0.5.8 contains:
+- game/exploration state;
+- encounter state;
+- turn/action economy;
+- tactical position/cover;
+- anatomy/body parts;
+- damage/break/sever;
+- monster AI decisions;
+- status effects;
+- harvest;
+- inventory/equipment;
+- crafting/progression;
+- deterministic RNG/event log.
 
-- deterministic simulation/save foundation;
-- exterior movement/collision/map/travel/TALK/calendar systems;
-- schema-4 apartment session authority and SceneView apartment presentation;
-- Cheat Panel;
-- Admin Panel foundation;
-- explicit `AdminCommand` mutation path;
-- project documentation/editing-map system.
+### Content
 
-Apartment presentation exists, but engine-authoritative interior-local free-roam does not. Do **not** add a functioning indoor joystick by moving the avatar only in Compose. First add local interior position/collision/repair to `:game-core`, test it, then connect presentation.
+- monster definitions;
+- body-part definitions;
+- attacks;
+- weapons;
+- materials;
+- recipes;
+- regions;
+- cover/environment definitions.
 
-That implementation is intentionally after the current phone-runtime stabilization milestone.
+### Presentation
 
-## Current build evidence
+Exploration:
+- aerial 2D/3D hybrid renderer/input/camera.
 
-Successful APK build branch:
-`worldlife-v058-apk-test`
+Combat:
+- first-person camera/action UI/targeting/animations/effects.
 
-Successful commit:
-`5726bab2d671e1af1260e5c524a5feb775c72abf`
+## First implementation sequence after hold is lifted
 
-Workflow:
-`.github/workflows/worldlife-v058-apk.yml`
+Do not skip directly to art or a large map.
 
-Successful GitHub Actions run:
-`33596655227`
+1. choose/verify engine on actual phone with a tiny probe;
+2. create clean reboot source root/repository structure;
+3. create verification entry point;
+4. implement minimal `EncounterState`;
+5. implement AP/turn progression;
+6. implement tactical position node + cover state;
+7. implement one monster anatomy definition;
+8. implement one targeted attack;
+9. implement break/sever resolution;
+10. test determinism/invariants;
+11. connect first-person presentation;
+12. implement harvest resolver;
+13. implement aerial exploration/encounter transition;
+14. integrate one complete hunt loop;
+15. phone-test before expanding content.
 
-The workflow passed core tests, Android assembly, APK ZIP integrity, signature, package/version and artifact upload gates.
+## Combat invariant examples
 
-The test APK is `APK_BUILD_VERIFIED` but not yet `PHONE_RUNTIME_VERIFIED` or `VISUAL_PARITY_VERIFIED`.
+- a monster cannot execute an attack that requires a destroyed/severed functional part;
+- harvested material cannot exceed anatomy-defined capacity;
+- a unique organ cannot be extracted twice;
+- cover modifies only actions whose rules reference that cover relationship;
+- UI cannot bypass AP/stamina/position legality;
+- severed/destroyed are different states;
+- same seed + same authoritative action sequence should reproduce deterministic portions of an encounter.
 
-Build-specific qualification:
+## Android/engine rule
 
-- removes the invalid explicit `androidx.compose.foundation.layout.weight` import from `AdminToolsScreen.kt`;
-- can create tiny fallback PNGs when required runtime visuals are missing from GitHub build transport.
+Current candidate: Godot 4.7 Compatibility renderer, but this is not locked.
 
-Do not change build infrastructure merely because older docs said Android compilation was unavailable. Inspect the successful workflow/run first.
+Before final selection:
 
-## World scale rule
-
-The existing `60 × 40` grid at `4.0 m/cell` is permanent save space (~240 m × 160 m). Grow the world by stable streamed sectors and lower-detail neighbor/skyline proxies. Never make the city larger by stretching old save coordinates.
-
-Planned exterior expansion sector target is approximately `120 m × 80 m`, with bounded active rendering/physics/NPC budgets and stable seams.
-
-## Interior development rule
-
-Required implementation sequence after runtime stabilization:
-
-`core-owned local indoor position → room/wall/partition/furniture/portal collision → room detection → persistence → repair → deterministic tests → left-stick indoor movement → walk/run presentation → object interaction → door/furniture animations`
-
-Gameplay-relevant interior movement must remain engine-authoritative.
-
-## Visual/animation rule
-
-Visual skin and animation may improve presentation, but gameplay-relevant location, movement, schedule, interaction, collision, persistence and consequences remain engine-owned.
-
-Animation represents authoritative state; it does not silently become another simulation engine.
-
-## Cheat/Admin extension rule
-
-When expanding the creator interface:
-
-1. define stable/validated command semantics in `:game-core`;
-2. mutate through `GameEngine.applyAdminCommand()`;
-3. repair/validate state after mutation;
-4. persist through the repository/DataStore path;
-5. expose UI only after command behavior exists;
-6. add deterministic regression tests;
-7. label future builders as planned until implemented and tested.
-
-Do not put arbitrary source/content mutations directly into Compose state.
-
-## Phone-runtime defect workflow
-
-Use `WORLDLIFE_PHONE_RUNTIME_VALIDATION.md` as the evidence ledger.
-
-For every failure:
-
-1. record direct observation/reproduction;
-2. classify severity (`BLOCKER`, `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`);
-3. identify likely ownership without claiming root cause prematurely;
-4. inspect the actual relevant source;
-5. make the smallest root-cause fix;
-6. run the required core/build gates;
-7. create a new rollback-safe source version if source changed;
-8. re-test the failing case and adjacent regressions;
-9. update handoff/system docs whose truth changed.
-
-## Normal Chat workflow
-
-Read and follow `WORLDLIFE_CHAT_OPERATING_PROTOCOL.md`.
-
-Normal Chat uses GitHub/Drive/Markdown as durable project memory. It must not claim a persistent local working tree or unexecuted terminal/build/test work. When execution is required, use an available verified execution path or explicitly record the gate as unexecuted.
+- identify target phone/GPU/Android;
+- run aerial + first-person + UI probe;
+- verify landscape/touch;
+- verify scene transition;
+- verify suspend/resume;
+- observe frame time/memory;
+- then freeze engine/render/minimum-device contract.
 
 ## Documentation maintenance
 
-Update only files whose truth changed, but do not knowingly leave contradictions in the mandatory new-chat read path.
+When discussion changes design truth, update only affected reboot docs plus the mandatory handoff/readme path.
 
-At minimum:
+When implementation starts, every substantial change must update:
 
-- current runtime/build/next action → `START_HERE_NEW_CHAT.md`, `README.md`, `WORLDLIFE_PROJECT_HANDOFF.md`;
-- architecture/ownership changes → this file and `WORLDLIFE_SYSTEMS_GUIDE.md`;
-- workflow/continuity changes → `WORLDLIFE_EVOLVE_ALIGNMENT.md` and `WORLDLIFE_CHAT_OPERATING_PROTOCOL.md`;
-- authority pointer/version changes → `MIRROR_POINTER.json`;
-- phone observations → `WORLDLIFE_PHONE_RUNTIME_VALIDATION.md` plus handoff.
-
-After any GitHub documentation write, read it back from the target branch and verify the resulting branch state.
+- current objective/state;
+- ownership/path map if changed;
+- tests actually run;
+- result status (`IMPLEMENTED`, `TESTED`, `VERIFIED`, runtime gate as applicable);
+- blockers/risks/unknowns.
 
 ## Current next bounded piece
 
-**Phone runtime validation of the already-built v0.5.8 functional test APK.**
+**Design discussion.**
 
-Do not start unrelated v0.5.9 gameplay expansion until the runtime ledger has real evidence and any blocker/critical defects are handled or explicitly accepted.
+No code, build, APK or destructive cleanup is the next piece until the user explicitly ends the discussion hold.
