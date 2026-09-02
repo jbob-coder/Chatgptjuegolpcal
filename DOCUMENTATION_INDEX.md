@@ -1,343 +1,208 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE PLANNING / CONTENT / ASSET-QA INDEX / NO GAMEPLAY IMPLEMENTATION
+Status: STAGE 1 PROBE AUTHORIZED / ACTIVE DESIGN + CONTENT + ASSET QA
 Last reconciled: 2026-09-02
 
 ## Purpose
 
-Map current authority, package ownership, content packages, asset-production rules and exact read order. Reconstruct current state from repository files, not chat memory.
+Map current authority, package ownership, readiness gates and exact read order. Reconstruct current state from repository files, not chat memory.
 
 # 1. Mandatory read order
 
-## Layer 0 — current state/navigation/governance
+## Layer 0 — current state/governance/readiness
 1. `START_HERE_NEW_CHAT.md`
 2. `README.md`
 3. `PROJECT_HANDOFF.md`
 4. `DOCUMENTATION_INDEX.md`
 5. `docs/README.md`
-6. `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
-7. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when working on art/model generation.
+6. `docs/00_project/README.md`
+7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
+8. `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
 
-## Layer 1 — player experience/world/model direction
-8. `GAME_EXPERIENCE_BIBLE.md`
-9. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
-10. `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
-11. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
-12. `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
-13. `MODEL_REFERENCE_IMAGE_AND_CREATION_PIPELINE.md`
-14. `FIRST_SETTLEMENT_BLUEPRINT.md`
-15. `docs/10_world/regions/REGION_01/README.md`
+## Layer 1 — current platform/implementation gate
+9. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
+10. `IMPLEMENTATION_ROADMAP.md`
+11. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+
+Current Stage 1 candidate:
+- Godot 4.7;
+- GDScript;
+- GL Compatibility;
+- Samsung Galaxy A03s;
+- stable 30 FPS representative probe target.
+
+Implementation is authorized according to the readiness matrix. Final engine selection is still probe-pending.
+
+## Layer 2 — player experience/world/model direction
+12. `GAME_EXPERIENCE_BIBLE.md`
+13. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
+14. `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
+15. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
+16. `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
+17. `MODEL_REFERENCE_IMAGE_AND_CREATION_PIPELINE.md`
+18. `FIRST_SETTLEMENT_BLUEPRINT.md`
+19. `docs/10_world/regions/REGION_01/README.md`
 
 Region 01 package-local authorities:
-- `REGION_TOPOLOGY.md`
-- `TRACKING_AND_ESCAPE.md`
-- `TERRAIN_ECOLOGY_MUTATION.md`
-- `ENCOUNTER_FOOTPRINTS.md`
-- `STREAMING_AND_PERFORMANCE.md`
-- `VISUAL_REFERENCE_PLAN.md`
-- `ACCEPTANCE_CHECKLIST.md`
+- `REGION_TOPOLOGY.md`;
+- `TRACKING_AND_ESCAPE.md`;
+- `TERRAIN_ECOLOGY_MUTATION.md`;
+- `ENCOUNTER_FOOTPRINTS.md`;
+- `STREAMING_AND_PERFORMANCE.md`;
+- `VISUAL_REFERENCE_PLAN.md`;
+- `ACCEPTANCE_CHECKLIST.md`.
 
-## Layer 2 — entity/content packages
-16. `docs/30_content/README.md`
-17. `docs/30_content/hunters/HUNTER_BASE_01/README.md`
-18. `docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`
-19. `docs/30_content/monsters/MONSTER_01/README.md`
-20. `docs/30_content/monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md`
-21. `docs/30_content/monsters/MONSTER_01/CRYSTAL_AND_MUTATION.md`
-22. `docs/30_content/monsters/MONSTER_01/BEHAVIOR_AND_REGION.md`
+## Layer 3 — entity/content packages
+20. `docs/30_content/README.md`
+21. `docs/30_content/hunters/HUNTER_BASE_01/README.md`
+22. `docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`
+23. `docs/30_content/monsters/MONSTER_01/README.md`
+24. `docs/30_content/monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md`
+25. `docs/30_content/monsters/MONSTER_01/CRYSTAL_AND_MUTATION.md`
+26. `docs/30_content/monsters/MONSTER_01/BEHAVIOR_AND_REGION.md`
 
-## Layer 3 — gameplay/numerical behavior
-23. `docs/20_gameplay/README.md`
-24. `docs/20_gameplay/progression/README.md`
-25. `docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`
-26. `docs/20_gameplay/combat/README.md`
-27. `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`
-28. `NEW_GAME_MASTER_PLAN.md`
-29. `MECHANICAL_SYSTEMS_GUIDE.md`
-30. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-31. `BEHAVIOR_PATTERN_SYSTEM.md`
-32. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-33. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+## Layer 4 — gameplay/numerical behavior
+27. `docs/20_gameplay/README.md`
+28. `docs/20_gameplay/progression/README.md`
+29. `docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`
+30. `docs/20_gameplay/combat/README.md`
+31. `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`
+32. `NEW_GAME_MASTER_PLAN.md`
+33. `MECHANICAL_SYSTEMS_GUIDE.md`
+34. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+35. `BEHAVIOR_PATTERN_SYSTEM.md`
+36. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+37. `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
-Current next gameplay authority to create:
+Current next independent gameplay packet:
 **Combat Resolution / Hit Quality and Defense Contract**.
 
-## Layer 4 — art production / runtime 2D / 3D conversion
-34. `docs/40_art/README.md`
-35. `docs/40_art/asset_pipeline/README.md`
-36. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
-37. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
-38. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
-39. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
-40. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
-41. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
-42. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
-43. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
-44. `docs/40_art/reviews/README.md`
-45. Hunter H02/H02A review files when relevant.
+## Layer 5 — art/model/runtime-2D/3D conversion
+38. `docs/40_art/README.md`
+39. `docs/40_art/asset_pipeline/README.md`
+40. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
+41. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
+42. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
+43. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
+44. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
+45. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
+46. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
+47. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
+48. `docs/40_art/reviews/README.md`
+49. specific Hunter H02/H02A QA records when relevant.
 
-## Layer 5 — architecture/code/data
-46. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-47. `CONTENT_DATA_GUIDE.md`
-48. `CODE_GUIDE.md`
-49. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
+Hunter same-method technical multiview generation is paused by QA. The DCC blockout specification is recorded, but final Hunter geometry is not required for the Stage 1 engine probe.
 
-## Layer 6 — performance/debug/creator/testing
-50. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-51. `ADMIN_CREATOR_SYSTEM.md`
-52. `TESTING_VERIFICATION_PLAN.md`
+## Layer 6 — architecture/code/data
+50. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+51. `CONTENT_DATA_GUIDE.md`
+52. `CODE_GUIDE.md`
+53. `docs/50_technical/README.md`
+54. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
 
-## Layer 7 — build/continuity
-53. `IMPLEMENTATION_ROADMAP.md`
-54. `DEVELOPMENT_REFERENCE.md`
-55. `EVOLVE_ALIGNMENT.md`
+## Layer 7 — performance/debug/creator/testing
+55. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+56. `ADMIN_CREATOR_SYSTEM.md`
+57. `TESTING_VERIFICATION_PLAN.md`
 
-# 2. `/docs` map
+## Layer 8 — continuity/build discipline
+58. `docs/70_handoff/COMBAT_ACTION_ECONOMY_PASS_2026-09-02.md`
+59. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when art/model work is active.
+60. `DEVELOPMENT_REFERENCE.md`
+61. `EVOLVE_ALIGNMENT.md`
+
+# 2. Build readiness taxonomy
+
+Authority:
+`docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
+
+Classes:
+1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
+2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`;
+3. `MUST_EXIST_BEFORE_COMBAT`;
+4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
+5. `CAN_WAIT_UNTIL_EXPANSION`.
+
+Current state:
+- engine probe — READY / AUTHORIZED;
+- domain implementation — blocked by engine-phone probe;
+- combat design — partial;
+- vertical slice — partial;
+- expansion decisions — intentionally open.
+
+# 3. Package map
 
 ```text
 docs/
-├── README.md
 ├── 00_project/
-│   └── README.md
+│   ├── README.md
+│   └── BUILD_READINESS_GATE_MATRIX.md
 ├── 10_world/
-│   ├── README.md
-│   └── regions/
-│       ├── README.md
-│       └── REGION_01/
-│           ├── README.md
-│           ├── REGION_TOPOLOGY.md
-│           ├── TRACKING_AND_ESCAPE.md
-│           ├── TERRAIN_ECOLOGY_MUTATION.md
-│           ├── ENCOUNTER_FOOTPRINTS.md
-│           ├── STREAMING_AND_PERFORMANCE.md
-│           ├── VISUAL_REFERENCE_PLAN.md
-│           └── ACCEPTANCE_CHECKLIST.md
+│   └── regions/REGION_01/
 ├── 20_gameplay/
-│   ├── README.md
 │   ├── progression/
-│   │   ├── README.md
-│   │   └── PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md
 │   └── combat/
-│       ├── README.md
-│       └── ACTION_ECONOMY_CONTRACT.md
 ├── 30_content/
-│   ├── README.md
-│   ├── hunters/
-│   │   └── HUNTER_BASE_01/
-│   │       ├── README.md
-│   │       └── PROPORTION_AND_ATTACHMENT_CONTRACT.md
-│   └── monsters/
-│       └── MONSTER_01/
-│           ├── README.md
-│           ├── ANATOMY_AND_DAMAGE.md
-│           ├── CRYSTAL_AND_MUTATION.md
-│           └── BEHAVIOR_AND_REGION.md
+│   ├── hunters/HUNTER_BASE_01/
+│   └── monsters/MONSTER_01/
 ├── 40_art/
+│   ├── asset_pipeline/
+│   └── reviews/
+├── 50_technical/
 │   ├── README.md
-│   ├── reviews/
-│   │   └── Hunter H02/H02A QA records
-│   └── asset_pipeline/
-│       ├── README.md
-│       ├── ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md
-│       ├── RASTER_RESOLUTION_AND_ZOOM_QUALITY.md
-│       ├── RUNTIME_2D_ASSET_GUIDE.md
-│       ├── PNG_TO_3D_AUTOMATION_PIPELINE.md
-│       ├── ASSET_QA_GATES.md
-│       ├── GENERATED_SHEET_REGISTRY.md
-│       ├── HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md
-│       └── HUNTER_DCC_BLOCKOUT_SPECIFICATION.md
-├── 50_technical/README.md
-├── 60_quality/README.md
+│   └── ENGINE_ANDROID_PROBE_DECISION.md
+├── 60_quality/
 └── 70_handoff/
-    ├── README.md
-    └── ASSET_GENERATION_PASS_2026-09-02.md
 ```
 
-Structural law:
+Law:
 **folders organize ownership; packages organize one playable thing/system.**
 
-Existing root authorities remain current until a separate link-safe migration occurs.
+# 4. Current design anchors
 
-# 3. Current world/content packets
+World:
+`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
 
-Settlement 01:
-- compact defensible frontier settlement;
-- repeated core-service legs ~10–25 sec prototype target;
-- walkable, layered, district-cullable.
+Behavior:
+**NO AI behavior system**; deterministic authored patterns/conditions.
 
-Region 01:
-- seven planned sectors S00–S06;
-- looped/branched topology;
-- continuous ordinary sector transitions;
-- physical tracking evidence;
-- persistent hunted monster state;
-- first-person battle footprints derived from real terrain.
+Stats:
+Might / Finesse / Agility / Endurance / Perception / Resolve.
 
-Hunter Base 01:
-- 1.75 m prototype human scale;
-- grounded practical frontier base;
-- normalized prototype body anchors;
-- stable attachment vocabulary;
-- final protagonist identity/weapon family OPEN.
+Progression:
+**HYBRID / EQUIPMENT + MASTERY + KNOWLEDGE WEIGHTED**.
 
-Monster 01 — Mudcrest Raker:
-- ~6.6 m length;
-- ~3.0 m shoulder/main-body height;
-- front-heavy quadruped;
-- paired horn crest;
-- breakable dorsal plates;
-- mud-adapted feet;
-- severable distal tail;
-- internal life crystal;
-- provisional Mineral/Earth-type expression;
-- deterministic Region 01 activity/retreat patterns.
-
-# 4. Current player progression authority
-
-Package:
-`docs/20_gameplay/progression/`.
-
-Selected model:
-**HYBRID / EQUIPMENT + MASTERY + KNOWLEDGE WEIGHTED.**
-
-Selected laws:
-- slow bounded base-attribute growth;
-- equipment is largest practical combat-expression vector but retains tradeoffs;
-- weapon mastery emphasizes technique/handling rather than endless damage percentages;
-- knowledge improves information/decision quality;
-- Hunter Rank primarily controls access/trust;
-- no universal gear score as primary truth;
-- no exponential health/damage treadmill;
-- AP is not a routine progression reward;
-- harvest progression cannot violate physical material capacity;
-- high progression must preserve anatomy/terrain/preparation relevance;
-- first slice proves only one small progression loop.
-
-Open:
-- exact mastery/rank counts/names;
-- exact attribute soft caps;
-- exact armor UI slot count;
-- durability/sharpness;
-- respec/failure-loss rules;
-- human crystal use;
-- endgame ceiling.
-
-# 5. Current combat action-economy authority
-
-Package:
-`docs/20_gameplay/combat/`.
-
-Primary authority:
-`ACTION_ECONOMY_CONTRACT.md`.
-
-Selected architecture:
-- AP = current-turn tactical opportunity;
-- RP = bounded out-of-turn reaction capacity;
-- Stamina = persistent exertion across turns;
-- AP/RP/Stamina are separate resources;
-- no normal AP banking;
-- ordinary progression/attributes do not grant additional normal turns;
+Combat economy:
+- 4 AP prototype;
+- 1 RP prototype;
+- persistent Stamina;
+- no AP banking;
+- no ordinary extra-turn progression;
 - explicit reaction windows;
-- normal reaction recursion blocked;
-- UI/animation cannot advance turns or spend/refund resources.
+- reaction recursion blocked.
 
-Prototype first-slice targets:
-- hunter `4 AP`;
-- hunter `1 RP`;
-- adjacent standard move `1 AP`;
-- standard attack `2 AP`;
-- precision attack `3 AP`;
-- heavy/full-turn commitment `4 AP`;
-- aim/brace/analyze/recovery commonly `1 AP`;
-- larger reposition commonly `2 AP` plus stamina.
+Crystal:
+Energy is life force; zero usable Energy means death; berserk spends the same reserve; intrinsic crystal properties remain distinct from runtime Energy/Condition.
 
-Important targeting rule:
-selecting an already-known legal body part inside an attack command is not automatically charged an additional AP. Distinct setup actions such as Aim/Analyze/positioning can carry their own costs.
+First monster:
+Mudcrest Raker, ~6.6 m long / ~3.0 m shoulder-body height, breakable horn/plates, mud-adapted legs, severable distal tail, internal crystal.
 
-Numbers are prototype targets until combat testing; separation, ownership, reaction-window and anti-loop laws are selected architecture.
+# 5. Exact current work
 
-# 6. Hunter visual-production stop rule
+## Implementation
+**Stage 1 Godot Android probe skeleton** is allowed now.
 
-Hunter H02 v001 → `REVISE`.
-Hunter H02 v002 → `REVISE`.
-Hunter H02A v003 → `REVISE_METHOD`.
+Do not proceed into Stage 2 until actual Galaxy A03s runtime evidence passes the Stage 1 gate.
 
-Repeated same-method Hunter technical multiview generation is paused.
+## Design
+**Combat Resolution / Hit Quality and Defense Contract** may proceed independently.
 
-Reason:
-independent generated sheets repeatedly produced infographic/contact-sheet content rather than clean geometry-safe source views.
-
-Recorded escalation:
-`HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`.
-
-DCC implementation is NOT authorized.
-
-Do not create H02A v004 with the same failed method.
-
-# 7. Asset storage architecture — Google Drive
-
-Project root:
-`Unnamed Hunt RPG` — `1N3FbZhLE9ZfEy1Og-iNiB2B7nyyfangt`.
-
-Separate lanes:
-- modeling references;
-- 2D runtime working assets;
-- 3D conversion inputs;
-- approved exports.
-
-Do not mix reference, conversion and game-ready assets.
-
-A generated GLB/FBX remains a reconstruction candidate until topology/anatomy/rig/LOD/engine/Android gates pass.
-
-# 8. Current documentation progression
-
-Recorded major bounded pieces:
-1. quality governance;
-2. model/art standard;
-3. reference-image/runtime-2D/PNG→3D pipeline;
-4. first settlement blueprint;
-5. package/folder architecture;
-6. Region 01;
-7. Hunter Base 01;
-8. Monster 01;
-9. Hunter proportion/attachment contract;
-10. Hunter source-pack and DCC-blockout specifications;
-11. player progression/equipment packet;
-12. **exact combat action-economy contract**.
-
-Next:
-13. **Combat Resolution / Hit Quality and Defense Contract**.
-
-After that, choose another bounded dependency based on the resulting combat-resolution contract rather than assuming the rest of the roadmap is unchanged.
-
-# 9. Current gates
-
-`DESIGN_SYSTEM = ACTIVE`
-`DOCS_FOLDER_STRUCTURE_RECORDED = YES`
-`FIRST_HUNTING_REGION_PACKAGE_RECORDED = YES`
-`HUNTER_BASE_01_DESIGNED = YES`
-`MONSTER_01_DESIGNED = YES`
-`PLAYER_PROGRESSION_PACKET = RECORDED`
-`PLAYER_PROGRESSION_MODEL = SELECTED_HYBRID`
-`COMBAT_ACTION_ECONOMY = RECORDED`
-`FIRST_SLICE_AP_TARGET = 4`
-`FIRST_SLICE_RP_TARGET = 1`
-`AP_BANKING = NO`
-`REACTION_RECURSION = BLOCKED`
-`HUNTER_AI_MULTIVIEW_ROUTE = PAUSED_BY_QA`
-`HUNTER_DCC_BLOCKOUT_SPECIFICATION = RECORDED`
-`DCC_IMPLEMENTATION = NOT AUTHORIZED`
-`GAMEPLAY_SOURCE = NOT CREATED`
-`ENGINE = NOT SELECTED`
-`IMPLEMENTATION = NOT AUTHORIZED`
-`PHONE_RUNTIME = NOT VERIFIED`
-
-# 10. Maintenance
+# 6. Maintenance
 
 When durable truth changes:
-1. update owning authority/package;
-2. update relevant registry/manifest if an asset changed;
-3. update `PROJECT_HANDOFF.md` and `START_HERE_NEW_CHAT.md` when next action changes;
-4. update this index when read order/package structure changes;
+1. update the owning authority/package;
+2. update this index if read order/package state changed;
+3. update `PROJECT_HANDOFF.md` and `START_HERE_NEW_CHAT.md` when current objective changes;
+4. update readiness classification when a dependency changes;
 5. read back saved state;
-6. never let a chat-only statement silently supersede repository authority.
+6. never allow stale chat memory or older status text to override current explicit/project authority.
