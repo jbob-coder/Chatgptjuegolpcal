@@ -20,6 +20,28 @@ Does not belong here:
 - one smithy layout;
 - engine renderer/import settings.
 
+## Current package map
+
+### Progression
+`progression/README.md`
+
+Primary authority:
+`progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`
+
+Selected direction:
+- hybrid progression;
+- equipment + weapon mastery + knowledge weighted;
+- slow bounded base-attribute growth;
+- Hunter Rank primarily controls access/trust;
+- progression favors specialization/options over exponential stat inflation;
+- no universal gear-score treadmill as primary truth;
+- anatomy, terrain and preparation must remain relevant at high progression.
+
+Next dependent gameplay packet:
+**Exact Combat Action-Economy Contract**.
+
+## Existing root authorities
+
 Current root authorities remain authoritative, including:
 - `/MECHANICAL_SYSTEMS_GUIDE.md`;
 - `/STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
