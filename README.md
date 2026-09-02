@@ -116,9 +116,38 @@ NPCs and creatures use authored patterns built from:
 
 Simple NPCs have simple patterns. Important monsters/bosses can have layered conditions/phases, but every decision remains inspectable and reproducible.
 
-Behavior requests the same legal domain actions as normal gameplay and cannot bypass AP, anatomy, terrain or status rules.
+Behavior requests the same legal domain actions as normal gameplay and cannot bypass AP, anatomy, terrain, crystal-energy, mutation or status rules.
 
-# 9. Anatomy and harvesting
+# 9. Crystal life force, mutation and ecosystem
+
+Detailed authority: `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`.
+
+Core decisions:
+- crystal-bearing creatures contain an internal life crystal;
+- crystal energy is the creature's life-force reserve;
+- when usable crystal energy reaches zero, the creature dies;
+- desperate creatures can deliberately burn life-force energy to enter berserker/overdrive states according to deterministic behavior conditions;
+- crystals have **Tier**, **Rank**, **Quality** and **Element** as separate properties;
+- current crystal energy and structural condition are separate from intrinsic Tier/Rank/Quality/Element;
+- mutation is a central ecological system and must alter anatomy, capabilities, stats, behaviors, terrain adaptation and/or harvest where relevant;
+- elements affect ecology/terrain/creature capabilities through explicit data rather than an automatic universal weakness chart;
+- ecosystem simulation is bounded: relevant creatures get full instances while off-screen populations use aggregate region/species state.
+
+Recommended crystal meaning:
+- **Tier** = broad evolutionary/potency ceiling;
+- **Rank** = current development within the tier;
+- **Quality** = purity/stability/efficiency;
+- **Element** = natural energy affinity/expression;
+- **Energy Reserve** = current life-force amount;
+- **Condition** = current physical crystal integrity/strain.
+
+Berserk is not free power. It consumes the same reserve required to stay alive. It can unlock stronger/more aggressive patterns, but it cannot magically restore severed anatomy or bypass normal action legality.
+
+Mutation is data-driven and bounded by prerequisites, incompatibilities and a support/load budget so individuals cannot accumulate unlimited traits.
+
+Regional ecology can influence mutation distributions through temperature, terrain, elemental saturation, prey/predator pressure, toxins and other environmental pressures. Larger long-term feedback such as hunting pressure shifting mutation prevalence is a later expansion candidate, not a first-slice requirement.
+
+# 10. Anatomy and harvesting
 
 Monster anatomy is gameplay authority.
 
@@ -133,7 +162,9 @@ Examples:
 
 Harvest is derived from what remains usable. Destroyed unique anatomy cannot produce pristine duplicate rewards.
 
-# 10. Architecture law
+Crystal harvesting is part of the same physical rule set: one creature has one physical core, and its harvest result can depend on Tier/Rank/Quality/Element plus actual crystal condition and extraction method.
+
+# 11. Architecture law
 
 There is one authoritative game state.
 
@@ -155,15 +186,18 @@ SAVE / REPLAY / DEBUG
 PRESENTATION / ANIMATION / AUDIO / UI
 ```
 
-UI, animation and rendering never secretly decide hits, severing, loot, tactical position or progression.
+UI, animation and rendering never secretly decide hits, severing, crystal energy, mutation state, loot, tactical position or progression.
 
-# 11. Internal structure
+# 12. Internal structure
 
 Future source is separated into:
 - world/region/exploration;
 - encounter/turn;
 - creature/anatomy;
 - stats/effects/status/terrain;
+- crystal life-force;
+- mutation;
+- ecology/population aggregates;
 - damage;
 - deterministic behavior patterns;
 - harvest;
@@ -179,27 +213,27 @@ Future source is separated into:
 
 See `SYSTEM_ARCHITECTURE_BLUEPRINT.md` and `CODE_GUIDE.md`.
 
-# 12. Content structure
+# 13. Content structure
 
-Data-driven definitions can include species, NPCs, anatomy, attacks, behavior profiles/rules, attributes, effects, statuses, terrain/weather, weapons/equipment, techniques, materials, harvest, recipes, regions and encounter layouts.
+Data-driven definitions can include species, NPCs, anatomy, attacks, behavior profiles/rules, attributes, effects, statuses, terrain/weather, crystal tiers/ranks/quality rules/elements, mutations, ecology/population profiles, weapons/equipment, techniques, materials, harvest, recipes, regions and encounter layouts.
 
 Stable IDs are never casually reused after saves depend on them.
 
-See `CONTENT_DATA_GUIDE.md`.
+See `CONTENT_DATA_GUIDE.md` and `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`.
 
-# 13. Performance and bug isolation
+# 14. Performance and bug isolation
 
 Explicit caps/budgets are required.
 
 Protect input, gameplay correctness, anatomy readability, telegraphs, camera/frame pacing, world readability and audio cues before decorative detail.
 
-Development builds should isolate particles, shadows, foliage, ambient wildlife, high-detail monster rendering, audio/music, damage decals, roaming behavior evaluation, calculation tracing and other scalable systems independently.
+Development builds should isolate particles, shadows, foliage, ambient wildlife, high-detail monster rendering, audio/music, damage decals, roaming behavior evaluation, crystal/mutation calculation tracing and other scalable systems independently.
 
-Behavior is event/decision-driven rather than evaluated every frame. Derived stats are cached rather than recalculated every frame.
+Behavior is event/decision-driven rather than evaluated every frame. Derived stats are cached rather than recalculated every frame. Mutation generation happens at spawn/growth/event boundaries rather than every frame. Off-screen ecology uses aggregate state rather than full creature simulation.
 
 See `PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
-# 14. Admin / Creator system
+# 15. Admin / Creator system
 
 The future Admin system is a creation/debug workbench.
 
@@ -208,6 +242,10 @@ Planned capabilities:
 - exact calculation traces;
 - status/terrain/weather test controls;
 - deterministic behavior-rule debugger/editor;
+- crystal Tier/Rank/Quality/Element/Energy/Condition inspector;
+- berserk activation/drain debugger;
+- mutation definition/editor/compatibility validation;
+- ecosystem pressure/population simulator;
 - anatomy/combat inspector;
 - typed test commands;
 - creature/NPC/equipment/effect editors;
@@ -221,19 +259,22 @@ Planned capabilities:
 
 Creator tools use validated domain/content services and never become a second rules engine.
 
-# 15. Development order
+# 16. Development order
 
-`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → EXPLORATION DOMAIN → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
+`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CRYSTAL/MUTATION CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → EXPLORATION DOMAIN → ECOLOGY/REGION AGGREGATES → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
 
 See `IMPLEMENTATION_ROADMAP.md`.
 
-# 16. First vertical slice
+# 17. First vertical slice
 
 Only after explicit implementation authorization:
 - one compact region;
 - one hunter;
 - one monster species/instance;
 - one deterministic behavior profile;
+- one crystal element and constrained Tier/Rank/Quality range;
+- small mutation set;
+- one desperation/berserk pattern with visible debug energy drain;
 - one weapon/equipment set;
 - six prototype attributes;
 - shared effect system;
@@ -243,13 +284,13 @@ Only after explicit implementation authorization:
 - roughly 6–8 targetable parts;
 - tactical movement/cover/terrain/defense;
 - break/sever;
-- anatomy-dependent behavior changes;
-- condition-based harvest;
+- anatomy/crystal/mutation-dependent behavior changes;
+- condition-based anatomy + crystal harvest;
 - one craft/equip upgrade;
 - save/reload;
 - target Android verification.
 
-# 17. Documentation order — basic to detailed
+# 18. Documentation order — basic to detailed
 
 1. `START_HERE_NEW_CHAT.md`
 2. `README.md`
@@ -261,24 +302,25 @@ Only after explicit implementation authorization:
 8. `MECHANICAL_SYSTEMS_GUIDE.md`
 9. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
 10. `BEHAVIOR_PATTERN_SYSTEM.md`
-11. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-12. `CONTENT_DATA_GUIDE.md`
-13. `CODE_GUIDE.md`
-14. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-15. `ADMIN_CREATOR_SYSTEM.md`
-16. `TESTING_VERIFICATION_PLAN.md`
-17. `IMPLEMENTATION_ROADMAP.md`
-18. `DEVELOPMENT_REFERENCE.md`
-19. `EVOLVE_ALIGNMENT.md`
-20. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+11. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+12. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+13. `CONTENT_DATA_GUIDE.md`
+14. `CODE_GUIDE.md`
+15. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+16. `ADMIN_CREATOR_SYSTEM.md`
+17. `TESTING_VERIFICATION_PLAN.md`
+18. `IMPLEMENTATION_ROADMAP.md`
+19. `DEVELOPMENT_REFERENCE.md`
+20. `EVOLVE_ALIGNMENT.md`
+21. `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
-# 18. Verification discipline
+# 19. Verification discipline
 
 Use precise gates: DESIGNED, IMPLEMENTED, STATIC_VERIFIED, CONTENT_VALIDATED, UNIT_TESTED, INTEGRATION_TESTED, COMPILED, APK_BUILD_VERIFIED, PHONE_RUNTIME_VERIFIED, VISUAL_QUALITY_VERIFIED, PERFORMANCE_VERIFIED.
 
 Do not claim a higher state from lower evidence.
 
-# 19. Current state
+# 20. Current state
 
 - NEW_GAME_DESIGN_RECORDED = YES
 - PLAYER_EXPERIENCE_GUIDE = YES
@@ -287,6 +329,8 @@ Do not claim a higher state from lower evidence.
 - STATS_EFFECTS_SYSTEM_DESIGNED = YES
 - DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
 - AI_BEHAVIOR_SYSTEM = NO
+- CRYSTAL_LIFE_FORCE_SYSTEM_DESIGNED = YES
+- MUTATION_ECOSYSTEM_SYSTEM_DESIGNED = YES
 - SYSTEM_ARCHITECTURE_PLANNED = YES
 - CONTENT_DATA_PIPELINE_PLANNED = YES
 - CODE_STRUCTURE_PLANNED = YES
