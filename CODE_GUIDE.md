@@ -37,16 +37,17 @@ Domain must not depend on rendering/UI classes.
 ## 3. Planned modules/packages
 
 ### `domain/world`
-World and region truth:
+World/region truth:
 - region ID/state;
 - world position;
-- roaming monster instances;
+- roaming monster/NPC instances;
 - camps/interactables;
 - exploration-to-encounter context.
 
 ### `domain/exploration`
 - movement requests;
 - traversal validation;
+- terrain effects;
 - tracking interactions;
 - gathering;
 - encounter initiation.
@@ -61,24 +62,41 @@ World and region truth:
 
 ### `domain/creature`
 - species/runtime monster model;
-- capabilities;
+- actor attributes/capabilities;
 - state transitions shared across world/combat.
 
 ### `domain/anatomy`
 - body-part graph;
 - part integrity;
-- break/sever/destroy rules;
+- break/sever/destroy;
 - exposure;
 - capability changes.
 
+### `domain/stats_effects`
+- primary attributes;
+- derived stat calculation;
+- typed modifiers;
+- equipment/status/terrain/weather/posture effects;
+- stack rules;
+- caps/clamps;
+- calculation traces;
+- cached derived-state invalidation.
+
 ### `domain/damage`
-- hit/armor/damage resolution;
+- hit quality;
+- armor/protection/damage resolution;
 - wounds/status integration;
 - damage profiles.
 
-### `domain/ai`
-- legal action scoring/selection;
-- no direct mutation or animation calls.
+### `domain/behavior`
+- deterministic NPC/creature behavior patterns;
+- state/phase controller;
+- reusable condition evaluation;
+- priority/cooldown/tie policy;
+- normal domain action request building;
+- behavior trace/debug output.
+
+There is no AI decision module.
 
 ### `domain/harvest`
 - recoverable anatomical capacity;
@@ -87,7 +105,7 @@ World and region truth:
 
 ### `domain/inventory`
 - item/material stacks;
-- equipment.
+- equipment/loadout.
 
 ### `domain/crafting`
 - recipes;
@@ -107,7 +125,7 @@ World and region truth:
 ### `presentation/exploration`
 - aerial camera;
 - region visual scene;
-- player/monster visuals;
+- actor visuals;
 - exploration HUD;
 - input adapter.
 
@@ -127,7 +145,8 @@ World and region truth:
 - accessibility presentation.
 
 ### `admin`
-- read-only inspectors;
+- state/stat/modifier inspectors;
+- behavior-rule inspector;
 - typed admin commands;
 - creator tools;
 - performance dashboard.
@@ -143,49 +162,95 @@ Unit/domain/content/integration/save/replay tests.
 A file/class should have one primary reason to change.
 
 Warning signs:
-- one `GameManager` owns saving, UI, combat, audio and monster AI;
-- one monster script contains all species-specific logic;
+- one `GameManager` owns saving, UI, combat, audio and autonomous behavior;
+- one monster script contains all species-specific patterns/math;
 - UI button callbacks directly edit state;
 - combat renderer calculates damage;
+- terrain scene directly changes stats outside domain rules;
 - save serializer performs gameplay decisions.
 
 Split by responsibility, not arbitrarily by line count.
 
 ## 5. Public domain API
 
-Presentation should interact through narrow operations such as:
+Presentation and behavior systems should interact through narrow operations such as:
 - `queryLegalActions()`;
 - `dispatchAction(request)`;
 - `getSnapshot()`;
-- `consume/readDomainEvents()`;
+- `readDomainEvents()`;
+- `evaluateContext()`;
 - `loadContent(id)`.
 
-Exact names depend on language/engine.
+Exact names depend on engine/language.
 
 Do not expose mutable internals to UI for convenience.
 
 ## 6. State mutation rule
 
-Authoritative state changes happen through validated domain functions/commands.
+Authoritative state changes happen through validated domain commands/functions.
 
-Prefer pure or near-pure resolution functions where practical:
+Prefer pure or near-pure resolution where practical:
 
-`oldState + request + definitions + rng → result(newState, events)`
+`oldState + request + definitions + context + rng → result(newState, events, trace)`
 
 This improves testing and replay.
 
-## 7. Error/result model
+## 7. Stats/effect code rule
+
+Detailed authority: `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
+
+Do not implement separate bonus math inside:
+- equipment UI;
+- status scripts;
+- terrain scenes;
+- attack animations;
+- monster scripts.
+
+Use one typed effect system with:
+- source ID;
+- target key;
+- operation;
+- magnitude;
+- stack group/policy;
+- conditions;
+- timing;
+- caps.
+
+Derived stats should be cached until an input changes. Action-specific context is evaluated when validating/resolving the action.
+
+## 8. Deterministic behavior code rule
+
+Detailed authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
+
+Behavior does:
+- read authoritative facts;
+- evaluate explicit conditions;
+- select a pattern by priority/tie policy;
+- request a normal domain action;
+- record bounded pattern memory/trace.
+
+Behavior does not:
+- mutate health directly;
+- teleport through collision;
+- bypass AP/stamina;
+- use attacks disabled by broken anatomy;
+- calculate damage;
+- generate dialogue or plans through AI.
+
+Simple actors should not pay the cost of boss-level pattern evaluation.
+
+## 9. Error/result model
 
 Avoid silent failure and generic booleans.
 
 Return structured results:
 - accepted/rejected;
 - rejection code;
-- player-facing explanation key;
+- explanation key;
 - state delta/events;
-- diagnostic metadata in development.
+- diagnostic metadata/trace in development.
 
-## 8. Logging
+## 10. Logging
 
 Use structured, bounded logs.
 
@@ -195,7 +260,9 @@ Useful categories:
 - region transition;
 - encounter;
 - combat action;
-- AI decision;
+- behavior decision;
+- modifier/effect calculation;
+- status transition;
 - anatomy transition;
 - harvest;
 - content validation;
@@ -204,130 +271,123 @@ Useful categories:
 
 Do not continuously print every frame.
 
-## 9. Feature isolation
+## 11. Feature isolation
 
-Every expensive or unstable presentation subsystem should be separable from domain behavior.
+Every expensive/unstable subsystem should be separable from domain correctness.
 
 Examples:
-- domain combat can run headless;
-- monster can render as debug proxy;
-- foliage can be disabled;
-- VFX can be disabled;
-- music can be disabled;
-- AI can use deterministic test policy;
-- tactical geometry can display as debug nodes.
+- domain combat runs headless;
+- monster renders as debug proxy;
+- foliage/VFX/music disabled;
+- roaming behavior evaluation frozen;
+- deterministic test behavior profile used;
+- status/effect processing can expose trace without presentation;
+- tactical geometry displays as debug nodes.
 
-This allows binary-search debugging of system failures.
+This supports binary-search debugging.
 
-## 10. Performance-sensitive code rules
+## 12. Performance-sensitive code rules
 
 Avoid in per-frame paths unless measured/needed:
 - repeated allocations;
 - repeated content parsing;
-- pathfinding for every entity every frame;
-- rebuilding UI trees for unchanged state;
+- full behavior-rule scans for every entity every frame;
+- recalculating all derived stats every frame;
+- pathfinding for every actor every frame;
+- rebuilding unchanged UI;
 - expensive debug string generation;
 - repeated disk/save writes;
-- synchronous large asset loads during active combat;
+- synchronous large loads during combat;
 - scanning all world entities for local queries.
 
-Use caching/indexing only where correctness and invalidation are clear.
+Prefer event-driven invalidation/indexing when ownership is clear.
 
-## 11. Save writes
+## 13. Save writes
 
 Do not write the entire save every visual frame.
 
-Save triggers can include:
+Potential triggers:
 - explicit save/checkpoint;
 - region transition;
-- encounter completion/start where needed;
+- encounter boundaries where needed;
 - important progression change;
-- app background/suspend with safe lifecycle handling.
+- app background/suspend.
 
-Debounce/batch noncritical writes if platform behavior supports it.
+Debounce/batch noncritical writes where safe.
 
-## 12. Testing-friendly design
+## 14. Testing-friendly design
 
-Inject or abstract:
+Inject/abstract:
 - RNG;
-- clock/time if mechanics use time;
+- clock/time if mechanics use it;
 - content repository;
 - save repository;
-- AI policy when useful.
+- behavior profile/rule repository;
+- contextual effect evaluator where useful.
 
-Avoid hidden global singletons controlling domain rules if they make deterministic testing difficult.
+Avoid hidden global singletons controlling domain rules.
 
-## 13. Content-specific behavior
+## 15. Content-specific behavior
 
-Prefer data/capability composition before subclasses such as:
-`FlyingHornedVenomFireMonsterBossV2`.
+Prefer data/capability/pattern composition before monster-specific subclasses.
 
-Code should implement reusable mechanics; content data combines them.
+Code implements reusable mechanics; content combines them.
 
-Use custom source only when a genuinely unique mechanic cannot be represented clearly through existing schemas.
+Custom source is reserved for mechanics that genuinely cannot be represented clearly through existing schemas.
 
-## 14. Improving code safely
+## 16. Improving code safely
 
 Before refactor:
-1. identify behavior being preserved;
+1. identify preserved behavior;
 2. ensure tests cover it;
-3. identify performance or maintainability problem;
+3. identify measurable maintainability/performance problem;
 4. make bounded change;
 5. run regression tests;
 6. compare behavior/performance;
 7. update docs if ownership changed.
 
-Do not refactor merely for aesthetics during a blocker repair.
+## 17. Bug-fix protocol
 
-## 15. Bug-fix protocol
-
-For a bug:
 1. record exact observed behavior;
 2. classify severity;
 3. separate symptom from hypothesis;
-4. reproduce with smallest state/fixture;
+4. reproduce with smallest fixture;
 5. identify authoritative owner;
-6. add regression test if possible;
-7. fix root cause;
-8. verify adjacent invariants;
-9. test on device if runtime-related;
-10. record result.
+6. inspect calculation/behavior traces where relevant;
+7. add regression test if possible;
+8. fix root cause;
+9. verify adjacent invariants;
+10. test on device if runtime-related;
+11. record result.
 
 Do not make several speculative fixes at once.
 
-## 16. Performance regression protocol
+## 18. Performance regression protocol
 
-When slowdown appears:
-1. reproduce in a fixed scene/state;
+1. reproduce fixed scene/state;
 2. record baseline metrics;
-3. use admin toggles to disable subsystems;
+3. disable subsystems using admin toggles;
 4. identify CPU/GPU/memory/loading category;
-5. find owner;
-6. optimize the bottleneck, not unrelated code;
-7. compare before/after metrics;
-8. retain quality-critical features where possible.
+5. inspect behavior evaluation and derived-stat recalculation counts;
+6. find owner;
+7. optimize bottleneck;
+8. compare before/after;
+9. retain quality-critical features.
 
-## 17. Code comments/documentation
+## 19. Code comments/documentation
 
-Comments should explain:
-- invariant;
+Comments explain:
+- invariants;
 - non-obvious reasoning;
-- compatibility constraint;
-- algorithmic tradeoff;
-- external/platform limitation.
+- compatibility constraints;
+- algorithmic tradeoffs;
+- external/platform limitations.
 
 Do not comment obvious syntax.
 
-Every important subsystem should eventually have a short source-adjacent README explaining:
-- responsibility;
-- key types/files;
-- state flow;
-- invariants;
-- tests;
-- performance concerns;
-- extension points.
+Every important subsystem should eventually have a source-adjacent README describing responsibility, key types, state flow, invariants, tests, performance concerns and extension points.
 
-## 18. Definition of done for code
+## 20. Definition of done for code
 
 A mechanic is not done until appropriate gates pass:
 - source exists;
@@ -335,24 +395,17 @@ A mechanic is not done until appropriate gates pass:
 - unit/domain tests pass;
 - integration tests pass where relevant;
 - build compiles;
-- runtime behavior verified when visual/input/platform-dependent;
-- performance checked when cost can be meaningful;
+- runtime verified when visual/input/platform-dependent;
+- performance checked when meaningful;
 - documentation updated;
 - saved state/readback verified.
 
-## 19. Anti-monolith rule
+## 21. Anti-monolith rule
 
-Never allow one scene/controller/view-model/script to become the owner of:
-- world simulation;
-- combat;
-- save;
-- UI;
-- audio;
-- admin;
-- content loading.
+Never allow one scene/controller/view-model/script to own world simulation, combat, saves, UI, audio, behavior, effects, admin and content loading.
 
-When responsibilities begin accumulating, split at domain boundaries before adding more features.
+Split at domain boundaries before responsibilities accumulate.
 
-## 20. Engine adaptation
+## 22. Engine adaptation
 
-Once engine is selected, this guide must be translated into concrete folders/classes/scenes and API conventions, but the ownership laws remain unless evidence proves a better structure.
+Once engine is selected, translate this guide into concrete folders/classes/scenes/API conventions. Ownership laws remain unless evidence proves a better structure.
