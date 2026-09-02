@@ -29,21 +29,93 @@ Current decisions unless the user changes them:
 - AP/reaction scaling is tightly restricted;
 - contextual hit quality is preferred over a generic hidden critical-hit system;
 - terrain can mechanically affect movement, footing, visibility, tracking and tactical legality;
-- development builds require stat/modifier and behavior-rule traces.
+- development builds require stat/modifier and behavior-rule traces;
+- crystal-bearing creatures contain an internal life crystal;
+- crystal energy is an authoritative life-force reserve;
+- zero usable crystal energy means creature death;
+- desperate creatures can burn their own life-force reserve to enter berserk/overdrive according to deterministic conditions;
+- crystal Tier, Rank, Quality and Element are separate intrinsic properties;
+- current Energy Reserve and structural Condition are separate from Tier/Rank/Quality/Element;
+- mutation is a core ecological system and is data-driven rather than arbitrary random stat inflation;
+- mutations can alter anatomy, stats/effects, capabilities, elemental behavior, terrain adaptation, authored behavior patterns and harvest;
+- mutation combinations are bounded through prerequisites, incompatibilities and support/load limits;
+- off-screen ecology uses region/species aggregate state rather than full per-creature simulation.
 
 Detailed authorities:
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 - `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
 - `BEHAVIOR_PATTERN_SYSTEM.md`
+- `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
 
 ## Identity / setting
 - Final game name.
 - Exact world setting/history.
 - Technology/magic level.
-- Why creatures exist/are hunted.
+- Why crystal-bearing life exists.
+- Why creatures are hunted.
 - Player role/background.
 - Exact maturity level.
 - Story importance versus systems-driven hunting.
+
+## Crystal life-force
+- Exact number/names of crystal tiers.
+- Exact rank scale inside each tier.
+- Quality internal scale and player-facing bands/names.
+- Element roster.
+- Whether secondary/hybrid elements exist.
+- How crystal energy normally recovers: metabolism, rest, habitat exposure, diet, or combination.
+- Whether every non-human creature has a crystal or only specific life forms.
+- Whether humans have crystals.
+- Exact maximum-energy relationships to tier/rank/quality.
+- Whether severe body injuries create continuous core drain and how strongly.
+- Whether direct crystal targeting is possible.
+- What anatomy must be broken/exposed before core targeting if it exists.
+- Exact crystal structural states: intact/strained/cracked/fractured/etc.
+- Consequences of core fracture besides reserve loss.
+- Whether a dead crystal can ever be recharged/reused or remains permanently inert as a life source.
+- Human social/economic/religious consequences of harvesting life crystals.
+
+## Berserk / desperation
+- Exact trigger conditions.
+- Whether each species has its own desperation policy.
+- Activation energy cost.
+- Ongoing per-turn/per-action drain.
+- Whether elemental attacks drain additional reserve.
+- Exact stat/action/pattern benefits.
+- Whether berserk reduces defense/control or only adds offense.
+- Whether berserk can be voluntarily ended.
+- Whether some species use short overdrive bursts instead of one continuous mode.
+- Whether some final phases are irreversible once activated.
+- Visual/audio tell requirements.
+- Whether waiting behind cover while the creature burns life force is an intended common strategy or only works against specific species.
+
+## Mutation system
+- Biological/lore mechanism that causes mutation.
+- Whether mutation happens during one life, across generations, or both.
+- Whether traits can be inherited.
+- Mutation categories used in the first release.
+- Exact support/load budget model.
+- Relationship between Tier/Rank/Quality and mutation capacity/stability.
+- Whether mutation can alter crystal element.
+- Whether mutation can add new anatomy parts or only modify existing ones.
+- Whether regeneration mutations exist and how tightly they are constrained.
+- Mutation rarity/selection rules.
+- How visible mutations are before combat.
+- Bestiary/research rules for identifying mutation traits.
+- How mutation changes crystal/anatomy harvest value.
+
+## Ecosystem
+- Which region ecological pressures are simulated.
+- Population aggregate update cadence.
+- How much predator/prey interaction is simulated.
+- Whether elemental saturation changes over time.
+- Whether hunting pressure can make some mutations more common.
+- Whether overhunting can reduce/temporarily remove a species from a region.
+- Migration rules.
+- Breeding/repopulation depth.
+- Whether high-tier/high-rank individuals affect regional ecology differently.
+- How persistent ecosystem changes are across the campaign.
+- Whether player actions can intentionally manipulate ecology to hunt desired mutations.
 
 ## Exploration
 - Exact camera projection after prototype comparison.
@@ -88,6 +160,7 @@ Detailed authorities:
 - Hunting tools.
 - Whether accessories/charms exist and how many.
 - Upgrade branching depth.
+- Whether harvested crystals power/sock/catalyze equipment, or serve another purpose.
 
 ## Status effects
 - Exact first-slice status list.
@@ -111,6 +184,7 @@ Detailed authorities:
 - Hazard system depth.
 - Rain/fog/wind mechanical relevance.
 - Heat/cold region strain.
+- Elemental terrain saturation effects.
 - Whether terrain can be changed/destroyed during battle.
 
 ## Combat
@@ -128,6 +202,9 @@ Detailed authorities:
 ## Deterministic NPC / creature patterns
 - Complexity of first monster profile.
 - Number of phases for first monster.
+- Berserk pattern position/priority.
+- Crystal-energy conservation/flee rules by species.
+- Mutation-specific pattern additions.
 - Whether seeded variation is used broadly or only in tie groups.
 - NPC daily schedule depth.
 - Emergency/weather overrides.
@@ -142,16 +219,20 @@ Detailed authorities:
 - Whether sever requires cutting-specific damage.
 - Overkill/destruction.
 - Internal organs targetable vs harvest-only.
+- Crystal/core placement/protection within anatomy.
 - Persistent scars/injury for escaped creatures.
 - Exact gore intensity.
 
 ## Harvesting
 - Automatic vs interactive harvesting.
 - Harvest time/tool choices.
-- Quality tiers vs continuous score.
+- Quality tiers vs continuous score for normal materials.
+- Crystal extraction method and tool requirements.
+- How core Condition changes harvest value.
+- Whether berserk overdraw damages crystal Condition or only drains Energy.
 - Carry capacity.
 - Spoilage/decomposition.
-- Rare-material logic tied to anatomy.
+- Rare-material logic tied to anatomy/mutations/crystal.
 - Selling/trading.
 
 ## Crafting / progression
@@ -163,15 +244,7 @@ Detailed authorities:
 - Recipe complexity.
 - Upgrade trees.
 - Economy/merchants.
-
-## Creature ecology
-- Solo vs pack creatures.
-- Territorial behavior.
-- Fleeing/chasing.
-- Predator/prey ecology.
-- Roaming schedules/patterns.
-- Environmental interactions.
-- Creature cognitive/behavior complexity expressed through authored patterns, not AI.
+- Exact place of crystals in human crafting/technology.
 
 ## Player failure
 - Death vs incapacitation.
@@ -193,6 +266,9 @@ Detailed authorities:
 ## Content / scope
 - First region theme.
 - First monster.
+- First crystal element/tier/rank/quality test range.
+- First mutation set.
+- First berserk/desperation behavior.
 - First weapon/equipment set.
 - First craftable upgrade.
 - First terrain/status set.
