@@ -72,6 +72,33 @@ Observed successful job gates:
 - APK ZIP integrity/signature/package/version verification: PASS;
 - artifact upload: PASS.
 
+### Fresh pre-runtime audit — 2026-09-02
+
+Full record: `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md`.
+
+The exact frozen Drive source archive was downloaded again and independently checked:
+
+- source ZIP size: `1,593,116` bytes;
+- source ZIP SHA-256: `478d99cd5cafbc350910ad5820d47d6ac656d80332c1cc6ddc85d9cdecef8822` — PASS;
+- source ZIP extracted read-only: PASS;
+- fresh `python3 scripts/verify_static.py`: PASS, `65` required files;
+- fresh Kotlin/JVM 17 compilation of production `:game-core`: PASS;
+- fresh bounded core smoke runner: PASS for new game → apartment ENTER/EXIT → Admin money mutation → exterior movement.
+
+The permanent Drive APK was also downloaded again:
+
+- size: `44,012,114` bytes — matches;
+- SHA-256: `e1e10e6910d2bcc1a1ca87bfc9946727f1307c9a008020dfc03d12aa58ad7c0f` — matches;
+- ZIP integrity: PASS.
+
+This audit environment did not have `apksigner`/`aapt`; signature/package/version verification was not locally rerun and remains supported by successful GitHub Actions run `33596655227`.
+
+Important new build evidence: direct APK inspection confirms **all 19 workflow-checked action/joystick/street resources in this test APK are 68-byte 1×1 fallback PNGs**. The frozen Drive source contains real versions ranging from 12,468 to 186,092 bytes. Therefore `VISUAL_PARITY_VERIFIED = NO` is confirmed for this APK, not merely precautionary.
+
+Static source audit also identified `STATIC-001`: camera recenter uses a horizontally mirrored yaw for NE/E/SE/SW/W/NW while NORTH/SOUTH match the camera/facing convention. This is source-confirmed but **PHONE_NOT_TESTED**. The phone checklist now contains a dedicated recenter check.
+
+No additional source-level launch blocker was identified in the scoped audit. This is not a phone PASS.
+
 ## APK_STATUS
 
 `APK_BUILD_VERIFIED`: YES.
@@ -100,7 +127,7 @@ Drive checksum readback confirms the same APK SHA-256.
 
 `VISUAL_PARITY_VERIFIED`: NO.
 
-Important qualification: the GitHub workflow reconstructs the exact v0.5.8 compile source but removes one invalid explicit `androidx.compose.foundation.layout.weight` import and can generate 1×1 fallback PNGs for required resources missing from GitHub transport. Use this APK for functional runtime testing, not final art-quality judgment.
+Important qualification: direct inspection now confirms this test APK contains fallback 1×1 resources for all 19 workflow-checked action/joystick/street visuals. Use this APK for functional runtime testing, touch behavior, geometry, collision, state/persistence and system behavior—not final icon/texture/material judgment.
 
 ## COMPLETED_WORK
 
@@ -142,7 +169,9 @@ Important qualification: the GitHub workflow reconstructs the exact v0.5.8 compi
 - v0.5.8 GitHub functional APK build succeeded;
 - permanent APK copied to Drive;
 - Chat operating protocol and phone runtime evidence ledger added to the reference branch;
-- rollback branch created before reference-doc reconciliation: `worldlife-reference-docs-pre-chat-protocol-v058` at `0697bfafe73ec82d0adaa1c77897d7c8d76c4f21`.
+- pre-runtime audit record added;
+- rollback branch created before Chat continuity reconciliation: `worldlife-reference-docs-pre-chat-protocol-v058` at `0697bfafe73ec82d0adaa1c77897d7c8d76c4f21`;
+- second rollback branch created before pre-runtime audit documentation: `worldlife-reference-docs-pre-runtime-audit-v058` at `46e2f28afbdbde3d72b438555d093458d31c73ef`.
 
 ## IN_PROGRESS
 
@@ -159,15 +188,16 @@ Test, in order of practical value:
 1. launch / black screen;
 2. landscape and UI scale;
 3. joystick and right-side camera drag;
-4. player/building/street scale;
-5. collision;
-6. map and fast travel;
-7. NPC TALK;
-8. apartment ENTER/render/EXIT exact return;
-9. save/reload;
-10. Cheat Panel;
-11. Admin Panel;
-12. crashes, ANRs, missing/unusable touch areas.
+4. camera recenter in all cardinal/diagonal directions;
+5. player/building/street geometry scale;
+6. collision;
+7. map and fast travel;
+8. NPC TALK;
+9. apartment ENTER/render/EXIT exact return;
+10. save/reload;
+11. Cheat Panel;
+12. Admin Panel;
+13. crashes, ANRs, missing/unusable touch areas.
 
 Record screenshots/video/error text for failures.
 
@@ -179,7 +209,7 @@ No known build blocker remains for the functional test APK.
 
 Current evidence blocker: real phone behavior has not yet been observed.
 
-Final visual-parity verification is intentionally blocked until authoritative runtime art/assets are restored into a build; fallback test PNGs are not final visuals.
+Final visual-parity verification is intentionally blocked because the current APK is now confirmed to contain fallback action/joystick/street resources rather than the authoritative Drive versions.
 
 ## IMPORTANT_DECISIONS
 
@@ -194,12 +224,14 @@ Final visual-parity verification is intentionally blocked until authoritative ru
 - Phone observations are authoritative for runtime behavior of the tested APK.
 - Existing 60×40 cells at 4.0 m/cell are not to be stretched to enlarge the city; growth uses attached streamed sectors.
 - Interior movement must become engine-authoritative before the UI exposes functional apartment locomotion.
+- Source-confirmed findings such as `STATIC-001` may be recorded before phone testing, but they do not become `PHONE_RUNTIME_VERIFIED` evidence until observed on device.
 
 ## KNOWN_RISKS
 
-- Stale reference documents can cause a new Chat to regress to v0.5.7-era assumptions.
+- Stale reference documents can cause a new Chat to regress to older assumptions.
 - The build compatibility patch means the test-build source is not byte-identical to the frozen source at `AdminToolsScreen.kt`; the correction is explicit and bounded.
-- Fallback PNGs can be mistaken for final visual quality.
+- The current test APK definitely uses 1×1 fallback resources for all 19 workflow-checked action/joystick/street visuals; screenshots must not be mistaken for intended art quality.
+- `STATIC-001` predicts mirrored camera recenter behavior for six directions; actual phone impact is not yet measured.
 - Signing lineage must remain stable if phone saves are expected to survive in-place updates.
 - Runtime fixes can accidentally become UI-only workarounds instead of fixing authoritative state/logic.
 - Expanding world/content before runtime stabilization would increase blast radius and debugging ambiguity.
@@ -216,6 +248,7 @@ Reference/continuity branch:
 - `WORLDLIFE_EVOLVE_ALIGNMENT.md`
 - `WORLDLIFE_CHAT_OPERATING_PROTOCOL.md`
 - `WORLDLIFE_PHONE_RUNTIME_VALIDATION.md`
+- `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md`
 - `MIRROR_POINTER.json`
 
 Build evidence:
@@ -223,6 +256,10 @@ Build evidence:
 - commit `5726bab2d671e1af1260e5c524a5feb775c72abf`
 - `.github/workflows/worldlife-v058-apk.yml`
 - run `33596655227`
+
+Rollback references:
+- `worldlife-reference-docs-pre-chat-protocol-v058` → `0697bfafe73ec82d0adaa1c77897d7c8d76c4f21`
+- `worldlife-reference-docs-pre-runtime-audit-v058` → `46e2f28afbdbde3d72b438555d093458d31c73ef`
 
 Source authority:
 - Drive v0.5.8 folder/archive/checksum above.
@@ -233,6 +270,16 @@ Source freeze: 53 core tests plus static/type/XML/policy/manifest/package gates 
 
 GitHub build run `33596655227`: core test step and Android assemble/signature/package/version gates all completed successfully.
 
+Fresh pre-runtime audit:
+- source ZIP SHA readback: PASS;
+- `scripts/verify_static.py`: PASS;
+- fresh game-core Kotlin/JVM 17 compile: PASS;
+- bounded independent core smoke runner: PASS;
+- permanent APK SHA/size readback: PASS;
+- APK ZIP integrity: PASS;
+- 19 fallback visual resources: VERIFIED PRESENT;
+- camera recenter directional inconsistency: STATIC_CONFIRMED.
+
 Phone runtime test: not yet executed/recorded.
 
 ## SOURCE_AUTHORITY
@@ -240,6 +287,8 @@ Phone runtime test: not yet executed/recorded.
 Google Drive frozen v0.5.8 source outranks conversation memory and GitHub build transport for source facts.
 
 GitHub build/run evidence governs claims about what the GitHub workflow actually built and verified.
+
+Direct inspection of the permanent APK governs claims about its packaged resources.
 
 Direct phone evidence governs claims about runtime behavior on the tested device.
 
@@ -252,9 +301,10 @@ None required to start the next milestone beyond using the permanent Drive APK w
 - whether the APK launches correctly on the target phone;
 - black-screen status;
 - actual orientation/scale/control behavior;
+- actual impact of `STATIC-001` camera recenter on device;
 - device-specific SceneView rendering behavior;
 - save/reload behavior on device;
 - apartment runtime presentation behavior;
 - Cheat/Admin runtime usability;
 - crashes/ANRs/touch dead zones;
-- final visual parity, because this test APK may use fallback visual files.
+- final visual parity, because this test APK is confirmed to use fallback action/joystick/street resources.
