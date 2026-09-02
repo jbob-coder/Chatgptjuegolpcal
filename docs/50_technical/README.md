@@ -18,15 +18,40 @@ Belongs here:
 `ENGINE_ANDROID_PROBE_DECISION.md`
 
 Current Stage 1 candidate:
-- Godot 4.7;
+- Godot 4.7 family;
 - GDScript;
 - GL Compatibility renderer;
 - Samsung Galaxy A03s baseline;
 - stable 30 FPS representative-probe target.
 
-Implementation is authorized for the bounded Stage 1 probe.
-
 Godot remains `PROBE_PENDING`; do not label it the final production engine until the Galaxy A03s acceptance gate passes.
+
+## Current matching source
+
+Probe-only implementation root:
+`/probes/android_stage1/`
+
+Current source status:
+- Godot project configuration created;
+- Boot/title scene created;
+- primitive 3D probe scene created;
+- Hunter/Monster placeholders created;
+- touch/WASD probe input created;
+- aerial↔first-person toggle created;
+- runtime renderer/FPS/debug-memory HUD created;
+- Android export setup documented;
+- phone test protocol documented;
+- GitHub source readback completed;
+- Godot parse/editor run NOT yet verified;
+- APK/phone runtime NOT yet verified.
+
+Implementation handoff:
+`../70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`.
+
+Important quality rule:
+**the Stage 1 probe is disposable evidence-gathering source and is not automatically the production game/domain source.**
+
+If the probe passes, later production source should be created under a separately approved Stage 2 structure.
 
 ## Build-readiness governance
 
@@ -52,6 +77,7 @@ Important rules:
 - implementation claims require verified current source;
 - build success is not phone-runtime verification;
 - desktop runtime is not Galaxy A03s verification;
+- source readback is not Godot parse verification;
 - engine-specific architecture should be added only as the real probe/project creates evidence.
 
 World packages may specify desired streaming relationships; this area documents how the verified engine implements them.
