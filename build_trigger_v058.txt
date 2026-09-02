@@ -1,0 +1,3 @@
+WorldLife RPG v0.5.8 APK build trigger
+Frozen source SHA-256: 478d99cd5cafbc350910ad5820d47d6ac656d80332c1cc6ddc85d9cdecef8822
+Triggered after workflow file was already present on branch.
