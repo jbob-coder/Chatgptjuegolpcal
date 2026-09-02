@@ -1,456 +1,301 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: DESIGN SYSTEM / PLANNING ONLY / NO GAMEPLAY CODE AUTHORIZED
+Status: DESIGN / CONTENT PACKETS / REFERENCE-ASSET GENERATION / NO GAMEPLAY IMPLEMENTATION
 Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
 
-Continue defining the new game in bounded documentation/content pieces before implementation begins.
+Generate and review the first registered Hunter Base 01 and Monster 01 visual-reference sheets from stable recorded designs.
 
-The documentation structure and first hunting-region package are now recorded. The next recommended bounded design piece is the **first complete monster design packet**, using Region 01 as the monster's actual habitat/route/combat context.
+Reference-image generation is authorized. Gameplay code, engine project, scenes, APK and final game-ready 3D implementation are still not authorized.
 
-## CURRENT_STATE
+## CURRENT SOURCE OF TRUTH
 
-This is a new game replacing WorldLife in the same repository/project area. WorldLife is not the design base.
+Read:
+1. `START_HERE_NEW_CHAT.md`
+2. `README.md`
+3. `PROJECT_HANDOFF.md`
+4. `DOCUMENTATION_INDEX.md`
+5. `docs/README.md`
+6. owning package files for the task.
 
-No new-game gameplay code, engine project, scenes, APK or production 3D assets have been created.
+Current asset-pass handoff:
+`docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md`.
 
-Current design authorities now cover:
-- quality governance;
-- player experience/visual direction;
-- world/settlement/streaming structure;
-- model/art/reference pipeline;
-- first settlement;
-- first hunting region;
-- stats/effects;
-- deterministic behavior;
-- crystal/mutation/ecosystem;
-- architecture/code/content plan;
-- performance/admin/testing;
-- implementation order.
+Do not reconstruct the project from old WorldLife files or chat memory.
 
 ## DOCUMENTATION STRUCTURE
 
-Primary folder guide: `docs/README.md`.
-
-New structure:
-
-```text
-docs/
-├── 00_project/README.md
-├── 10_world/
-│   ├── README.md
-│   └── regions/
-│       ├── README.md
-│       └── REGION_01/
-│           ├── README.md
-│           ├── REGION_TOPOLOGY.md
-│           ├── TRACKING_AND_ESCAPE.md
-│           ├── TERRAIN_ECOLOGY_MUTATION.md
-│           ├── ENCOUNTER_FOOTPRINTS.md
-│           ├── STREAMING_AND_PERFORMANCE.md
-│           ├── VISUAL_REFERENCE_PLAN.md
-│           └── ACCEPTANCE_CHECKLIST.md
-├── 20_gameplay/README.md
-├── 30_content/README.md
-├── 40_art/README.md
-├── 50_technical/README.md
-├── 60_quality/README.md
-└── 70_handoff/README.md
-```
-
-Core structural rule:
+Selected rule:
 **folders organize ownership; packages organize one playable thing.**
 
-Existing root authorities remain authoritative and are not moved in this pass. Root migration is a future bounded task requiring link inventory/update/readback. Do not create duplicate full authority copies under `/docs`.
+Current package areas:
+- `docs/10_world/regions/REGION_01/`;
+- `docs/30_content/hunters/HUNTER_BASE_01/`;
+- `docs/30_content/monsters/MONSTER_01/`;
+- `docs/40_art/asset_pipeline/`.
 
-## DESIGN-QUALITY GOVERNANCE
+Existing root design authorities remain valid until a future link-safe migration.
 
-Detailed authority: `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
+## CORE GAME IDENTITY
 
-Current rules:
-- every meaningful mechanic identifies player value, authoritative owner, dependencies, caps/invariants and verification path;
-- distinguish LOCKED/CURRENT, SELECTED ARCHITECTURE, PROTOTYPE TARGET, OPEN, FUTURE OPTION and REJECTED/NOT PREFERRED;
-- depth should come from interactions among reusable bounded systems rather than uncontrolled micro-systems;
-- foundational changes require cross-system impact analysis;
-- no two systems should own the same authoritative truth;
-- correctness, input, save integrity, tactical readability, explainability and Android performance are project-wide gates;
-- work proceeds in bounded pieces.
+Grounded stylized monster-hunting tactical RPG:
 
-## MODEL / ART / REFERENCE STATE
+`PREPARE IN WALKABLE SETTLEMENT → ENTER CONTINUOUS HUNTING REGION → TRACK/OBSERVE → ENGAGE → FIRST-PERSON TURN-BASED TACTICAL COMBAT → TARGET ANATOMY → BREAK/SEVER → MONSTER ESCAPES OR FALLS → REACQUIRE/HARVEST → RETURN/PROCESS/CRAFT/RESEARCH`.
 
-Detailed authorities:
-- `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`;
-- `MODEL_REFERENCE_IMAGE_AND_CREATION_PIPELINE.md`;
-- `VISUAL_WORLD_BEHAVIOR_BIBLE.md`.
+Visual identity:
+**an illustrated hunting world brought to life**.
 
-Selected direction:
-- grounded stylized 3D / illustrated realism;
-- believable scale with mild silhouette exaggeration for phone readability;
-- important assets readable from aerial, nearby and first-person distances;
-- one monster model/identity lineage supports exploration/combat LOD representations;
-- visual anatomy corresponds to authoritative anatomy/capabilities;
-- damage states use layered wounds/swaps/detach/sever state rather than unrelated full models;
-- crystal/mutation visuals biologically integrated and restrained;
-- humanoids favor shared compatible rigs/modular equipment;
-- buildings/environments favor modular kits, simplified collision and LOD/culling;
-- exact production geometry/texture/bone/material budgets remain OPEN until engine/device profiling.
+Behavior:
+**NO AI behavior system.** NPCs/creatures use deterministic authored patterns/conditions.
 
-Generated PNG rule:
-- visual-intent and technical references are separate;
-- generated labels/dimensions/normal-looking/ORM-looking images are not technical truth unless separately verified;
-- graybox must pass scale/aerial/first-person/anatomy checks before high-detail asset production.
+## WORLD STATE
 
-Two general model/art boards are already saved in Google Drive and recorded in the model-reference authority.
+Selected hierarchy:
+`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE/FRONTIER TRANSITION → CONTINUOUS STREAMED HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
 
-## WORLD / SETTLEMENT ARCHITECTURE
+Current scale convention:
+`1 world unit = 1 meter`.
 
-Detailed authorities:
-- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`;
-- `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
-- `FIRST_SETTLEMENT_BLUEPRINT.md`.
+Settlement 01:
+- defensible frontier river/chasm geography;
+- Hunter Service Loop;
+- repeated core-service legs ~10–25 sec prototype target;
+- 2–3 elevation bands;
+- active/background/logical NPC fidelity;
+- important interiors seamless when budget permits.
 
-Selected world hierarchy:
+Region 01:
+- S00 Trailhead/Field Camp;
+- S01 River Ford/Mud Flats;
+- S02 Rootwood Thicket;
+- S03 Feeding Meadow;
+- S04 Rocky Rise;
+- S05 Deepwood Basin;
+- S06 Nesting Shelf/Crystal Fault;
+- looped/branched topology;
+- continuous ordinary sector boundaries;
+- physical tracking evidence rather than permanent exact GPS;
+- persistent monster state across sector escape/reacquisition;
+- first-person encounter footprints derived from real local terrain.
 
-`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE / TRANSITION CORRIDOR → CONTINUOUS STREAMED HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`
+## STATS/EFFECTS/CRYSTAL
 
-Rules:
-- no enormous always-loaded open world;
-- settlement is physical/walkable;
-- settlement↔wilderness is a major transition;
-- ordinary internal wilderness sector changes remain continuous whenever practical;
-- only major region/deep interior boundaries may use controlled transitions when necessary;
-- normal exploration camera stays local rather than revealing the whole region;
-- preferred measurement convention: 1 world unit = 1 meter;
-- persistent monsters keep identity/state across sector/encounter transitions;
-- first-person battlefields derive from the exact local wilderness context.
+Current primary attributes:
+Might / Finesse / Agility / Endurance / Perception / Resolve.
 
-### Settlement 01
+Equipment/status/terrain/weather/posture/injury/crystal/mutation use one shared typed modifier pipeline with explicit stacking/caps/traces.
 
-Working ID: `SETTLEMENT_01`; final name OPEN.
-
-Selected first-pass structure:
-- defensible elevated river/chasm geography;
-- irregular prototype extent roughly 220–280 m × 160–230 m;
-- compact Hunter Service Loop:
-  lodge/contracts → storage/loadout → smith/craft/processing → hunter gate;
-- recovery/home nearby;
-- repeated core-service legs around 10–25 seconds prototype target;
-- 2–3 major elevation bands;
-- important seamless interiors where device budget permits;
-- deterministic NPC schedules with active/background/logical runtime tiers;
-- district/culling partitions;
-- gate transition demotes settlement systems and preloads wilderness;
-- processing/material route intentionally near return gate.
-
-## REGION_01 — FIRST HUNTING REGION
-
-Package authority:
-`docs/10_world/regions/REGION_01/README.md`.
-
-Status: DESIGN PACKAGE RECORDED / NO GRAYBOX / NO IMPLEMENTATION.
-
-Technical ID: `REGION_01`; final display name OPEN.
-
-Working identity:
-**temperate river-and-root forest basin with open feeding ground, rocky elevation and deeper crystal-influenced territory.**
-
-### Primary quality fix
-
-Region 01 is not a corridor and not a giant empty map. It is a compact connected ecosystem graph with alternate routes and meaningful sector roles.
-
-### Selected sector set
-
-- `R01_S00` Frontier Trailhead / Field Camp;
-- `R01_S01` River Ford / Mud Flats;
-- `R01_S02` Rootwood Thicket;
-- `R01_S03` Feeding Meadow;
-- `R01_S04` Rocky Rise;
-- `R01_S05` Deepwood Basin;
-- `R01_S06` Nesting Shelf / Crystal Fault.
-
-Canonical graph is stored in `REGION_TOPOLOGY.md`.
-
-Middle sectors have loop/route redundancy so the player can approach/intercept/reacquire rather than following one scripted hallway.
-
-### Region scale targets
-
-PROTOTYPE only:
-- seven planning sectors including camp;
-- typical characteristic sector span roughly 100–180 m, variable by terrain;
-- several-hundred-meter overall physical region using terrain folds/sight blockers;
-- exact route times/dimensions/resident-sector budgets require engine/device testing.
-
-### Tracking/escape
-
-`TRACKING_AND_ESCAPE.md` records:
-- footprints/mud/water disturbance;
-- scratches/broken vegetation;
-- feeding/rest/territory signs;
-- injury evidence only when physically valid;
-- audio/element/mutation evidence only when supported;
-- evidence confidence/age concept;
-- persistent monster escape/reacquisition contract.
-
-If a monster escapes:
-- same instance survives;
-- anatomy damage persists;
-- severed/broken parts persist;
-- crystal/mutation/required status/behavior state persists;
-- deterministic behavior selects a legal retreat route;
-- evidence can be generated along that route;
-- player returns to the real encounter location and continues the hunt.
-
-### Terrain/ecology/mutation
-
-`TERRAIN_ECOLOGY_MUTATION.md` applies existing systems to the region.
-
-Sector roles:
-- river/mud — strong tracks/crossing decisions;
-- root forest — constrained sight lines/scratches/cover;
-- meadow — open observation/feeding evidence;
-- rocky rise — elevation/partial views/hard-ground tracking tradeoff;
-- deep basin — route convergence/higher danger/pressure;
-- nest/fault — deepest retreat/territory and highest local crystal/mutation-pressure candidate.
-
-Pressure is ecological context, not an invisible level wall or instant mutation zone.
-
-Off-screen ecology remains aggregate/bounded.
-
-### Encounter footprints
-
-`ENCOUNTER_FOOTPRINTS.md` currently plans representative local combat anchors:
-- `R01_EF01` Riverbank Ford;
-- `R01_EF02` Meadow Edge;
-- `R01_EF03` Root/Boulder Hollow;
-- `R01_EF04` Deep Nest Shelf.
-
-These preserve real terrain, approach direction, cover, elevation and escape mapping.
-
-### Streaming/performance
-
-`STREAMING_AND_PERFORMANCE.md` applies a fidelity-ring concept:
-- current sector highest required exploration fidelity;
-- required neighbors prepared for seamless crossing;
-- next-hop/far context lower cost;
-- inactive/off-region ecology aggregate/logical;
-- persistent monster state independent of presentation fidelity.
-
-Important stress cases:
-- S01 water/mud/tracks;
-- S05 dense foliage/occlusion/multi-neighbor streaming;
-- S04 long-sightline LOD;
-- first-person encounter promotion.
-
-Artificial slow-stream and repeated-boundary tests are planned to catch disappearance/duplication/thrashing.
-
-### Region visual references
-
-`VISUAL_REFERENCE_PLAN.md` defines future PNG/reference work, but no new Region 01 PNG was generated in this pass.
-
-Recommended later order:
-1. clean topology diagram;
-2. local gameplay-camera keyframes;
-3. mood/identity board;
-4. modular environment-kit sheet;
-5. encounter-continuity sheet;
-6. tracking/LOD/camp sheets as needed.
-
-This ordering prevents speculative art from becoming fake geometry/specification.
-
-### Region acceptance
-
-`ACCEPTANCE_CHECKLIST.md` separates:
-- documentation coherence;
-- graybox topology;
-- persistent tracking/hunt;
-- terrain/effect interaction;
-- encounter continuity;
-- streaming robustness;
-- Android performance;
-- visual quality;
-- expansion permission.
-
-No runtime gate is currently claimed.
-
-## CORE GAMEPLAY STATE
-
-### Combat
-- first-person turn-based tactical combat;
-- movement/repositioning/cover/terrain/bearing matter;
-- targetable anatomy authoritative;
-- damage can wound/break/sever/destroy;
-- monster escape returns same persistent injured instance;
-- current action-economy candidate: AP + stamina + limited reaction resource.
-
-### Stats/effects
-Current six-role direction:
-- Might;
-- Finesse;
-- Agility;
-- Endurance;
-- Perception;
-- Resolve.
-
-Equipment/status/terrain/weather/posture/injury/crystal/mutation/context use one typed effect pipeline with explicit stacking, caps, floors, cached derived stats and calculation traces.
-
-### Deterministic behavior
-**AI behavior system = NO.**
-
-NPCs/creatures use authored schedules/patterns/conditions, priorities, cooldowns, capability requirements, phases and deterministic/seeded tie rules where appropriate.
-
-Region packages expose legal geography/context; monster/NPC content packets define authored rules that use those facts.
-
-### Crystal/mutation/ecosystem
-- internal creature crystal;
-- current crystal energy is life-force reserve;
+Crystal rules:
+- one internal life crystal for relevant creatures;
+- current crystal energy is life force;
 - zero usable energy means death;
-- berserk/desperation spends same reserve;
-- Tier, Rank, Quality, Element, Energy and Condition separate;
-- mutation can alter anatomy/capabilities/effects/terrain adaptation/behavior/harvest;
-- regional ecology influences trait/population pressure;
-- off-screen ecology aggregate.
+- berserk consumes that same reserve;
+- Tier/Rank/Quality/Element/Energy/Condition are distinct;
+- mutation is bounded and may affect anatomy/capabilities/effects/behavior/terrain adaptation/harvest.
 
-### Harvest
-- yield derives from actual anatomy/core condition;
-- unique physical structures cannot duplicate impossibly;
-- results should explain important quantity/quality loss/bonus;
-- direct core damage versus crystal harvest quality remains an available design direction, not fully balanced yet.
+## HUNTER BASE 01
 
-## PERFORMANCE / ADMIN / TESTING
+Authority:
+`docs/30_content/hunters/HUNTER_BASE_01/README.md`.
 
-Different spatial layers use different budgets:
-- settlement → NPC/services/architecture priority;
-- frontier → handoff/preload;
-- region → terrain/tracking/ecology/monster priority;
-- first-person encounter → local monster/anatomy/telegraph/VFX highest detail.
+Purpose:
+reusable production/modeling base; not the final story protagonist.
 
-Future Admin/Creator support should include:
-- region-sector graph/streaming overlay;
-- current/neighbor/logical fidelity state;
-- artificial slow-stream mode;
-- terrain/effect traces;
-- habitat/ecology/mutation-pressure overlay;
-- persistent-monster cross-sector inspector;
-- tracking evidence age/cluster view;
-- encounter-footprint/tactical-node/cover preview;
-- first-person/camera-transition preview;
-- per-sector performance counts.
+Selected:
+- 1.75 m prototype height;
+- realistic adult humanoid proportions;
+- practical frontier layered cloth/leather/limited protection;
+- modular harness, pouches, boots and field tools;
+- restrained material/color language;
+- no giant fantasy armor;
+- three silhouette/loadout tests: light tracking, balanced hunt, reinforced dangerous-hunt;
+- final weapon family OPEN;
+- final face/sex/gender/name/story identity OPEN.
 
-Exact runtime numbers remain unverified until target device testing.
+## MONSTER 01 — MUDCREST RAKER
 
-## CURRENT ACTIVE PLANNING AUTHORITIES
+Authorities:
+- `docs/30_content/monsters/MONSTER_01/README.md`;
+- `ANATOMY_AND_DAMAGE.md`;
+- `CRYSTAL_AND_MUTATION.md`;
+- `BEHAVIOR_AND_REGION.md`.
 
-Project/root:
-- `README.md`
-- `START_HERE_NEW_CHAT.md`
-- `PROJECT_HANDOFF.md`
-- `DOCUMENTATION_INDEX.md`
-- `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
-- `GAME_EXPERIENCE_BIBLE.md`
-- `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
-- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
-- `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
-- `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
-- `MODEL_REFERENCE_IMAGE_AND_CREATION_PIPELINE.md`
-- `FIRST_SETTLEMENT_BLUEPRINT.md`
-- `NEW_GAME_MASTER_PLAN.md`
-- `MECHANICAL_SYSTEMS_GUIDE.md`
-- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-- `BEHAVIOR_PATTERN_SYSTEM.md`
-- `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-- `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-- `CONTENT_DATA_GUIDE.md`
-- `CODE_GUIDE.md`
-- `PERFORMANCE_BUDGETS_AND_CAPS.md`
-- `ADMIN_CREATOR_SYSTEM.md`
-- `TESTING_VERIFICATION_PLAN.md`
-- `IMPLEMENTATION_ROADMAP.md`
-- `DEVELOPMENT_REFERENCE.md`
-- `EVOLVE_ALIGNMENT.md`
-- `NEW_GAME_DISCUSSION_CHECKLIST.md`
+Selected body/mechanical design:
+- Region 01 territorial root-foraging/omnivorous quadruped;
+- ~6.6 m nose-to-tail;
+- ~3.0 m shoulder/main-body height;
+- front-heavy mass;
+- broad wedge head;
+- paired mineral horn crest;
+- breakable dorsal plates;
+- robust mud-adapted feet;
+- long muscular tail with legal distal sever boundary;
+- internal forward-torso/sternal crystal core;
+- provisional Mineral/Earth-type elemental expression;
+- restrained biological/mineral crystal visuals.
 
-Package/navigation:
-- `docs/README.md`
-- all top-level folder `README.md` guides;
-- `docs/10_world/regions/README.md`;
-- `docs/10_world/regions/REGION_01/*`.
+First-slice target groups:
+- HEAD;
+- HORN_CREST;
+- FORELEG_L;
+- FORELEG_R;
+- HINDLEG_L;
+- HINDLEG_R;
+- DORSAL_PLATES;
+- TAIL.
 
-## BOUNDED DOCUMENTATION PIECE STATUS
+Functional consequences:
+- horn break weakens/removes strongest horn-charge version;
+- foreleg injury impairs charge/stability;
+- hindleg injury impairs retreat/reposition;
+- dorsal plate break exposes/protects local surface and changes harvest;
+- tail sever removes tail-sweep capability and creates one physical detached harvest source;
+- berserk cannot restore any broken/severed anatomy.
 
-Piece A — Cross-system quality governance: **RECORDED**.
+Mutation reference variants:
+- Mirestep Pads;
+- Bastion Plates;
+- Deep-Scent Crest;
+- Resonant Core Veins.
 
-Piece B — Model art direction/asset standard: **RECORDED**.
+Deterministic activity/escape uses actual Region 01 sectors. Critically injured animals prefer valid deeper retreat routes rather than teleporting.
 
-Piece C — Model reference image/creation pipeline: **RECORDED**.
+## ASSET STORAGE — GOOGLE DRIVE
 
-Piece D — First settlement blueprint: **RECORDED**.
+Project root:
+`Unnamed Hunt RPG`
+ID: `1N3FbZhLE9ZfEy1Og-iNiB2B7nyyfangt`
 
-Piece E — Documentation folder/package structure: **RECORDED**.
+### Modeling references
+`01_Modeling_References` — `1qsF_JUYBs9ZQ-1lZPHsTCwWn87W46VIs`
+- Hunter — `1XM-kcLfxD3Af-HAPRu4zlO691RgDJLlE`
+- Monster_01 — `1klaz1KEefbWZ2cMMH3N6m--lbQqf9CUe`
 
-Piece F — First hunting-region package: **RECORDED**.
+### Working runtime 2D
+`02_2D_Runtime_Assets` — `1PJ7uzt8oZBE5jFPXoBeldGVVv9Dy1Ko_`
+- UI icons — `1lB-X102Z804LpQw5SBuDMibHHqtWVQzR`
+- bestiary/portraits/illustrations — `1Qz3XZYmsYP-BtXmmdVHnMxBe_-lk7h2Q`
+- decals/VFX sprites — `1oAkamHy_0AZtDksTOAyA_BrNHpdOmiMY`
+- maps/billboards/impostors — `1d14laLOIaHoL9ydx75IBWGfh0i_xqYbe`
 
-Next recommended bounded piece:
-**FIRST MONSTER COMPLETE DESIGN PACKET**.
+### 3D conversion inputs
+`03_3D_Conversion_Inputs` — `1hs-qJiiF6R-1NLBmlChvSK4rlQilONLz`
+- Hunter — `1fbVPHHyVmGuqAxaKsUXSKAYdYk-BeJy4`
+- Monster_01 — `19iD9tQXEtQEL-Io8Y5MD5h-WPRVKYjEa`
 
-That future packet should define only one primary hunt species and connect it to Region 01:
-- ecological role/habitat use;
-- body plan/scale;
-- crystal profile;
-- bounded mutations;
-- anatomy graph and capabilities;
-- attacks;
-- deterministic behavior rules;
-- movement/feed/drink/nest/escape routes;
-- tracking evidence;
-- berserk conditions;
-- harvest sources;
-- presentation/model-reference pack;
-- performance/test budget.
+### Approved exports
+`04_Approved_Exports` — `1yrS6vXQElSahDUtFJjjst25gq8RIGm2P`
+- 2D runtime — `1S7q8hBrcFoI2iPSJqWXPWJrGmxfPu3A_`
+- 3D game ready — `1rA4FTPUfX1VXdU3QlhVMEShr5gzn7Z_g`
 
-Do not simultaneously design a large bestiary, every weapon, final progression and engine code.
+Never mix these lanes.
 
-## NEXT_ACTION
+## ASSET PIPELINE AUTHORITIES
 
-Continue discussion or begin the first monster packet.
+- `docs/40_art/asset_pipeline/README.md`
+- `RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
+- `RUNTIME_2D_ASSET_GUIDE.md`
+- `PNG_TO_3D_AUTOMATION_PIPELINE.md`
+- `ASSET_QA_GATES.md`
+- `GENERATED_SHEET_REGISTRY.md`
 
-Do not implement gameplay or produce final 3D assets until explicitly authorized.
+### Zoom-quality fix
+
+Do not enlarge a small PNG indefinitely.
+
+Use:
+- high-resolution master source;
+- separate native-detail sheets/crops;
+- vector/SDF for scalable geometric/icon assets;
+- master→runtime derivative chain;
+- engine mip/filter/LOD later;
+- optional AI upscaling only for visual/reference restoration, not technical truth.
+
+A modeling reference's resolution is not an Android runtime texture budget.
+
+### Runtime 2D
+
+Eligible examples after cleanup/QA:
+- UI icons;
+- bestiary illustrations;
+- portraits;
+- contract art;
+- map symbols;
+- decals;
+- VFX sprites;
+- verified-3D-derived billboards/impostors.
+
+Generated images that merely resemble normal/ORM/UV/hit/collision/navigation maps are not technically valid runtime maps.
+
+## PNG → 3D AUTOMATION
+
+Current target:
+
+`APPROVED REFERENCE`
+→ `CLEAN/MULTIVIEW CONVERSION INPUT`
+→ `IMAGE-TO-3D CANDIDATES`
+→ `BLENDER NORMALIZE/CLEAN/REPORT`
+→ `TOPOLOGY QA/RETOPO`
+→ `ANATOMY BINDING`
+→ `BREAK/SEVER SETUP`
+→ `RIG`
+→ `DEFORMATION TESTS`
+→ `ANIMATION`
+→ `LOD`
+→ `COLLISION/HIT PROXIES`
+→ `ENGINE IMPORT`
+→ `ANDROID QA`
+→ `GAME_READY`.
+
+Researched current candidate tools/services:
+- Meshy;
+- Tripo;
+- Rodin/Hyper3D;
+- Blender for free technical cleanup/orchestration.
+
+A downloaded generated GLB/FBX is only `RECONSTRUCTION_CANDIDATE`, never automatically `GAME_READY`.
+
+## CURRENT SHEET REGISTRY ORDER
+
+1. `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001.png`
+2. `HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001.png`
+3. `MONSTER_01_M01_M02_HERO_TURNAROUND_v001.png`
+4. `MONSTER_01_M03_ANATOMY_v001.png`
+5. `MONSTER_01_M04_DAMAGE_STATES_v001.png`
+6. `MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001.png`
+7. `MONSTER_01_M08_THREE_DISTANCE_v001.png`
+
+If generation quota/limits intervene, stop only at a completed-sheet boundary and preserve status.
+
+## NEXT ACTION
+
+Generate/review sheets in registry order.
+
+After the visual-reference pass:
+1. player progression/equipment packet;
+2. exact combat economy;
+3. engine/device probe only after explicit implementation authorization.
 
 ## STATUS GATES
 
-DESIGN_RECORDED = YES
-DOCS_FOLDER_STRUCTURE_RECORDED = YES
-ROOT_AUTHORITY_MIGRATION = NOT STARTED
-DESIGN_QUALITY_GOVERNANCE_RECORDED = YES
-MODEL_ART_DIRECTION_RECORDED = YES
-MODEL_REFERENCE_PIPELINE_RECORDED = YES
-FIRST_SETTLEMENT_BLUEPRINT_RECORDED = YES
-FIRST_HUNTING_REGION_PACKAGE_RECORDED = YES
-REGION_01_GRAYBOX = NOT STARTED
-WORLD_MAP_STRUCTURE_DESIGNED = YES
-WORLD_SCALE_STREAMING_DESIGNED = YES
-WALKABLE_SETTLEMENTS_DESIGNED = YES
-CONTINUOUS_WILDERNESS_SECTORS_DESIGNED = YES
-SETTLEMENT_HUNTING_REGION_SEPARATION_DESIGNED = YES
-STATS_EFFECTS_SYSTEM_DESIGNED = YES
-DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
-AI_BEHAVIOR_SYSTEM = NO
-CRYSTAL_LIFE_FORCE_SYSTEM_DESIGNED = YES
-MUTATION_ECOSYSTEM_SYSTEM_DESIGNED = YES
-SYSTEM_ARCHITECTURE_PLANNED = YES
-CONTENT_PIPELINE_PLANNED = YES
-CODE_GUIDE_RECORDED = YES
-PERFORMANCE_CAPS_PLANNED = YES
-ADMIN_CREATOR_SYSTEM_PLANNED = YES
-TESTING_PLAN_RECORDED = YES
-IMPLEMENTATION_ROADMAP_RECORDED = YES
-GAMEPLAY_SOURCE_CREATED = NO
-PRODUCTION_ASSETS_CREATED = NO
-ENGINE_SELECTED = NO
-IMPLEMENTATION_AUTHORIZED = NO
-APK_BUILD_VERIFIED = NO
-PHONE_RUNTIME_VERIFIED = NO
+`DOCS_FOLDER_STRUCTURE_RECORDED = YES`
+`REGION_01_DESIGNED = YES`
+`HUNTER_BASE_01_DESIGNED = YES`
+`MONSTER_01_DESIGNED = YES`
+`ASSET_DRIVE_STRUCTURE_CREATED = YES`
+`RASTER_ZOOM_POLICY_RECORDED = YES`
+`RUNTIME_2D_POLICY_RECORDED = YES`
+`PNG_TO_3D_PIPELINE_RECORDED = YES`
+`ASSET_QA_GATES_RECORDED = YES`
+`REFERENCE_SHEET_GENERATION = ACTIVE`
+`GAMEPLAY_SOURCE_CREATED = NO`
+`PRODUCTION_3D_GAME_READY_ASSET = NO`
+`ENGINE_SELECTED = NO`
+`IMPLEMENTATION_AUTHORIZED = NO`
+`APK_BUILD_VERIFIED = NO`
+`PHONE_RUNTIME_VERIFIED = NO`
 
 ## AUTHORITY
 
-Current explicit user instruction > current owning durable design docs > package-level application > future verified source/tests/runtime evidence > conversation summaries.
+Current explicit user instruction > current owning repository authorities/packages > future verified source/tests/runtime evidence > chat memory/summaries.
