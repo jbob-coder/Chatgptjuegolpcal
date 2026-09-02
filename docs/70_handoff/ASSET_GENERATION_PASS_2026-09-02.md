@@ -1,286 +1,221 @@
 # Asset Generation / Lineage Pass — 2026-09-02
 
-Status: ACTIVE HANDOFF / HUNTER H02 v001 REVIEWED / REVISION REQUIRED / GAMEPLAY IMPLEMENTATION STILL NOT AUTHORIZED
+Status: ACTIVE HANDOFF / HUNTER H02 v001+v002 REVIEWED / TECHNICAL SOURCE-PACK REVISION REQUIRED / GAMEPLAY IMPLEMENTATION STILL NOT AUTHORIZED
 
 ## Current objective
 
-Correct the earliest broken visual-production dependency before reviewing or generating additional downstream sheets.
+Fix the earliest broken visual-production dependency before advancing to equipment or Monster 01 visual QA.
 
-Hunter H02 v001 has now been reviewed against the asset QA gates.
+Hunter H02 v001 and v002 have both been reviewed.
 
-Decision:
-**`REVISE`**.
+Current decisions:
+- `H02 v001 → REVISE`;
+- `H02 v002 → REVISE`.
+
+The problem is now understood as a source-architecture issue rather than simply needing a prettier infographic.
 
 Current bounded next action:
-**create Hunter H02 v002 only from `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`, then review v002 before advancing to H04 or Monster 01.**
+**generate Hunter H02A v003 only from `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`, then review H02A before H02B/H03/H04 or Monster 01.**
 
 Reference-image generation remains authorized. Gameplay code, engine project, scenes, APK and final game-ready 3D implementation remain not authorized.
 
 ---
 
-# Drive root
+# Primary current authorities
 
-`Unnamed Hunt RPG`
-ID: `1N3FbZhLE9ZfEy1Og-iNiB2B7nyyfangt`
-
-## Asset manifests
-`00_Asset_Manifests` — `1cg-zesn5QTcSIm63pnt1FeH7TYvxKlfo`
-
-## Modeling references
-`01_Modeling_References` — `1qsF_JUYBs9ZQ-1lZPHsTCwWn87W46VIs`
-- Hunter — `1XM-kcLfxD3Af-HAPRu4zlO691RgDJLlE`
-- Monster_01 — `1klaz1KEefbWZ2cMMH3N6m--lbQqf9CUe`
-
-## Runtime 2D working
-`02_2D_Runtime_Assets` — `1PJ7uzt8oZBE5jFPXoBeldGVVv9Dy1Ko_`
-- UI_Icons — `1lB-X102Z804LpQw5SBuDMibHHqtWVQzR`
-- Bestiary_Portraits_Illustrations — `1Qz3XZYmsYP-BtXmmdVHnMxBe_-lk7h2Q`
-- Decals_VFX_Sprites — `1oAkamHy_0AZtDksTOAyA_BrNHpdOmiMY`
-- Maps_Billboards_Impostors — `1d14laLOIaHoL9ydx75IBWGfh0i_xqYbe`
-
-## 3D conversion inputs
-`03_3D_Conversion_Inputs` — `1hs-qJiiF6R-1NLBmlChvSK4rlQilONLz`
-- Hunter — `1fbVPHHyVmGuqAxaKsUXSKAYdYk-BeJy4`
-- Monster_01 — `19iD9tQXEtQEL-Io8Y5MD5h-WPRVKYjEa`
-
-## Approved exports
-`04_Approved_Exports` — `1yrS6vXQElSahDUtFJjjst25gq8RIGm2P`
-- 2D_Runtime — `1S7q8hBrcFoI2iPSJqWXPWJrGmxfPu3A_`
-- 3D_Game_Ready — `1rA4FTPUfX1VXdU3QlhVMEShr5gzn7Z_g`
-
-Never mix these lanes implicitly.
-
----
-
-# Asset pipeline authorities
-
-Primary:
+Asset pipeline:
 - `docs/40_art/asset_pipeline/README.md`
 - `ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
 - `GENERATED_SHEET_REGISTRY.md`
 - `ASSET_QA_GATES.md`
 - `RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
+- `HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
 - `RUNTIME_2D_ASSET_GUIDE.md`
 - `PNG_TO_3D_AUTOMATION_PIPELINE.md`
 - `EXTERNAL_3D_TOOL_EVALUATION.md`
 
-Review archive:
-- `docs/40_art/reviews/README.md`
+Reviews:
 - `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
+- `docs/40_art/reviews/HUNTER_BASE_01_H02_v002_QA.md`
 
-## Lineage law
+Hunter design:
+- `docs/30_content/hunters/HUNTER_BASE_01/README.md`
 
-The manifest, not folder or filename, determines:
-- stable asset identity;
-- master/parent lineage;
-- class;
-- review state;
-- permitted use;
-- verification gates;
-- supersession/rejection state.
-
-Uploading does not approve.
-Upscaling does not create technical truth.
-Approved/runtime/conversion copies require explicit derived records.
+Monster design remains:
+- `docs/30_content/monsters/MONSTER_01/*`
 
 ---
 
-# Hunter Base 01 selected design
+# Drive state
 
-Production/modeling base only; not final protagonist identity.
+Project root:
+`Unnamed Hunt RPG` — `1N3FbZhLE9ZfEy1Og-iNiB2B7nyyfangt`
 
-- prototype height: 1.75 m;
+Manifest folder:
+`00_Asset_Manifests` — `1cg-zesn5QTcSIm63pnt1FeH7TYvxKlfo`
+
+Modeling references:
+`01_Modeling_References` — `1qsF_JUYBs9ZQ-1lZPHsTCwWn87W46VIs`
+- Hunter — `1XM-kcLfxD3Af-HAPRu4zlO691RgDJLlE`
+- Monster_01 — `1klaz1KEefbWZ2cMMH3N6m--lbQqf9CUe`
+
+3D conversion inputs:
+`03_3D_Conversion_Inputs` — `1hs-qJiiF6R-1NLBmlChvSK4rlQilONLz`
+- Hunter — `1fbVPHHyVmGuqAxaKsUXSKAYdYk-BeJy4`
+- Monster_01 — `19iD9tQXEtQEL-Io8Y5MD5h-WPRVKYjEa`
+
+Approved exports remain empty of any approved Hunter/Monster production asset.
+
+---
+
+# Hunter Base 01 authority
+
+Current base design remains:
+- prototype height 1.75 m;
 - realistic adult humanoid proportions;
-- practical frontier layered cloth/leather/limited protective plate;
+- practical frontier layered cloth/leather foundation;
+- limited removable protective plate;
 - modular harness/pouches/boots/field tools;
 - no giant fantasy armor;
-- three art/loadout silhouette variants: light tracking, balanced hunt, reinforced dangerous-hunt;
-- final weapon family remains OPEN;
-- final protagonist face/identity remains OPEN.
+- no locked weapon family;
+- final protagonist face/name/story identity OPEN.
+
+The technical neutral base must not silently become the reinforced loadout.
 
 ---
 
-# Hunter H02 v001 QA result
+# H02 v001 result
 
-Reviewed file:
+File:
 `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
-Drive file ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
+Drive ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
 
-Decision: `REVISE`.
-Review state: `REVIEWED_WITH_ISSUES`.
-Permitted use: `DISCUSSION_ONLY`.
+State:
+`REVIEWED_WITH_ISSUES / REVISE / DISCUSSION_ONLY`.
 
-Do not use v001 as:
-- technical modeling authority;
-- detail reference;
-- image-to-3D conversion input;
-- runtime 2D asset.
+Main failures:
+- low real figure detail;
+- cross-view gear inconsistency;
+- no proper 3/4;
+- too identity/heavy-armor specific;
+- failed 3D-conversion preflight.
 
-Primary defects:
-- useful figure detail is far lower than the large composed canvas suggests;
-- face/hands/boots/gear seams lack trustworthy native detail;
-- front/side/back armor/harness construction changes across views;
-- no clean 3/4 confirmation;
-- views are illustrative rather than conversion-safe orthographic/multiview references;
-- neutral reusable base is too close to a fixed armored male-ranger identity;
-- metal coverage is heavier than desired for the neutral base.
+Upscaled derivative:
+`1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
+remains inspection-only and cannot invent missing detail.
 
-Directions worth preserving:
-- grounded frontier tone;
-- realistic adult overall proportion;
-- readable shoulder/boot/layered-garment silhouette;
-- restrained practical material family;
-- 1.75 m Markdown scale authority.
+---
 
-Upscaled H02 derivative:
-`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
-Drive file ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
-Disposition: `DISCUSSION_ONLY`; preserve for inspection/provenance, never treat enlarged pixels as recovered technical information.
+# H02 v002 result
 
-## Required H02 v002
-
-Planned filename:
+File:
 `HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png`
+Drive ID: `1kkRFXV2Mtk1sWyhjxdnSGm7l6xQRMZE4`
+Observed dimensions: `1536 × 1024`.
 
-Required:
-- front orthographic-like neutral view;
-- left side neutral view;
-- back neutral view;
-- right side when practical;
-- separate clean 3/4 confirmation;
-- consistent pose/body/gear across views;
-- arms slightly separated from torso;
-- hands and boots unobstructed;
-- no held weapon;
-- layered cloth/leather foundation;
-- limited removable protection;
-- explicit modular equipment boundaries;
-- less identity-specific face/hair;
-- no generated labels touching figure;
+State:
+`REVIEWED_WITH_ISSUES / REVISE / DISCUSSION_ONLY`.
+
+What improved:
+- front/left/back/right/3-4 views present;
+- improved overall body/gear coherence;
+- modular practical clothing direction stronger;
+- broad silhouette works;
+- detail areas were considered.
+
+Why it still fails technical-source approval:
+- it is still an infographic with too many panels;
+- the actual turnaround figures occupy too few native pixels;
+- detail panels are separately generated concepts, not guaranteed magnifications of the same exact construction;
+- views remain illustrative instead of verified orthographic/multiview geometry;
+- generated embedded metadata/permissions/date/PBR/checksum claims are not authority;
+- face remains unnecessarily identity-specific for reusable neutral base;
+- conversion preflight fails because the subject is not isolated.
+
+Do not copy v002 to the Hunter conversion-input folder.
+
+---
+
+# New source-pack architecture
+
+Technical source imagery and communication sheets are now separated.
+
+## H02A v003 — NEXT
+Primary clean orthographic/multiview source.
+
+Planned file:
+`HUNTER_BASE_01_H02A_ORTHO_REF_v003.png`
+
+Requirements:
+- front/left/back/right where practical;
+- same neutral pose/gear state;
+- figures dominate roughly 75–90% usable raster height;
+- no infographic panels;
+- no monster comparison;
+- no material/PBR chart;
+- no generated file/status/checksum metadata;
+- no weapon;
 - plain/transparent background;
-- enough native figure pixels to inspect hands, boots, harness and shoulder attachments without relying on upscale invention.
+- low protagonist identity specificity;
+- base cloth/leather + limited modular protection.
 
-If one image cannot provide adequate close details, create separate detail references later rather than overloading the turnaround.
+## H02B v003
+3/4 volume confirmation. Blocked until H02A is reviewed enough to justify it.
 
----
+## H03 details
+Hands/boots/harness/belt/collar/knee-shin detail only if H02A/H02B lack enough real source detail.
 
-# Monster 01 selected design
-
-Working name: **Mudcrest Raker**.
-
-- technical package `MONSTER_01`;
-- provisional species ID `species_r01_mudcrest_raker`;
-- Region 01 territorial root-foraging/omnivorous quadruped;
-- approx. 6.6 m nose-to-tail;
-- approx. 3.0 m shoulder/main-body height;
-- front-heavy body;
-- paired mineral horn crest;
-- breakable dorsal plates;
-- broad mud-adapted feet;
-- long muscular tail with legal distal sever zone;
-- internal forward-torso crystal core;
-- provisional Mineral/Earth-type expression;
-- horn/leg/plate/tail damage changes actual capabilities;
-- berserk consumes crystal life-force and cannot restore destroyed anatomy;
-- mutation candidates: Mirestep Pads, Bastion Plates, Deep-Scent Crest, Resonant Core Veins.
-
-Monster 01 visual review remains downstream of the corrected Hunter H02 dependency for the current bounded sequence.
+## H04 equipment silhouettes
+Existing v001 remains generated but its review is blocked until a neutral technical base is selected.
 
 ---
 
-# Current reconciled sheet state
+# Monster 01 state
 
-## Hunter H02 v001 source
-`REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
+Mudcrest Raker design remains recorded and unchanged.
 
-## Hunter H02 upscaled derivative
-`REVIEWED_WITH_ISSUES / DISCUSSION_ONLY / DRIVE_VERIFIED`
+Drive-verified hero/turnaround candidate:
+`MONSTER_01_M01_M02_HERO_TURNAROUND_v001_VISUAL_CANDIDATE.png`
+Drive ID: `1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
+State: `GENERATED_UNREVIEWED`.
 
-## Hunter H02 v002
-`PLANNED REVISION`
+M03 anatomy, M04 damage, M05 mutation and M08 distance sheets were generated earlier but their current Drive persistence remains unverified. Do not claim them as safely stored until restored/read back.
 
-## Hunter H04 silhouette reference
-`GENERATED_UNREVIEWED / DRIVE_VERIFIED`
-
-Do not review/promote H04 until v002 establishes the corrected neutral base.
-
-## Monster M01/M02 hero + turnaround
-`GENERATED_UNREVIEWED / DRIVE_VERIFIED`
-
-## Generated but current Drive persistence not verified
-- `MONSTER_01_M03_ANATOMY_v001_TECHNICAL_OVERLAY.png`
-- `MONSTER_01_M04_DAMAGE_STATES_v001_DRAFT_REFERENCE.png`
-- `MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001_TECHNICAL_CONCEPT.png`
-- `MONSTER_01_M08_THREE_DISTANCE_v001_VISUAL_CANDIDATE.png`
-
-Do not report those four as safely persisted in Drive until upload/readback succeeds.
+Monster visual QA remains downstream of the Hunter neutral-base correction in the current bounded sequence.
 
 ---
 
-# Zoom-quality rule
+# Why the H02A fix matters to the game
 
-Do not rely on unlimited zoom into a crowded raster sheet.
+A bad humanoid base would contaminate:
+- first-person camera/hand framing;
+- equipment fitting;
+- NPC rig reuse;
+- animation clearance;
+- door/stair/environment scale;
+- aerial silhouette readability;
+- later LODs;
+- collision/capsule proportions.
 
-Use:
-- high-resolution masters;
-- dedicated close-detail sheets;
-- vector/SDF source for scalable symbols where appropriate;
-- master→independent derivative export chain;
-- mip/LOD strategy later in engine;
-- AI upscaling only as reference enhancement, not technical truth.
-
-H02 v001 demonstrates why this matters: a large composed PNG can still contain a low-detail embedded figure source.
-
----
-
-# PNG → 3D rule
-
-A one-click service may generate only a candidate mesh.
-
-`GAME_READY_3D` still requires:
-- reconstruction review;
-- world-scale normalization;
-- topology QA/retopo;
-- anatomy binding;
-- break/sever setup;
-- rigging/deformation tests;
-- animation;
-- LOD;
-- collision/hit proxies;
-- engine import;
-- authoritative state binding;
-- Android runtime/performance verification.
-
-Current researched reconstruction candidates remain:
-- Meshy;
-- Tripo;
-- Rodin/Hyper3D;
-- Blender as likely free technical cleanup/orchestration DCC.
-
-No 3D reconstruction service has been invoked.
+Fixing the source now is cheaper than compensating across multiple systems later.
 
 ---
 
 # Current gates
 
-`ASSET_DRIVE_STRUCTURE_CREATED = YES`
-`ASSET_MANIFEST_FOLDER_CREATED = YES`
-`ASSET_LINEAGE_AUTHORITY_RECORDED = YES`
-`DRIVE_REFERENCE_CONTENTS_RECONCILED = YES`
-`RASTER_ZOOM_POLICY_RECORDED = YES`
-`RUNTIME_2D_POLICY_RECORDED = YES`
-`PNG_TO_3D_PIPELINE_RECORDED = YES`
-`ASSET_QA_GATES_RECORDED = YES`
-`ASSET_REVIEW_ARCHIVE_CREATED = YES`
+`ASSET_LINEAGE_AUTHORITY = CURRENT`
 `HUNTER_BASE_01_DESIGNED = YES`
-`MONSTER_01_DESIGNED = YES`
-`HUNTER_H02_V001 = REVIEWED_WITH_ISSUES`
-`HUNTER_H02_V001_DECISION = REVISE`
-`HUNTER_H02_V001_MODELING_USE = NOT PERMITTED`
-`HUNTER_H02_V001_CONVERSION_USE = NOT PERMITTED`
-`HUNTER_H02_V002 = PLANNED REVISION`
-`REFERENCE_SHEET_GENERATION = PAUSED_AT_REVISION_GATE`
-`SELECTED_REFERENCE_PROMOTIONS = NONE`
+`H02_V001 = REVIEWED_WITH_ISSUES / REVISE`
+`H02_V002 = REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
+`H02_V002_CONVERSION_USE = NO`
+`H02A_V003 = PLANNED / NEXT`
+`H02B_V003 = BLOCKED BY H02A`
+`H03_DETAILS = CONDITIONAL`
+`H04_V001 = GENERATED_UNREVIEWED / BLOCKED`
+`MONSTER_M01M02 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
+`MONSTER_M03_M04_M05_M08_DRIVE_PERSISTENCE = NOT VERIFIED`
+`SELECTED_HUNTER_TECHNICAL_REFERENCE = NONE`
+`HUNTER_CONVERSION_INPUT = NONE`
 `APPROVED_RUNTIME_2D = NONE`
 `GAME_READY_3D = NONE`
 `GAMEPLAY_SOURCE = NOT CREATED`
@@ -289,4 +224,4 @@ No 3D reconstruction service has been invoked.
 
 ## Exact next action
 
-**Generate Hunter H02 v002 only from the QA revision request, then review that revision before touching H04 or Monster 01.**
+**Generate Hunter H02A v003 only, then QA it before generating H02B/H03 or reviewing H04/Monster 01.**
