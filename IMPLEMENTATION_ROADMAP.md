@@ -25,7 +25,12 @@ Complete/record:
 - six-role attribute direction;
 - shared modifier/effect architecture;
 - equipment/status/terrain/weather interaction rules;
-- deterministic NPC/creature behavior pattern architecture;
+- deterministic NPC/creature behavior architecture;
+- crystal life-force architecture;
+- Tier/Rank/Quality/Element separation;
+- desperation/berserk reserve-drain model;
+- mutation architecture and support limits;
+- bounded ecosystem/population strategy;
 - architecture/ownership;
 - content schema plan;
 - code guide;
@@ -37,10 +42,13 @@ Still discuss/lock:
 - final name;
 - setting/history/technology/magic;
 - player role;
-- first settlement;
-- first region;
-- first monster;
-- first weapon;
+- crystal origin and human relationship to crystals;
+- exact crystal tiers/ranks/quality bands/elements;
+- energy recovery rules;
+- exact berserk rules;
+- mutation origin/inheritance;
+- ecosystem persistence depth;
+- first settlement/region/monster/weapon;
 - solo/party baseline;
 - exact action economy;
 - exact starting attributes/formulas/caps;
@@ -125,7 +133,44 @@ Tests:
 
 Gate: `STATS_EFFECTS_CORE_TESTED`
 
-# Stage 4 — Content validation foundation
+# Stage 4 — Crystal, mutation and ecology foundation
+
+Implement the smallest authoritative core before combat content relies on it:
+- crystal intrinsic definition: Tier/Rank/Quality/Element;
+- runtime `CrystalCoreState`: current/max Energy, Condition, Strain;
+- zero-Energy death invariant;
+- explicit energy transaction API;
+- berserk activation/drain state skeleton;
+- mutation definition schema;
+- mutation prerequisites/incompatibilities/support-load validation;
+- mutation effect integration through the shared effects system;
+- mutation capability/anatomy hooks;
+- minimal region/species population aggregate model;
+- deterministic creature-variant generation from base species + allowed mutation profile;
+- crystal/mutation debug trace data.
+
+First implementation limits:
+- one element;
+- one practical tier;
+- small rank range;
+- small quality range/bands;
+- 2–4 mutations;
+- one berserk rule;
+- one aggregate population profile.
+
+Tests:
+- zero Energy resolves death;
+- berserk cannot overspend without death resolution;
+- intrinsic crystal properties remain separate from current Energy;
+- invalid mutation combinations rejected;
+- support/load cap enforced;
+- mutation-derived effects use normal modifier pipeline;
+- deterministic variant generation;
+- no full ecology work every frame.
+
+Gate: `CRYSTAL_MUTATION_CORE_TESTED`
+
+# Stage 5 — Content validation foundation
 
 Before mass content:
 - species/NPC validator;
@@ -136,6 +181,9 @@ Before mass content:
 - effect/status validator;
 - terrain/weather validator;
 - deterministic behavior-profile/rule validator;
+- crystal Tier/Rank/Quality/Element validator;
+- mutation prerequisite/incompatibility/load validator;
+- ecology/population-profile validator;
 - harvest validator;
 - material/recipe validator;
 - encounter-layout validator.
@@ -144,7 +192,7 @@ Create minimal first-slice test content only.
 
 Gate: `CONTENT_SCHEMA_VALIDATED`
 
-# Stage 5 — Tactical combat core
+# Stage 6 — Tactical combat core
 
 Implement domain-only mechanics:
 - turn order;
@@ -163,7 +211,10 @@ Implement domain-only mechanics:
 - break/sever/destroy;
 - capability loss;
 - small status set;
-- one deterministic monster behavior profile/rule set;
+- one deterministic monster behavior profile;
+- core-energy consequences from defined severe injuries/effects;
+- one desperation/berserk pattern;
+- berserk actions that still obey anatomy/capability legality;
 - telegraph/pending action;
 - victory/escape/failure.
 
@@ -171,7 +222,7 @@ Tests before presentation.
 
 Gate: `COMBAT_CORE_TESTED`
 
-# Stage 6 — Combat presentation
+# Stage 7 — Combat presentation
 
 Connect first-person presentation to domain events:
 - first-person EncounterScene;
@@ -184,13 +235,14 @@ Connect first-person presentation to domain events:
 - break/sever presentation;
 - terrain/cover visualization;
 - status indicators;
+- readable berserk/crystal-overdrive presentation;
 - combat HUD;
 - audio cues;
 - animation skip/fast-forward safety.
 
 Gate: `COMBAT_PRESENTATION_PHONE_VERIFIED`
 
-# Stage 7 — Harvest core
+# Stage 8 — Harvest core
 
 Implement:
 - harvest source/capacity;
@@ -200,13 +252,15 @@ Implement:
 - unique-part invariants;
 - severed-part/carcass state;
 - material award/depletion;
+- crystal extraction result using Tier/Rank/Quality/Element + Condition;
+- one physical core cannot be duplicated;
 - harvest explanation result.
 
-Prove different combat damage creates different harvest outcomes.
+Prove different combat damage creates different anatomy/crystal harvest outcomes.
 
 Gate: `HARVEST_CORE_TESTED`
 
-# Stage 8 — Inventory, equipment and crafting
+# Stage 9 — Inventory, equipment and crafting
 
 Implement:
 - material stacks;
@@ -216,20 +270,20 @@ Implement:
 - one crafted item/upgrade;
 - recipe validation;
 - material consumption;
-- one upgrade with visible gameplay consequence.
+- one upgrade with visible gameplay consequence;
+- crystal crafting hook only if world premise has been explicitly decided.
 
 Gate: `EQUIPMENT_CRAFT_LOOP_TESTED`
 
-# Stage 9 — Exploration domain
+# Stage 10 — Exploration domain
 
 Implement:
 - player world position;
 - traversal/collision;
 - reusable terrain tags/effects;
 - region definition;
-- monster world instance;
+- monster world instance with persistent crystal/mutation state;
 - deterministic minimal roaming/territory pattern;
-- NPC schedule/pattern foundation only if first slice requires NPCs;
 - tracks/evidence;
 - encounter initiation;
 - camp/exit minimal flow;
@@ -237,7 +291,22 @@ Implement:
 
 Gate: `EXPLORATION_DOMAIN_TESTED`
 
-# Stage 10 — Aerial exploration presentation
+# Stage 11 — Bounded ecology integration
+
+Implement only enough ecology to prove the architecture:
+- one region/species aggregate;
+- abundance/development distribution;
+- allowed mutation distribution;
+- elemental/terrain pressure inputs;
+- spawn variant selection from validated aggregate/profile;
+- persistence of aggregate state if required;
+- no full off-screen actor simulation.
+
+Do not implement broad breeding/predator-prey evolution yet.
+
+Gate: `ECOLOGY_AGGREGATE_TESTED`
+
+# Stage 12 — Aerial exploration presentation
 
 Implement:
 - RegionScene;
@@ -245,7 +314,7 @@ Implement:
 - touch movement;
 - terrain/structures;
 - hunter presentation;
-- roaming monster presentation;
+- roaming monster presentation with visible mutation differences where relevant;
 - tracking clues;
 - lightweight HUD;
 - region ambience/music;
@@ -253,23 +322,24 @@ Implement:
 
 Gate: `EXPLORATION_PHONE_VERIFIED`
 
-# Stage 11 — Full vertical loop integration
+# Stage 13 — Full vertical loop integration
 
 Join:
-`TITLE/INTRO → HUB/MINIMAL PREP → REGION → TRACK → ENGAGE → COMBAT → BREAK/SEVER → HARVEST → RETURN → CRAFT/EQUIP → SAVE/RELOAD`
+`TITLE/INTRO → HUB/MINIMAL PREP → REGION → TRACK → ENGAGE → COMBAT → BREAK/SEVER/BERSERK → DEFEAT/ESCAPE → HARVEST → RETURN → CRAFT/EQUIP → SAVE/RELOAD`
 
 Requirements:
 - same monster identity through world/combat;
-- injuries/statuses persist according to policy;
+- injuries/statuses/crystal/mutations persist correctly;
 - terrain/context transfers correctly;
-- no duplicate harvest;
+- no duplicate anatomy/crystal harvest;
 - equipment modifiers recalculate correctly;
-- deterministic monster behavior remains valid after anatomy/status changes;
+- deterministic behavior remains valid after anatomy/status/core changes;
+- zero core Energy death invariant holds;
 - Android lifecycle safe.
 
 Gate: `VERTICAL_SLICE_RUNTIME_VERIFIED`
 
-# Stage 12 — Save system hardening
+# Stage 14 — Save system hardening
 
 Implement/verify:
 - schema 1;
@@ -277,6 +347,9 @@ Implement/verify:
 - validation;
 - backup/recovery;
 - attribute/equipment/status persistence;
+- crystal Energy/Condition/Tier/Rank/Quality/Element persistence where runtime-relevant;
+- mutation profile persistence;
+- ecology aggregate persistence policy;
 - behavior-state persistence only where needed;
 - active hunt/encounter policy;
 - migration fixtures;
@@ -284,14 +357,17 @@ Implement/verify:
 
 Gate: `SAVE_SYSTEM_VERIFIED`
 
-# Stage 13 — Read-only Admin/Debug foundation
+# Stage 15 — Read-only Admin/Debug foundation
 
 Build after real state exists:
 - state/attribute/derived-stat inspector;
 - modifier/calculation trace;
 - behavior-rule trace;
 - status/terrain inspector;
+- crystal/mutation inspector;
+- berserk energy transaction trace;
 - anatomy/encounter inspector;
+- ecology aggregate inspector;
 - event log;
 - content validation panel;
 - performance overlay;
@@ -299,13 +375,18 @@ Build after real state exists:
 
 Gate: `ADMIN_INSPECTOR_VERIFIED`
 
-# Stage 14 — Admin mutation/test tools
+# Stage 16 — Admin mutation/test tools
 
 Add typed commands:
 - set resources/attributes;
 - equip/give items/materials;
 - apply/remove status;
 - set terrain/weather context;
+- set crystal Energy/Condition in test profile;
+- activate/deactivate berserk for diagnostics;
+- apply/remove mutation in validated test context;
+- generate deterministic creature variant;
+- modify test ecology pressure/aggregate;
 - spawn validated actor;
 - start preset encounter;
 - set part state;
@@ -318,7 +399,7 @@ Commands preserve structural invariants.
 
 Gate: `ADMIN_TEST_COMMANDS_VERIFIED`
 
-# Stage 15 — Creator tools
+# Stage 17 — Creator tools
 
 Only after schemas stabilize:
 - actor/creature editor;
@@ -326,6 +407,9 @@ Only after schemas stabilize:
 - status editor/simulator;
 - terrain/weather editor/debugger;
 - deterministic behavior-pattern editor;
+- crystal Tier/Rank/Quality/Element editor;
+- mutation editor/compatibility viewer;
+- ecology pressure/population simulator;
 - anatomy editor;
 - attack editor;
 - harvest simulator;
@@ -337,27 +421,27 @@ Only after schemas stabilize:
 
 Gate: `CREATOR_WORKFLOW_VERIFIED`
 
-# Stage 16 — First real art/audio production pass
+# Stage 18 — First real art/audio production pass
 
 Replace placeholders systematically:
 - hunter art;
-- first monster model/rig;
+- first monster model/rig with mutation/crystal/berserk visual support;
 - region modular kit;
 - settlement kit;
 - materials/textures;
 - animations;
 - effects;
 - title/hub/region/combat music;
-- telegraph/impact/environment audio.
+- crystal/berserk/telegraph/impact/environment audio.
 
 Every production asset has provenance/performance budget.
 
 Gate: `FIRST_SLICE_VISUAL_AUDIO_QUALITY_VERIFIED`
 
-# Stage 17 — Second-content extensibility proof
+# Stage 19 — Second-content extensibility proof
 
 Add:
-- second monster with different anatomy/behavior/terrain adaptation;
+- second monster with different anatomy/behavior/crystal/mutation/terrain adaptation;
 - second weapon family or substantially different techniques;
 - second equipment/status interaction;
 - second material/upgrade path;
@@ -367,17 +451,19 @@ Purpose: prove architecture is reusable rather than secretly hard-coded for mons
 
 Gate: `EXTENSIBILITY_PROVEN`
 
-# Stage 18 — World/campaign expansion
+# Stage 20 — World/campaign expansion
 
-Only now expand regions, hubs, contracts/story, NPC schedules/patterns, research, economy, crafting, ecology and broader weather/day-night mechanics when justified.
+Only now expand regions, hubs, contracts/story, NPC schedules/patterns, research, economy, crafting, ecology, mutation distributions, elemental habitats and broader weather/day-night mechanics when justified.
 
-# Stage 19 — Optimization and release discipline
+Potential later ecosystem systems include migration, predator/prey changes, hunting-pressure adaptation, breeding/repopulation and persistent regional mutation shifts.
+
+# Stage 21 — Optimization and release discipline
 
 Continuous throughout, with release preparation including:
 - target-device matrix;
 - quality presets;
 - worst-case benchmarks;
-- behavior/effect performance caps;
+- behavior/effect/crystal/mutation/ecology performance caps;
 - save migration testing;
 - crash/ANR review;
 - accessibility pass;
@@ -389,10 +475,14 @@ Continuous throughout, with release preparation including:
 
 Do not:
 - create 20 monsters before one hunt is fun;
-- create giant world before streaming/performance is proven;
+- create dozens of elements/mutations before the first crystal system is understandable;
+- simulate thousands of full off-screen creatures;
+- let berserk become a free generic stat multiplier;
+- let crystal health replace anatomy gameplay;
+- create a giant world before streaming/performance is proven;
 - create final UI before domain requirements stabilize;
 - create huge creator editor before schemas exist;
-- hard-code per-item/per-status/per-terrain math in presentation scripts;
+- hard-code per-item/per-status/per-terrain/per-mutation math in presentation scripts;
 - build opaque AI when authored condition patterns are the design;
 - optimize speculative bottlenecks while ignoring measured ones;
 - declare phone behavior from desktop/build success;
