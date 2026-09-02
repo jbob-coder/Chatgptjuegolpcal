@@ -276,29 +276,52 @@ Folder location is an organizational hint, never a substitute for this manifest 
 
 # 9. Current reconciled asset records
 
-These records reflect Drive contents observed on 2026-09-02.
+These records reflect Drive contents observed on 2026-09-02 and dedicated QA completed where noted.
 
 ## HUNTER01-H02-REF-001
 
 Entity: `HUNTER_BASE_01`
-Purpose: turnaround + scale modeling reference
-Class: `REFERENCE_MASTER` (current v001 draft reference source)
+Purpose: turnaround + scale modeling reference candidate
+Class: `REFERENCE_MASTER` for generated revision v001
 Filename: `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
 Drive file ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
 Drive lane: `01_Modeling_References/Hunter`
 File size: 1,096,478 bytes
 Parent: NONE
 Master: SELF
-Review state: `GENERATED_UNREVIEWED`
-Permitted use: `DISCUSSION_ONLY` until dedicated sheet review
+Review state: `REVIEWED_WITH_ISSUES`
+Review decision: `REVISE`
+Permitted use: `DISCUSSION_ONLY`
+Explicitly NOT permitted: modeling technical authority, detail authority, 3D-conversion testing, runtime 2D testing
 Owning design: `docs/30_content/hunters/HUNTER_BASE_01/README.md`
-Known caution: generated/reference imagery does not override the numeric 1.75 m prototype height.
-Integrity hash: UNKNOWN / not yet required at draft stage
+QA record: `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
+QA gates executed:
+- source integrity;
+- native-pixel review;
+- close-detail review;
+- turnaround consistency;
+- 3D-conversion preflight;
+- directional three-distance/silhouette assessment.
+Known defects:
+- useful figure pixels are much lower-detail than the 3200 × 1800 composed canvas suggests;
+- face/hands/boots/harness seams are too soft for technical modeling detail;
+- front/side/back gear construction is inconsistent;
+- required 3/4 confirmation view is absent;
+- views are illustrative rather than strict orthographic/multiview-consistent references;
+- v001 trends too far toward a fixed armored male ranger identity for the reusable neutral production base;
+- generated labels are not authority.
+Preserve for v002:
+- grounded frontier tone;
+- realistic adult general proportion;
+- readable boot/shoulder/layered-garment silhouette;
+- restrained dark practical material family.
+Numeric authority: Hunter prototype height remains 1.75 m from Markdown.
+Integrity hash: UNKNOWN / not required at current draft stage
 
 ## HUNTER01-H02-UPSCALEREF-001
 
 Entity: `HUNTER_BASE_01`
-Purpose: easier close inspection of H02 source
+Purpose: easier close inspection of H02 v001 source
 Class: `REFERENCE_DERIVATIVE`
 Filename: `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
 Drive file ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
@@ -306,9 +329,10 @@ Drive lane: `01_Modeling_References/Hunter`
 File size: 1,854,723 bytes
 Parent: `HUNTER01-H02-REF-001`
 Master: `HUNTER01-H02-REF-001`
-Review state: `GENERATED_UNREVIEWED`
+Review state: `REVIEWED_WITH_ISSUES`
 Permitted use: `DISCUSSION_ONLY`
-Critical restriction: upscale cannot invent authoritative face/hand/gear/measurement detail.
+Disposition: retain for provenance/inspection only.
+Critical restriction: upscale cannot invent authoritative face/hand/gear/measurement detail and must not be promoted to conversion input.
 
 ## HUNTER01-H04-REF-001
 
@@ -425,8 +449,11 @@ The machine-readable copy becomes operational only when validators/tests exist.
 `ASSET_LINEAGE_AUTHORITY = RECORDED`
 `DRIVE_MANIFEST_FOLDER = CREATED`
 `CURRENT_DRIVE_REFERENCE_CONTENTS = RECONCILED`
-`HUNTER_H02_REFERENCE = GENERATED_UNREVIEWED`
-`HUNTER_H02_UPSCALE = GENERATED_UNREVIEWED_DERIVATIVE`
+`HUNTER_H02_REFERENCE = REVIEWED_WITH_ISSUES`
+`HUNTER_H02_DECISION = REVISE`
+`HUNTER_H02_TECHNICAL_MODELING_USE = NOT PERMITTED`
+`HUNTER_H02_CONVERSION_USE = NOT PERMITTED`
+`HUNTER_H02_UPSCALE = REVIEWED_WITH_ISSUES_DERIVATIVE_DISCUSSION_ONLY`
 `HUNTER_H04_REFERENCE = GENERATED_UNREVIEWED`
 `MONSTER_M01M02_REFERENCE = GENERATED_UNREVIEWED`
 `MONSTER_M03_DRIVE_PERSISTENCE = NOT VERIFIED`
@@ -437,5 +464,5 @@ The machine-readable copy becomes operational only when validators/tests exist.
 `APPROVED_RUNTIME_2D = NONE`
 `GAME_READY_3D = NONE`
 
-Next bounded asset-quality piece after this authority is stable:
-**review one sheet at a time beginning with Hunter H02 against the QA gates, then either select, revise or reject it.**
+Next bounded asset-quality piece:
+**create Hunter H02 v002 only from `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`, then review v002 before advancing to H04 or Monster 01.**
