@@ -30,15 +30,19 @@ Never promote one gate into another.
 Verify pure gameplay rules.
 
 Examples:
+- primary/derived stat calculation;
+- modifier order/stacking/caps;
 - AP/stamina costs;
-- illegal action rejection;
+- illegal-action rejection;
+- terrain/status/equipment interactions;
 - target exposure;
+- hit-quality boundaries;
 - break/sever transitions;
 - capability removal;
 - harvest capacity;
-- inventory/crafting consumption;
+- inventory/equipment/crafting consumption;
 - knowledge visibility;
-- AI legal action filtering.
+- deterministic behavior-rule filtering/selection.
 
 ### Content validation
 Verify definitions/references.
@@ -47,15 +51,16 @@ Verify definitions/references.
 Verify subsystem handoffs.
 
 Critical chains:
+- equipment/status/terrain → action calculation;
 - exploration → encounter;
 - encounter → monster escape/world;
 - encounter → kill/harvest;
 - harvest → inventory;
-- inventory → crafting;
+- inventory → crafting/equipment;
 - save/reload across each state.
 
 ### Replay/regression fixtures
-Save representative encounter states/seeds/actions so bugs can be reproduced.
+Save representative encounter states/seeds/actions/rule traces so bugs can be reproduced.
 
 ### Runtime/device tests
 Verify touch, camera, rendering, lifecycle and performance.
@@ -64,13 +69,20 @@ Verify touch, camera, rendering, lifecycle and performance.
 
 Tests must protect at least:
 - state cannot reference missing stable IDs;
+- attributes/derived values stay inside legal bounds;
 - AP/stamina cannot spend below legal bounds;
+- AP/reaction scaling cannot bypass configured hard limits;
+- duplicate equipment/status sources obey declared stack policies;
+- movement/action costs obey minimum/maximum floors;
+- status resistance cannot exceed ordinary cap unless explicit immunity exists;
+- terrain effects come from authoritative terrain context, not presentation;
 - severed part cannot remain functionally attached;
 - destroyed unique part cannot yield intact duplicate structure;
 - harvest cannot exceed capacity;
-- monster cannot choose attack whose capability is disabled;
-- tactical node occupancy/adjacency remains valid;
-- world monster and combat monster are the same runtime instance lineage;
+- autonomous actor cannot request attack whose capability is disabled;
+- behavior rules cannot bypass normal domain legality;
+- tactical occupancy/adjacency remains valid;
+- world monster and combat monster remain the same runtime lineage;
 - encounter conclusion cannot award harvest twice;
 - crafting cannot create output without consuming required materials;
 - UI/admin cannot mutate authoritative state outside approved command paths.
@@ -79,40 +91,99 @@ Tests must protect at least:
 
 For systems using seeded RNG:
 - same initial state + definitions + seed + actions → same authoritative result;
-- replay fixtures remain stable unless an intentional rules change updates them;
-- randomness does not violate physical invariants.
+- same behavior facts/profile/seed/tie policy → same selected pattern where seeded variation is used;
+- replay fixtures remain stable unless intentional rules change updates them;
+- randomness never violates physical/capacity invariants.
 
-## 5. Save tests
+## 5. Stats/effects test matrix
+
+Test:
+- each primary attribute contribution independently;
+- derived-stat cache invalidation after equipment/status change;
+- `FLAT` modifier;
+- additive percentage;
+- multiplicative percentage where allowed;
+- capability grant/removal;
+- resistance;
+- cost modifier;
+- threshold modifier;
+- `STACK`;
+- `UNIQUE_SOURCE`;
+- `HIGHEST_ONLY`;
+- `LOWEST_ONLY`;
+- `REFRESH_DURATION`;
+- capped intensity stacking;
+- replacement policy;
+- hard cap/floor;
+- calculation trace equals actual result;
+- no recalculation when authoritative inputs did not change.
+
+Combination fixtures are required. Testing every modifier in isolation is insufficient.
+
+## 6. Terrain/weather test matrix
+
+Representative cases:
+- stable ground baseline;
+- mud movement burden;
+- armor + mud combination;
+- shallow water;
+- brush concealment/targeting;
+- high-ground visibility/exposure;
+- narrow-node restrictions;
+- ice/rough footing with Agility mitigation;
+- actor capability bypass/reduction such as `MUD_RESISTANT`;
+- rain changing wet/mud/track context;
+- fog range penalty;
+- weather disabled/nonmechanical case produces no hidden bonus.
+
+## 7. Status test matrix
+
+- apply/remove;
+- duration countdown;
+- refresh duration;
+- stack intensity to cap;
+- resistance application;
+- cure/removal;
+- timing at turn start/end;
+- on-hit/on-move hook where used;
+- persistence across save/reload according to policy;
+- interaction with equipment/terrain;
+- removal of status correctly invalidates derived values.
+
+## 8. Save tests
 
 Once persistence begins:
 - round-trip current save;
-- missing optional fields repaired/defaulted;
+- missing optional fields defaulted according to policy;
 - invalid references rejected/repaired according to policy;
 - migration fixtures for every released schema;
+- attributes/equipment/status round-trip;
+- behavior phase/cooldown persistence only where designed;
 - active encounter save/reload;
 - escaped injured monster save/reload;
 - harvested capacity save/reload;
 - app background/resume.
 
-## 6. Combat test matrix
+## 9. Combat test matrix
 
 Representative cases:
 - valid/invalid range;
 - valid/invalid bearing;
+- terrain movement cost;
 - cover interaction;
 - target hidden/exposed;
-- hit/miss;
-- armor/hide interaction;
+- hit/miss/hit-quality bands;
+- armor/resistance interaction;
 - break exactly at threshold;
 - sever exactly at threshold;
 - overkill/destroy;
 - capability removal;
 - reaction resource used once;
+- status application/removal;
 - monster flee condition;
-- player escape;
-- status application/removal.
+- player escape.
 
-## 7. Harvest test matrix
+## 10. Harvest test matrix
 
 - intact part;
 - wounded part;
@@ -126,29 +197,43 @@ Representative cases:
 - continuous resource like hide/meat;
 - repeated extraction cannot exceed remaining capacity.
 
-## 8. AI tests
+## 11. Deterministic behavior-pattern tests
 
-- only legal actions considered;
-- anatomy-disabled attack excluded;
-- flee action considered at configured condition;
-- cover/player position influences scoring when designed;
-- deterministic selection with fixed seed/tie rules;
-- no infinite decision loop.
+Detailed authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
 
-## 9. Performance tests
+Test:
+- only rules with passing conditions considered;
+- explicit priority order;
+- tie policy;
+- anatomy-disabled attack rule fails capability check;
+- flee rule activates at configured condition;
+- range/bearing/cover/terrain affects only rules that declare those conditions;
+- cooldown suppresses rule correctly;
+- phase transition occurs exactly when condition is met;
+- NPC schedule override for danger/weather works;
+- seeded variation reproduces with fixed seed;
+- behavior requests normal action and receives normal rejection when illegal;
+- no infinite zero-cost decision loop;
+- trace records why every candidate passed/failed.
+
+There are no AI scoring tests because the design does not use an AI decision system.
+
+## 12. Performance tests
 
 Use fixed benchmark scenes:
 - empty/minimal region baseline;
 - representative exploration density;
-- worst supported nearby-monster density;
-- first-person combat with maximum intended VFX/wounds;
+- worst supported nearby-actor density;
+- first-person combat with intended VFX/wounds/statuses;
+- complex behavior-profile decision case;
+- large-but-legal modifier/status case;
 - transition stress loop;
 - long-session memory/thermal test;
 - save/load stress case.
 
-Record device, build SHA/version, settings and content version with results.
+Record device, build SHA/version, settings and content version.
 
-## 10. Android runtime checklist
+## 13. Android runtime checklist
 
 - install/update;
 - cold launch;
@@ -157,13 +242,15 @@ Record device, build SHA/version, settings and content version with results.
 - landscape orientation;
 - touch movement;
 - aerial camera;
+- terrain feedback;
 - region transition;
 - encounter transition;
 - combat actions;
+- equipment/status effect visibility;
 - target selection;
 - break/sever visuals;
 - harvest;
-- crafting;
+- crafting/equipment;
 - save/reload;
 - suspend/resume;
 - screen lock/unlock;
@@ -172,41 +259,46 @@ Record device, build SHA/version, settings and content version with results.
 - no ANR/crash;
 - performance/thermal check.
 
-## 11. Visual quality tests
+## 14. Visual quality tests
 
 Check on real phone:
 - hunter readable from aerial camera;
 - monster silhouette readable;
 - tracks/navigation clues visible;
-- cover/hazards understandable;
-- 2D/3D layers visually cohesive;
+- terrain/cover/hazards understandable;
+- 2D/3D layers cohesive;
 - first-person monster anatomy targetable;
-- broken/severed state matches gameplay;
+- broken/severed state matches domain state;
+- status/terrain feedback does not clutter combat;
 - combat UI does not cover critical anatomy;
 - text/touch targets usable;
 - camera transition spatially coherent.
 
-## 12. Audio tests
+## 15. Audio tests
 
 - telegraph sounds audible under music;
 - impact materials differentiated when intended;
+- terrain footsteps match surface where implemented;
 - no runaway overlapping voices;
 - music state transitions correct;
 - suspend/resume/audio focus stable;
 - mute/volume settings work.
 
-## 13. Admin/tool tests
+## 16. Admin/tool tests
 
-Admin commands must test:
-- authorization/dev gating;
+Admin commands/tools must test:
+- dev gating;
 - validation;
 - invariant preservation;
 - readback after mutation;
 - test-save isolation;
+- stat/modifier trace correctness;
+- status/terrain overrides;
+- behavior-rule trace correctness;
 - creator definition validation;
 - deterministic replay capture/load.
 
-## 14. Bug severity
+## 17. Bug severity
 
 - BLOCKER: cannot launch/play/save or corrupts core data.
 - CRITICAL: severe progression/save/combat correctness failure.
@@ -216,34 +308,28 @@ Admin commands must test:
 
 Fix highest-severity root cause first.
 
-## 15. Release gate principle
+## 18. Release gate principle
 
-A build intended for actual playtesting must not be described as verified unless the relevant checks actually ran.
+A build intended for playtesting must not be described as verified unless relevant checks actually ran.
 
-Document:
-- source commit;
-- content version;
-- build result;
-- test results;
-- APK checksum/signature where used;
-- target device;
-- runtime observations;
-- known issues.
+Document source commit, content version, build result, test results, APK checksum/signature where used, target device, runtime observations and known issues.
 
-## 16. First vertical-slice acceptance gate
+## 19. First vertical-slice acceptance gate
 
 The slice is successful only if:
 - player can launch on target phone;
-- explore one region;
+- explore one region with meaningful terrain effects;
 - identify/approach monster;
 - transition coherently to combat;
-- reposition/use cover;
+- reposition/use cover/terrain;
+- attributes/equipment/statuses modify actions through the shared pipeline;
+- modifier traces match actual outcomes in development;
 - target anatomy;
 - break and sever at least one defined part;
-- monster behavior changes from damage;
+- deterministic monster behavior changes when anatomy/status/context changes;
 - finish/exit encounter;
 - harvest condition affects yield;
-- craft one upgrade;
-- save/reload preserves state;
+- craft/equip one upgrade with visible mechanical consequence;
+- save/reload preserves relevant state;
 - no blocker/critical defects remain;
-- performance meets the selected target or has a documented acceptable fallback.
+- performance meets selected target or documented fallback.
