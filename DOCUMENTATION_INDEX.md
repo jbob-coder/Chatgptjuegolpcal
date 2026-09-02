@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-Map the entire new game from current state and design governance down through player experience, world structure, mechanics, stats/effects, deterministic behavior, crystal life force, mutation/ecology, code, data, performance, testing and creator tooling.
+Map the entire new game from current state and design governance down through player experience, world structure, model/art direction, mechanics, stats/effects, deterministic behavior, crystal life force, mutation/ecology, code, data, performance, testing and creator tooling.
 
 Future work should not reconstruct the project from chat memory. Read the correct authoritative layer, then inspect verified source/tests once implementation exists.
 
@@ -20,35 +20,36 @@ Future work should not reconstruct the project from chat memory. Read the correc
 4. `DOCUMENTATION_INDEX.md` — this map.
 5. `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md` — project-wide invariants, ownership/dependency matrix, complexity budgets, feature admission gates, change-impact classes, documentation-state labels and staged expansion rules.
 
-## Layer 1 — Player experience and world presentation
+## Layer 1 — Player experience, world presentation and model/art direction
 6. `GAME_EXPERIENCE_BIBLE.md` — launch/title, intro/tutorial, pacing, scale, music/audio, HUD, bestiary, harvest/crafting presentation.
 7. `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — visual identity, aerial overview, environment composition, first-person transition, anatomy visuals, settlements and presentation laws.
 8. `MAP_WORLD_SETTLEMENT_STRUCTURE.md` — world atlas, settlement/hub spaces, frontier transition belts, hunting regions, sectors, camps, danger gradient, local combat footprints and state separation.
 9. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md` — walkable settlement rules, settlement↔wilderness transition architecture, continuous wilderness-sector streaming, world-unit convention, camera visibility limits, character/monster/building/street/region prototype scales, modular building construction and LOD/culling strategy.
+10. `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md` — grounded stylized 3D/illustrated-realism model language; human/NPC proportions; monster anatomy-to-model binding; crystal/mutation visuals; damage states; modular buildings; terrain/props/materials; rigging, collision, pivots and LOD/degradation rules.
 
 ## Layer 2 — Gameplay and numerical behavior
-10. `NEW_GAME_MASTER_PLAN.md` — complete gameplay intent/core loop.
-11. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics/state interactions.
-12. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` — six primary attributes, derived stats, equipment bonuses, modifier stacking/caps, statuses, terrain/weather effects, hit quality and calculation traces.
-13. `BEHAVIOR_PATTERN_SYSTEM.md` — deterministic NPC/creature schedules, phases, `IF` conditions, priorities, cooldowns, situation adaptation and trace/debug rules. This replaces any old AI-behavior assumption.
-14. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md` — life-force crystal reserve, Tier/Rank/Quality/Element, desperation/berserk rules, mutation architecture, elemental habitat relationships and bounded ecosystem simulation.
-15. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
+11. `NEW_GAME_MASTER_PLAN.md` — complete gameplay intent/core loop.
+12. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics/state interactions.
+13. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` — six primary attributes, derived stats, equipment bonuses, modifier stacking/caps, statuses, terrain/weather effects, hit quality and calculation traces.
+14. `BEHAVIOR_PATTERN_SYSTEM.md` — deterministic NPC/creature schedules, phases, `IF` conditions, priorities, cooldowns, situation adaptation and trace/debug rules. This replaces any old AI-behavior assumption.
+15. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md` — life-force crystal reserve, Tier/Rank/Quality/Element, desperation/berserk rules, mutation architecture, elemental habitat relationships and bounded ecosystem simulation.
+16. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
 
 ## Layer 3 — Internal architecture/code/content
-16. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
-17. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
-18. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
-19. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; newer dedicated authorities override overlaps where more specific.
+17. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
+18. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
+19. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
+20. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; newer dedicated authorities override overlaps where more specific.
 
 ## Layer 4 — Performance/debug/creator/QA
-20. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
-21. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
-22. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
+21. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
+22. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
+23. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
 
 ## Layer 5 — Build/continuity
-23. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
-24. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
-25. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
+24. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
+25. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
+26. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
 
 # Authority order by claim type
 
@@ -79,11 +80,12 @@ A design file does not prove implementation. Compilation does not prove phone be
 ## Project-wide design governance
 - `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
 
-## Player experience / audiovisual / world structure
+## Player experience / audiovisual / world structure / model art
 - `GAME_EXPERIENCE_BIBLE.md`
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
+- `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
 
 ## Gameplay / mechanics
 - `NEW_GAME_MASTER_PLAN.md`
@@ -109,7 +111,7 @@ A design file does not prove implementation. Compilation does not prove phone be
 - `EVOLVE_ALIGNMENT.md`
 - `PROJECT_HANDOFF.md`
 
-# Current locked world/mechanical architecture
+# Current locked world/mechanical/model architecture
 
 - every meaningful new mechanic must identify player value, authoritative owner, dependencies, invariants/caps and verification path before becoming a current design decision;
 - design statements are distinguished as LOCKED/CURRENT, SELECTED ARCHITECTURE, PROTOTYPE TARGET, OPEN, FUTURE OPTION or REJECTED/NOT PREFERRED;
@@ -126,7 +128,15 @@ A design file does not prove implementation. Compilation does not prove phone be
 - normal exploration camera is local and character-centered; it never zooms out to show the full region as the gameplay view;
 - preferred world measurement convention is 1 world unit = 1 meter;
 - physical/collision scale remains coherent while silhouettes can be mildly exaggerated for aerial readability;
-- modular building kits, simplified collision, interior culling and LOD are the preferred settlement-production strategy;
+- selected model direction is grounded stylized 3D / illustrated realism, not photoreal, low-poly, chibi or paper-craft;
+- important models must read at aerial, exploration-proximity and first-person/close distances;
+- major monster model regions bind to authoritative anatomy and support persistent wound/break/sever states;
+- one monster identity uses a hero source model/rig with LOD representations rather than unrelated exploration/combat duplicates;
+- crystal/mutation visuals should be biologically integrated and restrained rather than constant neon effects;
+- humans use broadly realistic proportions with mild readability exaggeration; NPC production favors shared compatible rigs/modular clothing;
+- settlement architecture uses modular building kits, simplified collision, interior culling and LOD;
+- stylized physically believable materials and broad value/color grouping are preferred over high-frequency photoreal noise;
+- simplified collision proxies and dedicated anatomy hit regions are preferred over raw render-mesh collision where practical;
 - first-person encounters are local tactical footprints derived from the exact wilderness location, monster instance, terrain, cover and injuries;
 - safety/danger forms a gradient: settlement core → frontier/outpost → field camp → wilderness → deep territory/nest;
 - normal random monster combat does not occur in settlement cores; exceptional settlement emergencies remain an authored future option;
@@ -151,12 +161,13 @@ The project should not attempt to expand every possible document at once.
 
 Current bounded sequence:
 1. cross-system quality governance — RECORDED;
-2. first settlement blueprint — NEXT RECOMMENDED PIECE;
-3. first hunting-region blueprint;
-4. first monster complete design packet;
-5. player progression/equipment packet;
-6. exact combat-economy packet;
-7. engine-specific technical mapping only after engine/device evidence.
+2. model art direction/asset standard — RECORDED;
+3. first settlement blueprint — NEXT RECOMMENDED PIECE;
+4. first hunting-region blueprint;
+5. first monster complete design packet;
+6. player progression/equipment packet;
+7. exact combat-economy packet;
+8. engine-specific technical mapping only after engine/device evidence.
 
 See `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md` for the reasoning and admission gates.
 
@@ -173,6 +184,7 @@ After engine selection/implementation authorization, create only when matching i
 - world-atlas/settlement/region/sector schema tied to actual code;
 - monster/anatomy schema;
 - region/encounter schema;
+- engine/DCC-specific model import/naming/pivot/material/LOD guide;
 - asset provenance registry;
 - actual content authoring/export guide;
 - measured performance ledger/device matrix;
@@ -196,6 +208,7 @@ When durable truth changes:
 
 `DESIGN_SYSTEM = ACTIVE`
 `DESIGN_QUALITY_GOVERNANCE_RECORDED = YES`
+`MODEL_ART_DIRECTION_RECORDED = YES`
 `WORLD_MAP_STRUCTURE_DESIGNED = YES`
 `WORLD_SCALE_STREAMING_DESIGNED = YES`
 `WALKABLE_SETTLEMENTS_DESIGNED = YES`
