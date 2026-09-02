@@ -5,25 +5,33 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-Track every generated visual sheet, its purpose, classification, revision, intended Drive destination and whether it is safe for modeling reference, 3D conversion, runtime 2D use, or only discussion.
+Track the planned/generated Hunter Base 01 and Monster 01 sheet sequence.
+
+Cross-lane identity, lineage, parent/master relationships and permitted-use authority now belong to:
+`ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`.
+
+This registry remains the task-order/view-specific sheet tracker.
 
 ## Status meanings
 
 - `PLANNED` — specification exists; image not generated.
-- `GENERATED` — image exists but has not passed review.
-- `SELECTED_REFERENCE` — approved for visual/modeling reference.
-- `CONVERSION_INPUT_CANDIDATE` — clean enough to test image-to-3D, not guaranteed.
-- `RUNTIME_2D_CANDIDATE` — may be cleaned/exported for in-game use.
-- `SUPERSEDED` — retained for history but not current.
-- `TECHNICALLY_VERIFIED` — checked against model/data/scale requirements.
+- `GENERATED_UNREVIEWED` — pixels exist but dedicated QA review has not completed.
+- `GENERATED_PERSISTENCE_UNVERIFIED` — local/generated output was reported, but current Drive persistence has not been read back.
+- `SELECTED_REFERENCE` — explicitly approved to guide visual/modeling work.
+- `CONVERSION_INPUT_CANDIDATE` — clean enough for image-to-3D test after conversion preflight.
+- `RUNTIME_2D_CANDIDATE` — may be cleaned/exported for actual 2D game use.
+- `TECHNICALLY_VERIFIED` — applicable technical checks completed.
+- `REJECTED` — retained only for provenance/history.
+- `SUPERSEDED` — replaced by a newer selected revision.
 
-## Existing boards
+Uploading does not promote status.
+
+## Existing general boards
 
 ### REF-MODEL-001
 Name: `Unnamed Hunt RPG - Art Direction Overview.png`
 Status: `SELECTED_REFERENCE`
 Classification: `MODEL_REFERENCE / ART_DIRECTION`
-Drive: existing saved reference
 Direct runtime use: NO
 3D conversion use: NO
 
@@ -34,154 +42,156 @@ Classification: `PIPELINE_COMMUNICATION`
 Direct runtime use: NO
 3D conversion use: NO
 
-## Planned/generated sequence
+## First registered sheet sequence
 
 ### SHEET-H01 — Hunter turnaround + scale
-Planned filename:
-`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001.png`
+Current file:
+`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
 
-Drive destination:
+Drive destination/current verified location:
 `01_Modeling_References/Hunter`
+Drive file ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
+Current status: `GENERATED_UNREVIEWED`
 
-Secondary conversion copy if review passes:
-`03_3D_Conversion_Inputs/Hunter`
+Required QA before selection:
+- front/side/back consistency;
+- neutral pose validity;
+- silhouette/anatomy defects;
+- numeric scale reconciliation to 1.75 m;
+- generated labels ignored/corrected;
+- native-pixel and close-detail review.
 
-Required content:
-- front;
-- side;
-- back;
-- 3/4 confirmation;
-- neutral pose;
-- clean silhouette;
-- human scale comparison/scale bar kept outside subject;
-- no dramatic lighting/background.
+Do not copy to `03_3D_Conversion_Inputs/Hunter` until conversion preflight passes.
 
-Current status: `PLANNED`.
+#### H01 derivative
+File:
+`HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
+Drive file ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
+Status: `GENERATED_UNREVIEWED`
+Class: reference derivative only.
+
+It may assist close visual inspection but cannot create authoritative missing detail or automatically replace the original as conversion input.
 
 ### SHEET-H02 — Hunter modular-equipment silhouettes
-Filename:
-`HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001.png`
+Current file:
+`HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001_DRAFT_REFERENCE.png`
 
-Drive destination:
+Drive location:
 `01_Modeling_References/Hunter`
+Drive file ID: `1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
+Current status: `GENERATED_UNREVIEWED`
 
-Potential runtime derivative:
-None by default.
-
-Content:
-- same base body;
-- light field/tracking kit;
-- balanced hunt kit;
-- reinforced/protective kit;
-- modular bags, shoulder protection, belts, boots, utility pieces;
-- no final weapon family locked.
-
-Status: `PLANNED`.
+Required review:
+- same base-body scale across variants;
+- light / balanced / reinforced silhouette separation;
+- no visible generated weapon treated as locked weapon design;
+- modular gear seams remain practical;
+- aerial readability checked.
 
 ### SHEET-M01 — Monster 01 hero concept + turnaround
-Filename:
-`MONSTER_01_M01_M02_HERO_TURNAROUND_v001.png`
+Current file:
+`MONSTER_01_M01_M02_HERO_TURNAROUND_v001_VISUAL_CANDIDATE.png`
 
-Drive:
+Drive location:
 `01_Modeling_References/Monster_01`
+Drive file ID: `1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
+Current status: `GENERATED_UNREVIEWED`
 
-Secondary conversion copy if review passes:
-`03_3D_Conversion_Inputs/Monster_01`
+Required review against Mudcrest Raker authority:
+- approximately 6.6 m length and 3.0 m shoulder/main-body height remain numeric authority;
+- front-heavy quadruped body plan;
+- paired mineral horn crest;
+- breakable dorsal plates;
+- broad mud-adapted feet;
+- long muscular tail with legal distal sever boundary;
+- no decorative micro-spike noise that damages silhouette/target readability;
+- generated art cannot redefine the eight target groups.
 
-Content:
-- hero 3/4;
-- front;
-- side;
-- rear;
-- clear tail/horns/legs;
-- neutral stance;
-- simple background;
-- no combat VFX.
-
-Status: `PLANNED`.
+Do not copy into Monster 01 conversion-input lane until turnaround consistency and conversion preflight pass.
 
 ### SHEET-M02 — Monster 01 anatomy
-Filename:
-`MONSTER_01_M03_ANATOMY_v001.png`
+Expected/generated filename:
+`MONSTER_01_M03_ANATOMY_v001_TECHNICAL_OVERLAY.png`
 
-Drive:
+Expected Drive destination:
 `01_Modeling_References/Monster_01`
+Current Drive readback: NOT PRESENT
+Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
 
-Content:
-- clean side/3/4 base;
-- clearly separated gameplay anatomy zones;
-- left/right logic documented outside generated labels;
-- horn break areas;
-- tail sever boundary;
-- dorsal plate grouping;
-- core location shown only as technical reference, not player-visible art.
-
-Status: `PLANNED`.
+Before use:
+- upload/read back;
+- reconcile labels against stable anatomy IDs in `ANATOMY_AND_DAMAGE.md`;
+- verify horn/dorsal/tail boundaries;
+- keep internal core as technical planning only.
 
 ### SHEET-M03 — Monster 01 damage/break/sever
-Filename:
-`MONSTER_01_M04_DAMAGE_STATES_v001.png`
+Expected/generated filename:
+`MONSTER_01_M04_DAMAGE_STATES_v001_DRAFT_REFERENCE.png`
 
-Drive:
+Expected Drive destination:
 `01_Modeling_References/Monster_01`
+Current Drive readback: NOT PRESENT
+Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
 
-Content:
+Required content/review:
 - intact;
 - wounded;
 - broken horn;
 - broken dorsal plate;
-- severed tail;
-- wounded leg posture;
-- no excessive gore.
-
-Status: `PLANNED`.
+- severed distal tail;
+- wounded-leg consequence;
+- restrained gore;
+- berserk never repairs loss.
 
 ### SHEET-M04 — Monster 01 crystal/mutation variants
-Filename:
-`MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001.png`
+Expected/generated filename:
+`MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001_TECHNICAL_CONCEPT.png`
 
-Drive:
+Expected Drive destination:
 `01_Modeling_References/Monster_01`
+Current Drive readback: NOT PRESENT
+Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
 
-Content:
+Reference variants must remain tied to recorded candidates:
 - baseline;
-- mud/terrain adaptation;
-- reinforced mineral plate mutation;
-- sensory adaptation;
-- restrained berserk/core-overdrive state.
-
-Status: `PLANNED`.
+- Mirestep Pads;
+- Bastion Plates;
+- Deep-Scent Crest;
+- Resonant Core Veins;
+- restrained core-overdrive/berserk presentation.
 
 ### SHEET-M05 — Monster 01 three-distance readability
-Filename:
-`MONSTER_01_M08_THREE_DISTANCE_v001.png`
+Expected/generated filename:
+`MONSTER_01_M08_THREE_DISTANCE_v001_VISUAL_CANDIDATE.png`
 
-Drive:
+Expected Drive destination:
 `01_Modeling_References/Monster_01`
+Current Drive readback: NOT PRESENT
+Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
 
-Potential runtime derivative:
-- a selected bestiary crop may become `RUNTIME_2D_CANDIDATE` after cleanup.
+Required review:
+- aerial species/horn/tail/plate silhouette;
+- nearby wound/material/anatomy readability;
+- first-person target framing and surface coherence;
+- same monster identity/state across all panels.
 
-Content:
-- aerial exploration view;
-- nearby exploration view;
-- first-person encounter framing;
-- same creature/state/scale language.
+Potential later runtime derivative:
+a separately registered/cleaned bestiary illustration crop may become a `RUNTIME_2D_CANDIDATE`; this reference sheet itself is not the runtime asset.
 
-Status: `PLANNED`.
+## Current generation/review order
 
-## Generation order
+Generation occurred through the seven-sheet sequence, but persistence and review are incomplete.
 
-Current preferred order:
-1. SHEET-H01;
-2. SHEET-H02;
-3. SHEET-M01;
-4. SHEET-M02;
-5. SHEET-M03;
-6. SHEET-M04;
-7. SHEET-M05.
+Current next bounded action is **not** to generate another sheet.
 
-If generation limits interrupt the sequence, stop at a completed sheet boundary and preserve the registry state.
+Next:
+1. review `SHEET-H01` using `ASSET_QA_GATES.md`;
+2. decide `SELECT`, `REVISE`, or `REJECT`;
+3. update manifest/registry;
+4. only then review `SHEET-H02`;
+5. continue one sheet at a time.
+
+Separately, before Monster M02–M05 can enter review, their current Drive persistence must be verified or restored.
 
 ## Review law
 
@@ -191,8 +201,21 @@ For turnaround/conversion input:
 - cross-view proportions must be inspected;
 - scale comes from Markdown numeric data;
 - generated text is ignored/replaced;
-- hidden geometry contradictions are resolved in the DCC blockout.
+- hidden geometry contradictions are resolved in DCC blockout;
+- conversion-input copy is a new manifest record, not an implicit folder copy.
 
 For runtime 2D derivatives:
 - create a separate derivative/export record;
-- do not point the game directly at the modeling-reference file.
+- derive from the master/clean source;
+- do not point the game directly at a modeling-reference file.
+
+## Current gate
+
+`SHEET_H01 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
+`SHEET_H02 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
+`SHEET_M01 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
+`SHEET_M02 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`SHEET_M03 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`SHEET_M04 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`SHEET_M05 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`SELECTED_REFERENCE_PROMOTIONS_THIS_PASS = NONE`
