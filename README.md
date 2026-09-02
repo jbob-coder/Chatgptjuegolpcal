@@ -1,143 +1,129 @@
-# WorldLife RPG
+# Unnamed Hunt RPG
 
-> **CURRENT STATE — FULL REBOOT DISCUSSION:** The former v0.5.8 Android life-sim project is legacy frozen history. A new monster-hunting tactical RPG design has been recorded, but no reboot gameplay code has been created and implementation is intentionally on hold until the user finishes the design discussion.
+Status: NEW GAME / DESIGN DISCUSSION / NO GAMEPLAY IMPLEMENTATION
+Last reconciled: 2026-09-02
 
-## Start here
+This repository/project area is being reused for a completely new game. WorldLife RPG is no longer the active project and must not be treated as the implementation base.
 
-Read:
+The permanent game name is not decided. `Unnamed Hunt RPG` is only a working label for documentation.
+
+## Read first
 
 1. `START_HERE_NEW_CHAT.md`
-2. `REBOOT_STATUS.md`
-3. `WORLDLIFE_REBOOT_MASTER_PLAN.md`
-4. `WORLDLIFE_REBOOT_ARCHITECTURE_VISUAL_BIBLE.md`
-5. `WORLDLIFE_REBOOT_DISCUSSION_CHECKLIST.md`
-6. `WORLDLIFE_PROJECT_HANDOFF.md`
-7. `WORLDLIFE_DEVELOPMENT_REFERENCE.md`
-8. `WORLDLIFE_SYSTEMS_GUIDE.md`
-9. `WORLDLIFE_EVOLVE_ALIGNMENT.md`
+2. `PROJECT_HANDOFF.md`
+3. `NEW_GAME_MASTER_PLAN.md`
+4. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
+5. `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
-## New intended game
+Do not begin gameplay coding until the user explicitly finishes the design discussion and authorizes implementation.
 
-WorldLife is being redesigned from zero as a hunting RPG built around two connected modes.
+## Core game direction
 
 ### Exploration
-
 - aerial/top-down angled 2D/3D hybrid presentation;
-- physical movement through hunt regions;
-- tracking, gathering, cover/environmental features and encounter initiation;
-- Android landscape-first readability and performance.
+- physical movement through hunting regions;
+- tracking, gathering, terrain, cover, hazards, camps and roaming creatures;
+- mobile-readable landscape presentation;
+- exact rendering mix and camera behavior remain discussion decisions.
 
 ### Combat
+When an encounter starts, presentation switches to first person and combat becomes tactical turn-based play.
 
-When battle starts, presentation switches to first person and the encounter becomes tactical turn-based combat.
-
-Planned player choices include:
-
-- step/move left, right, forward or backward;
-- close/create distance;
+The player should be able to make meaningful choices such as:
+- move left/right/forward/back;
+- close or create distance;
 - flank/circle;
-- take, leave or reposition between cover;
-- stand/crouch/brace/guard;
-- dodge/block/parry where legal;
-- basic/heavy/quick/precision attacks;
-- select a specific monster body part;
-- use items/tools/traps;
+- take or leave cover;
+- crouch/brace/guard;
+- dodge/block/parry when legal;
+- attack with different techniques;
+- select a specific body part;
 - inspect/analyze;
+- use items/tools/traps;
 - recover stamina;
 - prepare reactions;
 - interact with terrain;
-- retreat/escape.
+- retreat/escape when possible.
 
-The complete action catalog and action-economy alternatives are in `WORLDLIFE_REBOOT_MASTER_PLAN.md`.
+The full catalog is in `NEW_GAME_MASTER_PLAN.md`.
 
-## Anatomy / break / sever / harvesting
+## Anatomy / break / sever / harvest
 
-Creature anatomy is intended to be authoritative data, not cosmetic hitboxes.
+Creature anatomy is authoritative gameplay data.
 
-Body parts may be wounded, broken, severed or destroyed. Damaging anatomy can remove or weaken monster attacks and movement capabilities.
+Body parts can have their own integrity, defenses, exposure, break/sever rules, functional consequences, and harvest capacities.
 
-Harvest yield is derived from what physically survived the battle. A clean intact sever can preserve a valuable component; burning, crushing or destroying that part can reduce or eliminate usable material. Unique anatomy cannot magically produce impossible duplicate loot.
+Damage to anatomy changes monster behavior/capabilities. Harvested quantity and quality derive from what actually survives the fight. A destroyed component cannot magically produce full-quality loot, and a unique structure cannot generate impossible duplicate parts.
 
-Harvested materials feed crafting, equipment upgrades, research and later RPG progression.
+## Core architecture law
 
-## Architecture rule
-
-The reboot keeps the strongest lesson from the previous project:
-
-**presentation is not a second game engine.**
-
-Target authority flow:
+Presentation is not a second game engine.
 
 ```text
 Input
   ↓
-Domain action request
+Domain Action Request
   ↓
-Validate / resolve
+Validate / Resolve
   ↓
-Authoritative state + domain events
+Authoritative State + Domain Events
   ↓
-Persistence / replay / debug record
+Persistence / Replay / Debug
   ↓
-Aerial or first-person presentation
+Aerial or First-Person Presentation
 ```
 
-Animations, UI and cameras represent resolved state. They do not determine hits, severing, loot or persistent position.
+UI and animation represent resolved state. They do not secretly decide hits, severing, loot, position, or persistent progression.
 
-## Technology — open decision
+## Engine status
 
-The previous Kotlin + Jetpack Compose + SceneView stack is not assumed to survive the reboot.
+No engine is locked yet.
 
-Current candidates:
+Candidates for discussion/compatibility testing include:
+- Godot 4.7 + GDScript + Compatibility renderer;
+- LibGDX + Kotlin;
+- native Android/3D stack only if evidence justifies rebuilding substantial game-engine functionality manually.
 
-1. **Godot 4.7 + GDScript + Compatibility renderer** — current recommendation for discussion because the reboot needs integrated 2D/3D, scenes, animation, Android export and game-focused tooling.
-2. **LibGDX + Kotlin** — viable Android-first alternative with more manual content/editor tooling.
-3. **Compose + SceneView** — not preferred for this reboot unless a new constraint justifies rebuilding many game-engine systems manually.
+The actual target Android phone should pass a tiny renderer/input/camera-transition probe before engine commitment.
 
-Before selecting an engine, the actual target Android phone must pass a tiny renderer/input/transition probe.
+## First vertical slice target
 
-## Planned first vertical slice
-
-Only after discussion/approval:
-
-- one compact wilderness region;
-- one aerial exploration camera;
-- one roaming monster;
+Only after design approval:
+- one compact hunting region;
+- one aerial exploration mode;
+- one roaming creature;
 - one encounter transition;
-- one first-person combat arena;
+- one first-person tactical combat arena;
 - 6–8 meaningful body parts;
-- AP/turn system;
+- approved turn/action economy;
 - movement + cover + targeted attacks + defense;
 - at least one break and one sever interaction;
-- monster behavior changes from anatomy damage;
+- monster behavior altered by anatomy damage;
 - condition-based harvest result;
 - one craftable upgrade;
 - save/reload;
 - Android phone verification.
 
-Do not build a large map or monster catalog before this core loop works.
+Do not scale into a large map, bestiary, crafting tree, story campaign, or creator suite until this complete loop works.
 
-## Current hold
+## EVOLVE operating rule
 
-`REBOOT_DESIGN_RECORDED = YES`
+For substantial work use:
+READ STATE → VERIFY STATE → DEFINE ONE SMALL PIECE → INSPECT OWNERSHIP → IMPLEMENT → TEST → REGRESSION CHECK → UPDATE DOCS → SAVE/COMMIT → READ BACK → MARK STATUS → NEXT PIECE
 
-`REBOOT_SOURCE_CREATED = NO`
+Use precise gates:
+DESIGNED / IMPLEMENTED / STATIC_VERIFIED / TESTED / COMPILED / APK_BUILD_VERIFIED / PHONE_RUNTIME_VERIFIED / VISUAL_QUALITY_VERIFIED / PERFORMANCE_VERIFIED.
 
-`IMPLEMENTATION_AUTHORIZED = NO`
+Never claim a higher gate from lower evidence.
 
-`LEGACY_SOURCE_DELETED = NO`
+## Current state
 
-Next action: discuss the reboot and resolve `WORLDLIFE_REBOOT_DISCUSSION_CHECKLIST.md`.
+- NEW_GAME_DESIGN_RECORDED = YES
+- WORLDLIFE_ACTIVE = NO
+- GAMEPLAY_SOURCE_CREATED = NO
+- IMPLEMENTATION_AUTHORIZED = NO
+- ENGINE_SELECTED = NO
+- APK_BUILD_VERIFIED = NO
+- PHONE_RUNTIME_VERIFIED = NO
 
-## Legacy v0.5.8 history
-
-The old source remains preserved strictly as rollback/history while cleanup is discussed:
-
-- frozen source: `0.5.8`
-- package: `com.jackwilson.worldlife`
-- Drive source folder: `https://drive.google.com/drive/folders/1WABizspRFJxOURbTpqbPdIAda2Uv00Qp`
-- frozen source SHA-256: `478d99cd5cafbc350910ad5820d47d6ac656d80332c1cc6ddc85d9cdecef8822`
-
-It must not be used as the default reboot implementation base.
-
-Permanent deletion of old Drive/GitHub/APK/save history is deferred until the user explicitly resolves the cleanup checklist after discussion, preserving EVOLVE rollback and destructive-operation safety.
+Google Drive permanent deletion of the old frozen WorldLife archive was attempted but blocked by the platform safety layer, so it is not reported as deleted. It is not active authority for this new game.
