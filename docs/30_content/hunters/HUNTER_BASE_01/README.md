@@ -12,6 +12,16 @@ Technical ID:
 
 This is a **production base**, not necessarily the final named protagonist.
 
+## Owning technical references
+
+Hunter-specific geometry/art consistency:
+- `PROPORTION_AND_ATTACHMENT_CONTRACT.md`
+
+Art/source-pack structure:
+- `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
+
+The proportion/attachment contract owns the current 1.75 m normalized landmark scaffold and attachment vocabulary. Generated images do not override those anchors.
+
 ## Selected visual direction
 
 The hunter should read as:
@@ -94,7 +104,7 @@ Prototype direction:
 
 Exact colors remain art-tunable.
 
-## Modular silhouette variants for H02 sheet
+## Modular silhouette variants for H04 sheet
 
 These are **art/loadout silhouette tests**, not final gameplay equipment-slot decisions.
 
@@ -130,15 +140,24 @@ No final weapon family should appear as authoritative in this sheet. Neutral too
 
 ## Scale/readability requirements
 
-H01 turnaround/scale sheet must show:
+Current technical turnaround work is split into task-specific sources rather than one overloaded infographic.
+
+H02A technical source should show:
 - front;
-- side;
+- left side;
 - back;
-- 3/4 confirmation;
-- neutral A-pose or relaxed technical stance;
-- explicit 1.75 m design target recorded outside the generated subject;
-- simple neutral background;
-- no dramatic perspective.
+- right side where practical;
+- identical neutral modeling stance;
+- same body/gear construction in every view;
+- high subject occupancy;
+- simple neutral/transparent background;
+- no weapon or unrelated panels.
+
+H02B later provides a separate 3/4 volume confirmation.
+
+Scale/proportion authority comes from:
+- 1.75 m prototype world height;
+- normalized landmark scaffold in `PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
 
 At aerial distance, player readability should come from:
 - shoulder/torso silhouette;
@@ -153,7 +172,7 @@ Do not enlarge the actual human scale to solve camera readability.
 
 This base should later support:
 - shared humanoid skeleton convention;
-- modular clothing/armor attachment;
+- modular clothing/armor attachment using the stable attachment vocabulary in `PROPORTION_AND_ATTACHMENT_CONTRACT.md`;
 - swappable head/hair where final identity requires it;
 - first-person hand/weapon presentation as a separate view/presentation layer where needed;
 - locomotion over settlement and wilderness terrain;
@@ -178,6 +197,7 @@ SELECTED:
 - broadly realistic proportions;
 - mild readability exaggeration only;
 - modular equipment construction;
+- stable prototype proportion/attachment vocabulary;
 - three prototype loadout silhouettes without locking weapon family;
 - restrained material/color language.
 
@@ -186,20 +206,19 @@ OPEN:
 - final hair/headgear;
 - exact weapon family;
 - final equipment slots;
-- final armor progression;
-- human crystal technology/accessories.
+- exact armor progression;
+- human crystal technology/accessories;
+- exact DCC skeleton/attachment transforms;
+- exact collision dimensions.
 
-## Required sheets
+## Current reference-production state
 
-Immediate:
-1. `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001.png`;
-2. `HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001.png`.
-
-Later after weapon decision:
-- equipment construction breakdown;
-- weapon attachment/pose sheet;
-- three-distance in-game presentation sheet;
-- first-person hands/weapon presentation reference.
+- H02 v001: reviewed with issues / revise / discussion only.
+- H02 v002: reviewed with issues / revise / discussion only.
+- H02A v003: next technical source, governed by `PROPORTION_AND_ATTACHMENT_CONTRACT.md` and `HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`.
+- H02B v003: blocked until H02A review.
+- H03 details: conditional after H02A review.
+- H04 equipment silhouettes: generated v001 but review/promotion blocked until the neutral base is selected.
 
 ## Drive
 
