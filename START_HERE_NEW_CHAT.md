@@ -6,82 +6,139 @@ Last reconciled: 2026-09-02
 
 This is a completely new game using the same repository/project area that previously contained WorldLife RPG.
 
-WorldLife is no longer the active project. Do not resume WorldLife phone stabilization, life-sim systems, apartment work, city expansion, or Admin Panel development.
+WorldLife is no longer the active project. Do not resume WorldLife phone stabilization, life-sim systems, apartment work, city expansion or Admin Panel development.
 
-The working label `Unnamed Hunt RPG` is temporary until the user chooses a final name.
+`Unnamed Hunt RPG` is a temporary working label only.
 
-## Mandatory read order
+## Current phase
 
-Before consequential work read:
+The project is in **DESIGN / STRUCTURE / DOCUMENTATION**.
+
+No gameplay code, engine project, scenes, APK or production assets are authorized yet.
+
+The current task is to define the game correctly from basic player experience down to mechanics, code ownership, performance caps, testing and creator tooling before implementation starts.
+
+## Mandatory read order — basic to detailed
+
 1. `START_HERE_NEW_CHAT.md`
 2. `README.md`
 3. `PROJECT_HANDOFF.md`
-4. `NEW_GAME_MASTER_PLAN.md`
-5. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
-6. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
-7. `DEVELOPMENT_REFERENCE.md`
-8. `EVOLVE_ALIGNMENT.md`
-9. `NEW_GAME_DISCUSSION_CHECKLIST.md`
-10. verified source/tests only after implementation begins.
+4. `DOCUMENTATION_INDEX.md`
+5. `GAME_EXPERIENCE_BIBLE.md`
+6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
+7. `NEW_GAME_MASTER_PLAN.md`
+8. `MECHANICAL_SYSTEMS_GUIDE.md`
+9. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+10. `CONTENT_DATA_GUIDE.md`
+11. `CODE_GUIDE.md`
+12. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+13. `ADMIN_CREATOR_SYSTEM.md`
+14. `TESTING_VERIFICATION_PLAN.md`
+15. `IMPLEMENTATION_ROADMAP.md`
+16. `DEVELOPMENT_REFERENCE.md`
+17. `EVOLVE_ALIGNMENT.md`
+18. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+19. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when its supporting detail is needed.
 
-## Current directive
+`DOCUMENTATION_INDEX.md` explains ownership and which file to read for each topic.
 
-The user wants:
-- aerial/top-down angled 2D/3D hybrid exploration;
-- a Paper-Mario-like dimensional overview philosophy for readability, without a literal paper aesthetic;
-- a grounded stylized wilderness/frontier hunting theme described as **an illustrated hunting world brought to life**;
-- a roughly 40–50° elevated exploration camera as the current prototype target;
-- first-person turn-based combat when a battle starts;
-- a continuous camera/world transition so combat happens in the same physical encounter context;
-- tactical movement and positioning options;
-- cover where the environment supports it;
-- selectable attack types and selectable body parts;
-- authoritative break/sever/destroy anatomy states;
-- monster visuals/behavior altered by damaged anatomy;
-- harvesting whose quantity/quality depends on how much usable material remains on each part;
-- crafting/progression connected to harvested materials;
-- practical hunter-style UI and field/bestiary presentation rather than generic glossy mobile UI;
-- comprehensive planning and EVOLVE documentation before creation.
+## Locked direction so far
 
-Detailed visual/environment/runtime behavior is in `VISUAL_WORLD_BEHAVIOR_BIBLE.md`.
+### Visual/player experience
+- grounded stylized wilderness/frontier monster-hunting fantasy;
+- illustrated-world/dimensional-diorama overview philosophy, not literal paper/craft visuals;
+- aerial exploration around a 40–50° downward target angle;
+- stylized 3D player/major monsters for continuity;
+- selective 2D/billboard/impostor detail for Android performance;
+- first-person combat entered through a camera/world transition rather than an unrelated battle screen;
+- restrained hunter-field-document UI;
+- state-based music/audio structure.
 
-## Implementation hold
+### Gameplay
+- physical region exploration;
+- tracking/observation;
+- tactical first-person turn-based combat;
+- movement/cover/bearing/posture;
+- targetable monster anatomy;
+- wound/break/sever/destroy states;
+- anatomy-dependent monster capability changes;
+- condition-based harvesting;
+- material-driven crafting/upgrades/research.
 
-The user explicitly required discussion after the planning/recording pass.
+### Architecture
+- one authoritative game state;
+- presentation does not decide gameplay outcomes;
+- content definitions separate from runtime instances;
+- stable IDs;
+- data-driven content;
+- deterministic/replay-friendly domain rules where practical;
+- new save lineage;
+- bounded scalable systems;
+- Admin/Creator tools use validated commands/schemas.
 
-Therefore:
-- GAMEPLAY_SOURCE_CREATED = NO
-- IMPLEMENTATION_AUTHORIZED = NO
-- ENGINE_SELECTED = NO
-- VISUAL_PROTOTYPE_IMPLEMENTED = NO
-- NEXT_ACTION = DESIGN_DISCUSSION
+## Performance/bug rule
 
-Do not create gameplay code, APKs, scenes, combat prototypes, or final assets until explicitly authorized.
+Anything that can grow expensive must have:
+- a budget/cap;
+- cleanup/unload behavior;
+- development instrumentation;
+- a way to isolate/disable it when practical;
+- target-device verification before its cost is considered acceptable.
 
-## Architecture law
+Do not sacrifice input, tactical readability, anatomy, telegraphs or simulation correctness before decorative effects/detail.
 
-Input → Domain Request → Validate/Resolve → Authoritative State/Events → Persistence/Debug → Presentation
+## Admin/Creator rule
 
-Aerial and first-person presentation must not independently decide gameplay outcomes.
+The future development Admin system should make the game easier to build and debug through:
+- state/performance inspectors;
+- deterministic replay;
+- typed test commands;
+- creature/anatomy/attack editors;
+- harvest simulator;
+- encounter layout builder;
+- region overlays;
+- content validation/export.
 
-## First implementation milestone after approval
+It must not become a second hidden rules engine.
 
-One complete vertical hunt slice only:
-- one region;
-- one creature;
-- illustrated aerial wilderness presentation;
-- continuous aerial-to-first-person encounter transition;
-- first-person tactical battle;
-- meaningful anatomy break/sever interaction;
-- condition-based harvest;
-- one craftable upgrade;
-- save/reload;
-- target Android phone verification.
+## Implementation sequence
 
-## WorldLife cleanup status
+The high-level dependency order is:
 
-WorldLife is inactive and removed from the active GitHub documentation branch.
+`DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/CRAFTING → EXPLORATION DOMAIN → AERIAL PRESENTATION → COMPLETE VERTICAL LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
 
-The same repository/location remains because the user explicitly wants it reused for the new game.
+Read `IMPLEMENTATION_ROADMAP.md` for gates.
 
-Permanent deletion of the frozen Google Drive WorldLife archive was attempted but blocked by the platform safety layer. Do not claim that Drive archive is deleted. It is historical residue only and must not be used as new-game authority.
+## Current exact next action
+
+Continue design discussion and lock the remaining fundamentals, especially:
+- world premise/history;
+- creature ecology/origin;
+- player/hunter role;
+- technology/magic level;
+- first hub;
+- first region;
+- first monster;
+- first weapon;
+- solo/party baseline;
+- exact combat action economy;
+- gore/harvesting depth;
+- progression/failure rules;
+- target Android device;
+- engine.
+
+Do not create gameplay source until the user explicitly says to begin.
+
+## Status
+
+DESIGN_RECORDED = YES
+DOCUMENTATION_SYSTEM_RECORDED = YES
+MECHANICS_DOCUMENTED = YES
+CODE_STRUCTURE_PLANNED = YES
+PERFORMANCE_CAPS_PLANNED = YES
+ADMIN_CREATOR_SYSTEM_PLANNED = YES
+TESTING_PLAN_RECORDED = YES
+IMPLEMENTATION_ROADMAP_RECORDED = YES
+GAMEPLAY_SOURCE_CREATED = NO
+ENGINE_SELECTED = NO
+IMPLEMENTATION_AUTHORIZED = NO
