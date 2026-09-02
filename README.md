@@ -11,65 +11,104 @@ This repository/project area is being reused for a completely new game. WorldLif
 
 A grounded stylized monster-hunting tactical RPG with connected spatial/gameplay layers:
 
-1. **Settlement / hub life** — dense social, service, crafting, research and preparation spaces.
-2. **Aerial wilderness exploration** — physically traversed 2.5D/3D hunting regions.
+1. **Walkable settlement / hub life** — dense social, service, crafting, research and preparation spaces.
+2. **Aerial wilderness exploration** — physically traversed 2.5D/3D hunting regions with continuous streamed sectors.
 3. **First-person tactical combat** — turn-based encounters derived from the exact wilderness location and monster state.
 
 Core loop:
-`PREPARE → LEAVE SETTLEMENT → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → RETURN → CRAFT/EQUIP/UPGRADE/RESEARCH → HUNT HARDER PREY`
+`PREPARE → LEAVE SETTLEMENT → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → RETURN → PROCESS → CRAFT/EQUIP/UPGRADE/RESEARCH → HUNT HARDER PREY`
 
-# 2. Visual identity
+# 2. Project quality law
 
-The world uses the readable dimensional-overview philosophy discussed with Paper Mario only as a camera/readability comparison. It is not a paper/cardboard game and does not copy Paper Mario art.
+Detailed authority: `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
+
+Every meaningful new mechanic must identify:
+1. player value/decision;
+2. authoritative owner;
+3. dependent systems;
+4. invariants/caps it cannot violate;
+5. verification/performance path.
+
+Design statements are distinguished as:
+- LOCKED/CURRENT;
+- SELECTED ARCHITECTURE;
+- PROTOTYPE TARGET;
+- OPEN;
+- FUTURE OPTION;
+- REJECTED/NOT PREFERRED.
+
+Depth should come from interaction between a bounded set of reusable systems rather than uncontrolled micro-systems.
+
+# 3. Visual and model identity
+
+Detailed authorities:
+- `GAME_EXPERIENCE_BIBLE.md`;
+- `VISUAL_WORLD_BEHAVIOR_BIBLE.md`;
+- `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`.
 
 Identity: **an illustrated hunting world brought to life**.
 
-Current direction:
-- grounded stylized wilderness/frontier fantasy;
-- aerial camera around 40–50° downward as current target;
-- player/major monsters preferably stylized 3D;
-- selective 2D/billboard/impostor detail for Android efficiency;
-- nature and strong silhouettes before decorative density;
-- frontier settlements use practical wood/stone/metal/canvas/rope/leather/ceramic/bone/shell/hide language;
-- hunter field-document UI rather than glossy generic mobile menus.
+Selected model direction:
+- grounded stylized 3D / illustrated realism;
+- believable world scale;
+- strong silhouettes and broad value/color grouping;
+- mild exaggeration of important hands/boots/weapons/anatomy for phone readability;
+- important assets must work at aerial, nearby-exploration and first-person distances;
+- same monster identity/model lineage supports exploration LODs and first-person combat;
+- anatomy, wounds, breaks and sever states map to authoritative gameplay state;
+- crystal/mutation visuals are biologically integrated rather than constant neon glow;
+- modular humanoid equipment and modular building kits preferred;
+- LOD, culling and simplified collision designed in from the start.
 
-See `GAME_EXPERIENCE_BIBLE.md` and `VISUAL_WORLD_BEHAVIOR_BIBLE.md`.
+Exact production triangle/texture/bone/material budgets remain OPEN until engine/device profiling.
 
-# 3. Game introduction and feel
+# 4. World, streaming and settlement structure
 
-Planned player flow:
-`LAUNCH → TITLE → NEW/CONTINUE → INTRODUCTION → SETTLEMENT/HUB → FIRST ASSIGNMENT → FRONTIER GATE → HUNTING REGION → TRACKING → FIRST MONSTER → FIRST TACTICAL BATTLE → HARVEST → RETURN → FIRST CRAFT/EQUIP UPGRADE`
-
-Tutorial teaches the real hunt loop through play.
-
-Music is state-based: title, settlement/hub, frontier transition, exploration, threat/tension, encounter sting, combat, phase/berserk intensity, victory/post-hunt and harvest/return ambience.
-
-Critical telegraph/audio information outranks ambience/music.
-
-# 4. World and map structure
-
-Detailed authority: `MAP_WORLD_SETTLEMENT_STRUCTURE.md`.
+Detailed authorities:
+- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`;
+- `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
+- `FIRST_SETTLEMENT_BLUEPRINT.md`.
 
 The game does **not** use one gigantic always-loaded open world.
 
 Current structure:
 
-`WORLD ATLAS → SETTLEMENT/HUB → FRONTIER GATE/OUTPOST → HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`
+`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE / TRANSITION CORRIDOR → CONTINUOUS STREAMED HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`
 
 Key rules:
-- the world atlas handles long-distance geography/travel between major destinations;
-- settlements are dense social/service runtime spaces with their own NPC and performance budget;
-- ordinary random monster combat does not occur in settlement cores;
-- frontier gates/outposts create a visible and technical transition between civilization and wilderness;
-- hunting regions are physically explorable in aerial view and divided into streamable sectors;
-- first-person combat is a local tactical footprint derived from the exact wilderness sector/location rather than an unrelated arena;
-- safety/danger is a gradient: settlement core → frontier/outpost → field camp → wilderness → deep territory/nest;
-- off-screen world/ecology state remains aggregate/bounded while current/persistent actors receive full runtime state;
-- rare settlement sieges/emergencies remain a future authored option, not normal random combat.
+- world atlas handles long-distance geography/travel;
+- settlements are physical gameplay spaces, not menu hubs;
+- settlement↔wilderness is a meaningful major-area threshold;
+- ordinary wilderness sector boundaries are technical and remain visually continuous whenever possible;
+- first-person combat is a local tactical footprint derived from the actual wilderness location;
+- normal gameplay camera stays local and never exposes the whole region like a board-game view;
+- 1 world unit = 1 meter is the current measurement convention;
+- safety/danger gradient: settlement core → frontier/outpost → field camp → wilderness → deep territory/nest;
+- normal random monster combat does not occur in settlement cores;
+- off-screen world/ecology/NPC state uses lower-cost logical/aggregate representation.
 
-Long-distance travel should remove empty repeated walking without removing the actual hunt. Fast travel can connect discovered safe anchors but should never teleport the player directly onto an undiscovered monster.
+# 5. First settlement quality target
 
-# 5. Exploration behavior
+Settlement 01 is currently planned as a compact frontier hunter settlement on defensible elevated river/chasm geography.
+
+Its main quality fix is a **Hunter Service Loop**:
+
+`HUNTER LODGE / CONTRACTS → STORAGE / LOADOUT → SMITH / CRAFT / PROCESSING → HUNTER GATE`
+
+Recovery/home access stays near that repeated loop.
+
+Current prototype targets:
+- irregular footprint roughly 220–280 m × 160–230 m;
+- repeated core-service walking legs usually around 10–25 seconds;
+- 2–3 major elevation bands;
+- important small/medium interiors seamless where device budget permits;
+- deterministic NPC schedules with active/background/logical runtime fidelity tiers;
+- district/culling cells so the entire town is not rendered/animated at maximum detail simultaneously;
+- return-from-hunt material processing intentionally close to the gate.
+
+Market/residential/social spaces add optional depth around the repeated gameplay loop rather than forcing long mandatory traversal.
+
+# 6. Exploration behavior
 
 Exploration is physical, not a menu map.
 
@@ -77,15 +116,15 @@ Hunting regions contain terrain/traversal, landmarks, monster territories, deter
 
 The world communicates through footprints, broken vegetation, scratches, blood, calls, feeding remains, nests and environmental damage before relying on glowing waypoints.
 
-# 6. Combat behavior
+# 7. Combat behavior
 
 Combat transitions the camera from the aerial world into first person while preserving encounter context.
 
 Possible actions include repositioning, range control, flanking, cover, posture, dodge/block/parry, targeted attacks, inspection, tools/traps, reactions, stamina recovery and escape.
 
-Current action-economy candidate: small Action Point budget + stamina + limited reaction resource. Exact values remain open.
+Current action-economy candidate: small Action Point budget + stamina + limited reaction resource. Exact values remain OPEN.
 
-# 7. Stats and attributes
+# 8. Stats and effects
 
 Detailed authority: `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
 
@@ -97,16 +136,9 @@ Current six-role direction:
 - **Perception** — tracking/target acquisition/inspection/telegraph reading;
 - **Resolve** — composure/stagger/shock/fear resistance where used.
 
-Attributes are bounded. Current recommended internal scale is 1–100; practical ranges/growth remain balance decisions. AP/reaction economy does not scale freely from attributes or gear.
+Equipment, statuses, terrain, weather, posture, crystal/mutation effects and tactical context use one shared effect/modifier system with explicit stacking, caps/floors, cached derived values and calculation traces.
 
-# 8. Equipment, status and terrain effects
-
-Equipment, statuses, terrain, weather, posture, crystal/mutation effects and tactical context use one shared effect/modifier system.
-
-Conceptual order:
-`BASE → PROGRESSION → EQUIPMENT → INJURY/ANATOMY → STATUS → POSTURE → TERRAIN/WEATHER → COVER/RANGE/BEARING → ACTION → TARGET DEFENSE → CAPS`
-
-Rules include explicit stacking, caps/floors, bounded bonuses/penalties, cached derived stats, calculation traces and contextual hit quality instead of a generic hidden critical-hit lottery.
+AP/reaction economy does not scale freely from attributes or gear.
 
 # 9. Deterministic NPC and creature behavior
 
@@ -114,9 +146,9 @@ Detailed authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
 
 **There is no AI behavior system.**
 
-NPCs and creatures use authored states/phases, schedules where relevant, explicit `IF / ELSE IF / ELSE` conditions, priorities, cooldowns, capability requirements, situation/terrain/weather/crystal/mutation flags, deterministic tie policy and optional explicitly-seeded variation.
+NPCs and creatures use authored states/phases, schedules where relevant, explicit conditions, priorities, cooldowns, capability requirements, situation/terrain/weather/crystal/mutation flags and deterministic tie policy.
 
-Simple actors have simple patterns. Important monsters/bosses can have layered phases while remaining inspectable/reproducible.
+Simple actors have simple patterns. Important monsters can have layered phases while remaining inspectable and reproducible.
 
 # 10. Crystal life force, mutation and ecosystem
 
@@ -127,7 +159,7 @@ Core decisions:
 - crystal energy is an authoritative life-force reserve;
 - zero usable energy means death;
 - desperate creatures can burn that reserve for berserker/overdrive states through deterministic behavior conditions;
-- crystal **Tier, Rank, Quality, Element, Energy Reserve and Condition** are separate concepts;
+- crystal Tier, Rank, Quality, Element, Energy Reserve and Condition are separate concepts;
 - mutation can alter anatomy, capabilities, stats/effects, elemental/terrain adaptation, behavior and harvest;
 - mutation combinations are bounded by prerequisites/incompatibilities/support limits;
 - regional ecology can influence mutation distributions;
@@ -163,62 +195,71 @@ SAVE / REPLAY / DEBUG
 PRESENTATION / ANIMATION / AUDIO / UI
 ```
 
-UI, animation and rendering never secretly decide hits, severing, crystal energy, mutation state, loot, tactical position, map position or progression.
+UI, animation, rendering, models and streaming never secretly decide hits, severing, crystal energy, mutation state, loot, tactical position, world identity or progression.
 
-# 13. Internal structure
-
-Future source is separated into:
-- world atlas/travel;
-- settlement/hub state;
-- frontier/outpost transition;
-- region/sector/exploration;
-- encounter/turn;
-- creature/anatomy;
-- stats/effects/status/terrain;
-- crystal life-force;
-- mutation;
-- ecology/population aggregates;
-- damage;
-- deterministic behavior patterns;
-- harvest;
-- inventory/equipment/crafting;
-- research/progression;
-- persistence;
-- content definitions;
-- aerial/combat presentation;
-- audio/VFX/UI;
-- admin/debug/creator tools;
-- tests/validators.
-
-See `SYSTEM_ARCHITECTURE_BLUEPRINT.md` and `CODE_GUIDE.md`.
-
-# 14. Performance and bug isolation
+# 13. Performance and bug isolation
 
 Explicit caps/budgets are required.
 
-Settlement, frontier, wilderness and combat scenes have different simulation/render priorities rather than keeping all systems active everywhere.
+Settlement, frontier, wilderness and combat have different simulation/render priorities rather than keeping all systems active everywhere.
 
-Only current/adjacent wilderness sectors need full presentation/simulation. Behavior is event/decision-driven, derived stats are cached, mutation generation happens at explicit boundaries, and off-screen ecology uses aggregates.
+Current performance rules include:
+- current/required neighboring wilderness sectors promoted; farther state reduced/aggregate;
+- settlement NPC population uses active/background/logical fidelity tiers;
+- derived stats cached;
+- behavior event/decision-driven;
+- mutations generated at explicit boundaries;
+- modular/instanced repeated assets preferred;
+- unused interiors/districts culled/LOD-reduced;
+- gameplay correctness/readability/input protected before decoration.
 
-Protect input, gameplay correctness, anatomy readability, telegraphs, camera/frame pacing, world readability and audio cues before decoration.
-
-# 15. Admin / Creator system
+# 14. Admin / Creator system
 
 The future Admin system is a creation/debug workbench.
 
-Planned capabilities include state/stat/effect traces, deterministic behavior tracing/editing, crystal/mutation/ecology tools, world-atlas node/route editing, settlement service/anchor overlays, region-sector/streaming overlays, monster territory/tracking overlays, encounter footprint/tactical-node previews, first-person preview, harvest simulation, save/replay inspection and performance dashboards.
+Planned capabilities include:
+- state/stat/effect traces;
+- deterministic behavior tracing/editing;
+- crystal/mutation/ecology tools;
+- world-atlas and region-sector tools;
+- settlement district/service/route overlays;
+- actual service-path travel-time measurement;
+- NPC fidelity/schedule inspection;
+- roof/interior/culling/LOD inspection;
+- monster territory/tracking overlays;
+- encounter footprint/tactical-node previews;
+- anatomy/model collision overlays;
+- harvest simulation;
+- save/replay inspection;
+- performance dashboards.
 
 Creator tools use validated domain/content services and never become a second rules engine.
 
-# 16. Development order
+# 15. Development order
 
 `DESIGN → ENGINE/PHONE PROBE → DOMAIN CORE → STATS/EFFECTS CORE → CRYSTAL/MUTATION CORE → CONTENT VALIDATION → COMBAT CORE → COMBAT PRESENTATION → HARVEST → INVENTORY/EQUIPMENT/CRAFTING → SETTLEMENT/REGION STRUCTURE → EXPLORATION DOMAIN → ECOLOGY/REGION AGGREGATES → AERIAL PRESENTATION → COMPLETE SETTLEMENT↔HUNT LOOP → SAVE HARDENING → ADMIN/DEBUG → CREATOR TOOLS → PRODUCTION ART/AUDIO → SECOND-CONTENT PROOF → WORLD EXPANSION`
+
+# 16. Bounded documentation sequence
+
+Completed:
+1. design quality governance;
+2. model art direction/asset standard;
+3. first settlement blueprint.
+
+Next:
+4. **first hunting-region blueprint**;
+5. first complete monster design packet;
+6. player progression/equipment packet;
+7. exact combat-economy packet;
+8. engine-specific technical mapping only after engine/device evidence.
+
+Do not attempt all remaining pieces in one pass.
 
 # 17. First vertical slice
 
 Only after explicit implementation authorization:
-- 1 compact settlement/frontier lodge;
-- 1 outbound gate/transition belt;
+- 1 compact walkable settlement using the Hunter Service Loop;
+- 1 outbound gate/transition corridor;
 - 1 hunting region with roughly 4–6 meaningful sectors;
 - 1 field camp;
 - 1 main monster territory and deeper nest/retreat location;
@@ -242,24 +283,29 @@ Only after explicit implementation authorization:
 2. `README.md`
 3. `PROJECT_HANDOFF.md`
 4. `DOCUMENTATION_INDEX.md`
-5. `GAME_EXPERIENCE_BIBLE.md`
-6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
-7. `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
-8. `NEW_GAME_MASTER_PLAN.md`
-9. `MECHANICAL_SYSTEMS_GUIDE.md`
-10. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-11. `BEHAVIOR_PATTERN_SYSTEM.md`
-12. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-13. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-14. `CONTENT_DATA_GUIDE.md`
-15. `CODE_GUIDE.md`
-16. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-17. `ADMIN_CREATOR_SYSTEM.md`
-18. `TESTING_VERIFICATION_PLAN.md`
-19. `IMPLEMENTATION_ROADMAP.md`
-20. `DEVELOPMENT_REFERENCE.md`
-21. `EVOLVE_ALIGNMENT.md`
-22. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+5. `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
+6. `GAME_EXPERIENCE_BIBLE.md`
+7. `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
+8. `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
+9. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
+10. `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
+11. `FIRST_SETTLEMENT_BLUEPRINT.md`
+12. `NEW_GAME_MASTER_PLAN.md`
+13. `MECHANICAL_SYSTEMS_GUIDE.md`
+14. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+15. `BEHAVIOR_PATTERN_SYSTEM.md`
+16. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+17. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+18. `CONTENT_DATA_GUIDE.md`
+19. `CODE_GUIDE.md`
+20. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+21. `ADMIN_CREATOR_SYSTEM.md`
+22. `TESTING_VERIFICATION_PLAN.md`
+23. `IMPLEMENTATION_ROADMAP.md`
+24. `DEVELOPMENT_REFERENCE.md`
+25. `EVOLVE_ALIGNMENT.md`
+26. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+27. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
 
 # 19. Verification discipline
 
@@ -268,6 +314,9 @@ Use precise gates: DESIGNED, IMPLEMENTED, STATIC_VERIFIED, CONTENT_VALIDATED, UN
 # 20. Current state
 
 - NEW_GAME_DESIGN_RECORDED = YES
+- DESIGN_QUALITY_GOVERNANCE_RECORDED = YES
+- MODEL_ART_DIRECTION_RECORDED = YES
+- FIRST_SETTLEMENT_BLUEPRINT_RECORDED = YES
 - WORLD_MAP_STRUCTURE_DESIGNED = YES
 - SETTLEMENT_HUNTING_REGION_SEPARATION_DESIGNED = YES
 - PLAYER_EXPERIENCE_GUIDE = YES
@@ -286,6 +335,7 @@ Use precise gates: DESIGNED, IMPLEMENTED, STATIC_VERIFIED, CONTENT_VALIDATED, UN
 - TESTING_PLAN_RECORDED = YES
 - IMPLEMENTATION_ROADMAP_RECORDED = YES
 - GAMEPLAY_SOURCE_CREATED = NO
+- PRODUCTION_ASSETS_CREATED = NO
 - IMPLEMENTATION_AUTHORIZED = NO
 - ENGINE_SELECTED = NO
 - APK_BUILD_VERIFIED = NO
