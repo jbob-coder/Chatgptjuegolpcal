@@ -1,12 +1,12 @@
 # WorldLife RPG — v0.5.8 Pre-Runtime Audit
 
-Status: COMPLETE / PHONE RUNTIME STILL PENDING
+Status: COMPLETE / PHONE RUNTIME BLOCKER NOW OBSERVED
 Audit date: 2026-09-02
-Scope: frozen v0.5.8 source + permanent functional test APK. No gameplay source was modified.
+Scope: frozen v0.5.8 source + permanent functional test APK. No gameplay source was modified during this audit.
 
 ## Purpose
 
-This audit reduces uncertainty before phone testing without pretending static/build evidence is runtime evidence. It uses the checksum-frozen Google Drive source and the permanent Drive APK that came from successful GitHub Actions run `33596655227`.
+This audit reduces uncertainty before/around phone testing without pretending static/build evidence is runtime evidence. It uses the checksum-frozen Google Drive source and the permanent Drive APK that came from successful GitHub Actions run `33596655227`.
 
 ## Frozen source readback
 
@@ -56,9 +56,9 @@ Observed:
 
 The local audit environment did not contain `apksigner` or `aapt`; signature/package/version verification therefore continues to rely on the already-successful GitHub Actions run, where those gates executed and passed. They are not re-claimed as locally rerun.
 
-## VERIFIED: functional APK contains fallback visuals
+## VERIFIED: v0.5.8 functional APK fallback visuals are corrupted
 
-Previous documentation said the workflow *may* create 1×1 fallback PNGs. Direct inspection of the permanent APK now confirms that all 19 workflow-checked gameplay visual resources are fallback PNGs in this APK.
+Previous documentation said the workflow *may* create 1×1 fallback PNGs. Direct inspection of the permanent APK confirms that all **18** workflow-checked gameplay visual resources are fallback PNGs in this APK.
 
 Each APK entry below is `68` bytes:
 
@@ -83,11 +83,27 @@ Each APK entry below is `68` bytes:
 
 The frozen Drive source contains real versions of those resources, ranging from `12,468` bytes to `186,092` bytes.
 
+A strict PNG audit of the exact shared 68-byte fallback sequence confirms:
+
+- PNG signature: valid;
+- IHDR CRC: valid;
+- IDAT CRC: **invalid**;
+- IDAT zlib stream: **invalid checksum / cannot decompress**;
+- IEND CRC: valid;
+- strict Pillow decode for all 18 packaged fallback PNGs: FAIL with `broken data stream when reading image file`.
+
+The v0.5.8 workflow used this fallback Base64:
+`iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9ZQmcAAAAASUVORK5CYII=`
+
+This is a confirmed build-transport defect, not an art-quality issue alone.
+
+`OpenWorldScreen.kt` loads these resources immediately in an active exterior world through SceneView `ImageNode` and Compose `painterResource`, including facade/street images, joystick images and action buttons. Therefore corrupted fallback decoding is a strong root-cause candidate for `RUNTIME-001`, particularly when an existing/restored save enters the world immediately.
+
+It is not yet called the sole root cause until the corrected build is tested on the target phone.
+
 Consequence:
 
-`VISUAL_PARITY_VERIFIED = NO` is not merely precautionary. This specific APK is definitively not visual-parity for those joystick/action/street resources.
-
-Use it to judge functionality, touch behavior, geometry, camera, collision, persistence, apartment behavior, Admin/Cheat behavior, map/travel/NPC systems, crashes and ANRs. Do not judge final icon/texture/material fidelity from it.
+`VISUAL_PARITY_VERIFIED = NO` is not merely precautionary. This specific APK is definitively not visual-parity and also contains invalid fallback image data.
 
 ## STATIC-001 — camera recenter yaw is mirrored on six directions
 
@@ -120,9 +136,7 @@ Current recenter mapping instead uses:
 
 Therefore north/south recenter correctly, while the six directions containing an east/west component are horizontally mirrored.
 
-The successful GitHub workflow applies only the explicit `AdminToolsScreen.kt` import compatibility correction; it does not patch this camera mapping. This source-level defect is therefore expected to exist in the functional test APK, but its device-level usability impact remains unverified until phone testing.
-
-Do not create a source repair version solely from this audit before the active phone milestone is observed. Add camera recenter to the phone checklist and combine the repair with the highest-priority confirmed runtime fix if appropriate.
+The successful v0.5.8 GitHub workflow does not patch this camera mapping. Its device-level usability impact remains unverified until the launch blocker is cleared and phone testing resumes.
 
 ## Scoped launch/input audit
 
@@ -131,16 +145,14 @@ Evidence inspected:
 - manifest launcher activity exists and explicitly requests landscape orientation;
 - `MainActivity` enters immersive edge-to-edge mode and mounts `WorldLifeRoot`;
 - `GameViewModel` collects repaired DataStore state and exposes Loading / NoGame / Playing / Error states;
-- updater auto-check runs through a `runCatching` path and does not intentionally block game state rendering on update-check failure;
+- updater auto-check runs through a `runCatching` path and does not intentionally block game-state rendering on update-check failure;
 - exterior joystick dispatches engine-owned movement rather than mutating presentation position;
 - right-side camera drag remains presentation-owned as intended;
 - apartment rendering is selected from authoritative `interiorSession`;
 - Cheat/Admin mutations route through `AdminCommand` → repository → `GameEngine`.
 
-No additional source-level launch blocker was identified in this bounded audit. That is not a phone PASS.
+The source contains a bare spinner for `WorldLifeUiState.Loading` and a basic name-entry `NewGameScreen`, but these are technical placeholders rather than the designed boot/loading and intro/onboarding experience now recorded in `WORLDLIFE_GOALS_BACKLOG.md`.
 
 ## Current next action
 
-Install/test the permanent v0.5.8 APK on the target Android phone and populate `WORLDLIFE_PHONE_RUNTIME_VALIDATION.md`, including the new camera-recenter check.
-
-Phone observations outrank this static audit for actual runtime behavior.
+Build/test rollback-safe v0.5.8.1 with valid fallback PNG generation plus crash diagnostics, then resume the phone runtime checklist from direct device evidence.
