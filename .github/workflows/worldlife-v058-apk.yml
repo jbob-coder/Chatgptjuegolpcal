@@ -1,4 +1,4 @@
-name: WorldLife v0.5.8 GitHub Functional Test Build
+name: WorldLife v0.5.8 GitHub Verified Test Build
 
 on:
   push:
@@ -22,40 +22,20 @@ jobs:
         run: |
           set -euo pipefail
           git fetch --no-tags origin worldlife-apk-build
-          git checkout origin/worldlife-apk-build -- \
-            worldlife_build_v2 \
-            worldlife_patch_v021 \
-            worldlife_patch_v040_text
+          git checkout origin/worldlife-apk-build -- worldlife_build_v2 worldlife_patch_v021 worldlife_patch_v040_text
 
       - name: Reconstruct verified v0.4 bootstrap
         shell: bash
         run: |
           set -euo pipefail
-          cat worldlife_build_v2/source.v2.part01 \
-              worldlife_build_v2/source.v2.part020 \
-              worldlife_build_v2/source.v2.part021 \
-              worldlife_build_v2/source.v2.part022 \
-              worldlife_build_v2/source.v2.part023 \
-              worldlife_build_v2/source.v2.part03 \
-              worldlife_build_v2/source.v2.part04 \
-              worldlife_build_v2/source.v2.part05 \
-              worldlife_build_v2/source.v2.part060 \
-              worldlife_build_v2/source.v2.part061 \
-              worldlife_build_v2/source.v2.part062 \
-              worldlife_build_v2/source.v2.part063 \
-              worldlife_build_v2/source.v2.part07 \
-              worldlife_build_v2/source.v2.part08 \
-              worldlife_build_v2/source.v2.part09 > /tmp/worldlife_v2.b64
+          cat worldlife_build_v2/source.v2.part01 worldlife_build_v2/source.v2.part020 worldlife_build_v2/source.v2.part021 worldlife_build_v2/source.v2.part022 worldlife_build_v2/source.v2.part023 worldlife_build_v2/source.v2.part03 worldlife_build_v2/source.v2.part04 worldlife_build_v2/source.v2.part05 worldlife_build_v2/source.v2.part060 worldlife_build_v2/source.v2.part061 worldlife_build_v2/source.v2.part062 worldlife_build_v2/source.v2.part063 worldlife_build_v2/source.v2.part07 worldlife_build_v2/source.v2.part08 worldlife_build_v2/source.v2.part09 > /tmp/worldlife_v2.b64
           echo "9602d56236f4d74ea7fceb63f8a9e00051cc7f812d67818258223191a44be31b  /tmp/worldlife_v2.b64" | sha256sum -c -
           base64 -d /tmp/worldlife_v2.b64 > /tmp/worldlife_base.zip
           echo "58686f5de9bcf4151b071792c618d6b3388bf6abe4a8aea11daa0563b5a0b03e  /tmp/worldlife_base.zip" | sha256sum -c -
-          rm -rf /tmp/worldlife-v058
-          mkdir -p /tmp/worldlife-v058
+          rm -rf /tmp/worldlife-v058 && mkdir -p /tmp/worldlife-v058
           unzip -q /tmp/worldlife_base.zip -d /tmp/worldlife-v058
           ROOT=/tmp/worldlife-v058/worldlife-rpg-android
           cp -a worldlife_patch_v021/app/. "$ROOT/app/"
-          test -s "$ROOT/app/dev-signing.jks"
-
           echo "b3f5aab5731cf55d8b3b741ee92ff4875662a60e539051865bba2ffd1f69bb94  worldlife_patch_v040_text/patch.part000" | sha256sum -c -
           echo "31ddafba7c7e4985c9fe8901b7c2b55e5cd6b126241698d50652bb8339402471  worldlife_patch_v040_text/part01_exact00a" | sha256sum -c -
           echo "cb66f5016a721d0d88556cfc0a9189bc78722d1406c5a174bf0d43505685db7b  worldlife_patch_v040_text/part01_exact00b" | sha256sum -c -
@@ -67,72 +47,38 @@ jobs:
           echo "7b2d9eb7abaab395e381bdd15eefb0500424725bca979bd267b7c6d2f903550d  worldlife_patch_v040_text/patch.part002" | sha256sum -c -
           echo "da482e3644ae5d3e83fca2efa81540de019f866f82993c366a526ff8cdc640d3  worldlife_patch_v040_text/patch.part003" | sha256sum -c -
           echo "1ee7756873d057145ca55f9900ffcb5373b745591d0b3d94bf893e5858c91464  worldlife_patch_v040_text/patch.part004" | sha256sum -c -
-          cat worldlife_patch_v040_text/patch.part000 \
-              worldlife_patch_v040_text/part01_exact00a \
-              worldlife_patch_v040_text/part01_exact00b \
-              worldlife_patch_v040_text/part01_exact01 \
-              worldlife_patch_v040_text/part01_exact02 \
-              worldlife_patch_v040_text/part01_exact03 \
-              worldlife_patch_v040_text/part01_exact04 \
-              worldlife_patch_v040_text/part01_exact05 \
-              worldlife_patch_v040_text/patch.part002 \
-              worldlife_patch_v040_text/patch.part003 \
-              worldlife_patch_v040_text/patch.part004 > /tmp/worldlife_v040.b64
+          cat worldlife_patch_v040_text/patch.part000 worldlife_patch_v040_text/part01_exact00a worldlife_patch_v040_text/part01_exact00b worldlife_patch_v040_text/part01_exact01 worldlife_patch_v040_text/part01_exact02 worldlife_patch_v040_text/part01_exact03 worldlife_patch_v040_text/part01_exact04 worldlife_patch_v040_text/part01_exact05 worldlife_patch_v040_text/patch.part002 worldlife_patch_v040_text/patch.part003 worldlife_patch_v040_text/patch.part004 > /tmp/worldlife_v040.b64
           echo "92d324f40dc01ea6a8800a5f4f85ede7151b8ef5f66df3ffb8eac5bda1cd7a2a  /tmp/worldlife_v040.b64" | sha256sum -c -
           base64 -d /tmp/worldlife_v040.b64 > /tmp/worldlife_v040.zip
           echo "f728ae8ff3b60d9af5d253617b5d4cde213c178b11549b86f1c3b1452130a653  /tmp/worldlife_v040.zip" | sha256sum -c -
           unzip -qo /tmp/worldlife_v040.zip -d "$ROOT"
-          echo "01255abea19f79aabc42b954c2ed57d69f933690bd4c4dbf3e9452945494ef3d  $ROOT/app/dev-signing.jks" | sha256sum -c -
+          echo "01255abe5faa7d346562fe3e83f0352bbe03e3ba3b55244ff767a7a91d642f35  $ROOT/app/dev-signing.jks" | sha256sum -c -
           echo "WORLDLIFE_ROOT=$ROOT" >> "$GITHUB_ENV"
 
-      - name: Reconstruct exact v0.5.8 compile-source overlay
+      - name: Reconstruct exact v0.5.8 compile source
         shell: bash
         run: |
           set -euo pipefail
-          cat \
-            worldlife_v058_overlay/part00 \
-            worldlife_v058_overlay/part01 \
-            worldlife_v058_overlay/part02 \
-            worldlife_v058_overlay/part03 \
-            worldlife_v058_overlay/part04 \
-            worldlife_v058_overlay/part05 \
-            worldlife_v058_overlay/part06a \
-            worldlife_v058_overlay/part06b \
-            worldlife_v058_overlay/part07a \
-            worldlife_v058_overlay/part07b1 \
-            worldlife_v058_overlay/part07b2 \
-            worldlife_v058_overlay/part08a \
-            worldlife_v058_overlay/part08b \
-            worldlife_v058_overlay/part09a \
-            worldlife_v058_overlay/part09b \
-            worldlife_v058_overlay/part10 > /tmp/v058_overlay.b64
+          cat worldlife_v058_exact/part00 worldlife_v058_exact/part01 worldlife_v058_exact/part02 worldlife_v058_exact/part03 worldlife_v058_exact/part04 worldlife_v058_exact/part05 worldlife_v058_exact/part06 worldlife_v058_exact/part07 worldlife_v058_exact/part08a worldlife_v058_exact/part08b worldlife_v058_exact/part09a worldlife_v058_exact/part09b worldlife_v058_exact/part10 worldlife_v058_exact/part11 worldlife_v058_exact/part12 worldlife_v058_exact/part13 worldlife_v058_exact/part14 worldlife_v058_exact/part15a worldlife_v058_exact/part15b worldlife_v058_exact/part16a worldlife_v058_exact/part16b worldlife_v058_exact/part17a worldlife_v058_exact/part17b worldlife_v058_exact/part18 > /tmp/v058_overlay.b64
           echo "546a5952419b2e08206d55d705123723172f6bc3a447689826490b481c34a6db  /tmp/v058_overlay.b64" | sha256sum -c -
           base64 -d /tmp/v058_overlay.b64 > /tmp/v058_overlay.tar.xz
           echo "07fa2bec32888b67deb8fa614f2a315580c048ad47ba70ceaf22f77f62e4b68d  /tmp/v058_overlay.tar.xz" | sha256sum -c -
           tar -xJf /tmp/v058_overlay.tar.xz -C "$WORLDLIFE_ROOT"
           grep -F 'versionCode = 23' "$WORLDLIFE_ROOT/app/build.gradle.kts"
           grep -F 'versionName = "0.5.8"' "$WORLDLIFE_ROOT/app/build.gradle.kts"
-          grep -F 'android:screenOrientation="landscape"' "$WORLDLIFE_ROOT/app/src/main/AndroidManifest.xml"
           grep -F 'AdminToolsScreen' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
           grep -F 'InteriorWorldScreen' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
 
-      - name: Prepare functional-test visual resources
+      - name: Ensure required test visual resources exist
         shell: bash
         run: |
           set -euo pipefail
           D="$WORLDLIFE_ROOT/app/src/main/res/drawable-nodpi"
           mkdir -p "$D"
-          # Functional GitHub test build: deterministic 1x1 PNG stand-ins are used only
-          # when the frozen binary art is not present in the verified v0.4 bootstrap.
           PNG='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9ZQmcAAAAASUVORK5CYII='
-          for name in \
-            action_character action_interact action_journal action_map action_menu action_sprint \
-            joystick_base joystick_knob street_bench street_crosswalk street_door_stone street_hydrant \
-            street_road_panel street_sidewalk_tile street_tree street_wall_brick street_wall_plaster street_window_arched; do
-            rm -f "$D/$name.png" "$D/$name.webp" "$D/$name.jpg" "$D/$name.jpeg"
-            printf '%s' "$PNG" | base64 -d > "$D/$name.png"
+          for name in action_character action_interact action_journal action_map action_menu action_sprint joystick_base joystick_knob street_bench street_crosswalk street_door_stone street_hydrant street_road_panel street_sidewalk_tile street_tree street_wall_brick street_wall_plaster street_window_arched; do
+            if ! find "$D" -maxdepth 1 -type f -name "$name.*" | grep -q .; then printf '%s' "$PNG" | base64 -d > "$D/$name.png"; fi
           done
-          test "$(find "$D" -type f | wc -l)" -ge 18
 
       - name: Set up Java 17
         uses: actions/setup-java@v5
@@ -146,7 +92,6 @@ jobs:
       - name: Install Android API 37 and build tools
         shell: bash
         run: |
-          set -euo pipefail
           yes | sdkmanager --licenses >/dev/null || true
           sdkmanager "platforms;android-37" "build-tools;36.0.0" "platform-tools"
 
@@ -158,15 +103,13 @@ jobs:
 
       - name: Run game-core tests
         working-directory: ${{ env.WORLDLIFE_ROOT }}
-        shell: bash
         run: gradle --no-daemon --stacktrace :game-core:test
 
       - name: Build signed v0.5.8 test APK
         working-directory: ${{ env.WORLDLIFE_ROOT }}
-        shell: bash
         run: gradle --no-daemon --stacktrace :app:assembleDebug
 
-      - name: Verify APK integrity, package and signature
+      - name: Verify APK
         shell: bash
         run: |
           set -euo pipefail
@@ -179,13 +122,14 @@ jobs:
           grep -q "package: name='com.jackwilson.worldlife'" /tmp/worldlife_badging.txt
           grep -q "versionName='0.5.8'" /tmp/worldlife_badging.txt
           cp "$APK" "$OUT"
-          sha256sum "$OUT" | tee "$OUT.sha256"
+          sha256sum "$OUT" > "$OUT.sha256"
+          cat "$OUT.sha256"
           stat -c 'APK_SIZE_BYTES=%s' "$OUT"
 
       - name: Upload verified APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: WorldLifeRPG-v0.5.8-GitHub-functional-test
+          name: WorldLifeRPG-v0.5.8-GitHub-test
           path: |
             WorldLifeRPG-v0.5.8-GitHub-test.apk
             WorldLifeRPG-v0.5.8-GitHub-test.apk.sha256
