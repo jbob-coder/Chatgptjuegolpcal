@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
 
-Define the new game from player-facing experience down through mechanics, architecture, code ownership, data authoring, performance caps, testing, Admin/Creator tooling and implementation order before gameplay source is created.
+Continue defining the new game from player-facing experience down through mechanics, numerical systems, deterministic NPC/creature behavior, architecture, code ownership, content authoring, performance caps, testing, Admin/Creator tooling and implementation order before gameplay source is created.
 
 ## CURRENT_STATE
 
@@ -13,127 +13,188 @@ This is a new game replacing WorldLife in the same repository/project area. Worl
 
 No new-game gameplay code, engine project, scenes, APK or runtime implementation has been created.
 
-The project now has a layered documentation system that proceeds from basic player experience to detailed implementation structure.
+The project documentation now includes dedicated authorities for stats/effects and deterministic behavior.
 
 ## VERIFIED_DESIGN_STATE
 
 ### Player-facing identity
 - grounded stylized wilderness/frontier monster-hunting fantasy;
 - visual identity: **an illustrated hunting world brought to life**;
-- dimensional aerial overview philosophy without literal paper/craft visuals;
-- current exploration camera target roughly 40–50° downward;
+- dimensional aerial overview without literal paper/craft visuals;
+- current camera target roughly 40–50° downward;
 - stylized 3D player/major monsters preferred for aerial→first-person continuity;
 - selective 2D/billboard/impostor detail allowed for Android efficiency.
 
 ### Core loop
-`PREPARE → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → CRAFT/UPGRADE/RESEARCH → HUNT HARDER PREY`
+`PREPARE → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → CRAFT/EQUIP/UPGRADE/RESEARCH → HUNT HARDER PREY`
 
 ### Combat
 - first-person turn-based tactical combat;
-- spatial movement/repositioning, cover and bearing matter;
-- body-part targeting is authoritative;
-- damage can wound/break/sever/destroy parts;
-- anatomy changes monster capabilities/AI options;
-- current action-economy candidate: AP + stamina + limited reaction resource, final exact rules open.
+- spatial movement/repositioning, cover, terrain and bearing matter;
+- body-part targeting authoritative;
+- damage can wound/break/sever/destroy;
+- anatomy changes creature capabilities/behavior rules;
+- current action-economy candidate: AP + stamina + limited reaction resource;
+- exact numerical values remain open.
+
+### Stats/attributes
+Current six-role design direction:
+- Might — force/heavy handling/break/stagger;
+- Finesse — precision execution/sever/technique;
+- Agility — movement/dodge/initiative/footing;
+- Endurance — stamina/sustain/environmental strain;
+- Perception — tracking/target acquisition/inspection/telegraph reading;
+- Resolve — composure/stagger/shock/fear resistance where used.
+
+Current recommendation is bounded integer attributes with an internal 1–100 design range, while starting values/growth remain open for prototype tuning.
+
+AP/reaction economy cannot scale freely from attributes/gear.
+
+### Shared effect/modifier system
+Locked architecture:
+- equipment, statuses, terrain, weather, posture, injury/anatomy and tactical context use one common typed effect pipeline;
+- explicit stack groups/policies;
+- caps/clamps/floors;
+- duplicate sources cannot stack infinitely;
+- derived stats are cached and invalidated when inputs change;
+- development calculation traces must show why a result occurred;
+- contextual hit quality is preferred over a generic hidden random critical-hit system.
+
+### Equipment
+Equipment should change tactics, not only numbers.
+
+Weapons can influence damage profile, handling, reach, break/sever efficiency, AP/stamina cost, techniques, guard/parry and effects.
+
+Armor can influence protection, burden, movement/dodge, stagger/status/environment resistance and conditional traits.
+
+Tools can influence tracking, harvesting, traps, treatment and environment interaction.
+
+### Status effects
+Statuses are data-driven authoritative runtime state with explicit duration, stack policy, intensity cap, timing hooks, resistance/cure and persistence rules.
+
+Candidate first categories include physical disruption, environmental conditions and tactical positive states. Exact first status list remains open.
+
+### Terrain/weather
+Terrain is mechanically real rather than decorative-only.
+
+Reusable tags can affect movement AP/stamina, footing/evasion, visibility/concealment, tracking evidence and tactical legality.
+
+Examples include mud, shallow water, brush, high ground, slopes, narrow terrain and ice/rough ground.
+
+Weather only affects gameplay through explicit readable rules such as rain→wet/mud/track changes, fog→range visibility and heat/cold→environmental strain where adopted.
+
+### Deterministic NPC/creature behavior
+**AI behavior system = NO.**
+
+NPCs and creatures use authored patterns made from:
+- states/phases;
+- deterministic schedules where relevant;
+- explicit `IF / ELSE IF / ELSE` conditions;
+- priorities;
+- cooldowns;
+- capability requirements;
+- situation/terrain/weather flags;
+- deterministic tie policy;
+- optional seeded variation only where explicitly authored.
+
+Simple actors have simple patterns. Complex monsters/bosses can have layered phases and condition chains, but decisions remain inspectable/reproducible.
+
+Behavior requests normal domain actions and cannot bypass anatomy, status, terrain, AP/stamina or combat legality.
 
 ### Harvest
-- yield derives from real anatomy capacity and condition;
+- yield derives from anatomy capacity/condition;
 - unique structures cannot generate impossible duplicates;
-- damage method/condition/tool/method/skill may affect recovery;
-- harvest result should explain major losses/bonuses.
+- damage method, condition, tool, method and skill may affect recovery;
+- result should explain major losses/bonuses.
 
 ### Architecture
 - one authoritative state;
 - presentation requests actions and renders state/events;
-- immutable content definitions separated from mutable runtime instances;
-- exploration→combat→world/harvest transfers preserve monster identity and injury state;
-- stable IDs from the beginning;
-- data-driven content where practical;
+- content definitions separated from runtime instances;
+- shared stats/effects service;
+- deterministic behavior-pattern service rather than AI;
+- exploration→combat→world/harvest preserves actor identity/injuries;
+- stable IDs/data-driven content;
 - new save lineage when implemented.
 
-### Player experience
-- launch/title/intro/hub/first hunt flow planned;
-- tutorial should teach the complete loop through play;
-- music/audio state structure planned;
-- exploration/combat HUD philosophy planned;
-- bestiary/harvest/crafting presentation planned;
-- accessibility/usability considerations planned.
-
 ### Performance
-- performance is treated as a feature;
 - scalable systems require caps/budgets;
-- simulation/render update tiers planned;
-- performance degradation removes decoration before tactical readability;
-- expensive subsystems should be independently disable-able in development for root-cause isolation;
-- final numerical caps remain runtime evidence, not assumptions.
+- deterministic behavior is event/decision-driven, not evaluated every frame;
+- derived stats are cached;
+- status/modifier counts are bounded/instrumented;
+- decoration is degraded before tactical readability;
+- expensive subsystems are independently isolatable in dev builds.
 
 ### Admin/Creator
-- read-only state/anatomy/combat/performance inspectors planned;
-- typed admin test mutations planned;
-- creature/anatomy/attack/harvest/encounter creator tools planned;
-- deterministic replay/save inspection planned;
-- creator tools must use validated schemas/domain paths rather than transient UI mutations.
+Planned tools now include:
+- base/derived/final stat inspector;
+- exact modifier calculation trace;
+- status/effect simulator;
+- terrain/weather debugger;
+- deterministic behavior-rule editor/trace viewer;
+- anatomy/attack/harvest/encounter tools;
+- replay/save/performance inspection.
 
 ## DOCUMENTATION SYSTEM
 
-Current active planning files:
-- `README.md` — project front door;
-- `START_HERE_NEW_CHAT.md` — current gate/read order;
-- `PROJECT_HANDOFF.md` — this continuity state;
-- `DOCUMENTATION_INDEX.md` — complete document map;
-- `GAME_EXPERIENCE_BIBLE.md` — intro, music, pacing, scale and player experience;
-- `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — visual/world/camera behavior;
-- `NEW_GAME_MASTER_PLAN.md` — full gameplay intent;
-- `MECHANICAL_SYSTEMS_GUIDE.md` — mechanics/state interaction;
-- `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — subsystem architecture/data flow;
-- `CONTENT_DATA_GUIDE.md` — stable content/data schemas;
-- `CODE_GUIDE.md` — code ownership, debugging and improvement rules;
-- `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy/caps/isolation;
-- `ADMIN_CREATOR_SYSTEM.md` — creator/debug/admin design;
-- `TESTING_VERIFICATION_PLAN.md` — tests/runtime/quality gates;
-- `IMPLEMENTATION_ROADMAP.md` — staged build order;
-- `DEVELOPMENT_REFERENCE.md` — development discipline;
-- `EVOLVE_ALIGNMENT.md` — continuity/verification rules;
-- `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved design decisions;
-- `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual plan.
+Current active planning authorities include:
+- `README.md`
+- `START_HERE_NEW_CHAT.md`
+- `PROJECT_HANDOFF.md`
+- `DOCUMENTATION_INDEX.md`
+- `GAME_EXPERIENCE_BIBLE.md`
+- `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
+- `NEW_GAME_MASTER_PLAN.md`
+- `MECHANICAL_SYSTEMS_GUIDE.md`
+- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+- `BEHAVIOR_PATTERN_SYSTEM.md`
+- `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+- `CONTENT_DATA_GUIDE.md`
+- `CODE_GUIDE.md`
+- `PERFORMANCE_BUDGETS_AND_CAPS.md`
+- `ADMIN_CREATOR_SYSTEM.md`
+- `TESTING_VERIFICATION_PLAN.md`
+- `IMPLEMENTATION_ROADMAP.md`
+- `DEVELOPMENT_REFERENCE.md`
+- `EVOLVE_ALIGNMENT.md`
+- `NEW_GAME_DISCUSSION_CHECKLIST.md`
+- `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
 
 ## COMPLETED_PLANNING
 
-- project README/front door expanded from basic game identity to technical structure;
-- documentation index created and ordered from basic→detailed;
-- game experience/intro/music/world scale guide created;
-- visual/world behavior bible created;
-- comprehensive mechanical guide created;
-- system architecture blueprint created;
-- content/data authoring guide created;
-- code guide created;
-- performance budget/cap and bug-isolation plan created;
-- Admin/Creator system planned;
-- testing/verification plan created;
-- dependency-driven implementation roadmap created;
-- first vertical-slice limits/gates recorded.
+In addition to earlier game/visual/architecture planning:
+- deterministic NPC/creature pattern system recorded;
+- AI-behavior assumption removed from primary architecture/code/performance/testing/roadmap documents;
+- six-role attribute direction recorded;
+- shared effect/modifier pipeline recorded;
+- equipment bonus architecture recorded;
+- status effect lifecycle/stacking architecture recorded;
+- terrain/weather mechanical interaction architecture recorded;
+- hit-quality direction recorded;
+- modifier/behavior Admin tracing planned;
+- combination/performance tests recorded.
 
 ## IN_PROGRESS
 
-Design discussion and refinement only.
+Design discussion/refinement only.
 
 ## NEXT_ACTION
 
-Continue discussion from the highest-value unresolved fundamentals before implementation:
-1. world premise/history;
-2. creature origin/ecology;
-3. hunter/player role;
-4. technology/magic level;
-5. first settlement/hub;
-6. first hunting region;
-7. first monster;
-8. first weapon family;
-9. solo/party baseline;
-10. exact combat action economy and pacing;
-11. gore intensity;
-12. harvest interaction depth;
-13. progression/failure structure;
-14. target Android device and engine decision.
+Continue discussing unresolved numerical/mechanical details, especially:
+1. exact starting attribute baseline/distribution;
+2. whether attributes grow directly, mostly through equipment/mastery, or both;
+3. exact health/stamina derivation;
+4. exact first AP/reaction model;
+5. equipment slots and loadout structure;
+6. armor burden/weight model;
+7. first status list and severity;
+8. first terrain tag/effect set;
+9. exact damage/hit-quality formulas;
+10. resistance channels;
+11. first monster behavior pattern complexity;
+12. world premise/history/technology/magic;
+13. first hub/region/monster/weapon;
+14. target Android device and engine.
 
 Do not implement gameplay until the user explicitly authorizes it.
 
@@ -141,44 +202,44 @@ Do not implement gameplay until the user explicitly authorizes it.
 
 - final name;
 - setting/history/time period;
-- magic/technology model;
+- magic/technology;
 - creature ecology/origin;
 - player identity;
 - first hub/region/monster/weapon;
 - solo/party;
 - exact AP/turn rules;
-- exact camera projection;
-- exact gore intensity;
-- harvesting interaction depth;
-- crafting/progression/campaign depth;
-- death/failure rules;
-- engine;
-- Android minimum/performance target.
+- exact starting attribute values/growth/caps;
+- exact equipment slots/burden;
+- exact first status/terrain set;
+- exact hit/damage/resistance formulas;
+- exact gore/harvest interaction depth;
+- crafting/progression/failure;
+- engine/Android target.
 
 ## IMPORTANT ENGINEERING DECISIONS
 
-- new game does not inherit WorldLife gameplay source architecture by default;
-- same repository/project area is reused;
-- domain authority is separate from presentation;
-- content definitions are separate from runtime instances;
-- combat must be testable without final rendering;
-- every scalable subsystem gets a bounded cost/cap;
-- admin/debug tooling must aid root-cause isolation;
-- creator tools follow stable validated data schemas;
-- no feature is complete because a UI control exists;
-- first complete hunt loop is proven before broad expansion.
+- no AI behavior system;
+- deterministic pattern/condition behavior is the autonomous-actor architecture;
+- one shared modifier system handles equipment/status/terrain/context effects;
+- domain authority separate from presentation;
+- content definitions separate from runtime instances;
+- combat/stat/behavior rules testable headlessly;
+- every scalable subsystem bounded/instrumented;
+- Admin tools aid root-cause isolation and use validated schemas;
+- first complete hunt loop before broad expansion.
 
 ## RISKS
 
-- overbuilding anatomy simulation before combat is fun;
-- first-person combat becoming a static menu;
-- harvesting becoming repetitive busywork;
-- world scale becoming empty rather than dense/meaningful;
+- too many modifiers creating opaque math;
+- AP/equipment bonuses breaking action economy;
+- status proliferation creating combinatorial bugs;
+- terrain becoming clutter rather than tactical choice;
+- behavior patterns turning into giant unmaintainable nested condition scripts instead of reusable rule data;
+- overbuilding anatomy before combat is fun;
+- harvesting becoming repetitive;
 - 2D/3D art mismatch;
 - too many targetable parts for phone UI;
-- unbounded AI/VFX/assets slowing older phones;
-- Admin system mutating state outside normal validation;
-- creator tool development overtaking actual game development;
+- creator tooling overtaking game development;
 - engine selection before target-device evidence.
 
 ## TESTS_RUN
@@ -191,6 +252,9 @@ DESIGN_RECORDED = YES
 DOCUMENTATION_SYSTEM_RECORDED = YES
 PLAYER_EXPERIENCE_GUIDE = YES
 MECHANICAL_SYSTEMS_GUIDE = YES
+STATS_EFFECTS_SYSTEM_DESIGNED = YES
+DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
+AI_BEHAVIOR_SYSTEM = NO
 SYSTEM_ARCHITECTURE_PLANNED = YES
 CONTENT_PIPELINE_PLANNED = YES
 CODE_GUIDE_RECORDED = YES
