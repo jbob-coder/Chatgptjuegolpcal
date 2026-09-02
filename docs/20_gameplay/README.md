@@ -37,8 +37,29 @@ Selected direction:
 - no universal gear-score treadmill as primary truth;
 - anatomy, terrain and preparation must remain relevant at high progression.
 
+### Combat
+`combat/README.md`
+
+Primary current authority:
+`combat/ACTION_ECONOMY_CONTRACT.md`
+
+Selected first-slice direction:
+- separate AP / RP / Stamina resources;
+- prototype hunter baseline `4 AP / 1 RP`;
+- no AP banking;
+- ordinary attributes/progression do not grant extra normal turns;
+- standard movement commonly 1 AP;
+- standard attack commonly 2 AP;
+- precision attack commonly 3 AP;
+- heavy/full-turn commitment commonly 4 AP;
+- explicit reaction windows;
+- one normal reaction per baseline reaction window;
+- reaction recursion blocked;
+- body-part selection inside an attack is not automatically an extra AP tax;
+- UI/animation cannot own turn timing or resource spending.
+
 Next dependent gameplay packet:
-**Exact Combat Action-Economy Contract**.
+**Combat Resolution / Hit Quality and Defense Contract**.
 
 ## Existing root authorities
 
@@ -48,5 +69,7 @@ Current root authorities remain authoritative, including:
 - `/BEHAVIOR_PATTERN_SYSTEM.md`;
 - `/CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`;
 - `/NEW_GAME_MASTER_PLAN.md`.
+
+The package-local combat/progression authorities refine compatible generic statements in those root files. If a root file still calls the action economy a candidate, `combat/ACTION_ECONOMY_CONTRACT.md` is the more specific current authority for the first-slice action-economy design.
 
 Rule: a content/world package may select/configure gameplay definitions but may not fork the generic rules locally.
