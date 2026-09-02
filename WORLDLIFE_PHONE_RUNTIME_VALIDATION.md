@@ -21,17 +21,25 @@ Test target: `WorldLifeRPG-v0.5.8-GitHub-test.apk`.
 
 `APK_BUILD_VERIFIED`: YES.
 
-Observed build gates passed: source/bootstrap SHA reconstruction, exact v0.5.8 compile-source overlay SHA, signing-key SHA, Java 17, API/build-tools 37, Gradle 9.3.1, `:game-core:test`, `:app:assembleDebug`, APK ZIP integrity, `apksigner`, package/version checks, artifact upload.
+Observed GitHub build gates passed: source/bootstrap SHA reconstruction, exact v0.5.8 compile-source overlay SHA, signing-key SHA, Java 17, API/build-tools 37, Gradle 9.3.1, `:game-core:test`, `:app:assembleDebug`, APK ZIP integrity, `apksigner`, package/version checks, artifact upload.
+
+A later direct Drive readback independently reconfirmed:
+
+- APK size: `44,012,114` bytes
+- APK SHA-256: `e1e10e6910d2bcc1a1ca87bfc9946727f1307c9a008020dfc03d12aa58ad7c0f`
+- APK ZIP integrity: PASS via `unzip -t`
 
 `PHONE_RUNTIME_VERIFIED`: NO.
 
 `VISUAL_PARITY_VERIFIED`: NO.
 
-The workflow removes one invalid explicit Compose `weight` import and may generate 1×1 fallback PNGs for required visual resources absent from GitHub transport. Functional runtime observations are valid; final art/texture quality is not represented by this APK.
+Direct APK inspection now confirms this build contains 1×1 fallback PNGs for **all 19 workflow-checked action/joystick/street visual resources**. They are each 68 bytes in the APK, while the frozen Drive source contains real resource files ranging from 12,468 to 186,092 bytes. Therefore this APK is definitively functional-test-only for those visuals.
+
+Full evidence: `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md`.
 
 ## Evidence rules
 
-For each test item record one of:
+For each phone test item record one of:
 
 - `PASS` — directly observed working on the phone.
 - `FAIL` — directly observed defect.
@@ -39,7 +47,7 @@ For each test item record one of:
 - `NOT_TESTED` — no observation yet.
 - `NOT_APPLICABLE` — only if the test truly cannot apply.
 
-Do not infer PASS from source, build success, or another feature working.
+Do not infer PASS from source, build success, another feature working, or the static pre-runtime audit.
 
 ## Runtime checklist
 
@@ -49,13 +57,13 @@ Do not infer PASS from source, build success, or another feature working.
 | 2 | No black screen | NOT_TESTED | |
 | 3 | Landscape orientation works | NOT_TESTED | |
 | 4 | UI scale is usable/correct | NOT_TESTED | |
-| 5 | Left joystick moves player | NOT_TESTED | |
+| 5 | Left joystick moves player | NOT_TESTED | APK joystick artwork is fallback; test touch behavior, not final icon quality. |
 | 6 | Right-side drag moves camera | NOT_TESTED | |
 | 7 | Camera distance/angle is usable | NOT_TESTED | |
-| 8 | Player scale looks believable | NOT_TESTED | |
-| 9 | Building/street scale looks believable | NOT_TESTED | |
+| 8 | Player scale looks believable | NOT_TESTED | Judge geometry/scale, not fallback texture fidelity. |
+| 9 | Building/street scale looks believable | NOT_TESTED | Judge geometry/scale, not fallback street textures. |
 | 10 | Movement collision works | NOT_TESTED | |
-| 11 | Map opens/functions | NOT_TESTED | |
+| 11 | Map opens/functions | NOT_TESTED | Map action icon is fallback; test function. |
 | 12 | Fast travel works | NOT_TESTED | |
 | 13 | NPC TALK works | NOT_TESTED | |
 | 14 | Apartment ENTER works | NOT_TESTED | |
@@ -66,10 +74,25 @@ Do not infer PASS from source, build success, or another feature working.
 | 19 | Admin Panel opens/modifies state | NOT_TESTED | |
 | 20 | No crashes/ANRs/missing controls/unusable touch areas | NOT_TESTED | |
 | 21 | Screenshots/video/errors captured for defects | NOT_TESTED | |
+| 22 | Camera recenter points behind/with current facing direction | NOT_TESTED | STATIC-001 predicts mirrored recenter for six non-N/S directions; verify actual device behavior. |
 
-## Defect ledger
+## Pre-runtime static findings
 
-Add confirmed runtime defects here before changing source.
+### STATIC-001 — camera recenter direction mismatch
+
+Status: `STATIC_CONFIRMED / PHONE_NOT_TESTED`.
+
+`OpenWorldScreen.kt` contains two inconsistent yaw conventions. Its movement/camera math and `facingYaw()` convention use EAST = 90° and WEST = -90°/270°, but the recenter callback assigns EAST = 270° and WEST = 90°. The same horizontal mirroring affects NE, SE, SW and NW; only NORTH and SOUTH match.
+
+Expected device symptom: after moving/facing in one of the six affected directions and pressing recenter, the camera should rotate to the horizontally mirrored heading instead of aligning with the facing direction.
+
+Do not mark runtime FAIL until observed on phone. If reproduced, promote it into the confirmed defect ledger and rank by actual usability impact.
+
+See `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md` for source/math details.
+
+## Confirmed runtime defect ledger
+
+Add direct phone defects here before changing source.
 
 | ID | Severity | Symptom | Reproduction | Evidence | Suspected owner | Root cause | Fix version | Retest |
 |---|---|---|---|---|---|---|---|---|
@@ -85,4 +108,6 @@ Severity definitions:
 
 ## Next action
 
-Install the permanent Drive APK on the target Android phone and populate this ledger from observed results. Fix the highest-severity confirmed defect first. Do not begin unrelated v0.5.9 expansion before blocker/critical runtime state is known.
+Install the permanent Drive APK on the target Android phone and populate this ledger from observed results, including camera recenter.
+
+Fix the highest-severity confirmed phone defect first. Do not begin unrelated v0.5.9 expansion before blocker/critical runtime state is known.
