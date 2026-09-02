@@ -30,7 +30,7 @@ A requirement can be promoted earlier only when a verified implementation depend
 |---|---|---|
 | ENGINE PROBE | **SOURCE CREATED / EXECUTION PENDING** | Stage 1 skeleton exists; Godot parse/editor/device evidence is next |
 | DOMAIN IMPLEMENTATION | **BLOCKED BY ENGINE PROBE** | design foundation mostly ready; final engine evidence still required |
-| COMBAT | **PARTIAL / ADVANCED** | action economy + resolution are recorded; first weapon/stamina/initiative/status/terrain/content details remain |
+| COMBAT | **PARTIAL / ADVANCED** | action economy + resolution + first weapon family are recorded; Stamina/initiative/status/terrain/content details remain |
 | VERTICAL SLICE | **PARTIAL / LATER** | world/content packages exist, but integrated loop dependencies remain |
 | EXPANSION | **INTENTIONALLY OPEN** | broad content/lore/endgame decisions should not delay earlier gates |
 
@@ -113,7 +113,7 @@ Do not block the engine probe on:
 - final game name;
 - complete lore/history;
 - final combat damage numbers;
-- final weapon family;
+- final setting-facing weapon terminology;
 - exact crystal tier taxonomy;
 - final Hunter model;
 - final Monster 01 model;
@@ -200,7 +200,7 @@ Autonomous actors use authored deterministic patterns/conditions.
 Status: `RECORDED / COMBAT BOUNDARY NOW DEFINED`
 
 Domain resolution supports seeded/reproducible behavior where randomness is used.
-Combat resolution now specifically selects bounded seeded variance with deterministic legality/anatomy/cover truth and no unrelated random critical-hit roll.
+Combat resolution selects bounded seeded variance with deterministic legality/anatomy/cover truth and no unrelated random critical-hit roll.
 
 Authority:
 `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
@@ -225,7 +225,7 @@ Implementation must retain exact status distinction between implemented, tested,
 Before Stage 2 it is acceptable for these to remain unfinished:
 - final hit-quality numeric thresholds;
 - exact stamina numbers;
-- exact first weapon balance;
+- exact first-weapon balance values;
 - settlement final art;
 - complete crafting tree;
 - detailed ecosystem evolution;
@@ -282,6 +282,26 @@ Recorded decisions include:
 
 Exact balance constants remain open until prototype evidence.
 
+### First weapon family
+Status: `DONE AT FIRST-SLICE DESIGN LEVEL`
+
+Authority:
+`docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`.
+
+Selected:
+- technical family ID `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- working name Field Poleblade;
+- two-handed long-hafted weapon;
+- primary cutting/sever identity;
+- secondary piercing/control identity;
+- limited impact capability;
+- directional Guard and restricted Parry;
+- first packet with 2 AP normal cut, 2 AP thrust, 3 AP precision hew, 4 AP committed cleave, short-range haft check and bounded defensive support;
+- explicit technique hit-quality ceilings and body-fallback policies;
+- deliberate weakness at dedicated hard-structure break, cramped fighting and shield-level defense.
+
+Exact Stamina costs, damage values, reach meters, dimensions and animation timings remain prototype-open.
+
 ### Anatomy model and first target groups
 Status: `DONE AT DESIGN LEVEL`
 
@@ -302,25 +322,19 @@ Status: `DONE AT DESIGN LEVEL`
 
 ## Still required before real combat implementation
 
-### First weapon family
+### Stamina prototype scale/recovery
 Status: `OPEN / NEXT COMBAT DESIGN DEPENDENCY`
 
-Need one first-slice family only, including:
-- weapon profile;
-- damage channels;
-- reach/range;
-- handling/control profile;
-- AP/stamina costs;
-- normal/precision/heavy techniques;
-- hit-quality ceilings;
-- body-fallback policy;
-- break/sever identity;
-- guard/parry relationship where applicable.
-
-### Stamina prototype scale/recovery
-Status: `OPEN`
-
 Need enough numbers to test several-turn exertion and recovery without locking endgame balance.
+
+Must instantiate:
+- Stamina maximum prototype scale;
+- passive recovery timing;
+- deliberate recovery amount/cost;
+- low-Stamina consequence bands;
+- minimum action-cost floors;
+- Field Poleblade technique/defense Stamina costs;
+- anti-infinite-recovery invariants.
 
 ### Initiative prototype
 Status: `OPEN`
@@ -382,7 +396,7 @@ Before Stage 6 source work, previous implementation stages must also be tested:
 
 ### Combat gate
 
-`COMBAT_DESIGN_READINESS = PARTIAL / TWO CORE CONTRACTS RECORDED`
+`COMBAT_DESIGN_READINESS = PARTIAL / THREE CORE CONTRACTS RECORDED`
 `COMBAT_IMPLEMENTATION = BLOCKED UNTIL REQUIRED PACKETS + PRIOR IMPLEMENTATION GATES`
 
 ---
@@ -423,7 +437,14 @@ ensure the first end-to-end hunt proves the actual game rather than an isolated 
 - combat presentation phone-verified.
 
 ### One complete weapon family
-Need actual playable first weapon content.
+Design authority exists for the Field Poleblade, but actual playable implementation/content remains later-gated.
+
+Need later:
+- validated weapon data;
+- playable techniques;
+- first-person presentation/animation;
+- balance evidence;
+- save/load equipment state.
 
 ### Monster 01 complete first-slice packet
 Need:
@@ -513,7 +534,8 @@ These are important but must not block Stage 1, Stage 2 or the first combat/vert
 - complete world history;
 - complete religion/economics around crystals;
 - broad campaign/story structure;
-- final protagonist story identity.
+- final protagonist story identity;
+- final setting-facing name for Field Poleblade if terminology changes.
 
 ## Crystal/mutation breadth
 - full tier/rank names and long-range scale;
@@ -536,7 +558,7 @@ These are important but must not block Stage 1, Stage 2 or the first combat/vert
 - second/third settlements;
 - additional regions;
 - large monster roster;
-- large weapon roster;
+- broad weapon roster beyond the first Field Poleblade family;
 - huge recipe tree;
 - complete equipment catalog;
 - endgame ranks;
@@ -555,7 +577,8 @@ These are important but must not block Stage 1, Stage 2 or the first combat/vert
 - elaborate ammo/reload systems;
 - advanced durability/sharpness if not proven useful;
 - many reaction/counter chains;
-- colossal-monster special rules.
+- colossal-monster special rules;
+- numerous weapon families before the first one is proven.
 
 ## World breadth
 - broad weather simulation;
@@ -586,7 +609,8 @@ When a new requirement is discovered:
 Examples:
 - exact Mudcrest material selling price → `CAN_WAIT_UNTIL_EXPANSION` unless the first slice explicitly tests economy;
 - touch-control layout → `MUST_EXIST_BEFORE_ENGINE_PROBE` because the phone probe must test input;
-- hit-resolution architecture → `MUST_EXIST_BEFORE_COMBAT` and is now recorded;
+- hit-resolution architecture → `MUST_EXIST_BEFORE_COMBAT` and is recorded;
+- first weapon-family contract → `MUST_EXIST_BEFORE_COMBAT` and is recorded;
 - one crafting recipe → `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
 - complete elemental roster → `CAN_WAIT_UNTIL_EXPANSION`.
 
@@ -605,7 +629,9 @@ As of 2026-09-02:
 `DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`
 `COMBAT_ACTION_ECONOMY = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
-`COMBAT_DESIGN_READINESS = PARTIAL`
+`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
+`COMBAT_DESIGN_READINESS = PARTIAL / THREE CORE CONTRACTS RECORDED`
 `VERTICAL_SLICE_READINESS = PARTIAL`
 `EXPANSION_DECISIONS = INTENTIONALLY_OPEN`
 
@@ -613,6 +639,6 @@ Exact next implementation piece:
 **Godot parse/editor smoke verification of the existing Stage-1 probe.**
 
 Exact next design piece that can proceed independently:
-**First Weapon Family Contract.**
+**Stamina Prototype Scale and Recovery Contract.**
 
 Implementation and design may advance in parallel only when their dependencies do not conflict. Each still follows one bounded EVOLVE piece at a time and must preserve readback/testing gates.
