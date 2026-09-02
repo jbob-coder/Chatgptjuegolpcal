@@ -1,109 +1,209 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: DESIGN DISCUSSION ONLY / NO GAMEPLAY CODE AUTHORIZED
+Status: DESIGN SYSTEM / PLANNING ONLY / NO GAMEPLAY CODE AUTHORIZED
 Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
-Define the new game completely enough to discuss its identity, combat, harvesting, exploration, architecture, visuals, progression, content pipeline, Android constraints, and first vertical slice before any gameplay implementation begins.
+
+Define the new game from player-facing experience down through mechanics, architecture, code ownership, data authoring, performance caps, testing, Admin/Creator tooling and implementation order before gameplay source is created.
 
 ## CURRENT_STATE
-This is a new game replacing WorldLife in the same repository/project area. WorldLife is not the design base. No new-game gameplay code has been created.
 
-The visual/world-behavior direction is now substantially more defined and recorded in `VISUAL_WORLD_BEHAVIOR_BIBLE.md`.
+This is a new game replacing WorldLife in the same repository/project area. WorldLife is not the design base.
 
-## VERIFIED_STATE
-- User explicitly ordered WorldLife deleted/replaced.
-- Same repository/project area is to be reused.
-- Exploration direction: aerial/top-down angled 2D/3D hybrid.
-- Visual philosophy: Paper-Mario-like dimensional overview/readability without a literal paper/craft aesthetic.
-- Core visual identity: **an illustrated hunting world brought to life**.
-- Theme target: grounded stylized wilderness / frontier monster-hunting fantasy.
-- Current exploration camera target: roughly 40–50° downward, elevated landscape-phone composition.
-- Nature and large readable forms dominate hunting regions; small decorative detail is secondary.
-- Player and major monsters are preferably stylized 3D for continuity between aerial exploration and first-person combat.
-- Combat direction: first-person turn-based tactical battles.
-- Exploration-to-combat transition should visually lower the camera into the same encounter context rather than load an unrelated generic battle space.
-- Body-part targeting, break/sever/destruction, and condition-based harvesting are core systems.
-- Player combat choices must include tactical movement, cover, posture/defense, attack type, target body part, tools/items, analysis, reactions, and retreat where legal.
-- Anatomy damage must have persistent visible consequences that match authoritative part state.
-- UI direction: restrained practical hunter/field-document language, large touch targets, no generic glossy mobile clutter.
-- Implementation remains blocked until design discussion is complete.
+No new-game gameplay code, engine project, scenes, APK or runtime implementation has been created.
 
-## COMPLETED
-- Initial comprehensive design plan recorded.
-- Core combat action vocabulary recorded.
-- Anatomy/break/sever/harvest model recorded.
-- Exploration/combat authority separation recorded.
-- Engine decision identified as an explicit gate rather than assumed from WorldLife.
-- Visual/world behavior bible recorded.
-- Exploration camera/readability contract recorded.
-- Environment layering and region visual-language rules recorded.
-- Exploration-to-combat camera/world continuity recorded.
-- First-person combat visual/targeting behavior recorded.
-- Body-damage visual-state rules recorded.
-- Frontier settlement/material language recorded.
-- UI/audio/lighting/animation behavior recorded.
-- Android performance visual-priority order recorded.
+The project now has a layered documentation system that proceeds from basic player experience to detailed implementation structure.
+
+## VERIFIED_DESIGN_STATE
+
+### Player-facing identity
+- grounded stylized wilderness/frontier monster-hunting fantasy;
+- visual identity: **an illustrated hunting world brought to life**;
+- dimensional aerial overview philosophy without literal paper/craft visuals;
+- current exploration camera target roughly 40–50° downward;
+- stylized 3D player/major monsters preferred for aerial→first-person continuity;
+- selective 2D/billboard/impostor detail allowed for Android efficiency.
+
+### Core loop
+`PREPARE → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → CRAFT/UPGRADE/RESEARCH → HUNT HARDER PREY`
+
+### Combat
+- first-person turn-based tactical combat;
+- spatial movement/repositioning, cover and bearing matter;
+- body-part targeting is authoritative;
+- damage can wound/break/sever/destroy parts;
+- anatomy changes monster capabilities/AI options;
+- current action-economy candidate: AP + stamina + limited reaction resource, final exact rules open.
+
+### Harvest
+- yield derives from real anatomy capacity and condition;
+- unique structures cannot generate impossible duplicates;
+- damage method/condition/tool/method/skill may affect recovery;
+- harvest result should explain major losses/bonuses.
+
+### Architecture
+- one authoritative state;
+- presentation requests actions and renders state/events;
+- immutable content definitions separated from mutable runtime instances;
+- exploration→combat→world/harvest transfers preserve monster identity and injury state;
+- stable IDs from the beginning;
+- data-driven content where practical;
+- new save lineage when implemented.
+
+### Player experience
+- launch/title/intro/hub/first hunt flow planned;
+- tutorial should teach the complete loop through play;
+- music/audio state structure planned;
+- exploration/combat HUD philosophy planned;
+- bestiary/harvest/crafting presentation planned;
+- accessibility/usability considerations planned.
+
+### Performance
+- performance is treated as a feature;
+- scalable systems require caps/budgets;
+- simulation/render update tiers planned;
+- performance degradation removes decoration before tactical readability;
+- expensive subsystems should be independently disable-able in development for root-cause isolation;
+- final numerical caps remain runtime evidence, not assumptions.
+
+### Admin/Creator
+- read-only state/anatomy/combat/performance inspectors planned;
+- typed admin test mutations planned;
+- creature/anatomy/attack/harvest/encounter creator tools planned;
+- deterministic replay/save inspection planned;
+- creator tools must use validated schemas/domain paths rather than transient UI mutations.
+
+## DOCUMENTATION SYSTEM
+
+Current active planning files:
+- `README.md` — project front door;
+- `START_HERE_NEW_CHAT.md` — current gate/read order;
+- `PROJECT_HANDOFF.md` — this continuity state;
+- `DOCUMENTATION_INDEX.md` — complete document map;
+- `GAME_EXPERIENCE_BIBLE.md` — intro, music, pacing, scale and player experience;
+- `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — visual/world/camera behavior;
+- `NEW_GAME_MASTER_PLAN.md` — full gameplay intent;
+- `MECHANICAL_SYSTEMS_GUIDE.md` — mechanics/state interaction;
+- `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — subsystem architecture/data flow;
+- `CONTENT_DATA_GUIDE.md` — stable content/data schemas;
+- `CODE_GUIDE.md` — code ownership, debugging and improvement rules;
+- `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy/caps/isolation;
+- `ADMIN_CREATOR_SYSTEM.md` — creator/debug/admin design;
+- `TESTING_VERIFICATION_PLAN.md` — tests/runtime/quality gates;
+- `IMPLEMENTATION_ROADMAP.md` — staged build order;
+- `DEVELOPMENT_REFERENCE.md` — development discipline;
+- `EVOLVE_ALIGNMENT.md` — continuity/verification rules;
+- `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved design decisions;
+- `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual plan.
+
+## COMPLETED_PLANNING
+
+- project README/front door expanded from basic game identity to technical structure;
+- documentation index created and ordered from basic→detailed;
+- game experience/intro/music/world scale guide created;
+- visual/world behavior bible created;
+- comprehensive mechanical guide created;
+- system architecture blueprint created;
+- content/data authoring guide created;
+- code guide created;
+- performance budget/cap and bug-isolation plan created;
+- Admin/Creator system planned;
+- testing/verification plan created;
+- dependency-driven implementation roadmap created;
+- first vertical-slice limits/gates recorded.
 
 ## IN_PROGRESS
-Design discussion only.
 
-No gameplay implementation is authorized.
+Design discussion and refinement only.
 
 ## NEXT_ACTION
-Continue discussing and locking the game's visual identity, setting, world structure, player/hunter identity, creature ecology, weapon families, progression, hub structure, action economy and exact combat pacing.
 
-Do not implement gameplay yet.
+Continue discussion from the highest-value unresolved fundamentals before implementation:
+1. world premise/history;
+2. creature origin/ecology;
+3. hunter/player role;
+4. technology/magic level;
+5. first settlement/hub;
+6. first hunting region;
+7. first monster;
+8. first weapon family;
+9. solo/party baseline;
+10. exact combat action economy and pacing;
+11. gore intensity;
+12. harvest interaction depth;
+13. progression/failure structure;
+14. target Android device and engine decision.
+
+Do not implement gameplay until the user explicitly authorizes it.
 
 ## BLOCKERS / OPEN DECISIONS
-- Final game name is unknown.
-- Exact world history/time period/magic or technology level is not locked.
-- Creature ecology and origin are not locked.
-- Player identity and story role are not locked.
-- Weapon roster is not locked.
-- Solo vs party/companions is not locked.
-- Exact action economy is not locked.
-- Exact orthographic-like vs long-focal perspective exploration projection still needs device/prototype comparison after implementation authorization.
-- Exact gore/severing intensity is not locked.
-- Harvesting interaction depth is not locked.
-- Crafting/progression/campaign structure is not locked.
-- Engine and Android baseline are not locked.
-- Permanent deletion of the frozen Google Drive WorldLife archive is currently blocked by the connector/platform safety layer.
 
-## IMPORTANT_DECISIONS
-- New project; do not inherit WorldLife gameplay architecture by default.
-- Same repository/project area is reused.
-- Presentation never becomes a second rules engine.
-- Exploration should read like a dimensional illustrated wilderness rather than a flat map.
-- The visual style is not literal paper/craft.
-- The wilderness should be beautiful and grounded enough that first-person anatomy damage does not feel tonally disconnected.
-- Body-part condition drives combat consequences, visible monster condition and harvest yield.
-- Encounter transition preserves monster/location/terrain/cover/injury continuity.
-- Environment communicates hunting information before excessive HUD markers are added.
-- Android performance degradation removes decorative complexity before tactical readability.
-- First vertical slice must validate one complete hunt loop before world scale/content expansion.
+- final name;
+- setting/history/time period;
+- magic/technology model;
+- creature ecology/origin;
+- player identity;
+- first hub/region/monster/weapon;
+- solo/party;
+- exact AP/turn rules;
+- exact camera projection;
+- exact gore intensity;
+- harvesting interaction depth;
+- crafting/progression/campaign depth;
+- death/failure rules;
+- engine;
+- Android minimum/performance target.
+
+## IMPORTANT ENGINEERING DECISIONS
+
+- new game does not inherit WorldLife gameplay source architecture by default;
+- same repository/project area is reused;
+- domain authority is separate from presentation;
+- content definitions are separate from runtime instances;
+- combat must be testable without final rendering;
+- every scalable subsystem gets a bounded cost/cap;
+- admin/debug tooling must aid root-cause isolation;
+- creator tools follow stable validated data schemas;
+- no feature is complete because a UI control exists;
+- first complete hunt loop is proven before broad expansion.
 
 ## RISKS
-- Overbuilding anatomy simulation before the combat loop is fun.
-- First-person combat becoming a menu with a camera instead of spatial tactics.
-- Harvest math becoming opaque or grindy.
-- 2D/3D hybrid art becoming visually inconsistent.
-- Targeting too many body parts creating touch-UI overload.
-- Visual detail making the aerial world noisy on a phone.
-- A combat transition that feels like loading a separate minigame instead of entering the same physical encounter.
-- Selecting an engine before testing the actual Android target hardware.
+
+- overbuilding anatomy simulation before combat is fun;
+- first-person combat becoming a static menu;
+- harvesting becoming repetitive busywork;
+- world scale becoming empty rather than dense/meaningful;
+- 2D/3D art mismatch;
+- too many targetable parts for phone UI;
+- unbounded AI/VFX/assets slowing older phones;
+- Admin system mutating state outside normal validation;
+- creator tool development overtaking actual game development;
+- engine selection before target-device evidence.
 
 ## TESTS_RUN
+
 None. No implementation exists.
 
-## IMPLEMENTATION_STATUS
+## STATUS GATES
+
 DESIGN_RECORDED = YES
-VISUAL_WORLD_BEHAVIOR_DESIGNED = YES
+DOCUMENTATION_SYSTEM_RECORDED = YES
+PLAYER_EXPERIENCE_GUIDE = YES
+MECHANICAL_SYSTEMS_GUIDE = YES
+SYSTEM_ARCHITECTURE_PLANNED = YES
+CONTENT_PIPELINE_PLANNED = YES
+CODE_GUIDE_RECORDED = YES
+PERFORMANCE_CAPS_PLANNED = YES
+ADMIN_CREATOR_SYSTEM_PLANNED = YES
+TESTING_PLAN_RECORDED = YES
+IMPLEMENTATION_ROADMAP_RECORDED = YES
 GAMEPLAY_SOURCE_CREATED = NO
-VISUAL_PROTOTYPE_IMPLEMENTED = NO
+ENGINE_SELECTED = NO
 IMPLEMENTATION_AUTHORIZED = NO
-PHONE_RUNTIME_VERIFIED = NO
 APK_BUILD_VERIFIED = NO
+PHONE_RUNTIME_VERIFIED = NO
 
 ## AUTHORITY
-Current explicit user instruction > these new-game durable docs > future verified source/tests > conversation summaries.
+
+Current explicit user instruction > current new-game durable design docs > future verified source/tests > conversation summaries.
