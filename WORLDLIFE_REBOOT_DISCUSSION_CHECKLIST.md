@@ -8,7 +8,7 @@ Use this file during the design conversation. Decisions move into `WORLDLIFE_REB
 ## A. Identity / setting
 
 - [ ] Final game name.
-- [ ] Keep or retire `WorldLife` branding.
+- [ ] Keep or retire `WorldLife` branding for the new game.
 - [ ] Setting: fantasy / modern fantasy / science fiction / post-apocalyptic / other.
 - [ ] Player role and reason for hunting.
 - [ ] Tone: grounded, dark, adventurous, heroic, survival-heavy, other.
@@ -75,7 +75,7 @@ Use this file during the design conversation. Decisions move into `WORLDLIFE_REB
 - [ ] NPC relationships.
 - [ ] Economy/merchants.
 - [ ] Property/base upgrades.
-- [ ] Whether any previous life-sim systems survive the reboot.
+- [ ] Whether any previous life-sim concepts survive the reboot after old code is removed.
 
 ## H. Visual direction
 
@@ -94,14 +94,24 @@ Use this file during the design conversation. Decisions move into `WORLDLIFE_REB
 - [ ] Godot 4.7 Compatibility vs LibGDX/Kotlin vs other.
 - [ ] Package ID strategy.
 - [ ] Signing key strategy.
-- [ ] Google Drive/GitHub project storage structure.
+- [x] Reuse the same active GitHub/Google Drive project area for the new game.
+- [ ] Exact cleaned folder/root layout inside that project area.
 - [ ] Local-phone build/test workflow.
 
 ## J. Legacy cleanup
 
-- [ ] Confirm whether old v0.5.8 frozen Drive source should be retained as archive or permanently deleted.
-- [ ] Confirm whether old APKs/build artifacts should be deleted.
-- [ ] Confirm whether old GitHub branches should be retained as history or deleted.
-- [ ] Confirm whether old save data/package should be preserved on the phone.
+Resolved:
 
-No destructive cleanup occurs until the discussion resolves this section.
+- [x] Remove the old WorldLife active implementation from the active project area.
+- [x] Remove old active APK/build/runtime artifacts from the area used by the reboot.
+- [x] Do not carry old gameplay code into the new source tree by default.
+- [x] Reuse the same project area after cleanup rather than creating a separate active project area.
+- [x] A rollback-only archive may remain outside the active source/work area for EVOLVE recovery; it must not be treated as active code.
+
+Still to decide before cleanup execution reaches device/account data:
+
+- [ ] Whether the installed old package/save data on the phone should also be erased.
+- [ ] Whether the reboot keeps the same Android package ID/signing lineage or uses a new one.
+- [ ] Whether any old art/content assets are intentionally salvaged after provenance/fit review, or all are discarded.
+
+Cleanup is approved as a project decision, but the current milestone remains documentation/discussion only. No reboot gameplay code is created until the user ends the discussion hold.
