@@ -31,13 +31,15 @@ Repeated Hunter technical multiview generation using the current image-generatio
 
 Then read the owning package for the active task.
 
-### Current gameplay task
+### Current gameplay authorities
 - `docs/20_gameplay/README.md`
 - `docs/20_gameplay/progression/README.md`
 - `docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`
+- `docs/20_gameplay/combat/README.md`
+- `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`
 
 Next bounded packet:
-**Exact Combat Action-Economy Contract**.
+**Combat Resolution / Hit Quality and Defense Contract**.
 
 ### Region 01
 - `docs/10_world/regions/REGION_01/README.md`
@@ -124,6 +126,35 @@ Core laws:
 Authority:
 `docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
 
+## Current combat action economy
+
+Authority:
+`docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`.
+
+Selected architecture:
+- `AP` = current-turn tactical opportunity;
+- `RP` = bounded out-of-turn defensive response;
+- `STAMINA` = persistent exertion across turns;
+- normal AP does not bank;
+- ordinary attributes/progression do not grant extra normal turns;
+- explicit reaction windows;
+- reaction recursion blocked;
+- UI/animation does not own resource spending or turn advancement.
+
+First-slice prototype targets:
+- `4 AP` per hunter turn;
+- `1 RP` normal reaction reserve;
+- standard move commonly `1 AP`;
+- standard attack `2 AP`;
+- precision attack `3 AP`;
+- heavy/full-turn commitment `4 AP`;
+- aim/brace/analyze/recovery commonly `1 AP`;
+- larger reposition commonly `2 AP` plus stamina.
+
+Body-part selection inside an already legal attack is not automatically an extra AP charge. Setup actions such as Aim, Analyze and movement can cost AP separately.
+
+Exact stamina values, initiative formula and weapon-specific costs remain open for testing.
+
 ## Hunter Base 01
 
 Purpose: reusable production/modeling base, not final story protagonist.
@@ -164,9 +195,9 @@ HEAD / HORN_CREST / FORELEG_L / FORELEG_R / HINDLEG_L / HINDLEG_R / DORSAL_PLATE
 
 ## Current exact action
 
-Create only the **Exact Combat Action-Economy Contract** next.
+Create only the **Combat Resolution / Hit Quality and Defense Contract** next.
 
-It should decide the first-slice AP/reaction structure, movement/cover/posture timing, action-cost categories, stamina relationship and anti-loop invariants without implementing combat code.
+It should define accuracy/evasion, cover, block/parry/dodge resolution, hit-quality tiers, targeting difficulty and deterministic/randomness boundaries while preserving the recorded 4 AP / 1 RP economy.
 
 Do not start gameplay implementation unless the user explicitly authorizes it.
 
@@ -179,6 +210,11 @@ Do not start gameplay implementation unless the user explicitly authorizes it.
 `MONSTER_01_DESIGNED = YES`
 `PLAYER_PROGRESSION_PACKET = RECORDED`
 `PLAYER_PROGRESSION_MODEL = SELECTED_HYBRID`
+`COMBAT_ACTION_ECONOMY = RECORDED`
+`FIRST_SLICE_AP_TARGET = 4`
+`FIRST_SLICE_RP_TARGET = 1`
+`AP_BANKING = NO`
+`REACTION_RECURSION = BLOCKED`
 `HUNTER_TECHNICAL_MULTIVIEW_ROUTE = PAUSED_BY_QA`
 `HUNTER_DCC_BLOCKOUT_SPECIFICATION = RECORDED`
 `DCC_IMPLEMENTATION_AUTHORIZED = NO`
