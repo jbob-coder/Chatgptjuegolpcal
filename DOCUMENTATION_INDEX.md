@@ -5,45 +5,60 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-This file is the map for the entire project. Future work should not search randomly or reconstruct the project from chat memory. Read the smallest authoritative set of documents needed for the requested change, then inspect verified source/tests once implementation exists.
+This file maps the entire new game from the most basic player-facing concept down to code, data, performance, testing and creator tooling.
 
-The working label `Unnamed Hunt RPG` is temporary.
+Future work should not reconstruct the project from chat memory or open files randomly. Read from the correct layer, then inspect verified source/tests once implementation exists.
 
-## Mandatory read order
+`Unnamed Hunt RPG` is a temporary working label.
 
-For any consequential project work:
+# Read from basic → detailed
 
-1. `START_HERE_NEW_CHAT.md` — current directive and stop/implementation gate.
-2. `README.md` — project front door and high-level game contract.
-3. `PROJECT_HANDOFF.md` — current objective, completed decisions, blockers and next action.
+## Layer 0 — Current state
+1. `START_HERE_NEW_CHAT.md` — current directive, stop gate and exact next action.
+2. `README.md` — project front door and one-page game/architecture summary.
+3. `PROJECT_HANDOFF.md` — current verified design state, open decisions and continuity.
 4. `DOCUMENTATION_INDEX.md` — this map.
-5. `NEW_GAME_MASTER_PLAN.md` — complete game-system intent and core loop.
-6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — locked visual/world/camera/presentation behavior.
-7. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanical ownership and interactions.
-8. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state architecture, subsystem boundaries and data flow.
-9. `CONTENT_DATA_GUIDE.md` — data-driven content definitions, stable IDs and validation requirements.
-10. `IMPLEMENTATION_ROADMAP.md` — build order and dependency gates.
-11. `TESTING_VERIFICATION_PLAN.md` — required verification and runtime gates.
-12. `DEVELOPMENT_REFERENCE.md` — editing/development discipline.
-13. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE operating rules.
-14. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be invented silently.
-15. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting architecture/visual principles; where it overlaps with the newer dedicated visual bible, `VISUAL_WORLD_BEHAVIOR_BIBLE.md` is the more specific visual authority.
 
-## Authority order by claim type
+## Layer 1 — What the player experiences
+5. `GAME_EXPERIENCE_BIBLE.md` — launch/title, introduction/tutorial, pacing, world scale, camera, music/audio states, HUD, bestiary, harvest/crafting presentation and first-session target.
+6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — detailed visual identity, aerial overview, world composition, environment behavior, first-person transition, anatomy visuals, settlement language and presentation laws.
 
-### Intended design change
+## Layer 2 — How the game plays
+7. `NEW_GAME_MASTER_PLAN.md` — complete gameplay intent/core loop and broad system catalog.
+8. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics, state transitions, combat, anatomy, AI, harvesting, crafting, knowledge, regions and failure behavior.
+9. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved design decisions that must not be invented silently.
+
+## Layer 3 — How the game is structured internally
+10. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state architecture, domains, action/result flow, content/runtime separation, scene responsibilities and dependencies.
+11. `CONTENT_DATA_GUIDE.md` — stable IDs and data-driven authoring for species, anatomy, attacks, weapons, materials, harvest, recipes, regions and encounters.
+12. `CODE_GUIDE.md` — future code organization, responsibilities, APIs, logging, bug isolation, optimization and refactor rules.
+13. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; where visual overlap exists, `VISUAL_WORLD_BEHAVIOR_BIBLE.md` is more specific.
+
+## Layer 4 — How we keep it fast, testable and easy to create
+14. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, update tiers, caps, degradation ladder, instrumentation and feature isolation.
+15. `ADMIN_CREATOR_SYSTEM.md` — in-game developer/admin/creator architecture, inspectors, commands, content editors, encounter builder, replay and performance tools.
+16. `TESTING_VERIFICATION_PLAN.md` — test layers, invariants, Android runtime matrix, performance tests and release gates.
+
+## Layer 5 — How it gets built
+17. `IMPLEMENTATION_ROADMAP.md` — dependency-driven implementation stages from engine probe through vertical slice, admin tools, second-content proof and expansion.
+18. `DEVELOPMENT_REFERENCE.md` — bounded editing/development discipline.
+19. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE verification/continuity rules.
+
+# Authority order by claim type
+
+## Intended design change
 1. Current explicit user instruction.
-2. Recorded accepted design decisions in the mandatory docs.
-3. Open discussion candidates.
+2. Recorded accepted design decisions in these mandatory docs.
+3. Open design candidates.
 
-### Mechanical/source fact after implementation begins
-1. Verified source and tests for the active new-game version.
+## Mechanical/source fact after implementation
+1. Verified current source/tests.
 2. Current authoritative domain/content definitions.
-3. Current durable documentation.
+3. Current durable docs.
 4. Build artifacts/logs for build claims.
 5. Conversation summaries/memory.
 
-### Runtime fact
+## Runtime fact
 1. Direct target-device observation.
 2. Runtime logs/screenshots/video.
 3. Reproducible tests/instrumentation.
@@ -51,66 +66,71 @@ For any consequential project work:
 5. Source expectation.
 6. Documentation.
 
-A design document is not proof of implementation. A successful build is not proof that the game behaves correctly on the phone.
+A design file does not prove implementation. Compilation does not prove phone behavior. A screenshot does not prove hidden domain state without supporting evidence.
 
-## Core project documents
+# Documents by responsibility
 
-### Front door / continuity
-- `README.md`
-- `START_HERE_NEW_CHAT.md`
-- `PROJECT_HANDOFF.md`
-- `DOCUMENTATION_INDEX.md`
+## Player experience / audiovisual
+- `GAME_EXPERIENCE_BIBLE.md`
+- `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 
-### Game design
+## Gameplay/mechanics
 - `NEW_GAME_MASTER_PLAN.md`
 - `MECHANICAL_SYSTEMS_GUIDE.md`
-- `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 - `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
-### Technical architecture
+## Architecture/code/content
 - `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-- `DEVELOPMENT_REFERENCE.md`
 - `CONTENT_DATA_GUIDE.md`
-- `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
+- `CODE_GUIDE.md`
+- `DEVELOPMENT_REFERENCE.md`
 
-### Execution / quality
-- `IMPLEMENTATION_ROADMAP.md`
+## Performance/debug/creator
+- `PERFORMANCE_BUDGETS_AND_CAPS.md`
+- `ADMIN_CREATOR_SYSTEM.md`
+
+## QA/execution/continuity
 - `TESTING_VERIFICATION_PLAN.md`
+- `IMPLEMENTATION_ROADMAP.md`
 - `EVOLVE_ALIGNMENT.md`
+- `PROJECT_HANDOFF.md`
 
-## Planned source documentation after engine selection
+# Source-adjacent documents to create only when real source exists
 
-When implementation is authorized and the engine/device probe passes, create source-adjacent documentation only when the corresponding source exists:
-
-- module/package/scene map;
-- save schema specification;
-- combat action schema;
-- monster/anatomy schema;
-- region/encounter schema;
-- content authoring guide;
-- asset provenance registry;
+After engine selection and implementation authorization, create these only when the matching implementation exists:
+- concrete module/package/scene map;
 - build/install guide;
-- performance budget ledger;
-- release/version history.
+- save schema specification;
+- combat action schema/API reference;
+- monster/anatomy schema/API reference;
+- region/encounter schema;
+- asset provenance registry;
+- content authoring/export guide tied to the actual data format;
+- measured performance ledger/device matrix;
+- release/version/changelog records;
+- subsystem READMEs beside real source.
 
-Do not create fake implementation documentation before the implementation exists.
+Do not create documentation that pretends nonexistent code already exists.
 
-## Documentation maintenance rule
+# Documentation maintenance
 
-Update a document when its durable truth changes. Do not append diary entries indefinitely.
+When durable truth changes:
+1. update the owning document;
+2. update `PROJECT_HANDOFF.md` when current state/next action changed;
+3. update this index if a document was added/removed/repurposed;
+4. update README if the project-level contract changed;
+5. read back saved state;
+6. never rely on a later chat message to cancel stale written authority.
 
-When a decision supersedes an older one:
-1. update the authoritative section;
-2. mark the old rule superseded if historical context matters;
-3. update the handoff and index if ownership/read order changed;
-4. read back the saved files;
-5. do not rely on a later chat message to cancel stale written instructions.
-
-## Current project gate
+# Current gate
 
 `DESIGN_SYSTEM = ACTIVE`
+`MECHANICS_DOCUMENTED = YES`
+`VISUAL_BEHAVIOR_DOCUMENTED = YES`
+`CODE_STRUCTURE_PLANNED = YES`
+`PERFORMANCE_CAPS_PLANNED = YES`
+`ADMIN_CREATOR_SYSTEM_PLANNED = YES`
+`TESTING_PLAN_RECORDED = YES`
 `GAMEPLAY_SOURCE = NOT CREATED`
 `ENGINE = NOT SELECTED`
 `IMPLEMENTATION = NOT AUTHORIZED`
-
-Current work is planning, documentation and design discussion only.
