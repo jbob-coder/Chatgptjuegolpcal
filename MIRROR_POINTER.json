@@ -20,6 +20,10 @@
     "branch": "worldlife-reference-docs-pre-chat-protocol-v058",
     "commit": "0697bfafe73ec82d0adaa1c77897d7c8d76c4f21"
   },
+  "reference_backup_before_pre_runtime_audit": {
+    "branch": "worldlife-reference-docs-pre-runtime-audit-v058",
+    "commit": "46e2f28afbdbde3d72b438555d093458d31c73ef"
+  },
   "github_actions_allowed_for_worldlife_apk_builds": true,
   "github_actions_paid_or_unrelated_services_allowed": false,
   "successful_apk_build": {
@@ -41,17 +45,30 @@
     "min_sdk": 26,
     "target_sdk": 37,
     "compile_sdk": 37,
-    "scope": "functional test build; compatibility import removal; fallback visual PNGs may be present"
+    "scope": "functional test build; compatibility import removal; all 19 workflow-checked action/joystick/street resources verified as 68-byte 1x1 fallback PNGs"
   },
   "permanent_drive_apk_folder": "https://drive.google.com/drive/folders/1hsEGq_IMRSXPqJ6rs-JkENoE6nkb6NxB",
   "permanent_drive_apk": "https://drive.google.com/file/d/1CE5wmIVNcbnVy8XvWpt6SBLrAlHO01P0/view?usp=drivesdk",
   "permanent_drive_apk_checksum": "https://drive.google.com/file/d/1Gabr8Uglxq8w3Xv4YGNvAihE_qdmBQkD/view?usp=drivesdk",
+  "pre_runtime_audit": {
+    "document": "WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md",
+    "source_sha_readback": "pass",
+    "fresh_static_verify": "pass",
+    "fresh_game_core_compile": "pass",
+    "fresh_core_smoke": "pass",
+    "apk_sha_size_readback": "pass",
+    "apk_zip_integrity": "pass",
+    "fallback_visual_resource_count": 19,
+    "static_findings": [
+      "STATIC-001 camera recenter yaw mirrored for NE/E/SE/SW/W/NW; phone impact not tested"
+    ]
+  },
   "status_gates": {
     "apk_build_verified": true,
     "phone_runtime_verified": false,
     "visual_parity_verified": false
   },
-  "current_next_milestone": "phone runtime validation of v0.5.8 functional test APK",
+  "current_next_milestone": "phone runtime validation of v0.5.8 functional test APK including camera recenter check",
   "mirror_policy": "Drive frozen source authority; GitHub readable continuity/history/build transport",
   "file_ceiling_bytes": 94371840
 }
