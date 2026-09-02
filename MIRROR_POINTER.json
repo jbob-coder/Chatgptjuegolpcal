@@ -1,12 +1,15 @@
 {
   "project": "WorldLife RPG",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "authority": "google_drive_primary",
-  "drive_folder": "https://drive.google.com/drive/folders/1bwCI75LV0o-BaJUCCbcYNagx5p-1oQEO",
-  "source_archive": "https://drive.google.com/file/d/132Z_COwd_DIBaHC3NWP4hXlunNJWKt_z/view?usp=drivesdk",
-  "source_sha256": "7a99fd9ae8219ec2247d960d9c20380a3a19ac1a4862793b0937f4461cd4bbda",
-  "source_size_bytes": 1500776,
+  "drive_folder": "https://drive.google.com/drive/folders/1aLeCHULCtZuzU5cQQqxFKM8JmZ1GmQ7d",
+  "source_archive": "https://drive.google.com/file/d/1f88_H08DC2nSn2vaGbh2z1S4Zpw1FJGw/view?usp=drivesdk",
+  "readme": "https://drive.google.com/file/d/1uOGAOUM14RnOsLoHmgNHAqyc6IQFThBn/view?usp=drivesdk",
+  "handoff_markdown": "https://drive.google.com/file/d/1D-Y19jiyvQeanVB74k9-cqGzPyHQlwFq/view?usp=drivesdk",
+  "source_sha256": "81aa8c277c53b62109cebcffb54c1db27f4055c513244105291e0bdddc804673",
+  "source_size_bytes": 1514376,
   "github_actions_allowed": false,
+  "mirror_policy": "pointer_history_only",
   "file_ceiling_bytes": 94371840,
   "last_apk_verified_version": "0.4.0"
 }
