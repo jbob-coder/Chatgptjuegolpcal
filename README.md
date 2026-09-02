@@ -13,7 +13,9 @@ The permanent game name is not decided. `Unnamed Hunt RPG` is only a working lab
 2. `PROJECT_HANDOFF.md`
 3. `NEW_GAME_MASTER_PLAN.md`
 4. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
-5. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+5. `DEVELOPMENT_REFERENCE.md`
+6. `EVOLVE_ALIGNMENT.md`
+7. `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
 Do not begin gameplay coding until the user explicitly finishes the design discussion and authorizes implementation.
 
