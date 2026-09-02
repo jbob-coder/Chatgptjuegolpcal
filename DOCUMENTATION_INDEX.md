@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-Map the entire new game from current state and design governance down through player experience, world structure, model/art direction, mechanics, stats/effects, deterministic behavior, crystal life force, mutation/ecology, code, data, performance, testing and creator tooling.
+Map the entire new game from current state and design governance down through player experience, world structure, model/art direction, settlement design, mechanics, stats/effects, deterministic behavior, crystal life force, mutation/ecology, code, data, performance, testing and creator tooling.
 
 Future work should not reconstruct the project from chat memory. Read the correct authoritative layer, then inspect verified source/tests once implementation exists.
 
@@ -20,36 +20,37 @@ Future work should not reconstruct the project from chat memory. Read the correc
 4. `DOCUMENTATION_INDEX.md` — this map.
 5. `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md` — project-wide invariants, ownership/dependency matrix, complexity budgets, feature admission gates, change-impact classes, documentation-state labels and staged expansion rules.
 
-## Layer 1 — Player experience, world presentation and model/art direction
+## Layer 1 — Player experience, world presentation, model/art direction and settlement blueprint
 6. `GAME_EXPERIENCE_BIBLE.md` — launch/title, intro/tutorial, pacing, scale, music/audio, HUD, bestiary, harvest/crafting presentation.
 7. `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — visual identity, aerial overview, environment composition, first-person transition, anatomy visuals, settlements and presentation laws.
 8. `MAP_WORLD_SETTLEMENT_STRUCTURE.md` — world atlas, settlement/hub spaces, frontier transition belts, hunting regions, sectors, camps, danger gradient, local combat footprints and state separation.
 9. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md` — walkable settlement rules, settlement↔wilderness transition architecture, continuous wilderness-sector streaming, world-unit convention, camera visibility limits, character/monster/building/street/region prototype scales, modular building construction and LOD/culling strategy.
 10. `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md` — grounded stylized 3D/illustrated-realism model language; human/NPC proportions; monster anatomy-to-model binding; crystal/mutation visuals; damage states; modular buildings; terrain/props/materials; rigging, collision, pivots and LOD/degradation rules.
+11. `FIRST_SETTLEMENT_BLUEPRINT.md` — first settlement's defensible geography, compact Hunter Service Loop, districts, street/elevation hierarchy, service placement, NPC fidelity tiers, interiors/roof behavior, modular-kit requirements, performance partitions, gate transition and graybox acceptance criteria.
 
 ## Layer 2 — Gameplay and numerical behavior
-11. `NEW_GAME_MASTER_PLAN.md` — complete gameplay intent/core loop.
-12. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics/state interactions.
-13. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` — six primary attributes, derived stats, equipment bonuses, modifier stacking/caps, statuses, terrain/weather effects, hit quality and calculation traces.
-14. `BEHAVIOR_PATTERN_SYSTEM.md` — deterministic NPC/creature schedules, phases, `IF` conditions, priorities, cooldowns, situation adaptation and trace/debug rules. This replaces any old AI-behavior assumption.
-15. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md` — life-force crystal reserve, Tier/Rank/Quality/Element, desperation/berserk rules, mutation architecture, elemental habitat relationships and bounded ecosystem simulation.
-16. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
+12. `NEW_GAME_MASTER_PLAN.md` — complete gameplay intent/core loop.
+13. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics/state interactions.
+14. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` — six primary attributes, derived stats, equipment bonuses, modifier stacking/caps, statuses, terrain/weather effects, hit quality and calculation traces.
+15. `BEHAVIOR_PATTERN_SYSTEM.md` — deterministic NPC/creature schedules, phases, `IF` conditions, priorities, cooldowns, situation adaptation and trace/debug rules. This replaces any old AI-behavior assumption.
+16. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md` — life-force crystal reserve, Tier/Rank/Quality/Element, desperation/berserk rules, mutation architecture, elemental habitat relationships and bounded ecosystem simulation.
+17. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
 
 ## Layer 3 — Internal architecture/code/content
-17. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
-18. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
-19. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
-20. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; newer dedicated authorities override overlaps where more specific.
+18. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
+19. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
+20. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
+21. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; newer dedicated authorities override overlaps where more specific.
 
 ## Layer 4 — Performance/debug/creator/QA
-21. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
-22. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
-23. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
+22. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
+23. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
+24. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
 
 ## Layer 5 — Build/continuity
-24. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
-25. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
-26. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
+25. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
+26. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
+27. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
 
 # Authority order by claim type
 
@@ -80,12 +81,13 @@ A design file does not prove implementation. Compilation does not prove phone be
 ## Project-wide design governance
 - `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
 
-## Player experience / audiovisual / world structure / model art
+## Player experience / audiovisual / world structure / model art / settlement
 - `GAME_EXPERIENCE_BIBLE.md`
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
 - `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
+- `FIRST_SETTLEMENT_BLUEPRINT.md`
 
 ## Gameplay / mechanics
 - `NEW_GAME_MASTER_PLAN.md`
@@ -119,6 +121,12 @@ A design file does not prove implementation. Compilation does not prove phone be
 - long-distance geography uses a macro world atlas/travel layer;
 - settlements are fully walkable physical gameplay spaces, not menu hubs;
 - settlement cores are dense social/service runtime spaces with a different simulation budget from wilderness;
+- Settlement 01 uses a compact Hunter Service Loop so contracts, storage/loadout, smith/processing, recovery access and the outbound gate do not require repeated long cross-town travel;
+- Settlement 01 is currently planned on defensible elevated river/chasm geography with terrain/walls/curved streets preventing full-map visibility;
+- repeated core-service walking legs use a prototype quality target of roughly 10–25 seconds rather than sprawling mandatory travel;
+- the settlement uses active/background/logical NPC fidelity tiers while preserving deterministic schedules;
+- settlement presentation is divided into logical district/culling cells instead of rendering/animating the whole town at maximum detail;
+- material flow is spatially coherent: hunter gate → processing → storage/research/smith → equipment/market;
 - settlement↔wilderness uses a meaningful major-area transition, preferably a walkable/diegetic gate corridor that hides loading/preloading while the player remains in control;
 - hunting regions remain physically explorable in aerial view and are divided into streamable sectors;
 - ordinary wilderness sector boundaries are continuous whenever possible and do not trigger loading screens;
@@ -153,7 +161,7 @@ A design file does not prove implementation. Compilation does not prove phone be
 - crystal Tier, Rank, Quality, Element, current Energy and structural Condition are separate concepts;
 - mutation is data-driven, bounded and can alter anatomy/capabilities/stats/behavior/terrain adaptation/harvest;
 - off-screen ecology uses aggregate region/species state rather than full per-creature simulation;
-- development calculation/behavior/crystal/mutation/map/streaming traces are required.
+- development calculation/behavior/crystal/mutation/map/streaming/settlement-travel traces are required.
 
 # Documentation expansion order
 
@@ -162,8 +170,8 @@ The project should not attempt to expand every possible document at once.
 Current bounded sequence:
 1. cross-system quality governance — RECORDED;
 2. model art direction/asset standard — RECORDED;
-3. first settlement blueprint — NEXT RECOMMENDED PIECE;
-4. first hunting-region blueprint;
+3. first settlement blueprint — RECORDED;
+4. first hunting-region blueprint — NEXT RECOMMENDED PIECE;
 5. first monster complete design packet;
 6. player progression/equipment packet;
 7. exact combat-economy packet;
@@ -209,6 +217,7 @@ When durable truth changes:
 `DESIGN_SYSTEM = ACTIVE`
 `DESIGN_QUALITY_GOVERNANCE_RECORDED = YES`
 `MODEL_ART_DIRECTION_RECORDED = YES`
+`FIRST_SETTLEMENT_BLUEPRINT_RECORDED = YES`
 `WORLD_MAP_STRUCTURE_DESIGNED = YES`
 `WORLD_SCALE_STREAMING_DESIGNED = YES`
 `WALKABLE_SETTLEMENTS_DESIGNED = YES`
