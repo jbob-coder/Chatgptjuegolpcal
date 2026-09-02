@@ -7,13 +7,37 @@ Last reconciled: 2026-09-02
 
 Continue defining the new game from player-facing experience through world/map structure, scale/streaming/transitions, mechanics, stats/effects, deterministic NPC/creature behavior, crystal life-force, mutation/ecology, architecture, performance, creator tooling and implementation order before gameplay source is created.
 
+Work in bounded documentation pieces rather than attempting to complete every possible system at once.
+
 ## CURRENT_STATE
 
 This is a new game replacing WorldLife in the same repository/project area. WorldLife is not the design base.
 
 No new-game gameplay code, engine project, scenes, APK or runtime implementation has been created.
 
-Dedicated current authorities now include world/map structure, world scale/streaming/transitions, stats/effects, deterministic behavior and crystal/mutation/ecosystem mechanics.
+Dedicated current authorities now include world/map structure, world scale/streaming/transitions, stats/effects, deterministic behavior, crystal/mutation/ecosystem mechanics, and project-wide design quality governance.
+
+### Design-quality governance
+Detailed authority: `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
+
+Current governance decisions:
+- every meaningful new mechanic must identify player value, authoritative owner, dependent systems, invariants/caps and verification path before becoming a current design decision;
+- use clear state meanings: LOCKED/CURRENT, SELECTED ARCHITECTURE, PROTOTYPE TARGET, OPEN, FUTURE OPTION, REJECTED/NOT PREFERRED;
+- depth should come primarily from interactions between a bounded set of strong reusable systems rather than continuous creation of isolated micro-systems;
+- reuse attributes/effects/statuses/terrain/capabilities/anatomy/crystal/mutation/behavior/knowledge primitives before inventing new subsystems;
+- any foundational change must trigger cross-system impact analysis before dependent docs/source are modified;
+- no two systems should own the same authoritative truth;
+- player-facing clarity, save/state integrity, tactical readability and Android performance are explicit project-wide quality gates;
+- documentation expansion should proceed as bounded pieces rather than a broad simultaneous rewrite.
+
+Current planned documentation sequence:
+1. cross-system quality governance — RECORDED;
+2. first settlement blueprint — NEXT RECOMMENDED PIECE;
+3. first hunting-region blueprint;
+4. first monster complete design packet;
+5. player progression/equipment packet;
+6. exact combat-economy packet;
+7. engine-specific technical mapping only after engine/device evidence.
 
 ## VERIFIED_DESIGN_STATE
 
@@ -135,6 +159,7 @@ Planned world tools now include:
 - `START_HERE_NEW_CHAT.md`
 - `PROJECT_HANDOFF.md`
 - `DOCUMENTATION_INDEX.md`
+- `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
 - `GAME_EXPERIENCE_BIBLE.md`
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
@@ -174,29 +199,55 @@ Before building a final town or large biome, prove with simple geometry:
 
 Then increase toward the first-slice target of 4–7 sectors and the real settlement layout.
 
+## CURRENT DOCUMENTATION PIECE STATUS
+
+Piece A — Cross-system quality governance: **RECORDED**.
+
+Do not immediately expand all other documents in the same pass.
+
+Next recommended bounded piece:
+**FIRST SETTLEMENT BLUEPRINT**.
+
+That future piece should focus only on:
+- settlement identity and defensive geography;
+- approximate meter-scale footprint;
+- street/district hierarchy;
+- hunter lodge, smith, material/crystal processing, market, storage, recovery/home, training, residential and gate placement;
+- NPC-density zones;
+- important seamless interiors;
+- roofs/walls/occlusion for the aerial camera;
+- modular building-kit requirements;
+- settlement culling/streaming partitions;
+- outbound hunter-gate transition corridor;
+- first-pass performance budget.
+
+It should not simultaneously design every future settlement, the full first biome, all NPCs, or final art assets.
+
 ## NEXT_ACTION
 
-Continue design discussion. Highest-value open questions now include:
-1. exact first settlement identity, district/layout and building style;
-2. exact first hunting-region biome/topology;
-3. exact gate/transition-corridor visual form;
-4. exact settlement/wilderness camera framing/FOV/projection;
-5. minimum Android target and how many neighboring sectors can remain graphically resident;
-6. camp/fast-travel rules;
-7. save-anywhere versus safe-anchor policy;
-8. settlement defense lore and whether humans use crystals;
-9. exact crystal tiers/ranks/qualities/elements;
-10. exact berserk rules;
-11. mutation origin/inheritance;
-12. player progression/stats/AP/equipment;
-13. first monster/weapon;
-14. engine.
+Continue design discussion or begin the first settlement blueprint as the next documentation piece.
+
+Other open subjects remain, but should be handled after the current bounded sequence where practical:
+- first hunting-region biome/topology;
+- gate visual form;
+- exact camera framing/FOV/projection;
+- minimum Android target and resident-sector budget;
+- camp/fast-travel rules;
+- save-anywhere versus safe-anchor policy;
+- settlement defense lore/human crystal use;
+- crystal tiers/ranks/qualities/elements;
+- berserk rules;
+- mutation origin/inheritance;
+- player progression/stats/AP/equipment;
+- first monster/weapon;
+- engine.
 
 Do not implement gameplay until the user explicitly authorizes it.
 
 ## STATUS GATES
 
 DESIGN_RECORDED = YES
+DESIGN_QUALITY_GOVERNANCE_RECORDED = YES
 WORLD_MAP_STRUCTURE_DESIGNED = YES
 WORLD_SCALE_STREAMING_DESIGNED = YES
 WALKABLE_SETTLEMENTS_DESIGNED = YES
