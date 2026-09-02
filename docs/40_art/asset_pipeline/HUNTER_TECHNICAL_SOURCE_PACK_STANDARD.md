@@ -19,6 +19,11 @@ Primary quality fix:
 
 A polished infographic is never the primary technical source simply because it looks organized.
 
+Hunter-specific scale/proportion/attachment authority:
+`docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
+
+H02A/H02B/H03 imagery must follow that contract. Generated views do not get to invent a different body, attachment layout or scale.
+
 ---
 
 # 1. Source-pack architecture
@@ -36,6 +41,7 @@ Required content:
 - right side if generation budget permits;
 - identical neutral modeling stance;
 - same clothing/gear state across every view;
+- same normalized body landmarks and attachment placement intent from `PROPORTION_AND_ATTACHMENT_CONTRACT.md`;
 - no held weapon;
 - no cape/large hanging object;
 - plain neutral background or transparent isolated subjects;
@@ -71,6 +77,7 @@ Required:
 - clean front 3/4;
 - optional rear 3/4 if useful;
 - same neutral base gear as H02A;
+- same body landmarks and attachment identity as H02A;
 - no dramatic pose;
 - no weapon;
 - no environment;
@@ -146,7 +153,10 @@ H04 later owns the major light/balanced/reinforced silhouette comparison.
 
 # 4. Cross-view consistency requirements
 
-Every orthographic source must preserve:
+Every orthographic source must preserve the body/gear invariants owned by:
+`docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
+
+At minimum preserve:
 - total body height;
 - shoulder width;
 - pelvis/waist height;
@@ -165,6 +175,8 @@ If generated views contradict:
 2. choose/revise the intended construction in documentation;
 3. regenerate if the contradiction is severe;
 4. DCC blockout becomes geometric truth only after deliberate review.
+
+Do not modify normalized body landmarks merely to make one generated view look better.
 
 ---
 
@@ -200,7 +212,8 @@ Conversion copy must:
 - use plain/transparent background;
 - preserve full extremities;
 - avoid dramatic perspective;
-- have reviewed cross-view consistency.
+- have reviewed cross-view consistency;
+- preserve the selected proportion/attachment contract.
 
 The technical source remains in Modeling References.
 The clean conversion derivative receives a separate asset ID and Drive record.
@@ -212,7 +225,9 @@ The clean conversion derivative receives a separate asset ID and Drive record.
 When implementation/art-production tooling is authorized, the first DCC task is not sculpting detail.
 
 It is:
-`1.75 m base mannequin → proportion blockout → H02A silhouette comparison → H02B volume check → attachment guides → neutral rig-clearance check`.
+`1.75 m base mannequin → normalized landmark check → proportion blockout → H02A silhouette comparison → H02B volume check → attachment guides → neutral rig-clearance check`.
+
+The initial DCC blockout should explicitly carry the stable attachment vocabulary from the Hunter proportion/attachment contract.
 
 Only after blockout passes:
 - clothing layers;
@@ -233,7 +248,9 @@ Required before `SELECTED_REFERENCE`:
 - body occupies sufficient image area;
 - no severe limb/hand/foot artifact;
 - front/side/back consistency acceptable;
+- normalized body landmarks reasonably agree across views;
 - harness/gear contradictions documented;
+- attachment-side identity remains stable;
 - scale reconciled to 1.75 m authority;
 - generated text ignored;
 - no strong final protagonist identity required for geometry interpretation;
@@ -271,6 +288,7 @@ A wrong humanoid base would contaminate many systems, so it is cheaper to fix he
 `H02_V001 = REVIEWED_WITH_ISSUES / REVISE`
 `H02_V002 = REVIEWED_WITH_ISSUES / REVISE`
 `TECHNICAL_SOURCE_PACK_STANDARD = RECORDED`
+`HUNTER_PROPORTION_ATTACHMENT_CONTRACT = RECORDED`
 `H02A_V003 = NEXT`
 `H02B_V003 = AFTER H02A OR SAME CONTROLLED REVISION SET`
 `H03_DETAILS = ONLY IF NEEDED AFTER H02A REVIEW`
@@ -278,4 +296,4 @@ A wrong humanoid base would contaminate many systems, so it is cheaper to fix he
 `HUNTER_CONVERSION_INPUT = NONE`
 
 Next bounded action:
-**generate H02A v003 only, with the hunter figures dominating the raster and no infographic content, then review it before generating H02B/H03.**
+**generate H02A v003 only, with the hunter figures dominating the raster, no infographic content, and shared landmark/attachment consistency; then review it before generating H02B/H03.**
