@@ -1,6 +1,6 @@
 # 20_gameplay/combat — Tactical Combat Package
 
-Status: ACTIVE DESIGN PACKAGE / TWO CORE CONTRACTS RECORDED / NO COMBAT IMPLEMENTATION
+Status: ACTIVE DESIGN PACKAGE / THREE CORE CONTRACTS RECORDED / NO COMBAT IMPLEMENTATION
 Last reconciled: 2026-09-02
 
 ## Purpose
@@ -53,6 +53,31 @@ Selected hit-quality classes:
 Selected randomness law:
 **no unrelated hidden critical-hit roll; committed attacks use one reproducible bounded seeded variance source, while legality/anatomy/cover state remain deterministic.**
 
+### First weapon family
+`FIRST_WEAPON_FAMILY_CONTRACT.md`
+
+Selected first-slice family:
+- technical ID: `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- working name: Field Poleblade;
+- two-handed long-hafted hunting blade;
+- primary cutting/sever identity;
+- secondary piercing/control identity;
+- limited impact capability;
+- useful medium melee reach;
+- directional Guard;
+- restricted Parry;
+- intentionally weaker at dedicated hard-structure breaking, cramped fighting and shield-like defense.
+
+Initial technique packet:
+- `POLEBLADE_MEASURED_CUT` — 2 AP, controlled cutting, body fallback allowed, CLEAN ceiling;
+- `POLEBLADE_DRIVING_THRUST` — 2 AP, piercing/reach, body fallback allowed, CLEAN ceiling;
+- `POLEBLADE_PLACED_HEW` — 3 AP, selected-part cutting, selected part required, PRECISION allowed;
+- `POLEBLADE_COMMITTED_CLEAVE` — 4 AP, high commitment/force, body fallback allowed, CLEAN ceiling;
+- `POLEBLADE_HAFT_CHECK` — short-range low-impact spacing/control action;
+- weapon-supported Guard/Parry according to the generic defense contracts.
+
+The family is intentionally not a universal best weapon. Its first-slice purpose is to prove reach, anatomy targeting, severing, AP commitment, Stamina pressure and bounded defense while leaving room for later specialized impact, shield, ranged and mobility families.
+
 Supporting root authorities:
 - `/MECHANICAL_SYSTEMS_GUIDE.md`;
 - `/STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
@@ -80,13 +105,14 @@ Belongs here:
 - generic defense-resolution boundaries;
 - generic cover/protection ordering;
 - seeded-resolution/replay invariants;
+- first-slice weapon-family contract and generic weapon-technique interaction;
 - action cancellation/refund rules;
 - anti-loop/anti-extra-turn invariants;
 - generic combat end/escape timing.
 
 Does not belong here:
 - exact Mudcrest Raker attacks;
-- exact weapon roster;
+- broad weapon roster;
 - exact Region 01 encounter-node layouts;
 - final damage numbers;
 - animation duration;
@@ -112,10 +138,11 @@ Recorded:
 - `COMBAT_RESOLUTION_CONTRACT = RECORDED`;
 - `HIT_QUALITY_MODEL = RECORDED`;
 - `DODGE_BLOCK_PARRY_BRACE_ROLES = RECORDED`;
-- `SEEDED_VARIANCE_BOUNDARY = RECORDED`.
+- `SEEDED_VARIANCE_BOUNDARY = RECORDED`;
+- `FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`;
+- `FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`.
 
 Still required before real combat implementation:
-- one First Weapon Family Contract;
 - prototype Stamina scale/recovery;
 - prototype Initiative/tie rule;
 - small first-slice status set;
@@ -130,6 +157,6 @@ Still required before real combat implementation:
 
 ## Exact next bounded combat-design dependency
 
-**First Weapon Family Contract**.
+**Stamina Prototype Scale and Recovery Contract**.
 
-It should instantiate the existing action-economy and resolution contracts with one weapon family only. Do not create a broad weapon roster yet.
+It should define only the first-slice Stamina scale, recovery timing, exertion bands, low-Stamina consequences, cost floors/caps and Field Poleblade prototype costs. Do not expand into the full status system or endgame Stamina progression in that pass.
