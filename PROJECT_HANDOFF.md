@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
 
-Continue defining the new game from player-facing experience through world/map structure, scale/streaming/transitions, mechanics, stats/effects, deterministic NPC/creature behavior, crystal life-force, mutation/ecology, architecture, performance, creator tooling and implementation order before gameplay source is created.
+Continue defining the new game from player-facing experience through world/map structure, scale/streaming/transitions, model/art direction, mechanics, stats/effects, deterministic NPC/creature behavior, crystal life-force, mutation/ecology, architecture, performance, creator tooling and implementation order before gameplay source is created.
 
 Work in bounded documentation pieces rather than attempting to complete every possible system at once.
 
@@ -15,7 +15,7 @@ This is a new game replacing WorldLife in the same repository/project area. Worl
 
 No new-game gameplay code, engine project, scenes, APK or runtime implementation has been created.
 
-Dedicated current authorities now include world/map structure, world scale/streaming/transitions, stats/effects, deterministic behavior, crystal/mutation/ecosystem mechanics, and project-wide design quality governance.
+Dedicated current authorities now include world/map structure, world scale/streaming/transitions, model/art direction, stats/effects, deterministic behavior, crystal/mutation/ecosystem mechanics, and project-wide design quality governance.
 
 ### Design-quality governance
 Detailed authority: `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
@@ -32,12 +32,33 @@ Current governance decisions:
 
 Current planned documentation sequence:
 1. cross-system quality governance — RECORDED;
-2. first settlement blueprint — NEXT RECOMMENDED PIECE;
-3. first hunting-region blueprint;
-4. first monster complete design packet;
-5. player progression/equipment packet;
-6. exact combat-economy packet;
-7. engine-specific technical mapping only after engine/device evidence.
+2. model art direction/asset standard — RECORDED;
+3. first settlement blueprint — NEXT RECOMMENDED PIECE;
+4. first hunting-region blueprint;
+5. first monster complete design packet;
+6. player progression/equipment packet;
+7. exact combat-economy packet;
+8. engine-specific technical mapping only after engine/device evidence.
+
+### Model/art direction
+Detailed authority: `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`.
+
+Current selected direction:
+- grounded stylized 3D / illustrated realism;
+- translate the illustrated hunting-world concept into coherent playable 3D rather than using photorealism, low-poly abstraction, chibi proportions or literal paper-craft aesthetics;
+- important assets must read at three distances: aerial recognition, exploration proximity and first-person/close inspection;
+- physical scale remains believable while hands/boots/shoulders/weapons/major anatomy may receive mild silhouette exaggeration for phone readability;
+- major monsters are hero assets and their visual anatomy must correspond to real gameplay anatomy/capabilities;
+- monster models use one asset lineage: hero source/rig → close-combat representation → exploration LODs → optional distant representation, all tied to the same authoritative monster instance;
+- damage states are layered through wound presentation, mesh/material swaps, broken attachments and authoritative sever states rather than duplicate full models for every injury;
+- crystal/mutation visuals are biologically integrated and restrained; constant neon glow is not the default;
+- human/NPC production should use compatible humanoid rig standards and modular clothing/equipment where practical;
+- monster rigs may differ by body plan/species and should only include complexity justified by locomotion, telegraphs, anatomy damage or visible secondary motion;
+- buildings use modular construction kits with unique signature pieces for important structures;
+- small/medium important interiors remain physically coherent with exteriors and use culling/cutaway/visibility control for the aerial camera;
+- stylized physically believable material response and broad value/color grouping outrank micro-detail;
+- important models require LOD/degradation paths and simplified collision proxies;
+- exact triangle/texture/bone/material budgets remain OPEN until engine/device profiling.
 
 ## VERIFIED_DESIGN_STATE
 
@@ -134,8 +155,15 @@ Different spatial layers have different budgets:
 
 Only the current/required neighboring wilderness sectors should receive high-detail presentation. Farther region state remains simplified/logical/aggregate until promoted.
 
+Model/art performance rules:
+- exact production geometry/texture/bone/material budgets wait for engine/device evidence;
+- important models must have a planned LOD/degradation path;
+- optimization removes hidden/tiny/decorative detail before silhouette or anatomy readability;
+- raw visual meshes should not automatically become complex gameplay collision;
+- repeated settlement/environment assets should use modularity/instancing where possible.
+
 ### Admin/Creator
-Planned world tools now include:
+Planned world/model tools eventually include:
 - world-atlas node/route editor;
 - settlement anchor/service overlay;
 - settlement walkability/collision overlay;
@@ -150,7 +178,9 @@ Planned world tools now include:
 - encounter-capable footprint viewer;
 - tactical node/cover/elevation preview;
 - first-person preview;
-- actor/building LOD state;
+- actor/building/monster LOD state;
+- anatomy-hit-region overlay;
+- model/collision proxy comparison;
 - camera practical-detail radius.
 
 ## CURRENT ACTIVE PLANNING AUTHORITIES
@@ -164,6 +194,7 @@ Planned world tools now include:
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
+- `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
 - `NEW_GAME_MASTER_PLAN.md`
 - `MECHANICAL_SYSTEMS_GUIDE.md`
 - `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
@@ -181,27 +212,35 @@ Planned world tools now include:
 - `NEW_GAME_DISCUSSION_CHECKLIST.md`
 - `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
 
-## FIRST WORLD/STREAMING PROOF AFTER AUTHORIZATION
+## FIRST WORLD/MODEL PROOF AFTER AUTHORIZATION
 
-Before building a final town or large biome, prove with simple geometry:
+Before building a final town, biome or production monster, prove with simple/representative assets:
 - 1 walkable settlement block;
 - 2–3 enterable buildings;
 - 1 hunter gate;
 - 1 diegetic transition corridor;
 - 1 wilderness region with 3 connected prototype sectors;
 - seamless walking across those wilderness sector boundaries;
+- 1 hunter placeholder with the intended silhouette proportions;
+- 1 modular civilian variant;
+- 1 large monster graybox with 6–8 mapped anatomy regions;
+- 1 breakable horn/plate and 1 severable tail segment;
+- 1 basic mutation visual change;
+- LOD/proxy representations sufficient to test aerial and first-person use;
 - 1 persistent monster crossing a sector boundary;
 - 1 local first-person encounter;
 - monster escape back into another sector;
 - player return through the gate to settlement;
 - no duplicated player/monster/save state;
-- target Android memory/frame-pacing/streaming verification.
+- target Android memory/frame-pacing/streaming/model verification.
 
-Then increase toward the first-slice target of 4–7 sectors and the real settlement layout.
+Only after this proof should production budgets and final art packs be locked.
 
 ## CURRENT DOCUMENTATION PIECE STATUS
 
 Piece A — Cross-system quality governance: **RECORDED**.
+
+Piece B — Model art direction and asset standard: **RECORDED**.
 
 Do not immediately expand all other documents in the same pass.
 
@@ -225,7 +264,7 @@ It should not simultaneously design every future settlement, the full first biom
 
 ## NEXT_ACTION
 
-Continue design discussion or begin the first settlement blueprint as the next documentation piece.
+Continue design discussion or begin the first settlement blueprint as the next bounded documentation piece.
 
 Other open subjects remain, but should be handled after the current bounded sequence where practical:
 - first hunting-region biome/topology;
@@ -242,12 +281,13 @@ Other open subjects remain, but should be handled after the current bounded sequ
 - first monster/weapon;
 - engine.
 
-Do not implement gameplay until the user explicitly authorizes it.
+Do not implement gameplay or produce final assets until explicitly authorized.
 
 ## STATUS GATES
 
 DESIGN_RECORDED = YES
 DESIGN_QUALITY_GOVERNANCE_RECORDED = YES
+MODEL_ART_DIRECTION_RECORDED = YES
 WORLD_MAP_STRUCTURE_DESIGNED = YES
 WORLD_SCALE_STREAMING_DESIGNED = YES
 WALKABLE_SETTLEMENTS_DESIGNED = YES
@@ -266,6 +306,7 @@ ADMIN_CREATOR_SYSTEM_PLANNED = YES
 TESTING_PLAN_RECORDED = YES
 IMPLEMENTATION_ROADMAP_RECORDED = YES
 GAMEPLAY_SOURCE_CREATED = NO
+PRODUCTION_ASSETS_CREATED = NO
 ENGINE_SELECTED = NO
 IMPLEMENTATION_AUTHORIZED = NO
 APK_BUILD_VERIFIED = NO
