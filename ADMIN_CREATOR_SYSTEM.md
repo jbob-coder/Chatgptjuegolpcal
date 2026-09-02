@@ -7,17 +7,15 @@ Last reconciled: 2026-09-02
 
 Define an in-game development/admin system that makes creation, balancing, testing and debugging faster without turning UI state into gameplay authority.
 
-This system is for development and creator workflows first. Any player-facing sandbox/editor features would be a separate future decision.
+This system is for development/creator workflows first. Any player-facing sandbox/editor feature is a separate future decision.
 
 ## 1. Core law
 
-Admin tools may inspect and request controlled mutations, but they must not secretly become a second game engine.
+Admin tools may inspect and request controlled mutations, but they never become a second game engine.
 
-Preferred flow:
+`ADMIN UI → ADMIN COMMAND → VALIDATE → AUTHORITATIVE DOMAIN/CONTENT SERVICE → RESULT → TEST STATE → UI READBACK`
 
-`ADMIN UI → ADMIN COMMAND → VALIDATE → AUTHORITATIVE DOMAIN/CONTENT SERVICE → RESULT → SAVE/TEST STATE → UI READBACK`
-
-Where an admin operation intentionally bypasses normal gameplay restrictions, it must still preserve structural invariants.
+Intentional debug bypasses must still preserve structural invariants.
 
 ## 2. Modes
 
@@ -25,15 +23,18 @@ Where an admin operation intentionally bypasses normal gameplay restrictions, it
 Read-only.
 
 Can view:
-- player state;
-- region state;
-- monster instances;
+- player base/derived/final stats;
+- modifier/effect sources;
+- region/terrain/weather state;
+- monster/NPC instances;
+- deterministic behavior profile/rule state;
 - anatomy graph/state;
 - tactical nodes;
 - cover/hazards;
-- inventory/materials;
+- statuses;
+- equipment/inventory/materials;
 - knowledge/progression;
-- current RNG/encounter identifiers;
+- encounter/RNG identifiers;
 - performance metrics;
 - recent domain events.
 
@@ -42,41 +43,45 @@ Controlled developer mutations.
 
 Examples:
 - set health/stamina/AP;
+- set a test attribute value;
+- equip/unequip test equipment;
 - give/remove item/material;
+- apply/remove/set intensity of status;
+- override terrain/weather test context;
 - teleport to valid region anchor;
 - force encounter;
 - set monster part condition;
-- force break/sever for test;
-- apply/remove status;
+- force break/sever;
 - advance/restart turn;
 - set knowledge stage;
-- reset encounter;
-- spawn a validated test monster instance.
+- spawn validated test actor;
+- force/evaluate a specific behavior rule for diagnostic purposes.
 
 ### Creator mode
 Data/content authoring and validation.
 
 Examples:
-- create/edit monster definition;
-- edit anatomy hierarchy;
+- create/edit monster or NPC definition;
+- edit base attributes;
+- edit anatomy;
 - edit attacks/capability requirements;
-- edit behavior profile;
-- edit harvest sources;
-- edit materials/recipes;
-- create/edit encounter layout nodes/cover;
-- create/edit region metadata/anchors;
-- preview visual asset references;
+- edit deterministic behavior patterns/conditions;
+- edit effects/statuses;
+- edit equipment/terrain/weather definitions;
+- edit harvest sources/materials/recipes;
+- edit encounter nodes/cover;
+- edit region metadata/anchors;
 - validate/export content package.
 
-Creator mode must operate on explicit content definitions and never directly modify production definitions without validation/versioning.
+Creator mode edits explicit definitions and does not directly modify released production content without validation/versioning.
 
 ## 3. Development-build access
 
 Preferred:
-- completely absent or inaccessible in production builds unless explicitly enabled;
+- absent/inaccessible in production builds unless explicitly enabled;
 - guarded by development flag/profile;
-- clearly display DEV/ADMIN state;
-- separate test save/profile to avoid corrupting normal play data.
+- obvious DEV/ADMIN indicator;
+- separate test save/profile.
 
 ## 4. Admin command architecture
 
@@ -85,8 +90,10 @@ Conceptual commands:
 `PlayerAdminCommand`
 - SetHealth;
 - SetStamina;
+- SetAttribute;
 - GiveItem;
 - GiveMaterial;
+- EquipItem;
 - SetKnowledge;
 - TeleportToAnchor.
 
@@ -95,59 +102,186 @@ Conceptual commands:
 - SetTurnActor;
 - SetAP;
 - ApplyStatus;
+- RemoveStatus;
+- SetTerrainContext;
 - SetPartIntegrity;
 - BreakPart;
 - SeverPart;
-- ForceMonsterIntent;
+- EvaluateBehaviorNow;
+- ForceBehaviorRuleForTest;
 - EndEncounter;
 - ResetEncounter.
 
 `WorldAdminCommand`
-- SpawnMonster;
-- DespawnMonster;
-- MoveMonsterToAnchor;
-- SetWeather/Time if later mechanical;
+- SpawnMonster/NPC;
+- DespawnActor;
+- MoveActorToAnchor;
+- SetWeather/Time where relevant;
 - RevealTrack;
 - ResetRegionState.
 
-Every command returns:
-- success/rejection;
-- normalized state result;
-- warnings;
-- affected IDs;
-- domain events when applicable.
+Every command returns success/rejection, normalized result, warnings, affected IDs and domain events where applicable.
 
-## 5. Creature creator
+## 5. Stats / modifier debugger
 
-Creator form should expose:
-- species ID;
-- display name key;
-- body scale;
-- ecology tags;
+Detailed mechanical authority: `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
+
+Inspector should show:
+- base primary attributes;
+- progression contribution;
+- equipment contribution;
+- injury contribution;
+- active statuses;
+- posture;
+- terrain/weather effects;
+- cover/range/bearing context;
+- action modifiers;
+- target protection/resistance;
+- cap/clamp operations;
+- final derived stat/action result.
+
+Critical requirement: show the same calculation trace the resolver used.
+
+Example:
+
+```text
+Movement Cost
+Base 2 AP
+Heavy armor +1
+Mud +1
+Agility mitigation -0.5
+Mud-grip boots -0.5
+Minimum floor applied
+Final 3 AP
+```
+
+Tools:
+- compare two loadouts;
+- toggle one modifier source;
+- test a cap boundary;
+- test duplicate stack group;
+- inspect status timing;
+- inspect resistance channel;
+- export calculation trace.
+
+## 6. Status/effect creator
+
+Fields:
+- stable ID;
+- target selector;
+- stat/effect key;
+- operation;
+- magnitude;
+- condition;
+- stack group/policy;
+- duration/intensity;
+- timing hook;
+- resistance channel;
+- caps;
+- explanation/debug key.
+
+Validation catches undefined stat keys, invalid stack policy, negative/illegal durations, impossible cap relationships and missing references.
+
+Simulation controls:
+- apply once;
+- stack repeatedly;
+- advance turns;
+- change terrain/equipment;
+- save/reload test;
+- compare expected versus actual trace.
+
+## 7. Terrain/weather debugger
+
+Show:
+- node/surface terrain tags;
+- effective movement cost;
+- footing/evasion modifiers;
+- visibility/concealment;
+- tracking effects;
+- actor capability exceptions;
+- weather transformations/effects.
+
+Test controls:
+- apply/remove terrain tag;
+- switch weather/intensity;
+- compare different actors/equipment;
+- preview resulting legal actions/costs;
+- highlight all nodes with selected terrain tag.
+
+## 8. Creature/NPC creator
+
+Creator form can expose:
+- stable ID;
+- display key;
+- role/species;
+- body scale where relevant;
+- base attributes;
+- ecology/role tags;
 - behavior profile;
-- anatomy tree;
-- attack list;
-- harvest sources;
-- region compatibility;
+- anatomy for monsters;
+- attacks/techniques where relevant;
+- statuses/resistances;
+- terrain capabilities;
+- harvest sources for huntable creatures;
+- region/schedule compatibility;
 - visual/animation/audio references.
 
-Workflow:
-1. create draft species;
-2. add anatomy;
-3. validate graph;
-4. add attacks;
-5. validate capability requirements;
-6. add harvest sources;
-7. validate capacity/reference rules;
-8. assign behavior;
-9. assign presentation references;
-10. run simulated encounter tests;
+Creature workflow:
+1. create draft;
+2. assign attributes;
+3. build anatomy;
+4. validate graph;
+5. add attacks;
+6. add behavior rules;
+7. add effects/resistances/terrain capabilities;
+8. add harvest;
+9. validate;
+10. simulate encounter;
 11. spawn in test region;
-12. export/version only after checks pass.
+12. export/version after checks.
 
-## 6. Anatomy editor
+## 9. Deterministic behavior pattern editor/debugger
 
-Must support:
+Detailed authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
+
+There is no AI scoring screen.
+
+Editor supports:
+- pattern state/phase list;
+- explicit condition groups;
+- priorities;
+- cooldowns;
+- range/bearing/terrain requirements;
+- capability requirements;
+- action request;
+- phase transition;
+- tie policy;
+- seeded variation group only if explicitly used.
+
+Live debugger displays:
+- current profile/phase;
+- every candidate rule;
+- PASS/FAIL per condition;
+- cooldown state;
+- capability state;
+- priority;
+- selected rule;
+- submitted domain action;
+- validation result;
+- recent rule history.
+
+Controls:
+- set test facts;
+- evaluate once;
+- step one decision;
+- simulate N decision points;
+- disable one rule;
+- force one rule only for diagnostic testing;
+- export deterministic behavior trace.
+
+## 10. Anatomy editor
+
+Support:
 - tree view;
 - parent/child relationships;
 - targetable/breakable/severable toggles;
@@ -155,17 +289,17 @@ Must support:
 - capability tags;
 - harvest capacities;
 - visual target anchors;
-- per-part test damage controls.
+- per-part test damage.
 
-Validation panel shows:
+Validation:
 - cycles;
-- orphan parts;
+- orphans;
 - duplicate IDs;
 - impossible thresholds;
 - missing visual target refs;
-- broken attack/harvest dependencies.
+- broken attack/harvest/behavior dependencies.
 
-## 7. Attack editor
+## 11. Attack editor
 
 Fields:
 - ID/name;
@@ -173,150 +307,159 @@ Fields:
 - AP/stamina cost;
 - range/bearing;
 - target rules;
+- relevant attribute contributions;
 - damage profile;
 - required capabilities;
+- status/effect references;
 - telegraph;
 - reaction windows;
-- AI tags/weights;
+- behavior-rule compatibility tags;
 - presentation references.
 
 Test buttons:
-- resolve once against selected target;
-- run 100/1000 deterministic simulations where useful;
-- display illegal conditions;
-- display predicted/observed state transitions.
+- resolve once against selected target/context;
+- run deterministic repeated simulations where useful;
+- show illegal conditions;
+- show modifier trace;
+- show expected/observed state transitions.
 
-## 8. Harvest simulator
+## 12. Harvest simulator
 
 Select:
-- monster species/instance;
+- species/instance;
 - part condition;
 - damage history category;
 - sever/break/destroy state;
 - tool;
-- skill/method;
+- harvesting skill/method;
 - knowledge state.
 
 Output:
 - recoverable materials;
 - quantity;
 - quality;
-- lost material explanation;
+- lost-material explanation;
 - invariant warnings.
 
-This should become a high-value balancing tool before many monsters exist.
-
-## 9. Encounter builder
+## 13. Encounter builder
 
 Creator UI can define:
 - tactical nodes;
 - adjacency;
+- terrain tags;
 - cover;
 - elevation;
 - hazards;
-- range/bearing relationships;
+- range/bearing;
 - escape routes;
 - spawn anchors;
-- visual anchor mapping.
+- visual mapping.
 
 Views:
 - aerial layout;
-- first-person preview from each node;
+- first-person preview;
 - connectivity graph;
 - line-of-sight/cover debug;
+- terrain overlay;
 - monster-size fit check.
 
-Validation rejects unreachable or contradictory layouts.
+Validation rejects unreachable/contradictory layouts.
 
-## 10. Region debug tools
+## 14. Region debug tools
 
-Overlay options:
+Overlays:
 - traversal bounds;
 - collision;
-- region/sector boundaries;
+- sector boundaries;
+- terrain tags;
 - monster territory/path;
-- tracking evidence anchors;
+- NPC schedule anchors;
+- tracking evidence;
 - gathering nodes;
-- encounter-capable zones;
+- encounter zones;
 - tactical cover anchors;
 - streaming state;
-- active AI tiers;
+- behavior update tiers;
 - spawn rules.
 
-## 11. Live combat debugger
+## 15. Live combat debugger
 
 Display:
 - turn/round;
 - actor resources;
-- legal action list;
-- selected AI scores/intents;
-- current range/bearing;
-- cover state;
+- attributes/final derived stats;
+- legal actions;
+- current behavior rule candidates for autonomous actor;
+- range/bearing;
+- terrain/cover;
 - anatomy integrity;
-- capabilities currently enabled/disabled;
+- capabilities;
+- statuses;
 - pending telegraph;
-- RNG seed/sequence marker;
-- recent domain events.
+- modifier trace for selected action;
+- RNG seed/sequence marker where used;
+- recent events.
 
-Allow pause/step through one action at a time in development.
+Allow pause/step one resolved action at a time.
 
-## 12. Deterministic replay
+## 16. Deterministic replay
 
-The admin system should eventually capture enough information to replay a combat case for bugs.
-
-Useful capture:
+Capture enough to replay bugs:
 - content version/hash;
 - encounter definition;
-- initial authoritative state;
-- seed;
+- initial state;
+- seed where randomness is used;
 - player/admin actions;
-- AI decisions or reproducible input state;
+- behavior rule evaluations/selected actions or reproducible initial facts;
+- modifier/effect-relevant state;
 - domain events;
 - final state.
 
-A bug report can then say: `Replay encounter fixture X` instead of relying on vague description.
-
-## 13. Save inspector
+## 17. Save inspector
 
 Features:
-- show schema version;
-- show object IDs/references;
-- validate invariants;
-- create sanitized diagnostic export;
+- schema version;
+- object IDs/references;
+- invariant validation;
+- attribute/equipment/status state;
+- behavior state where persisted;
+- sanitized diagnostic export;
 - duplicate into test slot;
 - repair preview;
-- never silently alter production save without explicit operation.
+- never silently modify normal save.
 
-## 14. Performance dashboard
+## 18. Performance dashboard
 
 Display bounded metrics:
 - FPS/frame time;
 - memory;
-- active entity count;
-- active/rendered monsters;
-- AI update tiers;
+- active/rendered actors;
+- behavior evaluation counts/update tiers;
 - loaded sectors;
-- draw/render metrics available from engine;
+- engine render metrics;
 - particle count;
 - audio voice count;
 - transition timings;
-- recent hitch markers.
+- hitch markers;
+- derived-stat recalculation counts;
+- effect/status processing counts.
 
-Provide toggles to isolate systems:
+Isolation toggles:
 - particles;
 - shadows;
 - foliage;
 - decals;
 - ambient wildlife;
-- roaming AI;
+- roaming behavior updates;
 - music;
-- monster high-detail renderer;
+- high-detail monster renderer;
 - combat VFX;
-- debug proxies.
+- debug proxies;
+- calculation tracing.
 
-## 15. Content package lifecycle
+## 19. Content lifecycle
 
-Creator content states:
+States:
 - DRAFT;
 - VALIDATION_FAILED;
 - VALIDATED;
@@ -325,59 +468,52 @@ Creator content states:
 - APPROVED;
 - RELEASED.
 
-The tool should never label content TESTED merely because validation passed.
+Validation does not equal TESTED.
 
-## 16. Import/export
+## 20. Import/export
 
-Later creator content should support deterministic text/data export suitable for source control.
-
-Principles:
+Later creator data should support deterministic text/data export suitable for source control:
 - human-inspectable where practical;
-- stable ordering/format to avoid noisy diffs;
+- stable ordering;
 - explicit schema version;
-- validation before import/activation;
-- no arbitrary executable scripts embedded in content data by default.
+- validation before activation;
+- no arbitrary executable scripts in content by default.
 
-## 17. Undo/rollback
+## 21. Undo/rollback
 
-Creator edits need:
-- unsaved draft state;
-- undo/redo where practical;
-- explicit save/export;
-- versioned content files;
-- rollback through source control.
+Creator edits need draft state, undo/redo where practical, explicit save/export, versioned content and source-control rollback.
 
-Admin runtime mutations do not need unlimited undo but should offer reset/reload test-state actions.
+Runtime mutations can use reset/reload test-state actions rather than unlimited undo.
 
-## 18. Safety against accidental corruption
+## 22. Safety against accidental corruption
 
-- development profile separate from normal save;
-- destructive commands require explicit selection/confirmation in UI where high-impact;
+- separate dev profile;
+- destructive commands explicit;
 - creator content validates before activation;
-- no direct editing of stable released IDs without migration warning;
-- no invisible mutation when merely opening inspector screens.
+- stable released ID edits trigger migration warnings;
+- opening inspectors never mutates state.
 
-## 19. Highest-value creation workflow
+## 23. Highest-value creation workflow
 
-The Admin/Creator system exists so future development can do:
+`DEFINE → VALIDATE → SPAWN TEST → INSPECT → SIMULATE/PLAY → TRACE RULES/MODIFIERS → IDENTIFY ROOT CAUSE → EDIT DATA → REVALIDATE → REPLAY`
 
-`DEFINE CONTENT → VALIDATE → SPAWN TEST → INSPECT STATE → SIMULATE/PLAY → IDENTIFY BUG/BALANCE ISSUE → EDIT DATA → REVALIDATE → REPLAY`
+This avoids rebuilding hard-coded source for every numerical/content change.
 
-instead of repeatedly changing hard-coded source and rebuilding for every numerical/content adjustment.
-
-## 20. Build order
+## 24. Build order
 
 Do not build the giant editor first.
 
 Recommended sequence:
-1. read-only state inspector;
+1. read-only state/stat/modifier inspector;
 2. performance/debug overlay;
 3. bounded encounter preset loader;
 4. anatomy/part debug controls;
-5. harvest simulator;
-6. content validators;
-7. simple form-based definition editors;
-8. visual encounter-layout editor;
-9. broader region/content creation tools.
+5. behavior-rule trace viewer;
+6. status/effect/terrain test controls;
+7. harvest simulator;
+8. content validators;
+9. simple definition editors;
+10. visual encounter-layout editor;
+11. broader region/content creation tools.
 
-Creator UI follows validated domain/content schemas; it does not define them.
+Creator UI follows validated domain/content schemas; it does not define gameplay rules.
