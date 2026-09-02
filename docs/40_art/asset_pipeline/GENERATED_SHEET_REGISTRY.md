@@ -5,256 +5,237 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-Track the planned/generated Hunter Base 01 and Monster 01 sheet sequence.
+Track the Hunter Base 01 and Monster 01 visual-reference sequence without confusing generation, persistence, review, technical use or approval.
 
-Cross-lane identity, lineage, parent/master relationships and permitted-use authority belong to:
+Cross-lane identity/lineage/permitted-use authority:
 `ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`.
 
-Per-asset QA decisions live under:
+Per-asset QA records:
 `docs/40_art/reviews/`.
 
-This registry remains the task-order/view-specific sheet tracker.
+Technical Hunter source-pack structure:
+`HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`.
 
-## Status meanings
+Uploading does not approve an asset.
 
-- `PLANNED` — specification exists; image not generated.
-- `GENERATED_UNREVIEWED` — pixels exist but dedicated QA review has not completed.
-- `GENERATED_PERSISTENCE_UNVERIFIED` — local/generated output was reported, but current Drive persistence has not been read back.
-- `REVIEWED_WITH_ISSUES` — dedicated QA completed and current revision requires correction before promotion.
-- `SELECTED_REFERENCE` — explicitly approved to guide visual/modeling work.
-- `CONVERSION_INPUT_CANDIDATE` — clean enough for image-to-3D test after conversion preflight.
-- `RUNTIME_2D_CANDIDATE` — may be cleaned/exported for actual 2D game use.
-- `TECHNICALLY_VERIFIED` — applicable technical checks completed.
-- `REJECTED` — retained only for provenance/history.
-- `SUPERSEDED` — replaced by a newer selected revision.
+## Status vocabulary
 
-Uploading does not promote status.
+- `PLANNED`
+- `GENERATED_UNREVIEWED`
+- `GENERATED_PERSISTENCE_UNVERIFIED`
+- `REVIEWED_WITH_ISSUES`
+- `SELECTED_REFERENCE`
+- `CONVERSION_INPUT_CANDIDATE`
+- `RUNTIME_2D_CANDIDATE`
+- `TECHNICALLY_VERIFIED`
+- `REJECTED`
+- `SUPERSEDED`
 
-## Existing general boards
+## Existing selected general boards
 
 ### REF-MODEL-001
-Name: `Unnamed Hunt RPG - Art Direction Overview.png`
+`Unnamed Hunt RPG - Art Direction Overview.png`
 Status: `SELECTED_REFERENCE`
-Classification: `MODEL_REFERENCE / ART_DIRECTION`
-Direct runtime use: NO
-3D conversion use: NO
+Use: art-direction communication only.
+Runtime 2D: NO.
+3D conversion: NO.
 
 ### REF-MODEL-002
-Name: `Unnamed Hunt RPG - Model Creation Pipeline and Visual Guide.png`
+`Unnamed Hunt RPG - Model Creation Pipeline and Visual Guide.png`
 Status: `SELECTED_REFERENCE`
-Classification: `PIPELINE_COMMUNICATION`
-Direct runtime use: NO
-3D conversion use: NO
+Use: pipeline communication only.
+Runtime 2D: NO.
+3D conversion: NO.
 
-## First registered sheet sequence
+---
 
-### SHEET-H01 — Hunter turnaround + scale
-Current file:
+# Hunter Base 01
+
+## H02 v001 — turnaround + scale
+File:
 `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_REFERENCE.png`
 
-Drive location:
-`01_Modeling_References/Hunter`
-Drive file ID: `1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
+Drive ID:
+`1U9vm0y7YSSGnEiPYO8C7M8QAq43FyibV`
 
-Current status: `REVIEWED_WITH_ISSUES`
-Current decision: `REVISE`
+Status: `REVIEWED_WITH_ISSUES`
+Decision: `REVISE`
 Permitted use: `DISCUSSION_ONLY`
-QA record: `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
+QA:
+`docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
 
-Main v001 defects:
-- real figure detail is too soft for technical modeling despite large composed canvas;
-- face/hands/boots/harness seams lack trustworthy native detail;
-- front/side/back gear construction is inconsistent;
-- no required clean 3/4 confirmation view;
-- views are illustrative, not conversion-safe multiview references;
-- neutral production base is too close to a fixed armored male-ranger identity.
+Main defects:
+- embedded figure detail too soft;
+- cross-view gear inconsistency;
+- no clean 3/4 confirmation;
+- not conversion-safe;
+- too identity-specific/heavy for reusable neutral base.
 
-Preserve in v002:
-- grounded frontier direction;
-- realistic adult general proportion;
-- readable boot/shoulder/layered-garment silhouette;
-- restrained practical material family;
-- numeric height remains 1.75 m from Markdown.
+Do not use for technical modeling or conversion.
 
-Do **not** copy v001 to `03_3D_Conversion_Inputs/Hunter`.
-
-#### H01 derivative
+### v001 inspection derivative
 File:
 `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001_DRAFT_UPSCALED_REFERENCE.png`
-Drive file ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
+Drive ID: `1hcxXoOH6xsy-CXh2EoyhnjgIH_etizOc`
 Status: `REVIEWED_WITH_ISSUES`
-Class: reference derivative only.
-Permitted use: `DISCUSSION_ONLY`.
+Use: `DISCUSSION_ONLY`.
+The upscale does not create missing technical detail.
 
-The upscale can improve viewing comfort but cannot recover authoritative missing hand/face/gear construction or become the next technical master.
-
-#### H01 required next revision
-Planned new filename:
+## H02 v002 — turnaround/scale revision
+File:
 `HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png`
+Drive ID:
+`1kkRFXV2Mtk1sWyhjxdnSGm7l6xQRMZE4`
+Observed raster: `1536 × 1024`.
+
+Status: `REVIEWED_WITH_ISSUES`
+Decision: `REVISE`
+Permitted use: `DISCUSSION_ONLY`
+QA:
+`docs/40_art/reviews/HUNTER_BASE_01_H02_v002_QA.md`
+
+Improvements:
+- front/left/back/right/3-4 views present;
+- improved overall cross-view body coherence;
+- modular practical clothing direction improved;
+- close-up concept areas included;
+- broad silhouette reads well.
+
+Remaining blockers:
+- still an overloaded infographic rather than a technical source image;
+- each full-body figure receives too few native pixels;
+- close-up panels may independently redesign details and are not guaranteed magnifications of the body views;
+- views remain illustrative rather than verified orthographic/multiview geometry;
+- generated embedded metadata/permissions/date/PBR guidance are not authority;
+- face remains more identity-specific than needed for reusable base;
+- not suitable for 3D-conversion input.
+
+Do not copy v002 to `03_3D_Conversion_Inputs/Hunter`.
+
+## H02 v003 source pack — NEXT
+
+The next revision is no longer one infographic.
+
+Authority:
+`docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`.
+
+### H02A v003 — orthographic/multiview source
+Planned filename:
+`HUNTER_BASE_01_H02A_ORTHO_REF_v003.png`
+
+Planned stable ID:
+`HUNTER01-H02A-REF-003`
 
 Required:
-- clean front;
-- clean left side;
-- clean back;
-- right side if practical;
-- separate clean 3/4 confirmation;
-- neutral modeling stance;
-- identical body/gear construction across views;
-- less metal coverage for neutral base;
-- modular protection boundaries;
-- no held weapon;
-- no strong final protagonist identity;
-- enough native pixels for hands/boots/harness seams without relying on upscale invention.
+- front/left/back/right where practical;
+- same neutral gear and pose;
+- hunter figures use roughly 75–90% of usable raster height;
+- plain/transparent background;
+- no infographic panels;
+- no monster comparison;
+- no PBR/material chart;
+- no file/checksum/status metadata;
+- no weapon;
+- low identity specificity;
+- base clothing + limited modular protection.
 
-Status: `PLANNED REVISION`.
+Current status: `PLANNED`.
 
-### SHEET-H02 — Hunter modular-equipment silhouettes
-Current file:
+### H02B v003 — 3/4 confirmation
+Generate only after H02A is reviewed/accepted enough to justify it, unless produced as one controlled revision set.
+Current status: `BLOCKED BY H02A`.
+
+### H03 — detail source
+Hands/boots/harness/belt/collar/knee-shin detail only if H02A still lacks sufficient native detail.
+Current status: `CONDITIONAL`.
+
+## H04 v001 — modular equipment silhouettes
+File:
 `HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001_DRAFT_REFERENCE.png`
+Drive ID:
+`1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
+Status: `GENERATED_UNREVIEWED`.
 
-Drive location:
-`01_Modeling_References/Hunter`
-Drive file ID: `1j2eQCUfUzc-kgt4egH15dzPK-5Gv6OAF`
-Current status: `GENERATED_UNREVIEWED`
+Review is blocked until a neutral Hunter base is selected. H04 must be judged against the corrected base rather than v001/v002.
 
-Do not review/promote H04 until H02 v002 establishes the corrected neutral base. Otherwise equipment variants may be judged against a base silhouette already known to be wrong.
+---
 
-Required later review:
-- same corrected base-body scale across variants;
-- light / balanced / reinforced silhouette separation;
-- no visible generated weapon treated as locked weapon design;
-- modular gear seams remain practical;
-- aerial readability checked.
+# Monster 01 — Mudcrest Raker
 
-### SHEET-M01 — Monster 01 hero concept + turnaround
-Current file:
+## M01/M02 hero + turnaround
+File:
 `MONSTER_01_M01_M02_HERO_TURNAROUND_v001_VISUAL_CANDIDATE.png`
+Drive ID:
+`1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
+Status: `GENERATED_UNREVIEWED`.
 
-Drive location:
-`01_Modeling_References/Monster_01`
-Drive file ID: `1yMLP6lcO4Us4uJO2CMNUCusiXlWpwI2m`
-Current status: `GENERATED_UNREVIEWED`
-
-Required review against Mudcrest Raker authority:
-- approximately 6.6 m length and 3.0 m shoulder/main-body height remain numeric authority;
-- front-heavy quadruped body plan;
+Must later reconcile against:
+- ~6.6 m length;
+- ~3.0 m shoulder/main-body height;
+- front-heavy quadruped;
 - paired mineral horn crest;
 - breakable dorsal plates;
-- broad mud-adapted feet;
-- long muscular tail with legal distal sever boundary;
-- no decorative micro-spike noise that damages silhouette/target readability;
-- generated art cannot redefine the eight target groups.
+- mud-adapted feet;
+- long tail with legal distal sever boundary;
+- eight authoritative first-slice target groups.
 
-Do not copy into Monster 01 conversion-input lane until turnaround consistency and conversion preflight pass.
+No conversion copy yet.
 
-### SHEET-M02 — Monster 01 anatomy
-Expected/generated filename:
+## M03 anatomy overlay
+Expected file:
 `MONSTER_01_M03_ANATOMY_v001_TECHNICAL_OVERLAY.png`
+Drive persistence: NOT VERIFIED.
+Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
-Expected Drive destination:
-`01_Modeling_References/Monster_01`
-Current Drive readback: NOT PRESENT
-Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
-
-Before use:
-- upload/read back;
-- reconcile labels against stable anatomy IDs in `ANATOMY_AND_DAMAGE.md`;
-- verify horn/dorsal/tail boundaries;
-- keep internal core as technical planning only.
-
-### SHEET-M03 — Monster 01 damage/break/sever
-Expected/generated filename:
+## M04 damage/break/sever
+Expected file:
 `MONSTER_01_M04_DAMAGE_STATES_v001_DRAFT_REFERENCE.png`
+Drive persistence: NOT VERIFIED.
+Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
-Expected Drive destination:
-`01_Modeling_References/Monster_01`
-Current Drive readback: NOT PRESENT
-Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
-
-Required content/review:
-- intact;
-- wounded;
-- broken horn;
-- broken dorsal plate;
-- severed distal tail;
-- wounded-leg consequence;
-- restrained gore;
-- berserk never repairs loss.
-
-### SHEET-M04 — Monster 01 crystal/mutation variants
-Expected/generated filename:
+## M05 crystal/mutation variants
+Expected file:
 `MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001_TECHNICAL_CONCEPT.png`
+Drive persistence: NOT VERIFIED.
+Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
-Expected Drive destination:
-`01_Modeling_References/Monster_01`
-Current Drive readback: NOT PRESENT
-Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
-
-Reference variants must remain tied to recorded candidates:
-- baseline;
-- Mirestep Pads;
-- Bastion Plates;
-- Deep-Scent Crest;
-- Resonant Core Veins;
-- restrained core-overdrive/berserk presentation.
-
-### SHEET-M05 — Monster 01 three-distance readability
-Expected/generated filename:
+## M08 three-distance readability
+Expected file:
 `MONSTER_01_M08_THREE_DISTANCE_v001_VISUAL_CANDIDATE.png`
+Drive persistence: NOT VERIFIED.
+Status: `GENERATED_PERSISTENCE_UNVERIFIED`.
 
-Expected Drive destination:
-`01_Modeling_References/Monster_01`
-Current Drive readback: NOT PRESENT
-Current status: `GENERATED_PERSISTENCE_UNVERIFIED`
+No Monster visual asset is selected/technical/conversion-approved yet.
 
-Required review:
-- aerial species/horn/tail/plate silhouette;
-- nearby wound/material/anatomy readability;
-- first-person target framing and surface coherence;
-- same monster identity/state across all panels.
+---
 
-Potential later runtime derivative:
-a separately registered/cleaned bestiary illustration crop may become a `RUNTIME_2D_CANDIDATE`; this reference sheet itself is not the runtime asset.
+# Current review order
 
-## Current generation/review order
+1. **Generate H02A v003 only.**
+2. Review H02A using native-pixel, cross-view, scale and conversion-preflight gates.
+3. If acceptable, create/review H02B 3/4 confirmation.
+4. Create H03 detail sources only where H02A/H02B prove insufficient.
+5. Select the neutral Hunter source pack before reviewing H04.
+6. Then return to Monster 01 visual QA.
+7. Restore/verify M03/M04/M05/M08 Drive persistence before claiming those files are safely stored.
 
-The previous queue is intentionally paused.
-
-Current bounded order:
-1. create `HUNTER_BASE_01_H02_TURNAROUND_SCALE_REF_v002.png` from the recorded v001 QA revision request;
-2. review v002 against the same gates;
-3. only if v002 becomes acceptable, review/revise H04 against that corrected base;
-4. then return to Monster 01 visual QA;
-5. restore/verify Monster M02–M05 Drive persistence before claiming those sheets are safely stored.
-
-Do not bulk-generate another full queue before the earliest broken dependency is corrected.
-
-## Review law
-
-No generated sheet becomes `TECHNICALLY_VERIFIED` from visual inspection alone.
-
-For turnaround/conversion input:
-- cross-view proportions must be inspected;
-- scale comes from Markdown numeric data;
-- generated text is ignored/replaced;
-- hidden geometry contradictions are resolved in DCC blockout;
-- conversion-input copy is a new manifest record, not an implicit folder copy.
-
-For runtime 2D derivatives:
-- create a separate derivative/export record;
-- derive from the master/clean source;
-- do not point the game directly at a modeling-reference file.
+Do not bulk-generate the queue.
 
 ## Current gate
 
-`SHEET_H01_V001 = REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
-`SHEET_H01_V001_TECHNICAL_MODELING_USE = NO`
-`SHEET_H01_V001_CONVERSION_USE = NO`
-`SHEET_H01_V002 = PLANNED REVISION`
-`SHEET_H02 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
-`SHEET_M01 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
-`SHEET_M02 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
-`SHEET_M03 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
-`SHEET_M04 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
-`SHEET_M05 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
-`SELECTED_REFERENCE_PROMOTIONS_THIS_PASS = NONE`
+`H02_V001 = REVIEWED_WITH_ISSUES / REVISE`
+`H02_V002 = REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
+`H02_V002_CONVERSION_USE = NO`
+`H02A_V003 = PLANNED / NEXT`
+`H02B_V003 = BLOCKED BY H02A`
+`H03_DETAILS = CONDITIONAL`
+`H04_V001 = GENERATED_UNREVIEWED / BLOCKED BY NEUTRAL BASE`
+`MONSTER_M01M02 = GENERATED_UNREVIEWED / DRIVE_VERIFIED`
+`MONSTER_M03 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`MONSTER_M04 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`MONSTER_M05 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`MONSTER_M08 = GENERATED / DRIVE_PERSISTENCE_UNVERIFIED`
+`SELECTED_HUNTER_TECHNICAL_REFERENCE = NONE`
+`HUNTER_CONVERSION_INPUT = NONE`
+`APPROVED_RUNTIME_2D = NONE`
+`GAME_READY_3D = NONE`
