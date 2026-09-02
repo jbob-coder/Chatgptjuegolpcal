@@ -7,18 +7,16 @@ Last reconciled: 2026-09-02.
 
 The user has ordered a full gameplay/technical reboot of WorldLife RPG.
 
-The old v0.5.8 Android/Compose/SceneView game is no longer the intended gameplay design. It is **legacy frozen history**, not the implementation base for the reboot.
+The old v0.5.8 Android/Compose/SceneView game is no longer the intended gameplay design and is to be **removed from the active project area**. The same GitHub/Google Drive project area will be reused for the new game rather than creating a separate active project location.
 
-Important EVOLVE safety interpretation:
+EVOLVE safety interpretation:
 
-- the user requested that the old game be deleted and the project restarted;
-- the user also explicitly required that this planning/design pass be recorded first and that no new game creation begin until a discussion occurs;
-- therefore destructive deletion of the frozen v0.5.8 source/Drive history is deliberately deferred until after the discussion and an explicit post-plan execution decision;
-- no old source is to be mutated into the reboot;
+- the old active WorldLife implementation is approved for cleanup/removal;
+- the same project workspace is the future home of the reboot;
+- one rollback/archive copy may remain outside the active working path so deletion is reversible, but legacy source must not remain mixed into the new active source tree;
 - no new gameplay source is to be created during this planning milestone;
-- rollback/history is preserved while the design is discussed.
-
-This is not refusal of the reboot. It is a rollback-safe staging boundary.
+- destructive cleanup and reboot implementation remain separate operations;
+- the current milestone ends after design documentation/reporting so the user can discuss the game before creation starts.
 
 ## 1. New high-level identity
 
@@ -747,8 +745,8 @@ The reboot should start a new save schema lineage rather than pretend old v0.5.8
 Recommended:
 
 - reboot schema starts at `1`;
-- old package/save behavior is archived until package ID decision is made;
-- no automatic destructive migration from old WorldLife saves;
+- old package/save behavior is removed from the active project area during cleanup;
+- no automatic migration from old WorldLife saves;
 - stable IDs from day one;
 - deterministic encounter seed/state where practical;
 - checksummed/validated save files or equivalent engine storage validation;
@@ -841,12 +839,13 @@ No phase below is authorized to start until the user ends the discussion/plannin
 
 Resolve open decisions in this document.
 
-### Phase 1 — archive/decommission legacy project safely
+### Phase 1 — clean the existing active project area
 
-- preserve checksum/history snapshot;
-- decide what Drive/GitHub material is retained as archive vs deleted;
-- decide package ID/name/signing strategy;
-- create clean reboot root/branch/repository structure;
+- use the same GitHub/Drive project area for the reboot;
+- remove the old WorldLife active implementation and old active build/runtime artifacts from that area;
+- preserve only a rollback archive outside the active working path;
+- decide final game/package/signing names;
+- create clean reboot root structure in the cleared project area;
 - do not copy old gameplay code by default.
 
 ### Phase 2 — engine/device proof
@@ -916,7 +915,7 @@ Only after the core hunt loop is proven:
 ## 24. Explicitly deferred decisions for discussion
 
 1. Final game name.
-2. Whether `WorldLife` branding remains.
+2. Whether `WorldLife` branding remains for the reboot or is renamed.
 3. Exact setting: modern, fantasy, sci-fi, post-apocalyptic, other.
 4. Solo-only vs party/companions.
 5. Exact aerial style: orthographic 3D, isometric 2.5D, 2D sprites in 3D, full 3D aerial.
@@ -928,7 +927,7 @@ Only after the core hunt loop is proven:
 11. How lethal failure should be.
 12. Whether monsters persist/escape and can be tracked again wounded.
 13. Degree of survival systems.
-14. Degree of old WorldLife life-simulation features retained, if any.
+14. Degree of old WorldLife life-simulation concepts retained, if any, after cleanup.
 15. Art tone and setting references.
 16. Monetization/distribution assumptions, if relevant.
 17. Package ID/signing lineage.
@@ -940,7 +939,7 @@ Only after the core hunt loop is proven:
 
 `CURRENT_STATE`: new design is recorded; no reboot gameplay code exists.
 
-`COMPLETED`: requirements reconstruction, EVOLVE-safe reboot boundary, system list, architecture plan, vertical-slice plan.
+`COMPLETED`: requirements reconstruction, EVOLVE-safe reboot boundary, system list, architecture plan, visual plan, vertical-slice plan, active-area reuse decision.
 
 `IN_PROGRESS`: discussion only.
 
@@ -948,7 +947,11 @@ Only after the core hunt loop is proven:
 
 `BLOCKERS`: implementation intentionally blocked by user instruction until discussion concludes.
 
-`LEGACY_SOURCE`: v0.5.8 remains preserved as frozen history pending explicit post-discussion archive/deletion execution.
+`LEGACY_ACTIVE_PROJECT_CLEANUP_APPROVED`: YES.
+
+`ACTIVE_PROJECT_AREA_REUSE`: YES — reuse the same GitHub/Drive project area for the new game.
+
+`ROLLBACK_ARCHIVE_POLICY`: keep at most a separate non-active rollback archive so cleanup is reversible; do not mix legacy code into the reboot.
 
 `TESTS_RUN`: none for reboot code because no reboot code has been created.
 
