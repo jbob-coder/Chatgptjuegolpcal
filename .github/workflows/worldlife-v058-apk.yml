@@ -117,7 +117,19 @@ jobs:
 
       - name: Build signed v0.5.8 test APK
         working-directory: ${{ env.WORLDLIFE_ROOT }}
-        run: gradle --no-daemon --stacktrace :app:assembleDebug
+        shell: bash
+        run: |
+          set +e
+          gradle --no-daemon :app:assembleDebug > /tmp/worldlife-assemble.log 2>&1
+          STATUS=$?
+          if [ "$STATUS" -ne 0 ]; then
+            echo '===== WORLDLIFE COMPILE ERRORS ====='
+            grep -nE '(^e: | error: |Unresolved reference|Type mismatch|Cannot find|No value passed|Cannot infer|None of the following|FAILED|Execution failed|Compilation error)' /tmp/worldlife-assemble.log | tail -120 || true
+            echo '===== WORLDLIFE BUILD LOG TAIL ====='
+            tail -160 /tmp/worldlife-assemble.log
+            exit "$STATUS"
+          fi
+          tail -80 /tmp/worldlife-assemble.log
 
       - name: Verify APK
         shell: bash
