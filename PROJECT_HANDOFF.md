@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
 
-Continue defining the new game from player-facing experience through world/map structure, mechanics, stats/effects, deterministic NPC/creature behavior, crystal life-force, mutation/ecology, architecture, performance, creator tooling and implementation order before gameplay source is created.
+Continue defining the new game from player-facing experience through world/map structure, scale/streaming/transitions, mechanics, stats/effects, deterministic NPC/creature behavior, crystal life-force, mutation/ecology, architecture, performance, creator tooling and implementation order before gameplay source is created.
 
 ## CURRENT_STATE
 
@@ -13,41 +13,49 @@ This is a new game replacing WorldLife in the same repository/project area. Worl
 
 No new-game gameplay code, engine project, scenes, APK or runtime implementation has been created.
 
-Dedicated current authorities now include world/map structure, stats/effects, deterministic behavior and crystal/mutation/ecosystem mechanics.
+Dedicated current authorities now include world/map structure, world scale/streaming/transitions, stats/effects, deterministic behavior and crystal/mutation/ecosystem mechanics.
 
 ## VERIFIED_DESIGN_STATE
 
 ### World/map architecture
-Detailed authority: `MAP_WORLD_SETTLEMENT_STRUCTURE.md`.
+Detailed authorities:
+- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
+- `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
 
 Current structural decisions:
 - do not build one enormous always-loaded seamless open world;
 - use a macro **World Atlas** for long-distance geography/travel;
-- settlements/hubs are separate dense social/service runtime spaces;
-- a **Frontier Gate / Outpost / Transition Belt** separates settlement safety from active wilderness;
-- hunting regions are physical aerial-exploration spaces divided into streamable sectors;
+- settlements are fully walkable physical spaces, not menu-only hubs;
+- settlement services are reached in-world, then may open service UI;
+- settlement↔wilderness is a meaningful major-area threshold;
+- preferred transition is a diegetic hunter gate/tunnel/bridge/pass/frontier corridor that can hide destination preloading while the player remains in control whenever practical;
+- hunting regions are physical aerial-exploration spaces divided into technical streaming sectors;
+- ordinary River/Forest/Meadow/Ridge/etc. sector changes should remain continuous and should not trigger loading screens;
+- only major region/deep-cave/large-interior boundaries may use explicit controlled transitions when technically necessary;
+- rolling streaming keeps the current sector plus required neighboring sectors ready while farther sectors remain low-cost logical/aggregate state;
+- persistent hunted monsters keep the same instance ID, anatomy injuries, crystal state, mutation state and required behavior state across sector boundaries;
 - first-person battlefields are local tactical footprints derived from the exact wilderness location rather than unrelated arenas;
 - safety/danger gradient: `Settlement Core → Frontier/Outpost → Field Camp → Wilderness → Deep Territory/Nest`;
-- ordinary random monster combat does not occur in settlement cores;
-- rare authored settlement emergency/siege events remain a future option;
-- long-distance travel may skip empty repeated travel while preserving actual hunting gameplay;
-- fast travel can connect discovered safe anchors but cannot teleport directly onto an undiscovered monster;
-- off-screen settlement/ecology state is persisted in bounded forms rather than running every actor everywhere.
+- normal exploration camera is local/character-centered and must not zoom out to show the full region as the gameplay view;
+- full geography belongs in the map UI;
+- preferred measurement convention: **1 world unit = 1 meter**;
+- collision/gameplay scale stays coherent while visual silhouettes may be mildly exaggerated for aerial readability;
+- modular building kits + simplified collision + interior culling + LOD are the preferred settlement-production strategy;
+- small/medium important buildings should be seamless walk-in where device budgets permit;
+- larger interiors may use doorway/hall/stair threshold streaming.
 
-### Map/state separation
-Conceptual persistent ownership:
-- `WorldState` — atlas unlocks/routes, settlement references, region ecology aggregates, persistent important monsters, contracts/world flags;
-- `SettlementState` — NPC schedule/service/story/local emergency state;
-- `RegionState` — discovered camps/landmarks, ecology aggregates, persistent hunt monsters, mutation/crystal pressure and hunt state;
-- only the entered location expands into full runtime scene state.
+### Prototype scale targets
+These are planning ranges to validate, not runtime-proven limits:
+- first settlement: roughly 180–320 m characteristic playable extent, compact/dense rather than sprawling;
+- first hunting region: roughly 4–7 meaningful sectors;
+- prototype sector span: roughly 100–220 m depending terrain density;
+- total first-region footprint: several hundred meters rather than several empty kilometers;
+- first major monster useful prototype: roughly 5–8 m long and 2.5–4 m major body/shoulder height depending body plan;
+- standard large-monster first-person encounter footprint: usually tens of meters, roughly 30–90 m as a starting design range;
+- settlement practical-detail camera radius candidate: roughly 20–40 m;
+- wilderness practical-detail camera radius candidate: roughly 35–70 m, with farther landmarks/monster silhouettes handled through LOD.
 
-### Player-facing identity
-- grounded stylized wilderness/frontier monster-hunting fantasy;
-- visual identity: **an illustrated hunting world brought to life**;
-- dimensional aerial overview without literal paper/craft visuals;
-- current camera target roughly 40–50° downward;
-- stylized 3D player/major monsters preferred for aerial→first-person continuity;
-- selective 2D/billboard/impostor detail allowed for Android efficiency.
+Exact values remain subject to engine/phone/readability testing.
 
 ### Core loop
 `PREPARE IN SETTLEMENT → LEAVE THROUGH FRONTIER → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → SURVIVE → HARVEST → RETURN → CRAFT/EQUIP/UPGRADE/RESEARCH → HUNT HARDER PREY`
@@ -100,20 +108,26 @@ Different spatial layers have different budgets:
 - hunting region: terrain/tracking/ecology/monster priority;
 - first-person encounter: local monster/anatomy/telegraph/VFX highest detail.
 
-Only current/adjacent wilderness sectors require full presentation/simulation. Heavy outgoing scene systems should unload/deactivate during transitions.
+Only the current/required neighboring wilderness sectors should receive high-detail presentation. Farther region state remains simplified/logical/aggregate until promoted.
 
 ### Admin/Creator
-Planned map tools now include:
+Planned world tools now include:
 - world-atlas node/route editor;
 - settlement anchor/service overlay;
-- frontier transition boundary viewer;
-- region-sector and streaming overlay;
+- settlement walkability/collision overlay;
+- modular building/interior visibility inspector;
+- frontier transition boundary/anchor viewer;
+- current/neighbor sector streaming state;
+- sector memory/render cost;
+- artificial slow-stream test mode;
 - ecology/mutation-pressure overlay;
+- persistent monster cross-sector inspector;
 - monster territory/path/track anchors;
 - encounter-capable footprint viewer;
 - tactical node/cover/elevation preview;
 - first-person preview;
-- performance cost by sector.
+- actor/building LOD state;
+- camera practical-detail radius.
 
 ## CURRENT ACTIVE PLANNING AUTHORITIES
 
@@ -124,6 +138,7 @@ Planned map tools now include:
 - `GAME_EXPERIENCE_BIBLE.md`
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
+- `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
 - `NEW_GAME_MASTER_PLAN.md`
 - `MECHANICAL_SYSTEMS_GUIDE.md`
 - `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
@@ -141,36 +156,41 @@ Planned map tools now include:
 - `NEW_GAME_DISCUSSION_CHECKLIST.md`
 - `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
 
-## FIRST MAP VERTICAL-SLICE TARGET
+## FIRST WORLD/STREAMING PROOF AFTER AUTHORIZATION
 
-When implementation is eventually authorized, map scope should begin with:
-- 1 compact settlement/frontier lodge;
-- 1 outbound gate/transition belt;
-- 1 hunting region;
-- approximately 4–6 meaningful wilderness sectors;
-- 1 field camp;
-- 1 primary monster territory;
-- 2–3 encounter-capable footprints;
-- 1 deeper nest/retreat point;
-- same monster identity through region → battle → escape/death/harvest → return;
-- settlement return without duplicated state;
-- target Android streaming/memory verification.
+Before building a final town or large biome, prove with simple geometry:
+- 1 walkable settlement block;
+- 2–3 enterable buildings;
+- 1 hunter gate;
+- 1 diegetic transition corridor;
+- 1 wilderness region with 3 connected prototype sectors;
+- seamless walking across those wilderness sector boundaries;
+- 1 persistent monster crossing a sector boundary;
+- 1 local first-person encounter;
+- monster escape back into another sector;
+- player return through the gate to settlement;
+- no duplicated player/monster/save state;
+- target Android memory/frame-pacing/streaming verification.
+
+Then increase toward the first-slice target of 4–7 sectors and the real settlement layout.
 
 ## NEXT_ACTION
 
 Continue design discussion. Highest-value open questions now include:
-1. first settlement identity/layout/services;
-2. first hunting-region biome and sector arrangement;
-3. whether the settlement gate transition is visually seamless or uses a short controlled load;
-4. exact camp/fast-travel rules;
-5. save-anywhere versus safe-anchor policy;
-6. settlement defense lore and whether humans use crystals;
-7. exact crystal tiers/ranks/qualities/elements;
-8. exact berserk rules;
-9. mutation origin/inheritance;
-10. player progression/stats/AP/equipment;
-11. first monster/weapon;
-12. target Android device and engine.
+1. exact first settlement identity, district/layout and building style;
+2. exact first hunting-region biome/topology;
+3. exact gate/transition-corridor visual form;
+4. exact settlement/wilderness camera framing/FOV/projection;
+5. minimum Android target and how many neighboring sectors can remain graphically resident;
+6. camp/fast-travel rules;
+7. save-anywhere versus safe-anchor policy;
+8. settlement defense lore and whether humans use crystals;
+9. exact crystal tiers/ranks/qualities/elements;
+10. exact berserk rules;
+11. mutation origin/inheritance;
+12. player progression/stats/AP/equipment;
+13. first monster/weapon;
+14. engine.
 
 Do not implement gameplay until the user explicitly authorizes it.
 
@@ -178,6 +198,9 @@ Do not implement gameplay until the user explicitly authorizes it.
 
 DESIGN_RECORDED = YES
 WORLD_MAP_STRUCTURE_DESIGNED = YES
+WORLD_SCALE_STREAMING_DESIGNED = YES
+WALKABLE_SETTLEMENTS_DESIGNED = YES
+CONTINUOUS_WILDERNESS_SECTORS_DESIGNED = YES
 SETTLEMENT_HUNTING_REGION_SEPARATION_DESIGNED = YES
 STATS_EFFECTS_SYSTEM_DESIGNED = YES
 DETERMINISTIC_BEHAVIOR_SYSTEM_DESIGNED = YES
