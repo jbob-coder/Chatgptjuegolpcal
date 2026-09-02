@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-Map the entire new game from basic player experience down to world structure, mechanics, stats/effects, deterministic behavior, crystal life force, mutation/ecology, code, data, performance, testing and creator tooling.
+Map the entire new game from current state and design governance down through player experience, world structure, mechanics, stats/effects, deterministic behavior, crystal life force, mutation/ecology, code, data, performance, testing and creator tooling.
 
 Future work should not reconstruct the project from chat memory. Read the correct authoritative layer, then inspect verified source/tests once implementation exists.
 
@@ -13,41 +13,42 @@ Future work should not reconstruct the project from chat memory. Read the correc
 
 # Read from basic → detailed
 
-## Layer 0 — Current state
+## Layer 0 — Current state and design governance
 1. `START_HERE_NEW_CHAT.md` — current directive, stop gate and next action.
 2. `README.md` — project front door/one-page contract.
 3. `PROJECT_HANDOFF.md` — current verified design state/open decisions.
 4. `DOCUMENTATION_INDEX.md` — this map.
+5. `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md` — project-wide invariants, ownership/dependency matrix, complexity budgets, feature admission gates, change-impact classes, documentation-state labels and staged expansion rules.
 
 ## Layer 1 — Player experience and world presentation
-5. `GAME_EXPERIENCE_BIBLE.md` — launch/title, intro/tutorial, pacing, scale, music/audio, HUD, bestiary, harvest/crafting presentation.
-6. `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — visual identity, aerial overview, environment composition, first-person transition, anatomy visuals, settlements and presentation laws.
-7. `MAP_WORLD_SETTLEMENT_STRUCTURE.md` — world atlas, settlement/hub spaces, frontier transition belts, hunting regions, sectors, camps, danger gradient, local combat footprints and state separation.
-8. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md` — walkable settlement rules, settlement↔wilderness transition architecture, continuous wilderness-sector streaming, world-unit convention, camera visibility limits, character/monster/building/street/region prototype scales, modular building construction and LOD/culling strategy.
+6. `GAME_EXPERIENCE_BIBLE.md` — launch/title, intro/tutorial, pacing, scale, music/audio, HUD, bestiary, harvest/crafting presentation.
+7. `VISUAL_WORLD_BEHAVIOR_BIBLE.md` — visual identity, aerial overview, environment composition, first-person transition, anatomy visuals, settlements and presentation laws.
+8. `MAP_WORLD_SETTLEMENT_STRUCTURE.md` — world atlas, settlement/hub spaces, frontier transition belts, hunting regions, sectors, camps, danger gradient, local combat footprints and state separation.
+9. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md` — walkable settlement rules, settlement↔wilderness transition architecture, continuous wilderness-sector streaming, world-unit convention, camera visibility limits, character/monster/building/street/region prototype scales, modular building construction and LOD/culling strategy.
 
 ## Layer 2 — Gameplay and numerical behavior
-9. `NEW_GAME_MASTER_PLAN.md` — complete gameplay intent/core loop.
-10. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics/state interactions.
-11. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` — six primary attributes, derived stats, equipment bonuses, modifier stacking/caps, statuses, terrain/weather effects, hit quality and calculation traces.
-12. `BEHAVIOR_PATTERN_SYSTEM.md` — deterministic NPC/creature schedules, phases, `IF` conditions, priorities, cooldowns, situation adaptation and trace/debug rules. This replaces any old AI-behavior assumption.
-13. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md` — life-force crystal reserve, Tier/Rank/Quality/Element, desperation/berserk rules, mutation architecture, elemental habitat relationships and bounded ecosystem simulation.
-14. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
+10. `NEW_GAME_MASTER_PLAN.md` — complete gameplay intent/core loop.
+11. `MECHANICAL_SYSTEMS_GUIDE.md` — detailed mechanics/state interactions.
+12. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` — six primary attributes, derived stats, equipment bonuses, modifier stacking/caps, statuses, terrain/weather effects, hit quality and calculation traces.
+13. `BEHAVIOR_PATTERN_SYSTEM.md` — deterministic NPC/creature schedules, phases, `IF` conditions, priorities, cooldowns, situation adaptation and trace/debug rules. This replaces any old AI-behavior assumption.
+14. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md` — life-force crystal reserve, Tier/Rank/Quality/Element, desperation/berserk rules, mutation architecture, elemental habitat relationships and bounded ecosystem simulation.
+15. `NEW_GAME_DISCUSSION_CHECKLIST.md` — unresolved decisions that must not be silently invented.
 
 ## Layer 3 — Internal architecture/code/content
-15. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
-16. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
-17. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
-18. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; newer dedicated authorities override overlaps where more specific.
+16. `SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative state/domains/action flow/effect and behavior architecture.
+17. `CONTENT_DATA_GUIDE.md` — stable IDs/data authoring for actors, anatomy, attacks, behavior rules, attributes/effects/statuses/terrain/equipment/materials/regions.
+18. `CODE_GUIDE.md` — code ownership/APIs/logging/bug isolation/optimization/refactor rules.
+19. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` — supporting earlier architecture/visual principles; newer dedicated authorities override overlaps where more specific.
 
 ## Layer 4 — Performance/debug/creator/QA
-19. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
-20. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
-21. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
+20. `PERFORMANCE_BUDGETS_AND_CAPS.md` — performance hierarchy, behavior/effect update budgets, caps, degradation and isolation.
+21. `ADMIN_CREATOR_SYSTEM.md` — inspectors, stat/effect trace, status/terrain tools, deterministic behavior editor/debugger, encounter/content creator tools.
+22. `TESTING_VERIFICATION_PLAN.md` — invariants, modifier/status/terrain/behavior tests, Android runtime matrix and gates.
 
 ## Layer 5 — Build/continuity
-22. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
-23. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
-24. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
+23. `IMPLEMENTATION_ROADMAP.md` — dependency-driven stages.
+24. `DEVELOPMENT_REFERENCE.md` — bounded development discipline.
+25. `EVOLVE_ALIGNMENT.md` — project-specific EVOLVE rules.
 
 # Authority order by claim type
 
@@ -74,6 +75,9 @@ Future work should not reconstruct the project from chat memory. Read the correc
 A design file does not prove implementation. Compilation does not prove phone behavior.
 
 # Documents by responsibility
+
+## Project-wide design governance
+- `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
 
 ## Player experience / audiovisual / world structure
 - `GAME_EXPERIENCE_BIBLE.md`
@@ -107,6 +111,8 @@ A design file does not prove implementation. Compilation does not prove phone be
 
 # Current locked world/mechanical architecture
 
+- every meaningful new mechanic must identify player value, authoritative owner, dependencies, invariants/caps and verification path before becoming a current design decision;
+- design statements are distinguished as LOCKED/CURRENT, SELECTED ARCHITECTURE, PROTOTYPE TARGET, OPEN, FUTURE OPTION or REJECTED/NOT PREFERRED;
 - world is layered rather than one enormous always-loaded open world;
 - long-distance geography uses a macro world atlas/travel layer;
 - settlements are fully walkable physical gameplay spaces, not menu hubs;
@@ -139,6 +145,21 @@ A design file does not prove implementation. Compilation does not prove phone be
 - off-screen ecology uses aggregate region/species state rather than full per-creature simulation;
 - development calculation/behavior/crystal/mutation/map/streaming traces are required.
 
+# Documentation expansion order
+
+The project should not attempt to expand every possible document at once.
+
+Current bounded sequence:
+1. cross-system quality governance — RECORDED;
+2. first settlement blueprint — NEXT RECOMMENDED PIECE;
+3. first hunting-region blueprint;
+4. first monster complete design packet;
+5. player progression/equipment packet;
+6. exact combat-economy packet;
+7. engine-specific technical mapping only after engine/device evidence.
+
+See `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md` for the reasoning and admission gates.
+
 # Source-adjacent docs to create only when source exists
 
 After engine selection/implementation authorization, create only when matching implementation exists:
@@ -164,15 +185,17 @@ Do not create fake implementation docs for nonexistent source.
 
 When durable truth changes:
 1. update the owning document;
-2. update `PROJECT_HANDOFF.md` when current state/next action changed;
-3. update this index when files/ownership change;
-4. update README when project-level contract changed;
-5. read back saved state;
-6. never rely on later chat text to cancel stale written authority.
+2. use `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md` to identify dependent systems/docs;
+3. update `PROJECT_HANDOFF.md` when current state/next action changed;
+4. update this index when files/ownership change;
+5. update README when project-level contract changed;
+6. read back saved state;
+7. never rely on later chat text to cancel stale written authority.
 
 # Current gate
 
 `DESIGN_SYSTEM = ACTIVE`
+`DESIGN_QUALITY_GOVERNANCE_RECORDED = YES`
 `WORLD_MAP_STRUCTURE_DESIGNED = YES`
 `WORLD_SCALE_STREAMING_DESIGNED = YES`
 `WALKABLE_SETTLEMENTS_DESIGNED = YES`
