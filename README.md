@@ -12,24 +12,26 @@ This branch is a billing-safe pointer/history mirror. Google Drive is the author
 
 ## Drive authority
 Root: https://drive.google.com/drive/folders/1hsdyIqh_t231jqiq8O-kgBTEs8F8N8AE
-Source/v0.5.6: https://drive.google.com/drive/folders/1PW57IwxUSfHddC5kUB3RsP0p047F8A6G
+Source/v0.5.7: https://drive.google.com/drive/folders/1ZFD7TQl5rxco8kAPQuzgMcAdaPdjoQ-T
 Assets/v0.4.3: https://drive.google.com/drive/folders/1FV0Ji5cVqIOIqK9v0i3z7OawL9bqRu4P
 Builds root: https://drive.google.com/drive/folders/1zhdPquR_ue_WCtkzErgAYfrkTA9FTcU7
 
-## v0.5.6 change
-- Documentation/continuity hardening only; gameplay behavior intentionally inherited from v0.5.5.
-- Adds authoritative development reference and systems/how-it-works guide.
-- Rewrites stale architecture documentation to schema-4/six-NPC/interior-session reality.
-- Corrects build guide to the actual AGP 9.1.1 source pin.
-- Keeps the player-apartment runtime scene as the next bounded gameplay implementation.
+## v0.5.7 change
+- First Android/SceneView player-apartment presentation slice built from the existing schema-4 `InteriorSessionState` and `InteriorCatalog` dimensions.
+- Exterior home interaction now presents engine-quoted ENTER; active interior state switches presentation to `InteriorWorldScreen`; EXIT dispatches the existing engine action.
+- Apartment visual shell includes catalog-sized room zones, human-scale furniture massing, residential materials/lighting, right-side camera look, and cosmetic idle/breathing motion.
+- Interior joystick/free-roam is intentionally withheld until `:game-core` owns local position/collision.
+- Adds `WORLD_ART_BIBLE.md` and `ANIMATION_RUNTIME_PLAN.md`; updates the world-layout expansion sequence toward streamed sectors without rescaling old saves.
 
 ## Verification state
-- Static source verification: PASS.
+- v0.5.6 input SHA rechecked: PASS.
+- Production game-core byte-identical to v0.5.6: PASS (11 Kotlin files, 0 changed).
 - Pure Kotlin game-core compile: PASS.
 - Repository tests: PASS (45 tests).
-- Dedicated v0.5.5 interior-session harness: PASS.
-- Save serializer schema-4 Kotlin/type compile using local API stubs: PASS.
+- Apartment renderer Kotlin/type check using local Compose/SceneView API-shaped stubs: PASS.
+- Save serializer schema-4 Kotlin/type check using local stubs: PASS.
 - Android XML parse: PASS (6 files).
-- No `.github/workflows` files in source.
-- Android/SceneView APK compile for v0.5.6 remains pending a free local Android toolchain.
+- Static source verification: PASS (58 required files before final freeze).
+- Cost/policy audit: PASS; 0 workflow files, 0 files above 90 MiB.
+- Android/SceneView APK compile/runtime for v0.5.7: NOT EXECUTED; free full Android toolchain is still unavailable here.
 - Last fully Android-compiled/signature-verified APK: v0.4.0.
