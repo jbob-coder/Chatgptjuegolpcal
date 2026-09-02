@@ -50,45 +50,47 @@ Region 01 package-local authorities:
 23. `docs/20_gameplay/README.md`
 24. `docs/20_gameplay/progression/README.md`
 25. `docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`
-26. `NEW_GAME_MASTER_PLAN.md`
-27. `MECHANICAL_SYSTEMS_GUIDE.md`
-28. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-29. `BEHAVIOR_PATTERN_SYSTEM.md`
-30. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-31. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+26. `docs/20_gameplay/combat/README.md`
+27. `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`
+28. `NEW_GAME_MASTER_PLAN.md`
+29. `MECHANICAL_SYSTEMS_GUIDE.md`
+30. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+31. `BEHAVIOR_PATTERN_SYSTEM.md`
+32. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+33. `NEW_GAME_DISCUSSION_CHECKLIST.md`
 
 Current next gameplay authority to create:
-**Exact Combat Action-Economy Contract**.
+**Combat Resolution / Hit Quality and Defense Contract**.
 
 ## Layer 4 — art production / runtime 2D / 3D conversion
-32. `docs/40_art/README.md`
-33. `docs/40_art/asset_pipeline/README.md`
-34. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
-35. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
-36. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
-37. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
-38. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
-39. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
-40. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
-41. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
-42. `docs/40_art/reviews/README.md`
-43. Hunter H02/H02A review files when relevant.
+34. `docs/40_art/README.md`
+35. `docs/40_art/asset_pipeline/README.md`
+36. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
+37. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
+38. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
+39. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
+40. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
+41. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
+42. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
+43. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
+44. `docs/40_art/reviews/README.md`
+45. Hunter H02/H02A review files when relevant.
 
 ## Layer 5 — architecture/code/data
-44. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-45. `CONTENT_DATA_GUIDE.md`
-46. `CODE_GUIDE.md`
-47. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
+46. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+47. `CONTENT_DATA_GUIDE.md`
+48. `CODE_GUIDE.md`
+49. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
 
 ## Layer 6 — performance/debug/creator/testing
-48. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-49. `ADMIN_CREATOR_SYSTEM.md`
-50. `TESTING_VERIFICATION_PLAN.md`
+50. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+51. `ADMIN_CREATOR_SYSTEM.md`
+52. `TESTING_VERIFICATION_PLAN.md`
 
 ## Layer 7 — build/continuity
-51. `IMPLEMENTATION_ROADMAP.md`
-52. `DEVELOPMENT_REFERENCE.md`
-53. `EVOLVE_ALIGNMENT.md`
+53. `IMPLEMENTATION_ROADMAP.md`
+54. `DEVELOPMENT_REFERENCE.md`
+55. `EVOLVE_ALIGNMENT.md`
 
 # 2. `/docs` map
 
@@ -112,9 +114,12 @@ docs/
 │           └── ACCEPTANCE_CHECKLIST.md
 ├── 20_gameplay/
 │   ├── README.md
-│   └── progression/
+│   ├── progression/
+│   │   ├── README.md
+│   │   └── PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md
+│   └── combat/
 │       ├── README.md
-│       └── PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md
+│       └── ACTION_ECONOMY_CONTRACT.md
 ├── 30_content/
 │   ├── README.md
 │   ├── hunters/
@@ -157,7 +162,6 @@ Existing root authorities remain current until a separate link-safe migration oc
 
 Settlement 01:
 - compact defensible frontier settlement;
-- Hunter Service Loop;
 - repeated core-service legs ~10–25 sec prototype target;
 - walkable, layered, district-cullable.
 
@@ -218,7 +222,41 @@ Open:
 - human crystal use;
 - endgame ceiling.
 
-# 5. Hunter visual-production stop rule
+# 5. Current combat action-economy authority
+
+Package:
+`docs/20_gameplay/combat/`.
+
+Primary authority:
+`ACTION_ECONOMY_CONTRACT.md`.
+
+Selected architecture:
+- AP = current-turn tactical opportunity;
+- RP = bounded out-of-turn reaction capacity;
+- Stamina = persistent exertion across turns;
+- AP/RP/Stamina are separate resources;
+- no normal AP banking;
+- ordinary progression/attributes do not grant additional normal turns;
+- explicit reaction windows;
+- normal reaction recursion blocked;
+- UI/animation cannot advance turns or spend/refund resources.
+
+Prototype first-slice targets:
+- hunter `4 AP`;
+- hunter `1 RP`;
+- adjacent standard move `1 AP`;
+- standard attack `2 AP`;
+- precision attack `3 AP`;
+- heavy/full-turn commitment `4 AP`;
+- aim/brace/analyze/recovery commonly `1 AP`;
+- larger reposition commonly `2 AP` plus stamina.
+
+Important targeting rule:
+selecting an already-known legal body part inside an attack command is not automatically charged an additional AP. Distinct setup actions such as Aim/Analyze/positioning can carry their own costs.
+
+Numbers are prototype targets until combat testing; separation, ownership, reaction-window and anti-loop laws are selected architecture.
+
+# 6. Hunter visual-production stop rule
 
 Hunter H02 v001 → `REVISE`.
 Hunter H02 v002 → `REVISE`.
@@ -236,7 +274,7 @@ DCC implementation is NOT authorized.
 
 Do not create H02A v004 with the same failed method.
 
-# 6. Asset storage architecture — Google Drive
+# 7. Asset storage architecture — Google Drive
 
 Project root:
 `Unnamed Hunt RPG` — `1N3FbZhLE9ZfEy1Og-iNiB2B7nyyfangt`.
@@ -251,7 +289,7 @@ Do not mix reference, conversion and game-ready assets.
 
 A generated GLB/FBX remains a reconstruction candidate until topology/anatomy/rig/LOD/engine/Android gates pass.
 
-# 7. Current documentation progression
+# 8. Current documentation progression
 
 Recorded major bounded pieces:
 1. quality governance;
@@ -264,14 +302,15 @@ Recorded major bounded pieces:
 8. Monster 01;
 9. Hunter proportion/attachment contract;
 10. Hunter source-pack and DCC-blockout specifications;
-11. **player progression/equipment packet**.
+11. player progression/equipment packet;
+12. **exact combat action-economy contract**.
 
 Next:
-12. **Exact Combat Action-Economy Contract**.
+13. **Combat Resolution / Hit Quality and Defense Contract**.
 
-After that, choose another bounded dependency based on the resulting combat contract rather than assuming the rest of the roadmap is unchanged.
+After that, choose another bounded dependency based on the resulting combat-resolution contract rather than assuming the rest of the roadmap is unchanged.
 
-# 8. Current gates
+# 9. Current gates
 
 `DESIGN_SYSTEM = ACTIVE`
 `DOCS_FOLDER_STRUCTURE_RECORDED = YES`
@@ -280,6 +319,11 @@ After that, choose another bounded dependency based on the resulting combat cont
 `MONSTER_01_DESIGNED = YES`
 `PLAYER_PROGRESSION_PACKET = RECORDED`
 `PLAYER_PROGRESSION_MODEL = SELECTED_HYBRID`
+`COMBAT_ACTION_ECONOMY = RECORDED`
+`FIRST_SLICE_AP_TARGET = 4`
+`FIRST_SLICE_RP_TARGET = 1`
+`AP_BANKING = NO`
+`REACTION_RECURSION = BLOCKED`
 `HUNTER_AI_MULTIVIEW_ROUTE = PAUSED_BY_QA`
 `HUNTER_DCC_BLOCKOUT_SPECIFICATION = RECORDED`
 `DCC_IMPLEMENTATION = NOT AUTHORIZED`
@@ -288,7 +332,7 @@ After that, choose another bounded dependency based on the resulting combat cont
 `IMPLEMENTATION = NOT AUTHORIZED`
 `PHONE_RUNTIME = NOT VERIFIED`
 
-# 9. Maintenance
+# 10. Maintenance
 
 When durable truth changes:
 1. update owning authority/package;
