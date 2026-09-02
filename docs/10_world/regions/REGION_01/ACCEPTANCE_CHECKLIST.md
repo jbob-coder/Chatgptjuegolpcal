@@ -21,7 +21,11 @@ Required before region design is called `DESIGNED`:
 - [x] visual-reference plan exists;
 - [x] selected vs prototype vs open decisions are distinguished;
 - [x] package states what it does not own;
-- [ ] root index/handoff/startup references reconciled and read back.
+- [x] root README/index/handoff/startup references reconciled and read back.
+
+**Gate A status: PASS — Region 01 is DESIGNED at the documentation level only.**
+
+This does not imply graybox, implementation, phone runtime or performance verification.
 
 ## Gate B — Graybox topology
 
@@ -126,7 +130,9 @@ Do not add many monsters/resources/side systems until:
 ## Current status
 
 `DOCUMENTATION_PACKAGE = WRITTEN`
-`ROOT_CONTINUITY_RECONCILIATION = PENDING THIS PASS`
+`ROOT_CONTINUITY_RECONCILIATION = COMPLETE`
+`REGION_01_DESIGNED = YES (DOCUMENTATION LEVEL)`
 `GRAYBOX = NOT STARTED`
 `IMPLEMENTATION = NOT AUTHORIZED`
-`REGION_01_DESIGNED = PENDING ROOT READBACK/RECONCILIATION`
+`PHONE_RUNTIME_VERIFIED = NO`
+`PERFORMANCE_VERIFIED = NO`
