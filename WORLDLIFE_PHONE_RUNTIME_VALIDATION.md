@@ -1,10 +1,11 @@
 # WorldLife RPG — Phone Runtime Validation
 
-Status: ACTIVE / BLOCKER OBSERVED
+Status: ACTIVE / BLOCKER OBSERVED / REPAIR BUILD IN PROGRESS
 Last reconciled: 2026-09-02.
-Test target: `WorldLifeRPG-v0.5.8-GitHub-test.apk`.
+Original test target: `WorldLifeRPG-v0.5.8-GitHub-test.apk`.
+Repair candidate: `v0.5.8.1` / versionCode `24`.
 
-## Tested-build identity
+## v0.5.8 tested-build identity
 
 - Source version represented: `0.5.8`
 - Android package: `com.jackwilson.worldlife`
@@ -19,59 +20,39 @@ Test target: `WorldLifeRPG-v0.5.8-GitHub-test.apk`.
 
 ## Build qualification
 
-`APK_BUILD_VERIFIED`: YES.
-
-Observed GitHub build gates passed: source/bootstrap SHA reconstruction, exact v0.5.8 compile-source overlay SHA, signing-key SHA, Java 17, API/build-tools 37, Gradle 9.3.1, `:game-core:test`, `:app:assembleDebug`, APK ZIP integrity, `apksigner`, package/version checks, artifact upload.
-
-A later direct Drive readback independently reconfirmed:
-
-- APK size: `44,012,114` bytes
-- APK SHA-256: `e1e10e6910d2bcc1a1ca87bfc9946727f1307c9a008020dfc03d12aa58ad7c0f`
-- APK ZIP integrity: PASS via `unzip -t`
+`APK_BUILD_VERIFIED` for v0.5.8: YES.
 
 `PHONE_RUNTIME_VERIFIED`: NO.
 
 `VISUAL_PARITY_VERIFIED`: NO.
 
-Direct APK inspection confirms this build contains 1×1 fallback PNGs for all 19 workflow-checked action/joystick/street visual resources. They are each 68 bytes in the APK, while the frozen Drive source contains real resource files ranging from 12,468 to 186,092 bytes. Therefore this APK is definitively functional-test-only for those visuals.
+The v0.5.8 build passed compile/sign/package gates, but later direct APK inspection discovered that all **18** workflow-generated fallback PNG resources are corrupted at the PNG IDAT level. Their shared 68-byte fallback has an invalid IDAT CRC and zlib checksum. Strict decoding fails for all 18.
 
-Full pre-runtime evidence: `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md`.
+This is now a confirmed packaged-resource defect and a strong candidate for the runtime failure below. Full evidence: `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md`.
 
 ## Direct phone evidence received
 
 The user reported that Android displayed a message indicating the app had a bug and requested clearing cache.
 
-This is direct runtime evidence of an abnormal Android-level failure. The exact Android exception/stack trace has not yet been captured, so the root cause remains `UNKNOWN`.
+This is direct runtime evidence of an abnormal Android-level failure. The exact exception/stack trace from v0.5.8 was not captured.
 
-Important data-safety rule: do not clear app storage/data as a diagnostic step because that can delete the DataStore save. Clearing cache is less destructive but is not assumed to repair the root cause.
-
-## Evidence rules
-
-For each phone test item record one of:
-
-- `PASS` — directly observed working on the phone.
-- `FAIL` — directly observed defect.
-- `PARTIAL` — usable but materially wrong/incomplete.
-- `NOT_TESTED` — no observation yet.
-- `NOT_APPLICABLE` — only if the test truly cannot apply.
-
-Do not infer PASS from source, build success, another feature working, or the static pre-runtime audit.
+Data-safety rule: **do not clear app storage/data** as a diagnostic step because that can delete the DataStore save. Clearing cache is less destructive, but it is not treated as a root-cause fix.
 
 ## Runtime checklist
 
 | # | Test | Status | Evidence / notes |
 |---|---|---|---|
-| 1 | App launches | PARTIAL | Android reported an app bug/cache-clear prompt; exact point in launch sequence not yet isolated. |
+| 1 | App launches | PARTIAL | Android reported an app bug/cache-clear prompt; reliable launch not established. |
 | 2 | No black screen | NOT_TESTED | |
 | 3 | Landscape orientation works | NOT_TESTED | |
 | 4 | UI scale is usable/correct | NOT_TESTED | |
-| 5 | Left joystick moves player | NOT_TESTED | APK joystick artwork is fallback; test touch behavior, not final icon quality. |
+| 5 | Left joystick moves player | NOT_TESTED | v0.5.8 joystick PNGs are corrupted fallbacks. |
 | 6 | Right-side drag moves camera | NOT_TESTED | |
 | 7 | Camera distance/angle is usable | NOT_TESTED | |
-| 8 | Player scale looks believable | NOT_TESTED | Judge geometry/scale, not fallback texture fidelity. |
-| 9 | Building/street scale looks believable | NOT_TESTED | Judge geometry/scale, not fallback street textures. |
+| 8 | Player scale looks believable | NOT_TESTED | |
+| 9 | Building/street scale looks believable | NOT_TESTED | v0.5.8 street PNGs are corrupted fallbacks; judge after corrected build. |
 | 10 | Movement collision works | NOT_TESTED | |
-| 11 | Map opens/functions | NOT_TESTED | Map action icon is fallback; test function. |
+| 11 | Map opens/functions | NOT_TESTED | v0.5.8 map action PNG is a corrupted fallback. |
 | 12 | Fast travel works | NOT_TESTED | |
 | 13 | NPC TALK works | NOT_TESTED | |
 | 14 | Apartment ENTER works | NOT_TESTED | |
@@ -81,42 +62,83 @@ Do not infer PASS from source, build success, another feature working, or the st
 | 18 | Cheat Panel opens/modifies state | NOT_TESTED | |
 | 19 | Admin Panel opens/modifies state | NOT_TESTED | |
 | 20 | No crashes/ANRs/missing controls/unusable touch areas | FAIL | `RUNTIME-001`: Android reported app bug and requested clearing cache. |
-| 21 | Screenshots/video/errors captured for defects | PARTIAL | User supplied the Android symptom verbally; exact dialog screenshot/stack trace not yet available. |
-| 22 | Camera recenter points behind/with current facing direction | NOT_TESTED | STATIC-001 predicts mirrored recenter for six non-N/S directions; verify after blocker is cleared. |
+| 21 | Screenshots/video/errors captured for defects | PARTIAL | Direct symptom reported; no v0.5.8 stack trace. |
+| 22 | Camera recenter aligns with facing | NOT_TESTED | `STATIC-001` remains source-confirmed but lower priority than launch blocker. |
 
-## Pre-runtime static findings
+## Confirmed/static defect evidence
+
+### BUILD-001 — corrupted fallback PNG generator
+
+Status: `CONFIRMED`.
+
+The v0.5.8 workflow fallback Base64 produces a 68-byte PNG with:
+
+- valid PNG signature;
+- valid IHDR CRC;
+- **invalid IDAT CRC**;
+- **invalid IDAT zlib checksum**;
+- strict decode failure.
+
+All 18 workflow-checked fallback resources in the permanent v0.5.8 APK contain those bytes.
+
+`OpenWorldScreen.kt` uses them through SceneView `ImageNode` and Compose `painterResource`, so corrupted image decoding can occur immediately when an existing/restored save opens the exterior world.
+
+This is a strong root-cause candidate for `RUNTIME-001`, but the corrected build must be phone-tested before calling it the sole root cause.
 
 ### STATIC-001 — camera recenter direction mismatch
 
 Status: `STATIC_CONFIRMED / PHONE_NOT_TESTED`.
 
-`OpenWorldScreen.kt` contains two inconsistent yaw conventions. Its movement/camera math and `facingYaw()` convention use EAST = 90° and WEST = -90°/270°, but the recenter callback assigns EAST = 270° and WEST = 90°. The same horizontal mirroring affects NE, SE, SW and NW; only NORTH and SOUTH match.
-
-Expected device symptom: after moving/facing in one of the six affected directions and pressing recenter, the camera should rotate to the horizontally mirrored heading instead of aligning with the facing direction.
-
-Do not mark runtime FAIL until observed on phone.
+Six non-north/south facing directions use a horizontally mirrored recenter yaw. Defer repair/retest until the launch blocker is cleared unless it becomes entangled with the same bounded source version.
 
 ## Confirmed runtime defect ledger
 
-| ID | Severity | Symptom | Reproduction | Evidence | Suspected owner | Root cause | Fix version | Retest |
-|---|---|---|---|---|---|---|---|---|
-| RUNTIME-001 | BLOCKER (provisional) | Android reports WorldLife has a bug and requests clearing cache. | Launch/use the v0.5.8 functional test APK; exact trigger within the launch sequence not yet isolated. | Direct user phone report. | Android startup/runtime path; deterministic core is not yet implicated. | UNKNOWN — stack trace required. | v0.5.8.1 diagnostic candidate in progress | PENDING |
+| ID | Severity | Symptom | Evidence | Suspected owner | Root cause | Fix version | Retest |
+|---|---|---|---|---|---|---|---|
+| RUNTIME-001 | BLOCKER (provisional) | Android reports WorldLife has a bug and requests clearing cache. | Direct user phone report. | Android exterior/startup presentation path. | `BUILD-001` corrupted fallback PNGs are the strongest current candidate; exact runtime exception not yet captured. | v0.5.8.1 candidate | PENDING |
 
-Severity remains provisional until the exact point of failure is known. It is treated as BLOCKER because it currently prevents reliable continuation of the phone-validation sequence.
+## v0.5.8.1 bounded repair candidate
 
-## Current repair strategy
+Branch:
+`worldlife-v0581-startup-diagnostic`
 
-Do not guess at the root cause or delete the player's save.
+Build workflow:
+`.github/workflows/worldlife-v0581-startup-diagnostic.yml`
 
-Create a rollback-safe `0.5.8.1` diagnostic build that preserves:
+Current workflow run:
+`33606981019`
 
-- package `com.jackwilson.worldlife`;
-- stable signing lineage;
-- save schema `4`;
-- frozen v0.5.8 source as immutable history.
+Scope:
 
-The diagnostic patch installs an uncaught-exception recorder before activity startup. If Android terminates WorldLife, the next launch shows a native recovery dialog before Compose/SceneView and allows the exact crash diagnostic to be copied. This is an observability repair, not a claim that the unknown root cause is fixed.
+- versionName `0.5.8.1`;
+- versionCode `24`;
+- same package ID;
+- save schema remains `4`;
+- same development signing lineage;
+- exact frozen v0.5.8 source reconstructed first;
+- bounded patch files SHA-pinned before overlay;
+- inherited invalid Compose `weight` import correction retained;
+- corrupted fallback PNG is replaced with a validated 70-byte 1×1 PNG when a required visual is absent from build transport;
+- generated PNG CRC and zlib streams are verified before build;
+- packaged fallback PNGs are verified again after APK assembly;
+- uncaught Java/Kotlin crashes are recorded before activity startup;
+- after a recorded crash, the next launch shows a native diagnostic screen before Compose/SceneView so the report can be copied without clearing save data.
+
+This build is still functional-test-only visually.
+
+## Loading / intro product requirement
+
+The user explicitly requested a real loading screen and game intro.
+
+The current source has only a bare spinner loading state and basic name-entry new-game form. Those are placeholders, not finished UX.
+
+The requirement is recorded in `WORLDLIFE_GOALS_BACKLOG.md` as:
+
+- `GOAL-BOOT-001` — designed boot/loading experience;
+- `GOAL-INTRO-001` — real first-run intro/onboarding.
+
+They remain deferred until `RUNTIME-001` is stabilized so startup presentation changes do not obscure the blocker.
 
 ## Next action
 
-Build and verify the v0.5.8.1 diagnostic APK, install it over v0.5.8 without clearing app storage/data, reproduce the failure, then copy the crash diagnostic on the next launch. Use that stack trace to identify and fix the actual highest-severity root cause before unrelated gameplay expansion.
+Complete GitHub verification of v0.5.8.1. If it passes, install it **over** v0.5.8 without clearing app storage/data and retest launch first. If it still crashes and the diagnostic recorder catches a Java/Kotlin exception, reopen the app, copy the native crash report, and use that evidence for the next bounded root-cause repair.
