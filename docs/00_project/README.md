@@ -19,6 +19,24 @@ Does **not** belong here:
 - engine-specific source documentation;
 - art reference images.
 
+## Mandatory pre-work operating contract
+
+Root authority:
+`/EVOLVE_ALIGNMENT.md`
+
+**Read the current repository copy of `EVOLVE_ALIGNMENT.md` before every bounded design, documentation, asset, implementation, debugging or verification pass.**
+
+Do not rely on a remembered EVOLVE state. It records current authorization, source boundary, verification gate and exact next action.
+
+After EVOLVE:
+1. read the current handoff;
+2. verify the relevant current source/package;
+3. identify exactly one bounded piece;
+4. execute the EVOLVE loop;
+5. read back saved state before advancing.
+
+Current EVOLVE state allows Stage 1 implementation but does not permit skipping readiness gates.
+
 ## Current package-local governance authority
 
 `BUILD_READINESS_GATE_MATRIX.md`
@@ -34,7 +52,7 @@ Primary law:
 **an open question blocks only the earliest implementation gate that genuinely consumes its answer.**
 
 Current readiness:
-- engine probe: READY / AUTHORIZED;
+- engine probe: source created / execution verification pending;
 - domain implementation: blocked by engine-phone verification;
 - combat: partial;
 - vertical slice: partial;
@@ -49,5 +67,13 @@ Current root authorities remain authoritative, especially:
 
 Engine/device implementation authorization authority:
 `../50_technical/ENGINE_ANDROID_PROBE_DECISION.md`.
+
+Current isolated probe source:
+`/probes/android_stage1/`.
+
+Current implementation boundary:
+- source created/read back;
+- Godot parse/editor smoke pending;
+- APK/device/performance verification pending.
 
 Do not duplicate or migrate root authorities here until a dedicated link-safe migration pass is approved.
