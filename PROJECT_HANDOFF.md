@@ -1,41 +1,52 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: DESIGN / CONTENT PACKETS / REFERENCE-ASSET GENERATION / NO GAMEPLAY IMPLEMENTATION
+Status: DESIGN / CONTENT PACKETS / REFERENCE ASSET QA / NO GAMEPLAY IMPLEMENTATION
 Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
 
-Generate and review the first registered Hunter Base 01 and Monster 01 visual-reference sheets from stable recorded designs.
+Continue bounded design documentation while gameplay implementation remains on hold.
 
-Reference-image generation is authorized. Gameplay code, engine project, scenes, APK and final game-ready 3D implementation are still not authorized.
+Most recent completed gameplay packet:
+`docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
+
+Current next bounded gameplay task:
+**Exact Combat Action-Economy Contract** — decide first-slice AP/reaction structure, movement/cover timing, action-cost rules and anti-loop invariants without implementing combat code.
+
+Reference-image generation remains generally authorized, but repeated Hunter technical multiview generation using the current image-generation method is intentionally paused after v001/v002/v003 failed technical-source QA.
+
+Gameplay code, engine project, scenes, APK and game-ready 3D implementation remain NOT authorized.
 
 ## CURRENT SOURCE OF TRUTH
 
-Read:
+Read in this order:
 1. `START_HERE_NEW_CHAT.md`
 2. `README.md`
 3. `PROJECT_HANDOFF.md`
 4. `DOCUMENTATION_INDEX.md`
 5. `docs/README.md`
-6. owning package files for the task.
+6. `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`
+7. owning package files for the active task.
 
-Current asset-pass handoff:
+Current specialized handoff for art/model work:
 `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md`.
 
-Do not reconstruct the project from old WorldLife files or chat memory.
+Do not reconstruct the project from old WorldLife files or stale chat memory.
 
 ## DOCUMENTATION STRUCTURE
 
 Selected rule:
-**folders organize ownership; packages organize one playable thing.**
+**folders organize ownership; packages organize one playable thing/system.**
 
-Current package areas:
-- `docs/10_world/regions/REGION_01/`;
-- `docs/30_content/hunters/HUNTER_BASE_01/`;
-- `docs/30_content/monsters/MONSTER_01/`;
-- `docs/40_art/asset_pipeline/`.
+Important package areas:
+- `docs/10_world/regions/REGION_01/`
+- `docs/20_gameplay/progression/`
+- `docs/30_content/hunters/HUNTER_BASE_01/`
+- `docs/30_content/monsters/MONSTER_01/`
+- `docs/40_art/asset_pipeline/`
+- `docs/40_art/reviews/`
 
-Existing root design authorities remain valid until a future link-safe migration.
+Existing root authorities remain valid until a separate link-safe migration.
 
 ## CORE GAME IDENTITY
 
@@ -47,14 +58,14 @@ Visual identity:
 **an illustrated hunting world brought to life**.
 
 Behavior:
-**NO AI behavior system.** NPCs/creatures use deterministic authored patterns/conditions.
+**NO AI behavior system.** NPCs/creatures use deterministic authored patterns, conditions, schedules, priorities, cooldowns and capability checks.
 
-## WORLD STATE
+## WORLD STRUCTURE
 
 Selected hierarchy:
 `WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE/FRONTIER TRANSITION → CONTINUOUS STREAMED HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
 
-Current scale convention:
+Scale convention:
 `1 world unit = 1 meter`.
 
 Settlement 01:
@@ -65,53 +76,96 @@ Settlement 01:
 - active/background/logical NPC fidelity;
 - important interiors seamless when budget permits.
 
-Region 01:
+Region 01 sectors:
 - S00 Trailhead/Field Camp;
 - S01 River Ford/Mud Flats;
 - S02 Rootwood Thicket;
 - S03 Feeding Meadow;
 - S04 Rocky Rise;
 - S05 Deepwood Basin;
-- S06 Nesting Shelf/Crystal Fault;
+- S06 Nesting Shelf/Crystal Fault.
+
+Region rules:
 - looped/branched topology;
-- continuous ordinary sector boundaries;
-- physical tracking evidence rather than permanent exact GPS;
-- persistent monster state across sector escape/reacquisition;
-- first-person encounter footprints derived from real local terrain.
+- ordinary sector boundaries continuous/streamed;
+- physical tracking evidence rather than permanent GPS;
+- persistent monster state across escape/reacquisition;
+- combat footprints derived from actual local terrain.
 
-## STATS/EFFECTS/CRYSTAL
+## STATS / EFFECTS / CRYSTAL
 
-Current primary attributes:
+Primary attribute direction:
 Might / Finesse / Agility / Endurance / Perception / Resolve.
 
-Equipment/status/terrain/weather/posture/injury/crystal/mutation use one shared typed modifier pipeline with explicit stacking/caps/traces.
+Equipment, statuses, terrain, weather, posture, injuries and other modifiers use one shared typed modifier pipeline with explicit stacking, caps and calculation traces.
 
 Crystal rules:
 - one internal life crystal for relevant creatures;
 - current crystal energy is life force;
 - zero usable energy means death;
-- berserk consumes that same reserve;
-- Tier/Rank/Quality/Element/Energy/Condition are distinct;
-- mutation is bounded and may affect anatomy/capabilities/effects/behavior/terrain adaptation/harvest.
+- berserk spends that same reserve;
+- Tier / Rank / Quality / Element / Energy / Condition are distinct;
+- mutations are bounded and may affect anatomy, capabilities, behavior, terrain adaptation and harvest.
+
+## PLAYER PROGRESSION — CURRENT SELECTED DIRECTION
+
+Authority:
+`docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
+
+Selected model:
+**HYBRID / EQUIPMENT + MASTERY + KNOWLEDGE WEIGHTED.**
+
+Progression vectors:
+- slow bounded base-attribute growth;
+- weapon mastery;
+- equipment and equipment specialization;
+- monster/hunter knowledge;
+- harvest/craft proficiency;
+- Hunter Rank / reputation / access;
+- preparation/tools/loadout.
+
+Quality laws:
+- no universal gear score as primary truth;
+- no exponential health/damage treadmill;
+- AP is not a normal progression reward;
+- Hunter Rank primarily controls trust/access rather than raw combat multipliers;
+- equipment is the largest practical combat-expression vector but must preserve tradeoffs;
+- mastery should unlock handling/technique depth rather than simple repeated percentage damage;
+- knowledge improves information, not monster anatomy;
+- harvesting progression cannot create physical material beyond remaining anatomy;
+- late progression must not make anatomy, terrain or preparation irrelevant;
+- first slice proves only a small progression loop.
+
+Open progression details:
+- exact starting/soft-cap attribute values;
+- exact mastery/rank names/counts;
+- exact armor UI slot count;
+- durability/sharpness;
+- respec/failure-loss rules;
+- human crystal technology/use;
+- final endgame ceiling.
 
 ## HUNTER BASE 01
 
-Authority:
-`docs/30_content/hunters/HUNTER_BASE_01/README.md`.
-
-Purpose:
-reusable production/modeling base; not the final story protagonist.
+Authorities:
+- `docs/30_content/hunters/HUNTER_BASE_01/README.md`;
+- `PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
 
 Selected:
+- reusable production/modeling base, not final protagonist;
 - 1.75 m prototype height;
 - realistic adult humanoid proportions;
-- practical frontier layered cloth/leather/limited protection;
-- modular harness, pouches, boots and field tools;
-- restrained material/color language;
-- no giant fantasy armor;
-- three silhouette/loadout tests: light tracking, balanced hunt, reinforced dangerous-hunt;
-- final weapon family OPEN;
-- final face/sex/gender/name/story identity OPEN.
+- practical frontier cloth/leather/limited protection;
+- modular harness/pouches/boots/field tools;
+- stable normalized prototype body anchors and attachment vocabulary;
+- final weapon family and final story identity remain OPEN.
+
+Hunter technical multiview state:
+- H02 v001 → `REVISE`;
+- H02 v002 → `REVISE`;
+- H02A v003 → `REVISE_METHOD`;
+- same-method H02A v004 should NOT be generated;
+- DCC blockout specification is recorded but actual DCC implementation is not authorized.
 
 ## MONSTER 01 — MUDCREST RAKER
 
@@ -121,176 +175,78 @@ Authorities:
 - `CRYSTAL_AND_MUTATION.md`;
 - `BEHAVIOR_AND_REGION.md`.
 
-Selected body/mechanical design:
+Selected prototype:
 - Region 01 territorial root-foraging/omnivorous quadruped;
 - ~6.6 m nose-to-tail;
 - ~3.0 m shoulder/main-body height;
-- front-heavy mass;
-- broad wedge head;
+- front-heavy body;
 - paired mineral horn crest;
 - breakable dorsal plates;
-- robust mud-adapted feet;
-- long muscular tail with legal distal sever boundary;
-- internal forward-torso/sternal crystal core;
-- provisional Mineral/Earth-type elemental expression;
-- restrained biological/mineral crystal visuals.
+- broad mud-adapted feet;
+- long tail with legal distal sever zone;
+- internal forward-torso crystal core;
+- provisional Mineral/Earth-type expression;
+- berserk consumes life force and cannot restore lost anatomy.
 
 First-slice target groups:
-- HEAD;
-- HORN_CREST;
-- FORELEG_L;
-- FORELEG_R;
-- HINDLEG_L;
-- HINDLEG_R;
-- DORSAL_PLATES;
-- TAIL.
+HEAD / HORN_CREST / FORELEG_L / FORELEG_R / HINDLEG_L / HINDLEG_R / DORSAL_PLATES / TAIL.
 
-Functional consequences:
-- horn break weakens/removes strongest horn-charge version;
-- foreleg injury impairs charge/stability;
-- hindleg injury impairs retreat/reposition;
-- dorsal plate break exposes/protects local surface and changes harvest;
-- tail sever removes tail-sweep capability and creates one physical detached harvest source;
-- berserk cannot restore any broken/severed anatomy.
+## ASSET PIPELINE CURRENT STATE
 
-Mutation reference variants:
-- Mirestep Pads;
-- Bastion Plates;
-- Deep-Scent Crest;
-- Resonant Core Veins.
+Google Drive project root:
+`Unnamed Hunt RPG` — `1N3FbZhLE9ZfEy1Og-iNiB2B7nyyfangt`.
 
-Deterministic activity/escape uses actual Region 01 sectors. Critically injured animals prefer valid deeper retreat routes rather than teleporting.
+Separate lanes remain:
+- modeling references;
+- working 2D runtime assets;
+- 3D conversion inputs;
+- approved exports.
 
-## ASSET STORAGE — GOOGLE DRIVE
+Do not mix lanes implicitly.
 
-Project root:
-`Unnamed Hunt RPG`
-ID: `1N3FbZhLE9ZfEy1Og-iNiB2B7nyyfangt`
+Asset authorities include:
+- `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`;
+- `GENERATED_SHEET_REGISTRY.md`;
+- `ASSET_QA_GATES.md`;
+- `RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`;
+- `HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`;
+- `HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`;
+- `PNG_TO_3D_AUTOMATION_PIPELINE.md`.
 
-### Modeling references
-`01_Modeling_References` — `1qsF_JUYBs9ZQ-1lZPHsTCwWn87W46VIs`
-- Hunter — `1XM-kcLfxD3Af-HAPRu4zlO691RgDJLlE`
-- Monster_01 — `1klaz1KEefbWZ2cMMH3N6m--lbQqf9CUe`
+No Hunter/Monster 3D asset is game-ready or conversion-approved.
 
-### Working runtime 2D
-`02_2D_Runtime_Assets` — `1PJ7uzt8oZBE5jFPXoBeldGVVv9Dy1Ko_`
-- UI icons — `1lB-X102Z804LpQw5SBuDMibHHqtWVQzR`
-- bestiary/portraits/illustrations — `1Qz3XZYmsYP-BtXmmdVHnMxBe_-lk7h2Q`
-- decals/VFX sprites — `1oAkamHy_0AZtDksTOAyA_BrNHpdOmiMY`
-- maps/billboards/impostors — `1d14laLOIaHoL9ydx75IBWGfh0i_xqYbe`
+## NEXT BOUNDED WORK
 
-### 3D conversion inputs
-`03_3D_Conversion_Inputs` — `1hs-qJiiF6R-1NLBmlChvSK4rlQilONLz`
-- Hunter — `1fbVPHHyVmGuqAxaKsUXSKAYdYk-BeJy4`
-- Monster_01 — `19iD9tQXEtQEL-Io8Y5MD5h-WPRVKYjEa`
+**Exact Combat Action-Economy Contract**.
 
-### Approved exports
-`04_Approved_Exports` — `1yrS6vXQElSahDUtFJjjst25gq8RIGm2P`
-- 2D runtime — `1S7q8hBrcFoI2iPSJqWXPWJrGmxfPu3A_`
-- 3D game ready — `1rA4FTPUfX1VXdU3QlhVMEShr5gzn7Z_g`
+It should decide only:
+- prototype AP baseline philosophy;
+- reaction reserve/timing;
+- movement/reposition costs;
+- cover/posture interaction timing;
+- basic/precision/heavy/defensive/support action cost categories;
+- expensive whole-turn actions;
+- interrupts/reactions;
+- stamina relationship;
+- action legality order;
+- anti-infinite-loop/extra-turn invariants;
+- what remains OPEN for first combat testing.
 
-Never mix these lanes.
-
-## ASSET PIPELINE AUTHORITIES
-
-- `docs/40_art/asset_pipeline/README.md`
-- `RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
-- `RUNTIME_2D_ASSET_GUIDE.md`
-- `PNG_TO_3D_AUTOMATION_PIPELINE.md`
-- `ASSET_QA_GATES.md`
-- `GENERATED_SHEET_REGISTRY.md`
-
-### Zoom-quality fix
-
-Do not enlarge a small PNG indefinitely.
-
-Use:
-- high-resolution master source;
-- separate native-detail sheets/crops;
-- vector/SDF for scalable geometric/icon assets;
-- master→runtime derivative chain;
-- engine mip/filter/LOD later;
-- optional AI upscaling only for visual/reference restoration, not technical truth.
-
-A modeling reference's resolution is not an Android runtime texture budget.
-
-### Runtime 2D
-
-Eligible examples after cleanup/QA:
-- UI icons;
-- bestiary illustrations;
-- portraits;
-- contract art;
-- map symbols;
-- decals;
-- VFX sprites;
-- verified-3D-derived billboards/impostors.
-
-Generated images that merely resemble normal/ORM/UV/hit/collision/navigation maps are not technically valid runtime maps.
-
-## PNG → 3D AUTOMATION
-
-Current target:
-
-`APPROVED REFERENCE`
-→ `CLEAN/MULTIVIEW CONVERSION INPUT`
-→ `IMAGE-TO-3D CANDIDATES`
-→ `BLENDER NORMALIZE/CLEAN/REPORT`
-→ `TOPOLOGY QA/RETOPO`
-→ `ANATOMY BINDING`
-→ `BREAK/SEVER SETUP`
-→ `RIG`
-→ `DEFORMATION TESTS`
-→ `ANIMATION`
-→ `LOD`
-→ `COLLISION/HIT PROXIES`
-→ `ENGINE IMPORT`
-→ `ANDROID QA`
-→ `GAME_READY`.
-
-Researched current candidate tools/services:
-- Meshy;
-- Tripo;
-- Rodin/Hyper3D;
-- Blender for free technical cleanup/orchestration.
-
-A downloaded generated GLB/FBX is only `RECONSTRUCTION_CANDIDATE`, never automatically `GAME_READY`.
-
-## CURRENT SHEET REGISTRY ORDER
-
-1. `HUNTER_BASE_01_H02_TURNAROUND_SCALE_v001.png`
-2. `HUNTER_BASE_01_H04_MODULAR_SILHOUETTES_v001.png`
-3. `MONSTER_01_M01_M02_HERO_TURNAROUND_v001.png`
-4. `MONSTER_01_M03_ANATOMY_v001.png`
-5. `MONSTER_01_M04_DAMAGE_STATES_v001.png`
-6. `MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001.png`
-7. `MONSTER_01_M08_THREE_DISTANCE_v001.png`
-
-If generation quota/limits intervene, stop only at a completed-sheet boundary and preserve status.
-
-## NEXT ACTION
-
-Generate/review sheets in registry order.
-
-After the visual-reference pass:
-1. player progression/equipment packet;
-2. exact combat economy;
-3. engine/device probe only after explicit implementation authorization.
+Do not implement combat in that pass.
 
 ## STATUS GATES
 
+`DESIGN_RECORDED = YES`
 `DOCS_FOLDER_STRUCTURE_RECORDED = YES`
 `REGION_01_DESIGNED = YES`
 `HUNTER_BASE_01_DESIGNED = YES`
 `MONSTER_01_DESIGNED = YES`
-`ASSET_DRIVE_STRUCTURE_CREATED = YES`
-`RASTER_ZOOM_POLICY_RECORDED = YES`
-`RUNTIME_2D_POLICY_RECORDED = YES`
-`PNG_TO_3D_PIPELINE_RECORDED = YES`
-`ASSET_QA_GATES_RECORDED = YES`
-`REFERENCE_SHEET_GENERATION = ACTIVE`
+`PLAYER_PROGRESSION_PACKET = RECORDED`
+`PLAYER_PROGRESSION_MODEL = SELECTED_HYBRID`
+`HUNTER_TECHNICAL_MULTIVIEW_ROUTE = PAUSED_BY_QA`
+`HUNTER_DCC_BLOCKOUT_SPECIFICATION = RECORDED`
+`DCC_IMPLEMENTATION_AUTHORIZED = NO`
 `GAMEPLAY_SOURCE_CREATED = NO`
-`PRODUCTION_3D_GAME_READY_ASSET = NO`
 `ENGINE_SELECTED = NO`
 `IMPLEMENTATION_AUTHORIZED = NO`
 `APK_BUILD_VERIFIED = NO`
