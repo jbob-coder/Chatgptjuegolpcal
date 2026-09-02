@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / IMPLEMENTATION AUTHORIZED / STAGE 1 READY
+Status: ACTIVE GOVERNANCE / STAGE 1 SOURCE CREATED / LATER GATES CONTROLLED
 Last reconciled: 2026-09-02
 
 ## Purpose
@@ -28,9 +28,9 @@ A requirement can be promoted earlier only when a verified implementation depend
 
 | Gate | Current status | Meaning |
 |---|---|---|
-| ENGINE PROBE | **READY / AUTHORIZED** | Stage 1 may begin now under EVOLVE |
+| ENGINE PROBE | **SOURCE CREATED / EXECUTION PENDING** | Stage 1 skeleton exists; Godot parse/editor/device evidence is next |
 | DOMAIN IMPLEMENTATION | **BLOCKED BY ENGINE PROBE** | design foundation mostly ready; final engine evidence still required |
-| COMBAT | **PARTIAL / NOT READY** | action economy is recorded; resolution/first-weapon/stamina/status/terrain details remain |
+| COMBAT | **PARTIAL / ADVANCED** | action economy + resolution are recorded; first weapon/stamina/initiative/status/terrain/content details remain |
 | VERTICAL SLICE | **PARTIAL / LATER** | world/content packages exist, but integrated loop dependencies remain |
 | EXPANSION | **INTENTIONALLY OPEN** | broad content/lore/endgame decisions should not delay earlier gates |
 
@@ -55,7 +55,7 @@ Authority:
 Status: `DONE`
 
 Selected for Stage 1:
-- Godot 4.7;
+- Godot 4.7 family;
 - GDScript;
 - GL Compatibility renderer.
 
@@ -81,22 +81,26 @@ Status: `DONE`
 - frame pacing, memory, thermal behavior and input responsiveness measured rather than assumed.
 
 ### Probe scene scope
-Status: `DONE`
+Status: `DONE / SOURCE CREATED`
 
-Bounded Stage 1 scope is recorded:
+Bounded Stage 1 source exists under:
+`probes/android_stage1/`.
+
+It currently represents:
 - boot/title;
-- tiny forest/diorama scene;
-- hunter placeholder;
-- one large animated monster placeholder;
+- tiny primitive 3D test scene;
+- 1.75 m Hunter placeholder;
+- one large moving Monster placeholder;
 - aerial camera;
-- touch movement;
-- billboard/impostor foliage test;
-- limited shadow test;
+- touch movement placeholder;
 - aerial→first-person transition;
-- combat HUD mock only;
-- audio;
-- suspend/resume;
-- performance instrumentation.
+- simple light/shadow test;
+- runtime renderer/driver readout;
+- FPS/frame-time/debug-memory readout;
+- Android export guide;
+- Galaxy A03s phone-test protocol.
+
+Remaining Stage-1 representative additions such as richer foliage/audio/suspend-resume must not expand until the existing skeleton passes its current parse/editor smoke gate.
 
 ### Probe acceptance/failure policy
 Status: `DONE`
@@ -108,7 +112,7 @@ The engine candidate must pass actual Galaxy A03s install/runtime evidence befor
 Do not block the engine probe on:
 - final game name;
 - complete lore/history;
-- exact combat hit formula;
+- final combat damage numbers;
 - final weapon family;
 - exact crystal tier taxonomy;
 - final Hunter model;
@@ -121,8 +125,13 @@ Do not block the engine probe on:
 
 ### Engine-probe gate
 
-`ENGINE_PROBE_READINESS = READY`
-`STAGE_1_AUTHORIZED = YES`
+`ENGINE_PROBE_SOURCE = CREATED`
+`GODOT_PARSE_VERIFIED = NO`
+`EDITOR_RUN_VERIFIED = NO`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
+
+Exact next implementation action:
+**parse/editor-smoke verify the existing probe before adding Stage-1 features.**
 
 ---
 
@@ -139,6 +148,9 @@ Stage 2 begins only after `ENGINE_PHONE_PROBE_VERIFIED`.
 Status: `NOT EXECUTED / HARD BLOCKER`
 
 Need:
+- Godot project/scene/GDScript parse verification;
+- editor/desktop smoke run;
+- Android preset/build;
 - install/cold launch;
 - landscape/touch behavior;
 - representative 30 FPS/frame-pacing evidence;
@@ -185,10 +197,13 @@ No runtime AI/ML behavior system.
 Autonomous actors use authored deterministic patterns/conditions.
 
 ### RNG/replay/determinism direction
-Status: `RECORDED AT ARCHITECTURE LEVEL`
+Status: `RECORDED / COMBAT BOUNDARY NOW DEFINED`
 
-Domain resolution should support seeded/reproducible behavior where randomness is used.
-Exact combat randomness boundary may be finalized before combat rather than before Stage 2.
+Domain resolution supports seeded/reproducible behavior where randomness is used.
+Combat resolution now specifically selects bounded seeded variance with deterministic legality/anatomy/cover truth and no unrelated random critical-hit roll.
+
+Authority:
+`docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
 
 ### Stats/effects ownership
 Status: `RECORDED`
@@ -208,7 +223,7 @@ Implementation must retain exact status distinction between implemented, tested,
 ## May remain open until later
 
 Before Stage 2 it is acceptable for these to remain unfinished:
-- final hit-quality formula;
+- final hit-quality numeric thresholds;
 - exact stamina numbers;
 - exact first weapon balance;
 - settlement final art;
@@ -245,6 +260,28 @@ Prototype targets:
 - explicit reaction windows;
 - no recursive reaction loops.
 
+### Combat Resolution / Hit Quality / Defense
+Status: `DONE AT ARCHITECTURAL DESIGN LEVEL`
+
+Authority:
+`docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
+
+Recorded decisions include:
+- hard legality separated from contested resolution;
+- one authoritative resolution context snapshot;
+- attack control vs defense control;
+- body contact vs selected-part contact;
+- target-part exposure states;
+- directional physical cover;
+- Dodge/Block/Parry/Brace as distinct resolution roles;
+- bounded seeded variance with deterministic replay;
+- no separate random critical-hit roll;
+- hit quality: MISS / GRAZE / SOLID / CLEAN / PRECISION;
+- local cover/guard/armor/anatomy ordering;
+- explainable development traces.
+
+Exact balance constants remain open until prototype evidence.
+
 ### Anatomy model and first target groups
 Status: `DONE AT DESIGN LEVEL`
 
@@ -265,29 +302,18 @@ Status: `DONE AT DESIGN LEVEL`
 
 ## Still required before real combat implementation
 
-### Combat Resolution / Hit Quality / Defense Contract
-Status: `OPEN / NEXT DESIGN PACKET`
-
-Must define:
-- accuracy vs evasion;
-- cover interaction;
-- dodge/block/parry/brace resolution;
-- hit-quality bands;
-- target-part exposure/difficulty;
-- deterministic vs seeded-random boundary;
-- armor/anatomy protection ordering;
-- miss/failure consequences;
-- calculation traces.
-
 ### First weapon family
-Status: `OPEN`
+Status: `OPEN / NEXT COMBAT DESIGN DEPENDENCY`
 
 Need one first-slice family only, including:
 - weapon profile;
 - damage channels;
 - reach/range;
+- handling/control profile;
 - AP/stamina costs;
 - normal/precision/heavy techniques;
+- hit-quality ceilings;
+- body-fallback policy;
 - break/sever identity;
 - guard/parry relationship where applicable.
 
@@ -348,6 +374,7 @@ Need basic player defeat/retreat and monster escape behavior for combat completi
 ## Implementation prerequisites
 
 Before Stage 6 source work, previous implementation stages must also be tested:
+- engine-phone probe;
 - domain foundation;
 - stats/effects core;
 - crystal/mutation core;
@@ -355,7 +382,7 @@ Before Stage 6 source work, previous implementation stages must also be tested:
 
 ### Combat gate
 
-`COMBAT_DESIGN_READINESS = PARTIAL`
+`COMBAT_DESIGN_READINESS = PARTIAL / TWO CORE CONTRACTS RECORDED`
 `COMBAT_IMPLEMENTATION = BLOCKED UNTIL REQUIRED PACKETS + PRIOR IMPLEMENTATION GATES`
 
 ---
@@ -557,10 +584,9 @@ When a new requirement is discovered:
 5. if implementation evidence proves the classification wrong, move it and record why.
 
 Examples:
-
 - exact Mudcrest material selling price → `CAN_WAIT_UNTIL_EXPANSION` unless the first slice explicitly tests economy;
 - touch-control layout → `MUST_EXIST_BEFORE_ENGINE_PROBE` because the phone probe must test input;
-- exact hit-quality resolution → `MUST_EXIST_BEFORE_COMBAT`;
+- hit-resolution architecture → `MUST_EXIST_BEFORE_COMBAT` and is now recorded;
 - one crafting recipe → `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
 - complete elemental roster → `CAN_WAIT_UNTIL_EXPANSION`.
 
@@ -573,16 +599,20 @@ As of 2026-09-02:
 `IMPLEMENTATION_AUTHORIZED = YES`
 `ENGINE_PROBE_CANDIDATE = GODOT_4_7_GDSCRIPT_GL_COMPATIBILITY`
 `TARGET_BASELINE_DEVICE = SAMSUNG_GALAXY_A03S`
-`ENGINE_PROBE_READINESS = READY`
+`STAGE_1_PROBE_SOURCE_CREATED = YES`
+`GODOT_PARSE_VERIFIED = NO`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
 `DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`
+`COMBAT_ACTION_ECONOMY = RECORDED`
+`COMBAT_RESOLUTION_CONTRACT = RECORDED`
 `COMBAT_DESIGN_READINESS = PARTIAL`
 `VERTICAL_SLICE_READINESS = PARTIAL`
 `EXPANSION_DECISIONS = INTENTIONALLY_OPEN`
 
 Exact next implementation piece:
-**Stage 1 Godot Android probe project skeleton.**
+**Godot parse/editor smoke verification of the existing Stage-1 probe.**
 
 Exact next design piece that can proceed independently:
-**Combat Resolution / Hit Quality and Defense Contract.**
+**First Weapon Family Contract.**
 
-Implementation and design may now advance in parallel only when their dependencies do not conflict. Each still follows one bounded piece at a time and must preserve readback/testing gates.
+Implementation and design may advance in parallel only when their dependencies do not conflict. Each still follows one bounded EVOLVE piece at a time and must preserve readback/testing gates.
