@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PROBE SOURCE CREATED / GODOT PARSE + PHONE VERIFICATION PENDING
+Status: STAGE 1 PROBE SOURCE CREATED / GODOT PARSE + PHONE VERIFICATION PENDING / COMBAT RESOLUTION RECORDED
 Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
@@ -24,16 +24,20 @@ Do not recreate the skeleton and do not add real combat before this gate.
 
 ## READ ORDER
 
-1. `START_HERE_NEW_CHAT.md`
-2. `README.md`
-3. `PROJECT_HANDOFF.md`
-4. `DOCUMENTATION_INDEX.md`
-5. `docs/README.md`
-6. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-7. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
-8. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
-9. `probes/android_stage1/README.md`
-10. owning package for any independent design task.
+1. `EVOLVE_ALIGNMENT.md`
+2. `START_HERE_NEW_CHAT.md`
+3. `README.md`
+4. `PROJECT_HANDOFF.md`
+5. `DOCUMENTATION_INDEX.md`
+6. `docs/README.md`
+7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
+8. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
+9. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
+10. `probes/android_stage1/README.md`
+11. owning package for any independent design task.
+
+Mandatory law:
+**read the current repository copy of EVOLVE before every bounded pass.**
 
 Use current repository files rather than old WorldLife source or stale chat summaries.
 
@@ -52,9 +56,9 @@ Classes:
 - `CAN_WAIT_UNTIL_EXPANSION`.
 
 Current gates:
-- Engine probe readiness: `READY / SOURCE STARTED`;
+- Engine probe: `SOURCE CREATED / EXECUTION PENDING`;
 - Domain implementation: `BLOCKED_BY_ENGINE_PHONE_PROBE`;
-- Combat design: `PARTIAL`;
+- Combat design: `PARTIAL / TWO CORE CONTRACTS RECORDED`;
 - Vertical slice: `PARTIAL`;
 - Expansion decisions: `INTENTIONALLY_OPEN`.
 
@@ -130,11 +134,11 @@ Quality law:
 ## VERIFICATION TRUTH
 
 Completed:
-- source files created;
-- GitHub readback of `project.godot`, `probe_world.gd`, and `probe_world.tscn`;
-- current Godot documentation cross-check for renderer/orientation/runtime renderer query/performance monitor/Android export direction;
-- repository hygiene rules recorded;
-- phone test protocol recorded.
+- Stage 1 source files created;
+- GitHub source readback;
+- engine/Android documentation cross-check;
+- repository hygiene rules;
+- Galaxy A03s test protocol.
 
 Not completed:
 - Godot project parse/import;
@@ -147,7 +151,7 @@ Not completed:
 - phone runtime;
 - measured performance/thermal behavior.
 
-The execution environment used for the source pass does not contain Godot, and external binary download was not available from that runtime. Do not infer engine success from static source readback.
+The execution environment used for the source pass does not contain Godot. Do not infer engine success from static source readback.
 
 Current gates:
 `IMPLEMENTATION_AUTHORIZED = YES`
@@ -167,7 +171,7 @@ Current gates:
 
 ## EXACT NEXT IMPLEMENTATION PIECE
 
-Use Godot 4.7 to verify only the existing skeleton:
+Use Godot 4.7-family tooling to verify only the existing skeleton:
 1. open `probes/android_stage1/project.godot`;
 2. inspect project-setting warnings;
 3. fix any `.tscn`/GDScript parse errors;
@@ -188,23 +192,77 @@ Do not add further Stage 1 visual complexity until the skeleton itself passes.
 
 ---
 
-## INDEPENDENT DESIGN LANE
+## COMBAT DESIGN — CURRENT RECORDED STATE
 
-Next independent design packet:
-`Combat Resolution / Hit Quality and Defense Contract`.
+Combat package:
+`docs/20_gameplay/combat/`.
 
-This can proceed while Stage 1 awaits editor/device testing because it does not affect the renderer probe.
+### Action economy
+Authority:
+`ACTION_ECONOMY_CONTRACT.md`.
 
-Existing combat action-economy authority:
-`docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`.
-
-Selected first-slice prototype remains:
+Selected first-slice prototype:
 - 4 AP;
 - 1 RP;
 - persistent Stamina;
 - no AP banking;
 - explicit reaction windows;
 - reaction recursion blocked.
+
+### Combat resolution / hit quality / defense
+Authority:
+`COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
+
+Recorded decisions:
+- hard legality is separate from contested resolution;
+- resolution uses one frozen authoritative context snapshot;
+- attack control and defense control are separate from raw damage/protection;
+- body contact is distinct from selected-part contact;
+- target parts use exposure states;
+- cover is directional/physical rather than a universal percentage buff;
+- Dodge, Block, Parry and Brace have different mechanical roles;
+- one reproducible bounded seeded variance source is used per committed attack resolution;
+- no independent random critical-hit roll;
+- hit-quality classes: `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- protection resolves from cover/guard to local armor/anatomy after actual contact location is known;
+- off-target body contact is supported when the technique allows it;
+- development resolution traces are mandatory.
+
+Numeric thresholds remain balance-open until combat prototype evidence.
+
+`COMBAT_RESOLUTION_CONTRACT = RECORDED`
+`COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`
+
+---
+
+## INDEPENDENT DESIGN LANE
+
+Exact next bounded combat-design dependency:
+**First Weapon Family Contract**.
+
+It should define one family only and instantiate the existing action-economy + resolution architecture with:
+- damage channels;
+- handling/control profile;
+- reach/range;
+- normal/precision/heavy techniques;
+- 4 AP economy mapping;
+- stamina costs;
+- hit-quality ceilings;
+- body-fallback policy;
+- break/sever identity;
+- guard/parry support where applicable.
+
+Do not create a broad weapon roster in that pass.
+
+Other combat blockers remain after the first weapon:
+- Stamina prototype scale/recovery;
+- Initiative/tie rule;
+- first status set;
+- first terrain-effect numbers;
+- Monster 01 attack packet;
+- first berserk prototype;
+- solo/party baseline;
+- defeat/retreat baseline.
 
 ---
 
@@ -231,6 +289,6 @@ These design packages do not require final production assets for Stage 1.
 
 ## AUTHORITY
 
-Current explicit user instruction > current owning repository authorities/packages > verified source/test/device evidence > older documents > chat memory/summaries.
+Current explicit user instruction > current verified source/tests > current owning repository authorities/packages > verified build/runtime/device evidence > older documents > chat memory/summaries.
 
 This handoff records state and next work; it does not override owning gameplay/content authorities.
