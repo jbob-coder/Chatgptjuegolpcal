@@ -1,6 +1,6 @@
 # Asset Generation / Lineage Pass — 2026-09-02
 
-Status: ACTIVE HANDOFF / HUNTER H02 v001+v002 REVIEWED / TECHNICAL SOURCE-PACK REVISION REQUIRED / GAMEPLAY IMPLEMENTATION STILL NOT AUTHORIZED
+Status: ACTIVE HANDOFF / HUNTER H02 v001+v002 REVIEWED / GEOMETRY-SAFE H02A v003 PREPARATION / GAMEPLAY IMPLEMENTATION STILL NOT AUTHORIZED
 
 ## Current objective
 
@@ -12,10 +12,12 @@ Current decisions:
 - `H02 v001 → REVISE`;
 - `H02 v002 → REVISE`.
 
-The problem is now understood as a source-architecture issue rather than simply needing a prettier infographic.
+The problem is now understood as two related issues:
+1. technical source images were overloaded as infographics;
+2. cross-view images lacked one explicit shared proportion/attachment scaffold.
 
 Current bounded next action:
-**generate Hunter H02A v003 only from `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`, then review H02A before H02B/H03/H04 or Monster 01.**
+**generate Hunter H02A v003 only from the source-pack standard and Hunter proportion/attachment contract, then review H02A before H02B/H03/H04 or Monster 01.**
 
 Reference-image generation remains authorized. Gameplay code, engine project, scenes, APK and final game-ready 3D implementation remain not authorized.
 
@@ -38,8 +40,9 @@ Reviews:
 - `docs/40_art/reviews/HUNTER_BASE_01_H02_v001_QA.md`
 - `docs/40_art/reviews/HUNTER_BASE_01_H02_v002_QA.md`
 
-Hunter design:
+Hunter design/geometry:
 - `docs/30_content/hunters/HUNTER_BASE_01/README.md`
+- `docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`
 
 Monster design remains:
 - `docs/30_content/monsters/MONSTER_01/*`
@@ -81,6 +84,36 @@ Current base design remains:
 - final protagonist face/name/story identity OPEN.
 
 The technical neutral base must not silently become the reinforced loadout.
+
+---
+
+# New geometry-safe proportion/attachment contract
+
+Authority:
+`docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
+
+Primary quality fix:
+**all Hunter Base 01 visual/modeling work must share one normalized body reference and one stable attachment vocabulary.**
+
+The contract records:
+- engine-neutral local documentation axes;
+- 1.75 m world-height authority;
+- normalized prototype vertical landmark scaffold;
+- cross-view body/clothing/equipment invariants;
+- neutral technical stance;
+- stable attachment vocabulary for chest/shoulder/back/forearm/belt/thigh/shin/carry points;
+- attachment placement bands rather than fake exact XYZ transforms;
+- equipment-fit rules;
+- camera/collision/settlement/rig consequences;
+- H02A v003 generation requirements.
+
+Important status:
+- landmark ratios are `PROTOTYPE TARGETS`, not final anatomical/rig truth;
+- exact attachment transforms remain OPEN until a real DCC rig exists;
+- exact collider dimensions remain OPEN until the engine/device probe;
+- generated images may not redefine body height or attachment identity.
+
+This provides one shared base for art, DCC blockout, armor fit, NPC rig reuse, camera scale, collision planning and environment-scale checks.
 
 ---
 
@@ -136,19 +169,17 @@ Do not copy v002 to the Hunter conversion-input folder.
 
 ---
 
-# New source-pack architecture
-
-Technical source imagery and communication sheets are now separated.
-
-## H02A v003 — NEXT
-Primary clean orthographic/multiview source.
+# H02A v003 source contract — NEXT
 
 Planned file:
 `HUNTER_BASE_01_H02A_ORTHO_REF_v003.png`
 
-Requirements:
-- front/left/back/right where practical;
+Required:
+- H02A only;
+- front / left / back / right where practical;
 - same neutral pose/gear state;
+- same normalized body landmarks;
+- same attachment-side identity;
 - figures dominate roughly 75–90% usable raster height;
 - no infographic panels;
 - no monster comparison;
@@ -158,6 +189,12 @@ Requirements:
 - plain/transparent background;
 - low protagonist identity specificity;
 - base cloth/leather + limited modular protection.
+
+H02A is judged against both:
+- `HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`;
+- `PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
+
+If independent generated views cannot maintain one body/gear construction, do not endlessly regenerate. The later DCC blockout, when authorized, becomes the deliberate geometric truth and future orthographic renders should be derived from that single 3D source.
 
 ## H02B v003
 3/4 volume confirmation. Blocked until H02A is reviewed enough to justify it.
@@ -185,19 +222,20 @@ Monster visual QA remains downstream of the Hunter neutral-base correction in th
 
 ---
 
-# Why the H02A fix matters to the game
+# Why this fix matters to the game
 
-A bad humanoid base would contaminate:
+A bad humanoid base or inconsistent attachment map would contaminate:
 - first-person camera/hand framing;
 - equipment fitting;
 - NPC rig reuse;
 - animation clearance;
 - door/stair/environment scale;
 - aerial silhouette readability;
-- later LODs;
-- collision/capsule proportions.
+- collision/capsule proportions;
+- future LODs;
+- armor/loadout modularity.
 
-Fixing the source now is cheaper than compensating across multiple systems later.
+Fixing those assumptions before DCC work is cheaper than compensating across multiple systems later.
 
 ---
 
@@ -205,10 +243,15 @@ Fixing the source now is cheaper than compensating across multiple systems later
 
 `ASSET_LINEAGE_AUTHORITY = CURRENT`
 `HUNTER_BASE_01_DESIGNED = YES`
+`HUNTER_PROPORTION_ATTACHMENT_CONTRACT = RECORDED`
+`HUNTER_WORLD_HEIGHT = 1.75_M_PROTOTYPE_TARGET`
+`HUNTER_NORMALIZED_BODY_ANCHORS = RECORDED_PROTOTYPE_TARGETS`
+`HUNTER_ATTACHMENT_VOCABULARY = RECORDED`
+`HUNTER_ATTACHMENT_EXACT_TRANSFORMS = OPEN_UNTIL_DCC`
 `H02_V001 = REVIEWED_WITH_ISSUES / REVISE`
 `H02_V002 = REVIEWED_WITH_ISSUES / REVISE / DRIVE_VERIFIED`
 `H02_V002_CONVERSION_USE = NO`
-`H02A_V003 = PLANNED / NEXT`
+`H02A_V003 = PLANNED / NEXT / CONTRACT_READY`
 `H02B_V003 = BLOCKED BY H02A`
 `H03_DETAILS = CONDITIONAL`
 `H04_V001 = GENERATED_UNREVIEWED / BLOCKED`
@@ -224,4 +267,4 @@ Fixing the source now is cheaper than compensating across multiple systems later
 
 ## Exact next action
 
-**Generate Hunter H02A v003 only, then QA it before generating H02B/H03 or reviewing H04/Monster 01.**
+**Generate Hunter H02A v003 only, then QA it against the proportion/attachment contract and asset QA gates before generating H02B/H03 or reviewing H04/Monster 01.**
