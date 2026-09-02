@@ -16,5 +16,6 @@
   "github_actions_allowed": false,
   "mirror_policy": "pointer_history_only",
   "file_ceiling_bytes": 94371840,
-  "last_apk_verified_version": "0.4.0"
+  "last_apk_verified_version": "0.4.0",
+  "evolve_alignment": "https://drive.google.com/file/d/1aEbLa8RXHz0zQQAp6jefNj_lOe9bPQLd/view?usp=drivesdk"
 }
