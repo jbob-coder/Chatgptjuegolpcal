@@ -55,7 +55,7 @@ Primary law:
 Current gate state:
 - engine probe: **SOURCE CREATED / EXECUTION PENDING**;
 - domain implementation: blocked by engine/phone probe evidence;
-- combat design: **PARTIAL / ACTION ECONOMY + RESOLUTION RECORDED**;
+- combat design: **PARTIAL / ACTION ECONOMY + RESOLUTION + FIRST WEAPON FAMILY RECORDED**;
 - vertical slice: partial;
 - expansion: intentionally open.
 
@@ -155,13 +155,45 @@ Selected architecture:
 
 Numeric thresholds remain balance-open.
 
+### First weapon family
+Authority:
+`FIRST_WEAPON_FAMILY_CONTRACT.md`.
+
+Selected first-slice family:
+- technical ID `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- working name Field Poleblade;
+- two-handed long-hafted hunting blade;
+- cutting/sever primary identity;
+- piercing/control secondary identity;
+- limited impact capability;
+- directional Guard;
+- restricted Parry;
+- deliberate weakness at dedicated hard-structure break, cramped fighting and shield-level defense.
+
+First technique packet:
+- Measured Cut — 2 AP;
+- Driving Thrust — 2 AP;
+- Placed Hew — 3 AP, selected part required, Precision allowed;
+- Committed Cleave — 4 AP, full-turn commitment;
+- Haft Check — bounded short-range spacing/control;
+- weapon-supported Guard/Parry under the generic defense contract.
+
+Exact damage, reach meters, Stamina costs, dimensions and final setting-facing terminology remain prototype-open.
+
 ## Independent next design piece
 
-**First Weapon Family Contract**.
+**Stamina Prototype Scale and Recovery Contract**.
 
-This should define one weapon family only and instantiate the existing action-economy and hit-resolution architecture.
+This should define only first-slice exertion behavior:
+- Max Stamina prototype scale;
+- passive recovery timing;
+- deliberate recovery behavior;
+- low-Stamina consequence bands;
+- action/reaction cost floors;
+- Field Poleblade Stamina costs;
+- anti-infinite-recovery invariants.
 
-Do not create a large weapon roster yet.
+Do not combine it with Initiative, statuses, Monster 01 attacks or terrain-number finalization.
 
 ## Locked game direction
 
@@ -246,6 +278,8 @@ S06 Nesting Shelf/Crystal Fault
 `DOMAIN_IMPLEMENTATION = BLOCKED_BY_STAGE_1_GATE`
 `COMBAT_ACTION_ECONOMY = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
 `COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`
 `VERTICAL_SLICE_IMPLEMENTATION = BLOCKED`
 
