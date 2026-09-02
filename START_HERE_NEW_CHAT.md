@@ -1,79 +1,75 @@
-# WorldLife RPG — START HERE FOR A NEW CHAT
+# START HERE — Unnamed Hunt RPG
 
-Last reconciled: 2026-09-02.
+Last reconciled: 2026-09-02
 
-## ACTIVE PROJECT DIRECTION
+## Active project identity
 
-WorldLife is under a **full design reboot** ordered by the user.
+This is a completely new game using the same repository/project area that previously contained WorldLife RPG.
 
-The former v0.5.8 Android life-simulation/third-person game is no longer the active gameplay direction and is approved for removal from the active project area.
+WorldLife is no longer the active project. Do not resume WorldLife phone stabilization, life-sim systems, apartment work, city expansion, or Admin Panel development.
 
-The **same GitHub/Google Drive project area will be reused for the new game** after cleanup. Do not create a separate active project just to preserve the old implementation.
+The working label `Unnamed Hunt RPG` is temporary until the user chooses a final name.
 
-A rollback-only archive may remain outside the active working path for EVOLVE recovery, but the old gameplay source must not remain mixed into the reboot source tree.
+## Mandatory read order
 
-Do **not** create reboot gameplay code yet. The user explicitly ordered a design discussion before implementation.
+Before consequential work read:
+1. `START_HERE_NEW_CHAT.md`
+2. `README.md`
+3. `PROJECT_HANDOFF.md`
+4. `NEW_GAME_MASTER_PLAN.md`
+5. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
+6. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+7. verified source/tests only after implementation begins.
 
-## Mandatory reboot read order
+## Current directive
 
-1. `REBOOT_STATUS.md`
-2. `WORLDLIFE_REBOOT_MASTER_PLAN.md`
-3. `WORLDLIFE_REBOOT_ARCHITECTURE_VISUAL_BIBLE.md`
-4. `WORLDLIFE_REBOOT_DISCUSSION_CHECKLIST.md`
-5. `WORLDLIFE_REBOOT_ENGINE_DECISION.md`
-6. `README.md`
-7. `WORLDLIFE_PROJECT_HANDOFF.md`
-8. `WORLDLIFE_DEVELOPMENT_REFERENCE.md`
-9. `WORLDLIFE_SYSTEMS_GUIDE.md`
-10. `WORLDLIFE_EVOLVE_ALIGNMENT.md`
-
-## New game direction
-
-The reboot is planned as a monster-hunting tactical RPG with:
-
+The user wants:
 - aerial/top-down angled 2D/3D hybrid exploration;
-- first-person turn-based combat when an encounter begins;
-- tactical movement, lateral repositioning, distance control and cover;
-- body-part targeting;
-- break/sever/destroy anatomy states;
-- creature attacks that depend on functional anatomy;
-- condition-based harvesting where actual surviving body-part mass/quality governs yield;
-- crafting/progression built from harvested materials;
-- one authoritative domain state shared by exploration, combat, harvest and presentation.
+- first-person turn-based combat when a battle starts;
+- tactical movement and positioning options;
+- cover where the environment supports it;
+- selectable attack types and selectable body parts;
+- authoritative break/sever/destroy anatomy states;
+- monster behavior altered by damaged anatomy;
+- harvesting whose quantity/quality depends on how much usable material remains on each part;
+- crafting/progression connected to harvested materials;
+- comprehensive planning and EVOLVE documentation before creation.
 
-## Current technology status
+## Implementation hold
 
-Engine is **not locked**.
+The user explicitly required discussion after the planning/recording pass.
 
-Current discussion recommendation is to test Godot 4.7 with Compatibility rendering against the real Android target phone. LibGDX/Kotlin remains a candidate. Compose+SceneView is not the preferred default for the reboot.
+Therefore:
+- GAMEPLAY_SOURCE_CREATED = NO
+- IMPLEMENTATION_AUTHORIZED = NO
+- ENGINE_SELECTED = NO
+- NEXT_ACTION = DESIGN_DISCUSSION
 
-## Legacy cleanup decision
+Do not create gameplay code, APKs, scenes, combat prototypes, or final assets until explicitly authorized.
 
-Confirmed:
+## Architecture law
 
-- delete/remove the old active WorldLife implementation from the active project area;
-- remove old active APK/build/runtime artifacts from the area used by the reboot;
-- reuse the same GitHub/Drive project area for the new game;
-- do not migrate old gameplay code into the new source tree by default;
-- keep at most a rollback-only archive outside the active path.
+Input → Domain Request → Validate/Resolve → Authoritative State/Events → Persistence/Debug → Presentation
 
-Still open:
+Aerial and first-person presentation must not independently decide gameplay outcomes.
 
-- phone-installed old package/save deletion;
-- package ID/signing lineage;
-- whether any old assets are intentionally salvaged after review.
+## First implementation milestone after approval
 
-## Current exact next action
+One complete vertical hunt slice only:
+- one region;
+- one creature;
+- one encounter transition;
+- first-person tactical battle;
+- meaningful anatomy break/sever interaction;
+- condition-based harvest;
+- one craftable upgrade;
+- save/reload;
+- target Android phone verification.
 
-**DISCUSS THE REBOOT DESIGN WITH THE USER.**
+## WorldLife cleanup status
 
-No gameplay implementation starts until the user explicitly ends the discussion hold.
+WorldLife is inactive and being removed from the active documentation/source area.
 
-Status gates:
+The same repository/location remains because the user explicitly wants it reused for the new game.
 
-- `REBOOT_DESIGN_RECORDED = YES`
-- `REBOOT_SOURCE_CREATED = NO`
-- `LEGACY_ACTIVE_PROJECT_CLEANUP_APPROVED = YES`
-- `ACTIVE_PROJECT_AREA_REUSE = YES`
-- `IMPLEMENTATION_AUTHORIZED = NO`
-- `NEXT_ACTION = DISCUSSION`
+Permanent deletion of the frozen Google Drive WorldLife archive was attempted but blocked by the platform safety layer. Do not claim that Drive archive is deleted. It is historical residue only and must not be used as new-game authority.
