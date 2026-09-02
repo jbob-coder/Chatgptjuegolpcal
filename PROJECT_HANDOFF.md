@@ -5,7 +5,7 @@ Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
 
-Continue defining the new game from player-facing experience through world/map structure, scale/streaming/transitions, model/art direction, mechanics, stats/effects, deterministic NPC/creature behavior, crystal life-force, mutation/ecology, architecture, performance, creator tooling and implementation order before gameplay source is created.
+Continue defining the new game from player-facing experience through world/map structure, scale/streaming/transitions, model/art direction, first-settlement design, mechanics, stats/effects, deterministic NPC/creature behavior, crystal life-force, mutation/ecology, architecture, performance, creator tooling and implementation order before gameplay source is created.
 
 Work in bounded documentation pieces rather than attempting to complete every possible system at once.
 
@@ -15,7 +15,7 @@ This is a new game replacing WorldLife in the same repository/project area. Worl
 
 No new-game gameplay code, engine project, scenes, APK or runtime implementation has been created.
 
-Dedicated current authorities now include world/map structure, world scale/streaming/transitions, model/art direction, stats/effects, deterministic behavior, crystal/mutation/ecosystem mechanics, and project-wide design quality governance.
+Dedicated current authorities now include world/map structure, world scale/streaming/transitions, model/art direction, the first settlement blueprint, stats/effects, deterministic behavior, crystal/mutation/ecosystem mechanics, and project-wide design quality governance.
 
 ### Design-quality governance
 Detailed authority: `DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
@@ -33,8 +33,8 @@ Current governance decisions:
 Current planned documentation sequence:
 1. cross-system quality governance — RECORDED;
 2. model art direction/asset standard — RECORDED;
-3. first settlement blueprint — NEXT RECOMMENDED PIECE;
-4. first hunting-region blueprint;
+3. first settlement blueprint — RECORDED;
+4. first hunting-region blueprint — NEXT RECOMMENDED PIECE;
 5. first monster complete design packet;
 6. player progression/equipment packet;
 7. exact combat-economy packet;
@@ -60,12 +60,36 @@ Current selected direction:
 - important models require LOD/degradation paths and simplified collision proxies;
 - exact triangle/texture/bone/material budgets remain OPEN until engine/device profiling.
 
+### First settlement blueprint
+Detailed authority: `FIRST_SETTLEMENT_BLUEPRINT.md`.
+
+Current selected structure:
+- technical ID remains `SETTLEMENT_01`; final name is OPEN;
+- compact frontier hunter settlement on defensible elevated river/chasm geography;
+- overall first-pass footprint target roughly 220–280 m × 160–230 m, irregular and terrain-shaped rather than rectangular;
+- repeated hunt services form a short **Hunter Service Loop** rather than being scattered across town;
+- preferred repeated sequence: hunter lodge/contracts → storage/loadout → smith/craft/processing → hunter gate, with recovery/home access near the loop;
+- normal core-service walking legs use a prototype target around 10–25 seconds to prevent settlement traversal becoming repetitive friction;
+- optional market/residential/social areas create breadth around the repeated service loop rather than interrupting it;
+- five functional zones: hunter/service, craft/processing, market/civic, residential/recovery and defensive/frontier edge;
+- 2–3 major elevation bands preferred to increase visual depth while preserving readable navigation;
+- curved streets, roofs, walls, elevation and terrain prevent full-town visibility from the normal aerial camera;
+- important small/medium interiors should be seamless where budgets permit; only the active building/room should receive roof/wall cutaway visibility treatment;
+- settlement construction uses the modular building-kit standard rather than unique monolithic buildings everywhere;
+- NPCs preserve deterministic authored schedules but use nearby active, background and off-screen logical fidelity tiers instead of full pathfinding/rendering for everyone;
+- critical gameplay services require predictable access even when NPC schedules change;
+- settlement rendering/simulation is partitioned by district/cell so the entire town is not active at hero detail simultaneously;
+- the hunter gate uses a diegetic transition corridor to demote settlement systems and preload wilderness systems;
+- return-from-hunt material flow is intentionally short: gate → processing → storage/research/smith → equipment/market;
+- Admin/Creator tools should measure actual path length/travel time between core services and expose NPC/LOD/culling/streaming cost.
+
 ## VERIFIED_DESIGN_STATE
 
 ### World/map architecture
 Detailed authorities:
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
+- `FIRST_SETTLEMENT_BLUEPRINT.md`
 
 Current structural decisions:
 - do not build one enormous always-loaded seamless open world;
@@ -91,7 +115,8 @@ Current structural decisions:
 
 ### Prototype scale targets
 These are planning ranges to validate, not runtime-proven limits:
-- first settlement: roughly 180–320 m characteristic playable extent, compact/dense rather than sprawling;
+- first settlement: current refined blueprint roughly 220–280 m × 160–230 m irregular footprint;
+- repeated core-service travel legs: roughly 10–25 seconds target;
 - first hunting region: roughly 4–7 meaningful sectors;
 - prototype sector span: roughly 100–220 m depending terrain density;
 - total first-region footprint: several hundred meters rather than several empty kilometers;
@@ -153,6 +178,12 @@ Different spatial layers have different budgets:
 - hunting region: terrain/tracking/ecology/monster priority;
 - first-person encounter: local monster/anatomy/telegraph/VFX highest detail.
 
+Settlement-specific quality rule:
+- logical population can exceed fully active/visible population;
+- off-screen NPCs preserve schedule/location state without continuous render/pathfinding cost;
+- districts/interiors use culling/LOD/visibility partitions;
+- service-loop travel time is a measurable quality metric, not a subjective assumption.
+
 Only the current/required neighboring wilderness sectors should receive high-detail presentation. Farther region state remains simplified/logical/aggregate until promoted.
 
 Model/art performance rules:
@@ -163,11 +194,18 @@ Model/art performance rules:
 - repeated settlement/environment assets should use modularity/instancing where possible.
 
 ### Admin/Creator
-Planned world/model tools eventually include:
+Planned world/model/settlement tools eventually include:
 - world-atlas node/route editor;
-- settlement anchor/service overlay;
+- settlement district/cell overlay;
+- settlement service-anchor overlay;
+- core-service path/travel-time measurement;
 - settlement walkability/collision overlay;
+- NPC active/background/logical tier display;
+- NPC schedule/location trace;
 - modular building/interior visibility inspector;
+- roof/wall cutaway groups;
+- visible/animated NPC count;
+- material/light/audio/interaction counters;
 - frontier transition boundary/anchor viewer;
 - current/neighbor sector streaming state;
 - sector memory/render cost;
@@ -195,6 +233,7 @@ Planned world/model tools eventually include:
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
 - `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
+- `FIRST_SETTLEMENT_BLUEPRINT.md`
 - `NEW_GAME_MASTER_PLAN.md`
 - `MECHANICAL_SYSTEMS_GUIDE.md`
 - `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
@@ -212,16 +251,21 @@ Planned world/model tools eventually include:
 - `NEW_GAME_DISCUSSION_CHECKLIST.md`
 - `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
 
-## FIRST WORLD/MODEL PROOF AFTER AUTHORIZATION
+## FIRST WORLD/MODEL/SETTLEMENT PROOF AFTER AUTHORIZATION
 
 Before building a final town, biome or production monster, prove with simple/representative assets:
-- 1 walkable settlement block;
-- 2–3 enterable buildings;
+- Settlement 01 graybox using defensible cliff/river/chasm boundaries;
+- hunter lodge, smith, processing yard, storage/loadout, recovery space, small market and roughly 6–10 background/residential structures;
+- 2–3 major elevation bands;
+- measurable Hunter Service Loop travel time;
+- 2–3 seamless interiors and one larger-threshold test if needed;
+- prototype NPC schedule anchors with active/background/logical fidelity tiers;
+- district/cell culling and roof/interior visibility proof;
 - 1 hunter gate;
 - 1 diegetic transition corridor;
 - 1 wilderness region with 3 connected prototype sectors;
 - seamless walking across those wilderness sector boundaries;
-- 1 hunter placeholder with the intended silhouette proportions;
+- 1 hunter placeholder with intended silhouette proportions;
 - 1 modular civilian variant;
 - 1 large monster graybox with 6–8 mapped anatomy regions;
 - 1 breakable horn/plate and 1 severable tail segment;
@@ -242,33 +286,35 @@ Piece A — Cross-system quality governance: **RECORDED**.
 
 Piece B — Model art direction and asset standard: **RECORDED**.
 
+Piece C — First settlement blueprint: **RECORDED**.
+
 Do not immediately expand all other documents in the same pass.
 
 Next recommended bounded piece:
-**FIRST SETTLEMENT BLUEPRINT**.
+**FIRST HUNTING-REGION BLUEPRINT**.
 
 That future piece should focus only on:
-- settlement identity and defensive geography;
-- approximate meter-scale footprint;
-- street/district hierarchy;
-- hunter lodge, smith, material/crystal processing, market, storage, recovery/home, training, residential and gate placement;
-- NPC-density zones;
-- important seamless interiors;
-- roofs/walls/occlusion for the aerial camera;
-- modular building-kit requirements;
-- settlement culling/streaming partitions;
-- outbound hunter-gate transition corridor;
+- first-region biome identity;
+- sector topology and physical connectivity;
+- trailhead/camp;
+- water/mud/forest/open/elevation/deep-territory roles;
+- monster movement/escape routes;
+- tracking evidence flow;
+- terrain/status gameplay;
+- encounter-capable footprints;
+- region discovery/map behavior;
+- sector streaming neighbors;
+- ecological/mutation pressure distribution;
 - first-pass performance budget.
 
-It should not simultaneously design every future settlement, the full first biome, all NPCs, or final art assets.
+It should not simultaneously design every biome, the full bestiary, all weapons or final environment art.
 
 ## NEXT_ACTION
 
-Continue design discussion or begin the first settlement blueprint as the next bounded documentation piece.
+Continue design discussion or begin the first hunting-region blueprint as the next bounded documentation piece.
 
 Other open subjects remain, but should be handled after the current bounded sequence where practical:
-- first hunting-region biome/topology;
-- gate visual form;
+- exact gate visual form;
 - exact camera framing/FOV/projection;
 - minimum Android target and resident-sector budget;
 - camp/fast-travel rules;
@@ -288,6 +334,7 @@ Do not implement gameplay or produce final assets until explicitly authorized.
 DESIGN_RECORDED = YES
 DESIGN_QUALITY_GOVERNANCE_RECORDED = YES
 MODEL_ART_DIRECTION_RECORDED = YES
+FIRST_SETTLEMENT_BLUEPRINT_RECORDED = YES
 WORLD_MAP_STRUCTURE_DESIGNED = YES
 WORLD_SCALE_STREAMING_DESIGNED = YES
 WALKABLE_SETTLEMENTS_DESIGNED = YES
