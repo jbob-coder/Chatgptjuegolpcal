@@ -18,8 +18,10 @@ Before consequential work read:
 3. `PROJECT_HANDOFF.md`
 4. `NEW_GAME_MASTER_PLAN.md`
 5. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`
-6. `NEW_GAME_DISCUSSION_CHECKLIST.md`
-7. verified source/tests only after implementation begins.
+6. `DEVELOPMENT_REFERENCE.md`
+7. `EVOLVE_ALIGNMENT.md`
+8. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+9. verified source/tests only after implementation begins.
 
 ## Current directive
 
@@ -68,7 +70,7 @@ One complete vertical hunt slice only:
 
 ## WorldLife cleanup status
 
-WorldLife is inactive and being removed from the active documentation/source area.
+WorldLife is inactive and removed from the active GitHub documentation branch.
 
 The same repository/location remains because the user explicitly wants it reused for the new game.
 
