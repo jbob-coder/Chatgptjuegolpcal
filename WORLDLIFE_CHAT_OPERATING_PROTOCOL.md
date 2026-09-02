@@ -1,57 +1,79 @@
 # WorldLife RPG — Chat Operating Protocol
 
-Status: active continuity/operating protocol for normal Chat development.
+Status: active continuity/operating protocol for the WorldLife reboot.
 Last reconciled: 2026-09-02.
-Current frozen source: `0.5.8`.
 
 ## Purpose
 
-This file defines how normal Chat should work on WorldLife with GitHub, Google Drive, Markdown reference files, and explicitly authorized GitHub Actions. It exists to preserve most of the discipline of a persistent development workspace without treating chat memory as project state.
+Normal Chat must reconstruct WorldLife from durable evidence rather than conversation memory and must respect the current reboot discussion hold.
 
-The frozen source archive remains authoritative for source facts. This protocol changes workflow/documentation only; it does not mutate frozen v0.5.8.
-
-## Authority by question type
-
-Do not use one flat authority list for every question.
-
-### Source/code facts
-1. Current explicit user instruction for intended changes.
-2. Latest checksum-verified frozen Drive source/current rollback-safe working version derived from it.
-3. Verified source files and tests.
-4. Current durable project documentation.
-5. GitHub reference/history/build transport.
-6. Chat memory or summaries.
-
-### Runtime behavior
-1. Direct observed phone/emulator evidence for the tested build.
-2. Reproducible runtime logs/screenshots/video.
-3. Build/package/signature evidence.
-4. Source/static expectations.
-5. Documentation and chat summaries.
-
-A successful compile does not prove phone behavior. A phone symptom does not prove the source root cause until the code path is inspected.
+The old v0.5.8 source is frozen legacy history, not the active implementation base.
 
 ## Mandatory new-chat reconstruction
 
-Read in this order before consequential work:
+Read in this order:
 
 1. `START_HERE_NEW_CHAT.md`
-2. `README.md`
-3. `WORLDLIFE_PROJECT_HANDOFF.md`
-4. `WORLDLIFE_DEVELOPMENT_REFERENCE.md`
-5. `WORLDLIFE_SYSTEMS_GUIDE.md`
-6. `WORLDLIFE_EVOLVE_ALIGNMENT.md`
-7. `WORLDLIFE_CHAT_OPERATING_PROTOCOL.md`
-8. `WORLDLIFE_PHONE_RUNTIME_VALIDATION.md` when runtime testing is active.
-9. Inspect Drive authority/source artifacts when a source fact matters.
-10. Inspect the relevant real source/tests before implementation.
-11. For build changes, inspect the successful workflow/run before editing build infrastructure.
+2. `REBOOT_STATUS.md`
+3. `WORLDLIFE_REBOOT_MASTER_PLAN.md`
+4. `WORLDLIFE_REBOOT_ARCHITECTURE_VISUAL_BIBLE.md`
+5. `WORLDLIFE_REBOOT_DISCUSSION_CHECKLIST.md`
+6. `WORLDLIFE_REBOOT_ENGINE_DECISION.md`
+7. `README.md`
+8. `WORLDLIFE_PROJECT_HANDOFF.md`
+9. `WORLDLIFE_DEVELOPMENT_REFERENCE.md`
+10. `WORLDLIFE_SYSTEMS_GUIDE.md`
+11. `WORLDLIFE_EVOLVE_ALIGNMENT.md`
+12. this file.
 
-If required documents conflict, stop implementation, classify the conflict, resolve it from higher-authority evidence, and repair the stale continuity files before unrelated work.
+Inspect legacy v0.5.8 source/docs only when a historical, migration or deletion/cleanup question requires them.
 
-## Required working state
+## Authority by question type
 
-Maintain these fields in `WORLDLIFE_PROJECT_HANDOFF.md` whenever substantial truth changes:
+### Reboot intent/design
+
+1. Current explicit user instruction.
+2. User-approved decisions recorded in reboot docs.
+3. Reversible assumptions clearly labeled as assumptions.
+
+### Future source/code facts
+
+1. Verified clean reboot source/current working state once implementation begins.
+2. Real tests/build evidence.
+3. Current reboot documentation.
+4. Legacy v0.5.8 only for historical facts.
+5. Conversation memory last.
+
+### Runtime behavior
+
+1. Direct target-phone observation.
+2. Runtime logs/screenshots/video.
+3. Build/export/package evidence.
+4. Source/static expectation.
+5. Documentation summary.
+
+## Current hard hold
+
+Until the user explicitly ends the design discussion:
+
+- do not create reboot gameplay source;
+- do not start a new APK build;
+- do not resume old v0.5.8 gameplay work;
+- do not permanently delete legacy Drive/GitHub/APK/save history;
+- do not lock the engine/package ID by assumption.
+
+Allowed work during hold:
+
+- discuss mechanics;
+- refine design docs;
+- research technical feasibility;
+- compare engine/architecture options;
+- record approved decisions;
+- identify risks/unknowns.
+
+## Required continuity fields
+
+Maintain in `WORLDLIFE_PROJECT_HANDOFF.md`:
 
 - `CURRENT_OBJECTIVE`
 - `CURRENT_STATE`
@@ -71,96 +93,88 @@ Maintain these fields in `WORLDLIFE_PROJECT_HANDOFF.md` whenever substantial tru
 
 ## Status vocabulary
 
-Use status gates precisely:
+Use exact gates:
 
-- `IMPLEMENTED` — source/change exists.
-- `STATIC_VERIFIED` — structural/static checks passed.
-- `COMPILED` — relevant compiler/build step actually succeeded.
-- `TESTED` — stated tests actually executed and passed.
-- `APK_BUILD_VERIFIED` — APK build, ZIP integrity, signing, package/version gates passed.
-- `PHONE_RUNTIME_VERIFIED` — behavior was actually observed on the target phone/runtime.
-- `VISUAL_PARITY_VERIFIED` — the build uses the authoritative intended visual assets and visual quality was checked.
+- `DESIGN_RECORDED`
+- `IMPLEMENTED`
+- `STATIC_VERIFIED`
+- `COMPILED`
+- `TESTED`
+- `APK_BUILD_VERIFIED`
+- `PHONE_RUNTIME_VERIFIED`
+- `PRODUCTION_READY`
 
-Never collapse these into one generic “verified” claim.
+Current reboot state is design-only.
 
-## Bounded-change loop
+## Bounded-change loop after implementation is authorized
 
-Use this loop for every meaningful piece:
+`READ STATE → VERIFY STATE → DEFINE ONE SMALL PIECE → INSPECT OWNERSHIP → IMPLEMENT → TEST → REGRESSION CHECK → UPDATE AFFECTED DOCS → SAVE/COMMIT → READ BACK → MARK STATUS → NEXT PIECE`
 
-`READ STATE → VERIFY STATE → DEFINE ONE SMALL PIECE → INSPECT OWNERSHIP → IMPLEMENT → TEST → REGRESSION CHECK → UPDATE AFFECTED DOCS → SAVE/COMMIT → READ BACK → MARK STATUS → SELECT NEXT PIECE`
+For destructive cleanup:
 
-Before editing, record or determine:
+`ENUMERATE TARGETS → VERIFY IDENTITY → PRESERVE AGREED ARCHIVE/ROLLBACK → DELETE BOUNDED TARGETS → VERIFY POST-STATE → RECORD RESULT`
 
-- exact objective;
-- files expected to change;
-- authority owner (`GameEngine`, state model, renderer, persistence, docs, etc.);
-- save/backward-compatibility risk;
-- expected verification gates;
-- rollback point.
+Never perform broad deletion from a vague label such as “all old files” without resolving exactly which frozen source, builds, branches, save data and signing artifacts the user intends to destroy.
 
-Do not combine unrelated systems simply because they are nearby.
+## Reboot architecture rule
 
-## Chat tool routing
+The new game uses one authoritative domain model shared by aerial exploration, first-person turn-based combat and harvesting.
 
-- GitHub connector: readable reference/history, branch/file inspection, bounded documentation/source changes when the target branch is appropriate, commit/readback verification.
-- Google Drive connector: frozen source authority, checksums, permanent APK/source artifacts, authoritative selected documents.
-- GitHub Actions: Android build/test execution only when needed and authorized. Reuse the already successful SHA-gated pattern instead of rebuilding blindly.
-- Conversation memory: navigation aid only.
+Presentation requests actions and renders resolved events. It does not directly own:
 
-Normal Chat must not pretend it has a persistent local working tree or terminal when it does not. When execution is needed, use an available verified execution path or record the gate as unexecuted.
+- position/cover;
+- AP/stamina;
+- hit results;
+- body-part integrity;
+- break/sever/destroy;
+- monster functional ability;
+- harvest yield;
+- inventory/progression.
 
-## Frozen-source rule
+## Engine/device protocol
 
-`WorldLife RPG v0.5.8` in Drive is immutable history.
+Before engine lock-in:
 
-Do not edit that frozen folder/archive in place. Any source fix or gameplay change after runtime evidence must produce a new rollback-safe source version derived from v0.5.8 plus bounded verified changes.
+1. identify exact target Android phone/GPU;
+2. build the smallest rendering/input probe only after the user authorizes implementation;
+3. test aerial hybrid scene;
+4. test first-person creature close-up;
+5. test touch/landscape;
+6. test scene transition/suspend-resume;
+7. measure enough performance/memory to reject a bad foundation early;
+8. record evidence;
+9. freeze engine/render contract.
 
-Reference documentation may advance to record later build/runtime evidence while explicitly stating that the frozen source version remains v0.5.8.
+Current candidate is Godot 4.7 Compatibility renderer; it is not yet an approved project fact.
 
 ## Documentation update matrix
 
-Update only files whose truth changed, but never leave a known contradiction in the required read path.
+- design direction → reboot master plan;
+- architecture/visual ownership → architecture/visual bible;
+- unresolved/approved decisions → discussion checklist + master plan;
+- engine evidence/decision → engine decision file;
+- current objective/state → start-here, README, handoff;
+- execution rules → EVOLVE alignment + this protocol.
 
-- Current version/build/runtime/next action → `START_HERE_NEW_CHAT.md`, `README.md`, `WORLDLIFE_PROJECT_HANDOFF.md`.
-- Architecture/ownership/edit path → `WORLDLIFE_DEVELOPMENT_REFERENCE.md`, `WORLDLIFE_SYSTEMS_GUIDE.md`.
-- Execution/continuity protocol → `WORLDLIFE_EVOLVE_ALIGNMENT.md`, this file.
-- Authority/artifact pointers → `MIRROR_POINTER.json`.
-- Phone observations/bugs → `WORLDLIFE_PHONE_RUNTIME_VALIDATION.md` and handoff.
-- Major scope/goal change → relevant goal/system documentation in the next source version.
-
-After writes, fetch/read back the changed files from the target branch and verify branch HEAD/diff.
-
-## Runtime defect protocol
-
-For phone testing:
-
-1. Record observed behavior before changing code.
-2. Attach screenshot/video/error text when available.
-3. Classify severity: `BLOCKER`, `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`.
-4. Separate symptom from suspected cause.
-5. Reproduce/inspect the relevant source path.
-6. Fix the highest-severity root cause first.
-7. Build only after a bounded source change warrants it.
-8. Re-test the exact failing case plus regression-critical adjacent behavior.
+After every substantial documentation write, read back the target branch and check for contradictions.
 
 ## Graphify-style continuity
 
-Treat durable project records as a graph, not a prose diary. Useful edges include:
+Useful relationships:
 
-- `SourceSnapshot → authorizes → SourceFacts`
-- `GameEngine → owns → GameplayMutation`
-- `AdminCommand → mutates_via → GameEngine`
-- `Test → verifies → Behavior`
-- `APKBuild → built_from → SourceOverlay`
-- `PhoneObservation → verifies_or_refutes → RuntimeExpectation`
-- `Bug → caused_by → RootCause`
-- `Decision → constrains → FutureChange`
-- `Document → describes → CurrentState`
+- `UserDirective → supersedes → LegacyActiveDesign`
+- `LegacySnapshot → preserves → HistoricalEvidence`
+- `RebootPlan → defines → IntendedGame`
+- `DomainState → owns → CombatTruth`
+- `BodyPartState → constrains → MonsterAttack`
+- `BodyPartCondition → constrains → HarvestYield`
+- `Test → verifies → DomainInvariant`
+- `PhoneProbe → validates → EngineChoice`
+- `Decision → resolves → OpenQuestion`
+- `DiscussionHold → blocks → Implementation`
 
-When a decision or state is superseded, update the durable referent instead of relying on a later chat message to cancel an older one.
+## Current exact next action
 
-## Current application
+**Discuss and revise the reboot design.**
 
-Current bounded milestone is phone runtime validation of `WorldLifeRPG-v0.5.8-GitHub-test.apk` from GitHub Actions run `33596655227` and the permanent Drive copy.
-
-Do not start v0.5.9 gameplay expansion until runtime evidence is captured and blocker/critical defects are resolved or explicitly accepted.
+Do not code or delete legacy history until the user explicitly says the discussion is complete and directs the next execution step.
