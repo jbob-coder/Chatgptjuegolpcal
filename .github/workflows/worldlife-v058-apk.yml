@@ -2,8 +2,7 @@ name: WorldLife v0.5.8 GitHub Verified Test Build
 
 on:
   push:
-    branches:
-      - worldlife-v058-apk-test
+    branches: [worldlife-v058-apk-test]
   workflow_dispatch:
 
 permissions:
@@ -24,7 +23,7 @@ jobs:
           git fetch --no-tags origin worldlife-apk-build
           git checkout origin/worldlife-apk-build -- worldlife_build_v2 worldlife_patch_v021 worldlife_patch_v040_text
 
-      - name: Reconstruct verified v0.4 bootstrap
+      - name: Reconstruct verified Android bootstrap
         shell: bash
         run: |
           set -euo pipefail
@@ -36,17 +35,6 @@ jobs:
           unzip -q /tmp/worldlife_base.zip -d /tmp/worldlife-v058
           ROOT=/tmp/worldlife-v058/worldlife-rpg-android
           cp -a worldlife_patch_v021/app/. "$ROOT/app/"
-          echo "b3f5aab5731cf55d8b3b741ee92ff4875662a60e539051865bba2ffd1f69bb94  worldlife_patch_v040_text/patch.part000" | sha256sum -c -
-          echo "31ddafba7c7e4985c9fe8901b7c2b55e5cd6b126241698d50652bb8339402471  worldlife_patch_v040_text/part01_exact00a" | sha256sum -c -
-          echo "cb66f5016a721d0d88556cfc0a9189bc78722d1406c5a174bf0d43505685db7b  worldlife_patch_v040_text/part01_exact00b" | sha256sum -c -
-          echo "63918ecdc276569349002098ece75097f6f7aa815b7a90cd72731c82344c6514  worldlife_patch_v040_text/part01_exact01" | sha256sum -c -
-          echo "8ea221a3b2a978e10175b38230c1d88b5634e52bc3c74278948183e14c61c3e5  worldlife_patch_v040_text/part01_exact02" | sha256sum -c -
-          echo "4c1c523be10a9c2ea37cac821c7970baf3c0219cfd876cc6a767ae5d8634281d  worldlife_patch_v040_text/part01_exact03" | sha256sum -c -
-          echo "b6b7595130db5f67292e3116075b31af8b7e2b56b0bd70f9841f96eabbde1fc4  worldlife_patch_v040_text/part01_exact04" | sha256sum -c -
-          echo "be05534fadcda5fa9d4e2a4604f3f31f66606aba4e4dc48f1550f07ec04d10c4  worldlife_patch_v040_text/part01_exact05" | sha256sum -c -
-          echo "7b2d9eb7abaab395e381bdd15eefb0500424725bca979bd267b7c6d2f903550d  worldlife_patch_v040_text/patch.part002" | sha256sum -c -
-          echo "da482e3644ae5d3e83fca2efa81540de019f866f82993c366a526ff8cdc640d3  worldlife_patch_v040_text/patch.part003" | sha256sum -c -
-          echo "1ee7756873d057145ca55f9900ffcb5373b745591d0b3d94bf893e5858c91464  worldlife_patch_v040_text/patch.part004" | sha256sum -c -
           cat worldlife_patch_v040_text/patch.part000 worldlife_patch_v040_text/part01_exact00a worldlife_patch_v040_text/part01_exact00b worldlife_patch_v040_text/part01_exact01 worldlife_patch_v040_text/part01_exact02 worldlife_patch_v040_text/part01_exact03 worldlife_patch_v040_text/part01_exact04 worldlife_patch_v040_text/part01_exact05 worldlife_patch_v040_text/patch.part002 worldlife_patch_v040_text/patch.part003 worldlife_patch_v040_text/patch.part004 > /tmp/worldlife_v040.b64
           echo "92d324f40dc01ea6a8800a5f4f85ede7151b8ef5f66df3ffb8eac5bda1cd7a2a  /tmp/worldlife_v040.b64" | sha256sum -c -
           base64 -d /tmp/worldlife_v040.b64 > /tmp/worldlife_v040.zip
@@ -69,6 +57,14 @@ jobs:
           grep -F 'AdminPanelScreen' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
           grep -F 'InteriorWorldScreen' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/WorldLifeApp.kt"
 
+      - name: Apply verified test-build compatibility patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          ADMIN="$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/AdminToolsScreen.kt"
+          sed -i '/import androidx.compose.foundation.layout.weight/d' "$ADMIN"
+          ! grep -F 'import androidx.compose.foundation.layout.weight' "$ADMIN"
+
       - name: Ensure required test visual resources exist
         shell: bash
         run: |
@@ -86,24 +82,23 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
+      - name: Set up Android 17 SDK
         uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: '15859902'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
+          packages: 'platform-tools'
 
-      - name: Install Android platform and build tools
+      - name: Verify API 37 toolchain
         shell: bash
         run: |
           set -euo pipefail
-          if sdkmanager --channel=3 "platforms;android-37" "build-tools;36.0.0" "platform-tools"; then
-            echo "ANDROID_TEST_API=37" >> "$GITHUB_ENV"
-          else
-            echo "::warning::Android API 37 is not currently exposed by sdkmanager; using API 36 for this functional test APK only."
-            sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
-            sed -i 's/compileSdk = 37/compileSdk = 36/' "$WORLDLIFE_ROOT/app/build.gradle.kts"
-            sed -i 's/targetSdk = 37/targetSdk = 36/' "$WORLDLIFE_ROOT/app/build.gradle.kts"
-            grep -F 'compileSdk = 36' "$WORLDLIFE_ROOT/app/build.gradle.kts"
-            grep -F 'targetSdk = 36' "$WORLDLIFE_ROOT/app/build.gradle.kts"
-            echo "ANDROID_TEST_API=36" >> "$GITHUB_ENV"
-          fi
+          test -f "$ANDROID_SDK_ROOT/platforms/android-37.0/android.jar"
+          if [ ! -e "$ANDROID_SDK_ROOT/platforms/android-37" ]; then ln -s "$ANDROID_SDK_ROOT/platforms/android-37.0" "$ANDROID_SDK_ROOT/platforms/android-37"; fi
+          test -f "$ANDROID_SDK_ROOT/platforms/android-37/android.jar"
+          test -x "$ANDROID_SDK_ROOT/build-tools/37.0.0/apksigner"
+          test -x "$ANDROID_SDK_ROOT/build-tools/37.0.0/aapt"
 
       - name: Set up Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v6
@@ -124,14 +119,14 @@ jobs:
           STATUS=$?
           if [ "$STATUS" -ne 0 ]; then
             echo '===== WORLDLIFE COMPILE ERRORS ====='
-            grep -nE '(^e: | error: |Unresolved reference|Type mismatch|Cannot find|No value passed|Cannot infer|None of the following|FAILED|Execution failed|Compilation error)' /tmp/worldlife-assemble.log | tail -120 || true
+            grep -nE '(^e: | error: |Unresolved reference|Type mismatch|Cannot find|No value passed|Cannot infer|None of the following|FAILED|Execution failed|Compilation error)' /tmp/worldlife-assemble.log | tail -160 || true
             echo '===== WORLDLIFE BUILD LOG TAIL ====='
-            tail -160 /tmp/worldlife-assemble.log
+            tail -180 /tmp/worldlife-assemble.log
             exit "$STATUS"
           fi
-          tail -80 /tmp/worldlife-assemble.log
+          tail -100 /tmp/worldlife-assemble.log
 
-      - name: Verify APK
+      - name: Verify APK integrity, package and signature
         shell: bash
         run: |
           set -euo pipefail
@@ -139,15 +134,14 @@ jobs:
           OUT="$GITHUB_WORKSPACE/WorldLifeRPG-v0.5.8-GitHub-test.apk"
           test -s "$APK"
           unzip -t "$APK" >/dev/null
-          "$ANDROID_SDK_ROOT/build-tools/36.0.0/apksigner" verify --verbose --print-certs "$APK"
-          "$ANDROID_SDK_ROOT/build-tools/36.0.0/aapt" dump badging "$APK" | tee /tmp/worldlife_badging.txt
+          "$ANDROID_SDK_ROOT/build-tools/37.0.0/apksigner" verify --verbose --print-certs "$APK"
+          "$ANDROID_SDK_ROOT/build-tools/37.0.0/aapt" dump badging "$APK" | tee /tmp/worldlife_badging.txt
           grep -q "package: name='com.jackwilson.worldlife'" /tmp/worldlife_badging.txt
           grep -q "versionName='0.5.8'" /tmp/worldlife_badging.txt
           cp "$APK" "$OUT"
           sha256sum "$OUT" > "$OUT.sha256"
           cat "$OUT.sha256"
           stat -c 'APK_SIZE_BYTES=%s' "$OUT"
-          echo "ANDROID_TEST_API=${ANDROID_TEST_API:-unknown}"
 
       - name: Upload verified APK artifact
         uses: actions/upload-artifact@v4
