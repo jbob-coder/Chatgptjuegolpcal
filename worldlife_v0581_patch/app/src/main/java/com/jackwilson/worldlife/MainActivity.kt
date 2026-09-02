@@ -58,30 +58,45 @@ class MainActivity : ComponentActivity() {
         val density = resources.displayMetrics.density
         fun dp(value: Int): Int = (value * density).toInt()
 
-        val content = LinearLayout(this).apply {
+        val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(24), dp(24), dp(24), dp(24))
         }
 
-        content.addView(TextView(this).apply {
+        root.addView(TextView(this).apply {
             text = "WorldLife crash diagnostic"
             textSize = 24f
         })
-        content.addView(TextView(this).apply {
+        root.addView(TextView(this).apply {
             text = "WorldLife recorded the previous uncaught crash. Copy this diagnostic and send it before continuing. This screen does not clear your save."
             textSize = 16f
             setPadding(0, dp(12), 0, dp(12))
         })
-        content.addView(TextView(this).apply {
+
+        val reportView = TextView(this).apply {
             text = report
             textSize = 12f
             setTextIsSelectable(true)
-        }, LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            0,
-            1f,
-        ))
-        content.addView(Button(this).apply {
+        }
+        val reportScroll = ScrollView(this).apply {
+            addView(
+                reportView,
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                ),
+            )
+        }
+        root.addView(
+            reportScroll,
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1f,
+            ),
+        )
+
+        root.addView(Button(this).apply {
             text = "Copy diagnostic"
             setOnClickListener {
                 val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -89,7 +104,7 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(this@MainActivity, "Diagnostic copied. Paste it into ChatGPT.", Toast.LENGTH_LONG).show()
             }
         })
-        content.addView(Button(this).apply {
+        root.addView(Button(this).apply {
             text = "Clear diagnostic and try WorldLife"
             setOnClickListener {
                 CrashDiagnostics.clear(this@MainActivity)
@@ -97,12 +112,7 @@ class MainActivity : ComponentActivity() {
             }
         })
 
-        setContentView(ScrollView(this).apply {
-            addView(content, ScrollView.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-            ))
-        })
+        setContentView(root)
     }
 
     private fun enterImmersiveMode() {
