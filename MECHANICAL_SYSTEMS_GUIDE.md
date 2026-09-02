@@ -5,17 +5,17 @@ Last reconciled: 2026-09-02
 
 ## Purpose
 
-This document defines how the game's mechanics should behave and connect. It is not source code. It exists to prevent future implementation from becoming a collection of disconnected features.
+Define how the game's mechanics behave and connect. It is not source code. It prevents future implementation from becoming a collection of disconnected features.
 
-The central law is:
+Central law:
 
-`WORLD STATE → PLAYER/AI DECISION → VALIDATED ACTION → RESOLUTION → AUTHORITATIVE CONSEQUENCE → PRESENTATION → PERSISTENCE`
+`WORLD STATE → PLAYER OR AUTHORED PATTERN DECISION → VALIDATED ACTION → RESOLUTION → AUTHORITATIVE CONSEQUENCE → PRESENTATION → PERSISTENCE`
+
+Autonomous actors use deterministic authored patterns/conditions. There is no AI behavior system.
 
 Every mechanic must identify its authoritative owner, inputs, outputs, invariants and downstream consequences.
 
 # 1. Core gameplay loop
-
-The intended complete hunt loop is:
 
 `ACCEPT/PREPARE → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER/SURVIVE → MONSTER FLEES OR FALLS → HARVEST → RETURN/PROCESS → CRAFT/UPGRADE/RESEARCH → PREPARE FOR HARDER HUNT`
 
@@ -23,27 +23,45 @@ No individual subsystem should become deeper than the complete loop can support.
 
 # 2. Player state
 
-Authoritative player state should eventually include only mechanics that earn their complexity.
-
-Core candidates:
-- health;
-- stamina;
-- combat Action Points or equivalent action resources;
+Authoritative player state can include:
+- six primary attributes: Might, Finesse, Agility, Endurance, Perception, Resolve;
+- derived health/stamina and other derived stats;
+- combat Action Points or equivalent;
 - reaction availability;
 - current tactical position/bearing;
 - equipped weapon/tool/armor;
-- consumables/ammunition if applicable;
+- consumables/ammunition where applicable;
 - statuses/injuries;
 - inventory/materials;
 - hunter knowledge/bestiary progress;
 - progression/mastery/rank once approved;
 - world position and current region/hunt state.
 
-Do not duplicate combat health/stamina in UI or animation state.
+Detailed numerical/effect authority: `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
 
-# 3. Exploration mechanics
+Do not duplicate combat health/stamina/attributes in UI or animation state.
 
-## 3.1 Movement
+# 3. Shared stats/effects rule
+
+Equipment, statuses, terrain, weather, posture and contextual bonuses use one shared modifier/effect pipeline.
+
+Order concept:
+
+`BASE → PROGRESSION → EQUIPMENT → INJURY/ANATOMY → STATUS → POSTURE → TERRAIN/WEATHER → COVER/RANGE/BEARING → ACTION → TARGET DEFENSE → CAPS`
+
+Rules:
+- bounded values;
+- explicit stack groups;
+- explicit stack policy;
+- no unlimited duplicate bonuses;
+- AP/reaction scaling tightly capped;
+- derived stats cached and invalidated when inputs change;
+- development builds can explain every important calculation through a trace;
+- tactical hit quality is preferred over a generic hidden critical-hit chance.
+
+# 4. Exploration mechanics
+
+## 4.1 Movement
 
 Exploration is continuous physical traversal from the angled aerial view.
 
@@ -53,27 +71,27 @@ Movement authority owns:
 - traversal surfaces;
 - elevation transitions;
 - blocked terrain;
-- movement modifiers from terrain/status where later approved.
+- terrain/status/equipment movement modifiers.
 
-Presentation follows the authoritative position.
+Presentation follows authoritative position.
 
-## 3.2 Camera
+## 4.2 Camera
 
-The camera is presentation, not gameplay position.
+Camera is presentation, not gameplay position.
 
-Current design target:
+Current target:
 - elevated angled overview around 40–50 degrees downward;
 - restrained movement/zoom;
-- exact projection remains to be tested;
-- camera framing prioritizes forward terrain and nearby monster/environment information.
+- exact projection tested later;
+- framing prioritizes forward terrain and nearby hunting information.
 
-Rotating or moving the camera cannot teleport the player or alter tactical bearing by itself.
+Rotating/moving camera cannot teleport the player or alter tactical position by itself.
 
-## 3.3 Tracking
+## 4.3 Tracking
 
-Tracking should create information, not merely spawn a glowing waypoint.
+Tracking creates information, not merely glowing waypoints.
 
-Potential evidence:
+Evidence may include:
 - footprints;
 - broken branches;
 - scratches;
@@ -85,51 +103,46 @@ Potential evidence:
 - displaced vegetation;
 - territorial markings.
 
-Tracking can reveal:
-- direction;
-- freshness;
-- approximate size/species;
-- injury state;
-- behavior clue;
-- destination/nest tendency.
+Tracking can reveal direction, freshness, approximate size/species, injury clues, behavior clues and likely destination depending on learned knowledge and Perception/tracking proficiency.
 
-Knowledge available depends on what the player has actually learned.
+## 4.4 Roaming monsters/NPCs
 
-## 3.4 Monster roaming
-
-Monsters exist as authoritative world instances, not random battle-only portraits.
+World actors are authoritative instances, not battle-only portraits.
 
 A roaming monster may own:
 - species/variant;
 - instance ID;
-- current region position/path;
+- region position/path;
 - awareness state;
-- current injuries/body-part condition;
-- behavior mode;
+- injuries/body-part condition;
+- behavior pattern state;
 - hunt relevance;
 - persistence requirements.
 
-If a monster escapes combat, the same instance can return to exploration with its surviving injuries if that feature is adopted.
+NPCs can own deterministic schedules/pattern states appropriate to their role.
 
-## 3.5 Encounter initiation
+Detailed behavior authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
 
-Combat initiation creates an EncounterState from actual world context.
+## 4.5 Encounter initiation
+
+Combat creates `EncounterState` from actual world context.
 
 Transfer at minimum:
-- player state;
-- monster instance state;
+- player state/loadout/statuses;
+- monster instance/anatomy state;
 - encounter location;
 - approach direction/bearing;
 - distance;
-- nearby tactical cover;
-- relevant elevation;
+- tactical cover;
+- elevation;
+- terrain tags;
 - hazards;
 - escape routes;
 - weather/time modifiers only when mechanically meaningful.
 
-# 4. Tactical combat mechanics
+# 5. Tactical combat mechanics
 
-## 4.1 Turn authority
+## 5.1 Turn authority
 
 One combat system owns:
 - round/turn index;
@@ -140,29 +153,24 @@ One combat system owns:
 - action queue/resolution state;
 - encounter outcome.
 
-No animation may advance the turn independently.
+No animation advances the turn independently.
 
-## 4.2 Action economy
+## 5.2 Action economy
 
-Current candidate to test first after approval:
+Current candidate:
 - small AP budget each turn;
-- stamina as a separate persistent tactical resource;
+- stamina as separate persistent tactical resource;
 - limited reaction resource reserved between turns;
 - movement/attack/defense/tool actions consume different resources;
 - heavy actions may consume most/all of a turn.
 
-Final numbers are not locked.
+Locked principle: attributes/gear do not create uncontrolled extra AP or turns.
 
-Important invariant:
-The player should be able to make meaningful combinations such as:
-`MOVE TO COVER → AIM → ATTACK`
-without every turn collapsing into one button.
+## 5.3 Tactical space
 
-## 4.3 Tactical space
+First implementation should use authoritative nodes/lanes/range/bearing rather than free real-time FPS locomotion.
 
-Combat should use authoritative nodes/lanes/range/bearing rather than free real-time FPS locomotion for the first implementation.
-
-A tactical node may define:
+A node may define:
 - node ID;
 - relative position;
 - range band;
@@ -172,12 +180,12 @@ A tactical node may define:
 - terrain tags;
 - occupancy;
 - movement cost;
-- visibility/exposure relationships;
+- visibility/exposure;
 - escape adjacency.
 
-First-person camera movement visually represents successful node changes.
+First-person camera movement represents successful node changes.
 
-## 4.4 Movement actions
+## 5.4 Movement actions
 
 Candidate actions:
 - step left/right;
@@ -185,16 +193,15 @@ Candidate actions:
 - retreat;
 - close/open range;
 - flank/circle;
-- move into cover;
-- move out of cover;
-- climb/descend where encounter supports it;
+- move into/out of cover;
+- climb/descend where legal;
 - sprint reposition;
 - move toward escape;
 - hold.
 
-Movement changes tactical facts such as exposure and targetable anatomy.
+Terrain, status, armor burden and Agility can alter movement cost/effectiveness through the shared modifier pipeline.
 
-## 4.5 Cover
+## 5.5 Cover
 
 Cover is directional and authoritative.
 
@@ -209,9 +216,9 @@ Cover may define:
 - attack restrictions;
 - movement costs.
 
-The visual rock/tree/wall is not enough. If cover matters mechanically, a corresponding domain definition must exist.
+The rendered rock/tree/wall is not sufficient; mechanical cover requires domain data.
 
-## 4.6 Posture / defense
+## 5.6 Posture/defense
 
 Candidate states/actions:
 - stand;
@@ -225,13 +232,132 @@ Candidate states/actions:
 - peek;
 - prepare reaction.
 
-Posture affects only rules explicitly defined for it: accuracy, exposure, defense, stamina, weapon legality, etc.
+Posture contributes typed effects only where explicitly defined.
 
-# 5. Targeting and anatomy
+# 6. Attributes and derived stats
 
-## 5.1 Anatomy hierarchy
+Current six-role attribute design:
+- Might — force, heavy handling, break/stagger, some guard stability;
+- Finesse — precision execution, cutting/sever efficiency, techniques/parry;
+- Agility — movement, dodge, initiative, footing/recovery;
+- Endurance — stamina/sustain/environmental strain;
+- Perception — tracking, target acquisition, telegraph reading, inspection;
+- Resolve — composure, stagger/shock/fear resistance where applicable.
 
-Every major huntable monster is defined by a stable anatomy graph.
+Recommended bounded storage model is 1–100 internally, but actual starting ranges/growth are not locked.
+
+Derived candidates:
+- Max Health;
+- Max Stamina;
+- Stamina Recovery;
+- Initiative;
+- targeting contribution;
+- Evasion;
+- Guard Stability;
+- Stagger Resistance;
+- Tracking/Inspection;
+- status/environment tolerances.
+
+AP and reaction count remain mostly fixed/strictly capped because they have disproportionate action-economy power.
+
+# 7. Equipment mechanics
+
+Equipment must create tactical identity, not only larger numbers.
+
+Weapons can affect:
+- damage type/profile;
+- handling;
+- reach/range;
+- break/sever efficiency;
+- AP/stamina cost;
+- guard/parry capability;
+- techniques;
+- status/effect application.
+
+Armor can affect:
+- protection channels;
+- coverage;
+- burden;
+- movement/dodge cost;
+- stagger/status/environment resistance;
+- conditional effects.
+
+Tools can affect:
+- tracking;
+- harvesting;
+- traps;
+- treatment;
+- environmental interaction.
+
+All bonuses use typed effects with source IDs, stack groups and caps.
+
+# 8. Status effects
+
+Statuses are authoritative runtime state using data-driven definitions.
+
+Initial categories can include:
+- physical: Bleeding, Exhausted, Staggered, Off-Balance;
+- environmental: Wet, Mud-Caked, Chilled, Overheated, Poisoned/Toxined where supported;
+- tactical positive states: Braced, Focused, Aimed, Concealed, Guarded;
+- psychological statuses only if later approved by tone/design.
+
+Every status defines:
+- duration model;
+- stack policy;
+- max intensity;
+- effect references;
+- application/resistance;
+- timing hooks;
+- cure/removal;
+- persistence rules.
+
+Standard timing prevents order bugs: apply, turn start, before action, on hit/damage, after action, on move, turn end, remove.
+
+# 9. Terrain/weather mechanics
+
+Terrain is gameplay context, not decoration.
+
+Reusable tags can include:
+- stable/rough ground;
+- mud;
+- shallow water;
+- sand;
+- gravel;
+- roots;
+- brush;
+- high/low ground;
+- slope;
+- narrow terrain;
+- ice;
+- ash;
+- cover/exposed/hazard tags.
+
+Terrain may change:
+- AP/stamina movement cost;
+- footing/evasion;
+- concealment/visibility;
+- tracking evidence;
+- allowed movement;
+- actor-size interactions.
+
+Examples:
+- mud increases movement burden and preserves tracks;
+- brush provides concealment but may obstruct targeting;
+- high ground changes line-of-sight/exposure, not generic damage;
+- ice penalizes rapid movement unless mitigated;
+- narrow terrain restricts node adjacency/large attacks.
+
+Weather can modify visibility, tracks, terrain state and environmental strain only through explicit rules.
+
+Examples:
+- rain → wet/mud, track changes, range visibility penalty;
+- fog → long-range acquisition penalty;
+- wind → ranged context/flying-pattern conditions;
+- heat/cold → stamina/environmental strain with equipment counterplay.
+
+# 10. Targeting and anatomy
+
+Every huntable monster has a stable anatomy graph.
 
 Potential hierarchy:
 - body/root;
@@ -239,127 +365,124 @@ Potential hierarchy:
 - head;
 - neck;
 - limbs;
-- tail and segments;
-- wings and sections;
+- tail/segments;
+- wings/sections;
 - horns/antlers;
 - armor plates;
 - claws/fangs;
-- special external structures;
+- special structures;
 - internal harvestable organs where relevant.
 
-Not every anatomical structure must be targetable. Only mechanically meaningful ones become combat targets.
+Only mechanically meaningful structures become combat targets.
 
-## 5.2 Part state
-
-A part may track:
+Part state may track:
 - integrity;
-- wounded state;
+- wounded;
 - break progress/state;
 - sever progress/state;
 - destroyed state;
-- armor/structure condition;
-- functional tags;
-- exposure/targetability;
-- remaining harvestable capacity/quality.
+- structure/armor condition;
+- capability tags;
+- exposure;
+- harvest capacity/quality.
 
-## 5.3 State distinctions
+State distinctions:
+- INTACT;
+- WOUNDED;
+- BROKEN;
+- SEVERED;
+- DESTROYED.
 
-`INTACT` — normal function.
+Targetability can depend on bearing, posture, cover, range, attack type, broken armor, monster phase and visibility/terrain.
 
-`WOUNDED` — damaged; effects depend on creature/part.
+# 11. Attack mechanics
 
-`BROKEN` — structural threshold crossed while attached; function reduced/disabled.
-
-`SEVERED` — detached from parent; function removed; may become a recoverable world/encounter object.
-
-`DESTROYED` — heavily damaged/shattered/ruined; usable material can be substantially reduced.
-
-These states must not be treated as interchangeable.
-
-## 5.4 Exposure
-
-Targetability may depend on:
-- player bearing;
-- monster posture;
-- cover/occlusion;
-- range;
-- attack type;
-- previous broken armor;
-- monster action/animation phase where the phase corresponds to an authoritative telegraph/state.
-
-This creates tactical value for moving around the monster.
-
-# 6. Attack mechanics
-
-Every attack definition should eventually specify:
-- stable attack ID;
-- weapon/actor requirements;
+Every attack definition eventually specifies:
+- stable ID;
+- requirements;
 - AP/stamina cost;
-- valid range;
-- valid target categories;
-- accuracy behavior;
-- damage type/profile;
-- armor/structure interactions;
+- range/bearing;
+- accuracy/handling;
+- relevant attribute contributions;
+- damage profile;
 - break/sever contribution;
-- status effects;
-- telegraph/reaction rules;
-- presentation event references.
+- status/effect application;
+- target constraints;
+- telegraph/reaction;
+- presentation references.
 
-Resolution order should remain deterministic/reproducible where possible:
+Resolution:
 1. validate actor/action/resources;
-2. validate target/range/exposure;
-3. resolve accuracy/evasion/cover;
-4. resolve hit quality;
+2. validate target/range/exposure/terrain;
+3. build contextual modifier calculation;
+4. resolve accuracy/evasion/cover and hit quality;
 5. resolve protection/armor/structure;
 6. apply integrity damage;
 7. apply break/sever/destroy transitions;
 8. apply statuses/wounds;
-9. update functional abilities;
-10. update AI information/state;
+9. update capabilities;
+10. update behavior pattern facts/state;
 11. update harvest condition;
-12. emit domain events;
+12. emit events;
 13. consume resources/end action.
 
-# 7. Monster capability dependencies
+# 12. Hit quality
 
-Monster attacks and movement capabilities should depend on functional anatomy tags instead of scattered hard-coded special cases.
+Preferred over a generic random critical-hit chance.
+
+Candidate result bands:
+- GRAZE;
+- NORMAL;
+- CLEAN;
+- PRECISION/EXCELLENT.
+
+Hit quality derives from weapon handling, attributes, target exposure, aim/focus, range, terrain, movement, visibility and target impairment.
+
+Random uncertainty may exist, but strong outcomes should largely reward created tactical conditions.
+
+# 13. Monster capability dependencies
+
+Monster actions depend on functional capabilities rather than scattered special cases.
 
 Examples:
 - tail sweep requires functional tail;
-- horn charge requires functional head/horn plus charge locomotion;
+- horn charge requires functional horn/head + locomotion;
 - flight requires sufficient wing function;
-- pounce may require functional hind limbs;
+- pounce requires suitable hind limbs;
 - bite requires functional head/jaw;
-- venom spit may require intact gland/organ depending on creature design.
+- venom action may require a gland/organ.
 
-Breaking anatomy should alter the legal action set or effectiveness.
+Breaking anatomy changes the legal action set/effectiveness.
 
-# 8. Monster AI
+# 14. Deterministic NPC/creature behavior
 
-Monster AI consumes authoritative facts and chooses among legal actions.
+Detailed authority: `BEHAVIOR_PATTERN_SYSTEM.md`.
 
-Decision factors may include:
-- distance;
-- bearing;
+Behavior is not AI.
+
+Pipeline:
+`READ FACTS → EVALUATE AUTHORED CONDITIONS → FILTER CAPABILITIES/COOLDOWNS → PRIORITY/TIE POLICY → REQUEST NORMAL ACTION → RESOLVE`
+
+Condition inputs can include:
+- time/schedule;
+- weather;
+- danger/event flags;
+- range/bearing;
 - player cover/exposure;
-- monster health/stamina;
-- part injuries;
-- disabled attacks;
-- pain/rage/fear;
-- threat history;
-- environmental opportunities;
+- health/stamina;
+- statuses;
+- anatomy capabilities;
+- terrain;
 - escape routes;
+- recent pattern/cooldown;
 - species temperament;
-- pack state later.
+- phase.
 
-AI pipeline:
-`PERCEIVE AUTHORITATIVE STATE → BUILD LEGAL ACTIONS → SCORE/CHOOSE INTENT → VALIDATE/RESOLVE THROUGH SAME COMBAT RULES → PRESENT`
+Simple NPCs use few patterns. Complex creatures/bosses can use layered phases and condition chains, but every rule is inspectable and reproducible.
 
-AI must not bypass normal rules.
+# 15. Telegraphs and reactions
 
-# 9. Telegraphs and reactions
-
-Monster attacks should provide readable cues when counterplay requires them.
+Monster attack patterns should provide readable cues when counterplay requires them.
 
 Telegraph can include:
 - posture;
@@ -369,7 +492,7 @@ Telegraph can include:
 - environmental cue;
 - UI cue only when necessary.
 
-A telegraph corresponds to an authoritative pending/intent state. The presentation does not invent a fake attack.
+Telegraph corresponds to authoritative pending action/phase state.
 
 Reaction candidates:
 - dodge;
@@ -380,9 +503,7 @@ Reaction candidates:
 - dive to cover;
 - protect ally if party play is approved.
 
-# 10. Injury and persistence
-
-Monster injury should matter in combat and potentially across a hunt.
+# 16. Injury and persistence
 
 Possible persistent consequences:
 - limp;
@@ -390,102 +511,76 @@ Possible persistent consequences:
 - removed tail/horn attack;
 - exposed weak point;
 - reduced perception;
-- altered aggression;
+- altered aggression/pattern selection;
 - bleeding/trail evidence;
 - easier tracking after escape;
 - changed harvest quality.
 
-Persistence beyond one encounter remains a design choice, but the model should not make it impossible.
+Architecture must allow surviving monsters to return with injuries if adopted.
 
-# 11. Harvest mechanics
+# 17. Harvest mechanics
 
-Harvest is not a generic loot roll.
+Harvest links to physical anatomy, not generic loot rolls.
 
-Each harvest source links to a real anatomy part/capacity.
-
-A harvest source may define:
-- material ID;
+Each source may define:
+- material;
 - source part;
 - original capacity;
-- discrete versus continuous resource;
+- discrete/continuous;
 - minimum condition;
-- quality rules;
-- required/optimal tool;
-- extraction method;
-- time/safety cost;
-- whether sever/break is required/preferred;
-- contamination/damage modifiers.
-
-Conceptual quantity:
-`AVAILABLE = ORIGINAL_CAPACITY × REMAINING_USABLE_MASS × CONDITION × METHOD/TOOL/SKILL`
-
-Actual implementation should be simpler than this formula if necessary, but must preserve the physical invariant.
+- quality;
+- tool/method;
+- damage penalties;
+- sever/break preferences;
+- extraction time;
+- knowledge requirement.
 
 Invariants:
-- yield cannot exceed anatomical capacity;
-- one horn cannot yield multiple intact horns;
-- destroyed organs cannot yield intact organ rewards;
-- clean severing can preserve value;
-- crushing/burning/shattering can trade one resource form for another or reduce value;
-- harvesting skill improves recovery efficiency but does not create impossible matter.
+- yield ≤ anatomical capacity;
+- one horn cannot produce multiple intact horns;
+- destroyed organ cannot produce intact organ reward;
+- clean sever can preserve value;
+- crushing/burning/shattering can reduce/change recoverable form;
+- harvest skill improves recovery, not matter creation.
 
-# 12. Harvest interaction depth
+# 18. Materials, inventory and crafting
 
-Still open for discussion:
-- automatic post-hunt resolution;
-- player chooses parts/tools and receives calculated result;
-- limited interactive extraction sequence;
-- time/safety decisions;
-- carrying limits/spoilage later.
+Materials use stable IDs/properties.
 
-Preferred design principle: interaction should expose meaningful tradeoffs without turning every carcass into repetitive busywork.
+Crafting consumes real material stacks/quality requirements.
 
-# 13. Materials, inventory and crafting
+Outputs may include weapons, armor, traps, ammunition, consumables, tools and upgrades.
 
-Materials have stable IDs and properties.
+Crafting should feed hunting strategy: preserve the anatomy needed for desired gear.
 
-Crafting consumes actual material stacks and quality requirements where relevant.
+# 19. Knowledge / bestiary
 
-Potential outputs:
-- weapons;
-- armor;
-- traps;
-- ammunition;
-- consumables;
-- hunting tools;
-- upgrades.
-
-Crafting strategy should feed back into hunting strategy: the player may deliberately preserve a horn, tail membrane or gland because a desired upgrade needs it.
-
-# 14. Knowledge / bestiary
-
-Bestiary knowledge is progression, not just flavor text.
+Bestiary knowledge is progression, not flavor only.
 
 Potential unlocks:
 - anatomy names;
 - target weaknesses;
 - armor properties;
-- behavior tells;
-- attack requirements;
+- behavior patterns/tells;
 - habitat/tracking clues;
 - harvest sources;
-- preferred tools/methods.
+- preferred methods.
 
-Information can come from:
-- observing;
+Sources:
+- observation;
 - fighting;
 - harvesting;
 - NPC research;
 - tracks/signs;
 - repeated hunts;
-- inspection actions/tools.
+- inspection tools/actions.
 
-Hidden information should remain hidden until legitimately learned.
+Perception improves interpretation but does not reveal knowledge never learned.
 
-# 15. Progression
+# 20. Progression
 
-Current preferred principle:
-Equipment/knowledge/mastery should matter more than raw level inflation.
+Preferred principle:
+Equipment/knowledge/mastery matter more than raw level inflation.
 
 Candidates:
 - equipment progression;
@@ -495,78 +590,78 @@ Candidates:
 - hunter rank/reputation;
 - selective perks/skills.
 
-Do not implement a stat treadmill that makes anatomy and positioning irrelevant.
+Do not implement a stat treadmill that makes anatomy, terrain and positioning irrelevant.
 
-# 16. Failure / retreat
+# 21. Failure / retreat
 
-Combat can have outcomes other than kill:
+Outcomes can include:
 - victory/kill;
 - monster escape;
 - player escape;
-- player incapacitation/defeat;
+- incapacitation/defeat;
 - contract failure;
 - interrupted hunt.
 
-Exact penalties are open.
+Exact penalties remain open.
 
-The architecture should allow a monster to survive and return to the region rather than assuming every encounter ends in death.
+# 22. World-region mechanics
 
-# 17. World-region mechanics
-
-A region is a bounded playable hunting environment.
-
-It should eventually own:
-- geometry/traversal definition;
-- spawn/ecology definitions;
-- monster paths/territories;
-- camps/safe points;
-- resources/gathering;
-- tracking evidence locations;
-- encounter-compatible tactical features;
+Region owns/references:
+- geometry/traversal;
+- terrain tags/effects;
+- spawn/ecology;
+- monster territories/pattern context;
+- NPC schedule anchors where relevant;
+- camps;
+- gathering;
+- tracking evidence;
+- encounter tactical features;
 - hazards;
-- region exits/transitions;
-- weather/time presentation and gameplay modifiers when adopted.
+- exits;
+- weather/time profiles.
 
-Regions should be streamable/sectorized rather than requiring the whole future world to be active.
+Regions should be streamable/sectorized.
 
-# 18. Settlement/hub mechanics
+# 23. Settlement/hub mechanics
 
-Potential hub functions:
-- contract selection;
+Potential functions:
+- contracts;
 - crafting/blacksmith;
 - harvesting/process services;
 - research/bestiary;
 - merchants;
 - storage/loadout;
-- NPC/story systems;
+- deterministic NPC/story systems;
 - training/testing later.
 
-The hub should support the hunt loop rather than become an unrelated life simulator.
+Hub supports the hunt loop rather than becoming an unrelated life simulator.
 
-# 19. UI mechanical rule
+# 24. UI mechanical rule
 
-UI exposes legal choices and current known state.
+UI exposes legal choices and known state.
 
 It must not:
 - directly change health;
-- directly grant loot;
-- directly alter body-part state;
+- grant loot;
+- alter body-part state;
 - bypass resource costs;
+- calculate hidden equipment/status/terrain bonuses independently;
 - reveal undiscovered monster data;
-- move the player by presentation-only camera tricks.
+- move the player via presentation-only camera tricks.
 
-# 20. Mechanical expansion rule
+# 25. Mechanical expansion rule
 
-For every new mechanic, answer before implementation:
+For every new mechanic, answer:
 1. What player decision does this create?
-2. Which authoritative subsystem owns it?
+2. Which subsystem owns it?
 3. What state is required?
-4. What action changes that state?
-5. What invariant prevents impossible results?
-6. What other systems consume the result?
-7. How is it tested?
-8. How is it presented?
-9. What happens on save/reload?
-10. Does it improve the complete hunt loop enough to justify its complexity?
+4. Which action changes it?
+5. Which stats/effects/terrain can modify it?
+6. What invariant prevents impossible results?
+7. What other systems consume it?
+8. How is it tested?
+9. How is it presented/explained?
+10. What happens on save/reload?
+11. Does it improve the complete hunt loop enough to justify complexity?
 
 If these cannot be answered, the mechanic is not ready for implementation.
