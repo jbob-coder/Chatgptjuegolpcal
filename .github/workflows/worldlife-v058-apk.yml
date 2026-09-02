@@ -1,0 +1,122 @@
+name: WorldLife v0.5.8 APK Test
+
+on:
+  push:
+    branches:
+      - worldlife-v058-apk-test
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout build branch
+        uses: actions/checkout@v4
+
+      - name: Download frozen v0.5.8 source from Drive
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE_ID="1znBTrYTlX3Cmr6whiO7KY9sbVJMFEtVz"
+          URL="https://drive.usercontent.google.com/download?id=${FILE_ID}&export=download&confirm=t"
+          curl --fail --location --retry 3 --retry-delay 2 "$URL" --output /tmp/worldlife-v058.zip
+          test -s /tmp/worldlife-v058.zip
+          ls -lh /tmp/worldlife-v058.zip
+
+      - name: Verify frozen source SHA-256
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED="478d99cd5cafbc350910ad5820d47d6ac656d80332c1cc6ddc85d9cdecef8822"
+          ACTUAL="$(sha256sum /tmp/worldlife-v058.zip | awk '{print $1}')"
+          echo "expected=$EXPECTED"
+          echo "actual=$ACTUAL"
+          test "$ACTUAL" = "$EXPECTED"
+          unzip -t /tmp/worldlife-v058.zip
+
+      - name: Extract authoritative source
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$GITHUB_WORKSPACE/worldlife-src"
+          mkdir -p "$GITHUB_WORKSPACE/worldlife-src"
+          unzip -q /tmp/worldlife-v058.zip -d "$GITHUB_WORKSPACE/worldlife-src"
+          test -f "$GITHUB_WORKSPACE/worldlife-src/settings.gradle.kts"
+          test -f "$GITHUB_WORKSPACE/worldlife-src/app/build.gradle.kts"
+          test -f "$GITHUB_WORKSPACE/worldlife-src/app/dev-signing.jks"
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android platform and build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-37" "build-tools;36.0.0" "platform-tools"
+
+      - name: Set up Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
+          cache-disabled: true
+
+      - name: Verify source contract
+        working-directory: worldlife-src
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_static.py
+          grep -q 'versionName = "0.5.8"' app/build.gradle.kts
+          grep -q 'versionCode = 23' app/build.gradle.kts
+          test "$(find . -path '*/.github/workflows/*' -type f | wc -l)" -eq 0
+
+      - name: Run game-core tests
+        working-directory: worldlife-src
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle --no-daemon --stacktrace :game-core:test
+
+      - name: Build signed debug APK
+        working-directory: worldlife-src
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle --no-daemon --stacktrace :app:assembleDebug
+
+      - name: Verify APK integrity and signature
+        working-directory: worldlife-src
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="app/build/outputs/apk/debug/app-debug.apk"
+          test -f "$APK"
+          unzip -t "$APK"
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs "$APK"
+          "$ANDROID_HOME/build-tools/36.0.0/aapt" dump badging "$APK" | tee /tmp/badging.txt
+          grep -q "package: name='com.jackwilson.worldlife'" /tmp/badging.txt
+          grep -q "versionName='0.5.8'" /tmp/badging.txt
+          cp "$APK" "$GITHUB_WORKSPACE/WorldLifeRPG-v0.5.8-test.apk"
+          sha256sum "$GITHUB_WORKSPACE/WorldLifeRPG-v0.5.8-test.apk" | tee "$GITHUB_WORKSPACE/WorldLifeRPG-v0.5.8-test.apk.sha256"
+          stat -c 'APK_SIZE_BYTES=%s' "$GITHUB_WORKSPACE/WorldLifeRPG-v0.5.8-test.apk"
+
+      - name: Upload verified APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WorldLifeRPG-v0.5.8-test-apk
+          path: |
+            WorldLifeRPG-v0.5.8-test.apk
+            WorldLifeRPG-v0.5.8-test.apk.sha256
+          if-no-files-found: error
+          retention-days: 7
