@@ -1,0 +1,233 @@
+name: WorldLife v0.5.8.1 Startup Diagnostic Build
+
+on:
+  push:
+    branches: [worldlife-v0581-startup-diagnostic]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout diagnostic branch
+        uses: actions/checkout@v6
+
+      - name: Fetch verified WorldLife baseline transport
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin worldlife-apk-build
+          git checkout origin/worldlife-apk-build -- worldlife_build_v2 worldlife_patch_v021 worldlife_patch_v040_text
+
+      - name: Reconstruct verified Android bootstrap
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat worldlife_build_v2/source.v2.part01 worldlife_build_v2/source.v2.part020 worldlife_build_v2/source.v2.part021 worldlife_build_v2/source.v2.part022 worldlife_build_v2/source.v2.part023 worldlife_build_v2/source.v2.part03 worldlife_build_v2/source.v2.part04 worldlife_build_v2/source.v2.part05 worldlife_build_v2/source.v2.part060 worldlife_build_v2/source.v2.part061 worldlife_build_v2/source.v2.part062 worldlife_build_v2/source.v2.part063 worldlife_build_v2/source.v2.part07 worldlife_build_v2/source.v2.part08 worldlife_build_v2/source.v2.part09 > /tmp/worldlife_v2.b64
+          echo "9602d56236f4d74ea7fceb63f8a9e00051cc7f812d67818258223191a44be31b  /tmp/worldlife_v2.b64" | sha256sum -c -
+          base64 -d /tmp/worldlife_v2.b64 > /tmp/worldlife_base.zip
+          echo "58686f5de9bcf4151b071792c618d6b3388bf6abe4a8aea11daa0563b5a0b03e  /tmp/worldlife_base.zip" | sha256sum -c -
+          rm -rf /tmp/worldlife-v0581 && mkdir -p /tmp/worldlife-v0581
+          unzip -q /tmp/worldlife_base.zip -d /tmp/worldlife-v0581
+          ROOT=/tmp/worldlife-v0581/worldlife-rpg-android
+          cp -a worldlife_patch_v021/app/. "$ROOT/app/"
+          cat worldlife_patch_v040_text/patch.part000 worldlife_patch_v040_text/part01_exact00a worldlife_patch_v040_text/part01_exact00b worldlife_patch_v040_text/part01_exact01 worldlife_patch_v040_text/part01_exact02 worldlife_patch_v040_text/part01_exact03 worldlife_patch_v040_text/part01_exact04 worldlife_patch_v040_text/part01_exact05 worldlife_patch_v040_text/patch.part002 worldlife_patch_v040_text/patch.part003 worldlife_patch_v040_text/patch.part004 > /tmp/worldlife_v040.b64
+          echo "92d324f40dc01ea6a8800a5f4f85ede7151b8ef5f66df3ffb8eac5bda1cd7a2a  /tmp/worldlife_v040.b64" | sha256sum -c -
+          base64 -d /tmp/worldlife_v040.b64 > /tmp/worldlife_v040.zip
+          echo "f728ae8ff3b60d9af5d253617b5d4cde213c178b11549b86f1c3b1452130a653  /tmp/worldlife_v040.zip" | sha256sum -c -
+          unzip -qo /tmp/worldlife_v040.zip -d "$ROOT"
+          echo "01255abe5faa7d346562fe3e83f0352bbe03e3ba3b55244ff767a7a91d642f35  $ROOT/app/dev-signing.jks" | sha256sum -c -
+          echo "WORLDLIFE_ROOT=$ROOT" >> "$GITHUB_ENV"
+
+      - name: Reconstruct exact frozen v0.5.8 compile source
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat worldlife_v058_exact/part00 worldlife_v058_exact/part01 worldlife_v058_exact/part02 worldlife_v058_exact/part03 worldlife_v058_exact/part04 worldlife_v058_exact/part05 worldlife_v058_exact/part06 worldlife_v058_exact/part07 worldlife_v058_exact/part08a worldlife_v058_exact/part08b worldlife_v058_exact/part09a worldlife_v058_exact/part09b worldlife_v058_exact/part10 worldlife_v058_exact/part11 worldlife_v058_exact/part12 worldlife_v058_exact/part13 worldlife_v058_exact/part14 worldlife_v058_exact/part15a worldlife_v058_exact/part15b worldlife_v058_exact/part16a worldlife_v058_exact/part16b worldlife_v058_exact/part17a worldlife_v058_exact/part17b worldlife_v058_exact/part18 > /tmp/v058_overlay.b64
+          echo "546a5952419b2e08206d55d705123723172f6bc3a447689826490b481c34a6db  /tmp/v058_overlay.b64" | sha256sum -c -
+          base64 -d /tmp/v058_overlay.b64 > /tmp/v058_overlay.tar.xz
+          echo "07fa2bec32888b67deb8fa614f2a315580c048ad47ba70ceaf22f77f62e4b68d  /tmp/v058_overlay.tar.xz" | sha256sum -c -
+          tar -xJf /tmp/v058_overlay.tar.xz -C "$WORLDLIFE_ROOT"
+          grep -F 'versionCode = 23' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+          grep -F 'versionName = "0.5.8"' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+
+      - name: Verify and apply bounded v0.5.8.1 diagnostic patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd worldlife_v0581_patch && sha256sum -c PATCH_SHA256.txt)
+          cp -a worldlife_v0581_patch/app/. "$WORLDLIFE_ROOT/app/"
+          mkdir -p "$WORLDLIFE_ROOT/docs"
+          cp worldlife_v0581_patch/docs/RUNTIME_CRASH_DIAGNOSTICS.md "$WORLDLIFE_ROOT/docs/"
+          grep -F 'versionCode = 24' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+          grep -F 'versionName = "0.5.8.1"' "$WORLDLIFE_ROOT/app/build.gradle.kts"
+          grep -F 'android:name=".WorldLifeApplication"' "$WORLDLIFE_ROOT/app/src/main/AndroidManifest.xml"
+          grep -F 'CrashDiagnostics.pendingReport' "$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/MainActivity.kt"
+
+      - name: Apply inherited Compose compatibility correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          ADMIN="$WORLDLIFE_ROOT/app/src/main/java/com/jackwilson/worldlife/ui/AdminToolsScreen.kt"
+          sed -i '/import androidx.compose.foundation.layout.weight/d' "$ADMIN"
+          ! grep -F 'import androidx.compose.foundation.layout.weight' "$ADMIN"
+
+      - name: Create only valid fallback test visuals when missing
+        shell: bash
+        run: |
+          set -euo pipefail
+          D="$WORLDLIFE_ROOT/app/src/main/res/drawable-nodpi"
+          mkdir -p "$D"
+          : > /tmp/worldlife_generated_fallbacks.txt
+          PNG='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4////fwAJ+wP9KobjigAAAABJRU5ErkJggg=='
+          for name in action_character action_interact action_journal action_map action_menu action_sprint joystick_base joystick_knob street_bench street_crosswalk street_door_stone street_hydrant street_road_panel street_sidewalk_tile street_tree street_wall_brick street_wall_plaster street_window_arched; do
+            if ! find "$D" -maxdepth 1 -type f -name "$name.*" | grep -q .; then
+              printf '%s' "$PNG" | base64 -d > "$D/$name.png"
+              echo "$D/$name.png" >> /tmp/worldlife_generated_fallbacks.txt
+            fi
+          done
+          python3 - <<'PY'
+          import pathlib, struct, zlib
+          files=[pathlib.Path(x) for x in pathlib.Path('/tmp/worldlife_generated_fallbacks.txt').read_text().splitlines() if x.strip()]
+          for path in files:
+              data=path.read_bytes()
+              assert data[:8] == b'\x89PNG\r\n\x1a\n', path
+              pos=8
+              saw_idat=False
+              while pos < len(data):
+                  length=struct.unpack('>I', data[pos:pos+4])[0]
+                  kind=data[pos+4:pos+8]
+                  payload=data[pos+8:pos+8+length]
+                  stored=struct.unpack('>I', data[pos+8+length:pos+12+length])[0]
+                  actual=zlib.crc32(kind)
+                  actual=zlib.crc32(payload, actual) & 0xffffffff
+                  assert stored == actual, (path, kind, stored, actual)
+                  if kind == b'IDAT':
+                      zlib.decompress(payload)
+                      saw_idat=True
+                  pos += 12 + length
+              assert saw_idat, path
+          print(f'VALID_FALLBACK_PNGS={len(files)}')
+          PY
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android 17 SDK
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: '15859902'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
+          packages: 'platform-tools'
+
+      - name: Verify API 37 toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "$ANDROID_SDK_ROOT/platforms/android-37.0/android.jar"
+          if [ ! -e "$ANDROID_SDK_ROOT/platforms/android-37" ]; then ln -s "$ANDROID_SDK_ROOT/platforms/android-37.0" "$ANDROID_SDK_ROOT/platforms/android-37"; fi
+          test -f "$ANDROID_SDK_ROOT/platforms/android-37/android.jar"
+          test -x "$ANDROID_SDK_ROOT/build-tools/37.0.0/apksigner"
+          test -x "$ANDROID_SDK_ROOT/build-tools/37.0.0/aapt"
+
+      - name: Set up Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '9.3.1'
+          cache-disabled: true
+
+      - name: Run game-core tests
+        working-directory: ${{ env.WORLDLIFE_ROOT }}
+        run: gradle --no-daemon --stacktrace :game-core:test
+
+      - name: Build signed v0.5.8.1 diagnostic APK
+        working-directory: ${{ env.WORLDLIFE_ROOT }}
+        shell: bash
+        run: |
+          set +e
+          gradle --no-daemon :app:assembleDebug > /tmp/worldlife-assemble.log 2>&1
+          STATUS=$?
+          if [ "$STATUS" -ne 0 ]; then
+            echo '===== WORLDLIFE COMPILE ERRORS ====='
+            grep -nE '(^e: | error: |Unresolved reference|Type mismatch|Cannot find|No value passed|Cannot infer|None of the following|FAILED|Execution failed|Compilation error)' /tmp/worldlife-assemble.log | tail -180 || true
+            echo '===== WORLDLIFE BUILD LOG TAIL ====='
+            tail -220 /tmp/worldlife-assemble.log
+            exit "$STATUS"
+          fi
+          tail -120 /tmp/worldlife-assemble.log
+
+      - name: Verify APK integrity, package, version and signature
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$WORLDLIFE_ROOT/app/build/outputs/apk/debug/app-debug.apk"
+          OUT="$GITHUB_WORKSPACE/WorldLifeRPG-v0.5.8.1-diagnostic.apk"
+          test -s "$APK"
+          unzip -t "$APK" >/dev/null
+          "$ANDROID_SDK_ROOT/build-tools/37.0.0/apksigner" verify --verbose --print-certs "$APK" | tee /tmp/worldlife_signer.txt
+          grep -qi '6411aaa0d35d51bf48eaf56ee6cabfea3aeafff2774436bc1b9399fea08761c9' /tmp/worldlife_signer.txt
+          "$ANDROID_SDK_ROOT/build-tools/37.0.0/aapt" dump badging "$APK" | tee /tmp/worldlife_badging.txt
+          grep -q "package: name='com.jackwilson.worldlife'" /tmp/worldlife_badging.txt
+          grep -q "versionCode='24'" /tmp/worldlife_badging.txt
+          grep -q "versionName='0.5.8.1'" /tmp/worldlife_badging.txt
+          cp "$APK" "$OUT"
+          sha256sum "$OUT" > "$OUT.sha256"
+          cat "$OUT.sha256"
+          stat -c 'APK_SIZE_BYTES=%s' "$OUT"
+
+      - name: Verify packaged fallback PNGs remain decodable
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$GITHUB_WORKSPACE/WorldLifeRPG-v0.5.8.1-diagnostic.apk"
+          python3 - "$APK" <<'PY'
+          import sys, zipfile, struct, zlib
+          apk=sys.argv[1]
+          expected={
+              'action_character','action_interact','action_journal','action_map','action_menu','action_sprint',
+              'joystick_base','joystick_knob','street_bench','street_crosswalk','street_door_stone','street_hydrant',
+              'street_road_panel','street_sidewalk_tile','street_tree','street_wall_brick','street_wall_plaster','street_window_arched'
+          }
+          checked=0
+          with zipfile.ZipFile(apk) as z:
+              for name in z.namelist():
+                  base=name.rsplit('/',1)[-1].rsplit('.',1)[0]
+                  if base not in expected or not name.endswith('.png'):
+                      continue
+                  data=z.read(name)
+                  if len(data) != 70:
+                      continue
+                  pos=8
+                  while pos < len(data):
+                      length=struct.unpack('>I', data[pos:pos+4])[0]
+                      kind=data[pos+4:pos+8]
+                      payload=data[pos+8:pos+8+length]
+                      stored=struct.unpack('>I', data[pos+8+length:pos+12+length])[0]
+                      actual=zlib.crc32(kind)
+                      actual=zlib.crc32(payload, actual) & 0xffffffff
+                      assert stored == actual, (name, kind)
+                      if kind == b'IDAT':
+                          zlib.decompress(payload)
+                      pos += 12 + length
+                  checked += 1
+          print(f'PACKAGED_VALID_FALLBACK_PNGS={checked}')
+          assert checked >= 1
+          PY
+
+      - name: Upload verified diagnostic APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WorldLifeRPG-v0.5.8.1-diagnostic
+          path: |
+            WorldLifeRPG-v0.5.8.1-diagnostic.apk
+            WorldLifeRPG-v0.5.8.1-diagnostic.apk.sha256
+          if-no-files-found: error
+          retention-days: 7
