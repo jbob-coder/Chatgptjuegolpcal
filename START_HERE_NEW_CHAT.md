@@ -28,23 +28,24 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 8. `MAP_WORLD_SETTLEMENT_STRUCTURE.md`
 9. `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`
 10. `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md`
-11. `FIRST_SETTLEMENT_BLUEPRINT.md`
-12. `NEW_GAME_MASTER_PLAN.md`
-13. `MECHANICAL_SYSTEMS_GUIDE.md`
-14. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-15. `BEHAVIOR_PATTERN_SYSTEM.md`
-16. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-17. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-18. `CONTENT_DATA_GUIDE.md`
-19. `CODE_GUIDE.md`
-20. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-21. `ADMIN_CREATOR_SYSTEM.md`
-22. `TESTING_VERIFICATION_PLAN.md`
-23. `IMPLEMENTATION_ROADMAP.md`
-24. `DEVELOPMENT_REFERENCE.md`
-25. `EVOLVE_ALIGNMENT.md`
-26. `NEW_GAME_DISCUSSION_CHECKLIST.md`
-27. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
+11. `MODEL_REFERENCE_IMAGE_AND_CREATION_PIPELINE.md`
+12. `FIRST_SETTLEMENT_BLUEPRINT.md`
+13. `NEW_GAME_MASTER_PLAN.md`
+14. `MECHANICAL_SYSTEMS_GUIDE.md`
+15. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+16. `BEHAVIOR_PATTERN_SYSTEM.md`
+17. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+18. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+19. `CONTENT_DATA_GUIDE.md`
+20. `CODE_GUIDE.md`
+21. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+22. `ADMIN_CREATOR_SYSTEM.md`
+23. `TESTING_VERIFICATION_PLAN.md`
+24. `IMPLEMENTATION_ROADMAP.md`
+25. `DEVELOPMENT_REFERENCE.md`
+26. `EVOLVE_ALIGNMENT.md`
+27. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+28. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` when supporting detail is needed.
 
 ## Locked direction so far
 
@@ -75,6 +76,26 @@ No gameplay code, engine project, scenes, APK or production assets are authorize
 - modular humanoid clothing/equipment and modular settlement-building kits preferred;
 - simplified collision proxies/LOD/degradation are designed in from the start;
 - exact production geometry/texture/bone budgets remain open until device profiling.
+
+### Model reference image / creation pipeline
+Detailed authority: `MODEL_REFERENCE_IMAGE_AND_CREATION_PIPELINE.md`.
+
+- visual-intent references and technical references are separate;
+- one attractive concept PNG is not sufficient production specification;
+- generated PNGs may guide silhouette, style, color, anatomy intent, damage-state design and materials;
+- generated labels, dimensions and apparent texture maps are not technical truth unless separately verified;
+- hero monsters need a structured reference pack: hero concept, turnaround, anatomy segmentation, damage states, crystal/mutation variants, material/color breakdown, scale comparison, three-distance readability and LOD silhouette planning;
+- hunter/humanoid references need concept, neutral turnaround, modular-equipment, silhouette/loadout, material and gameplay-distance views;
+- building references need exterior concept, elevations, roof/top plan, floor/blockout plan, cutaway, modular-kit breakdown and gameplay-distance views;
+- graybox/blockout must pass world scale, aerial silhouette, first-person apparent scale and anatomy-targeting checks before high-detail production;
+- final topology, UVs, PBR maps, rig, break/sever setup, collision, anatomy hit proxies and LODs require a controlled 3D/DCC/engine pipeline;
+- production reference files should be versioned instead of silently replaced.
+
+Current generated general references saved in Google Drive:
+- `Unnamed Hunt RPG - Art Direction Overview.png` — file ID `1ZFTtVUZDzp8pk4trfjLE-GjeHkvPjLP3`;
+- `Unnamed Hunt RPG - Model Creation Pipeline and Visual Guide.png` — file ID `1Ol1D-rzlNzkJmtg4gudISuZBmAZwSSst`.
+
+These are visual/pipeline references, not verified production model sheets or runtime texture maps.
 
 ### World/map structure
 - no single enormous always-loaded open world;
@@ -188,12 +209,15 @@ They never become a hidden second rules engine.
 
 1. Design quality governance — RECORDED.
 2. Model art direction/asset standard — RECORDED.
-3. First settlement blueprint — RECORDED.
-4. **First hunting-region blueprint — NEXT RECOMMENDED PIECE.**
-5. First complete monster design packet.
-6. Player progression/equipment packet.
-7. Exact combat-economy packet.
-8. Engine-specific mapping only after engine/device evidence.
+3. Model reference image/creation pipeline — RECORDED.
+4. First settlement blueprint — RECORDED.
+5. **First hunting-region blueprint — NEXT RECOMMENDED PIECE.**
+6. First complete monster design packet.
+7. Player progression/equipment packet.
+8. Exact combat-economy packet.
+9. Engine-specific mapping only after engine/device evidence.
+
+Model-reference sub-track waits for stable entity designs. Do not create final hunter/monster turnaround/anatomy/damage sheets before the corresponding design packet is sufficiently decided.
 
 ## Current exact next action
 
@@ -207,6 +231,8 @@ DESIGN_RECORDED = YES
 DOCUMENTATION_SYSTEM_RECORDED = YES
 DESIGN_QUALITY_GOVERNANCE_RECORDED = YES
 MODEL_ART_DIRECTION_RECORDED = YES
+MODEL_REFERENCE_PIPELINE_RECORDED = YES
+GENERAL_MODEL_REFERENCE_PNGS_SAVED_TO_DRIVE = YES
 FIRST_SETTLEMENT_BLUEPRINT_RECORDED = YES
 WORLD_MAP_STRUCTURE_DESIGNED = YES
 SETTLEMENT_HUNTING_REGION_SEPARATION_DESIGNED = YES
