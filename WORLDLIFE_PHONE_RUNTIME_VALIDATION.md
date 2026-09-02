@@ -1,6 +1,6 @@
 # WorldLife RPG — Phone Runtime Validation
 
-Status: ACTIVE / PHONE EVIDENCE PENDING
+Status: ACTIVE / BLOCKER OBSERVED
 Last reconciled: 2026-09-02.
 Test target: `WorldLifeRPG-v0.5.8-GitHub-test.apk`.
 
@@ -33,9 +33,17 @@ A later direct Drive readback independently reconfirmed:
 
 `VISUAL_PARITY_VERIFIED`: NO.
 
-Direct APK inspection now confirms this build contains 1×1 fallback PNGs for **all 19 workflow-checked action/joystick/street visual resources**. They are each 68 bytes in the APK, while the frozen Drive source contains real resource files ranging from 12,468 to 186,092 bytes. Therefore this APK is definitively functional-test-only for those visuals.
+Direct APK inspection confirms this build contains 1×1 fallback PNGs for all 19 workflow-checked action/joystick/street visual resources. They are each 68 bytes in the APK, while the frozen Drive source contains real resource files ranging from 12,468 to 186,092 bytes. Therefore this APK is definitively functional-test-only for those visuals.
 
-Full evidence: `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md`.
+Full pre-runtime evidence: `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md`.
+
+## Direct phone evidence received
+
+The user reported that Android displayed a message indicating the app had a bug and requested clearing cache.
+
+This is direct runtime evidence of an abnormal Android-level failure. The exact Android exception/stack trace has not yet been captured, so the root cause remains `UNKNOWN`.
+
+Important data-safety rule: do not clear app storage/data as a diagnostic step because that can delete the DataStore save. Clearing cache is less destructive but is not assumed to repair the root cause.
 
 ## Evidence rules
 
@@ -53,7 +61,7 @@ Do not infer PASS from source, build success, another feature working, or the st
 
 | # | Test | Status | Evidence / notes |
 |---|---|---|---|
-| 1 | App launches | NOT_TESTED | |
+| 1 | App launches | PARTIAL | Android reported an app bug/cache-clear prompt; exact point in launch sequence not yet isolated. |
 | 2 | No black screen | NOT_TESTED | |
 | 3 | Landscape orientation works | NOT_TESTED | |
 | 4 | UI scale is usable/correct | NOT_TESTED | |
@@ -69,12 +77,12 @@ Do not infer PASS from source, build success, another feature working, or the st
 | 14 | Apartment ENTER works | NOT_TESTED | |
 | 15 | Apartment renders | NOT_TESTED | |
 | 16 | Apartment EXIT restores exact exterior point | NOT_TESTED | |
-| 17 | Save/reload works | NOT_TESTED | |
+| 17 | Save/reload works | NOT_TESTED | Do not erase app storage/data while investigating RUNTIME-001. |
 | 18 | Cheat Panel opens/modifies state | NOT_TESTED | |
 | 19 | Admin Panel opens/modifies state | NOT_TESTED | |
-| 20 | No crashes/ANRs/missing controls/unusable touch areas | NOT_TESTED | |
-| 21 | Screenshots/video/errors captured for defects | NOT_TESTED | |
-| 22 | Camera recenter points behind/with current facing direction | NOT_TESTED | STATIC-001 predicts mirrored recenter for six non-N/S directions; verify actual device behavior. |
+| 20 | No crashes/ANRs/missing controls/unusable touch areas | FAIL | `RUNTIME-001`: Android reported app bug and requested clearing cache. |
+| 21 | Screenshots/video/errors captured for defects | PARTIAL | User supplied the Android symptom verbally; exact dialog screenshot/stack trace not yet available. |
+| 22 | Camera recenter points behind/with current facing direction | NOT_TESTED | STATIC-001 predicts mirrored recenter for six non-N/S directions; verify after blocker is cleared. |
 
 ## Pre-runtime static findings
 
@@ -86,28 +94,29 @@ Status: `STATIC_CONFIRMED / PHONE_NOT_TESTED`.
 
 Expected device symptom: after moving/facing in one of the six affected directions and pressing recenter, the camera should rotate to the horizontally mirrored heading instead of aligning with the facing direction.
 
-Do not mark runtime FAIL until observed on phone. If reproduced, promote it into the confirmed defect ledger and rank by actual usability impact.
-
-See `WORLDLIFE_PRE_RUNTIME_AUDIT_V058.md` for source/math details.
+Do not mark runtime FAIL until observed on phone.
 
 ## Confirmed runtime defect ledger
 
-Add direct phone defects here before changing source.
-
 | ID | Severity | Symptom | Reproduction | Evidence | Suspected owner | Root cause | Fix version | Retest |
 |---|---|---|---|---|---|---|---|---|
-| — | — | No phone defects recorded yet | — | — | — | — | — | — |
+| RUNTIME-001 | BLOCKER (provisional) | Android reports WorldLife has a bug and requests clearing cache. | Launch/use the v0.5.8 functional test APK; exact trigger within the launch sequence not yet isolated. | Direct user phone report. | Android startup/runtime path; deterministic core is not yet implicated. | UNKNOWN — stack trace required. | v0.5.8.1 diagnostic candidate in progress | PENDING |
 
-Severity definitions:
+Severity remains provisional until the exact point of failure is known. It is treated as BLOCKER because it currently prevents reliable continuation of the phone-validation sequence.
 
-- `BLOCKER` — prevents installation/launch or prevents meaningful testing.
-- `CRITICAL` — data-loss/corruption, persistent crash loop, unusable core control, or severe save/update failure.
-- `HIGH` — major gameplay/system path broken with no reasonable workaround.
-- `MEDIUM` — significant defect with a workaround or limited scope.
-- `LOW` — cosmetic/minor usability issue that does not block core testing.
+## Current repair strategy
+
+Do not guess at the root cause or delete the player's save.
+
+Create a rollback-safe `0.5.8.1` diagnostic build that preserves:
+
+- package `com.jackwilson.worldlife`;
+- stable signing lineage;
+- save schema `4`;
+- frozen v0.5.8 source as immutable history.
+
+The diagnostic patch installs an uncaught-exception recorder before activity startup. If Android terminates WorldLife, the next launch shows a native recovery dialog before Compose/SceneView and allows the exact crash diagnostic to be copied. This is an observability repair, not a claim that the unknown root cause is fixed.
 
 ## Next action
 
-Install the permanent Drive APK on the target Android phone and populate this ledger from observed results, including camera recenter.
-
-Fix the highest-severity confirmed phone defect first. Do not begin unrelated v0.5.9 expansion before blocker/critical runtime state is known.
+Build and verify the v0.5.8.1 diagnostic APK, install it over v0.5.8 without clearing app storage/data, reproduce the failure, then copy the crash diagnostic on the next launch. Use that stack trace to identify and fix the actual highest-severity root cause before unrelated gameplay expansion.
