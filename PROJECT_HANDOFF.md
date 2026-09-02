@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PROBE SOURCE CREATED / GODOT PARSE + PHONE VERIFICATION PENDING / COMBAT RESOLUTION RECORDED
+Status: STAGE 1 PROBE SOURCE CREATED / GODOT PARSE + PHONE VERIFICATION PENDING / FIRST WEAPON FAMILY RECORDED
 Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
@@ -58,7 +58,7 @@ Classes:
 Current gates:
 - Engine probe: `SOURCE CREATED / EXECUTION PENDING`;
 - Domain implementation: `BLOCKED_BY_ENGINE_PHONE_PROBE`;
-- Combat design: `PARTIAL / TWO CORE CONTRACTS RECORDED`;
+- Combat design: `PARTIAL / THREE CORE CONTRACTS RECORDED`;
 - Vertical slice: `PARTIAL`;
 - Expansion decisions: `INTENTIONALLY_OPEN`.
 
@@ -230,7 +230,36 @@ Recorded decisions:
 
 Numeric thresholds remain balance-open until combat prototype evidence.
 
+### First weapon family
+Authority:
+`FIRST_WEAPON_FAMILY_CONTRACT.md`.
+
+Selected first-slice family:
+- technical ID `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- working name **Field Poleblade**;
+- two-handed long-hafted hunting weapon;
+- primary cutting/sever identity;
+- secondary piercing/control identity;
+- limited impact capability;
+- medium-melee reach advantage;
+- directional Guard;
+- restricted Parry;
+- intentional weakness at dedicated hard-structure break, cramped combat, shield-level defense and repeated high-exertion attacks.
+
+Initial technique packet:
+- `MEASURED_CUT` — 2 AP, body fallback allowed, CLEAN ceiling;
+- `DRIVING_THRUST` — 2 AP, body fallback allowed, CLEAN ceiling;
+- `PLACED_HEW` — 3 AP, selected part required, PRECISION allowed;
+- `COMMITTED_CLEAVE` — 4 AP, full-turn high-force cut, CLEAN ceiling;
+- `HAFT_CHECK` — bounded short-range impact/spacing tool;
+- weapon-supported Guard/Parry under generic defense rules.
+
+Exact Stamina costs, final damage values, meter ranges, animation timings and final setting-facing name remain prototype-open.
+
+`COMBAT_ACTION_ECONOMY = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
 `COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`
 
 ---
@@ -238,24 +267,20 @@ Numeric thresholds remain balance-open until combat prototype evidence.
 ## INDEPENDENT DESIGN LANE
 
 Exact next bounded combat-design dependency:
-**First Weapon Family Contract**.
+**Stamina Prototype Scale and Recovery Contract**.
 
-It should define one family only and instantiate the existing action-economy + resolution architecture with:
-- damage channels;
-- handling/control profile;
-- reach/range;
-- normal/precision/heavy techniques;
-- 4 AP economy mapping;
-- stamina costs;
-- hit-quality ceilings;
-- body-fallback policy;
-- break/sever identity;
-- guard/parry support where applicable.
+It should define only first-slice exertion behavior:
+- prototype Max Stamina scale;
+- passive recovery timing;
+- deliberate 1 AP recovery behavior;
+- low-Stamina consequence bands;
+- action/reaction Stamina floors/caps;
+- Field Poleblade Stamina costs;
+- anti-infinite-recovery and anti-zero-cost invariants.
 
-Do not create a broad weapon roster in that pass.
+Do not combine that pass with Initiative, statuses, Monster 01 attacks or terrain numbers.
 
-Other combat blockers remain after the first weapon:
-- Stamina prototype scale/recovery;
+Other combat blockers remain after Stamina:
 - Initiative/tie rule;
 - first status set;
 - first terrain-effect numbers;
@@ -278,7 +303,7 @@ Region 01:
 seven planned sectors S00–S06 with physical tracking, persistent monster escape/reacquisition, and encounter footprints derived from real terrain.
 
 Hunter Base 01:
-1.75 m reusable humanoid base; final story identity/weapon family remain open.
+1.75 m reusable humanoid base; final story identity remains open. The first-slice weapon family is now selected at design level, but final weapon geometry is not yet produced.
 
 Monster 01 — Mudcrest Raker:
 ~6.6 m long / ~3.0 m shoulder-body height, horn crest, dorsal plates, mud-adapted feet, severable distal tail, internal life crystal, deterministic Region 01 behavior.
