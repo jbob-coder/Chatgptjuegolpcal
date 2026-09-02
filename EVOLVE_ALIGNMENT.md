@@ -129,27 +129,26 @@ Do not add real combat to the probe before this gate closes.
 
 ## Independent design lane — current state
 
-Completed bounded combat-design packet:
-`docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
+Completed bounded combat-design authorities:
+- `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`;
+- `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
+- `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`.
 
-Recorded architecture includes:
-- hard legality separated from contested resolution;
-- frozen resolution context;
-- AttackControl vs DefenseControl;
-- body contact vs selected-part contact;
-- explicit exposure states;
-- directional physical cover;
-- distinct Dodge/Block/Parry/Brace roles;
-- one bounded reproducible seeded variance source per committed attack resolution;
-- no separate random critical-hit roll;
-- hit-quality classes `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
-- local cover/guard/armor/anatomy ordering;
-- mandatory development traces.
+Recorded first weapon family:
+- `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- working name Field Poleblade;
+- two-handed long-hafted hunting blade;
+- cutting/sever primary identity;
+- piercing/control secondary identity;
+- limited impact capability;
+- directional Guard and restricted Parry;
+- intentional weaknesses at dedicated hard-structure break, cramped fighting and shield-level defense;
+- first technique packet integrates 2 AP / 3 AP / 4 AP action bands and explicit hit-quality/fallback policies.
 
 The next independent gameplay-design packet is:
-**First Weapon Family Contract**.
+**Stamina Prototype Scale and Recovery Contract**.
 
-That pass must define one family only and instantiate the existing action-economy and resolution contracts. Do not create a broad weapon roster.
+That pass must define only the first-slice Stamina scale/recovery/cost bands and instantiate Field Poleblade exertion costs. Do not combine it with Initiative, status design, Monster 01 attacks or terrain numbers.
 
 ## Status vocabulary
 
@@ -273,7 +272,9 @@ Do not overwrite/remove current authoritative source or documents merely to simp
 
 `COMBAT_ACTION_ECONOMY = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
 
 `NEXT_IMPLEMENTATION_ACTION = GODOT_PARSE_AND_EDITOR_SMOKE_VERIFY_EXISTING_PROBE`
 
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_WEAPON_FAMILY_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT`
