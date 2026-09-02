@@ -8,10 +8,10 @@ Last reconciled: 2026-09-02
 Continue bounded design documentation while gameplay implementation remains on hold.
 
 Most recent completed gameplay packet:
-`docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
+`docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`.
 
 Current next bounded gameplay task:
-**Exact Combat Action-Economy Contract** — decide first-slice AP/reaction structure, movement/cover timing, action-cost rules and anti-loop invariants without implementing combat code.
+**Combat Resolution / Hit Quality and Defense Contract** — define accuracy/evasion, cover, dodge/block/parry, hit-quality tiers, targeting difficulty and deterministic/randomness boundaries without implementing combat code.
 
 Reference-image generation remains generally authorized, but repeated Hunter technical multiview generation using the current image-generation method is intentionally paused after v001/v002/v003 failed technical-source QA.
 
@@ -41,6 +41,7 @@ Selected rule:
 Important package areas:
 - `docs/10_world/regions/REGION_01/`
 - `docs/20_gameplay/progression/`
+- `docs/20_gameplay/combat/`
 - `docs/30_content/hunters/HUNTER_BASE_01/`
 - `docs/30_content/monsters/MONSTER_01/`
 - `docs/40_art/asset_pipeline/`
@@ -145,6 +146,56 @@ Open progression details:
 - human crystal technology/use;
 - final endgame ceiling.
 
+## COMBAT ACTION ECONOMY — CURRENT SELECTED DIRECTION
+
+Authority:
+`docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`.
+
+Selected resource separation:
+- `AP` = current-turn tactical opportunity;
+- `RP` = bounded out-of-turn defensive response;
+- `STAMINA` = persistent multi-turn exertion.
+
+Selected architecture:
+- normal AP refreshes per actor turn and does not bank;
+- ordinary attributes/progression do not create extra normal turns;
+- reactions occur only in explicit reaction windows;
+- baseline normal defender chooses at most one normal reaction per window;
+- reaction recursion/counter recursion is blocked;
+- body-part selection inside an already legal attack is not automatically an additional AP charge;
+- cover/posture/movement are authoritative states;
+- UI/animation cannot spend/refund AP/RP/stamina or advance turns.
+
+First-slice prototype targets:
+- hunter `MAX_AP = 4`;
+- hunter normal `MAX_RP = 1`;
+- standard adjacent movement commonly `1 AP`;
+- standard attack commonly `2 AP`;
+- precision attack commonly `3 AP`;
+- heavy/full-turn commitment commonly `4 AP`;
+- aim/brace/analyze/recovery commonly `1 AP`;
+- larger reposition commonly `2 AP` plus stamina.
+
+Important anti-loop laws:
+- no normal AP banking;
+- no ordinary extra-turn progression;
+- no stamina→unlimited AP conversion;
+- no 0 AP tactical-state mutation loops;
+- no repeated normal reactions from one incoming action;
+- no UI-owned refunds;
+- status/turn hooks fire once per authoritative event;
+- save/reload cannot duplicate resources/actions/status ticks.
+
+Open combat-economy details:
+- exact stamina scale/recovery formula;
+- exact initiative formula;
+- weapon-specific action costs;
+- exact block/parry/dodge formulas;
+- guard upkeep;
+- ammo/reload economy;
+- exact tool/item costs;
+- party activation rules if party play is later approved.
+
 ## HUNTER BASE 01
 
 Authorities:
@@ -217,19 +268,19 @@ No Hunter/Monster 3D asset is game-ready or conversion-approved.
 
 ## NEXT BOUNDED WORK
 
-**Exact Combat Action-Economy Contract**.
+**Combat Resolution / Hit Quality and Defense Contract**.
 
 It should decide only:
-- prototype AP baseline philosophy;
-- reaction reserve/timing;
-- movement/reposition costs;
-- cover/posture interaction timing;
-- basic/precision/heavy/defensive/support action cost categories;
-- expensive whole-turn actions;
-- interrupts/reactions;
-- stamina relationship;
-- action legality order;
-- anti-infinite-loop/extra-turn invariants;
+- attack legality and target acquisition sequence;
+- accuracy/evasion relationship;
+- directional cover interaction;
+- dodge/block/parry/brace resolution boundaries;
+- hit-quality tiers such as graze/normal/clean/precision;
+- body-part targeting difficulty/exposure;
+- deterministic vs seeded-random boundaries;
+- how armor/anatomy protection enters resolution;
+- failure/miss consequences;
+- Admin calculation traces;
 - what remains OPEN for first combat testing.
 
 Do not implement combat in that pass.
@@ -243,6 +294,11 @@ Do not implement combat in that pass.
 `MONSTER_01_DESIGNED = YES`
 `PLAYER_PROGRESSION_PACKET = RECORDED`
 `PLAYER_PROGRESSION_MODEL = SELECTED_HYBRID`
+`COMBAT_ACTION_ECONOMY = RECORDED`
+`FIRST_SLICE_AP_TARGET = 4`
+`FIRST_SLICE_RP_TARGET = 1`
+`AP_BANKING = NO`
+`REACTION_RECURSION = BLOCKED`
 `HUNTER_TECHNICAL_MULTIVIEW_ROUTE = PAUSED_BY_QA`
 `HUNTER_DCC_BLOCKOUT_SPECIFICATION = RECORDED`
 `DCC_IMPLEMENTATION_AUTHORIZED = NO`
