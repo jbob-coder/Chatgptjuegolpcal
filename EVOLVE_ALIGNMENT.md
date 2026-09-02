@@ -127,12 +127,29 @@ Only after editor/runtime smoke passes:
 
 Do not add real combat to the probe before this gate closes.
 
-## Independent design lane
+## Independent design lane — current state
 
-The current independent gameplay-design packet may proceed separately because it does not alter the Stage 1 renderer/device probe:
-`Combat Resolution / Hit Quality and Defense Contract`.
+Completed bounded combat-design packet:
+`docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
 
-It must still be handled as its own bounded EVOLVE piece.
+Recorded architecture includes:
+- hard legality separated from contested resolution;
+- frozen resolution context;
+- AttackControl vs DefenseControl;
+- body contact vs selected-part contact;
+- explicit exposure states;
+- directional physical cover;
+- distinct Dodge/Block/Parry/Brace roles;
+- one bounded reproducible seeded variance source per committed attack resolution;
+- no separate random critical-hit roll;
+- hit-quality classes `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- local cover/guard/armor/anatomy ordering;
+- mandatory development traces.
+
+The next independent gameplay-design packet is:
+**First Weapon Family Contract**.
+
+That pass must define one family only and instantiate the existing action-economy and resolution contracts. Do not create a broad weapon roster.
 
 ## Status vocabulary
 
@@ -254,6 +271,9 @@ Do not overwrite/remove current authoritative source or documents merely to simp
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
+`COMBAT_ACTION_ECONOMY = RECORDED`
+`COMBAT_RESOLUTION_CONTRACT = RECORDED`
+
 `NEXT_IMPLEMENTATION_ACTION = GODOT_PARSE_AND_EDITOR_SMOKE_VERIFY_EXISTING_PROBE`
 
-`NEXT_INDEPENDENT_DESIGN_ACTION = COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_WEAPON_FAMILY_CONTRACT`
