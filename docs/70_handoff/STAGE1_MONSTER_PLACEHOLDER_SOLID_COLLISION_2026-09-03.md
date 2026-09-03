@@ -53,32 +53,17 @@ It checks that:
 - the collision shape is parented to that body;
 - the Monster visual node remains intact.
 
-The Stage-1 Android workflow now runs this collision preflight immediately after the existing repository static preflight.
+The Stage-1 Android workflow runs this collision preflight immediately after the existing repository static preflight.
 
 ## Source commit
 
 Commit:
 `c5e8fc8ceb5633d574ef49cd684a9d39a5bd643f`
 
-Changed:
-- `probes/android_stage1/scenes/probe_world.tscn`;
-- `probes/android_stage1/tests/monster_collision_preflight.py`;
-- `.github/workflows/stage1-android-probe-apk.yml`;
-- this handoff.
-
 ## Automated verification evidence
 
 Workflow run:
 `33806628904`
-
-Exact tested source:
-`c5e8fc8ceb5633d574ef49cd684a9d39a5bd643f`
-
-Tooling observed in build evidence:
-- Godot `4.7.2.stable.official.ed1daf0bf`;
-- OpenJDK 17;
-- Android build-tools `35.0.1`;
-- Android platform `35`.
 
 Results:
 - existing Stage-1 static preflight: `154 / 154 PASS`;
@@ -87,8 +72,7 @@ Results:
 - Boot headless smoke: PASS;
 - ProbeWorld headless smoke: PASS;
 - Android debug export: PASS;
-- APK archive integrity: PASS;
-- workflow artifact upload: PASS.
+- APK archive integrity: PASS.
 
 APK:
 `UnnamedHuntRPG-Stage1Probe-debug.apk`
@@ -99,9 +83,6 @@ Size:
 SHA-256:
 `0d2fa6c0accf1964d5a98dae07a2d03a2e59fa00ee0b0a10c9781c507a89a523`
 
-Artifact ID:
-`9913198860`
-
 Automated result boundary:
 `MONSTER_PLACEHOLDER_SOLID_COLLISION_SOURCE_IMPLEMENTED = YES`
 `MONSTER_PLACEHOLDER_SOLID_COLLISION_STATIC_VERIFIED = YES`
@@ -111,22 +92,27 @@ These results do **not** prove target-phone solidity.
 
 ## Deferred Galaxy A03s acceptance test
 
-Phone collision acceptance remains required later:
-1. approach the brown Monster from front, rear and both sides;
+Phone collision acceptance remains required later.
+
+Valid current-layout checks:
+1. approach the brown Monster from the front and both accessible sides;
 2. press continuously into it;
 3. verify the Hunter cannot cross through the solid representative volume;
-4. slide along an edge/corner and verify no obvious tunneling-through behavior;
+4. slide along accessible edges/corners and verify no obvious tunneling-through behavior;
 5. verify outer world-boundary containment still works;
 6. verify joystick/settings/look-speed and aerial ↔ first-person behavior are not regressed.
 
-Until that phone evidence exists:
+Layout constraint discovered during the later world-boundary guard pass:
+the Monster rear extent reaches approximately `z = -8.4` while the Hunter-center boundary is `z = -8.5`; a full rear approach is therefore not physically available in this probe layout. Rear approach is not a valid required phone acceptance step unless a separate bounded test-layout pass later repositions the placeholder.
+
+Until phone evidence exists:
 `MONSTER_PLACEHOLDER_SOLID_COLLISION_PHONE_VERIFIED = NO / DEFERRED_PENDING_USER_PHONE_EVIDENCE`.
 
 The heading-reset joystick phone retest is likewise still deferred, not passed.
 
 ## Regression inspection
 
-The repair does not change:
+The repair did not change:
 - `probe_world.gd` movement/control code;
 - joystick reference-frame behavior;
 - Look Speed values or persistence;
@@ -135,13 +121,6 @@ The repair does not change:
 - outer `PROBE_BOUNDS` clamp;
 - Monster visual mesh dimensions or base position.
 
-The existing protected-control preflight remained green at `154 / 154`, providing static evidence that those protected source contracts were not silently removed.
+## Next foundation state
 
-## Next foundation piece
-
-The exact next independent Stage-1 source/build piece is:
-`WORLD_BOUNDARY_REGRESSION_GUARD_AND_BUILD_VERIFICATION`.
-
-Scope is to protect the already phone-positive outer boundary containment from regression on the current build lineage without retuning boundary size or expanding into production world architecture.
-
-This does not claim the deferred heading-reset or Monster collision phone tests passed.
+Monster collision source/build work is closed at the automated boundary. Current implementation work has advanced to the world-boundary guard and then to the aerial ↔ first-person continuity guard as recorded by EVOLVE.

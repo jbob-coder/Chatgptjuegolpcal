@@ -1,6 +1,6 @@
 # Stage 1 World-Boundary Regression Guard — 2026-09-03
 
-Status: SOURCE GUARD PREPARED / BUILD VERIFICATION PENDING / CURRENT-APK PHONE REGRESSION DEFERRED
+Status: STATIC + GODOT + APK BUILD VERIFIED / CURRENT-APK PHONE REGRESSION DEFERRED
 
 ## Bounded piece
 
@@ -33,7 +33,7 @@ Scene geometry used by the guard:
 
 ## Change decision
 
-No movement/source retune is justified by current evidence.
+No movement/source retune was justified by current evidence.
 
 This piece adds a regression guard only.
 
@@ -48,11 +48,47 @@ It verifies:
 5. Y is not silently added to the hard clamp;
 6. the boundary remains geometrically inside the floor footprint with at least one Hunter collision radius of margin.
 
-The Stage-1 Android CI workflow now executes this guard after the existing protected-control and Monster-collision static guards.
+The Stage-1 Android CI workflow executes this guard after the existing protected-control and Monster-collision static guards.
+
+## Automated verification evidence
+
+Source commit:
+`2fee61830c8d9357ea0bc254beba64a7d60123c9`
+
+Workflow run:
+`33807117767`
+
+Results:
+- Stage-1 static preflight `154 / 154 PASS`;
+- Monster collision preflight `8 / 8 PASS`;
+- world-boundary guard `12 / 12 PASS`;
+- Godot 4.7.2 import/parse PASS;
+- Boot headless smoke PASS;
+- ProbeWorld headless smoke PASS;
+- Android debug export PASS;
+- APK archive integrity PASS;
+- artifact upload PASS.
+
+APK:
+`UnnamedHuntRPG-Stage1Probe-debug.apk`
+
+Size:
+`57,570,361 bytes`
+
+SHA-256:
+`997df9672eec09811e56d09e24d6866e01305e35d0f150f3a7e6fe8008d24d7d`
+
+Artifact ID:
+`9913388938`
+
+Automated boundary:
+`WORLD_BOUNDARY_STATIC_VERIFIED = YES`
+`WORLD_BOUNDARY_APK_BUILD_VERIFIED = YES`
+`WORLD_BOUNDARY_CURRENT_APK_PHONE_VERIFIED = NO / DEFERRED_PENDING_USER_PHONE_EVIDENCE`
 
 ## Scope exclusions
 
-This piece does not:
+This piece did not:
 - change `PROBE_BOUNDS`;
 - change movement speed;
 - change joystick behavior;
@@ -62,21 +98,11 @@ This piece does not:
 - add Region 01 streaming/navigation;
 - add combat or domain systems.
 
-## Verification boundary
-
-Required automated gates:
-1. existing Stage-1 static preflight;
-2. Monster collision static preflight;
-3. world-boundary static regression guard;
-4. Godot 4.7.2 import/parse;
-5. Boot headless smoke;
-6. ProbeWorld headless smoke;
-7. Android debug export;
-8. APK archive integrity.
+## Deferred Galaxy A03s acceptance
 
 Current-build phone regression remains deferred under the user's instruction not to stop development waiting for phone reports.
 
-Later Galaxy A03s acceptance:
+Later acceptance:
 - press continuously toward each X/Z outer direction;
 - verify the Hunter remains inside the intended playable square;
 - test diagonal pressure into all four corners;
@@ -88,10 +114,10 @@ Later Galaxy A03s acceptance:
 
 The current Monster collider center is `z = -5.5` with length `5.8 m`, so its rear extent reaches approximately `z = -8.4`, only `0.1 m` inside the `-8.5` Hunter-center boundary.
 
-Therefore a full Hunter approach from behind the Monster is not physically available in the current probe layout. The prior collision handoff's phone checklist item requiring a rear approach is too strict for this layout and should be interpreted as front + both accessible sides + edge/corner pressure unless a separate bounded test-layout pass later repositions the placeholder.
+Therefore a full Hunter approach from behind the Monster is not physically available in the current probe layout. The collision phone test should use front + both accessible sides + edge/corner pressure unless a separate bounded test-layout pass later repositions the placeholder.
 
-This does not change collision geometry or boundary size in this pass.
+This does not change collision geometry or boundary size.
 
-## Intended next piece after automated closure
+## Next piece
 
 `AERIAL_FIRST_PERSON_STATE_CONTINUITY_REGRESSION_GUARD_AND_BUILD_VERIFICATION`
