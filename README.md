@@ -1,24 +1,24 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 ENGINE/ANDROID PHONE GATE DEFERRED / SEVEN CORE COMBAT CONTRACTS RECORDED / MONSTER 01 ATTACK PACKET NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / SEVEN GENERIC COMBAT CONTRACTS + MONSTER 01 NORMAL ATTACK PACKET RECORDED / BERSERK NEXT
 Last reconciled: 2026-09-03
 
-This repository area belongs to a completely new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
+This repository area belongs to the new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
 `Unnamed Hunt RPG` remains a temporary working label.
 
 ## 1. Main game goal
 
 The game connects three playable layers:
-1. **Walkable settlement / hub** — preparation, services, crafting, research, deterministic NPC schedules and recovery.
-2. **Elevated angled aerial wilderness exploration** — physically traversed hunting regions with tracking and persistent monsters.
-3. **First-person turn-based tactical combat** — battle starts from the same physical encounter and gives explicit movement, cover, defense, attack, anatomy-targeting and commitment choices.
+1. walkable settlement/hub for preparation, services, crafting, research and recovery;
+2. elevated angled aerial wilderness exploration for tracking and persistent monster hunting;
+3. first-person turn-based tactical combat from the same physical encounter, with explicit movement, cover, defense, attack and anatomy-targeting decisions.
 
 Core hunt loop:
 `PREPARE → LEAVE SETTLEMENT → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → MONSTER ESCAPES OR FALLS → REACQUIRE/HARVEST → RETURN → PROCESS → CRAFT/EQUIP/RESEARCH`.
 
 Primary law:
-**the game is the objective; documentation exists to keep implementation/design/QA coherent.**
+**documentation exists to keep the game coherent; the game is the objective.**
 
 ## 2. Mandatory read order
 
@@ -30,32 +30,29 @@ Before bounded work read:
 5. this README;
 6. `docs/README.md`;
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`;
-8. newest relevant `docs/70_handoff/` record;
+8. newest relevant `docs/70_handoff/`;
 9. owning package/README/source/tests.
-
-Do not reconstruct current state from old chat memory when repository evidence exists.
 
 ## 3. Where is what
 
 ```text
 docs/
-├── 00_project/   governance/readiness/dependency gates
-├── 10_world/     world/settlements/regions/spatial packages
-├── 20_gameplay/  reusable mechanics/progression/combat contracts
-├── 30_content/   hunters/monsters/equipment/content packages
-├── 40_art/       art/model/runtime asset pipeline and QA
-├── 50_technical/ engine/Android/architecture/build mapping
-├── 60_quality/   testing/performance/debug/admin guidance
-└── 70_handoff/   bounded-pass continuity/verification records
+├── 00_project/   governance/readiness
+├── 10_world/     world/regions/spatial packages
+├── 20_gameplay/  reusable gameplay/combat/progression rules
+├── 30_content/   hunters/monsters/content packages
+├── 40_art/       reference/model/runtime asset pipeline
+├── 50_technical/ engine/Android/architecture
+├── 60_quality/   QA/performance/testing
+└── 70_handoff/   bounded-pass continuity records
 ```
 
 Global map: `DOCUMENTATION_INDEX.md`.
-Documentation rules: `docs/README.md`.
-Stage-1 probe: `probes/android_stage1/README.md`.
-Gameplay: `docs/20_gameplay/README.md`.
-Combat: `docs/20_gameplay/combat/README.md`.
+Documentation placement rules: `docs/README.md`.
+Combat front door: `docs/20_gameplay/combat/README.md`.
+Monster 01 front door: `docs/30_content/monsters/MONSTER_01/README.md`.
 
-Every durable pass must answer:
+Every substantial pass must answer:
 `WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
 
 ## 4. Current Stage-1 engine/device state
@@ -66,122 +63,126 @@ Candidate:
 - GDScript;
 - GL Compatibility/OpenGL3;
 - Galaxy A03s baseline;
-- stable `30 FPS` representative-scene minimum target.
+- stable 30 FPS representative-scene minimum target.
 
-Current automated protocol revision:
+Automated protocol revision:
 `c02971996e35770bbaaaf9bf6c460af208db4f83`.
-
 Workflow `33811355891`: SUCCESS.
 
-Automated evidence:
-- protected static `154/154`;
+Verified automated gates:
+- static `154/154`;
 - Monster collision `8/8`;
 - boundary `12/12`;
-- Godot parse/smoke PASS;
-- aerial↔first-person `17/17`;
-- lifecycle transient input `47/47`;
+- view continuity `17/17`;
+- lifecycle `47/47`;
 - performance telemetry `20/20`;
+- Godot parse/smoke PASS;
 - Android export/APK integrity/artifact upload PASS.
 
-Current inner APK:
+Inner APK:
 `57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-Direct Galaxy A03s regression + 24-minute sustained-performance run remain unexecuted.
+Direct Galaxy A03s regression and 24-minute sustained run remain deferred.
 
-`PERFORMANCE_VERIFIED = NO`.
-`ENGINE_PHONE_PROBE_VERIFIED = NO`.
-`FINAL_ENGINE_SELECTED = NO`.
+`PERFORMANCE_VERIFIED = NO`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
+`FINAL_ENGINE_SELECTED = NO`
 
 Blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-Phone action when available:
-`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
+## 5. Combat foundation
 
-## 5. Combat foundation — seven recorded contracts
+Seven generic contracts are recorded:
+1. Action Economy;
+2. Combat Resolution / Hit Quality / Defense;
+3. Field Poleblade;
+4. Stamina;
+5. Initiative / Turn Order;
+6. First-Slice Status Set;
+7. First-Slice Terrain Effect Set.
 
-Package:
-`docs/20_gameplay/combat/`.
+Reusable baseline includes:
+- 4 AP / 1 RP / persistent Stamina;
+- deterministic hit/contact/defense pipeline;
+- no random Initiative opener;
+- one normal activation max per eligible actor/round;
+- Bleeding/Staggered/Off-Balance/Braced/Guarded;
+- Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow;
+- no terrain random-slip roll.
 
-1. Action Economy — 4 AP / 1 RP / persistent Stamina / no AP banking / one normal activation max per eligible actor-round.
-2. Combat Resolution — deterministic legality/context, body-part contact, directional cover, bounded seeded variance, `MISS/GRAZE/SOLID/CLEAN/PRECISION`.
-3. First Weapon — `WEAPON_FAMILY_FIELD_POLEBLADE`.
-4. Stamina — neutral Max 100, passive +10, delayed Catch Breath, explicit exertion costs.
-5. Initiative — `(2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier`, no random opener, deterministic scheduler.
-6. Status Set — `Bleeding / Staggered / Off-Balance / Braced / Guarded`, no independent status-proc RNG.
-7. Terrain Effect Set — `Stable / Rough / Shallow Water / Mud` plus `Brush / High Ground / Narrow`.
+## 6. Monster 01 normal combat packet
 
-Terrain prototype surcharges:
-- Stable: Move +0 / Sprint +0 / Dodge +0 Stamina;
-- Rough: +1 / +2 / +2;
-- Shallow Water: +2 / +4 / +3;
-- Mud: +3 / +5 / +4.
+Monster 01: Mudcrest Raker.
 
-Terrain laws:
-- one effective primary surface controls cost;
-- Dodge uses max(origin,destination) surcharge;
-- no terrain random-slip roll;
-- Brush is visibility, not invisible physical cover;
-- High Ground has no generic damage/Initiative bonus;
-- Narrow controls physical clearance/adjacency;
-- terrain does not auto-apply status or reorder Initiative.
+Authority:
+`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
 
-Terrain authority:
-`docs/20_gameplay/combat/FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`.
+Selected normal attacks:
+- `M01_HORN_CHARGE` — 4 AP / 30 Stamina;
+- `M01_HEAD_SWEEP_GORE` — 2 / 14;
+- `M01_SHOULDER_RAM` — 3 / 22;
+- `M01_FORELEG_STOMP` — 2 / 12;
+- `M01_TAIL_SWEEP` — 3 / 18.
 
-Terrain pass record:
-`docs/70_handoff/FIRST_SLICE_TERRAIN_EFFECT_SET_PASS_2026-09-03.md`.
+Monster 01 normal-combat laws:
+- one normal activation/round;
+- internal 4-AP budget;
+- max one damaging attack per activation;
+- anatomy loss disables/changes dependent attacks;
+- all five attacks have authoritative telegraphs/reaction windows;
+- no separate status-proc RNG;
+- normal attacks do not spend Crystal Energy by default;
+- behavior may choose only attacks the packet currently marks legal;
+- solid cover/terrain clearance cannot be bypassed by animation.
+
+Examples:
+- broken full horn capability removes Horn Charge;
+- both horns broken make Head Sweep/Gore an impact-only Head Sweep;
+- distal tail sever removes Tail Sweep permanently for that instance;
+- full Horn Charge cannot be normally Poleblade-Blocked/Parried;
+- Tail Sweep can be Blocked/Parried only when geometry/bearing/capability allow.
+
+Attack-pass handoff:
+`docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`.
 
 No combat runtime is claimed.
 
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS_RECORDED`.
-
-## 6. Region/content anchors
+## 7. Current world/content anchors
 
 World hierarchy:
 `WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
 
 Scale: `1 world unit = 1 meter`.
 
-Region 01 first combat footprints:
+Region 01 proof footprints:
 - Riverbank Ford;
 - Meadow Edge;
 - Root/Boulder Hollow;
 - Deep Nest Shelf.
 
-Hunter Base 01: 1.75 m reusable prototype human scale.
+Monster 01 prototype:
+~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs; severable distal tail; internal Crystal core.
 
-Monster 01 — Mudcrest Raker:
-~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs; severable distal tail; internal crystal.
+## 8. Planned bounded sequence
 
-Primary attributes:
-Might / Finesse / Agility / Endurance / Perception / Resolve.
+Completed:
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet`.
 
-Progression:
-equipment + mastery + knowledge weighted.
-
-## 7. Planned bounded sequence
-
-`TERRAIN EFFECT SET = RECORDED`
-→ `MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT`
-→ `FIRST BERSERK PROTOTYPE`
+Next:
+`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
 → `SOLO/PARTY BASELINE`
 → `DEFEAT/RETREAT BASELINE`
-→ production implementation after prerequisite engine/domain gates.
+→ production implementation only after prerequisite engine/domain gates.
 
-The sequence changes only when verified dependency evidence justifies it.
+## 9. Exact continuation
 
-## 8. Exact current continuation
+Implementation action when device evidence is available:
+`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-Active non-phone action:
-`MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT`.
+Current active non-phone action:
+`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`.
 
-That pass must define only Monster 01's minimal legal combat attacks: required anatomy/capabilities, range/bearing, action commitment, telegraphs, legal reactions, status consequences, terrain/cover constraints and guard-impact behavior.
+Keep it limited to entry conditions, Crystal Energy/strain drain, visible tell, bounded changes to existing anatomy-legal attacks/behavior priority and stop/critical/death behavior.
 
-Do not combine it with berserk, party design, defeat/retreat behavior or production implementation.
-
-## 9. Quality/documentation loop
-
-`READ EVOLVE → READ CURRENT STATE → VERIFY → ONE SMALL PIECE → IDENTIFY OWNER/GATE → IMPLEMENT/DOCUMENT → TEST/REVIEW → REGRESSION CHECK → FIX → UPDATE OWNER/README/INDEX/HANDOFF → COMMIT → READ BACK → MARK STATUS → RECORD NEXT`.
-
-Never claim phone runtime, sustained performance, combat runtime or production readiness without the evidence required by that gate.
+Do not combine it with party design, defeat/retreat resolution or production implementation.

@@ -1,238 +1,223 @@
 # MONSTER_01 — Mudcrest Raker
 
-Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / DISPLAY NAME PROVISIONAL / NO IMPLEMENTATION
-Last reconciled: 2026-09-02
+Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / NORMAL COMBAT ATTACK PACKET RECORDED / DISPLAY NAME PROVISIONAL / NO IMPLEMENTATION
+Last reconciled: 2026-09-03
 
 ## Identity
 
-Technical package ID:
-`MONSTER_01`
+Technical package ID: `MONSTER_01`
+Provisional species ID: `species_r01_mudcrest_raker`
+Working display name: **Mudcrest Raker**
 
-Provisional species ID:
-`species_r01_mudcrest_raker`
-
-Working display name:
-**Mudcrest Raker**
-
-The name can change before release. The body/mechanical design is the important current authority.
+The display name can change. Stable package/species IDs and the current mechanical body design are the authority.
 
 ## Why this is the first monster
 
-Monster 01 is designed to prove the game's core systems with one coherent animal rather than a showcase boss full of exceptions.
+Monster 01 is designed to prove the game's core hunt systems with one coherent animal rather than an exception-heavy boss.
 
 It must demonstrate:
-- Region 01 traversal across mud, roots, meadow, ridge and deep territory;
+- Region 01 movement through mud, roots, meadow, ridge and deep territory;
 - deterministic territory/activity patterns;
 - readable tracking evidence;
-- persistent monster escape/reacquisition;
-- meaningful breakable horn structures;
-- at least one severable tail structure;
-- leg injury affecting movement;
-- armor/plate break exposing vulnerability;
-- crystal life-force and desperation berserk;
-- mutation variants that change visible anatomy/terrain adaptation;
+- persistent escape/reacquisition;
+- horn break;
+- dorsal plate break;
+- leg impairment;
+- distal tail sever;
+- anatomy-dependent attack loss/change;
+- Crystal Energy and later desperation berserk;
+- terrain-readable combat;
 - condition-based harvesting;
-- aerial silhouette and first-person close readability.
+- aerial silhouette and first-person anatomy readability.
 
 ## Ecological concept
 
-The Mudcrest Raker is a large territorial quadrupedal omnivore/root-forager adapted to wet forest basins and mineral-rich ground.
+Large territorial quadrupedal omnivore/root-forager adapted to wet forest basins and mineral-rich ground.
 
-It is not a generic evil predator.
-
-Normal activities can include:
-- digging/rooting in feeding meadow edges;
-- breaking into root beds;
-- drinking/wallowing at the river ford;
-- rubbing/mineral scraping against rocks;
-- resting in deep shaded basin terrain;
-- retreating toward a nesting/mineral shelf when badly injured.
-
-This supports learnable hunting patterns and creates physical evidence.
+It is not a generic evil predator. Normal activities include rooting/feeding, river drinking/wallowing, mineral rubbing, deep-basin rest, territorial warning and wounded retreat.
 
 ## Body plan
 
-Selected prototype dimensions:
-- total nose-to-tail length: approximately **6.6 m**;
-- shoulder/main body height: approximately **3.0 m**;
-- head held somewhat below shoulder line during normal movement;
-- strongly front-loaded body mass;
-- four robust legs;
-- broad wedge-shaped skull;
+Selected prototype:
+- ~6.6 m nose-to-tail;
+- ~3.0 m shoulder/main-body height;
+- front-loaded quadrupedal mass;
+- low wedge head;
 - paired mineralized horn/crest structures;
-- heavy shoulder/dorsal armor plates;
-- long muscular counterbalance tail with mineralized distal ridge;
-- splayed mud-adapted toes/pads.
+- heavy shoulder/dorsal plates;
+- four robust legs with mud-adapted feet;
+- muscular tail with mineralized distal ridge;
+- deep forward-torso Crystal core, not a baseline externally targetable part.
 
-Mass/weight remains OPEN until the blockout is volume-checked.
+Exact mass remains open until blockout volume is checked.
 
-## Silhouette
+## Player-facing target groups
 
-From aerial view, the species should be recognizable by:
-1. broad front-heavy shoulders;
-2. low wedge head;
-3. paired forward/outward mineral horns;
-4. broken-line dorsal plate silhouette;
-5. long tapering tail with heavier distal ridge;
-6. wide-spread feet/stance.
+Detailed authority: `ANATOMY_AND_DAMAGE.md`.
 
-Do not cover the animal in small spikes. A few large readable forms are preferred.
+First-slice groups:
+1. Head;
+2. Horn Crest;
+3. Foreleg L;
+4. Foreleg R;
+5. Hindleg L;
+6. Hindleg R;
+7. Dorsal Plates;
+8. Tail;
+plus general torso contact.
 
-## Surface/material language
+## Normal combat attack packet
 
-Broad material groups:
-- thick matte hide on flanks/legs;
-- rough darker mud-stained lower limbs;
-- mineral/keratin horn and dorsal plates;
-- tougher shoulder hide;
-- softer flex areas around joints/belly/neck underside;
-- restrained mineral/crystal vein indications only where biologically justified.
+Authority:
+`COMBAT_ATTACK_PACKET.md`.
 
-Baseline palette candidate:
-- dark wet-earth brown/gray hide;
-- muted moss/olive undertones;
-- desaturated stone/mineral plates;
-- small warm mineral/crystal accents during active core strain.
+Selected first-slice normal damaging attacks:
+1. `M01_HORN_CHARGE`;
+2. `M01_HEAD_SWEEP_GORE`;
+3. `M01_SHOULDER_RAM`;
+4. `M01_FORELEG_STOMP`;
+5. `M01_TAIL_SWEEP`.
 
-Exact palette remains art-tunable.
+First-slice Monster 01 activation model:
+- one normal activation per round;
+- internal 4-AP budget using the shared action-economy framework;
+- maximum one damaging attack per activation;
+- persistent Stamina/exertion costs;
+- no normal attack spends Crystal Energy by default;
+- no hidden multiattack from animation;
+- no independent status-proc RNG.
 
-## Elemental/crystal direction
+Prototype attack costs:
+- Horn Charge `4 AP / 30 Stamina`;
+- Head Sweep/Gore `2 / 14`;
+- Shoulder Ram `3 / 22`;
+- Foreleg Stomp `2 / 12`;
+- Tail Sweep `3 / 18`.
 
-Provisional first-slice elemental affinity:
-**Mineral / Earth-type expression**.
-
-This is a content-direction candidate while the final global element roster/names remain OPEN.
-
-Expression should feel biological/physical:
-- mineralized plates/horns;
-- powerful ground-driven attacks;
-- vibration/impact emphasis;
-- terrain stability;
-- crystal strain visible through limited subdermal/mineral seams during berserk.
-
-Avoid constant neon glow and generic rock-projectile magic as the baseline identity.
-
-## Region 01 relationship
-
-Primary usable sectors:
-- S01 River Ford / Mud Flats — drinking/wallowing, excellent track evidence;
-- S02 Rootwood Thicket — rooting/foraging, broken vegetation;
-- S03 Feeding Meadow — feeding/observation/engagement;
-- S04 Rocky Rise — mineral rubbing/scraping, lookout route where body fit allows;
-- S05 Deepwood Basin — resting/retreat/convergence;
-- S06 Nesting Shelf / Crystal Fault — deep retreat/territorial/desperation context.
-
-S00 field camp is not a normal monster activity sector.
-
-The final exact route pattern is defined in `BEHAVIOR_AND_REGION.md`.
+Anatomy consequences:
+- broken horn capability removes full Horn Charge;
+- both horns broken convert Head Sweep/Gore to impact-only Head Sweep;
+- severe forequarter support loss removes full Charge/Ram as defined;
+- damaged selected foreleg can remove that side's Stomp;
+- distal tail sever removes Tail Sweep immediately and persistently.
 
 ## Combat role
 
-The first monster should reward positional thinking instead of raw DPS.
+Monster 01 rewards positional/anatomical thinking rather than raw DPS.
 
-Core attack families:
-- horn/crest charge;
-- shoulder/body ram;
-- foreleg stomp or mud shove;
-- head sweep/gore;
-- tail sweep;
-- short-range bite/body check where appropriate;
-- berserk variants of existing capabilities rather than unrelated magic attacks.
+Normal attack coverage:
+- long frontal lane: Horn Charge;
+- close front/front-flank: Head Sweep/Gore;
+- horn-independent body force: Shoulder Ram;
+- local forequarter pressure: Foreleg Stomp;
+- rear/flank defense: Tail Sweep.
 
-Functional damage examples:
-- horn break weakens/removes strongest horn-charge version;
-- foreleg damage reduces charge/reposition capability;
-- tail sever removes tail-sweep capability;
-- plate break exposes a vulnerable surface/changes harvest condition;
-- low crystal energy changes behavior/desperation but never repairs lost anatomy.
+Bite is intentionally not a separate first-slice attack because it does not add enough new tactical proof beyond the selected five.
 
-## Targetable-part philosophy
+Berserk variants are explicitly deferred to the next bounded packet and must remain anatomy-legal variants/priority changes rather than unrelated magic attacks.
 
-First-person target mode should emphasize a bounded set of meaningful regions rather than dozens of tiny parts.
+## Terrain/Region 01 relationship
 
-Detailed anatomy authority:
-`ANATOMY_AND_DAMAGE.md`.
+Primary sectors:
+- S01 River Ford / Mud Flats;
+- S02 Rootwood Thicket;
+- S03 Feeding Meadow;
+- S04 Rocky Rise;
+- S05 Deepwood Basin;
+- S06 Nesting Shelf / Crystal Fault.
 
-## Mutation philosophy
+S00 Field Camp is not a normal monster activity anchor.
 
-Mutations should preserve species identity.
+Combat footprint implications:
+- Meadow Edge is the cleanest Horn Charge proving ground;
+- Riverbank Ford supports close attacks plus lane-validated charge/sweep;
+- Root/Boulder Hollow frequently restricts charge/sweep through Narrow/solid geometry;
+- Deep Nest Shelf uses real elevation/clearance, not generic high-ground damage bonuses.
 
-The first mutation sheet will show a baseline plus a few controlled variants, not a complete bestiary.
+## Deterministic behavior
 
-Detailed authority:
-`CRYSTAL_AND_MUTATION.md`.
-
-## Behavior philosophy
-
-No AI system.
-
-The Mudcrest Raker uses authored deterministic patterns based on:
-- hunger/activity state;
-- water/feeding/rest needs where modeled;
-- player detection;
-- range/bearing;
-- terrain;
-- anatomy capability state;
-- injury;
-- crystal reserve/strain;
-- nest/territory context;
-- escape routes.
-
-Detailed authority:
+Authority:
 `BEHAVIOR_AND_REGION.md`.
 
-## Reference sheets
+There is no runtime generative AI decision system.
 
-Immediate generation sequence:
+Behavior selection reads:
+- player range/bearing;
+- line/cover/terrain;
+- anatomy capability flags;
+- injury/status;
+- current territory/activity;
+- Crystal reserve/strain where relevant;
+- retreat/nest context;
+- legal attacks exposed by `COMBAT_ATTACK_PACKET.md`.
+
+Behavior may never select an attack that the attack packet marks illegal.
+
+## Crystal/mutation
+
+Authority:
+`CRYSTAL_AND_MUTATION.md`.
+
+Provisional expression: Mineral / Earth-type biological adaptation.
+
+Normal attack packet does not consume Crystal Energy by default. The next bounded content/design dependency owns the first berserk Energy/strain behavior.
+
+## Surface/material language
+
+- thick matte hide;
+- mud-stained lower limbs;
+- mineral/keratin horns and dorsal plates;
+- tougher shoulder hide;
+- softer joint/belly/neck flex areas;
+- restrained crystal/mineral seams only where biologically justified.
+
+Avoid constant neon glow or generic rock-magic identity.
+
+## Package file map
+
+- `README.md` — Monster 01 front door/current package map;
+- `ANATOMY_AND_DAMAGE.md` — target groups, break/sever/impairment and harvest-condition anatomy;
+- `COMBAT_ATTACK_PACKET.md` — normal first-slice attack definitions, capability gates, costs, reactions, terrain/cover/status relationships;
+- `BEHAVIOR_AND_REGION.md` — deterministic activity/combat selection/retreat/Region 01 use;
+- `CRYSTAL_AND_MUTATION.md` — Crystal/mutation direction and later berserk inputs.
+
+## Reference generation sequence
+
 1. `MONSTER_01_M01_M02_HERO_TURNAROUND_v001.png`;
 2. `MONSTER_01_M03_ANATOMY_v001.png`;
 3. `MONSTER_01_M04_DAMAGE_STATES_v001.png`;
 4. `MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001.png`;
 5. `MONSTER_01_M08_THREE_DISTANCE_v001.png`.
 
-## 3D conversion suitability
-
-The hero/turnaround sheet should deliberately support later multiview reconstruction:
-- neutral stance;
-- all four legs visible in side/front logic;
-- unobstructed tail;
-- horns visible;
-- no foliage/background crossing silhouette;
-- no berserk VFX on conversion source;
-- no open-mouth extreme pose;
-- no perspective-heavy charge pose.
-
-## Drive
-
-Modeling references:
-`01_Modeling_References/Monster_01`
-ID: `1klaz1KEefbWZ2cMMH3N6m--lbQqf9CUe`
-
-3D conversion inputs:
-`03_3D_Conversion_Inputs/Monster_01`
-ID: `19iD9tQXEtQEL-Io8Y5MD5h-WPRVKYjEa`
-
 ## Current decision state
 
-SELECTED:
+RECORDED:
 - quadrupedal front-heavy body plan;
-- approximate 6.6 m length / 3.0 m shoulder scale prototype;
-- paired mineral horns/crest;
-- dorsal armor plates;
-- severable long tail;
-- mud-adapted feet;
-- first monster tied to Region 01 activity routes;
-- mineral/earth-type provisional affinity;
-- restrained crystal visual language;
-- first monster demonstrates horn break, leg impairment, tail sever, plate break and berserk.
+- ~6.6 m length / ~3.0 m shoulder scale prototype;
+- horn crest / dorsal plates / mud-adapted feet / severable distal tail;
+- Region 01 ecology/route relationship;
+- deterministic behavior architecture;
+- five normal first-slice attacks;
+- anatomy-dependent attack loss/change;
+- normal attack AP/Stamina commitments and player-reaction compatibility.
 
-OPEN:
-- final display name;
-- exact weight;
-- exact global element ID/name;
-- exact crystal tier/rank/quality numbers;
-- final damage values;
-- exact action economy costs;
-- exact harvest quantities;
-- final color palette;
-- final sound design.
+OPEN/LATER:
+- final name;
+- exact mass;
+- final element naming;
+- final Crystal tier/rank/quality values;
+- final health/damage numbers;
+- final species Max Stamina;
+- final harvest quantities;
+- final art/audio;
+- first berserk prototype — next bounded dependency;
+- runtime implementation/tests.
+
+`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
+`MONSTER_01_ATTACK_RUNTIME_IMPLEMENTED = NO`
+
+## Exact next package dependency
+
+`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
+
+Keep that pass limited to berserk entry, Energy/strain drain, visible tell, bounded changes to existing anatomy-legal attacks/behavior priority and stop/critical/death rules.

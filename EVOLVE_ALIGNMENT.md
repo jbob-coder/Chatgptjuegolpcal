@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / SEVEN CORE COMBAT CONTRACTS RECORDED / MONSTER 01 ATTACK PACKET NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK PACKET RECORDED / BERSERK NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -11,7 +11,7 @@ Then read:
 1. `PROJECT_HANDOFF.md`;
 2. `START_HERE_NEW_CHAT.md`;
 3. `DOCUMENTATION_INDEX.md`;
-4. newest relevant specialized handoff;
+4. newest relevant `docs/70_handoff/`;
 5. owning package/README/source/tests.
 
 Current repository/source/build/device evidence outranks chat memory.
@@ -20,17 +20,17 @@ Current repository/source/build/device evidence outranks chat memory.
 
 The game is the objective.
 
-Documentation exists to preserve intent, ownership, dependencies, implementation readiness, verification evidence, continuity and the exact next action. Do not create documentation with no game/design/implementation/QA/continuity consumer.
+Documentation exists to preserve intent, ownership, dependencies, implementation readiness, verification evidence, continuity and exact next action. Do not create documentation with no game/design/implementation/QA/continuity consumer.
 
 ## Authority order
 
 For intended changes:
 1. current explicit user instruction;
 2. current verified source/tests;
-3. current owning project documentation/locked decisions;
+3. current owning repository authorities;
 4. direct build/runtime/device evidence;
 5. external research/documentation;
-6. conversation summaries/memory.
+6. chat summaries/memory.
 
 For runtime claims:
 1. direct target-device evidence;
@@ -78,7 +78,8 @@ Use:
 
 ## Build-readiness taxonomy
 
-Authority: `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
+Authority:
+`docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
 
 Classes:
 1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
@@ -87,7 +88,7 @@ Classes:
 4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
 5. `CAN_WAIT_UNTIL_EXPANSION`.
 
-Law: an open question blocks only the earliest implementation gate that genuinely consumes its answer.
+Law: an open question blocks only the earliest implementation gate that genuinely consumes it.
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
@@ -99,7 +100,7 @@ Law: an open question blocks only the earliest implementation gate that genuinel
 - GDScript;
 - GL Compatibility/OpenGL3;
 - Galaxy A03s baseline;
-- stable `30 FPS` representative-scene minimum target.
+- stable 30 FPS representative-scene minimum target.
 
 `probes/android_stage1/` is disposable evidence-gathering source and must not silently become production architecture.
 
@@ -153,98 +154,99 @@ Prepared sustained phone run:
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-## Combat design package
+## Generic combat design package
 
 Front door:
 `docs/20_gameplay/combat/README.md`.
 
-### 1. Action Economy — RECORDED
-4 AP / 1 RP / persistent Stamina / no AP banking / bounded reactions / one normal activation max per actor-round.
+Recorded generic authorities:
+1. Action Economy — 4 AP / 1 RP / persistent Stamina / one normal activation max.
+2. Combat Resolution — deterministic legality/contact/defense/hit-quality / one bounded seeded variance source.
+3. First Weapon — Field Poleblade.
+4. Stamina — normalized 100-point reference / passive +10 / Catch Breath / explicit exertion costs.
+5. Initiative — deterministic snapshot/no random opener/no ordinary resorting/extra turns.
+6. Status Set — Bleeding/Staggered/Off-Balance/Braced/Guarded / no independent status RNG.
+7. Terrain Set — Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow / no terrain random-slip RNG.
 
-### 2. Combat Resolution — RECORDED
-Deterministic legality/context; AttackControl vs DefenseControl; body/selected-part contact; directional cover; one bounded seeded variance source; `MISS/GRAZE/SOLID/CLEAN/PRECISION`.
+These are reusable rules. One species' attacks remain in that species content package.
 
-### 3. First Weapon — RECORDED
-`WEAPON_FAMILY_FIELD_POLEBLADE`.
+## Monster 01 normal attack packet — RECORDED
 
-### 4. Stamina — RECORDED
-Neutral Max 100 / passive +10 / delayed Catch Breath / explicit exertion costs.
+Package front door:
+`docs/30_content/monsters/MONSTER_01/README.md`.
 
-### 5. Initiative / Turn Order — RECORDED
-`InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier`.
-No random opener; snapshot on encounter entry; deterministic ties; no ordinary resorting/extra turns.
-
-### 6. Status Set — RECORDED
-`Bleeding / Staggered / Off-Balance / Braced / Guarded`.
-No independent status-proc RNG; no status changes Initiative or grants extra turns.
-
-### 7. Terrain Effect Set — RECORDED
-Authority:
-`docs/20_gameplay/combat/FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`.
+Attack authority:
+`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
 
 Handoff:
-`docs/70_handoff/FIRST_SLICE_TERRAIN_EFFECT_SET_PASS_2026-09-03.md`.
+`docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`.
 
-Primary surfaces:
-- Stable Ground;
-- Rough Ground;
-- Shallow Water;
-- Mud.
+Selected normal attacks:
+- `M01_HORN_CHARGE` — 4 AP / 30 Stamina;
+- `M01_HEAD_SWEEP_GORE` — 2 / 14;
+- `M01_SHOULDER_RAM` — 3 / 22;
+- `M01_FORELEG_STOMP` — 2 / 12;
+- `M01_TAIL_SWEEP` — 3 / 18.
 
-Context tags:
-- Brush;
-- High Ground;
-- Narrow.
+Selected Monster 01 attack laws:
+- one normal activation per round;
+- internal 4-AP activation budget;
+- maximum one damaging attack per normal activation;
+- normal attacks use persistent Stamina but do not spend Crystal Energy by default;
+- all five selected attacks open authoritative telegraph/reaction windows;
+- first-slice Monster 01 normal attack hit-quality ceiling = `CLEAN`;
+- no separate random critical or status-proc roll;
+- anatomy/capability/range/bearing/clearance/cover are hard legality inputs;
+- animation/UI cannot expand legal range or restore disabled attacks;
+- physical full cover can stop/directly invalidate attacks;
+- same state/seed/action sequence must replay deterministically.
 
-Prototype Stamina surcharge table:
-- Stable: Move +0 / Sprint +0 / Dodge +0;
-- Rough: +1 / +2 / +2;
-- Shallow Water: +2 / +4 / +3;
-- Mud: +3 / +5 / +4.
+Anatomy consequences:
+- full Horn Charge requires full horn + forequarter support capability;
+- broken full horn capability removes Horn Charge;
+- both horns broken convert Head Sweep/Gore to impact-only Head Sweep;
+- severe forequarter support loss removes full Charge/Ram as defined;
+- each Stomp is tied to a functional side-specific foreleg;
+- distal tail sever removes Tail Sweep immediately/persistently.
 
-Selected terrain laws:
-- one effective primary surface controls movement surcharge;
-- normal move/Sprint use destination surface;
-- Dodge uses `max(origin,destination)` surcharge;
-- forced displacement does not charge voluntary terrain movement Stamina;
-- `TERRAIN_RANDOM_SLIP_ROLL = NONE`;
-- Brush affects visibility/exposure, not physical cover/armor;
-- High Ground has no generic damage/Initiative/accuracy bonus;
-- Narrow controls clearance/adjacency legality;
-- terrain does not auto-apply Off-Balance/Staggered/Bleeding;
-- `TERRAIN_INITIATIVE_MODIFIER = NONE`;
-- physical cover remains owned by Combat Resolution.
+Reaction/guard-impact highlights:
+- Horn Charge: Dodge/Reactive Brace; normal Poleblade Block/Parry incompatible;
+- Head Sweep/Gore: compatible Block / limited compatible Parry; impact drain 10;
+- Shoulder Ram: Dodge/Brace; only conditional Braced+Guarded Block; impact drain 18;
+- Foreleg Stomp: Dodge/Brace; normal Block/Parry incompatible;
+- Tail Sweep: compatible Block/Parry/Dodge/Brace; impact drain 14.
 
-Region 01 mapping:
-- Riverbank Ford → Stable/Mud/Shallow Water;
-- Meadow Edge → Stable + Brush;
-- Root/Boulder Hollow → Rough + Brush + Narrow;
-- Deep Nest Shelf → Stable/Rough + High Ground/Narrow as geometry warrants.
+Status consequence requests remain deterministic and route through the generic status owner after contact/protection/anatomy resolution.
 
-This is design-recorded only.
+Behavior boundary:
+- `COMBAT_ATTACK_PACKET.md` decides attack legality/profile;
+- `BEHAVIOR_AND_REGION.md` deterministically selects from legal candidates;
+- no runtime generative AI attack selection.
 
-`FIRST_SLICE_TERRAIN_EFFECT_SET = RECORDED`
-`TERRAIN_RUNTIME_IMPLEMENTED = NO`
-`TERRAIN_RUNTIME_VERIFIED = NO`
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS_RECORDED`
+`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
+`MONSTER_01_ATTACK_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_ATTACK_RUNTIME_VERIFIED = NO`
+`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS + MONSTER_01_ATTACK_PACKET_RECORDED`
 
 ## Exact current active non-phone gate
 
-`MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT`
+`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
 
 Bounded scope:
-1. read current Monster 01 README/anatomy/behavior owners plus all seven combat contracts;
-2. define only the minimum first-slice attack list;
-3. for each attack define required anatomy/capability, range/bearing/clearance, commitment, telegraph, legal reactions, contact/damage channels, terrain/cover constraints, status consequence requests and guard-impact behavior;
-4. preserve deterministic behavior/attack legality boundaries;
-5. do not create berserk behavior in this pass;
-6. do not design party or defeat/retreat rules;
-7. record future implementation tests without claiming runtime verification.
+1. reread current Monster 01 README, `COMBAT_ATTACK_PACKET.md`, `CRYSTAL_AND_MUTATION.md`, `BEHAVIOR_AND_REGION.md`, anatomy and owning generic Crystal/combat/behavior authorities;
+2. define exact first-slice berserk entry conditions;
+3. define Crystal Energy/strain drain cadence and affordability/death boundary;
+4. define readable authoritative berserk telegraph/state transition;
+5. define only bounded changes to availability/commitment/priority of the **existing anatomy-legal attacks**;
+6. preserve lost anatomy permanently — no horn/tail/leg restoration;
+7. define stop/critical/death behavior and deterministic trace;
+8. do not design party systems;
+9. do not define defeat/retreat resolution;
+10. record future implementation tests without claiming runtime verification.
 
 ## Remaining combat-design sequence
 
-After Monster 01 attack packet:
-- first berserk prototype;
+After berserk:
 - solo/party baseline;
 - defeat/retreat baseline;
 - prerequisite production implementation/testing gates.
@@ -271,9 +273,10 @@ After Monster 01 attack packet:
 `INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
 `FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
 `FIRST_SLICE_TERRAIN_EFFECT_SET = RECORDED`
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS_RECORDED`
+`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
+`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS + MONSTER_01_ATTACK_PACKET_RECORDED`
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`

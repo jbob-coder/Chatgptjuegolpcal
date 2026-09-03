@@ -1,147 +1,144 @@
 # 20_gameplay/combat — Tactical Combat Package
 
-Status: ACTIVE DESIGN PACKAGE / SEVEN CORE CONTRACTS RECORDED / NO COMBAT IMPLEMENTATION
+Status: ACTIVE DESIGN PACKAGE / SEVEN CORE CONTRACTS RECORDED / MONSTER 01 NORMAL ATTACK PACKET RECORDED / NO COMBAT IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Own reusable first-person turn-based tactical-combat rules that apply across monsters, regions, weapons and encounters.
+Own reusable first-person turn-based combat rules. Monster/content packages consume these rules without redefining their timing, resolution or resource laws.
 
-The game is the objective. This README is the combat package front door: what exists, where it is, what owns it, what remains open and what comes next.
+The game is the objective. This README maps what combat owns, what content owns, what is recorded, what remains open and what comes next.
 
-## Current authorities
+## Generic combat authorities
 
 1. `ACTION_ECONOMY_CONTRACT.md`
    - 4 AP / 1 RP / persistent Stamina;
-   - no AP banking;
-   - bounded reaction windows;
-   - one normal activation maximum per eligible actor/round.
+   - bounded reactions;
+   - one normal activation maximum per eligible actor/round;
+   - Monster actions obey the same timing/invariant framework even without a player-facing AP UI.
 
 2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`
-   - deterministic hard legality/context;
-   - AttackControl vs DefenseControl;
-   - body vs selected-part contact;
+   - hard legality vs contested resolution;
+   - AttackControl/DefenseControl;
+   - body/selected-part contact;
    - directional cover;
    - one bounded seeded variance source;
-   - `MISS / GRAZE / SOLID / CLEAN / PRECISION`.
+   - `MISS / GRAZE / SOLID / CLEAN / PRECISION` generic classes.
 
 3. `FIRST_WEAPON_FAMILY_CONTRACT.md`
    - `WEAPON_FAMILY_FIELD_POLEBLADE`;
    - cutting/sever primary;
    - piercing/control secondary;
-   - directional Guard / restricted Parry;
-   - deliberate hard-break/cramped/shield-defense weaknesses.
+   - directional Guard / restricted Parry.
 
 4. `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`
-   - neutral Max Stamina `100`;
+   - normalized first-slice Max Stamina reference `100`;
    - passive `+10` once at normal activation start;
-   - delayed `CATCH_BREATH`;
-   - explicit first-slice movement/reaction/Field-Poleblade costs.
+   - delayed Catch Breath;
+   - Block `6 + impact drain`, Parry `10`, Dodge `14`, Reactive Brace `10` before terrain/modifiers.
 
 5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`
-   - `InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier`;
-   - no random Initiative/opener roll;
-   - snapshot on encounter entry;
-   - deterministic ties;
-   - no ordinary mid-encounter resorting or extra-turn scaling.
+   - deterministic Initiative snapshot;
+   - no random opener;
+   - no ordinary mid-encounter resorting;
+   - one normal activation max per actor/round.
 
 6. `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`
-   - `Bleeding / Staggered / Off-Balance / Braced / Guarded`;
+   - Bleeding / Staggered / Off-Balance / Braced / Guarded;
    - no independent random status-proc roll;
-   - Bleeding intensity max 3 / one tick max per actor-round;
-   - Staggered disrupts Dodge/Parry but does not steal the next activation;
-   - Guarded is directional and never auto-Blocks.
+   - generic stacking/timing/removal remains here.
 
 7. `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`
-   - primary surfaces `STABLE_GROUND / ROUGH_GROUND / SHALLOW_WATER / MUD`;
-   - context tags `BRUSH / HIGH_GROUND / NARROW`;
-   - exactly one primary surface controls movement surcharge;
+   - Stable / Rough / Shallow Water / Mud;
+   - Brush / High Ground / Narrow;
    - no terrain random-slip roll;
-   - Brush affects visibility, not armor/physical cover;
-   - High Ground has no generic damage/Initiative bonus;
-   - Narrow controls clearance/adjacency legality.
+   - physical cover remains separate from terrain visibility/footing.
 
-## First-slice terrain prototype values
+## Monster 01 content consumer
 
-Existing base costs remain owned by Action Economy/Stamina:
-- adjacent move `1 AP / 0 Stamina` on Stable Ground;
-- Sprint base `8 Stamina`;
-- Dodge base `14 Stamina`.
+Monster-specific authority:
+`/docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
 
-Terrain Stamina surcharge:
+This is **not** an eighth generic combat contract. It configures the seven generic systems for one species.
 
-| Surface | Move | Sprint | Dodge | Footing |
-|---|---:|---:|---:|---|
-| Stable | +0 | +0 | +0 | Stable |
-| Rough | +1 | +2 | +2 | Unsteady |
-| Shallow Water | +2 | +4 | +3 | Unsteady |
-| Mud | +3 | +5 | +4 | Compromised |
+Selected normal Monster 01 attacks:
+- `M01_HORN_CHARGE` — `4 AP / 30 Stamina`;
+- `M01_HEAD_SWEEP_GORE` — `2 / 14`;
+- `M01_SHOULDER_RAM` — `3 / 22`;
+- `M01_FORELEG_STOMP` — `2 / 12`;
+- `M01_TAIL_SWEEP` — `3 / 18`.
 
-Dodge uses `max(origin, destination)` terrain surcharge rather than summing both.
+Monster 01 first-slice normal-activation laws:
+- internal 4-AP budget;
+- max one damaging attack per activation;
+- normal attacks do not spend Crystal Energy by default;
+- anatomy loss removes/changes dependent attacks;
+- no hidden multiattack from animation;
+- no independent status RNG.
 
-These are prototype values, not production-verified balance.
+Reaction highlights:
+- full Horn Charge rejects normal Poleblade Block/Parry;
+- Head Sweep/Gore supports compatible Block and only physically compatible Parry;
+- Shoulder Ram can only use the special Braced+Guarded Block case when physically legal;
+- Foreleg Stomp rejects normal Block/Parry;
+- Tail Sweep supports compatible Block/Parry.
+
+Generic owners still decide reaction costs, contact, guard outcome, status stacking and terrain semantics.
 
 ## Specificity / ownership
 
-More-specific contracts supersede older placeholders only within their scope.
+- Action Economy owns AP/RP/timing.
+- Stamina owns resource rules/base costs/floors.
+- Initiative owns order/activation slots.
+- Status contract owns status lifetime/stack/removal.
+- Terrain contract owns generic terrain costs/tags.
+- Combat Resolution owns contact/defense/cover/hit-quality order.
+- Field Poleblade owns hunter weapon techniques/defensive capability.
+- Monster 01 attack packet owns only Monster 01 attack definitions/capability requirements/consequence requests.
+- Monster 01 behavior owns deterministic selection from currently legal attack candidates.
+- Region 01 owns where terrain/cover/clearance exists.
 
-- Action Economy owns AP/RP/action timing.
-- Stamina owns capacity/recovery/base exertion costs/floors.
-- Initiative owns scheduler/order.
-- Status contract owns selected status/tactical-state lifetime/stacking/removal.
-- Terrain contract owns first-slice terrain costs/tags/footing semantics.
-- Combat Resolution owns contact/defense/cover/hit-quality ordering.
-- Field Poleblade owns first weapon techniques/capabilities.
-- Region 01 owns where terrain/cover exists, not generic terrain formulas.
-- Monster 01 content will own its concrete attacks/capabilities, not generic combat rules.
-
-## Supporting authorities
-
-- `/STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
-- `/CONTENT_DATA_GUIDE.md`;
-- `/MECHANICAL_SYSTEMS_GUIDE.md`;
-- `/BEHAVIOR_PATTERN_SYSTEM.md`;
-- `/docs/10_world/regions/REGION_01/README.md`;
-- `/docs/10_world/regions/REGION_01/ENCOUNTER_FOOTPRINTS.md`;
-- `../progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
+No lower-level content file may silently override a generic owner.
 
 ## Presentation boundary
 
-UI/animation may display actions, resources, order, status, terrain, cover and traces but never:
-- advances authoritative turns;
-- spends/refunds AP/RP/Stamina independently;
-- rerolls Initiative/attacks/status/terrain;
-- ticks statuses;
-- changes Guard direction because camera moved;
-- creates invisible terrain cover;
-- applies terrain movement costs independently;
-- resolves hits/protection independently.
+UI/animation may visualize actions, telegraphs, resources, order, status, terrain, cover and traces but never:
+- advances turns;
+- spends/refunds resources independently;
+- rerolls attacks/status/Initiative;
+- re-enables disabled anatomy attacks;
+- changes attack range/clearance because animation reaches farther;
+- creates hidden extra hits/attacks;
+- changes Guard direction from camera motion;
+- resolves status/cover/damage independently.
 
 ## Current combat-design gate
 
-Recorded:
+Generic core recorded:
 - Action Economy;
 - Combat Resolution;
 - First Weapon Family;
-- Stamina Prototype;
-- Initiative/Turn Order;
-- First-Slice Status Set;
-- First-Slice Terrain Effect Set.
+- Stamina;
+- Initiative;
+- Status Set;
+- Terrain Set.
 
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS_RECORDED`.
-`COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`.
+First content consumer recorded:
+- Monster 01 normal attack packet.
+
+`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS + MONSTER_01_ATTACK_PACKET_RECORDED`
+`COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`
 
 Still required before real combat implementation:
-1. Monster 01 combat attack packet;
-2. first berserk prototype;
-3. solo/party baseline;
-4. defeat/retreat baseline;
-5. prerequisite engine/domain/stats/content implementation and tests.
+1. Monster 01 berserk prototype;
+2. solo/party baseline;
+3. defeat/retreat baseline;
+4. prerequisite engine/domain/stats/content implementation and tests.
 
-## Exact next bounded combat-design dependency
+## Exact next bounded dependency
 
-`MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT`
+`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
 
-That pass must define only Monster 01's minimum legal combat attack packet: required anatomy/capabilities, range/bearing, action commitment, telegraphs, legal reactions, status consequences, terrain/cover constraints and guard-impact behavior.
+Keep the next pass limited to berserk entry, Crystal Energy/strain drain, visible tell, deterministic changes to availability/commitment/priority of existing anatomy-legal attacks, and stop/critical/death behavior.
 
-Do not combine it with berserk, party design, defeat/retreat behavior or production implementation.
+Do not combine it with party design, defeat/retreat resolution or production implementation.

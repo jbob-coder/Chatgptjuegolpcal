@@ -1,189 +1,221 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / COMBAT SEVEN-CORE-CONTRACT FOUNDATION RECORDED
+Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / SEVEN GENERIC COMBAT CONTRACTS + MONSTER 01 NORMAL ATTACK PACKET RECORDED
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Classify each requirement by the earliest implementation stage that genuinely consumes it.
+Classify requirements by the earliest implementation stage that genuinely consumes them.
 
 Primary law:
-**an open question blocks only the earliest gate that actually needs its answer.**
+**an open question blocks only the earliest implementation gate that actually needs its answer.**
 
 Readiness classes:
-1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
-2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`;
-3. `MUST_EXIST_BEFORE_COMBAT`;
-4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
-5. `CAN_WAIT_UNTIL_EXPANSION`.
+1. `MUST_EXIST_BEFORE_ENGINE_PROBE`
+2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`
+3. `MUST_EXIST_BEFORE_COMBAT`
+4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`
+5. `CAN_WAIT_UNTIL_EXPANSION`
 
-## 1. Current gate summary
+---
+
+# 1. Gate status summary
 
 | Gate | Current status | Meaning |
 |---|---|---|
-| ENGINE PROBE | AUTOMATED FOUNDATION + PERFORMANCE PROCEDURE PREPARED / PHONE GATE DEFERRED | CI/build/headless evidence exists; direct Galaxy A03s bundle remains |
-| DOMAIN IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | production domain code waits for engine/device proof |
-| COMBAT | PARTIAL / ADVANCED / SEVEN CORE CONTRACTS RECORDED | generic tactical foundation is increasingly concrete; Monster 01/content/end-state packets remain |
-| VERTICAL SLICE | PARTIAL / LATER | integrated hunt loop dependencies remain |
-| EXPANSION | INTENTIONALLY OPEN | broad content/lore should not delay earlier gates |
+| ENGINE PROBE | AUTOMATED FOUNDATION + PERFORMANCE PROCEDURE PREPARED / PHONE GATE DEFERRED | source/build/headless gates pass; direct Galaxy A03s bundle remains |
+| DOMAIN IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | production domain source waits for direct device gate |
+| COMBAT | PARTIAL / ADVANCED | seven generic combat contracts plus Monster 01 normal attack packet recorded; berserk/party/failure packets remain |
+| VERTICAL SLICE | PARTIAL / LATER | integrated loop prerequisites remain |
+| EXPANSION | INTENTIONALLY OPEN | broad content/lore/endgame must not delay earlier gates |
 
-## 2. MUST EXIST BEFORE ENGINE PROBE
+---
 
-Satisfied/prepared:
-- implementation authorized;
-- Godot 4.7 family / CI Godot 4.7.2 stable;
+# 2. MUST EXIST BEFORE ENGINE PROBE
+
+Current candidate:
+- Godot 4.7 family;
+- CI/build Godot 4.7.2 stable;
 - GDScript;
 - GL Compatibility/OpenGL3;
-- Galaxy A03s baseline;
-- landscape aerial exploration + first-person encounter presentation;
-- isolated `probes/android_stage1/` source;
-- protected controls/camera/settings baseline;
-- Monster representative collision;
-- world-boundary guard;
-- aerial↔first-person continuity regression;
-- lifecycle transient-input reset;
-- performance telemetry;
-- Android export/APK evidence;
-- exact 24-minute sustained-performance phone protocol.
+- Samsung Galaxy A03s baseline;
+- stable 30 FPS representative-scene minimum target.
 
-Current automated lineage:
-- protocol revision `c02971996e35770bbaaaf9bf6c460af208db4f83`;
-- workflow `33811355891` — SUCCESS;
-- static `154/154`;
-- Monster collision `8/8`;
-- boundary `12/12`;
-- aerial↔first-person `17/17`;
-- lifecycle `47/47`;
-- performance telemetry `20/20`;
+Isolated probe:
+`probes/android_stage1/`.
+
+Current automated protocol revision:
+`c02971996e35770bbaaaf9bf6c460af208db4f83`.
+
+Workflow `33811355891`: SUCCESS.
+
+Automated gates:
+- protected static `154/154 PASS`;
+- Monster collision `8/8 PASS`;
+- boundary `12/12 PASS`;
+- aerial↔first-person `17/17 PASS`;
+- lifecycle transient input `47/47 PASS`;
+- performance telemetry `20/20 PASS`;
 - Godot parse/smoke PASS;
 - Android export/APK integrity/artifact upload PASS.
 
-Direct phone evidence still required for current controls, collision, boundary, view transition/clipping, lifecycle, crash/ANR and sustained performance/thermal/input behavior.
+Current inner APK:
+`57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-`ENGINE_PHONE_PROBE_VERIFIED = NO`.
-`PERFORMANCE_VERIFIED = NO`.
-`FINAL_ENGINE_SELECTED = NO`.
+Prepared direct performance protocol:
+`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
 
-Blocker:
+Remaining direct phone evidence:
+- heading-reset/Look Speed regression;
+- Monster solidity;
+- boundary containment;
+- aerial↔first-person visual/input/clipping continuity;
+- background/resume + lock/unlock;
+- crash/ANR observation;
+- sustained 24-minute frame-pacing/thermal/input/transition run.
+
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
+`PERFORMANCE_VERIFIED = NO`
+`FINAL_ENGINE_SELECTED = NO`
+
+Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-Phone action when available:
+Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-## 3. MUST EXIST BEFORE DOMAIN IMPLEMENTATION
+---
+
+# 3. MUST EXIST BEFORE DOMAIN IMPLEMENTATION
 
 Stage 2 begins only after `ENGINE_PHONE_PROBE_VERIFIED`.
 
-Design prerequisites already recorded include:
+Recorded design prerequisites include:
 - module/domain ownership;
-- stable IDs/content definitions;
-- persistent state boundaries;
-- deterministic authored behavior;
-- shared modifier/effect system;
-- reproducible randomness direction;
-- combat resolution ownership;
-- Stamina ownership;
-- Initiative scheduler ownership;
-- status/state ownership;
-- first-slice terrain-effect ownership.
+- stable IDs/content vs runtime state;
+- deterministic behavior;
+- seeded/reproducible randomness boundary;
+- stats/effects ownership;
+- Crystal/mutation ownership;
+- combat resolution;
+- Stamina;
+- Initiative;
+- first status set;
+- first terrain set;
+- Monster 01 normal attack content packet.
 
 `DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`.
 
-## 4. MUST EXIST BEFORE COMBAT
+---
 
-Recorded generic combat contracts:
-1. Action Economy;
-2. Combat Resolution / Hit Quality / Defense;
-3. First Weapon Family — Field Poleblade;
-4. Stamina Prototype;
-5. Initiative / Turn Order;
-6. First-Slice Status / Tactical-State Set;
-7. First-Slice Terrain Effect Set.
+# 4. MUST EXIST BEFORE COMBAT
 
-### Terrain Effect Set — RECORDED
+## Generic contracts recorded
+
+1. Action Economy — `4 AP / 1 RP / persistent Stamina`, one normal activation max per actor/round.
+2. Combat Resolution — hard legality, deterministic context, one bounded seeded variance source, hit-quality/cover/defense pipeline.
+3. First Weapon — Field Poleblade.
+4. Stamina — normalized 100-point reference, +10 passive, Catch Breath, reaction/weapon costs.
+5. Initiative — deterministic snapshot/no random opener/no ordinary extra turns.
+6. Status Set — Bleeding/Staggered/Off-Balance/Braced/Guarded, no independent status RNG.
+7. Terrain Set — Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow, no random terrain slip.
+
+## Monster 01 normal attack packet — RECORDED
+
 Authority:
-`docs/20_gameplay/combat/FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`.
+`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
 
-Selected primary surfaces:
-- Stable Ground;
-- Rough Ground;
-- Shallow Water;
-- Mud.
+Selected attacks:
+- `M01_HORN_CHARGE` — 4 AP / 30 Stamina;
+- `M01_HEAD_SWEEP_GORE` — 2 / 14;
+- `M01_SHOULDER_RAM` — 3 / 22;
+- `M01_FORELEG_STOMP` — 2 / 12;
+- `M01_TAIL_SWEEP` — 3 / 18.
 
-Selected context tags:
-- Brush;
-- High Ground;
-- Narrow.
+Selected Monster 01 attack laws:
+- internal 4-AP activation budget;
+- max one damaging attack per normal activation;
+- anatomy/capability gates are authoritative;
+- broken horn removes full Charge;
+- both horns broken convert Head Sweep/Gore to impact-only Head Sweep;
+- severe forequarter support loss removes full Charge/Ram as defined;
+- selected damaged foreleg removes that side's Stomp;
+- distal tail sever removes Tail Sweep;
+- all normal attacks have authoritative telegraph/reaction windows;
+- no normal attack independently rolls status chance;
+- no normal attack spends Crystal Energy by default;
+- attack/behavior/animation cannot bypass cover/clearance/anatomy.
 
-Prototype Stamina terrain surcharges:
-- Stable: Move +0 / Sprint +0 / Dodge +0;
-- Rough: +1 / +2 / +2;
-- Shallow Water: +2 / +4 / +3;
-- Mud: +3 / +5 / +4.
+Reaction/guard-impact highlights:
+- full Horn Charge: normal Poleblade Block/Parry incompatible;
+- Head Sweep/Gore Block impact drain 10;
+- Shoulder Ram conditional Braced+Guarded Block impact drain 18;
+- Foreleg Stomp normal Block/Parry incompatible;
+- Tail Sweep Block impact drain 14 with compatible Parry possible.
 
-Hard terrain laws:
-- exactly one effective primary surface controls movement surcharge;
-- Dodge uses max(origin,destination) surcharge;
-- no independent terrain slip RNG;
-- terrain never changes Initiative snapshot/order;
-- terrain never auto-applies status;
-- Brush visibility is separate from physical cover;
-- High Ground has no generic damage/Initiative bonus;
-- Narrow is clearance/adjacency legality, not a hidden stat debuff.
+This is content-design recorded only.
 
-Other recorded prerequisites:
-- anatomy/first target groups;
-- tactical node/lane/range/bearing philosophy;
-- shared modifier/effect pipeline;
-- deterministic monster-behavior architecture.
+`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
+`MONSTER_01_ATTACK_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_ATTACK_RUNTIME_VERIFIED = NO`
 
-Still required before real combat source:
-1. `MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT` — next combat design dependency;
-2. first berserk prototype;
-3. solo/party baseline;
-4. defeat/retreat baseline;
-5. prior engine/domain/stats/crystal/content implementation/testing gates.
+## Still required before real combat implementation
 
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS_RECORDED`.
-`COMBAT_IMPLEMENTATION = BLOCKED UNTIL REMAINING PACKETS + PRIOR IMPLEMENTATION GATES`.
+1. `MONSTER_01_BERSERK_PROTOTYPE_CONTRACT` — next bounded combat/content dependency;
+2. solo/party baseline;
+3. defeat/retreat baseline;
+4. prerequisite production engine/domain/stats/content foundations and tests.
 
-## 5. MUST EXIST BEFORE VERTICAL SLICE
+`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS + MONSTER_01_ATTACK_PACKET_RECORDED`
+`COMBAT_IMPLEMENTATION = BLOCKED UNTIL REMAINING PACKETS + PRIOR IMPLEMENTATION GATES`
+
+---
+
+# 5. MUST EXIST BEFORE VERTICAL SLICE
 
 Required integrated loop:
 `TITLE/PREP → WALKABLE HUB → GATE → REGION 01 → TRACK → ENGAGE → COMBAT → BREAK/SEVER/BERSERK → DEFEAT OR ESCAPE/REACQUIRE → HARVEST → RETURN → CRAFT/EQUIP ONE UPGRADE → SAVE/RELOAD`.
 
-Need before vertical-slice verification:
-- Stage-1 Galaxy A03s evidence + selected quality baseline;
-- tested domain/stats/crystal/content/combat foundations;
+Still requires:
+- Stage-1 Galaxy A03s gate;
+- tested production domain/stats/Crystal/content/combat foundations;
 - playable Field Poleblade;
-- complete Monster 01 first-slice packet;
+- complete first-slice Monster 01 packet including berserk;
 - Region 01 graybox/tracking/escape continuity;
 - minimal settlement service loop;
-- harvest/inventory/crafting/save loop;
+- harvest capacity/depletion;
+- inventory/equipment/one recipe;
+- persistent monster transfer;
+- save/reload of relevant hunt/progression state;
 - Android lifecycle/performance verification of integrated loop.
 
 `VERTICAL_SLICE_READINESS = PARTIAL / DEPENDS_ON_IMPLEMENTATION_STAGES`.
 
-## 6. CAN WAIT UNTIL EXPANSION
+---
+
+# 6. CAN WAIT UNTIL EXPANSION
 
 Examples:
-- final game name/full lore;
-- broad crystal element/genetics catalog;
+- final game name/lore;
+- broad element roster;
 - deep ecology simulation;
-- many regions/monsters/weapons/recipes;
+- many settlements/regions/monsters/weapons/recipes;
+- endgame breadth;
+- large party/relationship systems;
 - multiplayer;
 - large status/terrain catalogs;
-- advanced durability/ammo/counter systems;
-- colossal-monster special rules;
-- giant seamless world/destructible terrain;
-- final release-device/store/localization breadth.
+- advanced exceptional combat systems;
+- final store/signing/localization/device matrix.
 
-## 7. Current exact state
+---
+
+# 7. Exact current state
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
+`DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`
 
 `ACTION_ECONOMY_CONTRACT = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
@@ -192,9 +224,10 @@ Examples:
 `INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
 `FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
 `FIRST_SLICE_TERRAIN_EFFECT_SET = RECORDED`
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS_RECORDED`
+`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
+`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS + MONSTER_01_ATTACK_PACKET_RECORDED`
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = MONSTER_01_COMBAT_ATTACK_PACKET_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
 
-Every bounded pass remains governed by `EVOLVE_ALIGNMENT.md`.
+Implementation and design may advance in parallel only when their dependencies do not conflict. Every pass remains governed by `EVOLVE_ALIGNMENT.md`.

@@ -1,43 +1,67 @@
 # 30_content — Reusable Content Packages
 
-Purpose: reusable authored definitions and entity-specific packages that are not tied to one physical map.
+Status: ACTIVE CONTENT MAP / MONSTER 01 NORMAL ATTACK PACKET RECORDED
+Last reconciled: 2026-09-03
+
+## Purpose
+
+Own reusable authored entity/content packages that configure shared gameplay rules without redefining them.
 
 Current child areas:
-- `hunters/` — hunter/player body/content packages and visual/model targets;
-- `monsters/` — species packages, anatomy, crystal/mutation, deterministic behavior, harvest/attack relationships.
+- `hunters/` — hunter/player body/content packages;
+- `monsters/` — species anatomy, attacks, behavior, Crystal/mutation and harvest relationships.
 
-Future child areas can include:
-- `equipment/` — weapon/armor/tool families;
-- `materials/` — material definitions and properties;
-- `recipes/` — crafting recipes;
-- `statuses/` — content instances using the shared status/effect framework;
-- `terrain/` — reusable terrain definitions/tags;
-- `contracts/` — reusable contract definitions where appropriate.
+Future areas may include equipment, materials, recipes, status definitions, reusable terrain definitions and contracts where appropriate.
 
 ## Current entity packages
 
-### Hunter
-- `hunters/HUNTER_BASE_01/README.md` — neutral production hunter base for scale, rig and modular-gear/reference generation. It is not yet the final story protagonist.
+### Hunter Base 01
+`hunters/HUNTER_BASE_01/README.md`
+- neutral reusable hunter base for scale/rig/modular gear;
+- not yet the final story protagonist.
 
-### Monster
-- `monsters/MONSTER_01/README.md` — Mudcrest Raker first-monster identity/body plan;
-- `monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md` — target groups, horn/plate break, leg impairment and tail sever;
-- `monsters/MONSTER_01/CRYSTAL_AND_MUTATION.md` — provisional mineral/earth expression, berserk and mutation variants;
-- `monsters/MONSTER_01/BEHAVIOR_AND_REGION.md` — deterministic Region 01 activity/engagement/escape patterns.
+### Monster 01 — Mudcrest Raker
+Front door:
+`monsters/MONSTER_01/README.md`.
+
+Current authorities:
+- `ANATOMY_AND_DAMAGE.md` — target groups, horn/plate break, leg impairment, tail sever;
+- `COMBAT_ATTACK_PACKET.md` — five normal first-slice attacks, anatomy gates, costs, telegraphs, reactions, terrain/cover/status/guard-impact relationships;
+- `BEHAVIOR_AND_REGION.md` — deterministic activity/combat-selection/retreat/Region 01 use;
+- `CRYSTAL_AND_MUTATION.md` — Crystal/mutation direction and later berserk inputs.
+
+Selected normal attacks:
+- `M01_HORN_CHARGE`;
+- `M01_HEAD_SWEEP_GORE`;
+- `M01_SHOULDER_RAM`;
+- `M01_FORELEG_STOMP`;
+- `M01_TAIL_SWEEP`.
+
+Content/behavior law:
+`COMBAT_ATTACK_PACKET.md` decides whether an attack is currently legal; `BEHAVIOR_AND_REGION.md` may select only from legal candidates.
+
+Destroyed anatomy cannot be bypassed by behavior, animation or UI.
 
 ## Content-package law
 
-A content package must separate:
+A content package separates:
 - reusable definition;
 - runtime instance state;
 - presentation references;
-- tests/validation expectations.
+- validation/test expectations.
 
-Current root authority:
-- `/CONTENT_DATA_GUIDE.md`.
+Root authority:
+`/CONTENT_DATA_GUIDE.md`.
 
-Content packages must use stable IDs and validated references. Display names are never identity.
+Stable IDs are authority; display names are not identity.
 
-Entity packages may reference Region 01 but must not redefine its physical sector graph. Region 01 topology remains in `docs/10_world/regions/REGION_01/`.
+Entity packages may reference Region 01 but cannot redefine its sector graph.
 
-Entity packages may describe what an attribute/effect/behavior/crystal rule needs, but global formulas/semantics remain in the owning root gameplay authorities.
+Entity packages configure shared combat/status/terrain/behavior/Crystal systems but may not silently fork generic formulas or timing laws.
+
+`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
+`MONSTER_01_ATTACK_RUNTIME_IMPLEMENTED = NO`
+
+## Exact next Monster 01 dependency
+
+`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`.
