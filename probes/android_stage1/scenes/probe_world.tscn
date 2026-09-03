@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/probe_world.gd" id="1_probe"]
 
@@ -32,6 +32,9 @@ roughness = 0.95
 
 [sub_resource type="BoxMesh" id="Mesh_monster"]
 material = SubResource("Mat_monster")
+size = Vector3(2.5, 2.4, 5.8)
+
+[sub_resource type="BoxShape3D" id="Shape_monster"]
 size = Vector3(2.5, 2.4, 5.8)
 
 [node name="ProbeWorld" type="Node3D"]
@@ -72,6 +75,12 @@ far = 80.0
 [node name="Monster" type="MeshInstance3D" parent="."]
 position = Vector3(0, 1.2, -5.5)
 mesh = SubResource("Mesh_monster")
+
+[node name="MonsterCollider" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.2, -5.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MonsterCollider"]
+shape = SubResource("Shape_monster")
 
 [node name="AerialCamera" type="Camera3D" parent="."]
 position = Vector3(0, 9.5, 10.5)

@@ -98,6 +98,7 @@ jobs:
           set -euo pipefail
           cd "$PROJECT_PATH"
           python3 tests/static_preflight.py | tee "$GITHUB_WORKSPACE/build-evidence/static-preflight.log"
+          python3 tests/monster_collision_preflight.py | tee "$GITHUB_WORKSPACE/build-evidence/monster-collision-preflight.log"
 
       - name: Godot import and parse gate
         shell: bash
