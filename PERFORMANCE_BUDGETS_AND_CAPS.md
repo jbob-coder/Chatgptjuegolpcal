@@ -1,14 +1,14 @@
 # Unnamed Hunt RPG — Performance Budgets and Caps
 
-Status: PLANNING CONTRACT / MUST BE CALIBRATED ON TARGET ANDROID DEVICE
-Last reconciled: 2026-09-02
+Status: PLANNING CONTRACT / STAGE 1 TELEMETRY PREPARED / SUSTAINED TARGET-DEVICE CALIBRATION PENDING
+Last reconciled: 2026-09-03
 
 ## Purpose
 
-Prevent the project from becoming slow, unstable or impossible to debug as content grows. These are initial guardrails, not final measured device limits. Every cap must eventually be replaced or confirmed by target-device evidence.
+Prevent the project from becoming slow, unstable or impossible to debug as content grows. These are guardrails, not final measured device limits. Every cap must eventually be confirmed or replaced by target-device evidence.
 
-The rule is:
-**performance is a feature and a design constraint, not a cleanup task at the end.**
+Primary rule:
+**performance is a feature and a design constraint, not cleanup at the end.**
 
 ## 1. Budget hierarchy
 
@@ -23,23 +23,26 @@ Protect in this order:
 8. audio cues;
 9. decorative effects/detail.
 
-When overloaded, reduce decorative work before gameplay-critical presentation.
+When overloaded, reduce decorative cost before gameplay-critical presentation.
 
 ## 2. Frame targets
 
 Initial target candidates:
 - preferred: stable 60 FPS on capable target hardware;
 - acceptable fallback: stable 30 FPS on older supported hardware;
-- never prefer unstable 45–60 over a locked, responsive 30.
+- never prefer unstable 45–60 over a stable responsive 30.
 
-At 60 FPS the frame budget is ~16.7 ms.
-At 30 FPS the frame budget is ~33.3 ms.
+Frame budgets:
+- 60 FPS ≈ `16.7 ms`;
+- 30 FPS ≈ `33.3 ms`.
 
-Final target must be chosen after the engine/device probe.
+Stage-1 Galaxy A03s representative minimum remains stable `30 FPS`.
+
+Final production targets and platform quality tiers remain unselected until the engine/device gate is complete.
 
 ## 3. Runtime caps philosophy
 
-Every scalable subsystem gets a cap or budget:
+Every scalable subsystem must eventually have a cap/budget, including:
 - active high-detail monsters;
 - visible distant creatures/NPCs;
 - behavior-pattern evaluations;
@@ -47,276 +50,248 @@ Every scalable subsystem gets a cap or budget:
 - status/effect processing;
 - particles;
 - decals/wounds;
-- dynamic lights;
-- shadow casters;
+- dynamic lights/shadow casters;
 - audio voices;
 - loaded sectors;
 - physics bodies;
 - tactical cover nodes;
 - UI overlays;
-- event log size;
+- event/debug-log size;
 - save history/backups;
-- debug telemetry buffers.
+- telemetry buffers.
 
 Caps prevent accidental unbounded growth.
 
-## 4. Initial scene caps to test
-
-These are conservative planning placeholders until profiling exists.
+## 4. Initial representative scene guidance
 
 ### Exploration
-- 1 player high-detail presentation;
-- 1–3 nearby important monsters with full relevant behavior/render quality;
-- additional distant wildlife/NPCs use simplified update/presentation or are culled;
-- load only current region sectors plus small adjacency/preload margin;
-- limit real-time shadow casting to high-value nearby actors/lights;
-- pool repeated vegetation/effects where engine supports it;
-- avoid one unique material per prop.
+- one player high-detail presentation;
+- approximately 1–3 nearby important monsters at relevant quality;
+- distant population uses simplified update/presentation or culling;
+- load current region sectors plus bounded adjacency/preload margin;
+- real-time shadow casting limited to high-value nearby actors/lights;
+- repeated vegetation/effects pooled where appropriate;
+- avoid unnecessary unique materials per prop.
 
 ### Combat
-- 1 primary large monster in first slice;
-- player first-person equipment;
+- one primary large monster in the first slice;
+- first-person player equipment;
 - limited tactical environment;
 - only combat-relevant cover/hazards active;
-- cap simultaneous wound decals/effects;
-- cap persistent severed-part visual objects;
-- no exploration-only distant population at full render/update rate.
+- bounded wounds/decals/severed visuals;
+- no exploration-only distant population at full update/render rate.
 
-## 5. Simulation/behavior update tiers
+These are planning constraints, not final measured counts.
 
-Not every actor evaluates behavior every frame.
+## 5. Simulation/behavior tiers
 
-TIER 0 — player/current combatant decision points
-- full required gameplay resolution;
-- autonomous actor evaluates behavior when a decision is needed, not continuously.
+TIER 0 — current combat decision points
+- full required deterministic gameplay resolution;
+- behavior evaluates when a decision is required, not every visual frame.
 
 TIER 1 — nearby relevant roaming actors
 - event-driven behavior plus bounded periodic checks.
 
-TIER 2 — distant loaded region actors
+TIER 2 — distant loaded actors
 - low-frequency schedule/pattern advancement.
 
-TIER 3 — unloaded/off-region ecology/NPCs
-- coarse schedule/state transition only if persistence requires it.
+TIER 3 — unloaded/off-region actors
+- coarse persistent-state transitions only when required.
 
-Rendering and behavior/simulation tiers are independent.
+Rendering and simulation tiers remain independent.
 
-## 6. Deterministic behavior cap rules
+## 6. Deterministic behavior performance rules
 
-- no machine-learning/generative-AI runtime behavior;
-- pathfinding is event-driven/throttled, not recalculated every frame for every actor;
-- combat behavior evaluates explicit rules once per decision point;
-- nearby exploration actors use event triggers plus bounded periodic checks;
+- no generative/ML runtime behavior;
+- pathfinding is event-driven/throttled rather than recalculated every frame for every actor;
+- combat rules evaluate at explicit decision points;
 - distant actors use reduced update frequency;
-- pack/group systems require explicit actor/member caps before implementation;
-- behavior debug traces use bounded buffers;
-- boss complexity comes from more authored rules, not higher evaluation frequency.
+- pack/group systems require explicit member caps before implementation;
+- debug traces use bounded buffers;
+- authored complexity comes from more meaningful rules, not uncontrolled evaluation frequency.
 
-Useful behavior triggers:
-- schedule/time block changed;
-- weather changed;
-- player entered awareness range;
-- actor damaged;
-- status/anatomy capability changed;
-- quest/event flag changed;
-- current action completed/cooldown expired.
+Useful triggers include schedule/time changes, weather changes, awareness entry, damage, anatomy/capability changes, quest/event flags and action/cooldown completion.
 
-## 7. Stats/effect evaluation caps
+## 7. Stats/effects rules
 
-Detailed mechanics: `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
+Authority:
+`STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`.
 
-Rules:
+Performance rules:
 - derived stats are cached;
-- equipment/status changes invalidate only affected derived values where practical;
-- terrain/context calculations happen on movement/action validation rather than every visual frame;
-- status periodic hooks run at defined timing points, not uncontrolled loops;
+- equipment/status changes invalidate affected values only where practical;
+- terrain/context calculations occur on movement/action validation rather than every visual frame;
+- status periodic hooks run at defined timing points;
 - duplicate stack groups are bounded;
-- calculation traces are development-only and disabled/limited in production;
+- detailed calculation traces are development-only/bounded;
 - distant/unloaded actors do not run full combat-context modifier evaluation.
 
-Development instrumentation should count:
-- derived-stat recalculations per second/frame;
-- effect evaluations per action;
-- active status instances;
-- modifier source count per actor;
-- behavior rules checked per decision.
+Development instrumentation should eventually count derived-stat recalculations, effect evaluations, active statuses, modifier sources and behavior-rule checks.
 
-Unexpected growth becomes a regression signal.
+## 8. Anatomy/tactical complexity guidance
 
-## 8. Anatomy complexity caps
-
-First-slice target:
-- 6–8 meaningful targetable parts;
-- additional non-targetable harvest-only structures only if simple;
+First-slice anatomy target:
+- approximately 6–8 meaningful targetable parts;
+- additional simple harvest-only structures only when useful;
 - avoid dozens of independently simulated micro-parts.
 
-Long-term targetable-part count is justified by tactical value and touch usability, not anatomical completeness.
+First-slice tactical-node starting range:
+- approximately 6–12 useful nodes;
+- only nodes that create meaningful positioning/cover/bearing/terrain decisions;
+- no huge invisible tactical grid by default.
 
-## 9. Tactical node caps
+These are design starting ranges pending implementation/usability/performance evidence.
 
-First slice:
-- small encounter layout;
-- approximately 6–12 useful player tactical nodes as starting range;
-- only nodes that create meaningful position/cover/bearing/terrain decisions;
-- avoid huge invisible tactical grids.
+## 9. VFX / wounds / audio
 
-Complex encounters grow later only after UI/behavior performance/readability are verified.
-
-## 10. Particle/VFX policy
-
-Prioritize:
+VFX priorities:
 - telegraph clarity;
 - impact feedback;
 - break/sever readability.
 
-Caps:
-- pooled emitters;
-- bounded lifetime;
-- automatic cleanup;
-- no unbounded blood/particle accumulation;
-- lower quantity/detail at distance;
-- mobile-friendly transparency usage.
+Use pooled emitters, bounded lifetime, cleanup, distance reduction and mobile-conscious transparency.
 
-If the player cannot tell what happened without particles, the underlying animation/material/readability is too dependent on VFX.
+Damage visuals must preserve authoritative broken/severed state while bounded low-value cosmetic marks can be merged/reused/removed.
 
-## 11. Damage visual caps
-
-Use bounded wounds, decals, cracks, blood marks and severed objects.
-
-When cap is reached:
-- merge/reuse/remove oldest low-value cosmetic state;
-- never remove authoritative broken/severed state;
-- preserve major silhouette-changing damage.
-
-## 12. Audio caps
-
-Highest priority:
-- active monster telegraph;
+Audio priorities:
+- active monster telegraphs;
 - immediate player feedback;
-- combat impacts.
+- combat impacts;
+- lower-priority distant ambience/wildlife culled by distance/priority.
 
-Lower priority:
-- distant ambience;
-- repeated decorative wildlife;
-- redundant footsteps outside relevant range.
-
-Use distance/priority culling and voice limits supported by the engine.
-
-## 13. Memory policy
+## 10. Memory / loading / asset policy
 
 - do not load every biome/monster asset at startup;
 - load current region/encounter assets deliberately;
-- unload heavy combat presentation assets when leaving combat if not reused;
-- use compression/atlases appropriate to selected engine/platform;
-- use LOD/impostors where visual testing supports them;
-- monitor transition peak memory, not only steady state.
+- unload heavy encounter presentation after use when appropriate;
+- use compression/atlases/LOD/impostors where engine and visual evidence support them;
+- monitor transition peak memory, not only steady-state memory;
+- reusable materials/atlases before unnecessary unique texture/material proliferation;
+- hero/first-person-visible monster detail gets more budget than distant scenery;
+- source masters remain separate from runtime-optimized exports when practical.
 
-## 14. Asset size policy
+Track cold boot, save load, hub→region, sector crossing, aerial→combat, combat→world/harvest and region→hub transitions. No transition should accidentally leave duplicate heavy scenes active.
 
-- reusable materials/atlases before unique textures;
-- hero monster detail receives more budget than distant props;
-- first-person-visible monster surfaces receive more detail than aerial-only scenery;
-- source masters stay separate from runtime-optimized exports where practical;
-- avoid oversized binaries that make source transport fragile.
+## 11. Performance instrumentation
 
-## 15. Loading/streaming rule
-
-Track:
-- cold boot;
-- save load;
-- hub→region;
-- sector crossing;
-- aerial→combat;
-- combat→harvest/world;
-- region→hub.
-
-No transition should accidentally duplicate heavy scenes in memory.
-
-## 16. Performance instrumentation
-
-Development builds should expose where engine/platform permits:
+Production/development architecture should eventually expose where platform/engine permits:
 - FPS/frame time;
 - CPU/GPU/render metrics;
 - memory;
-- active entity counts;
-- visible monster count;
+- active/visible entity counts;
 - behavior evaluation counts/tiers;
-- active statuses/modifier count;
+- statuses/modifier counts;
 - derived-stat recalculation counts;
-- particle count;
+- particles;
 - loaded sectors;
-- current quality tier;
-- hitch/transition timings.
+- quality tier;
+- transition/hitch timing.
 
-This belongs in the Admin/Developer overlay.
+That long-term instrumentation belongs in the future Admin/Developer system.
 
-## 17. Degradation ladder
+### Current Stage-1 probe instrumentation
 
-When a device cannot hold target performance:
-1. reduce decorative particles;
-2. reduce distant ambient creatures;
-3. reduce decorative prop density;
-4. reduce expensive transparency;
-5. reduce shadow distance/count/resolution;
-6. lower distant LOD/texture detail;
-7. reduce environmental animation frequency;
-8. reduce noncritical distant behavior update frequency;
-9. reduce post effects;
-10. simplify noncritical lighting.
+Stage-1 implements only the smallest probe-local measurement subset required to evaluate the Android candidate:
+- engine FPS;
+- rolling approximately one-second actual `_process(delta)` average/max frame duration;
+- cumulative process frames above `34 ms`;
+- cumulative process frames at/above `50 ms`;
+- cumulative worst process-frame delta;
+- debug static memory;
+- renderer and view mode.
 
-Do not first remove:
-- monster body-part readability;
-- tactical cover/terrain readability;
-- critical telegraphs;
-- input responsiveness;
-- authoritative stats/status/terrain correctness.
+Telemetry source:
+`probes/android_stage1/scripts/probe_world.gd`.
 
-## 18. Bug isolation architecture
+Executable telemetry test:
+`ci/stage1/performance_telemetry_test.gd`.
 
-Development toggles should eventually allow:
-- disable particles;
-- disable dynamic shadows;
-- disable ambient wildlife;
-- freeze roaming behavior updates;
-- replace monster renderer with debug proxy;
-- disable audio/music;
-- simplify foliage;
-- disable damage decals;
-- show tactical nodes/terrain tags only;
-- run domain combat without presentation;
-- load minimal test region;
-- disable calculation traces;
-- force a minimal deterministic behavior profile;
-- suppress nonessential status presentation while keeping domain status logic active.
+Telemetry source commit:
+`89394067971120df43b184a8509934f5458185f2`.
 
-This distinguishes domain, behavior, stats/effects, renderer, audio and content problems.
+Deterministic regression result:
+`20 / 20 PASS`.
 
-## 19. Watchdog/invariant rules
+The test verifies telemetry calculation/display and confirms telemetry does not mutate Hunter transform, camera/view state, Settings state or Look Speed. It does **not** prove phone performance.
+
+## 12. Degradation ladder
+
+When measured device evidence shows the target is not held, isolate one cost family at a time. General long-term degradation order:
+1. decorative particles;
+2. distant ambient creatures;
+3. decorative prop density;
+4. expensive transparency;
+5. shadow distance/count/resolution;
+6. distant LOD/texture detail;
+7. environmental animation frequency;
+8. noncritical distant simulation frequency;
+9. post effects;
+10. noncritical lighting.
+
+For the current minimal Stage-1 probe, the practical cost-isolation sequence recorded in the phone protocol is:
+1. directional shadows;
+2. decorative vegetation when it exists;
+3. particles/VFX when they exist;
+4. internal render scale;
+5. Monster/distance detail.
+
+Do not first remove monster anatomy/readability, tactical readability, critical telegraphs, input responsiveness, or authoritative gameplay correctness.
+
+## 13. Bug-isolation architecture
+
+Development toggles should eventually allow disabling/isolation of particles, shadows, ambient wildlife, roaming updates, monster renderer, audio, foliage, damage decals, tactical presentation and other major cost domains.
+
+This distinguishes domain, behavior, stats/effects, renderer, audio and content problems instead of treating every slowdown as one system.
+
+## 14. Watchdog/invariant rules
 
 Development checks should catch:
-- entity count runaway;
+- entity-count runaway;
 - duplicate monster IDs;
-- event queue/log growth;
+- unbounded event/log growth;
 - invalid tactical occupancy;
 - orphaned severed-part objects;
 - repeated resource loading;
-- save loop/write spam;
-- behavior evaluating far more often than policy allows;
-- derived stats recalculating without input changes;
-- unbounded status/modifier accumulation;
-- scene transitions leaving previous heavy scene active unexpectedly.
+- save/write spam;
+- behavior evaluating beyond policy;
+- derived stats recalculating without inputs changing;
+- unbounded statuses/modifiers;
+- scene transitions leaving old heavy scenes active.
 
-## 20. Performance gate per feature
+## 15. Performance gate per feature
 
 A feature is not performance-cleared until:
-- entity/effect count is bounded;
+- scalable counts are bounded;
 - cleanup/unload behavior is defined;
 - target-device impact is measured when executable;
-- it can be disabled/isolate-tested in development when practical;
-- worst-case scenario is tested, not only an empty scene.
+- major costs can be isolated in development where practical;
+- a representative/worst useful case is tested rather than only an empty scene.
 
-## 21. Current status
+## 16. Current Stage-1 calibration state
 
-No measured final caps exist because no engine/device probe has executed.
+Earlier documentation saying no engine/device probe had executed is superseded.
 
-All numbers are planning ranges/guardrails until runtime evidence confirms them.
+Direct prior Galaxy A03s evidence exists for earlier Stage-1 APKs, including install/runtime smoke, GL Compatibility/OpenGL3 presentation, basic movement/view operation and one instantaneous `60 FPS / ~16.7 ms` with `40.9 MiB` debug-static-memory sample.
+
+That instantaneous sample does **not** establish sustained performance, thermal stability, current-APK phone behavior or final production caps.
+
+Current prepared phone authority:
+`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
+
+Current protocol/documentation revision built by CI:
+`c02971996e35770bbaaaf9bf6c460af208db4f83`.
+
+Workflow:
+`33811355891` — `SUCCESS`.
+
+The prepared target-phone gate is one fixed `24` minute Galaxy A03s run with checkpoints at `T+02`, `T+07`, `T+09`, `T+14`, `T+19`, `T+24`. It records frame pacing, diagnostic hitch counters, worst frame, memory, battery, qualitative thermal signal, input response and transition-hitch observations.
+
+The controlled transition segment performs exactly `20` aerial↔first-person transitions, followed later by a ten-minute sustained soak.
+
+`STAGE1_PERFORMANCE_TELEMETRY_PREPARED = YES`
+`STAGE1_PERFORMANCE_TELEMETRY_HEADLESS_VERIFIED = YES / 20_OF_20`
+`STAGE1_SUSTAINED_PHONE_RUN_EXECUTED = NO / DEFERRED`
+`PERFORMANCE_VERIFIED = NO`
+`FINAL_PRODUCTION_CAPS_MEASURED = NO`
+
+Do not preemptively reduce shadows, render scale, camera behavior, controls, Monster readability or gameplay. If the phone gate reveals a failure, isolate and measure one cost family at a time before approving a change.

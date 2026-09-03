@@ -1,258 +1,257 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 LIFECYCLE TRANSIENT-INPUT BUILD VERIFIED / PHONE EVIDENCE DEFERRED / PERFORMANCE EVIDENCE PREPARATION NEXT
+Status: STAGE 1 PERFORMANCE MEASUREMENT PREPARED / PHONE FOUNDATION EVIDENCE DEFERRED / NON-PHONE COMBAT DESIGN NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
 
-Finish the Stage-1 Android foundation before broad game construction.
+Finish the Stage-1 Android engine/device foundation without blocking independent design work on unavailable phone evidence.
 
-Current explicit user instruction allows development to continue without waiting for Galaxy A03s reports. Missing phone tests must be recorded as deferred, never treated as PASS.
+Current implementation-lane gate:
+`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-Current exact implementation-lane action:
-**STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION**.
+Current blocker for that gate:
+`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-Implementation is authorized inside the isolated Stage-1 probe, but Stage 2/domain/combat source remains behind the engine-phone readiness gate.
+Current active non-phone action:
+`INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`.
 
 Probe root:
-`probes/android_stage1/`
+`probes/android_stage1/`.
 
 Operating contract:
-`EVOLVE_ALIGNMENT.md`
+`EVOLVE_ALIGNMENT.md`.
 
-Protected control-camera authority:
-`probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
-
-Newest specialized implementation handoff:
-`docs/70_handoff/STAGE1_ANDROID_LIFECYCLE_TRANSIENT_INPUT_RESET_2026-09-03.md`
-
-## READ ORDER
+## Mandatory read order
 
 1. `EVOLVE_ALIGNMENT.md`
 2. `PROJECT_HANDOFF.md`
 3. `START_HERE_NEW_CHAT.md`
 4. `DOCUMENTATION_INDEX.md`
-5. `README.md`
+5. root `README.md`
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-8. newest relevant `docs/70_handoff/` file
-9. `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
-10. `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
-11. `probes/android_stage1/README.md`
-12. owning package/source/tests for the exact bounded task.
+8. newest relevant `docs/70_handoff/` record
+9. local package README/owners/source/tests for the bounded task.
 
-Use current source/build/device evidence rather than old WorldLife material or stale chat summaries.
+For Stage-1 Android work additionally read:
+- `probes/android_stage1/README.md`;
+- `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md` before control/camera changes;
+- `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`;
+- `probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md` for the phone performance gate.
 
-## ENGINE / DEVICE
+Use current repository/source/build/device evidence rather than old WorldLife material or chat memory.
 
-Stage-1 candidate:
+## Project identity
+
+This is the new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
+
+Working name:
+`Unnamed Hunt RPG`.
+
+Playable direction:
+- walkable settlement/hub;
+- elevated angled aerial wilderness exploration;
+- first-person turn-based tactical combat derived from the same physical encounter;
+- anatomy, positioning, terrain, preparation, break/sever and harvest matter;
+- deterministic authored creature/NPC behavior rather than generative runtime AI.
+
+## Engine/device candidate
+
+Current Stage-1 candidate:
 - Godot 4.7 family;
-- current build verification: Godot 4.7.2 stable;
+- CI/build tooling: Godot 4.7.2 stable;
 - GDScript;
 - GL Compatibility / OpenGL3;
 - Android;
 - Samsung Galaxy A03s baseline;
-- stable 30 FPS representative-scene minimum target.
+- stable `30 FPS` representative-scene minimum target.
 
 Godot remains `PROBE_PENDING`, not final production-engine truth.
 
-## VERIFIED STAGE-1 AUTOMATED LINEAGE
+## Current exact verified build lineage
 
-Lifecycle implementation source:
-`9bcde8404d787180e399b9e44e89cc6760d31c3c`
+Current protocol/documentation revision built by CI:
+`c02971996e35770bbaaaf9bf6c460af208db4f83`.
+
+Performance telemetry source revision:
+`89394067971120df43b184a8509934f5458185f2`.
 
 Workflow:
-`33809412041`
+`33811355891`.
 
 Conclusion:
 `SUCCESS`.
 
-Results:
-- protected static preflight PASS (`154 / 154` existing suite);
-- Monster collision guard PASS (`8 / 8`);
-- world-boundary guard PASS (`12 / 12`);
+Verified gates on the current protocol revision:
+- protected static preflight `154 / 154 PASS`;
+- Monster collision guard `8 / 8 PASS`;
+- world-boundary guard `12 / 12 PASS`;
 - Godot 4.7.2 import/parse PASS;
 - Boot headless smoke PASS;
 - ProbeWorld headless smoke PASS;
-- aerial↔first-person executable regression PASS (`17 / 17`);
-- lifecycle transient-input executable regression PASS (`47 / 47` by deterministic test definition);
-- Android export PASS;
+- aerial↔first-person runtime regression `17 / 17 PASS`;
+- lifecycle transient-input runtime regression `47 / 47 PASS`;
+- performance telemetry runtime regression `20 / 20 PASS`;
+- Android debug export PASS;
 - APK archive integrity PASS;
 - artifact upload PASS.
 
-Uploaded workflow artifact:
+Exact inner APK from workflow `33811355891`:
+- `UnnamedHuntRPG-Stage1Probe-debug.apk`;
+- `57,570,361 bytes`;
+- SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
+
+Uploaded workflow artifact ZIP:
 - name `UnnamedHuntRPG-Stage1Probe-debug`;
-- artifact ID `9914228633`;
-- archive size `57,122,507 bytes`;
-- archive digest `sha256:7ccf8396616f85d582ec325e3c3b92829153864b1777eb2d170f0e222ef75687`.
+- artifact ID `9914945271`;
+- archive size `57,124,301 bytes`;
+- archive digest `sha256:a02d8a1b79f3d0b87f4694c72f897beaf925016f86495a264bd72303563a6188`.
 
-The artifact archive digest/size are not the inner APK digest/size and must not be mislabeled.
+The APK and artifact ZIP are different files. Never exchange their size/hash labels.
 
-Prior direct Galaxy A03s evidence established:
-- install/runtime smoke;
-- landscape + GL Compatibility/OpenGL3;
-- instantaneous `60 FPS / ~16.7 ms/frame` and `40.9 MiB` debug static memory;
-- basic movement;
-- basic first-person entry;
-- outer invisible boundary containment;
-- preference for heading-follow aerial camera and analog joystick;
-- prior Monster pass-through defect.
+## Completed Stage-1 source/build foundation
 
-The instantaneous sample is not sustained-performance verification.
-
-## PROTECTED CONTROL/CAMERA BASELINE
-
+### Protected controls/camera
 Authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
-Protected behavior includes:
-- analog joystick;
-- per-touch Hunter-heading reference capture;
-- stable reference during active touch;
-- release/re-touch re-centers forward to latest Hunter heading;
-- Hunter faces resolved movement;
-- aerial camera follows/trails heading;
-- aerial camera remains synchronized during first person;
-- Settings overlay;
-- Controls → Look Speed;
-- default `35%`;
-- persistence `user://stage1_settings.cfg` / `controls/look_speed`;
-- Settings opening resets movement;
-- separate aerial/first-person toggle.
+Protected behavior includes analog joystick, per-touch Hunter-heading capture, stable movement basis during a touch, heading-follow aerial camera, synchronized aerial camera during first person, Settings, Controls → Look Speed, default `35%`, persisted Look Speed, and movement reset when Settings opens.
 
-Do not silently remove or materially retune protected behavior.
-
-## COMPLETED CURRENT FOUNDATION PIECES
+Heading-reset source/build verification exists. Current-build phone verification remains deferred.
 
 ### Monster placeholder collision
-Root cause was a visual-only Monster placeholder. Current source has a fixed representative `StaticBody3D` + matching `BoxShape3D`.
+Current source has a fixed representative `StaticBody3D` + matching `BoxShape3D` without introducing production Monster physics.
 
-Automated source/build: PASS.
+Automated guard: `8 / 8 PASS`.
 Phone solidity: deferred/unverified.
 
 ### World boundary
-Existing phone-positive `PROBE_BOUNDS = 8.5` behavior remains unchanged. Semantic guard verifies X/Z clamp ordering and floor margin.
+Existing `PROBE_BOUNDS = 8.5` behavior remains unchanged.
 
-Automated source/build: PASS.
+Automated guard: `12 / 12 PASS`.
 Current-build phone containment: deferred/unverified.
 
 ### Aerial ↔ first-person continuity
-`ci/stage1/state_continuity_test.gd` instantiates the real scene and verifies camera ownership, Hunter transform continuity, hidden aerial synchronization, no stale-camera revival and repeated-toggle no-drift.
+Executable owner:
+`ci/stage1/state_continuity_test.gd`.
 
-Automated runtime/build: `17 / 17 PASS`.
-Phone visual/input/clipping regression: deferred/unverified.
+Automated runtime: `17 / 17 PASS`.
+Phone visual/input/clipping verification: deferred/unverified.
 
-### Android lifecycle transient-input reset
-Root cause: an active joystick touch can be interrupted by Android pause/defocus before the matching release reaches ProbeWorld.
-
+### Android lifecycle transient input
 Owner:
 `probes/android_stage1/scripts/probe_world.gd`.
 
-Implemented:
-`_notification()` routes application pause/resume and focus-out/focus-in to existing `_reset_joystick()` only.
+Application pause/resume and focus-out/focus-in reuse `_reset_joystick()` so stale transient touch ownership cannot survive an interruption.
 
 Executable owner:
 `ci/stage1/lifecycle_transient_input_test.gd`.
 
-Automated runtime/build: PASS (`47 / 47` deterministic checks).
+Automated runtime: `47 / 47 PASS`.
 Phone background/resume + lock/unlock: deferred/unverified.
 
-No production lifecycle manager or save architecture was added.
+### Sustained-performance evidence preparation
+Telemetry owner:
+`probes/android_stage1/scripts/probe_world.gd`.
 
-## DEFERRED TARGET-PHONE BUNDLE
+Executable owner:
+`ci/stage1/performance_telemetry_test.gd`.
 
-When the user can test on Galaxy A03s, deferred evidence includes:
-- heading-reset joystick after turning/re-touching;
-- partial/diagonal input + Settings/Look-Speed persistence;
-- Monster front/sides/edge collision pressure;
-- current-build world-boundary edge/corner containment;
-- repeated aerial↔first-person visual/input continuity and clipping;
-- background/resume + lock/unlock and no stale joystick state;
-- sustained frame pacing/thermal behavior.
+Phone procedure authority:
+`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
 
-Do not mark any deferred item PASS without direct evidence.
+Specialized handoff:
+`docs/70_handoff/STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION_2026-09-03.md`.
 
-## EXACT NEXT IMPLEMENTATION PIECE
+The probe now displays:
+- engine FPS;
+- rolling approximately one-second real process-frame average/max;
+- cumulative frames above `34 ms`;
+- cumulative frames at/above `50 ms`;
+- cumulative worst process-frame delta;
+- debug static memory;
+- renderer and view mode.
 
-**STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION**
+Telemetry regression: `20 / 20 PASS`.
 
-This is preparation, not phone execution.
+No render quality, camera tuning, controls, Monster detail, boundary, or gameplay cost was retuned during this piece.
 
-Read:
-- `PERFORMANCE_BUDGETS_AND_CAPS.md`;
-- `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md` Test 6;
-- current Stage-1 instrumentation/source only as needed.
+## Prepared Galaxy A03s sustained run
 
-Produce one bounded reproducible Galaxy A03s sustained-run evidence packet that defines:
-- exact run sequence/durations;
-- FPS/frame-time observation method;
-- input-response and transition-hitch observations;
-- thermal signal recording;
-- memory fields available in the current probe;
-- pass/fail/stop conditions;
-- exact evidence the user can return later.
+The phone protocol defines one uninterrupted `24` minute representative run:
+1. `T+00–02` launch/baseline stabilization;
+2. `T+02–07` sustained aerial analog movement;
+3. `T+07–09` exactly `20` controlled aerial↔first-person transitions;
+4. `T+09–14` mixed interaction;
+5. `T+14–24` sustained thermal/frame-pacing soak;
+6. checkpoints at `T+02`, `T+07`, `T+09`, `T+14`, `T+19`, `T+24`.
 
-Do not retune shadows, render scale, camera, controls, Monster detail or gameplay before measured evidence identifies a failure.
+Evidence fields include FPS, rolling frame-time values, hitch counters, worst frame, static memory, battery, qualitative thermal signal, input responsiveness, transition hitches and evidence IDs.
 
-## FOUNDATION-FIRST SEQUENCE
+The protocol defines explicit PASS / FAIL / REVIEW / STOP conditions.
 
-1. sustained-performance evidence preparation;
-2. sustained target-phone performance/thermal execution when device access exists;
-3. deferred phone regression bundle;
-4. evidence-driven repairs only;
-5. only then consider Stage 1 closed.
+Prior one-frame Galaxy A03s evidence (`60 FPS / ~16.7 ms / 40.9 MiB`) is useful historical evidence but is not sustained-performance verification.
 
-## COMBAT DESIGN FOUNDATION
+## Deferred target-phone bundle
 
-Recorded authorities under `docs/20_gameplay/combat/`:
-1. `ACTION_ECONOMY_CONTRACT.md` — 4 AP / 1 RP / persistent Stamina;
-2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
-3. `FIRST_WEAPON_FAMILY_CONTRACT.md` — `WEAPON_FAMILY_FIELD_POLEBLADE`;
-4. `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md` — first-slice Max Stamina `100`.
+Direct Galaxy A03s evidence still required for:
+- heading-reset joystick behavior;
+- current controls/Look-Speed regression;
+- Monster solidity;
+- current-build world-boundary containment;
+- aerial↔first-person visual/input continuity and clipping;
+- background/resume + lock/unlock lifecycle behavior;
+- sustained frame pacing/thermal/input/transition behavior;
+- crash/ANR observation.
 
-Next independent design packet:
-**INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT**.
+Never mark these PASS from CI/headless evidence.
 
-Combat implementation remains blocked by readiness gates.
+## Documentation/navigation discipline
 
-## CURRENT CONTENT REFERENCES
+The project documentation must always answer:
+`WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
 
-World scale:
-`1 world unit = 1 meter`.
+Navigation ownership:
+- `README.md` — human project front door;
+- `docs/README.md` — documentation/package placement rules;
+- local package `README.md` — local front door/file map;
+- `DOCUMENTATION_INDEX.md` — cross-project authority/read-order map;
+- `docs/70_handoff/` — bounded-pass continuity records;
+- `PROJECT_HANDOFF.md` + `START_HERE_NEW_CHAT.md` — current reconstruction;
+- `EVOLVE_ALIGNMENT.md` — operating contract + exact next-action state.
 
-Settlement 01:
-compact defensible frontier settlement with Hunter Service Loop.
+## Current design foundation
 
-Region 01:
-seven planned sectors S00–S06 with physical tracking and persistent monster escape/reacquisition.
+Combat authorities already recorded under `docs/20_gameplay/combat/`:
+- `ACTION_ECONOMY_CONTRACT.md` — 4 AP / 1 RP / persistent Stamina;
+- `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
+- `FIRST_WEAPON_FAMILY_CONTRACT.md` — `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md` — first-slice Max Stamina `100`.
 
-Hunter Base 01:
-1.75 m reusable humanoid base.
+Next active non-phone design piece:
+`INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`.
 
-Monster 01 — Mudcrest Raker:
-~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted feet; legal distal tail sever; internal life crystal; deterministic behavior contract.
+Do not combine that piece with statuses, terrain-number finalization, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
 
-## CURRENT GATE TRUTH
+## Current gate truth
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154`
-`MONSTER_COLLISION_STATIC_PREFLIGHT = YES / 8_OF_8`
-`WORLD_BOUNDARY_STATIC_PREFLIGHT = YES / 12_OF_12`
-`AERIAL_FIRST_PERSON_STATE_CONTINUITY_HEADLESS = YES / 17_OF_17`
+`MONSTER_COLLISION_STATIC = YES / 8_OF_8`
+`WORLD_BOUNDARY_STATIC = YES / 12_OF_12`
+`VIEW_CONTINUITY_HEADLESS = YES / 17_OF_17`
 `LIFECYCLE_TRANSIENT_INPUT_HEADLESS = YES / 47_OF_47`
+`PERFORMANCE_TELEMETRY_HEADLESS = YES / 20_OF_20`
+`SUSTAINED_PERFORMANCE_PROTOCOL_PREPARED = YES`
 `GODOT_PARSE_VERIFIED = YES`
-`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
-`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
 `APK_BUILD_VERIFIED = YES`
 `PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
-`LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
+`SUSTAINED_PERFORMANCE_PHONE_EXECUTED = NO / DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-`NEXT_IMPLEMENTATION_ACTION = STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION`
-`NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
-
-## AUTHORITY
-
-Current explicit user instruction > current verified source/tests > current owning repository authorities > direct target-device evidence for runtime claims > build evidence > older documents > chat memory/summaries.
+`IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
+`NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
+`NEXT_ACTIVE_NON_PHONE_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
