@@ -1,6 +1,6 @@
 # Stage 1 Monster Placeholder Solid Collision Repair — 2026-09-03
 
-Status: SOURCE PREPARED / BUILD VERIFICATION PENDING / PHONE COLLISION RETEST DEFERRED
+Status: SOURCE + STATIC + GODOT + APK BUILD VERIFIED / PHONE COLLISION RETEST DEFERRED
 
 ## Trigger
 
@@ -32,7 +32,7 @@ A visual mesh is not a physics collision body, so the Hunter `CharacterBody3D` h
 
 ## Selected repair
 
-Add a separate `StaticBody3D` named `MonsterCollider` at the Monster's base position with a `BoxShape3D` matching the representative Monster volume:
+Added a separate `StaticBody3D` named `MonsterCollider` at the Monster's base position with a `BoxShape3D` matching the representative Monster volume:
 
 - position: `Vector3(0, 1.2, -5.5)`;
 - size: `Vector3(2.5, 2.4, 5.8)`.
@@ -55,25 +55,63 @@ It checks that:
 
 The Stage-1 Android workflow now runs this collision preflight immediately after the existing repository static preflight.
 
-## Files in this source commit
+## Source commit
 
+Commit:
+`c5e8fc8ceb5633d574ef49cd684a9d39a5bd643f`
+
+Changed:
 - `probes/android_stage1/scenes/probe_world.tscn`;
 - `probes/android_stage1/tests/monster_collision_preflight.py`;
 - `.github/workflows/stage1-android-probe-apk.yml`;
 - this handoff.
 
-## Verification boundary
+## Automated verification evidence
 
-Required highest available automated gates after commit:
-1. existing static preflight;
-2. Monster collision static preflight;
-3. Godot 4.7.2 import/parse;
-4. Boot headless smoke;
-5. ProbeWorld headless smoke;
-6. Android debug export;
-7. APK archive integrity.
+Workflow run:
+`33806628904`
 
-Phone collision acceptance remains required later on Galaxy A03s:
+Exact tested source:
+`c5e8fc8ceb5633d574ef49cd684a9d39a5bd643f`
+
+Tooling observed in build evidence:
+- Godot `4.7.2.stable.official.ed1daf0bf`;
+- OpenJDK 17;
+- Android build-tools `35.0.1`;
+- Android platform `35`.
+
+Results:
+- existing Stage-1 static preflight: `154 / 154 PASS`;
+- dedicated Monster collision preflight: `8 / 8 PASS`;
+- Godot import/parse: PASS;
+- Boot headless smoke: PASS;
+- ProbeWorld headless smoke: PASS;
+- Android debug export: PASS;
+- APK archive integrity: PASS;
+- workflow artifact upload: PASS.
+
+APK:
+`UnnamedHuntRPG-Stage1Probe-debug.apk`
+
+Size:
+`57,570,361 bytes`
+
+SHA-256:
+`0d2fa6c0accf1964d5a98dae07a2d03a2e59fa00ee0b0a10c9781c507a89a523`
+
+Artifact ID:
+`9913198860`
+
+Automated result boundary:
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_SOURCE_IMPLEMENTED = YES`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_STATIC_VERIFIED = YES`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_APK_BUILD_VERIFIED = YES`
+
+These results do **not** prove target-phone solidity.
+
+## Deferred Galaxy A03s acceptance test
+
+Phone collision acceptance remains required later:
 1. approach the brown Monster from front, rear and both sides;
 2. press continuously into it;
 3. verify the Hunter cannot cross through the solid representative volume;
@@ -82,11 +120,28 @@ Phone collision acceptance remains required later on Galaxy A03s:
 6. verify joystick/settings/look-speed and aerial ↔ first-person behavior are not regressed.
 
 Until that phone evidence exists:
-`MONSTER_PLACEHOLDER_SOLID_COLLISION_PHONE_VERIFIED = NO`.
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_PHONE_VERIFIED = NO / DEFERRED_PENDING_USER_PHONE_EVIDENCE`.
 
-## Next foundation piece after automated build closure
+The heading-reset joystick phone retest is likewise still deferred, not passed.
 
-Per the existing Stage-1 sequence, the next independent bounded source/verification piece is:
+## Regression inspection
+
+The repair does not change:
+- `probe_world.gd` movement/control code;
+- joystick reference-frame behavior;
+- Look Speed values or persistence;
+- aerial-camera geometry/response;
+- first-person toggle logic;
+- outer `PROBE_BOUNDS` clamp;
+- Monster visual mesh dimensions or base position.
+
+The existing protected-control preflight remained green at `154 / 154`, providing static evidence that those protected source contracts were not silently removed.
+
+## Next foundation piece
+
+The exact next independent Stage-1 source/build piece is:
 `WORLD_BOUNDARY_REGRESSION_GUARD_AND_BUILD_VERIFICATION`.
+
+Scope is to protect the already phone-positive outer boundary containment from regression on the current build lineage without retuning boundary size or expanding into production world architecture.
 
 This does not claim the deferred heading-reset or Monster collision phone tests passed.

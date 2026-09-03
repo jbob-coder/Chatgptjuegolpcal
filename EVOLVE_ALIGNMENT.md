@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 HEADING-RESET JOYSTICK RETEST
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 MONSTER COLLISION BUILD VERIFIED / PHONE EVIDENCE DEFERRED
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -116,13 +116,13 @@ The isolated source under `probes/android_stage1/` remains evidence-gathering pr
 
 ## Verified Stage-1 evidence
 
-Verified before the current change:
+Verified before the current collision repair:
 - source/readback;
 - real-checkout static preflight;
 - Godot import/parse;
 - Boot/ProbeWorld headless smoke;
 - Android debug export/APK integrity;
-- Galaxy A03s install and 3D runtime smoke;
+- Galaxy A03s install and 3D runtime smoke on prior Stage-1 APKs;
 - GL Compatibility/OpenGL3 observed on device;
 - instantaneous device sample `60 FPS / ~16.7 ms / 40.9 MiB debug static memory`;
 - basic touch movement, first-person entry and outer-boundary containment received positive user evidence.
@@ -135,9 +135,9 @@ Protected authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
 Latest specialized handoff:
-`docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`.
+`docs/70_handoff/STAGE1_MONSTER_PLACEHOLDER_SOLID_COLLISION_2026-09-03.md`.
 
-User-approved/protected direction now includes:
+User-approved/protected direction includes:
 - analog movement joystick instead of four arrow keys;
 - tabbed Settings overlay;
 - Controls → Look Speed;
@@ -165,71 +165,111 @@ A continuously rotating control basis was rejected because it can curve/circle w
 
 Static preflight enforces the protected baseline.
 
-## Current exact build evidence
+## Deferred target-phone evidence rule — current user instruction
 
-Heading-reset source commit:
-`9d9e83898616e16c902d0d3caf8e9c82253bf8a7`
+On 2026-09-03 the user explicitly instructed development **not to stop waiting for phone reports**. When a phone-only gate is unavailable:
+- record the exact deferred phone test;
+- do not mark it PASS;
+- do not use the missing phone result to claim `ENGINE_PHONE_PROBE_VERIFIED`;
+- continue only with the next independent Stage-1 foundation piece whose correctness can be advanced and build-verified without that missing phone evidence.
 
-Exact tested revision:
-`2e112210c60b62335f94adfd1a1573afb81426f6`
+This instruction supersedes the earlier sequence requirement that the heading-reset phone retest had to complete before the collision source repair could begin.
+
+Deferred phone tests currently include:
+1. heading-reset joystick behavior on Galaxy A03s;
+2. Monster placeholder solidity on Galaxy A03s;
+3. adjacent control/camera regression checks associated with those builds.
+
+## Current exact automated build evidence
+
+Monster collision source commit:
+`c5e8fc8ceb5633d574ef49cd684a9d39a5bd643f`
 
 Workflow run:
-`33783404093`
+`33806628904`
+
+Runner/tool evidence:
+- Godot `4.7.2.stable.official.ed1daf0bf`;
+- OpenJDK 17;
+- Android build-tools `35.0.1`;
+- Android platform `35`.
 
 Results:
-- static preflight `151 / 151 PASS`;
+- existing static preflight `154 / 154 PASS`;
+- dedicated Monster collision preflight `8 / 8 PASS`;
 - Godot 4.7.2 import/parse PASS;
 - Boot headless smoke PASS;
 - ProbeWorld headless smoke PASS;
 - Android debug export PASS;
-- APK archive integrity PASS.
+- APK archive integrity PASS;
+- workflow artifact upload PASS.
 
-Current retest APK:
-`UnnamedHuntRPG-Stage1Probe-heading-reset.apk`
+Current build APK:
+`UnnamedHuntRPG-Stage1Probe-debug.apk`
 
 Size:
 `57,570,361 bytes`
 
 SHA-256:
-`1727750c3fc1f8385ed8c9bf1e4ccc3c559cede156e750380a1ff462c2bcfa8c`
+`0d2fa6c0accf1964d5a98dae07a2d03a2e59fa00ee0b0a10c9781c507a89a523`
 
-Build verification is not phone-control verification.
+Build verification does not prove target-phone collision or control behavior.
+
+## Monster placeholder collision repair — current truth
+
+Prior direct phone symptom:
+Hunter could pass through the brown Monster placeholder.
+
+Verified root cause:
+`Monster` was only a `MeshInstance3D` and had no physics body/collision shape.
+
+Bounded repair:
+- preserve the existing visual Monster mesh;
+- add `MonsterCollider` as `StaticBody3D` at the same base position;
+- add a matching `BoxShape3D` of `Vector3(2.5, 2.4, 5.8)`;
+- keep the current small visual bob/yaw cosmetic only;
+- do not introduce production Monster physics, combat, AI, damage, navigation or harvesting.
+
+Automated source/build status:
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_SOURCE_IMPLEMENTED = YES`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_STATIC_VERIFIED = YES`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_APK_BUILD_VERIFIED = YES`
+
+Target-phone status:
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_PHONE_VERIFIED = NO / DEFERRED_PENDING_USER_PHONE_EVIDENCE`
+
+Deferred Galaxy A03s acceptance:
+1. approach front/rear/both sides;
+2. hold movement into the Monster;
+3. confirm Hunter cannot cross the solid volume;
+4. test edge/corner sliding for obvious penetration/tunneling;
+5. confirm outer boundary still contains Hunter;
+6. confirm joystick/settings/look-speed and aerial ↔ first-person behavior did not regress.
 
 ## Exact current implementation gate
 
-Phone-test this exact heading-reset APK on Galaxy A03s:
-1. turn/move east using joystick-right;
-2. release fully;
-3. touch again and push joystick-up;
-4. verify up now continues east/forward;
-5. repeat for multiple headings;
-6. verify an active held gesture remains stable and does not spiral/circle;
-7. verify partial/diagonal movement;
-8. verify Settings + saved Look Speed;
-9. verify aerial ↔ first-person still preserves physical position.
+The next independent Stage-1 source/build piece is:
+**WORLD_BOUNDARY_REGRESSION_GUARD_AND_BUILD_VERIFICATION**.
 
-Do not begin the next unrelated implementation repair before this control behavior receives phone evidence unless a newer explicit user instruction supersedes the sequence.
+Scope:
+- inspect the current `PROBE_BOUNDS` clamp ownership and existing positive phone evidence;
+- add the smallest executable/static regression guard that prevents accidental loss of outer-boundary containment;
+- use the existing CI path for static/Godot/smoke/APK verification;
+- do not retune the boundary size, movement controls, camera, collision repair, combat or production world architecture unless evidence requires it.
 
-## Next separate foundation defect
-
-Already confirmed on prior phone build:
-`MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE`.
-
-After the heading-reset joystick retest passes, next bounded implementation piece:
-**MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR**.
-
-Do not expand that piece into combat, Monster AI, damage, navigation, harvesting, or production physics.
+The prior phone-positive boundary evidence remains historical device evidence; the new current build still requires later phone regression before Stage 1 can close.
 
 ## Remaining Stage-1 foundation sequence
 
 Before broad game construction:
-1. joystick/input/reference-frame behavior phone-verified;
-2. camera/look-speed behavior phone-verified;
-3. solid Monster/world obstacle collision;
-4. world-boundary regression;
-5. aerial ↔ first-person state continuity;
+1. deferred joystick/input/reference-frame phone verification;
+2. deferred camera/look-speed phone verification;
+3. deferred Monster solid-collision phone verification;
+4. world-boundary regression guard/build verification;
+5. aerial ↔ first-person state continuity guard/build verification;
 6. background/resume + lock/unlock stability;
-7. sustained Galaxy A03s frame pacing/thermal evidence.
+7. sustained Galaxy A03s frame pacing/thermal evidence;
+8. execute deferred target-phone regression bundle when user can provide device evidence.
 
 Only then consider `ENGINE_PHONE_PROBE_VERIFIED = YES` and Stage 2 production-domain implementation.
 
@@ -275,7 +315,8 @@ Protect in order:
 
 ## Current stop / next condition
 
-`STATIC_PREFLIGHT_VERIFIED = YES / 151_OF_151_CURRENT_CONTROL_BUILD`
+`STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154_CURRENT_COLLISION_BUILD`
+`MONSTER_COLLISION_STATIC_PREFLIGHT = YES / 8_OF_8`
 `GODOT_PARSE_VERIFIED = YES`
 `HEADLESS_BOOT_SMOKE_VERIFIED = YES`
 `HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
@@ -285,15 +326,20 @@ Protect in order:
 `ANALOG_JOYSTICK_SOURCE_IMPLEMENTED = YES`
 `JOYSTICK_HEADING_RESET_SOURCE_IMPLEMENTED = YES`
 `JOYSTICK_HEADING_RESET_APK_BUILD_VERIFIED = YES`
-`JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / RETEST_PENDING`
+`JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / DEFERRED_PENDING_USER_PHONE_EVIDENCE`
 `LOOK_SPEED_SETTING_SOURCE_IMPLEMENTED = YES`
 `LOOK_SPEED_PERSISTENCE_IMPLEMENTED = YES`
 `CONTROL_CAMERA_PROTECTED_README = RECORDED`
-`MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE / NEXT_REPAIR_AFTER_RETEST`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_SOURCE_IMPLEMENTED = YES`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_STATIC_VERIFIED = YES`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_APK_BUILD_VERIFIED = YES`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION_PHONE_VERIFIED = NO / DEFERRED_PENDING_USER_PHONE_EVIDENCE`
+`WORLD_BOUNDARY_PRIOR_PHONE_EVIDENCE = PASS_ON_EARLIER_STAGE1_APK`
+`WORLD_BOUNDARY_CURRENT_BUILD_REGRESSION_VERIFIED = NO / NEXT_PIECE`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-`NEXT_IMPLEMENTATION_ACTION = PHONE_RETEST_HEADING_RESET_JOYSTICK_APK`
-`NEXT_IMPLEMENTATION_AFTER_PASS = MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR`
+`NEXT_IMPLEMENTATION_ACTION = WORLD_BOUNDARY_REGRESSION_GUARD_AND_BUILD_VERIFICATION`
+`NEXT_IMPLEMENTATION_AFTER_PASS = AERIAL_FIRST_PERSON_STATE_CONTINUITY_REGRESSION_GUARD_AND_BUILD_VERIFICATION`
 `NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
