@@ -31,6 +31,8 @@ const AERIAL_CAMERA_LOOK_AHEAD_M := 2.2
 
 var _joystick_vector := Vector2.ZERO
 var _joystick_touch_id := -1
+var _joystick_reference_forward := Vector3(0.0, 0.0, -1.0)
+var _joystick_reference_right := Vector3(1.0, 0.0, 0.0)
 var _first_person := false
 var _monster_phase := 0.0
 var _metrics_elapsed := 0.0
@@ -42,6 +44,7 @@ func _ready() -> void:
 	look_speed_slider.value = _look_speed * 100.0
 	_update_look_speed_label()
 	_reset_joystick()
+	_capture_joystick_reference_heading()
 	_update_aerial_camera(0.0, true)
 	_update_renderer_label()
 	_update_view_state()
@@ -55,6 +58,7 @@ func _input(event: InputEvent) -> void:
 		var touch := event as InputEventScreenTouch
 		if touch.pressed and _joystick_touch_id == -1 and joystick_base.get_global_rect().has_point(touch.position):
 			_joystick_touch_id = touch.index
+			_capture_joystick_reference_heading()
 			_update_joystick_from_screen_position(touch.position)
 			get_viewport().set_input_as_handled()
 		elif not touch.pressed and touch.index == _joystick_touch_id:
@@ -69,14 +73,14 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	var desktop_x := (1.0 if Input.is_key_pressed(KEY_D) else 0.0) - (1.0 if Input.is_key_pressed(KEY_A) else 0.0)
 	var desktop_y := (1.0 if Input.is_key_pressed(KEY_S) else 0.0) - (1.0 if Input.is_key_pressed(KEY_W) else 0.0)
-	var movement := Vector2(desktop_x, desktop_y) + _joystick_vector
+	var desktop_world := Vector3(desktop_x, 0.0, desktop_y)
+	var movement_world := desktop_world + _joystick_world_vector()
 
 	if _settings_open:
-		movement = Vector2.ZERO
-	elif movement.length() > 1.0:
-		movement = movement.normalized()
+		movement_world = Vector3.ZERO
+	elif movement_world.length() > 1.0:
+		movement_world = movement_world.normalized()
 
-	var movement_world := Vector3(movement.x, 0.0, movement.y)
 	if movement_world.length_squared() > 0.0001:
 		_update_hunter_heading(movement_world.normalized(), delta)
 
@@ -126,6 +130,30 @@ func _hunter_forward() -> Vector3:
 	if forward.length_squared() <= 0.0001:
 		return Vector3(0.0, 0.0, -1.0)
 	return forward.normalized()
+
+func _capture_joystick_reference_heading() -> void:
+	# Each new touch gesture gets a stable movement basis from the Hunter's
+	# current heading. Releasing and touching again therefore "re-centers" the
+	# joystick's forward direction without making the basis rotate under the
+	# player's finger during the active gesture.
+	_joystick_reference_forward = _hunter_forward()
+	_joystick_reference_right = _joystick_reference_forward.cross(Vector3.UP)
+	_joystick_reference_right.y = 0.0
+	if _joystick_reference_right.length_squared() <= 0.0001:
+		_joystick_reference_right = Vector3.RIGHT
+	else:
+		_joystick_reference_right = _joystick_reference_right.normalized()
+
+func _joystick_world_vector() -> Vector3:
+	if _joystick_vector.length_squared() <= 0.0001:
+		return Vector3.ZERO
+
+	# Screen-stick up is negative Y, so invert Y to produce positive forward
+	# intent in the captured Hunter-relative basis.
+	return (
+		_joystick_reference_right * _joystick_vector.x
+		+ _joystick_reference_forward * -_joystick_vector.y
+	)
 
 func _update_aerial_camera(delta: float, snap: bool = false) -> void:
 	var forward := _hunter_forward()
