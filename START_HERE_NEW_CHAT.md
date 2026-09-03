@@ -55,7 +55,7 @@ Primary law:
 Current gate state:
 - engine probe: **SOURCE CREATED / EXECUTION PENDING**;
 - domain implementation: blocked by engine/phone probe evidence;
-- combat design: **PARTIAL / ACTION ECONOMY + RESOLUTION + FIRST WEAPON FAMILY RECORDED**;
+- combat design: **PARTIAL / FOUR CORE CONTRACTS RECORDED**;
 - vertical slice: partial;
 - expansion: intentionally open.
 
@@ -118,16 +118,16 @@ Only after that passes:
 
 Do not add real combat, harvesting, crafting or final production assets before the existing skeleton passes its current verification gate.
 
-## Combat design — recorded
+# Combat design — recorded
 
 Package:
 `docs/20_gameplay/combat/`.
 
-### Action economy
+## Action economy
 Authority:
 `ACTION_ECONOMY_CONTRACT.md`.
 
-Selected first-slice prototype:
+Selected:
 - 4 AP;
 - 1 RP;
 - persistent Stamina;
@@ -135,67 +135,98 @@ Selected first-slice prototype:
 - explicit reaction windows;
 - reaction recursion blocked.
 
-### Combat resolution / hit quality / defense
+## Combat resolution / hit quality / defense
 Authority:
 `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
 
-Selected architecture:
+Selected:
 - deterministic hard legality/exposure/cover/anatomy truth;
-- one frozen resolution context;
+- frozen resolution context;
 - AttackControl vs DefenseControl;
 - selected-part contact distinct from general body contact;
 - directional physical cover;
-- Dodge/Block/Parry/Brace have distinct purposes;
-- one bounded seeded variance source per committed attack resolution;
+- distinct Dodge/Block/Parry/Brace roles;
+- one bounded seeded variance source per committed attack;
 - no separate hidden random critical-hit roll;
-- hit-quality classes: `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
-- local cover/guard/armor/anatomy protection ordering;
-- off-target body contact when the technique explicitly allows it;
-- mandatory development calculation trace.
+- hit-quality classes `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- local cover/guard/armor/anatomy ordering;
+- mandatory calculation traces.
 
-Numeric thresholds remain balance-open.
-
-### First weapon family
+## First weapon family
 Authority:
 `FIRST_WEAPON_FAMILY_CONTRACT.md`.
 
-Selected first-slice family:
-- technical ID `WEAPON_FAMILY_FIELD_POLEBLADE`;
+Selected:
+- `WEAPON_FAMILY_FIELD_POLEBLADE`;
 - working name Field Poleblade;
 - two-handed long-hafted hunting blade;
-- cutting/sever primary identity;
-- piercing/control secondary identity;
-- limited impact capability;
-- directional Guard;
-- restricted Parry;
-- deliberate weakness at dedicated hard-structure break, cramped fighting and shield-level defense.
+- cutting/sever primary;
+- piercing/control secondary;
+- limited impact;
+- directional Guard/restricted Parry;
+- deliberately not universally best.
 
-First technique packet:
+First techniques:
 - Measured Cut — 2 AP;
 - Driving Thrust — 2 AP;
 - Placed Hew — 3 AP, selected part required, Precision allowed;
-- Committed Cleave — 4 AP, full-turn commitment;
-- Haft Check — bounded short-range spacing/control;
-- weapon-supported Guard/Parry under the generic defense contract.
+- Committed Cleave — 4 AP;
+- Haft Check — bounded close-range spacing/control.
 
-Exact damage, reach meters, Stamina costs, dimensions and final setting-facing terminology remain prototype-open.
+## Stamina prototype
+Authority:
+`STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`.
+
+Selected neutral test profile:
+- Max Stamina `100`;
+- passive recovery `+10` once at normal activation start;
+- `READY 50–100 / LOW 25–49 / CRITICAL 1–24 / EMPTY 0`;
+- low reserve does not automatically reduce accuracy/evasion/damage;
+- no normal negative-Stamina overexertion;
+- stable adjacent reposition `0` Stamina;
+- Sprint `8`;
+- Brace `6`;
+- reactive Brace `10`;
+- Dodge `14`;
+- compatible Parry `10`;
+- Guard prep `4`;
+- Block commitment `6 + impact drain`;
+- ordinary positive-cost floor `max(1, ceil(base × 0.50))`.
+
+`CATCH_BREATH`:
+- 1 AP;
+- +20 delayed turn-end recovery;
+- once per activation;
+- cannot share an activation with a damaging attack;
+- cannot be used as an immediate Stamina battery.
+
+Field Poleblade Stamina:
+- Measured Cut `12`;
+- Driving Thrust `10`;
+- Placed Hew `18`;
+- Committed Cleave `30`;
+- Haft Check `8`;
+- Guard prep `4`;
+- Block `6 + impact drain`;
+- Parry `10`.
+
+Where older combat files still say exact Stamina values were open, the dedicated Stamina contract now owns the first-slice prototype values.
 
 ## Independent next design piece
 
-**Stamina Prototype Scale and Recovery Contract**.
+**Initiative and Turn-Order Prototype Contract**.
 
-This should define only first-slice exertion behavior:
-- Max Stamina prototype scale;
-- passive recovery timing;
-- deliberate recovery behavior;
-- low-Stamina consequence bands;
-- action/reaction cost floors;
-- Field Poleblade Stamina costs;
-- anti-infinite-recovery invariants.
+Keep that pass bounded to:
+- initiative inputs;
+- deterministic actor ordering;
+- tie rule;
+- round participation/entry/removal;
+- no-extra-turn invariant;
+- trace/tests.
 
-Do not combine it with Initiative, statuses, Monster 01 attacks or terrain-number finalization.
+Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
 
-## Locked game direction
+# Locked game direction
 
 ### Modes
 - fully walkable settlement/hub;
@@ -220,7 +251,6 @@ Might / Finesse / Agility / Endurance / Perception / Resolve.
 One shared typed modifier/effect pipeline owns equipment, statuses, terrain, weather, posture, injuries and crystal/mutation effects.
 
 ### Progression
-Selected:
 **HYBRID / EQUIPMENT + MASTERY + KNOWLEDGE WEIGHTED.**
 
 No universal gear-score treadmill; AP is not routine progression; anatomy/terrain/preparation remain relevant.
@@ -232,7 +262,7 @@ No universal gear-score treadmill; AP is not routine progression; anatomy/terrai
 - Tier / Rank / Quality / Element / Energy / Condition are separate;
 - mutations are bounded/data-driven.
 
-## Current content references
+# Current content references
 
 ### Settlement 01
 Compact defensible frontier settlement with Hunter Service Loop, 2–3 elevation bands and walkable service spaces.
@@ -261,7 +291,7 @@ S06 Nesting Shelf/Crystal Fault
 - internal life crystal;
 - deterministic Region 01 patterns.
 
-## Current verification truth
+# Current verification truth
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `STAGE_1_ENGINE_ANDROID_PROBE_AUTHORIZED = YES`
@@ -276,10 +306,12 @@ S06 Nesting Shelf/Crystal Fault
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO / PROBE_PENDING`
 `DOMAIN_IMPLEMENTATION = BLOCKED_BY_STAGE_1_GATE`
+
 `COMBAT_ACTION_ECONOMY = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
 `FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
 `FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
+`STAMINA_PROTOTYPE_CONTRACT = RECORDED`
 `COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`
 `VERTICAL_SLICE_IMPLEMENTATION = BLOCKED`
 
