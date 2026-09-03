@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK PACKET RECORDED / BERSERK NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK + BERSERK PACKETS RECORDED / SOLO-PARTY BASELINE NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
@@ -16,7 +16,7 @@ Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`.
+`SOLO_PARTY_BASELINE_CONTRACT`.
 
 Operating contract:
 `EVOLVE_ALIGNMENT.md`.
@@ -33,13 +33,11 @@ Operating contract:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-For the next berserk pass additionally read:
+For current combat/content work additionally read:
+- `docs/20_gameplay/combat/README.md`;
+- the seven generic combat contracts;
 - `docs/30_content/monsters/MONSTER_01/README.md`;
-- `COMBAT_ATTACK_PACKET.md`;
-- `CRYSTAL_AND_MUTATION.md`;
-- `BEHAVIOR_AND_REGION.md`;
-- `ANATOMY_AND_DAMAGE.md`;
-- generic Crystal/behavior/combat authorities required by the bounded piece.
+- Monster 01 anatomy/attack/Berserk/behavior/Crystal authorities when relevant.
 
 ## Project identity
 
@@ -63,12 +61,12 @@ Automated protocol revision:
 Workflow `33811355891`: SUCCESS.
 
 Automated gates:
-- static `154/154`;
-- Monster collision `8/8`;
-- boundary `12/12`;
-- view continuity `17/17`;
-- lifecycle `47/47`;
-- performance telemetry `20/20`;
+- static 154/154;
+- Monster collision 8/8;
+- boundary 12/12;
+- view continuity 17/17;
+- lifecycle 47/47;
+- performance telemetry 20/20;
 - Godot parse/smoke PASS;
 - Android export/APK integrity/artifact upload PASS.
 
@@ -95,69 +93,86 @@ These are reusable system authorities.
 
 ## Monster 01 normal attack packet — RECORDED
 
-Package:
-`docs/30_content/monsters/MONSTER_01/`.
+Authority:
+`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
+
+Selected attacks:
+- Horn Charge 4 AP / 30 Stamina;
+- Head Sweep/Gore 2 / 14;
+- Shoulder Ram 3 / 22;
+- Foreleg Stomp 2 / 12;
+- Tail Sweep 3 / 18.
+
+Hard laws:
+- internal 4-AP budget;
+- max one damaging attack/activation;
+- anatomy/range/bearing/terrain/cover are hard legality;
+- normal attacks do not spend Crystal Energy by default;
+- no independent status RNG;
+- behavior selects only currently legal attacks.
+
+## Monster 01 Berserk prototype — RECORDED
 
 Authority:
-`COMBAT_ATTACK_PACKET.md`.
+`docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
 
 Specialized handoff:
-`docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`.
+`docs/70_handoff/MONSTER_01_BERSERK_PROTOTYPE_PASS_2026-09-03.md`.
 
-Selected normal attacks:
-- `M01_HORN_CHARGE` — 4 AP / 30 Stamina;
-- `M01_HEAD_SWEEP_GORE` — 2 / 14;
-- `M01_SHOULDER_RAM` — 3 / 22;
-- `M01_FORELEG_STOMP` — 2 / 12;
-- `M01_TAIL_SWEEP` — 3 / 18.
+Selected entry:
+- one episode per hunt until explicit ecological recovery reset;
+- Core Energy ratio `>20%` and `<=60%`;
+- plus Retreat Denied, Nest Defense, or Severe Anatomy pressure;
+- Severe Anatomy requires at least two major capability-loss facts;
+- no HP-only/random trigger.
 
-Selected first-slice Monster 01 attack invariants:
-- one normal activation per round;
-- internal 4-AP budget;
-- max one damaging attack per activation;
-- all five attacks telegraphed/reactable;
-- attack legality uses current anatomy/range/bearing/clearance/cover;
-- no animation/UI can re-enable an illegal attack;
-- no separate random status-proc roll;
-- normal attacks do not spend Crystal Energy by default;
-- same authoritative state/seed/action sequence must reproduce resolution.
+Entry transition:
+- full 4-AP activation;
+- no attack same activation;
+- 10% Max Core Energy;
+- +20 strain;
+- visible telegraph.
 
-Anatomy effects:
-- full Horn Charge requires intact full horn/forequarter capability;
-- both horns broken convert Head Sweep/Gore to impact-only Head Sweep;
-- severe forequarter support loss removes full Charge/Ram as defined;
-- damaged selected foreleg removes that side's Stomp;
-- distal tail sever removes Tail Sweep.
+Active cadence:
+- each later Berserk activation: 5% Max Core Energy +10 strain;
+- attack Core surcharge: Charge 5%, Head 2%, Ram 4%, Stomp 2%, Tail 3%;
+- Berserk AP: Charge 3 / Head 2 / Ram 2 / Stomp 2 / Tail 2;
+- existing Stamina costs unchanged.
 
-Reaction highlights:
-- Horn Charge: Dodge/Reactive Brace; normal Poleblade Block/Parry incompatible;
-- Head Sweep/Gore: compatible Block, limited compatible Parry; impact drain 10;
-- Shoulder Ram: Dodge/Brace; only conditional Braced+Guarded Block; impact drain 18;
-- Foreleg Stomp: Dodge/Brace; normal Block/Parry incompatible;
-- Tail Sweep: compatible Dodge/Block/Parry/Brace; impact drain 14.
+Hard invariants:
+- one normal activation/round;
+- one damaging attack max/activation;
+- no Initiative reroll/extra turn;
+- attack reaction windows preserved;
+- no anatomy repair;
+- cover/terrain/status/range legality preserved;
+- zero Core Energy means immediate death.
 
-Status requests are deterministic consequences after contact/protection/anatomy resolution and remain owned by the generic status system.
+Critical exit:
+`core_energy_ratio <= 0.12 OR core_strain >= 80`.
 
-`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`MONSTER_01_ATTACK_RUNTIME_IMPLEMENTED = NO`
-`MONSTER_01_ATTACK_RUNTIME_VERIFIED = NO`
+Critical + legal retreat + no active Nest Defense exits Berserk to `EXHAUSTED_CRITICAL`; otherwise the Raker may continue burning Core Energy toward death.
+
+`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
+`MONSTER_01_BERSERK_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_BERSERK_RUNTIME_VERIFIED = NO`
 
 ## Behavior ownership
 
-`COMBAT_ATTACK_PACKET.md` owns legal attack definitions.
-`BEHAVIOR_AND_REGION.md` owns deterministic selection from the legal candidate set.
+- `COMBAT_ATTACK_PACKET.md` owns normal attack legality/profile.
+- `BERSERK_PROTOTYPE_CONTRACT.md` owns Berserk entry/drain/action modifiers/exit/death.
+- `BEHAVIOR_AND_REGION.md` owns deterministic selection from legal candidates and Region 01 state/route use.
 
-Behavior cannot select a disabled attack and no runtime generative AI is used.
+No runtime generative AI is used.
 
 ## Current game-development sequence
 
 Completed:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet`.
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype`.
 
 Next:
-`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
-→ `SOLO/PARTY BASELINE`
-→ `DEFEAT/RETREAT BASELINE`
+`SOLO_PARTY_BASELINE_CONTRACT`
+→ `DEFEAT_RETREAT_BASELINE_CONTRACT`
 → production implementation after prerequisite engine/domain gates.
 
 ## Documentation/navigation discipline
@@ -180,7 +195,8 @@ Navigation:
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_CORE_CONTRACTS + MONSTER_01_ATTACK_PACKET_RECORDED`
+`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
+`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = SOLO_PARTY_BASELINE_CONTRACT`

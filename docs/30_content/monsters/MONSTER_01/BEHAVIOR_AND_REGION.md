@@ -1,11 +1,11 @@
 # MONSTER_01 — Deterministic Behavior and Region 01 Use
 
-Status: SELECTED FIRST-MONSTER PATTERN DESIGN / NORMAL ATTACK LEGALITY LINKED / BERSERK DETAIL NEXT / NO IMPLEMENTATION
+Status: SELECTED FIRST-MONSTER PATTERN DESIGN / NORMAL ATTACK + BERSERK OWNERS LINKED / NO IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Apply deterministic authored-pattern behavior to the Mudcrest Raker and bind it to Region 01 while using `COMBAT_ATTACK_PACKET.md` as the authority for concrete normal attack legality/profiles.
+Apply deterministic authored-pattern behavior to the Mudcrest Raker and bind it to Region 01 while delegating attack legality and Berserk mechanics to their owning Monster 01 contracts.
 
 There is no runtime generative AI decision system.
 
@@ -15,35 +15,39 @@ This file owns:
 - activity/territorial/combat/retreat state selection;
 - deterministic rule priorities;
 - Region 01 route/context use;
-- which currently legal action candidate behavior selects.
+- selection from currently legal action candidates.
 
 `COMBAT_ATTACK_PACKET.md` owns:
 - normal attack IDs;
-- anatomy/capability requirements;
+- anatomy/range/bearing/clearance legality;
 - AP/Stamina commitments;
-- range/bearing/clearance legality;
 - telegraph/reaction compatibility;
 - terrain/cover constraints;
 - status consequence requests;
 - guard-impact drains.
 
-Behavior cannot override attack illegality.
+`BERSERK_PROTOTYPE_CONTRACT.md` owns:
+- Berserk entry gates;
+- Core Energy/strain costs;
+- Berserk AP modifiers;
+- episode-used persistence;
+- critical-exit/death rules.
+
+Behavior cannot override either owner's hard legality.
 
 ## Species behavior identity
 
 The Mudcrest Raker is:
 - territorial;
 - cautious when healthy and not cornered;
-- forceful around feeding/rest/nest resources;
+- forceful near feeding/rest/nest resources;
 - willing to retreat when badly injured and a legal route exists;
-- increasingly desperate under severe injury/core strain;
-- predictable enough that observation and knowledge matter.
-
-It should not attack merely because player and monster share a sector.
+- increasingly desperate under anatomy/Core pressure;
+- readable/predictable enough for observation and knowledge to matter.
 
 ## Normal activity states
 
-Candidate authored states:
+Authoring state set:
 - `RESTING`;
 - `FORAGING`;
 - `DRINKING_WALLOWING`;
@@ -57,49 +61,30 @@ Candidate authored states:
 - `BERSERK`;
 - `EXHAUSTED_CRITICAL`.
 
-Berserk's exact entry/drain/action-profile changes are not defined here yet; the next bounded packet owns them.
-
-## Region 01 route anchors
+## Region 01 anchors
 
 ### S01 River Ford / Mud Flats
-- drinking/wallowing;
-- strong footprint evidence;
-- wet/mud-adapted movement context;
-- viable close combat with only lane-validated Charge/Sweep.
+Drinking/wallowing, strong evidence, wet/mud-adapted movement, close combat with lane-validated Charge/Sweep.
 
 ### S02 Rootwood Thicket
-- rooting/foraging;
-- vegetation evidence;
-- occlusion/constrained routes;
-- frequent `NARROW`/solid-root restrictions on charge/sweep.
+Rooting/foraging, vegetation evidence, occlusion and frequent Narrow/solid-root attack restrictions.
 
 ### S03 Feeding Meadow
-- primary feeding;
-- warning/territorial display;
-- long-sight engagement;
-- clearest `M01_HORN_CHARGE` proving ground.
+Primary feeding/warning/long-sight engagement and clearest Horn Charge proving ground.
 
 ### S04 Rocky Rise
-- mineral rubbing/marking;
-- observation route where body fit allows;
-- hard-ground evidence.
+Mineral rubbing/marking/observation where body fit permits.
 
 ### S05 Deepwood Basin
-- rest;
-- route convergence;
-- wounded retreat/reacquisition.
+Rest, route convergence, wounded retreat/reacquisition.
 
 ### S06 Nesting Shelf / Crystal Fault
-- deep rest/nest;
-- strongest territory-defense context;
-- later berserk/desperation context.
+Deep rest/nest, strongest territory-defense pressure and primary Nest Defense Berserk context.
 
 ### S00 Field Camp
 Not a normal activity anchor.
 
-## Normal deterministic activity pattern
-
-Conceptual authored priority:
+## Normal activity priority
 
 ```text
 IF resting_requirement_high AND safe → S05/S06 REST
@@ -109,201 +94,188 @@ ELSE IF mineral_rub_condition → S04
 ELSE → deterministic legal territory travel
 ```
 
-Seeded per-instance/day variation may choose among equivalent authored options if reproducibility is preserved.
+Seeded per-instance/day variation may select among equivalent authored options only when reproducibility remains intact.
 
-## Detection and warning escalation
+## Detection/warning escalation
 
 `UNAWARE → ALERT → WARNING DISPLAY → ENGAGE OR WITHDRAW`.
 
-Inputs can include:
-- distance;
-- line of sight;
-- player movement/noise;
-- activity;
-- territory importance;
-- injury;
-- sensory mutation/capability;
-- legal escape/approach routes.
+Inputs include distance, line of sight, player noise/movement, activity, territory importance, injury, sensory capability and legal routes.
 
 No omniscient detection.
 
-Warning actions can include:
-- orient horns/front armor to threat;
-- scrape/stamp;
-- vocalize;
-- partial/false charge display;
-- interpose body between hunter and nest/feeding anchor.
+Warning actions may orient horns/front armor, scrape/stamp, vocalize, display a false/partial charge or interpose between hunter and important territory.
 
 Warning presentation does not resolve damage.
 
-## Normal combat action candidates
+## Normal combat candidate selection
 
-Concrete attack authority:
-`COMBAT_ATTACK_PACKET.md`.
-
-Legal normal damaging IDs:
+Legal damaging attack IDs come only from `COMBAT_ATTACK_PACKET.md`:
 - `M01_HORN_CHARGE`;
 - `M01_HEAD_SWEEP_GORE`;
 - `M01_SHOULDER_RAM`;
 - `M01_FORELEG_STOMP`;
 - `M01_TAIL_SWEEP`.
 
-Behavior also may choose non-damaging authored actions such as reposition/warning/recovery/retreat when those owners define them.
-
-## First-slice non-berserk selection philosophy
-
-This file does not add a random weighted attack chooser.
-
-Conceptual deterministic priority:
+Non-Berserk conceptual priority:
 
 ```text
 IF core_energy <= 0 → DIE
-ELSE IF berserk_active → USE BERSERK PROFILE (next packet owns exact rules)
-ELSE IF severe_injury AND legal_retreat AND NOT nest_defense → RETREAT
-ELSE collect currently legal normal attack candidates from COMBAT_ATTACK_PACKET
-ELSE select highest-priority authored candidate for current range/bearing/territory/anatomy state
-ELSE REPOSITION / WARNING / RECOVER
+ELSE IF berserk_active → use Berserk branch below
+ELSE IF severe_injury AND legal_retreat AND NOT nest_defense → WOUNDED_RETREAT
+ELSE IF Berserk entry gate passes → M01_ENTER_BERSERK
+ELSE IF rear/flank threat + Tail Sweep legal → TAIL_SWEEP
+ELSE IF charge range/front lane + Charge legal → HORN_CHARGE
+ELSE IF close front + Head Sweep legal → HEAD_SWEEP_GORE
+ELSE IF close body-force + Ram legal → SHOULDER_RAM
+ELSE IF close local foreleg threat + Stomp legal → FORELEG_STOMP
+ELSE → REPOSITION / WARNING / RECOVER
 ```
 
-Within normal attack candidates, a first-slice priority can use the existing ecological/combat identity:
-1. rear/flank threat + legal Tail Sweep → prefer `M01_TAIL_SWEEP`;
-2. charge range/front lane + full charge capability → prefer `M01_HORN_CHARGE`;
-3. close front with horn/head legality → `M01_HEAD_SWEEP_GORE`;
-4. close body-force opportunity + ram capability → `M01_SHOULDER_RAM`;
-5. close local foreleg threat + side-specific functional foreleg → `M01_FORELEG_STOMP`;
-6. otherwise reposition/warn/recover.
+The Berserk entry gate is evaluated deterministically through `BERSERK_PROTOTYPE_CONTRACT.md`; behavior does not roll for it.
 
-This priority is a prototype authored order, not an animation script. A candidate that fails attack legality is skipped with a trace reason.
+## Berserk branch
 
-## Attack-repeat safeguard
+When `berserk_active == true`, first evaluate the owner contract's critical-exit/death rules.
 
-Monster 01's attack packet allows at most one damaging attack per normal activation.
+If Berserk remains active, behavior filters all attacks through normal attack legality and then uses:
 
-Therefore behavior cannot chain two damaging candidates merely because AP remains.
+```text
+IF rear/flank threat AND Tail Sweep legal → M01_TAIL_SWEEP
+ELSE IF front-lane Charge legal → M01_HORN_CHARGE
+ELSE IF close front/front-flank Ram legal → M01_SHOULDER_RAM
+ELSE IF close Head Sweep legal → M01_HEAD_SWEEP_GORE
+ELSE IF side-specific Stomp legal → M01_FORELEG_STOMP
+ELSE → aggressive legal reposition toward an existing legal attack
+```
 
-No hidden animation combo or reaction grants another normal attack.
+Berserk suppresses ordinary Wounded Retreat while active except when the owner contract's critical-exit rule explicitly ends Berserk.
 
-## Anatomy-dependent selection changes
+No random weighted attack chooser is added.
+
+## Berserk entry facts consumed by behavior
+
+Behavior supplies/reuses these authoritative facts for the owner contract:
+- legal-retreat result after Region/body-fit filtering;
+- active Nest Defense context;
+- major anatomy capability-loss facts;
+- current/max Core Energy;
+- episode-used/active flags;
+- terminal/alive state.
+
+`PRESSURE_SEVERE_ANATOMY` means at least two major capability losses as defined by `BERSERK_PROTOTYPE_CONTRACT.md`, not one ordinary wound.
+
+## Anatomy-dependent behavior changes
 
 ### Horn damage
-If full horn-charge capability is lost:
-- `M01_HORN_CHARGE` is removed from legal candidates;
-- `M01_HEAD_SWEEP_GORE` may degrade to hornless impact Head Sweep when both horns are broken;
-- behavior naturally considers Ram/Stomp/Tail/reposition instead.
+If full Horn Charge capability is lost:
+- remove Horn Charge candidate;
+- hornless Head Sweep variant remains where legal;
+- behavior considers Ram/Stomp/Tail/reposition.
 
 ### Foreleg severe damage
-- full Horn Charge/Ram capability changes according to attack packet;
-- selected damaged-side Stomp is illegal;
-- retreat/turning confidence may reduce through explicit authored rules.
+- Charge/Ram legality changes through attack packet;
+- damaged-side Stomp is removed;
+- retreat/body-fit may also degrade.
 
 ### Hindleg damage
-- route/retreat/pivot capability can degrade;
-- Tail Sweep may become illegal if pivot capability fails.
+- retreat/reposition/pivot can degrade;
+- Tail Sweep can become illegal if pivot capability fails.
 
 ### Tail sever
-- `M01_TAIL_SWEEP` becomes illegal immediately;
-- behavior should orient front armor/horns toward rear pressure when an authored rule calls for it;
-- no tail hitbox remains.
+- Tail Sweep becomes illegal immediately;
+- no tail hitbox/action remains;
+- behavior may orient the forequarter toward rear pressure when a rule supports it.
 
 ### Dorsal plate break
-- does not create omniscient behavior;
-- explicit pain/vulnerability posture rules may read known anatomy state if authored.
+Does not grant omniscient tactical knowledge. Any posture change must read explicit injury state.
 
-## Terrain and cover decision inputs
+Berserk never reverses any of these facts.
 
-Behavior reads the same authoritative geometry used by attack legality.
+## Terrain/cover inputs
 
-Examples:
-- do not select Horn Charge if a solid root/boulder blocks the lane;
-- do not select Tail Sweep in a narrow arc the tail cannot clear;
-- do not assume Brush is physical cover;
-- do not apply a generic High-Ground aggression/damage bonus;
-- Mud/Shallow Water do not cause random behavior slips.
+Behavior reads the same authoritative geometry used by attack legality:
+- no Charge through a solid root/boulder;
+- no Tail Sweep where the arc cannot clear;
+- Brush is not physical cover;
+- High Ground is not a generic damage/aggression bonus;
+- Mud/Shallow Water add no random slip behavior.
 
 ## Escape selection
 
-When retreat is selected:
+When Wounded Retreat is selected:
 1. read current sector;
-2. collect legal adjacent sectors from Region 01 topology;
-3. filter by body-fit/blocked-route/hazard/anatomy mobility constraints;
-4. apply authored preference rules;
-5. use deterministic tie resolution;
+2. collect legal adjacent Region 01 sectors;
+3. filter body fit/blocked route/hazard/anatomy mobility;
+4. apply authored preferences;
+5. deterministic tie resolution;
 6. persist route intent;
-7. leave combat into the same persistent monster instance.
+7. leave encounter as the same monster instance.
 
-Example preferences remain:
-- S03 heavily wounded → prefer S05 when legal;
-- S01 → S02/S03 depending state;
-- S05 critically injured/nest-oriented → S06;
-- S06 has fewer exits and stronger nest-defense/desperation context.
+Berserk critical exit may transition to `EXHAUSTED_CRITICAL`; exact defeat/retreat resolution remains a later contract and is not invented here.
 
-No topology-breaking teleport.
+## Tracking evidence
 
-## Tracking evidence emitted
-
-- S01 drinking/wallowing → deep prints/water disturbance;
+Activity can emit bounded evidence:
+- S01 wallowing → prints/water disturbance;
 - S02 rooting → uprooted vegetation/root gouges;
 - S03 feeding → remains/trampled grass;
 - S04 rubbing → horn/plate scratches/mineral flakes;
 - travel → footprints/broken brush;
-- wounded retreat → blood/scuff/changed gait;
-- broken/severed part event → physical fragment/source only if anatomy/harvest event creates it.
+- wounded retreat → blood/scuff/changed gait.
 
-Detached tail is never duplicated along the escape route.
+Detached/broken parts exist only when anatomy/harvest events create them and are never duplicated along routes.
 
-## Berserk boundary
+## Persistence
 
-Current behavior recognizes only the abstract `berserk_active` branch.
+Persistent Monster 01 state includes, as applicable:
+- sector/route intent;
+- anatomy capability state;
+- Core Energy/strain;
+- Berserk active/episode-used state;
+- injury/status state;
+- emitted evidence references.
 
-Exact entry conditions, Crystal Energy drain, visible tell, attack commitment/priority changes, stop/critical/death behavior are intentionally deferred to:
-`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`.
-
-Berserk may not:
-- restore broken horns;
-- regrow tail;
-- restore disabled leg capability;
-- bypass physical cover/clearance;
-- create extra normal turns silently.
+Encounter/camera/save reload cannot reset Berserk episode-used or restore lost anatomy.
 
 ## Debug trace requirement
 
-Developer trace must show:
+Trace should show:
 - current state/sector;
 - sensed player facts;
 - anatomy capability flags;
 - terrain/cover/clearance facts;
-- core Energy/strain when relevant;
-- each considered rule/action;
-- pass/fail reason;
-- final selected action/retreat route;
+- Core Energy/ratio/strain;
+- Berserk pressure/gate facts;
+- considered action rules with PASS/FAIL reason;
+- selected action/route;
 - evidence emitted.
 
 Example:
 
 ```text
+BERSERK_ENTRY: PASS — ENERGY 43% + RETREAT_DENIED
+M01_ENTER_BERSERK: SELECTED
+NEXT ROUND:
 M01_HORN_CHARGE: FAIL — HORN_CHARGE_CAPABILITY_DISABLED
-M01_TAIL_SWEEP: FAIL — TAIL_DISTAL_SEVERED
-M01_SHOULDER_RAM: FAIL — NARROW_CLEARANCE
-M01_FORELEG_STOMP: PASS — RIGHT_FORELEG_FUNCTIONAL + TARGET_CLOSE_RIGHT
-SELECTED: M01_FORELEG_STOMP
+M01_TAIL_SWEEP: PASS
+SELECTED: M01_TAIL_SWEEP
 ```
 
 ## First-slice acceptance
 
 Before adding more monsters, Monster 01 should eventually prove:
-- at least three normal activity patterns;
-- warning → engagement escalation;
-- all five normal attack legality profiles;
-- horn-dependent attack loss/change;
-- tail-sever attack loss;
-- leg-injury attack/retreat change;
-- one legal sector escape/reacquisition chain;
-- one later berserk entry/drain chain;
-- deterministic replay for identical authoritative state/seed.
+- normal activity patterns/warning escalation;
+- all five attack legality profiles;
+- anatomy-driven attack loss/change;
+- Region escape/reacquisition;
+- exact Berserk entry/Energy/strain/critical-exit chain;
+- same-state deterministic replay.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
+`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
 `BEHAVIOR_RUNTIME_IMPLEMENTED = NO`
 
 ## Exact next dependency
 
-`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`.
+`SOLO_PARTY_BASELINE_CONTRACT`.

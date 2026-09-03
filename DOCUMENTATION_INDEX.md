@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK PACKET RECORDED / BERSERK NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK + BERSERK PACKETS RECORDED / SOLO-PARTY NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -19,7 +19,7 @@ The repository must answer:
 5. root `README.md` — game/main-goal front door.
 6. `docs/README.md` — placement/package rules.
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md` — readiness gates.
-8. newest relevant `docs/70_handoff/` record.
+8. newest relevant `docs/70_handoff/`.
 9. exact owning package/README/source/tests.
 
 Mandatory law: read current EVOLVE before every bounded pass.
@@ -33,24 +33,17 @@ Primary:
 - `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`;
 - `probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`;
 - `PERFORMANCE_BUDGETS_AND_CAPS.md`;
-- Stage-1 handoffs in `docs/70_handoff/`.
+- Stage-1 handoffs under `docs/70_handoff/`.
 
 Candidate:
 Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene minimum.
 
-Current automated protocol revision:
+Automated protocol revision:
 `c02971996e35770bbaaaf9bf6c460af208db4f83`.
 Workflow `33811355891`: SUCCESS.
 
 Automated gates:
-- static `154/154`;
-- Monster collision `8/8`;
-- boundary `12/12`;
-- view continuity `17/17`;
-- lifecycle `47/47`;
-- performance telemetry `20/20`;
-- Godot parse/smoke PASS;
-- Android export/APK integrity/artifact upload PASS.
+154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; Godot parse/smoke PASS; Android export/APK integrity/artifact upload PASS.
 
 Inner APK:
 `57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
@@ -70,19 +63,12 @@ Phone blocker:
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
 - `FIRST_SETTLEMENT_BLUEPRINT.md`;
 - `docs/10_world/README.md`;
-- `docs/10_world/regions/REGION_01/README.md`;
-- Region 01 topology/tracking/terrain/encounter/streaming/reference/acceptance files.
+- `docs/10_world/regions/REGION_01/README.md` and local topology/tracking/terrain/encounter/streaming/reference/acceptance files.
 
 World hierarchy:
 `WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
 
 Scale: `1 world unit = 1 meter`.
-
-Region 01 first combat footprints:
-- Riverbank Ford;
-- Meadow Edge;
-- Root/Boulder Hollow;
-- Deep Nest Shelf.
 
 # 4. Generic gameplay/combat authorities
 
@@ -102,18 +88,7 @@ Seven generic combat contracts:
 7. `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`.
 
 Generic baseline:
-- 4 AP / 1 RP / persistent Stamina;
-- deterministic contact/defense/hit quality;
-- Field Poleblade;
-- normalized 100-point Stamina reference;
-- deterministic Initiative/no random opener;
-- one normal activation max per eligible actor/round;
-- Bleeding/Staggered/Off-Balance/Braced/Guarded;
-- Stable/Rough/Shallow Water/Mud;
-- Brush/High Ground/Narrow;
-- no independent terrain/status RNG layers.
-
-These files own reusable mechanics, not one monster's attack list.
+4 AP / 1 RP / persistent Stamina; deterministic contact/defense/hit quality; Field Poleblade; deterministic Initiative; one normal activation max; five-state status packet; four primary terrain surfaces + Brush/High Ground/Narrow; no independent status/terrain RNG layers.
 
 # 5. Content authorities
 
@@ -124,36 +99,41 @@ Content front door:
 `docs/30_content/hunters/HUNTER_BASE_01/README.md` and package files.
 
 ## Monster 01 — Mudcrest Raker
+
 Front door:
 `docs/30_content/monsters/MONSTER_01/README.md`.
 
 Current authorities:
 - `ANATOMY_AND_DAMAGE.md`;
-- `COMBAT_ATTACK_PACKET.md` — newest Monster 01 content authority;
+- `COMBAT_ATTACK_PACKET.md`;
+- `BERSERK_PROTOTYPE_CONTRACT.md` — newest Monster 01 content authority;
 - `BEHAVIOR_AND_REGION.md`;
 - `CRYSTAL_AND_MUTATION.md`.
 
 Normal attacks:
-- `M01_HORN_CHARGE` — 4 AP / 30 Stamina;
-- `M01_HEAD_SWEEP_GORE` — 2 / 14;
-- `M01_SHOULDER_RAM` — 3 / 22;
-- `M01_FORELEG_STOMP` — 2 / 12;
-- `M01_TAIL_SWEEP` — 3 / 18.
+Horn Charge / Head Sweep-Gore / Shoulder Ram / Foreleg Stomp / Tail Sweep.
 
-Monster 01 attack laws:
-- internal 4-AP budget;
-- max one damaging attack per activation;
-- anatomy gates attack legality;
-- no separate status-proc RNG;
-- normal attacks do not consume Crystal Energy by default;
-- behavior may select only legal packet attacks;
-- physical cover/clearance remains authoritative.
+Berserk prototype:
+- entry `>20%` and `<=60%` Core Energy plus deterministic desperation pressure;
+- one episode/hunt until explicit ecological recovery reset;
+- entry = full activation +10% Max Core Energy +20 strain;
+- later active activation = 5% Max +10 strain;
+- attack Core surcharges: 5/2/4/2/3% for Charge/Head/Ram/Stomp/Tail;
+- Berserk AP: 3/2/2/2/2;
+- existing Stamina unchanged;
+- max one damaging attack remains;
+- no extra turns, reaction removal or anatomy restoration;
+- critical at Energy <=12% or strain >=80;
+- critical exits only with legal retreat and no active Nest Defense;
+- zero Energy means immediate death.
 
-Specialized handoff:
-`docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`.
+Specialized handoffs:
+- `docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`;
+- `docs/70_handoff/MONSTER_01_BERSERK_PROTOTYPE_PASS_2026-09-03.md`.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`MONSTER_01_ATTACK_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
+`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`
 
 # 6. Architecture/code authorities
 
@@ -180,37 +160,27 @@ Specialized handoff:
 - `docs/60_quality/README.md`;
 - Stage-1 test/performance protocols.
 
-# 9. Continuity/handoff authorities
-
-Newest relevant game-design records:
-- `docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`;
-- `docs/70_handoff/FIRST_SLICE_TERRAIN_EFFECT_SET_PASS_2026-09-03.md`;
-- `docs/70_handoff/FIRST_SLICE_STATUS_SET_PASS_2026-09-03.md`;
-- `docs/70_handoff/INITIATIVE_AND_TURN_ORDER_PASS_2026-09-03.md`.
-
-Stage-1 handoffs remain under the same folder and are separate from content design verification.
-
-# 10. Current game-development sequence
+# 9. Current game-development sequence
 
 Implementation lane:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Completed design sequence:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet`.
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype`.
 
 Current active non-phone action:
-`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`.
+`SOLO_PARTY_BASELINE_CONTRACT`.
 
 Then:
-`SOLO/PARTY BASELINE → DEFEAT/RETREAT BASELINE → production implementation after prerequisite gates`.
+`DEFEAT_RETREAT_BASELINE_CONTRACT → production implementation after prerequisite gates`.
 
-# 11. Documentation placement law
+# 10. Documentation placement law
 
 - root README — main game/front door;
 - `docs/README.md` — placement/package rules;
-- package README — local file map;
+- package README — local map;
 - generic mechanics — owning gameplay contracts;
-- species-specific attack/behavior/Crystal configuration — species content package;
+- species-specific attack/Berserk/behavior/Crystal configuration — species content package;
 - `docs/70_handoff/` — bounded-pass records;
 - this index — global discovery/read order;
 - `PROJECT_HANDOFF.md` + `START_HERE_NEW_CHAT.md` — current reconstruction;

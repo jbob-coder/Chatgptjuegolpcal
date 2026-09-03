@@ -1,232 +1,216 @@
 # MONSTER_01 — Crystal and Mutation Packet
 
-Status: SELECTED FIRST-MONSTER EXPRESSION / GLOBAL TIER-RANK NUMBERS OPEN
-Last reconciled: 2026-09-02
+Status: SELECTED FIRST-MONSTER EXPRESSION / BERSERK PROTOTYPE RECORDED / GLOBAL TIER-RANK NUMBERS OPEN
+Last reconciled: 2026-09-03
 
 ## Purpose
 
-Apply the global crystal life-force/mutation system to the Mudcrest Raker without inventing a separate monster-only power system.
+Apply the global Crystal life-force/mutation system to the Mudcrest Raker without inventing a separate monster-only power system.
 
-## Baseline crystal profile
+Global authority remains `/CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`.
+Monster-specific Berserk authority is now `BERSERK_PROTOTYPE_CONTRACT.md`.
 
-The Mudcrest Raker carries one internal life crystal in the forward torso/sternal cavity.
+## Baseline Crystal profile
 
-Current selected prototype direction:
-- first-region baseline crystal class, not apex-world tier;
-- primary provisional elemental expression: **Mineral / Earth-type**;
-- high structural integration with horns/dorsal plates;
-- life-force reserve directly powers biological function and berserk overdrive;
-- crystal remains physically internal and normally hidden.
+The Mudcrest Raker carries one internal life Crystal in the forward torso/sternal cavity.
 
-Exact Tier, Rank, Quality display bands and numbers remain OPEN until the global crystal roster is decided.
+Selected direction:
+- first-region baseline Crystal class, not apex-world tier;
+- provisional Mineral / Earth-type expression;
+- strong structural integration with horns/dorsal plates;
+- Crystal Energy supports biological function and Berserk overdrive;
+- Crystal remains internal and not a normal externally targetable part;
+- zero usable Core Energy means death.
 
-## Visual crystal language
+Exact Tier, Rank, Quality, absolute Max Energy and display naming remain OPEN.
 
-Baseline creature should not glow constantly.
+## Visual Crystal language
 
-Normal state:
-- subtle mineral grain/veins near plate bases/horn roots;
-- mostly matte biological/mineral surfaces;
-- no bright exposed crystal core.
+Normal:
+- subtle mineral grain/veins near plate/horn roots;
+- mostly matte surfaces;
+- no bright exposed core.
 
-High strain / berserk:
-- restrained warm internal glow/seam response under selected plate/horn-root areas;
-- stronger breathing/pulse rhythm;
-- localized dust/mineral shedding or vibration if affordable;
+High strain/Berserk:
+- restrained warm seam response around valid Crystal-linked tissues;
+- stronger breathing/pulse;
+- localized dust/mineral shedding/vibration where appropriate;
 - no full-body neon transformation.
 
 Core-empty/death:
 - active glow/energy response collapses;
-- physical crystal may remain harvestable depending condition;
-- intrinsic tier/rank/quality/element identity does not vanish merely because energy is zero.
+- intrinsic Tier/Rank/Quality/element identity does not disappear merely because Energy is zero.
 
-## Berserk trigger philosophy
+## First-slice Berserk — exact species application
 
-Berserk is not automatic at a fixed HP threshold alone.
+Authority:
+`BERSERK_PROTOTYPE_CONTRACT.md`.
 
-Use deterministic conditions such as:
-- severe injury;
-- low but nonzero core energy;
-- cornered/no preferred escape path;
-- nest/core territory threatened;
-- repeated stagger/pressure;
-- authored species desperation phase.
+### Entry window
 
-Candidate first-slice trigger combination:
-`IF critically pressured AND core_energy > 0 AND (retreat blocked OR nest-threatened OR severe-injury) → ENTER_BERSERK`
+The Raker can enter Berserk only when:
+- Energy ratio is `>20%` and `<=60%`;
+- Berserk has not already been used in the current hunt episode;
+- creature is alive/nonterminal;
+- Retreat Denied, Nest Defense, or Severe Anatomy pressure is active.
 
-Exact thresholds remain balance candidates.
+Severe Anatomy requires at least two major capability-loss facts.
 
-## Berserk cost
+No HP-only trigger and no random Berserk roll are selected.
 
-Every berserk turn/action should consume additional crystal life force and/or build core strain.
+### Entry cost
 
-Candidate effects:
-- more aggressive pattern priorities;
-- reduced pain/stagger response;
-- stronger/faster charge preparation;
-- more forceful body/tail attacks when required anatomy remains intact;
-- improved footing/impact stability;
-- increased crystal strain and self-destructive energy drain.
+`M01_ENTER_BERSERK`:
+- full 4-AP activation;
+- no damaging attack that activation;
+- `10% of Max Core Energy`;
+- `+20 Core Strain`;
+- visible telegraph;
+- marks Berserk episode used.
 
-Important invariants:
+### Active drain
+
+Every later active Berserk activation:
+- `5% Max Core Energy` before action selection;
+- `+10 Core Strain`.
+
+Attack Core surcharge / strain:
+- Horn Charge `5% / +12`;
+- Head Sweep/Gore `2% / +5`;
+- Shoulder Ram `4% / +8`;
+- Foreleg Stomp `2% / +4`;
+- Tail Sweep `3% / +6`.
+
+An attack is illegal if paying its Berserk surcharge would reduce Energy to zero/below.
+
+### Strain scale
+
+First-slice Monster 01 strain is normalized to `0..100` for authoritative state/trace.
+
+Bands:
+- 0–39 low/normal;
+- 40–69 elevated;
+- 70–79 high;
+- 80–100 critical.
+
+Strain does not secretly modify damage, accuracy or Initiative. It participates in critical-exit logic, presentation and later recovery/Crystal-condition integration.
+
+### Critical exit/death
+
+`BERSERK_CRITICAL = core_energy_ratio <= 0.12 OR core_strain >= 80`.
+
+If critical + legal retreat + no active Nest Defense:
+- Berserk ends to `EXHAUSTED_CRITICAL`;
+- no Berserk activation drain that activation;
+- episode-used remains true.
+
+If critical while retreat is unavailable or Nest Defense persists:
+- Berserk continues;
+- continued drain can kill the creature.
+
+At `core_energy_current <= 0`, death is immediate and authoritative.
+
+## Berserk capability boundaries
+
+Berserk is not regeneration.
+
+Mandatory:
 - broken horns stay broken;
 - severed tail stays severed;
 - damaged legs stay damaged;
-- berserk cannot recreate armor plates;
-- zero usable core energy means death.
+- broken plates stay broken;
+- disabled attacks remain disabled;
+- terrain/cover/clearance/status legality remains active;
+- no extra normal turn;
+- no second damaging attack per activation;
+- existing reaction windows remain.
 
-## Baseline ecological adaptation
+Berserk increases commitment/aggression through explicit AP discounts and Core expenditure on the five existing attacks, not unrelated magic attacks.
 
-The base species already has non-mutation/common inherited adaptations for Region 01:
+## Baseline ecological adaptations
+
+Normal inherited species traits:
 - broad mud-capable feet;
 - strong forequarters for rooting/charge;
 - mineralized horn/plate tissues;
-- scent/ground-reading behavior appropriate to dense basin terrain.
+- basin-appropriate scent/ground-reading behavior.
 
-These should not all be called rare mutations. Mutation is reserved for meaningful divergence from the baseline species package.
+These are baseline species adaptations, not rare mutations.
 
 ## Mutation Variant A — Mirestep Pads
 
-Working mutation ID:
-`mutation_raker_mirestep`
+ID: `mutation_raker_mirestep`
 
 Concept:
 - broader flexible toe pads;
-- deeper textured underside;
-- slightly wider stance;
-- reduced mud movement/footing penalty through the shared effect system.
-
-Visual effect:
-- visible but restrained foot anatomy change;
-- no unrelated color transformation.
-
-Behavior consequence candidate:
-- more willing to use River Ford/Mud Flats as chase/escape territory.
-
-Harvest consequence candidate:
-- altered pad/tendon material only if the global harvest system approves a useful material.
+- reduced mud movement/footing penalty through shared terrain effects;
+- more willingness to use S01 River/Mud routes when deterministic behavior rules support it.
 
 ## Mutation Variant B — Bastion Plates
 
-Working mutation ID:
-`mutation_raker_bastion_plates`
+ID: `mutation_raker_bastion_plates`
 
 Concept:
-- enlarged/thicker dorsal and shoulder mineral plates;
-- stronger protection but increased burden/turning cost candidate.
-
-Visual:
-- noticeably higher broken-stone plate silhouette;
-- still recognizably the same species.
-
-Gameplay:
-- stronger plate protection;
-- potentially slower rapid repositioning;
-- breaking plates becomes more valuable tactically;
-- material yield/quality changes according to actual remaining plate mass.
+- enlarged/thicker dorsal/shoulder mineral plates;
+- stronger protection with burden/turning tradeoff candidate;
+- breaking plates remains tactically meaningful.
 
 ## Mutation Variant C — Deep-Scent Crest
 
-Working mutation ID:
-`mutation_raker_deepscent`
+ID: `mutation_raker_deepscent`
 
 Concept:
-- enlarged nasal/sensory folds/crest around upper muzzle and skull base;
-- improved detection/tracking of nearby actors through scent/ground disturbance under suitable conditions.
-
-Visual:
-- changed muzzle/crest shape rather than glowing magic effect.
-
-Behavior:
-- may detect concealed hunter sooner in favorable wind/terrain conditions when the global sensory system supports it.
-
-Do not give omniscient player location.
+- enlarged sensory structures around muzzle/skull base;
+- improved detection under supported wind/terrain/sensory rules;
+- never omniscient player tracking.
 
 ## Mutation Variant D — Resonant Core Veins
 
-Working mutation ID:
-`mutation_raker_resonant_veins`
+ID: `mutation_raker_resonant_veins`
 
 Concept:
-- stronger crystal-to-mineral vascular integration around plate/horn roots;
-- higher overdrive output but faster strain/energy consumption candidate.
+- stronger Crystal-to-mineral integration;
+- higher overdrive output/faster strain/energy consumption candidate;
+- stronger visible seam response during Berserk.
 
-Visual:
-- subtle mineral vein network visible at rest;
-- brighter/clearer during berserk;
-- never a full glowing body.
+Important: the base first-slice Berserk numbers above apply to the baseline Raker. Any mutation-specific Berserk modification requires an explicit later extension; this file does not silently change those costs yet.
 
-Gameplay candidate:
-- stronger berserk actions;
-- faster life-force depletion;
-- potentially greater risk of crystal structural damage under overload.
+## Mutation support rules
 
-## Mutation incompatibility/support candidates
-
-To keep mutation bounded:
-- Bastion Plates and extreme Mirestep widening may compete for support/burden budget;
-- Resonant Core Veins requires sufficient crystal quality/stability candidate;
-- no creature automatically receives every positive variant;
-- regional pressure influences probability but does not bypass prerequisites.
-
-Exact support-cost numbers remain open.
-
-## Regional pressure relationship
-
-Region 01 candidate pressures:
-- S01 River/Mud: favors mud/footing adaptation;
-- S04 Rocky Rise / S06 Crystal Fault: favors mineral/plate/core-expression variants;
-- S05 dense Deepwood: may favor sensory/navigation adaptations.
-
-These are tendencies, not guaranteed sector-specific spawn skins.
-
-## Mutation sheet requirement
-
-`MONSTER_01_M05_CRYSTAL_MUTATION_VARIANTS_v001.png` should show the same base species in consistent neutral side/3/4 presentation:
-1. baseline;
-2. Mirestep Pads;
-3. Bastion Plates;
-4. Deep-Scent Crest;
-5. Resonant Core Veins / restrained berserk presentation.
-
-Generated visual differences are reference candidates. Exact gameplay effects remain owned by data/effect definitions.
-
-## 3D implementation implications
-
-Preferred mutation implementation hierarchy:
-- material/mask parameter when shape does not change;
-- modular/swappable mesh region when anatomy changes locally;
-- shape key/morph only if it deforms safely across LOD/rig;
-- separate whole-body mesh only when mutation fundamentally changes topology and the content cost is justified.
-
-For the first slice, avoid requiring five entirely independent rigs.
+- no individual automatically receives every positive mutation;
+- regional pressure affects probability/eligibility, not instant buffs;
+- mutation must preserve species identity;
+- exact support costs remain open.
 
 ## Harvest relationship
 
-Mutations may alter:
-- material family;
-- material capacity;
-- quality;
-- rarity/research value;
-- crystal condition/value.
+Mutations/Crystal state may alter:
+- material family/capacity/quality;
+- research value;
+- Crystal condition/value.
 
 They never create material beyond actual anatomy/capacity.
+
+Berserk strain/Energy depletion may later influence Crystal condition/harvest value through an explicit harvest/Crystal integration rule. The first Berserk contract records the state but does not invent final harvest formulas.
 
 ## Current selected vs open
 
 SELECTED:
-- provisional mineral/earth expression;
-- internal core;
-- restrained visual energy;
-- berserk consumes life force;
-- four mutation concepts for reference exploration;
-- mutations preserve species lineage.
+- provisional Mineral/Earth expression;
+- internal life-force Core;
+- restrained visual energy language;
+- exact first-slice Berserk entry/energy/strain/critical-exit rules;
+- four mutation concepts;
+- mutation preserves species lineage.
 
 OPEN:
 - final element name/ID;
-- exact crystal tier/rank/quality;
-- exact energy reserve/recovery;
-- exact berserk cost/thresholds;
-- final mutation support costs;
-- exact harvest outputs.
+- exact Crystal Tier/Rank/Quality;
+- absolute Max Core Energy/recovery;
+- post-hunt strain recovery;
+- mutation support costs;
+- exact harvest outputs;
+- mutation-specific Berserk numerical overrides.
+
+`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
+`MONSTER_01_BERSERK_RUNTIME_IMPLEMENTED = NO`

@@ -42,7 +42,7 @@ Automated protocol revision:
 Workflow `33811355891`: SUCCESS.
 
 Automated gates:
-`154/154 static`, `8/8 Monster collision`, `12/12 boundary`, `17/17 view continuity`, `47/47 lifecycle`, `20/20 performance telemetry`, Godot parse/smoke PASS, Android export/APK integrity/artifact upload PASS.
+154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; Godot parse/smoke PASS; Android export/APK integrity/artifact upload PASS.
 
 Inner APK:
 `57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
@@ -56,70 +56,82 @@ Phone regression + 24-minute sustained run remain deferred.
 Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-## Combat/gameplay foundation
+## Generic combat foundation
 
-Seven generic combat contracts are recorded:
-1. Action Economy;
-2. Combat Resolution;
-3. Field Poleblade;
-4. Stamina;
-5. Initiative / Turn Order;
-6. First-Slice Status Set;
-7. First-Slice Terrain Effect Set.
+Seven reusable contracts are recorded:
+Action Economy / Combat Resolution / Field Poleblade / Stamina / Initiative / Status Set / Terrain Set.
 
-They define the reusable mechanics. Monster-specific attacks do not belong in the generic combat folder.
+They define shared mechanics. Monster-specific attacks and Berserk values belong in Monster 01's content package.
 
-## Monster 01 normal combat packet
+## Monster 01 — Mudcrest Raker
 
-Monster 01 — Mudcrest Raker.
-
-Read in this order:
+Read in this order when relevant:
 1. `docs/30_content/monsters/MONSTER_01/README.md`;
 2. `ANATOMY_AND_DAMAGE.md`;
 3. `COMBAT_ATTACK_PACKET.md`;
-4. `BEHAVIOR_AND_REGION.md`;
-5. `CRYSTAL_AND_MUTATION.md` when Crystal/berserk state is relevant.
+4. `BERSERK_PROTOTYPE_CONTRACT.md`;
+5. `BEHAVIOR_AND_REGION.md`;
+6. `CRYSTAL_AND_MUTATION.md`.
 
-Normal attack packet:
-- Horn Charge — 4 AP / 30 Stamina;
-- Head Sweep/Gore — 2 / 14;
-- Shoulder Ram — 3 / 22;
-- Foreleg Stomp — 2 / 12;
-- Tail Sweep — 3 / 18.
+Normal attacks:
+- Horn Charge 4 AP / 30 Stamina;
+- Head Sweep/Gore 2 / 14;
+- Shoulder Ram 3 / 22;
+- Foreleg Stomp 2 / 12;
+- Tail Sweep 3 / 18.
 
-Core Monster 01 attack laws:
-- internal 4-AP normal activation budget;
-- max one damaging attack per activation;
-- no attack ignores destroyed anatomy;
-- all selected normal attacks have authoritative telegraphs/reaction windows;
-- no separate random status-proc roll;
-- no normal attack spends Crystal Energy by default;
-- behavior selects only currently legal attacks;
-- physical cover/terrain clearance cannot be bypassed by animation.
+Normal laws:
+- internal 4 AP;
+- max one damaging attack;
+- anatomy/terrain/cover legality authoritative;
+- normal attacks do not spend Crystal Energy;
+- behavior chooses only legal attacks.
 
-Examples:
-- full Horn Charge disappears when horn/forequarter capability is lost;
-- both horns broken make Head Sweep/Gore an impact-only Head Sweep;
-- severed distal tail removes Tail Sweep;
-- full Horn Charge cannot be normally Poleblade-Blocked/Parried.
+### Berserk now recorded
 
 Authority:
-`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
+`BERSERK_PROTOTYPE_CONTRACT.md`.
+
+Entry:
+- one episode/hunt until explicit ecological reset;
+- Energy >20% and <=60%;
+- plus Retreat Denied, Nest Defense or Severe Anatomy;
+- Severe Anatomy requires at least two major capability losses;
+- no HP-only/random trigger.
+
+Transition:
+- full activation;
+- no attack same activation;
+- 10% Max Core Energy;
+- +20 strain;
+- visible telegraph.
+
+Active:
+- each later activation 5% Max Core Energy +10 strain;
+- attack Core surcharges 5/2/4/2/3% for Charge/Head/Ram/Stomp/Tail;
+- Berserk AP 3/2/2/2/2;
+- Stamina unchanged;
+- still max one damaging attack;
+- no extra turns/reaction removal/anatomy restoration.
+
+Critical:
+`Energy <=12% OR strain >=80`.
+
+Critical + legal retreat + no active Nest Defense exits to `EXHAUSTED_CRITICAL`; otherwise the monster may continue burning life force. Zero Core Energy means death.
 
 Pass record:
-`docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`.
+`docs/70_handoff/MONSTER_01_BERSERK_PROTOTYPE_PASS_2026-09-03.md`.
 
 No combat runtime is claimed.
 
 ## Current planned sequence
 
 Completed:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet`.
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype`.
 
 Next:
-`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`
-→ Solo/Party baseline
-→ Defeat/Retreat baseline
+`SOLO_PARTY_BASELINE_CONTRACT`
+→ `DEFEAT_RETREAT_BASELINE_CONTRACT`
 → implementation after prerequisite engine/domain gates.
 
 ## Exact continuation
@@ -128,8 +140,8 @@ Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Active non-phone action:
-`MONSTER_01_BERSERK_PROTOTYPE_CONTRACT`.
+`SOLO_PARTY_BASELINE_CONTRACT`.
 
-That pass may define only berserk entry, Crystal Energy/strain drain, visible tell, bounded changes to existing anatomy-legal attack availability/commitment/priority, and stop/critical/death behavior.
+That pass must define only first-slice solo-vs-party participation, control authority, party-size assumptions and scheduler/turn ownership.
 
-Do not combine it with party design, defeat/retreat resolution or production implementation.
+Do not combine it with defeat/retreat resolution or production implementation.
