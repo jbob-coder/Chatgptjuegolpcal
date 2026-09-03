@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 JOYSTICK + SETTINGS + LOOK SPEED APK VERIFIED / GALAXY A03s RETEST PENDING
+Status: STAGE 1 HEADING-RESET JOYSTICK APK VERIFIED / GALAXY A03s RETEST PENDING
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
@@ -8,9 +8,11 @@ Last reconciled: 2026-09-03
 Finish the starting/foundation elements before broad game construction.
 
 Immediate objective:
-**phone-test the current analog-joystick + Settings/Look-Speed APK on the Samsung Galaxy A03s.**
+**phone-test the current heading-reset analog-joystick APK on the Samsung Galaxy A03s.**
 
-After that passes, next bounded implementation repair:
+The joystick now resets its forward reference to the Hunter's current heading on each new touch gesture.
+
+After this control behavior passes on phone, the next bounded implementation repair is:
 **solid collision for the brown Monster placeholder.**
 
 Implementation is authorized, but Stage 2/domain/combat source remains behind readiness gates and EVOLVE.
@@ -18,11 +20,11 @@ Implementation is authorized, but Stage 2/domain/combat source remains behind re
 Current probe root:
 `probes/android_stage1/`
 
-Current protected control-camera authority:
+Protected control-camera authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
 
 Current specialized handoff:
-`docs/70_handoff/STAGE1_CONTROL_CAMERA_REFINEMENT_2026-09-03.md`
+`docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`
 
 Mandatory law:
 **read the current repository copy of `EVOLVE_ALIGNMENT.md` before every bounded pass.**
@@ -38,13 +40,13 @@ Mandatory law:
 5. `DOCUMENTATION_INDEX.md`
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-8. `docs/70_handoff/STAGE1_CONTROL_CAMERA_REFINEMENT_2026-09-03.md`
-9. `probes/android_stage1/README.md`
-10. `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
-11. `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
+8. `docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`
+9. `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
+10. `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
+11. `probes/android_stage1/README.md`
 12. owning package/source for the exact bounded task.
 
-Use current repository/source and direct phone evidence rather than old WorldLife source or stale chat summaries.
+Use current source and direct phone evidence rather than old WorldLife source or stale chat summaries.
 
 ---
 
@@ -90,63 +92,65 @@ The instantaneous FPS sample is not sustained-performance verification.
 
 ## DIRECT USER CONTROL/CAMERA FEEDBACK
 
-The first heading-follow build established:
-- heading-follow camera direction was conceptually correct;
-- camera turned too aggressively;
-- user prefers an analog joystick to the four touch arrow keys;
-- user requested a Settings button;
-- Settings should be tabbed;
-- Controls tab should expose `Look Speed`;
-- setting must be saved;
-- this control/camera decision must be documented/protected from silent future change.
-
-Separate known defect remains:
-- Hunter can move through the brown Monster placeholder.
+Confirmed through phone testing:
+- heading-follow camera direction is preferred over fixed world-forward framing;
+- the original heading-follow response was too aggressive;
+- analog joystick is preferred to four arrow buttons;
+- Settings button/tabbed overlay/Look Speed are desired;
+- Look Speed must persist;
+- after turning east, the prior analog control still required holding an absolute east direction to continue walking straight;
+- user wants joystick direction to reset/alignment to the Hunter's current heading;
+- Hunter can still move through the brown Monster placeholder on the earlier phone build.
 
 ---
 
-## CURRENT PROTECTED CONTROL-CAMERA BASELINE
+## PROTECTED CONTROL-CAMERA BASELINE
 
 Authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
 
-Implemented:
+Protected behavior now includes:
 - lower-left analog movement joystick;
-- analog magnitude/deadzone;
-- release resets movement;
-- diagonal/partial travel supported by source;
-- desktop WASD retained for development;
-- Hunter faces non-zero movement direction;
+- analog magnitude/deadzone (`0.12` prototype deadzone);
+- release resets movement/knob;
+- partial + diagonal movement;
+- desktop WASD development fallback;
+- Hunter faces resolved world movement;
 - aerial camera follows/trails Hunter heading;
-- camera stays synchronized while first person is active;
+- camera remains synchronized while first person is active;
 - top-right Settings button;
 - tabbed Settings overlay;
 - Controls tab with Look Speed;
-- Display placeholder tab only;
 - default Look Speed `35%`;
-- Look Speed changes turn/follow response rather than movement speed;
-- Look Speed auto-saves through `ConfigFile`;
-- settings file `user://stage1_settings.cfg`;
-- key `controls/look_speed`;
-- opening Settings resets movement.
+- persistence through `user://stage1_settings.cfg`, key `controls/look_speed`;
+- opening Settings resets movement;
+- **each new joystick touch captures the Hunter's current forward/right basis**;
+- that basis remains stable during the active gesture;
+- release/re-touch resets the joystick forward reference to the Hunter's latest heading.
 
-Protected-behavior law:
-**do not silently remove, replace or materially retune this joystick/settings/look-speed/camera contract. Read the protected README and explicitly document/warn about any future reason for changing it.**
+Example protected behavior:
+`face north → push right → turn/move east → release → touch again → push up → continue east/forward`.
 
-The static preflight also enforces the protected baseline and rejects restoration of the old Up/Down/Left/Right Button nodes.
+No-silent-change law:
+**do not silently remove, replace or materially retune the joystick/settings/look-speed/heading-reset/camera contract. Read the protected README and explicitly document/warn about any future reason for changing it.**
+
+Static preflight enforces the protected baseline.
 
 ---
 
 ## CURRENT CONTROL BUILD VERIFICATION
 
-Exact tested revision:
-`1a90569e4b625c929274dffbeaf4f9ede368fe43`
+Heading-reset source commit:
+`9d9e83898616e16c902d0d3caf8e9c82253bf8a7`
+
+Exact build revision:
+`2e112210c60b62335f94adfd1a1573afb81426f6`
 
 Workflow run:
-`33781148418`
+`33783404093`
 
 Results:
-- static preflight `147 / 147 PASS`;
+- static preflight `151 / 151 PASS`;
 - Godot 4.7.2 import/parse PASS;
 - Boot headless smoke PASS;
 - ProbeWorld headless smoke PASS;
@@ -154,38 +158,38 @@ Results:
 - APK archive integrity PASS.
 
 Phone retest APK:
-`UnnamedHuntRPG-Stage1Probe-joystick-settings.apk`
+`UnnamedHuntRPG-Stage1Probe-heading-reset.apk`
 
 Size:
 `57,570,361 bytes`
 
 SHA-256:
-`afb007424b9abfc6108b5759b2bbe974ae1db754b45b71fab58ca927a227a3cd`
+`1727750c3fc1f8385ed8c9bf1e4ccc3c559cede156e750380a1ff462c2bcfa8c`
 
-Current control APK is build-verified, not yet phone-control-verified.
+Current APK is build-verified, not yet phone-control-verified.
 
 ---
 
 ## EXACT NEXT IMPLEMENTATION PIECE
 
-Use the current APK on the Galaxy A03s and test only the new control/camera refinement:
-1. partial joystick travel;
-2. full joystick travel;
-3. diagonal movement;
-4. release and verify immediate stop/no stuck state;
-5. open Settings while moving and verify movement resets;
-6. Controls tab → test Look Speed low/high;
-7. select preferred Look Speed;
-8. restart app and verify the value persisted;
-9. verify camera is no longer too aggressive at the preferred value;
-10. verify AERIAL ↔ FIRST PERSON still preserves physical position.
+Test the current APK on the Galaxy A03s:
+1. face initial direction;
+2. push joystick right until Hunter turns/moves east;
+3. release;
+4. touch again and push joystick up;
+5. verify Hunter continues east/forward;
+6. repeat for other headings;
+7. verify held input does not curve into continuous circling;
+8. verify partial/diagonal movement still works;
+9. verify Settings + Look Speed persistence still work;
+10. verify aerial ↔ first-person preserves physical position.
 
-Only after that bounded retest is green should the next repair begin, unless the user explicitly supersedes the sequence.
+Only after that bounded retest is green should the next repair begin unless the user explicitly supersedes the sequence.
 
 Next separate repair:
 **MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR**.
 
-Do not expand that future repair into combat, Monster AI, damage, navigation, harvesting, or production physics.
+Do not expand that repair into combat, Monster AI, damage, navigation, harvesting, or production physics.
 
 ---
 
@@ -193,7 +197,7 @@ Do not expand that future repair into combat, Monster AI, damage, navigation, ha
 
 Before making the game broadly:
 1. joystick/input reliability;
-2. movement/facing coherence;
+2. movement/facing/reference-frame coherence;
 3. camera/look-speed coherence;
 4. solid obstacle collision;
 5. world-boundary regression;
@@ -239,14 +243,12 @@ Hunter Base 01:
 Monster 01 — Mudcrest Raker:
 ~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted feet; legal distal tail sever; internal life crystal; deterministic behavior contract.
 
-These do not require final production assets for the current Stage-1 gate.
-
 ---
 
 ## CURRENT GATE TRUTH
 
 `IMPLEMENTATION_AUTHORIZED = YES`
-`STATIC_PREFLIGHT_VERIFIED = YES / 147_OF_147_CURRENT_CONTROL_BUILD`
+`STATIC_PREFLIGHT_VERIFIED = YES / 151_OF_151_CURRENT_CONTROL_BUILD`
 `GODOT_PARSE_VERIFIED = YES`
 `HEADLESS_BOOT_SMOKE_VERIFIED = YES`
 `HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
@@ -255,17 +257,18 @@ These do not require final production assets for the current Stage-1 gate.
 `GALAXY_A03S_INSTALL_VERIFIED = YES_ON_PRIOR_STAGE1_APKS`
 `PHONE_RUNTIME_VERIFIED = PARTIAL`
 `ANALOG_JOYSTICK_SOURCE_IMPLEMENTED = YES`
+`JOYSTICK_HEADING_RESET_SOURCE_IMPLEMENTED = YES`
+`JOYSTICK_HEADING_RESET_APK_BUILD_VERIFIED = YES`
+`JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / RETEST_PENDING`
 `LOOK_SPEED_SETTING_SOURCE_IMPLEMENTED = YES`
 `LOOK_SPEED_PERSISTENCE_IMPLEMENTED = YES`
 `CONTROL_CAMERA_PROTECTED_README = RECORDED`
-`CONTROL_CAMERA_CURRENT_APK_BUILD_VERIFIED = YES`
-`CONTROL_CAMERA_PHONE_RUNTIME_VERIFIED = NO / RETEST_PENDING`
 `MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-`NEXT_IMPLEMENTATION_ACTION = PHONE_RETEST_JOYSTICK_SETTINGS_LOOK_SPEED_APK`
+`NEXT_IMPLEMENTATION_ACTION = PHONE_RETEST_HEADING_RESET_JOYSTICK_APK`
 `NEXT_IMPLEMENTATION_AFTER_PASS = MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR`
 `NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
 
