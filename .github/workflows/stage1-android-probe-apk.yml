@@ -1,0 +1,135 @@
+name: Stage 1 Android Probe APK
+
+on:
+  push:
+    branches:
+      - worldlife-reference-docs
+    paths:
+      - ".github/workflows/stage1-android-probe-apk.yml"
+      - "probes/android_stage1/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stage1-android-probe-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT_PATH: probes/android_stage1
+  APK_NAME: UnnamedHuntRPG-Stage1Probe-debug.apk
+
+jobs:
+  build-android-debug:
+    name: Parse, smoke, and export Android debug APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    container:
+      image: barichello/godot-ci:4.7.2
+
+    steps:
+      - name: Checkout tested revision
+        uses: actions/checkout@v4
+
+      - name: Record build identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build-evidence
+          {
+            echo "branch=${GITHUB_REF_NAME}"
+            echo "commit=${GITHUB_SHA}"
+            echo "runner=${RUNNER_OS}/${RUNNER_ARCH}"
+            echo "container=barichello/godot-ci:4.7.2"
+            godot --version
+            java -version 2>&1 | head -n 1
+          } | tee build-evidence/build-identity.txt
+
+      - name: Static probe preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$PROJECT_PATH"
+          python3 tests/static_preflight.py | tee "$GITHUB_WORKSPACE/build-evidence/static-preflight.log"
+
+      - name: Ensure Android SDK 35 export tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "build-tools;35.0.1" "platforms;android-35"
+          {
+            echo "ANDROID_HOME=${ANDROID_HOME:-unset}"
+            sdkmanager --list_installed | grep -E "platform-tools|build-tools;35.0.1|platforms;android-35" || true
+          } | tee build-evidence/android-sdk.txt
+
+      - name: Godot import and parse gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --verbose --editor --path "$PROJECT_PATH" --quit 2>&1 | tee build-evidence/godot-import-parse.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file|ERROR:.*(parse|load|resource)" build-evidence/godot-import-parse.log; then
+            echo "Godot import/parse log contains a blocking error."
+            exit 1
+          fi
+
+      - name: Headless Boot smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          timeout 6s godot --headless --verbose --path "$PROJECT_PATH" > build-evidence/boot-smoke.log 2>&1
+          code=$?
+          set -e
+          cat build-evidence/boot-smoke.log
+          if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then
+            echo "Boot smoke exited unexpectedly with code $code"
+            exit "$code"
+          fi
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file" build-evidence/boot-smoke.log; then
+            echo "Boot smoke log contains a blocking error."
+            exit 1
+          fi
+
+      - name: Headless ProbeWorld smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          timeout 6s godot --headless --verbose --path "$PROJECT_PATH" res://scenes/probe_world.tscn > build-evidence/probeworld-smoke.log 2>&1
+          code=$?
+          set -e
+          cat build-evidence/probeworld-smoke.log
+          if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then
+            echo "ProbeWorld smoke exited unexpectedly with code $code"
+            exit "$code"
+          fi
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file|Node not found" build-evidence/probeworld-smoke.log; then
+            echo "ProbeWorld smoke log contains a blocking error."
+            exit 1
+          fi
+
+      - name: Export Android debug APK
+        shell: bash
+        env:
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: /root/debug.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
+        run: |
+          set -euo pipefail
+          mkdir -p build/android
+          godot --headless --verbose --path "$PROJECT_PATH" --export-debug "Android Debug" "$GITHUB_WORKSPACE/build/android/$APK_NAME" 2>&1 | tee build-evidence/android-export.log
+          test -s "build/android/$APK_NAME"
+          unzip -t "build/android/$APK_NAME" | tee build-evidence/apk-integrity.txt
+          sha256sum "build/android/$APK_NAME" | tee build-evidence/apk-sha256.txt
+          stat -c 'bytes=%s' "build/android/$APK_NAME" | tee build-evidence/apk-size.txt
+
+      - name: Upload APK and build evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: UnnamedHuntRPG-Stage1Probe-debug
+          path: |
+            build/android/UnnamedHuntRPG-Stage1Probe-debug.apk
+            build-evidence/
+          if-no-files-found: error
+          retention-days: 1
