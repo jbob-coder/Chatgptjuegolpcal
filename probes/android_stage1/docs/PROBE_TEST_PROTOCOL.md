@@ -1,6 +1,6 @@
 # Galaxy A03s Stage 1 Probe Test Protocol
 
-Status: TEST CONTRACT READY / NOT EXECUTED
+Status: TEST CONTRACT READY / STATIC PREFLIGHT HARNESS RECORDED / GODOT-PHONE EXECUTION NOT STARTED
 Last reconciled: 2026-09-02
 
 ## Purpose
@@ -20,7 +20,8 @@ stable 30 FPS minimum goal.
 
 Do not collapse these states:
 - `SOURCE_CREATED`;
-- `STATIC_READBACK_VERIFIED`;
+- `SOURCE_READBACK_VERIFIED`;
+- `STATIC_PREFLIGHT_VERIFIED`;
 - `GODOT_PARSE_VERIFIED`;
 - `EDITOR_RUN_VERIFIED`;
 - `APK_BUILD_VERIFIED`;
@@ -31,18 +32,43 @@ Do not collapse these states:
 
 A later state requires evidence from all relevant earlier states.
 
-## Test 0 — repository/readback
+`STATIC_PREFLIGHT_VERIFIED` is intentionally below `GODOT_PARSE_VERIFIED` because the Python harness is not a Godot parser.
+
+## Test 0 — repository/readback + static preflight
+
+From a real repository checkout, run from `probes/android_stage1/`:
+
+```bash
+python tests/static_preflight.py
+```
 
 Pass when:
 - all referenced scene/script paths exist;
 - project main scene exists;
 - project requests GL Compatibility for desktop/mobile;
+- expected 1600×720/landscape/frame-pacing settings remain present;
+- current scene external/sub-resource uses are declared;
+- current root scene scripts resolve;
+- connected signal methods exist;
+- current `@onready` node paths exist;
+- Boot/ProbeWorld root-script pairings remain correct;
 - probe is isolated under `probes/android_stage1/`;
-- no production gameplay source is mixed into the probe.
+- no unapproved extra GDScript source is mixed into the probe;
+- the script exits with code `0` and reports `STATIC_PREFLIGHT_VERIFIED`.
+
+Harness creation evidence:
+- current fetched source snapshot produced `81 / 81` PASS;
+- missing-scene negative test correctly failed;
+- unexpected-GDScript negative test correctly failed.
+
+Environment limitation:
+that creation-time execution used the current fetched source snapshot because this runtime cannot clone GitHub. Therefore a real-checkout Test 0 run remains required before promoting the repository state to `STATIC_PREFLIGHT_VERIFIED` for an actual checkout.
+
+A Test 0 PASS still does not prove that Godot accepts the project syntax/API usage.
 
 ## Test 1 — Godot import/parse
 
-Run with Godot 4.7.
+Run with Godot 4.7-family tooling.
 
 Pass when:
 - project opens;
@@ -162,9 +188,27 @@ Record before/after evidence.
 
 Do not remove gameplay-critical silhouette/readability first.
 
+## Evidence record template
+
+For every executed gate record:
+- date/time;
+- branch/commit SHA;
+- test gate number/name;
+- machine/device used;
+- Godot version when applicable;
+- exact command or editor action;
+- PASS/FAIL;
+- warnings/errors;
+- screenshots/logs/video references when available;
+- files changed to repair a failure;
+- rerun result.
+
+This prevents a later test from being attributed to the wrong source revision.
+
 ## Current Stage 1 acceptance
 
 `ENGINE_PHONE_PROBE_VERIFIED` may pass only when:
+- static repository preflight passes in the tested checkout;
 - parse/editor smoke passes;
 - Android build/install passes;
 - phone runtime behavior passes;
@@ -189,7 +233,10 @@ Do not switch engines merely because the first configuration is imperfect. Switc
 ## Current truth
 
 `TEST_PROTOCOL_RECORDED = YES`
-`TEST_EXECUTION_STARTED = NO`
+`STATIC_PREFLIGHT_HARNESS = RECORDED`
+`HARNESS_LOGIC_SELF_TESTED = YES`
+`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 81_OF_81_PASS`
+`REAL_CHECKOUT_PREFLIGHT_RUN = PENDING`
 `GODOT_PARSE_VERIFIED = NO`
 `EDITOR_RUN_VERIFIED = NO`
 `APK_BUILD_VERIFIED = NO`
