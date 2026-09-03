@@ -132,23 +132,46 @@ Do not add real combat to the probe before this gate closes.
 Completed bounded combat-design authorities:
 - `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`;
 - `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
-- `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`.
+- `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`;
+- `docs/20_gameplay/combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`.
 
 Recorded first weapon family:
 - `WEAPON_FAMILY_FIELD_POLEBLADE`;
 - working name Field Poleblade;
-- two-handed long-hafted hunting blade;
-- cutting/sever primary identity;
-- piercing/control secondary identity;
-- limited impact capability;
+- cutting/sever primary;
+- piercing/control secondary;
+- limited impact;
 - directional Guard and restricted Parry;
-- intentional weaknesses at dedicated hard-structure break, cramped fighting and shield-level defense;
-- first technique packet integrates 2 AP / 3 AP / 4 AP action bands and explicit hit-quality/fallback policies.
+- 2/3/4 AP technique packet with explicit hit-quality/fallback policies.
+
+Recorded first-slice Stamina prototype:
+- neutral test Max Stamina `100`;
+- passive recovery `+10` once at normal activation start;
+- reserve bands `READY / LOW / CRITICAL / EMPTY`;
+- low reserve uses affordability pressure rather than automatic hidden global accuracy/evasion penalties;
+- `CATCH_BREATH = 1 AP / +20 delayed / once per activation`;
+- Catch Breath cannot be paired with a damaging attack in the same activation;
+- no first-slice negative-Stamina overexertion;
+- stable adjacent reposition `0` Stamina baseline;
+- Dodge `14`, compatible Parry `10`, Brace `6`, reactive Brace `10`;
+- ordinary positive-cost reduction floor `max(1, ceil(base × 0.50))`;
+- Field Poleblade costs: `12 / 10 / 18 / 30 / 8` for Measured Cut / Driving Thrust / Placed Hew / Committed Cleave / Haft Check.
+
+Specificity law:
+where earlier Action Economy or Field Poleblade text says exact Stamina values were open, the dedicated Stamina contract now owns the first-slice prototype values. It does not supersede their non-Stamina rules.
 
 The next independent gameplay-design packet is:
-**Stamina Prototype Scale and Recovery Contract**.
+**Initiative and Turn-Order Prototype Contract**.
 
-That pass must define only the first-slice Stamina scale/recovery/cost bands and instantiate Field Poleblade exertion costs. Do not combine it with Initiative, status design, Monster 01 attacks or terrain numbers.
+That pass must define only:
+- first-slice initiative inputs;
+- deterministic ordering;
+- tie resolution;
+- round participation/entry/removal rules;
+- no-extra-turn invariant;
+- reproducible trace/testing.
+
+Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
 
 ## Status vocabulary
 
@@ -274,7 +297,9 @@ Do not overwrite/remove current authoritative source or documents merely to simp
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
 `FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
 `FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
+`STAMINA_PROTOTYPE_CONTRACT = RECORDED`
+`BASELINE_MAX_STAMINA = 100`
 
 `NEXT_IMPLEMENTATION_ACTION = GODOT_PARSE_AND_EDITOR_SMOKE_VERIFY_EXISTING_PROBE`
 
-`NEXT_INDEPENDENT_DESIGN_ACTION = STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
