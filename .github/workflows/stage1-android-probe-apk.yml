@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/stage1-android-probe-apk.yml"
       - "probes/android_stage1/**"
+      - "ci/stage1/**"
 
 permissions:
   contents: read
@@ -146,6 +147,17 @@ jobs:
             echo "ProbeWorld smoke log contains a blocking error."
             exit 1
           fi
+
+      - name: Headless aerial-first-person continuity regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/ci/stage1/state_continuity_test.gd" 2>&1 | tee build-evidence/state-continuity.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file|Node not found" build-evidence/state-continuity.log; then
+            echo "State-continuity regression log contains a blocking error."
+            exit 1
+          fi
+          grep -q "Gate: AERIAL_FIRST_PERSON_STATE_CONTINUITY_RUNTIME_VERIFIED" build-evidence/state-continuity.log
 
       - name: Export Android debug APK
         shell: bash
