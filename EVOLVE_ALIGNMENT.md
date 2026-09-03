@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 LIFECYCLE REVIEW COMPLETE / TRANSIENT INPUT RESET NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 LIFECYCLE TRANSIENT-INPUT BUILD VERIFIED / PERFORMANCE EVIDENCE PREPARATION NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -52,7 +52,7 @@ For runtime claims:
 → `MARK EXACT STATUS`
 → `SELECT EXACT NEXT PIECE`
 → `WRITE THAT NEXT PIECE INTO EVOLVE`
-→ `STATE THE SAME NEXT ACTION TO THE USER`
+→ `STATE THE SAME NEXT ACTION TO THE USER`.
 
 Never begin the next unrelated piece before closing the current verification/documentation boundary.
 
@@ -143,36 +143,44 @@ Deferred Galaxy A03s evidence currently includes:
 
 ## Current exact automated lineage
 
-Latest fully build-verified source piece:
-`c218b273a49dbdce78ce143698fd87d07bdd2643`
+Lifecycle implementation source commit:
+`9bcde8404d787180e399b9e44e89cc6760d31c3c`
 
 Workflow:
-`33807677829`
+`33809412041`
 
-Results:
-- protected static preflight `154 / 154 PASS`;
-- Monster collision guard `8 / 8 PASS`;
-- world-boundary guard `12 / 12 PASS`;
+Workflow conclusion:
+`SUCCESS`.
+
+Verified gates on that exact revision:
+- protected static preflight PASS (`154 / 154` existing protected suite);
+- Monster collision guard PASS (`8 / 8`);
+- world-boundary guard PASS (`12 / 12`);
 - Godot 4.7.2 import/parse PASS;
-- Boot smoke PASS;
-- ProbeWorld smoke PASS;
-- aerial↔first-person executable runtime regression `17 / 17 PASS`;
-- Android export PASS;
-- APK integrity PASS.
+- Boot headless smoke PASS;
+- ProbeWorld headless smoke PASS;
+- aerial↔first-person executable runtime regression PASS (`17 / 17`);
+- Android lifecycle transient-input executable runtime regression PASS (`47 / 47` by deterministic test definition);
+- Android debug export PASS;
+- APK archive integrity PASS;
+- build evidence/APK artifact upload PASS.
 
-APK:
-`UnnamedHuntRPG-Stage1Probe-debug.apk`
+Artifact:
+`UnnamedHuntRPG-Stage1Probe-debug`
 
-Size:
-`57,570,361 bytes`
+Artifact ID:
+`9914228633`
 
-SHA-256:
-`db046d03d778228e6343b5ada35f2fa9392a8c79c519d1e7cd58d632e701c6da`
+Artifact archive size:
+`57,122,507 bytes`.
 
-Current documentation reconciliation commit before lifecycle review:
-`01418118d0d3b3a44be147dbe1d3ad35a121fdb5`.
+Artifact archive digest:
+`sha256:7ccf8396616f85d582ec325e3c3b92829153864b1777eb2d170f0e222ef75687`.
 
-## Completed Stage-1 source/build foundation pieces
+Important:
+that digest/size describe the uploaded workflow artifact archive, not the inner APK. Do not relabel them as the APK SHA/size.
+
+## Completed Stage-1 foundation pieces
 
 ### Heading-reset joystick
 `JOYSTICK_HEADING_RESET_SOURCE_IMPLEMENTED = YES`
@@ -180,13 +188,13 @@ Current documentation reconciliation commit before lifecycle review:
 `JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / DEFERRED`
 
 ### Monster placeholder collision
-Representative `StaticBody3D` + matching `BoxShape3D` added without production Monster physics.
+Representative fixed `StaticBody3D` + matching `BoxShape3D` exists without production Monster physics.
 
 `MONSTER_COLLISION_STATIC_VERIFIED = YES / 8_OF_8`
 `MONSTER_COLLISION_APK_BUILD_VERIFIED = YES`
 `MONSTER_COLLISION_PHONE_VERIFIED = NO / DEFERRED`
 
-Current layout note:
+Layout note:
 full rear approach is unavailable because Monster rear extent is approximately `z=-8.4` and Hunter-center boundary is `z=-8.5`.
 
 ### World boundary
@@ -197,73 +205,66 @@ Existing phone-positive `PROBE_BOUNDS = 8.5` behavior was not retuned.
 `WORLD_BOUNDARY_CURRENT_APK_PHONE_VERIFIED = NO / DEFERRED`
 
 ### Aerial ↔ first-person continuity
-Executable test:
+Executable owner:
 `ci/stage1/state_continuity_test.gd`.
 
 `AERIAL_FIRST_PERSON_STATE_CONTINUITY_HEADLESS_VERIFIED = YES / 17_OF_17`
 `AERIAL_FIRST_PERSON_STATE_CONTINUITY_APK_BUILD_VERIFIED = YES`
 `AERIAL_FIRST_PERSON_STATE_CONTINUITY_PHONE_VERIFIED = NO / DEFERRED`
 
-## Lifecycle foundation review — current truth
-
+### Android lifecycle transient-input reset
 Specialized handoff:
-`docs/70_handoff/STAGE1_ANDROID_LIFECYCLE_FOUNDATION_REVIEW_2026-09-03.md`.
+`docs/70_handoff/STAGE1_ANDROID_LIFECYCLE_TRANSIENT_INPUT_RESET_2026-09-03.md`.
 
-Reviewed owners:
-- `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`;
-- `probes/android_stage1/project.godot`;
-- `probes/android_stage1/scripts/boot.gd`;
-- `probes/android_stage1/scripts/probe_world.gd`;
-- official Godot 4.7 Node/InputEventScreenTouch documentation.
+Source owner:
+`probes/android_stage1/scripts/probe_world.gd`.
 
-Confirmed source facts:
-- no lifecycle-triggered scene creation/autoload path exists;
-- Boot changes to ProbeWorld only through the explicit Start Probe action;
-- Look Speed already persists independently through ConfigFile;
-- view-continuity source is executable/headless verified;
-- no evidence currently justifies forcing aerial view, closing Settings, recreating scenes, or adding production save/lifecycle architecture.
+Executable regression:
+`ci/stage1/lifecycle_transient_input_test.gd`.
 
-Actual bounded risk:
-- `_joystick_touch_id` and `_joystick_vector` are transient active-touch state;
-- a matching release is normally required by `_input()` to call `_reset_joystick()`;
-- if Android pauses/defocuses before that release reaches the node, stale touch/vector state can survive and cause stuck movement or block the next touch.
+Behavior:
+- application pause;
+- application resume;
+- focus-out;
+- focus-in
+all route only transient joystick/touch state through existing `_reset_joystick()`.
 
-Godot 4.7 verified API surface:
-- `NOTIFICATION_APPLICATION_RESUMED = 2014` — Android/iOS;
-- `NOTIFICATION_APPLICATION_PAUSED = 2015` — Android/iOS;
-- `NOTIFICATION_APPLICATION_FOCUS_IN = 2016` — desktop/mobile;
-- `NOTIFICATION_APPLICATION_FOCUS_OUT = 2017` — desktop/mobile;
-- `InputEventScreenTouch.canceled` exists.
+Verified invariants in headless regression:
+- stale touch ID clears;
+- joystick vector clears;
+- Hunter transform does not change;
+- first-person/aerial state does not change;
+- camera ownership does not change;
+- Settings state does not change;
+- Look Speed does not change;
+- repeated notifications are idempotent;
+- no duplicate ProbeWorld node appears.
 
-Selected smallest correct behavior:
-**reuse `_reset_joystick()` on application pause/resume and focus-out/focus-in.**
+`LIFECYCLE_TRANSIENT_INPUT_SOURCE_IMPLEMENTED = YES`
+`LIFECYCLE_TRANSIENT_INPUT_HEADLESS_VERIFIED = YES / 47_OF_47`
+`LIFECYCLE_TRANSIENT_INPUT_APK_BUILD_VERIFIED = YES`
+`LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
 
-This is intentionally a transient-input cleanup only. It must not mutate Hunter transform, view state, Settings state, saved Look Speed, world boundary or Monster collision.
-
-`LIFECYCLE_FOUNDATION_REVIEW_COMPLETE = YES`
-`LIFECYCLE_SOURCE_CHANGE_MADE = NO`
-`LIFECYCLE_PHONE_VERIFIED = NO`
+Headless notification injection proves the source response contract; it does not prove Android OS lifecycle delivery, lock/unlock, crash/ANR or touch delivery behavior.
 
 ## Exact current implementation gate
 
-**ANDROID_LIFECYCLE_TRANSIENT_INPUT_RESET_IMPLEMENTATION_AND_HEADLESS_REGRESSION**
+`STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION`
 
-Bounded implementation scope:
-1. add the smallest lifecycle/focus notification handler in `probe_world.gd`;
-2. route all four relevant boundaries to the existing `_reset_joystick()`;
-3. add a separate executable Godot headless regression that seeds stale joystick state and injects lifecycle/focus notifications;
-4. verify transient input clears while Hunter transform, view state, Settings state and Look Speed remain unchanged;
-5. verify repeated notification handling is idempotent and does not create duplicate ProbeWorld nodes;
-6. rerun static/collision/boundary/view-continuity regressions, Godot parse/smoke, Android export and APK integrity;
-7. reconcile `PROBE_TEST_PROTOCOL.md` current counts/analog-control/lifecycle evidence;
-8. record phone background/resume + lock/unlock as still deferred.
+Bounded scope:
+1. read the current performance budget and Test 6 protocol;
+2. define one reproducible Galaxy A03s sustained-run procedure for frame pacing, thermal signal, input responsiveness and transition hitch;
+3. define exact evidence fields and pass/fail/stop conditions;
+4. prepare any non-invasive instrumentation/documentation needed without retuning gameplay/rendering costs;
+5. record the phone execution as deferred until device access exists;
+6. do not claim sustained performance from the existing one-frame `60 FPS / ~16.7 ms` screenshot.
 
-Do not add performance tuning, production lifecycle architecture, production save/load, combat or domain systems.
+Do not tune shadows, render scale, camera, controls, Monster detail or gameplay unless later measured performance evidence identifies a bounded failure.
 
 ## Remaining Stage-1 sequence
 
-1. lifecycle transient-input reset implementation + automated verification;
-2. prepare/execute sustained Galaxy A03s frame-pacing/thermal evidence when device access exists;
+1. sustained-performance evidence preparation;
+2. execute sustained Galaxy A03s performance/thermal procedure when device access exists;
 3. execute the deferred Galaxy A03s regression bundle when the user can test;
 4. repair only evidence-driven failures one bounded piece at a time;
 5. only then consider Stage 1 closed and Stage 2 production-domain implementation.
@@ -282,21 +283,21 @@ Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk, p
 
 ## Current gate truth
 
-`STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154_CURRENT_BUILD`
+`STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154`
 `MONSTER_COLLISION_STATIC = YES / 8_OF_8`
 `WORLD_BOUNDARY_STATIC = YES / 12_OF_12`
 `VIEW_CONTINUITY_HEADLESS = YES / 17_OF_17`
+`LIFECYCLE_TRANSIENT_INPUT_HEADLESS = YES / 47_OF_47`
 `GODOT_PARSE_VERIFIED = YES`
 `HEADLESS_BOOT_SMOKE_VERIFIED = YES`
 `HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
 `APK_BUILD_VERIFIED = YES`
 `PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
-`LIFECYCLE_FOUNDATION_REVIEW_COMPLETE = YES`
-`LIFECYCLE_PHONE_VERIFIED = NO`
+`LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-`NEXT_IMPLEMENTATION_ACTION = ANDROID_LIFECYCLE_TRANSIENT_INPUT_RESET_IMPLEMENTATION_AND_HEADLESS_REGRESSION`
-`NEXT_IMPLEMENTATION_AFTER_PASS = STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION`
+`NEXT_IMPLEMENTATION_ACTION = STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION`
+`NEXT_IMPLEMENTATION_AFTER_PASS = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
 `NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`

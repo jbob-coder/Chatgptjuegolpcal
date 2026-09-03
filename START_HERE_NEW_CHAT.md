@@ -18,7 +18,7 @@ Then read `PROJECT_HANDOFF.md`, this file, `DOCUMENTATION_INDEX.md`, the newest 
 
 ## Current phase
 
-**STAGE 1 ENGINE/ANDROID FOUNDATION — VIEW CONTINUITY BUILD VERIFIED / PHONE EVIDENCE DEFERRED / LIFECYCLE REVIEW NEXT**
+**STAGE 1 ENGINE/ANDROID FOUNDATION — LIFECYCLE TRANSIENT-INPUT BUILD VERIFIED / PHONE EVIDENCE DEFERRED / SUSTAINED-PERFORMANCE EVIDENCE PREPARATION NEXT**
 
 Implementation authorization is active inside the isolated probe. Later production stages remain controlled by readiness gates.
 
@@ -48,25 +48,26 @@ Candidate:
 - Samsung Galaxy A03s baseline;
 - stable 30 FPS representative-scene minimum target.
 
-Current automated build:
-- source commit `c218b273a49dbdce78ce143698fd87d07bdd2643`;
-- workflow `33807677829`;
-- static preflight `154/154 PASS`;
+Current lifecycle implementation lineage:
+- source commit `9bcde8404d787180e399b9e44e89cc6760d31c3c`;
+- workflow `33809412041` — SUCCESS;
+- protected static preflight PASS (`154/154` existing suite);
 - Monster collision guard `8/8 PASS`;
 - world-boundary guard `12/12 PASS`;
-- Godot parse PASS;
+- Godot 4.7.2 parse PASS;
 - Boot + ProbeWorld smoke PASS;
 - executable aerial↔first-person continuity `17/17 PASS`;
-- Android export + APK integrity PASS.
+- executable lifecycle transient-input regression `47/47 PASS` by deterministic test definition;
+- Android export + APK integrity PASS;
+- workflow artifact upload PASS.
 
-APK:
-`UnnamedHuntRPG-Stage1Probe-debug.apk`
+Artifact:
+- `UnnamedHuntRPG-Stage1Probe-debug`;
+- artifact ID `9914228633`;
+- artifact archive size `57,122,507 bytes`;
+- artifact archive digest `sha256:7ccf8396616f85d582ec325e3c3b92829153864b1777eb2d170f0e222ef75687`.
 
-Size:
-`57,570,361 bytes`
-
-SHA-256:
-`db046d03d778228e6343b5ada35f2fa9392a8c79c519d1e7cd58d632e701c6da`
+Do not treat the artifact archive digest/size as the inner APK digest/size.
 
 Prior Galaxy A03s evidence remains useful but does not automatically verify the current APK.
 
@@ -75,7 +76,7 @@ Godot remains a probe candidate until the full phone-foundation gate closes.
 ## Protected control-camera baseline
 
 Authority:
-`probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
+`probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
 Protected direction:
 - analog movement joystick;
@@ -100,7 +101,7 @@ Monster placeholder:
 - phone solidity still deferred.
 
 World boundary:
-- existing `±8.5 m` X/Z containment kept unchanged;
+- existing `±8.5 m` X/Z Hunter-center containment kept unchanged;
 - semantic regression guard/build verified;
 - current-build phone containment still deferred.
 
@@ -108,6 +109,12 @@ View continuity:
 - executable Godot regression verifies no Hunter transform drift and no stale aerial-camera revival through first-person transitions;
 - `17/17 PASS`;
 - phone visual/clipping/input verification still deferred.
+
+Lifecycle transient input:
+- application pause/resume and focus-out/focus-in route to the existing joystick reset only;
+- executable regression verifies transient touch/vector clearing while preserving Hunter transform, view/camera, Settings, Look Speed and single ProbeWorld ownership;
+- `47/47 PASS` by test definition;
+- Android OS background/resume + lock/unlock remains phone-deferred.
 
 ## Current explicit user instruction about phone testing
 
@@ -117,9 +124,13 @@ Record phone-only checks for later and continue with independent Stage-1 foundat
 
 ## Exact next implementation action
 
-**ANDROID_LIFECYCLE_BACKGROUND_RESUME_FOUNDATION_REVIEW**
+**STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION**
 
-This is review-first. Inspect the lifecycle test contract, current joystick/settings/view state ownership and official Godot pause/resume notification behavior. Then select and record the smallest lifecycle source/verification piece before coding it.
+Prepare one reproducible Galaxy A03s sustained frame-pacing/thermal evidence packet. This is preparation only; do not claim the sustained phone test executed.
+
+Read the current performance budget and Test 6 protocol, define the exact run sequence, evidence fields, pass/fail/stop rules, and only add non-invasive instrumentation if the existing metrics cannot support the evidence contract.
+
+Do not retune shadows, render scale, camera, controls, Monster detail or gameplay before measured performance evidence identifies a failure.
 
 ## Build readiness classes
 
@@ -133,7 +144,7 @@ Primary law:
 **an open question blocks only the earliest implementation gate that genuinely needs its answer.**
 
 Current state:
-- engine probe: active Stage-1 lifecycle/performance + deferred phone evidence;
+- engine probe: performance preparation + deferred phone evidence remain;
 - domain implementation: blocked by engine-phone foundation gate;
 - combat design: partial/advanced;
 - vertical slice: partial;
@@ -142,7 +153,7 @@ Current state:
 ## Recorded gameplay authorities
 
 Combat package:
-`docs/20_gameplay/combat/`
+`docs/20_gameplay/combat/`.
 
 Recorded:
 - 4 AP / 1 RP / persistent Stamina;
@@ -184,9 +195,11 @@ S00–S06 physical hunting sectors with tracking and persistent escape/reacquisi
 `MONSTER_COLLISION_STATIC = YES / 8_OF_8`
 `WORLD_BOUNDARY_STATIC = YES / 12_OF_12`
 `VIEW_CONTINUITY_HEADLESS = YES / 17_OF_17`
+`LIFECYCLE_TRANSIENT_INPUT_HEADLESS = YES / 47_OF_47`
 `GODOT_PARSE_VERIFIED = YES`
 `APK_BUILD_VERIFIED = YES`
 `PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
+`LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`

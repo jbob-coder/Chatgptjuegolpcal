@@ -1,6 +1,6 @@
 # Galaxy A03s Stage 1 Probe Test Protocol
 
-Status: TEST CONTRACT ACTIVE / AUTOMATED FOUNDATION BUILD VERIFIED THROUGH VIEW CONTINUITY / LIFECYCLE TRANSIENT-INPUT VERIFICATION ADDED
+Status: TEST CONTRACT ACTIVE / LIFECYCLE AUTOMATED BUILD VERIFIED / PHONE + SUSTAINED PERFORMANCE EVIDENCE DEFERRED
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -62,12 +62,12 @@ Pass when:
 - world-boundary source/geometry contract remains present;
 - each script exits with code `0` and its expected gate marker.
 
-Latest fully verified pre-lifecycle lineage:
-- protected static preflight `154 / 154 PASS`;
+Current lifecycle build evidence from workflow `33809412041` on source `9bcde8404d787180e399b9e44e89cc6760d31c3c`:
+- protected static preflight PASS (`154 / 154` existing suite);
 - Monster collision guard `8 / 8 PASS`;
 - world-boundary guard `12 / 12 PASS`.
 
-The lifecycle source pass must rerun these unchanged guards. A static PASS does not prove Godot accepts the new GDScript or that Android delivers lifecycle notifications as expected.
+A static PASS does not prove Android phone behavior.
 
 ## Test 1 — Godot import/parse
 
@@ -79,8 +79,8 @@ Pass when:
 - current GDScript parses;
 - no missing resource/node-path errors exist.
 
-Latest fully verified pre-lifecycle lineage:
-Godot 4.7.2 headless import/parse PASS.
+Current evidence:
+Godot 4.7.2 headless import/parse PASS on workflow `33809412041`.
 
 ## Test 2 — Boot / ProbeWorld smoke
 
@@ -89,7 +89,7 @@ Pass when:
 - ProbeWorld starts without a repeatable runtime error;
 - current scene/script/node ownership resolves.
 
-Latest fully verified pre-lifecycle lineage:
+Current evidence on workflow `33809412041`:
 - Boot headless smoke PASS;
 - ProbeWorld headless smoke PASS.
 
@@ -101,26 +101,29 @@ Automated build pass requires:
 - Android export preset remains valid;
 - debug APK export completes;
 - APK archive integrity passes;
-- APK size and SHA-256 are recorded.
+- build evidence is uploaded.
+
+Current automated evidence on workflow `33809412041`:
+- Android export PASS;
+- APK archive integrity PASS;
+- artifact upload PASS;
+- artifact name `UnnamedHuntRPG-Stage1Probe-debug`;
+- artifact ID `9914228633`;
+- artifact archive size `57,122,507 bytes`;
+- artifact archive digest `sha256:7ccf8396616f85d582ec325e3c3b92829153864b1777eb2d170f0e222ef75687`.
+
+The artifact archive digest/size are not the inner APK digest/size.
 
 Phone install/runtime pass additionally requires:
 - APK installs on Galaxy A03s;
 - launcher cold/normal launch reaches the probe without crash/ANR.
-
-Latest fully verified automated APK before the lifecycle source change:
-- source `c218b273a49dbdce78ce143698fd87d07bdd2643`;
-- workflow `33807677829`;
-- Android export PASS;
-- APK integrity PASS;
-- size `57,570,361 bytes`;
-- SHA-256 `db046d03d778228e6343b5ada35f2fa9392a8c79c519d1e7cd58d632e701c6da`.
 
 Prior Galaxy A03s install/runtime smoke exists on earlier Stage-1 APKs. It does not automatically verify later APKs.
 
 ## Test 4 — touch/orientation/control regression
 
 Pass on Galaxy A03s when:
-- landscape remains stable;
+- display remains landscape;
 - analog joystick responds reliably;
 - partial/diagonal input works;
 - releasing/re-touching captures the Hunter's latest heading;
@@ -149,7 +152,12 @@ Galaxy A03s still must verify:
 - first-person clipping/readability;
 - no physical-position drift.
 
-## Test 6 — representative performance
+## Test 6 — representative sustained performance
+
+Status:
+`PREPARATION NEXT / PHONE EXECUTION DEFERRED`.
+
+Authority also includes root `PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
 Use the same scene state for comparisons.
 
@@ -157,13 +165,13 @@ Observe at minimum:
 - FPS;
 - approximate frame time;
 - debug static memory where available;
-- frame-pacing instability;
+- visible frame-pacing instability;
 - input responsiveness;
 - transition hitch;
-- directional-shadow cost impression;
+- shadow-cost impression;
 - thermal degradation during sustained run.
 
-Suggested initial sustained sample:
+Existing rough sequence that the next bounded preparation pass must formalize:
 - 2 minutes Boot/initial load observation;
 - 5 minutes aerial movement;
 - 20 aerial↔first-person transitions;
@@ -178,9 +186,11 @@ Prior instantaneous Galaxy A03s sample:
 
 This is useful evidence but not `PERFORMANCE_VERIFIED`.
 
+Do not retune visual/gameplay costs before sustained evidence identifies an actual failure.
+
 ## Test 7 — lifecycle
 
-### Source risk being protected
+### Source risk protected
 
 Transient movement ownership lives in:
 - `_joystick_touch_id`;
@@ -190,7 +200,7 @@ If Android pauses/defocuses before a matching touch release reaches ProbeWorld, 
 
 ### Selected source behavior
 
-`probe_world.gd` must reuse `_reset_joystick()` when receiving:
+`probe_world.gd` reuses `_reset_joystick()` when receiving:
 - `NOTIFICATION_APPLICATION_PAUSED`;
 - `NOTIFICATION_APPLICATION_RESUMED`;
 - `NOTIFICATION_APPLICATION_FOCUS_OUT`;
@@ -210,17 +220,20 @@ This reset must not mutate:
 Executable owner:
 `ci/stage1/lifecycle_transient_input_test.gd`.
 
-The test must:
-1. instantiate the real ProbeWorld;
-2. put it into non-default first-person + Settings-open state;
-3. seed a nonzero joystick vector and active touch ID;
-4. inject each of the four lifecycle/focus notifications through `Object.notification()`;
-5. verify touch ID becomes `-1` and joystick vector becomes `Vector2.ZERO`;
-6. verify Hunter transform, view/camera ownership, Settings state and Look Speed remain unchanged;
-7. verify repeated notification delivery is idempotent;
-8. verify no duplicate ProbeWorld node is created.
+The test:
+1. instantiates the real ProbeWorld;
+2. puts it into non-default first-person + Settings-open state;
+3. seeds a nonzero joystick vector and active touch ID;
+4. injects each of the four lifecycle/focus notifications through `Object.notification()`;
+5. verifies touch ID becomes `-1` and joystick vector becomes `Vector2.ZERO`;
+6. verifies Hunter transform, view/camera ownership, Settings state and Look Speed remain unchanged;
+7. verifies repeated notification delivery is idempotent;
+8. verifies no duplicate ProbeWorld node is created.
 
-Expected CI gate marker:
+Current automated result:
+`47 / 47 PASS` by deterministic test definition on workflow `33809412041`.
+
+Gate marker:
 `ANDROID_LIFECYCLE_TRANSIENT_INPUT_RUNTIME_VERIFIED`.
 
 This headless test verifies the source response contract only. It does not prove Android OS lifecycle event delivery.
@@ -286,17 +299,17 @@ If a gate fails:
 
 Do not switch engines merely because the first configuration is imperfect. Switch only when evidence shows the engine/renderer cannot meet required behavior without unacceptable compromises.
 
-## Current truth before lifecycle CI readback
+## Current truth
 
 `TEST_PROTOCOL_RECORDED = YES`
-`STATIC_PREFLIGHT_PRE_LIFECYCLE = 154_OF_154_PASS`
+`STATIC_PREFLIGHT = 154_OF_154_PASS`
 `MONSTER_COLLISION_STATIC = 8_OF_8_PASS`
 `WORLD_BOUNDARY_STATIC = 12_OF_12_PASS`
 `VIEW_CONTINUITY_HEADLESS = 17_OF_17_PASS`
 `LIFECYCLE_TRANSIENT_INPUT_SOURCE_IMPLEMENTED = YES`
-`LIFECYCLE_TRANSIENT_INPUT_HEADLESS = PENDING_CURRENT_CI`
-`GODOT_PARSE_CURRENT_LIFECYCLE_SOURCE = PENDING_CURRENT_CI`
-`APK_BUILD_CURRENT_LIFECYCLE_SOURCE = PENDING_CURRENT_CI`
+`LIFECYCLE_TRANSIENT_INPUT_HEADLESS = 47_OF_47_PASS`
+`GODOT_PARSE_CURRENT_LIFECYCLE_SOURCE = PASS`
+`APK_BUILD_CURRENT_LIFECYCLE_SOURCE = PASS`
 `PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
 `LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
 `SUSTAINED_PERFORMANCE_VERIFIED = NO`

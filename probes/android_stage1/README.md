@@ -1,6 +1,6 @@
 # Stage 1 Android Engine Probe
 
-Status: LIFECYCLE TRANSIENT-INPUT RESET SOURCE IMPLEMENTED / AUTOMATED BUILD VERIFICATION IN PROGRESS / PHONE REGRESSION DEFERRED
+Status: LIFECYCLE TRANSIENT-INPUT BUILD VERIFIED / PHONE REGRESSION DEFERRED / SUSTAINED-PERFORMANCE EVIDENCE PREPARATION NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -106,36 +106,40 @@ Observed on earlier Stage-1 APKs:
 
 Current-build phone regression remains deferred by explicit user instruction; missing evidence is not PASS.
 
-## Latest fully verified automated lineage before lifecycle source change
+## Current lifecycle implementation lineage
 
 Source commit:
-`c218b273a49dbdce78ce143698fd87d07bdd2643`
+`9bcde8404d787180e399b9e44e89cc6760d31c3c`
 
 Workflow:
-`33807677829`
+`33809412041`
+
+Conclusion:
+`SUCCESS`.
 
 Results:
-- static preflight `154 / 154 PASS`;
+- static preflight PASS (`154 / 154` existing suite);
 - Monster collision `8 / 8 PASS`;
 - world boundary `12 / 12 PASS`;
-- Godot parse PASS;
+- Godot 4.7.2 parse PASS;
 - Boot + ProbeWorld smoke PASS;
 - aerial↔first-person executable regression `17 / 17 PASS`;
+- lifecycle transient-input executable regression `47 / 47 PASS` by deterministic test definition;
 - Android export PASS;
-- APK integrity PASS.
+- APK archive integrity PASS;
+- artifact upload PASS.
 
-APK:
-`UnnamedHuntRPG-Stage1Probe-debug.apk`
+Workflow artifact:
+- `UnnamedHuntRPG-Stage1Probe-debug`;
+- artifact ID `9914228633`;
+- artifact archive size `57,122,507 bytes`;
+- artifact archive digest `sha256:7ccf8396616f85d582ec325e3c3b92829153864b1777eb2d170f0e222ef75687`.
 
-Size:
-`57,570,361 bytes`
-
-SHA-256:
-`db046d03d778228e6343b5ada35f2fa9392a8c79c519d1e7cd58d632e701c6da`
+The artifact archive digest/size are not the inner APK digest/size.
 
 ## Current lifecycle source piece
 
-Selected owner:
+Owner:
 `scripts/probe_world.gd`.
 
 Implemented behavior:
@@ -151,21 +155,22 @@ if the OS interrupts an active touch before the release event reaches the node, 
 Executable verification:
 `ci/stage1/lifecycle_transient_input_test.gd`.
 
-The test seeds stale transient input and verifies the reset while preserving Hunter transform, first-person/camera ownership, Settings state, Look Speed and single-ProbeWorld ownership.
+The test seeds stale transient input and verifies the reset while preserving Hunter transform, first-person/camera ownership, Settings state, Look Speed and single-ProbeWorld ownership. Repeated notification delivery is idempotent.
 
-Phone background/resume and lock/unlock remain deferred and unverified until direct Galaxy A03s evidence exists.
+Phone background/resume, lock/unlock and crash/ANR behavior remain deferred and unverified until direct Galaxy A03s evidence exists.
 
-## Current gate truth before CI readback
+## Current gate truth
 
 `IMPLEMENTATION_AUTHORIZED = YES`
-`STATIC_PREFLIGHT_PRE_LIFECYCLE = YES / 154_OF_154`
+`STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154`
 `MONSTER_COLLISION_STATIC_VERIFIED = YES / 8_OF_8`
 `WORLD_BOUNDARY_STATIC_VERIFIED = YES / 12_OF_12`
 `VIEW_CONTINUITY_HEADLESS_VERIFIED = YES / 17_OF_17`
-`LIFECYCLE_TRANSIENT_INPUT_SOURCE_IMPLEMENTED = YES`
-`LIFECYCLE_TRANSIENT_INPUT_HEADLESS_VERIFIED = PENDING_CURRENT_CI`
-`GODOT_PARSE_CURRENT_LIFECYCLE_SOURCE = PENDING_CURRENT_CI`
-`APK_BUILD_CURRENT_LIFECYCLE_SOURCE = PENDING_CURRENT_CI`
+`LIFECYCLE_TRANSIENT_INPUT_HEADLESS_VERIFIED = YES / 47_OF_47`
+`GODOT_PARSE_VERIFIED = YES`
+`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
+`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
+`APK_BUILD_VERIFIED = YES`
 `JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / DEFERRED`
 `MONSTER_COLLISION_PHONE_VERIFIED = NO / DEFERRED`
 `WORLD_BOUNDARY_CURRENT_APK_PHONE_VERIFIED = NO / DEFERRED`
@@ -175,11 +180,13 @@ Phone background/resume and lock/unlock remain deferred and unverified until dir
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-## Exact next probe action after lifecycle CI passes
+## Exact next probe action
 
 `STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION`
 
 Prepare a bounded, reproducible Galaxy A03s sustained frame-pacing/thermal evidence packet without pretending it is executed until the phone is available.
+
+Do not preemptively retune shadows, render scale, camera, controls, Monster detail or gameplay before measured performance evidence identifies a failure.
 
 ## Scope stop
 
