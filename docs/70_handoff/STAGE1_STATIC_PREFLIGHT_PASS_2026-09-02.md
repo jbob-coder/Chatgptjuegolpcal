@@ -35,6 +35,10 @@ It checks:
 - key Stage 1 renderer/viewport/orientation/frame-pacing text;
 - `res://` source references;
 - scene ExtResource/SubResource declaration/use consistency;
+- duplicate external/sub-resource IDs;
+- one-root-node integrity;
+- duplicate node paths;
+- child-parent node-path validity;
 - root scene script resolution;
 - signal source/target node paths;
 - connected method existence;
@@ -65,8 +69,8 @@ Those still require their actual execution environments.
 
 The harness logic was executed against a local reconstruction of the exact currently fetched probe source files because the available execution environment cannot clone GitHub.
 
-Positive result:
-- `81 / 81` checks PASS;
+Positive result after regression hardening:
+- `123 / 123` checks PASS;
 - process exit code `0`;
 - reported gate `STATIC_PREFLIGHT_VERIFIED`.
 
@@ -79,6 +83,11 @@ Negative validation 2:
 - an unauthorized `scripts/rogue_gameplay.gd` was deliberately added;
 - harness returned exit code `1`;
 - source-boundary failure was reported.
+
+Negative validation 3:
+- a duplicate scene sub-resource ID was deliberately introduced;
+- harness returned exit code `1`;
+- duplicate-resource failure was reported.
 
 This demonstrates that the checker does not merely print PASS for the happy path.
 
@@ -141,7 +150,7 @@ This prevents test evidence from being detached from the tested source revision.
 `SOURCE_READBACK_VERIFIED = YES`
 `STATIC_PREFLIGHT_HARNESS = RECORDED`
 `HARNESS_LOGIC_SELF_TESTED = YES`
-`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 81_OF_81_PASS`
+`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 123_OF_123_PASS`
 `REAL_CHECKOUT_PREFLIGHT_RUN = PENDING`
 `GODOT_PARSE_VERIFIED = NO`
 `EDITOR_RUN_VERIFIED = NO`
