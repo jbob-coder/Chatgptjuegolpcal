@@ -1,6 +1,6 @@
 # 20_gameplay — Gameplay Systems
 
-Status: ACTIVE GAMEPLAY DESIGN MAP / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
+Status: ACTIVE GAMEPLAY DESIGN MAP / NINE GENERIC COMBAT CONTRACTS RECORDED / HARVEST BASELINE NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -41,7 +41,7 @@ Direction:
 ### Combat
 Front door: `combat/README.md`.
 
-Eight generic first-slice contracts now recorded:
+Nine generic first-slice contracts are recorded:
 1. Action Economy;
 2. Combat Resolution;
 3. Field Poleblade;
@@ -49,39 +49,45 @@ Eight generic first-slice contracts now recorded:
 5. Initiative/Turn Order;
 6. First-Slice Status Set;
 7. First-Slice Terrain Effect Set;
-8. Solo / Party Baseline.
+8. Solo / Party Baseline;
+9. Defeat / Retreat Baseline.
 
-Reusable baseline:
+Reusable baseline includes:
 - 4 AP / 1 RP / persistent Stamina;
 - deterministic contact/defense/hit quality;
 - deterministic Initiative/no random opener;
 - one normal activation max per eligible actor/round;
-- Bleeding/Staggered/Off-Balance/Braced/Guarded;
-- Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow;
-- solo-capable optional party framework;
-- max three active hunters for first-slice prototype;
-- player directly controls only their hunter;
-- companions use deterministic authored behavior plus bounded player orders;
-- independent per-actor AP/RP/Stamina;
-- no runtime generative companion AI;
+- first-slice status/terrain packets;
+- solo-capable optional parties up to three active Hunters;
+- deterministic companion behavior/orders;
+- Hunter Downed state without first-slice permanent death;
+- deterministic spatial withdrawal rather than random escape chance;
+- Monster escape preserving same persistent instance;
+- Monster death preserving final anatomy for harvest;
+- terminal encounter scheduler/persistence ownership;
 - presentation never owns gameplay resolution.
 
-## Solo / party selected baseline
+## Defeat / retreat selected baseline
 
 Authority:
-`combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
+`combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
 
 Selected:
-- solo completion remains mandatory;
-- optional companions allowed;
-- active party cap `3` hunters total;
-- no mid-combat body switching;
-- `ISSUE_COMPANION_ORDER` costs player `1 AP`, max one successful command action per player activation;
-- orders: Standard / Focus Part / Hold Position / Close Distance;
-- companions use the same Initiative scheduler and get one normal activation max each;
-- companion reactions are deterministic through their own RP/Stamina;
-- absent companions do not teleport into combat;
-- late entrants wait until next round.
+- Hunter Health `<=0` -> Downed;
+- no in-combat revive first slice;
+- player Hunter Downed ends encounter as Hunter defeat unless same boundary also kills Monster;
+- companion Downed alone does not end encounter;
+- `WITHDRAW_FROM_ENCOUNTER` costs 1 AP from a legal escape node;
+- party retreat declaration costs player 1 AP and companions withdraw using their own turns/resources;
+- Monster behavior owns retreat selection/route, outcome contract owns final escape completion;
+- Monster escape -> reacquisition;
+- Hunter voluntary withdrawal -> hunt remains active/disengaged;
+- Monster death -> hunt complete and later harvest reads final anatomy;
+- mutual terminal result is deterministic;
+- terminal encounter cannot reopen or duplicate actors/outcomes on reload.
+
+`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
+`DEFEAT_RETREAT_RUNTIME_IMPLEMENTED = NO`.
 
 ## Monster 01 content consumer
 
@@ -91,24 +97,30 @@ Package:
 Recorded content authorities:
 - `COMBAT_ATTACK_PACKET.md` — normal attacks;
 - `BERSERK_PROTOTYPE_CONTRACT.md` — Crystal-life-force desperation state;
-- anatomy/behavior/Crystal package files.
+- `BEHAVIOR_AND_REGION.md` — deterministic activity/combat/retreat route selection;
+- anatomy/Crystal package files.
 
 Monster 01 remains the first content consumer of the generic combat package.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`SOLO_PARTY_BASELINE_RECORDED = YES`
-`COMBAT_DESIGN_READINESS = PARTIAL / EIGHT_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
-
-Real combat source remains blocked by readiness gates.
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`
+`COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
 ## Exact next gameplay dependency
 
-`DEFEAT_RETREAT_BASELINE_CONTRACT`
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`
 
-That pass must stay limited to first-slice defeat, retreat/escape, monster defeat/escape, encounter termination, hunt continuation/failure and scheduler/persistence ownership.
+The next pass should create a local harvest gameplay package/front door if needed and define:
+- per-anatomy harvest capacity;
+- remaining usable mass/condition;
+- clean sever/break/destroy consequences;
+- carcass and detached-part depletion;
+- tool/knowledge/skill modifiers within physical capacity;
+- deterministic yield traces;
+- anti-duplication/persistence.
 
-Do not combine it with reward sharing, relationship systems or production implementation.
+Do not combine that pass with crafting/economy implementation.
 
 ## Existing root/system authorities
 
@@ -120,6 +132,6 @@ Do not combine it with reward sharing, relationship systems or production implem
 - `/NEW_GAME_MASTER_PLAN.md`.
 
 Specificity rule:
-`combat/SOLO_PARTY_BASELINE_CONTRACT.md` supersedes older open solo/party placeholders within its scope.
+current bounded contracts supersede older unresolved placeholders within their exact scope.
 
 Content/world packages configure shared gameplay definitions but do not silently override generic ownership.

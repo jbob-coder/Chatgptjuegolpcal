@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 PHONE GATE DEFERRED / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / NINE GENERIC COMBAT CONTRACTS RECORDED / HARVEST BASELINE NEXT
 Last reconciled: 2026-09-03
 
 This repository area belongs to the new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -15,7 +15,7 @@ The game connects three playable layers:
 3. first-person turn-based tactical combat from the same physical encounter, with explicit movement, cover, defense, attack and anatomy-targeting decisions.
 
 Core hunt loop:
-`PREPARE → LEAVE SETTLEMENT → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → MONSTER ESCAPES OR FALLS → REACQUIRE/HARVEST → RETURN → PROCESS → CRAFT/EQUIP/RESEARCH`.
+`PREPARE -> LEAVE SETTLEMENT -> ENTER REGION -> TRACK -> OBSERVE -> APPROACH -> ENGAGE -> POSITION -> TARGET ANATOMY -> BREAK/SEVER -> MONSTER ESCAPES OR FALLS -> REACQUIRE/HARVEST -> RETURN -> PROCESS -> CRAFT/EQUIP/RESEARCH`.
 
 Primary law:
 **documentation exists to keep the game coherent; the game is the objective.**
@@ -50,11 +50,11 @@ docs/
 Global map: `DOCUMENTATION_INDEX.md`.
 Documentation placement rules: `docs/README.md`.
 Combat front door: `docs/20_gameplay/combat/README.md`.
-Solo/party authority: `docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
+Defeat/retreat authority: `docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
 Monster 01 front door: `docs/30_content/monsters/MONSTER_01/README.md`.
 
 Every substantial pass must answer:
-`WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
+`WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 ## 4. Current Stage-1 engine/device state
 
@@ -87,14 +87,14 @@ Direct Galaxy A03s regression and 24-minute sustained run remain deferred.
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
 Blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-## 5. Generic combat foundation
+## 5. Combat design baseline
 
-Eight reusable first-slice contracts are recorded:
+Nine reusable first-slice contracts are now recorded:
 1. Action Economy;
 2. Combat Resolution / Hit Quality / Defense;
 3. Field Poleblade;
@@ -102,45 +102,49 @@ Eight reusable first-slice contracts are recorded:
 5. Initiative / Turn Order;
 6. First-Slice Status Set;
 7. First-Slice Terrain Effect Set;
-8. Solo / Party Baseline.
+8. Solo / Party Baseline;
+9. Defeat / Retreat Baseline.
 
-Reusable baseline:
-- 4 AP / 1 RP / persistent Stamina;
-- deterministic contact/defense/hit-quality pipeline;
-- no random Initiative opener;
-- one normal activation max per eligible actor/round;
-- Bleeding/Staggered/Off-Balance/Braced/Guarded;
-- Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow;
-- no independent terrain/status RNG layers.
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
+
+This means the minimum first-slice combat design packet is recorded. It does **not** mean combat runtime exists or is verified.
 
 ## 6. Solo / party baseline
 
-Authority:
-`docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
-
-Selected first-slice mode:
-`SOLO_CAPABLE_WITH_OPTIONAL_COMPANIONS`.
-
-Prototype party cap:
-`3` active hunters total = player + up to two companions.
-
-Selected control model:
-- player directly controls only the player hunter;
+Selected:
+- fully solo-capable with optional companions;
+- max three active Hunters total = player + up to two companions;
+- player directly controls only their own Hunter;
+- independent AP/RP/Stamina/Health/status/position/equipment per actor;
+- same deterministic Initiative scheduler for all combatants;
+- companions use authored deterministic behavior;
+- bounded 1-AP companion-order action;
 - no mid-combat body switching;
-- every hunter has independent AP/RP/Stamina/Health/status/position/equipment;
-- all actors use the same Initiative scheduler;
-- allied turns are not automatically grouped;
-- companions use deterministic authored behavior, not runtime generative AI;
-- player may issue one successful companion order per own activation for `1 AP`;
-- orders: Standard / Focus Part / Hold Position / Close Distance;
-- commands do not bypass legality;
-- companion reactions use their own RP/Stamina;
-- absent companions do not teleport into an encounter;
-- late entrants wait until the next round.
+- absent companions do not teleport into combat.
 
-The core hunt loop must remain completable solo. Party-required hunts are not part of the first slice.
+## 7. Defeat / retreat baseline
 
-## 7. Monster 01 — normal combat + Berserk
+Authority:
+`docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+
+Selected first-slice laws:
+- Hunter Health `<=0` -> Downed, not permanent death;
+- no in-combat revive;
+- player Hunter Downed -> `HUNTERS_DEFEATED` after current resolution;
+- companion Downed alone does not end combat;
+- voluntary escape is spatial/deterministic, not a random roll;
+- `WITHDRAW_FROM_ENCOUNTER` = 1 AP from a legal escape node;
+- party retreat declaration = player 1 AP; companions withdraw on own turns/resources;
+- Monster behavior chooses retreat route; outcome contract decides final escape completion;
+- Monster escape -> `HUNT_ACTIVE_REACQUIRE`;
+- Hunter voluntary withdrawal -> `HUNT_ACTIVE_DISENGAGED`;
+- Monster death remains Crystal/body-terminal owned and preserves anatomy for harvest;
+- same-boundary Monster death + player Downed -> `MUTUAL_TERMINAL`;
+- terminal encounter stops scheduler advancement and cannot reopen on reload.
+
+No reward, recovery-penalty or harvest quantity is invented by this contract.
+
+## 8. Monster 01 — normal combat + Berserk
 
 Monster 01: Mudcrest Raker.
 
@@ -150,38 +154,26 @@ Normal attack authority:
 Berserk authority:
 `docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
 
+Behavior/retreat selection authority:
+`docs/30_content/monsters/MONSTER_01/BEHAVIOR_AND_REGION.md`.
+
 Normal attacks:
-- Horn Charge — 4 AP / 30 Stamina;
-- Head Sweep/Gore — 2 / 14;
-- Shoulder Ram — 3 / 22;
-- Foreleg Stomp — 2 / 12;
-- Tail Sweep — 3 / 18.
+- Horn Charge;
+- Head Sweep/Gore;
+- Shoulder Ram;
+- Foreleg Stomp;
+- Tail Sweep.
 
-Normal-combat laws:
-- one normal activation/round;
-- internal 4-AP budget;
-- max one damaging attack/activation;
-- anatomy loss disables/changes dependent attacks;
-- authoritative telegraph/reaction windows;
-- no separate status-proc RNG;
-- normal attacks do not spend Crystal Energy by default.
+Monster escape preserves the same instance, injuries, anatomy, Core/Berserk state and route intent for aerial reacquisition.
 
-Berserk first-slice:
-- deterministic desperation entry at >20% and <=60% Core Energy;
-- entry consumes full activation +10% Max Core Energy +20 strain;
-- later active activation consumes 5% Max Core Energy +10 strain;
-- existing attacks receive bounded Core surcharges/AP discounts;
-- still max one damaging attack/activation;
-- no extra turn/reaction removal/anatomy restoration;
-- critical at Energy <=12% or strain >=80;
-- zero Core Energy means death.
+Monster death preserves final body/part condition for the next harvest layer.
 
 No combat runtime is claimed.
 
-## 8. World/content anchors
+## 9. World/content anchors
 
 World hierarchy:
-`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
+`WORLD ATLAS -> WALKABLE SETTLEMENT -> HUNTER GATE -> CONTINUOUS HUNTING REGION -> LOCAL FIRST-PERSON ENCOUNTER`.
 
 Scale: `1 world unit = 1 meter`.
 
@@ -191,23 +183,26 @@ Riverbank Ford / Meadow Edge / Root-Boulder Hollow / Deep Nest Shelf.
 Monster 01 prototype:
 ~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs; severable distal tail; internal Crystal core.
 
-## 9. Planned bounded sequence
+## 10. Planned bounded sequence
 
-Completed:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype → Solo/Party Baseline`.
+Completed design sequence:
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status Set -> Terrain Set -> Monster 01 Normal Attacks -> Monster 01 Berserk -> Solo/Party -> Defeat/Retreat`.
 
-Next:
-`DEFEAT_RETREAT_BASELINE_CONTRACT`
-→ production implementation only after prerequisite engine/domain gates.
+Current next independent game-design action:
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
 
-## 10. Exact continuation
+That work advances the hunt loop from **what the fight physically did to the Monster** into **what material actually remains recoverable**.
+
+Production implementation remains blocked by prerequisite engine/domain gates.
+
+## 11. Exact continuation
 
 Implementation action when device evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`DEFEAT_RETREAT_BASELINE_CONTRACT`.
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
 
-Keep it limited to first-slice defeat/downed/terminal outcome, voluntary retreat/escape, monster defeat/escape, encounter termination, hunt continuation/failure and scheduler/persistence ownership.
+Keep that pass limited to anatomical harvest capacity, remaining usable mass/condition, clean sever/damage consequences, carcass/detached-part depletion, tool/knowledge modifiers, deterministic yield traces and anti-duplication.
 
-Do not combine it with reward/economy expansion, companion relationships or production implementation.
+Do not combine it with crafting/economy implementation.

@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / COMBAT DESIGN BASELINE RECORDED / HARVEST NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -8,7 +8,7 @@ Last reconciled: 2026-09-03
 Map authority, ownership, readiness, verification lineage and read order so the project can be reconstructed from repository evidence instead of chat memory.
 
 The repository must answer:
-`WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
+`WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 # 1. Mandatory read order
 
@@ -53,7 +53,7 @@ Phone blocker:
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
 # 3. World/spatial authorities
 
@@ -66,7 +66,7 @@ Phone blocker:
 - `docs/10_world/regions/REGION_01/README.md` and local topology/tracking/terrain/encounter/streaming/reference/acceptance files.
 
 World hierarchy:
-`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
+`WORLD ATLAS -> WALKABLE SETTLEMENT -> HUNTER GATE -> CONTINUOUS HUNTING REGION -> LOCAL FIRST-PERSON ENCOUNTER`.
 
 Scale: `1 world unit = 1 meter`.
 
@@ -78,7 +78,7 @@ Gameplay front door:
 Combat front door:
 `docs/20_gameplay/combat/README.md`.
 
-Eight generic first-slice combat contracts:
+Nine generic first-slice combat contracts:
 1. `ACTION_ECONOMY_CONTRACT.md`;
 2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
 3. `FIRST_WEAPON_FAMILY_CONTRACT.md`;
@@ -86,38 +86,52 @@ Eight generic first-slice combat contracts:
 5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`;
 6. `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
 7. `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`;
-8. `SOLO_PARTY_BASELINE_CONTRACT.md` — newest generic combat authority.
+8. `SOLO_PARTY_BASELINE_CONTRACT.md`;
+9. `DEFEAT_RETREAT_BASELINE_CONTRACT.md` — newest generic combat authority.
 
-Generic baseline:
-4 AP / 1 RP / persistent Stamina; deterministic contact/defense/hit quality; Field Poleblade; deterministic Initiative; one normal activation max; five-state status packet; four primary terrain surfaces + Brush/High Ground/Narrow; solo-capable optional companions with deterministic command/behavior ownership.
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
+
+This is design-recorded only. Production combat implementation/runtime verification is absent.
 
 ## Solo / party baseline
 
 Authority:
 `docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
 
+Selected:
+- solo-capable optional companions;
+- max three active Hunters;
+- player controls own Hunter only;
+- independent resources/state;
+- same deterministic Initiative scheduler;
+- deterministic companion behavior/orders.
+
+## Defeat / retreat baseline
+
+Authority:
+`docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+
 Handoff:
-`docs/70_handoff/SOLO_PARTY_BASELINE_PASS_2026-09-03.md`.
+`docs/70_handoff/DEFEAT_RETREAT_BASELINE_PASS_2026-09-03.md`.
 
 Selected:
-- solo-capable with optional companions;
-- first-slice active party cap = 3 hunters;
-- player directly controls only their hunter;
-- no shared AP/RP/Stamina;
-- same Initiative scheduler for all combatants;
-- no automatic allied-turn grouping;
-- companions use deterministic authored behavior;
-- mid-combat order action = player 1 AP, max one successful order action per player activation;
-- orders = Standard / Focus Part / Hold Position / Close Distance;
-- companion reactions consume their own RP/Stamina;
-- absent companions do not teleport into encounter;
-- late entrants wait until next round;
-- defeat/retreat/revive/reward sharing remain outside this contract.
+- Hunter Health <=0 -> Downed, not permanent death;
+- no in-combat revive;
+- player Downed -> Hunter defeat after current resolution;
+- companion Downed alone does not end combat;
+- escape uses real legal escape nodes/routes, not random percentage;
+- Hunter final withdrawal = 1 AP;
+- party retreat declaration = player 1 AP, companion withdrawal through own turns/resources;
+- Monster behavior selects route, Defeat/Retreat commits final Monster escape;
+- Monster escape -> same-instance reacquisition;
+- Hunter withdrawal -> active/disengaged hunt;
+- Monster death remains Crystal/body-terminal owned;
+- final anatomy/part state persists for harvest;
+- simultaneous Monster death + player Downed -> `MUTUAL_TERMINAL`;
+- terminal encounter freezes scheduler and cannot reopen on reload.
 
-Older open `solo/party` placeholders in root planning/behavior docs are superseded within this scope by this newer specific authority.
-
-`SOLO_PARTY_BASELINE_RECORDED = YES`
-`PARTY_RUNTIME_IMPLEMENTED = NO`
+`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
+`DEFEAT_RETREAT_RUNTIME_IMPLEMENTED = NO`.
 
 # 5. Content authorities
 
@@ -139,23 +153,16 @@ Current authorities:
 - `BEHAVIOR_AND_REGION.md`;
 - `CRYSTAL_AND_MUTATION.md`.
 
+`BEHAVIOR_AND_REGION.md` now explicitly delegates final Monster escape/encounter outcome to the generic Defeat/Retreat authority.
+
 Normal attacks:
 Horn Charge / Head Sweep-Gore / Shoulder Ram / Foreleg Stomp / Tail Sweep.
 
-Berserk:
-- deterministic desperation entry;
-- explicit Core Energy/strain costs;
-- bounded AP discounts to existing anatomy-legal attacks;
-- no extra turn/second attack/anatomy restoration;
-- critical exit/zero-Energy death.
-
-Specialized handoffs:
-- `docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`;
-- `docs/70_handoff/MONSTER_01_BERSERK_PROTOTYPE_PASS_2026-09-03.md`.
+Monster escape preserves instance/anatomy/Core/Berserk state. Monster death preserves final part condition for harvest.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
 # 6. Architecture/code authorities
 
@@ -171,7 +178,7 @@ Specialized handoffs:
 
 - `docs/40_art/README.md`;
 - `docs/40_art/asset_pipeline/README.md`;
-- lineage/approval, raster/zoom, runtime asset, PNG→3D, QA and Hunter blockout standards;
+- lineage/approval, raster/zoom, runtime asset, PNG->3D, QA and Hunter blockout standards;
 - `docs/40_art/reviews/README.md`.
 
 # 8. Quality/performance authorities
@@ -187,14 +194,13 @@ Specialized handoffs:
 Implementation lane:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-Completed design sequence:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype → Solo/Party Baseline`.
+Completed combat/content-design sequence:
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status Set -> Terrain Set -> Monster 01 Normal Attacks -> Monster 01 Berserk -> Solo/Party -> Defeat/Retreat`.
 
 Current active non-phone action:
-`DEFEAT_RETREAT_BASELINE_CONTRACT`.
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
 
-Then:
-`production implementation after prerequisite gates`.
+That next pass should establish the harvest gameplay package/front door and connect surviving anatomy to finite recoverable material.
 
 # 10. Documentation placement law
 

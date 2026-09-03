@@ -1,6 +1,6 @@
 # MONSTER_01 — Mudcrest Raker
 
-Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / NORMAL ATTACK + BERSERK PACKETS RECORDED / DISPLAY NAME PROVISIONAL / NO IMPLEMENTATION
+Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / NORMAL ATTACK + BERSERK + ESCAPE/DEFEAT LINKS RECORDED / DISPLAY NAME PROVISIONAL / NO IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Identity
@@ -13,7 +13,7 @@ The display name can change. Stable package/species IDs and the current mechanic
 
 ## Why this is the first monster
 
-Monster 01 is designed to prove the core hunt systems with one coherent animal rather than an exception-heavy boss.
+Monster 01 proves the core hunt systems with one coherent animal rather than an exception-heavy boss.
 
 It must demonstrate:
 - Region 01 ecology/tracking/escape;
@@ -21,8 +21,8 @@ It must demonstrate:
 - horn break, plate break, leg impairment and distal-tail sever;
 - anatomy-dependent attack loss/change;
 - terrain/cover-aware first-person combat;
-- Crystal life-force desperation berserk;
-- persistent monster state through escape/reacquisition;
+- Crystal life-force desperation Berserk;
+- persistent Monster state through escape/reacquisition;
 - condition-based harvesting;
 - readable aerial silhouette + close anatomy states.
 
@@ -35,7 +35,7 @@ Selected prototype:
 - low wedge head;
 - paired mineralized horn/crest structures;
 - heavy shoulder/dorsal plates;
-- four robust legs with mud-adapted feet;
+- four robust mud-adapted legs;
 - muscular tail with mineralized distal ridge;
 - deep forward-torso internal Crystal core, not a normal externally targetable part.
 
@@ -60,93 +60,66 @@ plus general torso contact.
 
 Authority: `COMBAT_ATTACK_PACKET.md`.
 
-Selected normal damaging attacks:
+Selected damaging attacks:
 - `M01_HORN_CHARGE` — 4 AP / 30 Stamina;
 - `M01_HEAD_SWEEP_GORE` — 2 / 14;
 - `M01_SHOULDER_RAM` — 3 / 22;
 - `M01_FORELEG_STOMP` — 2 / 12;
 - `M01_TAIL_SWEEP` — 3 / 18.
 
-Normal activation laws:
+Normal laws:
 - one normal activation per round;
 - internal 4-AP budget;
 - maximum one damaging attack per activation;
 - persistent Stamina;
 - no normal attack spends Crystal Energy by default;
-- no hidden multiattack from animation;
-- no independent status-proc RNG;
+- no hidden multiattack/status-proc RNG;
 - lost anatomy removes/changes dependent attacks.
 
 ## Berserk prototype
 
 Authority: `BERSERK_PROTOTYPE_CONTRACT.md`.
 
-Berserk is a one-episode-per-hunt desperation state that spends Crystal life force for increased attack commitment/aggression.
+Berserk is a one-episode-per-hunt desperation state that spends Crystal life force for increased commitment/aggression.
 
-### Entry gate
+Selected entry:
+- `core_energy_ratio >0.20` and `<=0.60`;
+- plus Retreat Denied, Nest Defense or Severe Anatomy pressure;
+- no HP-only/random trigger.
 
-Requires:
-- alive;
-- not already active/used;
-- `core_energy_ratio > 0.20` and `<= 0.60`;
-- at least one desperation pressure: Retreat Denied, Nest Defense, or Severe Anatomy;
-- nonterminal state.
+Entry:
+- full 4-AP activation;
+- no attack same activation;
+- 10% Max Core Energy;
+- +20 strain;
+- visible telegraph.
 
-Severe Anatomy requires at least two major capability-loss facts. There is no HP-only trigger and no random berserk roll.
+Later active activation:
+- 5% Max Core Energy;
+- +10 strain.
 
-### Entry transition
+Attack Core surcharges:
+- Charge 5%; Head 2%; Ram 4%; Stomp 2%; Tail 3%.
 
-`M01_ENTER_BERSERK`:
-- consumes the full 4-AP activation;
-- cannot attack in that activation;
-- costs 10% of Max Core Energy;
-- adds +20 Core Strain;
-- visibly telegraphs the state;
-- marks the episode used.
+Berserk AP:
+- Charge 3; Head 2; Ram 2; Stomp 2; Tail 2.
 
-### Active drain
-
-Each later Berserk activation that continues:
-- costs 5% Max Core Energy before action selection;
-- adds +10 strain;
-- dies immediately if Energy reaches zero.
-
-Attack Energy/strain surcharge:
-- Horn Charge: 5% / +12;
-- Head Sweep/Gore: 2% / +5;
-- Shoulder Ram: 4% / +8;
-- Foreleg Stomp: 2% / +4;
-- Tail Sweep: 3% / +6.
-
-Berserk AP costs:
-- Charge 3;
-- Head Sweep/Gore 2;
-- Ram 2;
-- Stomp 2;
-- Tail Sweep 2.
-
-Existing Stamina costs remain unchanged.
+Existing Stamina remains unchanged.
 
 Hard laws:
-- still max one damaging attack per activation;
-- no extra turns or Initiative reroll;
-- all normal telegraph/reaction windows remain;
-- Berserk never restores horns/tail/legs/plates;
-- Berserk never bypasses range/bearing/clearance/cover/status legality.
+- still max one damaging attack/activation;
+- no extra turns/Initiative reroll;
+- no reaction-window removal;
+- no anatomy repair/substitution;
+- normal terrain/cover/range/status legality remains;
+- zero Core Energy means death.
 
-### Critical exit
+Critical:
+`core_energy_ratio <=0.12 OR core_strain >=80`.
 
-`BERSERK_CRITICAL = core_energy_ratio <= 0.12 OR core_strain >= 80`.
+Critical + legal retreat + no active Nest Defense exits Berserk to `EXHAUSTED_CRITICAL`; otherwise the Raker may continue burning life force.
 
-If critical + legal retreat + no active Nest Defense:
-- Berserk ends;
-- state becomes `EXHAUSTED_CRITICAL`;
-- the 5% activation drain is not paid;
-- episode-used remains true.
-
-If critical while retreat is unavailable or Nest Defense remains active, Berserk continues and may burn the creature to death.
-
-## Deterministic behavior
+## Deterministic behavior / Region 01
 
 Authority: `BEHAVIOR_AND_REGION.md`.
 
@@ -154,10 +127,42 @@ There is no runtime generative AI decision system.
 
 Ownership:
 - `COMBAT_ATTACK_PACKET.md` owns normal attack legality/profile;
-- `BERSERK_PROTOTYPE_CONTRACT.md` owns Berserk entry/drain/action modifiers/exit;
-- `BEHAVIOR_AND_REGION.md` selects deterministically from currently legal candidates.
+- `BERSERK_PROTOTYPE_CONTRACT.md` owns Berserk state/cost/action modifiers;
+- `BEHAVIOR_AND_REGION.md` selects deterministic legal actions and retreat routes;
+- `/docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` owns final Monster escape/encounter outcome.
 
-Behavior cannot select a disabled attack or override a Crystal/terrain/anatomy failure.
+Behavior cannot bypass attack/Crystal/terrain/anatomy/outcome legality.
+
+## Escape / reacquisition integration
+
+When behavior selects Wounded Retreat or Exhausted Critical retreat:
+1. choose a legal Region route deterministically;
+2. obey body-fit/anatomy/terrain blockers;
+3. move through current encounter/world space;
+4. at a legal Monster escape boundary request `MONSTER_WITHDRAW_FROM_ENCOUNTER` through the generic Defeat/Retreat owner.
+
+Successful escape:
+- outcome `MONSTER_ESCAPED`;
+- hunt state `HUNT_ACTIVE_REACQUIRE`;
+- same Monster instance persists;
+- anatomy/injury/Core/Berserk/status/route intent persist;
+- tracking evidence can continue from behavior/world state.
+
+No fresh uninjured replacement Monster is spawned.
+
+## Death / harvest handoff
+
+Crystal/body death ownership remains authoritative.
+
+Current hard example:
+`core_energy_current <=0 -> creature death`.
+
+On death:
+- final anatomy/detached-part condition is preserved;
+- combat outcome becomes Monster-dead through the generic Defeat/Retreat owner;
+- later harvest systems read that physical state rather than spawning disconnected loot.
+
+The next independent gameplay contract will define finite harvest capacity/condition. This Monster package does not invent those generic formulas.
 
 ## Crystal/mutation
 
@@ -165,7 +170,7 @@ Authority: `CRYSTAL_AND_MUTATION.md`.
 
 Provisional expression: Mineral / Earth-type biological adaptation.
 
-Core Energy is life force. Zero usable Energy means death. Berserk uses percentage-of-Max Energy costs so the first-slice behavior is exact without freezing the final absolute capacity.
+Core Energy is life force. Berserk uses percentage-of-Max costs so behavior is exact without freezing final absolute capacity.
 
 ## Region 01 relationship
 
@@ -177,8 +182,8 @@ S00 Field Camp is not a normal activity anchor.
 Combat implications:
 - Meadow Edge is clearest for Horn Charge;
 - Riverbank Ford supports close attacks plus lane-validated charge/sweep;
-- Root/Boulder Hollow frequently restricts Charge/Sweep through Narrow/solid geometry;
-- Deep Nest Shelf is the strongest Nest Defense/Berserk context;
+- Root/Boulder Hollow often restricts Charge/Sweep through Narrow/solid geometry;
+- Deep Nest Shelf is strongest Nest Defense/Berserk context;
 - physical terrain remains authoritative; High Ground gives no generic damage bonus.
 
 ## Package file map
@@ -188,7 +193,10 @@ Combat implications:
 - `COMBAT_ATTACK_PACKET.md` — normal attack definitions;
 - `BERSERK_PROTOTYPE_CONTRACT.md` — Berserk entry/Energy/strain/action changes/exit/death;
 - `BEHAVIOR_AND_REGION.md` — deterministic activity/combat/retreat/Region 01 selection;
-- `CRYSTAL_AND_MUTATION.md` — Crystal/mutation and species energy-expression context.
+- `CRYSTAL_AND_MUTATION.md` — Crystal/mutation and species energy context.
+
+Generic cross-package outcome authority:
+`/docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
 
 ## Current decision state
 
@@ -198,26 +206,26 @@ RECORDED:
 - five normal attacks;
 - normal AP/Stamina/reaction relationships;
 - anatomy-dependent attack loss/change;
-- exact first-slice Berserk entry window/pressure predicates;
-- entry/activation/attack Core Energy + strain costs;
-- Berserk AP discounts without extra attacks/turns;
-- critical-exit and zero-Energy death boundary.
+- first-slice Berserk entry/Energy/strain/AP/critical rules;
+- deterministic retreat route ownership;
+- generic Monster escape/reacquisition and death-to-harvest handoff.
 
 OPEN/LATER:
 - final name/mass/element naming;
 - final Crystal tier/rank/quality and absolute Max Energy;
 - final health/damage numbers;
 - final species Max Stamina;
-- final harvest quantities;
+- final harvest quantities/capacity application — next gameplay layer;
 - final art/audio;
 - runtime implementation/tests.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`
+`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
+`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
-## Exact next package dependency
+## Current next independent game dependency
 
-`SOLO_PARTY_BASELINE_CONTRACT`
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
 
-That next pass is a reusable gameplay/combat participation contract, not another Monster 01-specific attack packet.
+That next contract belongs to reusable gameplay/harvest ownership and will consume this package's real anatomy state.

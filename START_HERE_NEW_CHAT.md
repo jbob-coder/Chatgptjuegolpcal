@@ -28,7 +28,7 @@ Current repository/source/build/device evidence outranks old chat memory.
 The game is the objective.
 
 Documentation must preserve:
-`WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
+`WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 ## Current engine/Android phase
 
@@ -51,52 +51,70 @@ Phone regression + 24-minute sustained run remain deferred.
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
 Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
 ## Combat/gameplay foundation
 
-Eight generic first-slice contracts are recorded:
+Nine reusable first-slice combat contracts are recorded:
 1. Action Economy;
 2. Combat Resolution;
 3. Field Poleblade;
 4. Stamina;
 5. Initiative / Turn Order;
-6. First-Slice Status Set;
-7. First-Slice Terrain Effect Set;
-8. Solo / Party Baseline.
+6. Status Set;
+7. Terrain Set;
+8. Solo / Party Baseline;
+9. Defeat / Retreat Baseline.
+
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
+
+This is design-recorded only. Production combat source is not implemented or runtime verified.
 
 ## Solo / party baseline
 
-Read:
+Authority:
 `docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
 
 Selected:
-- first slice is fully solo-capable with optional companions;
-- maximum active hunting party = 3 hunters total;
-- player + zero to two companions;
-- no party-required core hunt;
-- player directly controls only own hunter;
-- no mid-combat body switching;
-- each hunter owns independent AP/RP/Stamina/Health/status/position/equipment;
-- all use same deterministic Initiative/RoundRoster;
-- companions use authored deterministic behavior, not runtime generative AI;
-- player can spend `1 AP` to issue one successful companion order per own activation;
-- commands: Standard / Focus Part / Hold Position / Close Distance;
-- companion reactions use their own RP/Stamina;
-- absent companions do not teleport into combat;
-- late entrants wait for next round.
+- fully solo-capable with optional companions;
+- max three active Hunters;
+- player directly controls own Hunter only;
+- independent actor resources;
+- one shared deterministic Initiative scheduler;
+- deterministic companion behavior/orders;
+- no body switching/runtime generative AI.
 
-Pass record:
-`docs/70_handoff/SOLO_PARTY_BASELINE_PASS_2026-09-03.md`.
+## Defeat / retreat baseline
 
-No party runtime is claimed.
+Authority:
+`docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+
+Read the pass record:
+`docs/70_handoff/DEFEAT_RETREAT_BASELINE_PASS_2026-09-03.md`.
+
+Core first-slice rules:
+- Hunter Health <=0 -> Downed, not permanent death;
+- no in-combat revive;
+- player Downed -> Hunter defeat after current authoritative resolution;
+- companion Downed alone does not end combat;
+- voluntary withdrawal is spatial/deterministic, not a random escape roll;
+- final Hunter withdrawal = 1 AP from legal escape node;
+- party retreat declaration = player 1 AP, companions withdraw on own turns/resources;
+- Monster behavior chooses legal retreat route;
+- final Monster escape completion is owned by Defeat/Retreat;
+- Monster escape -> aerial reacquisition with same persistent Monster instance;
+- Hunter withdrawal -> hunt active/disengaged;
+- Monster death remains Crystal/body-terminal owned;
+- final anatomy/part state persists for harvest;
+- mutual terminal result is deterministic;
+- terminal encounter cannot resume after outcome commit.
 
 ## Monster 01 — Mudcrest Raker
 
-Read in this order when relevant:
+Read when relevant:
 1. `docs/30_content/monsters/MONSTER_01/README.md`;
 2. `ANATOMY_AND_DAMAGE.md`;
 3. `COMBAT_ATTACK_PACKET.md`;
@@ -104,25 +122,19 @@ Read in this order when relevant:
 5. `BEHAVIOR_AND_REGION.md`;
 6. `CRYSTAL_AND_MUTATION.md`.
 
-Normal attacks:
-Horn Charge / Head Sweep-Gore / Shoulder Ram / Foreleg Stomp / Tail Sweep.
-
-Berserk:
-- deterministic desperation entry;
-- Core Energy/strain costs;
-- no extra turns/second damaging attack/anatomy restoration;
-- critical exit/death rules.
+Monster escape/reacquisition now explicitly consumes the generic Defeat/Retreat outcome owner rather than inventing its own encounter-end rules.
 
 No combat runtime is claimed.
 
 ## Current planned sequence
 
-Completed:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype → Solo/Party Baseline`.
+Completed design sequence:
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status Set -> Terrain Set -> Monster 01 Normal Attacks -> Monster 01 Berserk -> Solo/Party -> Defeat/Retreat`.
 
-Next:
-`DEFEAT_RETREAT_BASELINE_CONTRACT`
-→ implementation after prerequisite engine/domain gates.
+Current next independent design action:
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+
+That is the next core-loop dependency because combat anatomy state must determine actual recoverable material.
 
 ## Exact continuation
 
@@ -130,8 +142,15 @@ Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Active non-phone action:
-`DEFEAT_RETREAT_BASELINE_CONTRACT`.
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
 
-That pass must define only first-slice player/party defeat, monster defeat, voluntary retreat/escape, encounter termination, hunt continuation/failure and scheduler/persistence boundaries.
+That pass should create a harvest gameplay package/front door as needed and define only:
+- anatomical capacity;
+- remaining usable mass/condition;
+- clean sever/damage/break/destroy consequences;
+- carcass/detached-part depletion;
+- tool/knowledge modifiers;
+- deterministic yield traces;
+- persistence/anti-duplication.
 
-Do not combine it with reward/economy expansion, companion relationship systems or production implementation.
+Do not combine it with crafting/economy implementation.

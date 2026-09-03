@@ -1,11 +1,11 @@
 # MONSTER_01 — Deterministic Behavior and Region 01 Use
 
-Status: SELECTED FIRST-MONSTER PATTERN DESIGN / NORMAL ATTACK + BERSERK OWNERS LINKED / NO IMPLEMENTATION
+Status: SELECTED FIRST-MONSTER PATTERN DESIGN / NORMAL ATTACK + BERSERK + DEFEAT-RETREAT OWNERS LINKED / NO IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Apply deterministic authored-pattern behavior to the Mudcrest Raker and bind it to Region 01 while delegating attack legality and Berserk mechanics to their owning Monster 01 contracts.
+Apply deterministic authored-pattern behavior to the Mudcrest Raker and bind it to Region 01 while delegating attack legality, Berserk mechanics and final encounter escape/outcome semantics to their owning contracts.
 
 There is no runtime generative AI decision system.
 
@@ -15,7 +15,8 @@ This file owns:
 - activity/territorial/combat/retreat state selection;
 - deterministic rule priorities;
 - Region 01 route/context use;
-- selection from currently legal action candidates.
+- selection from currently legal action candidates;
+- retreat-route preference/evidence emission.
 
 `COMBAT_ATTACK_PACKET.md` owns:
 - normal attack IDs;
@@ -33,7 +34,14 @@ This file owns:
 - episode-used persistence;
 - critical-exit/death rules.
 
-Behavior cannot override either owner's hard legality.
+`/docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` owns:
+- final Monster withdrawal completion legality;
+- `MONSTER_ESCAPED` encounter outcome;
+- hunt transition to reacquisition;
+- encounter-terminal scheduler closure;
+- Hunter defeat/withdrawal outcome semantics.
+
+Behavior cannot override any hard legality/outcome owner.
 
 ## Species behavior identity
 
@@ -67,7 +75,7 @@ Authoring state set:
 Drinking/wallowing, strong evidence, wet/mud-adapted movement, close combat with lane-validated Charge/Sweep.
 
 ### S02 Rootwood Thicket
-Rooting/foraging, vegetation evidence, occlusion and frequent Narrow/solid-root attack restrictions.
+Rooting/foraging, vegetation evidence, occlusion and frequent Narrow/solid-root restrictions.
 
 ### S03 Feeding Meadow
 Primary feeding/warning/long-sight engagement and clearest Horn Charge proving ground.
@@ -87,24 +95,24 @@ Not a normal activity anchor.
 ## Normal activity priority
 
 ```text
-IF resting_requirement_high AND safe → S05/S06 REST
-ELSE IF thirst/wallow_condition → S01
-ELSE IF feeding_condition → S03 or S02
-ELSE IF mineral_rub_condition → S04
-ELSE → deterministic legal territory travel
+IF resting_requirement_high AND safe -> S05/S06 REST
+ELSE IF thirst/wallow_condition -> S01
+ELSE IF feeding_condition -> S03 or S02
+ELSE IF mineral_rub_condition -> S04
+ELSE -> deterministic legal territory travel
 ```
 
 Seeded per-instance/day variation may select among equivalent authored options only when reproducibility remains intact.
 
 ## Detection/warning escalation
 
-`UNAWARE → ALERT → WARNING DISPLAY → ENGAGE OR WITHDRAW`.
+`UNAWARE -> ALERT -> WARNING DISPLAY -> ENGAGE OR WITHDRAW`.
 
 Inputs include distance, line of sight, player noise/movement, activity, territory importance, injury, sensory capability and legal routes.
 
 No omniscient detection.
 
-Warning actions may orient horns/front armor, scrape/stamp, vocalize, display a false/partial charge or interpose between hunter and important territory.
+Warning actions may orient horns/front armor, scrape/stamp, vocalize, display a partial/false charge or interpose between Hunter and important territory.
 
 Warning presentation does not resolve damage.
 
@@ -120,42 +128,42 @@ Legal damaging attack IDs come only from `COMBAT_ATTACK_PACKET.md`:
 Non-Berserk conceptual priority:
 
 ```text
-IF core_energy <= 0 → DIE
-ELSE IF berserk_active → use Berserk branch below
-ELSE IF severe_injury AND legal_retreat AND NOT nest_defense → WOUNDED_RETREAT
-ELSE IF Berserk entry gate passes → M01_ENTER_BERSERK
-ELSE IF rear/flank threat + Tail Sweep legal → TAIL_SWEEP
-ELSE IF charge range/front lane + Charge legal → HORN_CHARGE
-ELSE IF close front + Head Sweep legal → HEAD_SWEEP_GORE
-ELSE IF close body-force + Ram legal → SHOULDER_RAM
-ELSE IF close local foreleg threat + Stomp legal → FORELEG_STOMP
-ELSE → REPOSITION / WARNING / RECOVER
+IF core_energy <= 0 -> DIE
+ELSE IF berserk_active -> use Berserk branch
+ELSE IF severe_injury AND legal_retreat AND NOT nest_defense -> WOUNDED_RETREAT
+ELSE IF Berserk entry gate passes -> M01_ENTER_BERSERK
+ELSE IF rear/flank threat + Tail Sweep legal -> TAIL_SWEEP
+ELSE IF charge range/front lane + Charge legal -> HORN_CHARGE
+ELSE IF close front + Head Sweep legal -> HEAD_SWEEP_GORE
+ELSE IF close body-force + Ram legal -> SHOULDER_RAM
+ELSE IF close local foreleg threat + Stomp legal -> FORELEG_STOMP
+ELSE -> REPOSITION / WARNING / RECOVER
 ```
 
-The Berserk entry gate is evaluated deterministically through `BERSERK_PROTOTYPE_CONTRACT.md`; behavior does not roll for it.
+The Berserk entry gate is deterministic through `BERSERK_PROTOTYPE_CONTRACT.md`; behavior does not roll for it.
 
 ## Berserk branch
 
-When `berserk_active == true`, first evaluate the owner contract's critical-exit/death rules.
+When `berserk_active == true`, first evaluate the Berserk owner's critical-exit/death rules.
 
-If Berserk remains active, behavior filters all attacks through normal attack legality and then uses:
+If Berserk remains active, filter all attacks through normal legality and use:
 
 ```text
-IF rear/flank threat AND Tail Sweep legal → M01_TAIL_SWEEP
-ELSE IF front-lane Charge legal → M01_HORN_CHARGE
-ELSE IF close front/front-flank Ram legal → M01_SHOULDER_RAM
-ELSE IF close Head Sweep legal → M01_HEAD_SWEEP_GORE
-ELSE IF side-specific Stomp legal → M01_FORELEG_STOMP
-ELSE → aggressive legal reposition toward an existing legal attack
+IF rear/flank threat AND Tail Sweep legal -> M01_TAIL_SWEEP
+ELSE IF front-lane Charge legal -> M01_HORN_CHARGE
+ELSE IF close front/front-flank Ram legal -> M01_SHOULDER_RAM
+ELSE IF close Head Sweep legal -> M01_HEAD_SWEEP_GORE
+ELSE IF side-specific Stomp legal -> M01_FORELEG_STOMP
+ELSE -> aggressive legal reposition toward an existing legal attack
 ```
 
-Berserk suppresses ordinary Wounded Retreat while active except when the owner contract's critical-exit rule explicitly ends Berserk.
+Berserk suppresses ordinary Wounded Retreat while active except when the Berserk owner's critical-exit rule explicitly ends it.
 
 No random weighted attack chooser is added.
 
 ## Berserk entry facts consumed by behavior
 
-Behavior supplies/reuses these authoritative facts for the owner contract:
+Behavior supplies/reuses:
 - legal-retreat result after Region/body-fit filtering;
 - active Nest Defense context;
 - major anatomy capability-loss facts;
@@ -163,20 +171,19 @@ Behavior supplies/reuses these authoritative facts for the owner contract:
 - episode-used/active flags;
 - terminal/alive state.
 
-`PRESSURE_SEVERE_ANATOMY` means at least two major capability losses as defined by `BERSERK_PROTOTYPE_CONTRACT.md`, not one ordinary wound.
+`PRESSURE_SEVERE_ANATOMY` means at least two major capability losses from the Berserk owner, not one ordinary wound.
 
 ## Anatomy-dependent behavior changes
 
 ### Horn damage
-If full Horn Charge capability is lost:
-- remove Horn Charge candidate;
-- hornless Head Sweep variant remains where legal;
-- behavior considers Ram/Stomp/Tail/reposition.
+- remove Horn Charge when capability is lost;
+- hornless Head Sweep may remain;
+- consider Ram/Stomp/Tail/reposition.
 
 ### Foreleg severe damage
 - Charge/Ram legality changes through attack packet;
 - damaged-side Stomp is removed;
-- retreat/body-fit may also degrade.
+- retreat/body-fit may degrade.
 
 ### Hindleg damage
 - retreat/reposition/pivot can degrade;
@@ -185,81 +192,97 @@ If full Horn Charge capability is lost:
 ### Tail sever
 - Tail Sweep becomes illegal immediately;
 - no tail hitbox/action remains;
-- behavior may orient the forequarter toward rear pressure when a rule supports it.
+- forequarter orientation may be preferred against rear pressure.
 
 ### Dorsal plate break
-Does not grant omniscient tactical knowledge. Any posture change must read explicit injury state.
+Does not grant omniscient tactical knowledge. Any posture change reads explicit injury state.
 
-Berserk never reverses any of these facts.
+Berserk never reverses anatomy facts.
 
 ## Terrain/cover inputs
 
-Behavior reads the same authoritative geometry used by attack legality:
-- no Charge through a solid root/boulder;
-- no Tail Sweep where the arc cannot clear;
+Behavior reads the same authoritative geometry used by attack/escape legality:
+- no Charge through solid root/boulder;
+- no Tail Sweep where arc cannot clear;
 - Brush is not physical cover;
 - High Ground is not a generic damage/aggression bonus;
-- Mud/Shallow Water add no random slip behavior.
+- Mud/Shallow Water add no random slip behavior;
+- retreat route cannot pass through a body-fit/blocked/hazard path declared illegal by Region/spatial owners.
 
 ## Escape selection
 
-When Wounded Retreat is selected:
-1. read current sector;
-2. collect legal adjacent Region 01 sectors;
-3. filter body fit/blocked route/hazard/anatomy mobility;
-4. apply authored preferences;
-5. deterministic tie resolution;
+When `WOUNDED_RETREAT` or `EXHAUSTED_CRITICAL` retreat is selected:
+1. read current sector/encounter position;
+2. collect legal adjacent/exit routes from Region 01 topology;
+3. filter body-fit, blocked route, hazard and anatomy mobility constraints;
+4. apply authored route preferences;
+5. resolve ties deterministically;
 6. persist route intent;
-7. leave encounter as the same monster instance.
+7. move/reposition through normal legal world/encounter actions;
+8. when a legal Monster escape boundary is reached, submit `MONSTER_WITHDRAW_FROM_ENCOUNTER` through `DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
 
-Berserk critical exit may transition to `EXHAUSTED_CRITICAL`; exact defeat/retreat resolution remains a later contract and is not invented here.
+Behavior decides **which route/action candidate to request**. It does not commit `MONSTER_ESCAPED` by itself.
+
+On successful outcome-owner withdrawal:
+- same Monster instance persists;
+- hunt becomes reacquisition state;
+- Region behavior receives route/sector intent;
+- anatomy/Core/Berserk/status state remains authoritative.
+
+No topology-breaking teleport or fresh replacement Monster is allowed.
 
 ## Tracking evidence
 
-Activity can emit bounded evidence:
-- S01 wallowing → prints/water disturbance;
-- S02 rooting → uprooted vegetation/root gouges;
-- S03 feeding → remains/trampled grass;
-- S04 rubbing → horn/plate scratches/mineral flakes;
-- travel → footprints/broken brush;
-- wounded retreat → blood/scuff/changed gait.
+Activity/retreat can emit bounded evidence:
+- S01 wallowing -> prints/water disturbance;
+- S02 rooting -> uprooted vegetation/root gouges;
+- S03 feeding -> remains/trampled grass;
+- S04 rubbing -> horn/plate scratches/mineral flakes;
+- travel -> footprints/broken brush;
+- wounded retreat -> blood/scuff/changed gait.
 
 Detached/broken parts exist only when anatomy/harvest events create them and are never duplicated along routes.
 
 ## Persistence
 
 Persistent Monster 01 state includes, as applicable:
+- stable Monster instance ID;
 - sector/route intent;
 - anatomy capability state;
 - Core Energy/strain;
 - Berserk active/episode-used state;
 - injury/status state;
-- emitted evidence references.
+- emitted evidence references;
+- escape/reacquisition handoff state.
 
-Encounter/camera/save reload cannot reset Berserk episode-used or restore lost anatomy.
+Encounter/camera/save reload cannot reset Berserk episode-used, restore lost anatomy or spawn a fresh uninjured replacement after escape.
 
 ## Debug trace requirement
 
 Trace should show:
 - current state/sector;
-- sensed player facts;
+- sensed Hunter facts;
 - anatomy capability flags;
 - terrain/cover/clearance facts;
 - Core Energy/ratio/strain;
 - Berserk pressure/gate facts;
+- retreat-route candidates + rejection reasons;
 - considered action rules with PASS/FAIL reason;
 - selected action/route;
+- final withdrawal request/result from outcome owner;
 - evidence emitted.
 
 Example:
 
 ```text
-BERSERK_ENTRY: PASS — ENERGY 43% + RETREAT_DENIED
-M01_ENTER_BERSERK: SELECTED
-NEXT ROUND:
-M01_HORN_CHARGE: FAIL — HORN_CHARGE_CAPABILITY_DISABLED
-M01_TAIL_SWEEP: PASS
-SELECTED: M01_TAIL_SWEEP
+STATE: EXHAUSTED_CRITICAL
+RETREAT_ROUTE S05: PASS
+RETREAT_ROUTE S06: FAIL — BODY_FIT
+SELECT_ROUTE: S05
+ESCAPE_BOUNDARY: PASS
+REQUEST: MONSTER_WITHDRAW_FROM_ENCOUNTER
+OUTCOME: MONSTER_ESCAPED
+HUNT_STATE: HUNT_ACTIVE_REACQUIRE
 ```
 
 ## First-slice acceptance
@@ -268,14 +291,17 @@ Before adding more monsters, Monster 01 should eventually prove:
 - normal activity patterns/warning escalation;
 - all five attack legality profiles;
 - anatomy-driven attack loss/change;
-- Region escape/reacquisition;
+- Region escape/reacquisition using the shared outcome owner;
 - exact Berserk entry/Energy/strain/critical-exit chain;
 - same-state deterministic replay.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`BEHAVIOR_RUNTIME_IMPLEMENTED = NO`
+`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
+`BEHAVIOR_RUNTIME_IMPLEMENTED = NO`.
 
-## Exact next dependency
+## Current next independent game dependency
 
-`SOLO_PARTY_BASELINE_CONTRACT`.
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+
+Monster 01 behavior has no additional design dependency required before the current first-slice combat baseline can proceed to later implementation gates.

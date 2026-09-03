@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT DESIGN BASELINE RECORDED / HARVEST BASELINE NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -42,30 +42,30 @@ For runtime claims:
 ## Mandatory loop
 
 `READ EVOLVE`
-→ `READ CURRENT STATE/HANDOFF`
-→ `VERIFY STATE`
-→ `IDENTIFY EXACTLY ONE SMALL PIECE`
-→ `IDENTIFY OWNER + READINESS GATE`
-→ `STATE EXACT BOUNDED ACTION`
-→ `RESEARCH IF REQUIRED`
-→ `IMPLEMENT OR DOCUMENT`
-→ `TEST/REVIEW AT HIGHEST AVAILABLE LEVEL`
-→ `INSPECT REGRESSION`
-→ `FIX SAME-PIECE FAILURES`
-→ `UPDATE OWNER/HANDOFF/README/INDEX AS REQUIRED`
-→ `SAVE/COMMIT`
-→ `READ BACK`
-→ `MARK EXACT STATUS`
-→ `SELECT EXACT NEXT PIECE`
-→ `WRITE NEXT PIECE INTO EVOLVE`
-→ `STATE SAME NEXT ACTION TO USER`.
+-> `READ CURRENT STATE/HANDOFF`
+-> `VERIFY STATE`
+-> `IDENTIFY EXACTLY ONE SMALL PIECE`
+-> `IDENTIFY OWNER + READINESS GATE`
+-> `STATE EXACT BOUNDED ACTION`
+-> `RESEARCH IF REQUIRED`
+-> `IMPLEMENT OR DOCUMENT`
+-> `TEST/REVIEW AT HIGHEST AVAILABLE LEVEL`
+-> `INSPECT REGRESSION`
+-> `FIX SAME-PIECE FAILURES`
+-> `UPDATE OWNER/HANDOFF/README/INDEX AS REQUIRED`
+-> `SAVE/COMMIT`
+-> `READ BACK`
+-> `MARK EXACT STATUS`
+-> `SELECT EXACT NEXT PIECE`
+-> `WRITE NEXT PIECE INTO EVOLVE`
+-> `STATE SAME NEXT ACTION TO USER`.
 
 Never begin the next unrelated piece before closing the current boundary.
 
 ## Documentation/navigation law
 
 Every substantial durable piece must answer:
-`WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
+`WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 Use:
 - root `README.md` — human game/front door;
@@ -90,7 +90,7 @@ Classes:
 Law: an open question blocks only the earliest implementation gate that genuinely consumes it.
 
 `IMPLEMENTATION_AUTHORIZED = YES`
-`CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
+`CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`.
 
 ## Stage-1 engine/device candidate
 
@@ -135,7 +135,7 @@ Verified automated gates:
 - Monster collision 8/8;
 - world boundary 12/12;
 - Godot parse/smoke PASS;
-- aerial↔first-person 17/17;
+- aerial<->first-person 17/17;
 - lifecycle 47/47;
 - performance telemetry 20/20;
 - Android export/APK integrity/artifact upload PASS.
@@ -149,11 +149,11 @@ Prepared sustained phone run:
 `SUSTAINED_PERFORMANCE_PHONE_EXECUTED = NO / DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
 ## Generic combat package
 
-Eight reusable first-slice authorities recorded:
+Nine reusable first-slice authorities are recorded:
 1. Action Economy;
 2. Combat Resolution;
 3. Field Poleblade;
@@ -161,54 +161,126 @@ Eight reusable first-slice authorities recorded:
 5. Initiative/Turn Order;
 6. Status Set;
 7. Terrain Set;
-8. Solo / Party Baseline.
+8. Solo / Party Baseline;
+9. Defeat / Retreat Baseline.
+
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
+
+This is a design baseline only. Production combat source/runtime tests remain absent.
 
 ## Solo / Party Baseline — RECORDED
 
 Authority:
 `docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
 
+Selected:
+- solo-capable with optional companions;
+- maximum three active Hunters;
+- player directly controls own Hunter only;
+- each actor owns independent resources/state;
+- same deterministic Initiative/RoundRoster;
+- deterministic companion behavior/orders;
+- no body switching/runtime generative AI.
+
+`SOLO_PARTY_BASELINE_RECORDED = YES`.
+
+## Defeat / Retreat Baseline — RECORDED
+
+Authority:
+`docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+
 Handoff:
-`docs/70_handoff/SOLO_PARTY_BASELINE_PASS_2026-09-03.md`.
+`docs/70_handoff/DEFEAT_RETREAT_BASELINE_PASS_2026-09-03.md`.
+
+### Hunter defeat/downed
 
 Selected:
-- `FIRST_SLICE_PARTY_MODE = SOLO_CAPABLE_WITH_OPTIONAL_COMPANIONS`;
-- `MAX_ACTIVE_HUNTERS_IN_PARTY = 3`;
-- one player hunter + zero to two companions;
-- first-slice hunts must remain completable solo;
-- no party-required core hunt;
-- `PLAYER_DIRECT_CONTROL = PLAYER_HUNTER_ONLY`;
-- no mid-combat body switching;
-- every hunter owns independent Health/AP/RP/Stamina/status/position/equipment;
-- all combatants share the same deterministic Initiative/RoundRoster owner;
-- party affiliation never creates automatic consecutive allied slots;
-- one normal activation maximum per actor/round remains absolute;
-- companions use authored deterministic behavior, not runtime generative AI.
+- `hunter_health <= 0 -> DOWNED`;
+- Downed is not permanent death in first slice;
+- no in-combat revive;
+- Downed actor cannot normal-activate/react/command;
+- pending Downed slot -> `SKIPPED_INELIGIBLE`;
+- Downed actor excluded from later round rosters;
+- player Hunter Downed -> `HUNTERS_DEFEATED` after current authoritative resolution;
+- companion Downed alone does not end encounter while player remains Active.
 
-Mid-combat command:
-`ISSUE_COMPANION_ORDER`:
-- costs player 1 AP;
-- max one successful order action per player normal activation;
-- targets one companion;
-- does not spend companion AP or move Initiative.
+### Voluntary Hunter withdrawal
 
-Minimal orders:
-- `ORDER_STANDARD`;
-- `ORDER_FOCUS_PART`;
-- `ORDER_HOLD_POSITION`;
-- `ORDER_CLOSE_DISTANCE`.
+Selected:
+- escape is spatial/deterministic, not a random roll;
+- actor must reach a legal world-connected Hunter escape node;
+- `WITHDRAW_FROM_ENCOUNTER` = `1 AP`;
+- successful withdrawal removes actor from encounter scheduler without resource refund/refresh.
 
-Orders are bounded priorities/constraints and cannot bypass attack, target-part, equipment, terrain, cover, AP/Stamina or knowledge legality.
+Solo:
+- player withdraws from legal escape node;
+- outcome `HUNTERS_WITHDREW`;
+- hunt state `HUNT_ACTIVE_DISENGAGED`.
 
-Companion reactions are deterministic and use that companion's own RP/Stamina.
+Party:
+- `DECLARE_PARTY_RETREAT` = player `1 AP`;
+- sets emergency retreat intent;
+- companions withdraw using their own scheduler slots/AP/RP/Stamina;
+- player exits last after all non-Downed companions withdrew;
+- Downed companions do not deadlock first-slice withdrawal; exact rescue penalties are deferred.
 
-Absent companions do not teleport into combat. Late entrants use Initiative's next-round rule.
+### Monster escape/death
 
-`SOLO_PARTY_BASELINE_RECORDED = YES`
-`PARTY_RUNTIME_IMPLEMENTED = NO`
-`PARTY_RUNTIME_VERIFIED = NO`
+Monster 01 behavior owns retreat selection/route.
+Defeat/Retreat owns final escape completion.
 
-Older root-master-plan/behavior open solo-party placeholders are superseded within this scope by this newer specific contract.
+`MONSTER_WITHDRAW_FROM_ENCOUNTER`:
+- requires legal current escape boundary/route;
+- consumes the Monster's remaining/full normal activation opportunity;
+- no damaging attack after successful withdrawal in that activation.
+
+Success:
+- outcome `MONSTER_ESCAPED`;
+- hunt state `HUNT_ACTIVE_REACQUIRE`;
+- same Monster instance, injuries, anatomy, Core/Berserk/status/route intent persist.
+
+Monster death remains Crystal/body-terminal owned.
+Current hard example:
+`core_energy_current <= 0 -> creature death`.
+
+Monster death:
+- stops further action;
+- preserves final anatomy/detached-part state;
+- outcome `MONSTER_DEAD`;
+- hunt state `HUNT_COMPLETE_MONSTER_DEAD`;
+- next harvest layer consumes physical state rather than generating disconnected loot.
+
+### Simultaneous terminal
+
+Same authoritative resolution boundary causing both Monster death and player Hunter Downed commits:
+`MUTUAL_TERMINAL`.
+
+Meaning:
+- Monster objective complete;
+- party forced into recovery;
+- carcass/part state persists;
+- immediate harvest is not auto-granted by this contract.
+
+### Scheduler/persistence invariants
+
+Terminal encounter:
+- stops new activations/reaction windows/round advance;
+- closes remaining pending slots with encounter-termination removal reason;
+- cannot be reopened by UI/animation/save reload.
+
+Save/load preserves:
+- terminal/outcome/hunt state;
+- Downed/withdrawn actor states;
+- party retreat intent;
+- scheduler state;
+- Monster persistent identity/route/anatomy/Core/Berserk/status;
+- outcome sequence ID.
+
+No reload may duplicate withdrawal costs, death, carcasses, severed parts or escaped Monsters.
+
+`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
+`DEFEAT_RETREAT_RUNTIME_IMPLEMENTED = NO`
+`DEFEAT_RETREAT_RUNTIME_VERIFIED = NO`.
 
 ## Monster 01 content — RECORDED
 
@@ -218,31 +290,34 @@ Normal attack authority:
 Berserk authority:
 `docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
 
+Behavior authority:
+`docs/30_content/monsters/MONSTER_01/BEHAVIOR_AND_REGION.md`.
+
+Behavior now explicitly hands final Monster escape/encounter outcome to Defeat/Retreat.
+
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
 ## Exact current active non-phone gate
 
-`DEFEAT_RETREAT_BASELINE_CONTRACT`
+`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`
 
 Bounded scope:
-1. reread current Action Economy, Initiative, Combat Resolution, Solo/Party baseline, Monster 01 behavior/Berserk/attack owners and hunt-loop authorities;
-2. define player-hunter and companion temporary-ineligible/downed/terminal defeat boundaries required for the first slice;
-3. define monster defeated/dead versus escaped/retreated encounter states without rewriting Crystal/anatomy rules;
-4. define voluntary hunter retreat/escape request and the minimum deterministic legality/progress boundary;
-5. define when an encounter ends and whether the hunt continues, fails, or returns to exploration/reacquisition;
-6. define party implications when one ally is removed while other actors remain;
-7. preserve one-normal-activation-per-actor scheduler invariants and consumed-slot behavior;
-8. define save/reload/persistence boundaries for outcome/escape state;
-9. do not define reward/loot/XP sharing beyond the minimum outcome ownership needed;
-10. do not implement production combat source.
+1. reread current anatomy/damage/harvest root authorities, Monster 01 anatomy, Combat Resolution and Defeat/Retreat outcome ownership;
+2. create a local `docs/20_gameplay/harvest/` package/front door if none exists;
+3. define per-anatomy harvest capacity as finite physical capacity, not random loot-table quantity;
+4. define remaining usable mass/condition from actual wounded/broken/severed/destroyed state;
+5. define clean sever versus crushed/shattered/damaged consequences;
+6. define carcass and detached-part harvest containers/remaining capacity;
+7. define tool/knowledge/skill modifiers that improve recovery but cannot exceed surviving capacity;
+8. define unique-part anti-duplication and persistence/save-load boundaries;
+9. define deterministic yield trace/future tests;
+10. do not bundle crafting recipes, economy prices, reward sharing or production implementation.
 
-## Remaining combat-design sequence
+## After harvest baseline
 
-After Defeat/Retreat baseline:
-- prerequisite production implementation/testing gates;
-- only then expand additional combat/content systems as evidence requires.
+Select the next smallest vertical-slice prerequisite from current repository evidence—likely inventory/material ownership or one-recipe crafting linkage—without preempting the phone implementation gate.
 
 ## Current gate truth
 
@@ -257,7 +332,7 @@ After Defeat/Retreat baseline:
 `PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
 `ACTION_ECONOMY_CONTRACT = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
@@ -267,11 +342,13 @@ After Defeat/Retreat baseline:
 `FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
 `FIRST_SLICE_TERRAIN_EFFECT_SET = RECORDED`
 `SOLO_PARTY_BASELINE_RECORDED = YES`
+`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`COMBAT_DESIGN_READINESS = PARTIAL / EIGHT_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`
+`COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = DEFEAT_RETREAT_BASELINE_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = DEFEAT_RETREAT_BASELINE_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
