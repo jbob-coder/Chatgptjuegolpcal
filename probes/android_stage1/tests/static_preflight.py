@@ -92,6 +92,16 @@ def res_to_rel(res_path: str) -> str:
     return res_path[len("res://"):]
 
 
+def duplicate_values(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    dupes: set[str] = set()
+    for value in values:
+        if value in seen:
+            dupes.add(value)
+        seen.add(value)
+    return sorted(dupes)
+
+
 def scene_nodes(text: str) -> tuple[str, dict[str, str]]:
     matches = list(NODE_RE.finditer(text))
     if not matches:
@@ -152,11 +162,78 @@ def check_project(checks: list[Check]) -> None:
 
 def check_scene(rel: str, checks: list[Check]) -> None:
     text = read(rel)
+
+    node_matches = list(NODE_RE.finditer(text))
+    root_matches = [m for m in node_matches if m.group("parent") is None]
+    checks.append(
+        Check(
+            f"{rel}:single-root-node",
+            len(root_matches) == 1,
+            f"root-count={len(root_matches)}",
+        )
+    )
+
     root_name, nodes = scene_nodes(text)
     checks.append(Check(f"{rel}:root-node", bool(root_name), root_name or "no root node"))
 
-    ext_resources = {m.group("id"): m.group("path") for m in EXT_RESOURCE_RE.finditer(text)}
-    sub_resources = {m.group("id") for m in SUB_RESOURCE_DECL_RE.finditer(text)}
+    node_paths: list[str] = []
+    for index, match in enumerate(node_matches):
+        if index == 0 and match.group("parent") is None:
+            path = ""
+        else:
+            parent = match.group("parent")
+            if parent is None:
+                path = f"<extra-root>/{match.group('name')}"
+            elif parent == ".":
+                path = match.group("name")
+            else:
+                path = f"{parent}/{match.group('name')}"
+        node_paths.append(path)
+
+    duplicate_node_paths = duplicate_values(node_paths)
+    checks.append(
+        Check(
+            f"{rel}:duplicate-node-paths",
+            not duplicate_node_paths,
+            "none" if not duplicate_node_paths else ", ".join(duplicate_node_paths),
+        )
+    )
+
+    all_node_paths = set(node_paths)
+    for match in node_matches[1:]:
+        parent = match.group("parent")
+        parent_ok = parent == "." or (parent is not None and parent in all_node_paths)
+        checks.append(
+            Check(
+                f"{rel}:parent:{parent}->{match.group('name')}",
+                parent_ok,
+                "parent exists" if parent_ok else "missing/invalid parent",
+            )
+        )
+
+    ext_matches = list(EXT_RESOURCE_RE.finditer(text))
+    ext_ids = [m.group("id") for m in ext_matches]
+    duplicate_ext_ids = duplicate_values(ext_ids)
+    checks.append(
+        Check(
+            f"{rel}:duplicate-ext-resource-ids",
+            not duplicate_ext_ids,
+            "none" if not duplicate_ext_ids else ", ".join(duplicate_ext_ids),
+        )
+    )
+    ext_resources = {m.group("id"): m.group("path") for m in ext_matches}
+
+    sub_matches = list(SUB_RESOURCE_DECL_RE.finditer(text))
+    sub_ids = [m.group("id") for m in sub_matches]
+    duplicate_sub_ids = duplicate_values(sub_ids)
+    checks.append(
+        Check(
+            f"{rel}:duplicate-sub-resource-ids",
+            not duplicate_sub_ids,
+            "none" if not duplicate_sub_ids else ", ".join(duplicate_sub_ids),
+        )
+    )
+    sub_resources = set(sub_ids)
 
     for ext_id, res_path in sorted(ext_resources.items()):
         target_rel = res_to_rel(res_path)
