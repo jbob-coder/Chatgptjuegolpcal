@@ -71,6 +71,8 @@ The static checker validates repository-level invariants such as:
 - required file presence;
 - `res://` file references;
 - scene resource declarations/uses;
+- duplicate scene resource IDs;
+- one-root-node/unique-node-path/parent-path integrity;
 - signal method existence;
 - current `@onready` node paths;
 - expected root-script pairing;
@@ -80,10 +82,11 @@ The static checker validates repository-level invariants such as:
 Important:
 **a static preflight PASS is not a Godot parse/build/runtime PASS.**
 
-The harness was self-tested during creation against the current fetched source snapshot:
-- positive snapshot: `81 / 81` checks passed;
+The harness was self-tested during creation/hardening against the current fetched source snapshot:
+- positive snapshot: `123 / 123` checks passed;
 - missing-scene negative test: correctly failed;
-- unexpected-GDScript negative test: correctly failed.
+- unexpected-GDScript negative test: correctly failed;
+- duplicate-sub-resource negative test: correctly failed.
 
 Because this environment cannot clone the repository or execute Godot, a real-checkout preflight run and all Godot/Android gates remain pending.
 
@@ -112,7 +115,7 @@ Because this environment cannot clone the repository or execute Godot, a real-ch
 `SOURCE_READBACK_VERIFIED = YES`
 `STATIC_PREFLIGHT_HARNESS = RECORDED`
 `HARNESS_LOGIC_SELF_TESTED = YES`
-`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 81_OF_81_PASS`
+`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 123_OF_123_PASS`
 `REAL_CHECKOUT_PREFLIGHT_RUN = PENDING`
 `GODOT_PARSE_VERIFIED = NO`
 `EDITOR_RUN_VERIFIED = NO`
