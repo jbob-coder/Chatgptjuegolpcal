@@ -1,41 +1,32 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 TARGET-DEVICE VERIFICATION + BOUNDED DESIGN
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 FOUNDATION VERIFICATION + BOUNDED REPAIR
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
 
-**Read this file before every bounded design, documentation, asset, implementation, debugging or verification pass.**
+**Read the current repository copy of this file before every bounded design, documentation, asset, implementation, debugging, build, or verification pass.**
 
-Do not rely on a remembered version of EVOLVE. Read the current repository copy first because authorization, source state, gates and next actions can change.
-
-After reading EVOLVE, read the current handoff and the owning package/source for the exact bounded task.
+After EVOLVE, read `PROJECT_HANDOFF.md`, the newest relevant specialized handoff, and the owning source/package for the exact task. Do not rely on remembered state.
 
 ## Authority order
 
 For intended changes:
-1. Current explicit user instruction.
-2. Current verified source and tests where implementation already exists.
-3. Current owning project documentation and locked decisions not superseded by the user.
-4. Verified build/runtime/device evidence relevant to the change.
-5. External documentation/research.
-6. Conversation summaries/memory.
-
-For implementation facts:
-1. Current verified project source/tests.
-2. Current durable project documentation.
-3. Verified build/runtime evidence.
-4. External documentation/research.
-5. Conversation summaries/memory.
+1. current explicit user instruction;
+2. current verified source/tests;
+3. current owning project documentation and locked decisions;
+4. verified build/runtime/device evidence;
+5. external documentation/research;
+6. chat summaries/memory.
 
 For runtime claims:
-1. Direct target-device evidence.
-2. Logs/screenshots/video.
-3. Build/package evidence.
-4. Source/static expectations.
-5. Documentation summaries.
+1. direct target-device evidence;
+2. logs/screenshots/video;
+3. build/package evidence;
+4. source/static expectations;
+5. planning documents.
 
-Current repository/source evidence outranks stale planning language.
+Current source and direct phone evidence outrank stale planning language.
 
 ## Mandatory loop
 
@@ -46,23 +37,22 @@ Current repository/source evidence outranks stale planning language.
 → `IDENTIFY OWNER + READINESS GATE`
 → `RESEARCH IF REQUIRED`
 → `IMPLEMENT OR DOCUMENT`
-→ `TEST/VERIFY AT THE HIGHEST AVAILABLE LEVEL`
-→ `INSPECT FOR REGRESSION`
-→ `FIX FAILURES WITHIN THE SAME BOUNDED PIECE`
-→ `UPDATE OWNING DOCUMENTATION`
+→ `TEST AT HIGHEST AVAILABLE LEVEL`
+→ `INSPECT REGRESSION`
+→ `FIX FAILURES WITHIN SAME PIECE`
+→ `UPDATE OWNING DOCS/HANDOFF`
 → `SAVE/COMMIT`
-→ `READ BACK SAVED STATE`
+→ `READ BACK`
 → `MARK EXACT STATUS`
 → `SELECT NEXT PIECE`
 
 Never begin the next unrelated piece before closing the current verification/documentation boundary.
 
-If the highest required verification is unavailable, stop at the highest level actually achieved and record the missing gate rather than claiming success.
+If the highest required verification is unavailable, stop at the highest achieved level and record the missing gate rather than claiming success.
 
-## Build-readiness rule
+## Build-readiness taxonomy
 
-Authority:
-`docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
+Authority: `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
 
 Every unresolved requirement belongs to one of:
 1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
@@ -74,108 +64,140 @@ Every unresolved requirement belongs to one of:
 Primary law:
 **an open question blocks only the earliest implementation gate that genuinely consumes its answer.**
 
-Do not hold Stage 1 because expansion-level lore or content breadth remains open.
-Do not advance into a later implementation stage if its own gate is still blocked.
+Do not hold Stage 1 because expansion-level lore/content is open. Do not advance into Stage 2 while Stage 1 foundation evidence is still incomplete.
 
 ## Current implementation authorization
 
 User authorization was explicitly granted on 2026-09-02.
 
-Current state:
-- `IMPLEMENTATION_AUTHORIZED = YES`;
-- `STAGE_1_ENGINE_ANDROID_PROBE_AUTHORIZED = YES`;
-- `ENGINE_PROBE_CANDIDATE = GODOT_4_7_GDSCRIPT_GL_COMPATIBILITY`;
-- `TARGET_BASELINE_DEVICE = SAMSUNG_GALAXY_A03S`;
-- `BASELINE_DEVICE_FRAME_TARGET = STABLE_30_FPS_PROBE_TARGET`;
-- `FINAL_ENGINE_SELECTED = NO / PHONE_PROTOCOL_PENDING`.
+Current candidate:
+- Godot 4.7 family;
+- GDScript;
+- GL Compatibility;
+- Android;
+- Samsung Galaxy A03s baseline;
+- stable 30 FPS representative-scene target.
 
-Authorization is bounded by readiness gates. It does not authorize skipping directly to combat, the full vertical slice or mass content production.
+`IMPLEMENTATION_AUTHORIZED = YES`
+`STAGE_1_ENGINE_ANDROID_PROBE_AUTHORIZED = YES`
+`FINAL_ENGINE_SELECTED = NO / PHONE FOUNDATION GATE PENDING`
 
-## Current source boundary
+The isolated probe remains disposable evidence-gathering source under `probes/android_stage1/`. It must not silently become the production domain/game project.
 
-Current isolated Stage 1 source:
-`probes/android_stage1/`.
+## Verified Stage 1 build chain
 
-Current target-device evidence:
-`docs/70_handoff/STAGE1_GALAXY_A03S_RUNTIME_EVIDENCE_2026-09-03.md`.
+The original probe has already achieved:
+- source created and read back;
+- real-checkout static preflight `123 / 123 PASS`;
+- Godot 4.7.2 import/parse PASS;
+- Boot headless smoke PASS;
+- ProbeWorld headless smoke PASS;
+- Android export preset exercised successfully;
+- debug APK build PASS;
+- APK archive integrity PASS;
+- Galaxy A03s install PASS;
+- target-device ProbeWorld visual runtime smoke PASS;
+- observed target-device renderer `gl_compatibility / opengl3`;
+- observed instantaneous sample `60 FPS / ~16.7 ms/frame / 40.9 MiB debug static memory`.
 
-Recorded current truth:
-- Stage 1 probe source exists and has been read back;
-- real-checkout static preflight passed `123 / 123`;
-- Godot 4.7.2 import/parse passed;
-- Boot headless smoke passed;
-- ProbeWorld headless smoke passed;
-- Android debug export passed;
-- APK archive integrity passed;
-- APK installed on the Galaxy A03s;
-- user-provided screenshot proves ProbeWorld renders on the target device in landscape aerial mode;
-- target-device HUD showed `60 FPS`, approximately `16.7 ms/frame`, `gl_compatibility / opengl3`, and `40.9 MiB` debug static memory in that captured instant;
-- touch reliability, first-person transition behavior, sustained frame pacing, thermal behavior and lifecycle remain unverified.
+That instantaneous FPS sample is not sustained-performance proof.
 
-The probe is disposable evidence-gathering source. It must not silently become the production domain project.
+## Direct Galaxy A03s feedback — current authority
+
+Latest user feedback on the prior APK establishes:
+- probe generally runs well;
+- four directional touch controls provide basic movement;
+- basic first-person entry works;
+- outer invisible world-boundary containment works well;
+- aerial camera framing remains biased toward a fixed world-forward direction rather than following Hunter heading as desired;
+- Hunter can move inside/through the brown Monster placeholder.
+
+Evidence record:
+`docs/70_handoff/STAGE1_TARGET_DEVICE_FEEDBACK_CAMERA_COLLISION_2026-09-03.md`.
+
+## Current bounded repair — camera follow
+
+Root cause found in `probes/android_stage1/scripts/probe_world.gd`:
+- old camera look-ahead was hard-coded to world `-Z`;
+- Hunter did not rotate toward movement.
+
+Camera repair commit:
+`af83b5451996fba46f584a7fd8091cdee6d49b47`.
+
+Repair behavior:
+- Hunter rotates toward non-zero movement direction;
+- aerial camera derives forward from Hunter transform;
+- camera trails behind Hunter heading;
+- look target uses heading-based forward look-ahead;
+- camera position follows with bounded smoothing;
+- first-person camera inherits Hunter heading.
+
+Build verification for that exact repair:
+- GitHub Actions run `33778332943`;
+- static preflight `123 / 123 PASS`;
+- Godot 4.7.2 import/parse PASS;
+- Boot smoke PASS;
+- ProbeWorld smoke PASS;
+- Android debug export PASS;
+- APK integrity PASS.
+
+Revised APK:
+`UnnamedHuntRPG-Stage1Probe-camera-follow.apk`
+
+SHA-256:
+`33b6a98063393c1916455cf3c740bc0a938d3ab9a8b2e664342b61852dbfd3a0`
+
+`CAMERA_FOLLOW_SOURCE_IMPLEMENTED = YES`
+`CAMERA_FOLLOW_APK_BUILD_VERIFIED = YES`
+`CAMERA_FOLLOW_PHONE_RUNTIME_VERIFIED = NO / RETEST_PENDING`
 
 ## Exact current implementation gate
 
-Do not add more Stage 1 features yet.
+Do not add another Stage 1 feature before the revised camera build is phone-tested.
 
-Execute only the remaining Galaxy A03s phone protocol against the existing verified APK:
-1. verify all directional touch controls start/stop movement correctly;
-2. rapidly alternate directions and verify no stuck movement state;
-3. toggle aerial ↔ first-person repeatedly;
-4. verify no teleport, authoritative-position drift, or severe first-person clipping;
-5. run the probe continuously for at least 10 minutes and observe FPS, stutter, input latency and heat;
-6. background/resume and lock/unlock once;
-7. record any repeatable crash/ANR or other defect with exact reproduction steps.
+Next test against the revised APK:
+1. move in all four directions;
+2. verify Hunter visibly turns toward movement;
+3. verify aerial camera relocates/trails behind that heading rather than staying world-forward;
+4. verify camera remains centered/following during movement;
+5. enter first person after changing movement direction and verify view heading follows the Hunter;
+6. toggle AERIAL ↔ FIRST PERSON repeatedly and check for teleport/position drift;
+7. report clipping, nausea-inducing snapping, control confusion, or other repeatable camera defects.
 
-Only after this phone protocol is sufficiently green may `ENGINE_PHONE_PROBE_VERIFIED` be considered for PASS and Stage 2 domain-skeleton implementation be reconsidered.
+If that test passes, close the camera piece and begin exactly one next implementation piece:
+**MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR**.
 
-Do not call the observed `60 FPS` screenshot sustained-performance verification.
+Do not combine that future collision repair with combat, monster AI, damage, navigation, production physics, or content expansion.
 
-## Independent design lane — current state
+## Foundation-first build sequence
 
-Completed bounded combat-design authorities:
-- `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`;
-- `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
-- `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`;
-- `docs/20_gameplay/combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`.
+Before attempting the game in full, prove the starting elements in this order:
+1. touch input starts/stops reliably;
+2. Hunter movement/facing is coherent;
+3. camera framing/follow is coherent;
+4. solid world/creature obstacles block movement correctly;
+5. world boundaries are trustworthy;
+6. aerial ↔ first-person transition preserves physical state;
+7. background/resume and lock/unlock are stable;
+8. sustained target-device performance/thermal behavior is acceptable.
 
-Recorded first weapon family:
-- `WEAPON_FAMILY_FIELD_POLEBLADE`;
-- working name Field Poleblade;
-- cutting/sever primary;
-- piercing/control secondary;
-- limited impact;
-- directional Guard and restricted Parry;
-- 2/3/4 AP technique packet with explicit hit-quality/fallback policies.
+Only after those are sufficiently green may `ENGINE_PHONE_PROBE_VERIFIED` be considered for PASS and Stage 2 domain implementation be reconsidered.
 
-Recorded first-slice Stamina prototype:
-- neutral test Max Stamina `100`;
-- passive recovery `+10` once at normal activation start;
-- reserve bands `READY / LOW / CRITICAL / EMPTY`;
-- low reserve uses affordability pressure rather than automatic hidden global accuracy/evasion penalties;
-- `CATCH_BREATH = 1 AP / +20 delayed / once per activation`;
-- Catch Breath cannot be paired with a damaging attack in the same activation;
-- no first-slice negative-Stamina overexertion;
-- stable adjacent reposition `0` Stamina baseline;
-- Dodge `14`, compatible Parry `10`, Brace `6`, reactive Brace `10`;
-- ordinary positive-cost reduction floor `max(1, ceil(base × 0.50))`;
-- Field Poleblade costs: `12 / 10 / 18 / 30 / 8` for Measured Cut / Driving Thrust / Placed Hew / Committed Cleave / Haft Check.
+## Independent gameplay-design lane
 
-Specificity law:
-where earlier Action Economy or Field Poleblade text says exact Stamina values were open, the dedicated Stamina contract now owns the first-slice prototype values. It does not supersede their non-Stamina rules.
+Recorded combat authorities:
+- `ACTION_ECONOMY_CONTRACT.md`;
+- `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
+- `FIRST_WEAPON_FAMILY_CONTRACT.md`;
+- `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`.
 
-The next independent gameplay-design packet is:
+Selected first weapon family: `WEAPON_FAMILY_FIELD_POLEBLADE`.
+Selected first-slice Stamina baseline: `MAX_STAMINA = 100`.
+
+Next independent design packet remains:
 **Initiative and Turn-Order Prototype Contract**.
 
-That pass must define only:
-- first-slice initiative inputs;
-- deterministic ordering;
-- tie resolution;
-- round participation/entry/removal rules;
-- no-extra-turn invariant;
-- reproducible trace/testing.
-
-Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
+Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk, party design, or defeat/retreat behavior.
 
 ## Status vocabulary
 
@@ -186,88 +208,30 @@ Keep gates separate:
 - TESTED
 - COMPILED
 - APK_BUILD_VERIFIED
+- PHONE_INSTALL_VERIFIED
 - PHONE_RUNTIME_VERIFIED
 - VISUAL_QUALITY_VERIFIED
 - PERFORMANCE_VERIFIED
-
-Additional useful Stage 1 distinctions:
-- SOURCE_CREATED
-- SOURCE_READBACK_VERIFIED
-- GODOT_PARSE_VERIFIED
-- HEADLESS_BOOT_SMOKE_VERIFIED
-- HEADLESS_PROBEWORLD_SMOKE_VERIFIED
-- ANDROID_PRESET_VERIFIED
-- PHONE_INSTALL_VERIFIED
-- PHONE_RUNTIME_PARTIAL
 - ENGINE_PHONE_PROBE_VERIFIED
 
-Never call a design implemented, source tested, APK phone-verified, or engine accepted without direct evidence for that exact gate.
-
-## Continuity fields
-
-Durable handoffs should keep current:
-- CURRENT_OBJECTIVE
-- CURRENT_STATE
-- LAST_VERIFIED_STATE
-- COMPLETED
-- IN_PROGRESS
-- NEXT_ACTION
-- BLOCKERS
-- IMPORTANT_DECISIONS
-- RISKS
-- FILES_CHANGED
-- TESTS_RUN
-- RESULTS
-- ASSUMPTIONS
-- UNKNOWNS
-
-## New-game rule
-
-This is not WorldLife. Old WorldLife source, saves, Android architecture, city coordinates, NPCs and gameplay systems are not inherited by default.
-
-Only abstract engineering lessons may carry forward when independently useful, such as:
-- authoritative domain state;
-- UI is not a second engine;
-- stable IDs;
-- deterministic/reproducible tests;
-- save migration discipline;
-- explicit verification gates;
-- rollback-safe small changes;
-- target-device testing early.
-
-## Architecture decision rule
-
-For the current engine candidate evaluate:
-
-NOW:
-can it build the required aerial + first-person representative probe reliably on the Galaxy A03s?
-
-NEXT:
-can it support data-driven monsters/anatomy, animation, tools, saves and content iteration without excessive custom infrastructure?
-
-LATER:
-can it scale to additional regions/creatures/content without architectural traps or unacceptable mobile performance?
-
-Choose the simplest robust option that passes real-device evidence.
-
-Godot remains a probe candidate until the Stage 1 phone gate passes.
+Never call source phone-verified, performance-verified, or the engine selected without direct evidence for that exact gate.
 
 ## Root-cause rule
 
 When a bug appears:
-- reproduce/collect evidence;
-- classify severity;
-- identify the owning system;
-- fix the root cause rather than hiding the symptom;
-- test the bounded change;
-- regression-check adjacent contracts;
-- record verified state.
+1. preserve the observed symptom;
+2. reproduce/collect evidence;
+3. identify owning system and root cause;
+4. fix the smallest correct cause;
+5. test the bounded repair;
+6. regression-check adjacent contracts;
+7. update durable state.
 
-Do not expand scope to unrelated cleanup while repairing one defect unless the defect proves a shared root cause.
+Do not expand unrelated scope while repairing one defect unless evidence proves a shared root cause.
 
 ## Performance rule
 
-Performance is verified on the target device, not inferred from source quality or one instantaneous FPS display.
+Performance is verified on the target phone, not inferred from source quality, CI, or one FPS screenshot.
 
 Protect in order:
 1. input responsiveness;
@@ -278,20 +242,18 @@ Protect in order:
 6. navigation/audio readability;
 7. decoration.
 
-Measure before optimizing. Reduce optional presentation before compromising gameplay-critical state/readability.
+Measure before optimizing.
 
-## Destructive-operation rule
+## New-game / destructive-operation rule
 
-Destructive changes require explicit intent and exact scope.
+This project is not WorldLife. Do not resurrect old WorldLife gameplay architecture, saves, coordinates, NPCs, or source by default.
 
-Do not overwrite/remove current authoritative source or documents merely to simplify structure. Migration/removal requires link/state verification and readback.
+Destructive changes require explicit intent and exact scope. Do not remove current authoritative files merely to simplify structure.
 
-## Current stop/next condition
+## Current stop / next condition
 
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
 `IMPLEMENTATION_AUTHORIZED = YES`
-`STAGE_1_PROBE_SOURCE_CREATED = YES`
-`SOURCE_READBACK_VERIFIED = YES`
 `STATIC_PREFLIGHT_VERIFIED = YES`
 `GODOT_PARSE_VERIFIED = YES`
 `HEADLESS_BOOT_SMOKE_VERIFIED = YES`
@@ -299,22 +261,17 @@ Do not overwrite/remove current authoritative source or documents merely to simp
 `ANDROID_PRESET_VERIFIED = YES`
 `APK_BUILD_VERIFIED = YES`
 `GALAXY_A03S_INSTALL_VERIFIED = YES`
-`PHONE_RUNTIME_VERIFIED = PARTIAL`
-`TARGET_DEVICE_SNAPSHOT_FPS = 60`
-`TARGET_DEVICE_SNAPSHOT_FRAME_TIME = ~16.7_MS`
-`TARGET_DEVICE_RENDERER = GL_COMPATIBILITY_OPENGL3`
-`TARGET_DEVICE_DEBUG_STATIC_MEMORY = 40.9_MIB`
+`BASIC_TOUCH_DIRECTIONAL_MOVEMENT = PASS_EVIDENCE_ON_PRIOR_APK`
+`FIRST_PERSON_BASIC_ENTRY = PASS_EVIDENCE_ON_PRIOR_APK`
+`OUTER_BOUNDARY_CONTAINMENT = PASS_EVIDENCE_ON_PRIOR_APK`
+`CAMERA_FOLLOW_SOURCE_IMPLEMENTED = YES`
+`CAMERA_FOLLOW_APK_BUILD_VERIFIED = YES`
+`CAMERA_FOLLOW_PHONE_RUNTIME_VERIFIED = NO`
+`MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE / NEXT_REPAIR_AFTER_CAMERA_RETEST`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-`COMBAT_ACTION_ECONOMY = RECORDED`
-`COMBAT_RESOLUTION_CONTRACT = RECORDED`
-`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
-`FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
-`STAMINA_PROTOTYPE_CONTRACT = RECORDED`
-`BASELINE_MAX_STAMINA = 100`
-
-`NEXT_IMPLEMENTATION_ACTION = COMPLETE_GALAXY_A03S_TOUCH_CAMERA_PERFORMANCE_LIFECYCLE_PROTOCOL`
-
+`NEXT_IMPLEMENTATION_ACTION = PHONE_RETEST_CAMERA_FOLLOW_REVISED_APK`
+`NEXT_IMPLEMENTATION_AFTER_PASS = MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR`
 `NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
