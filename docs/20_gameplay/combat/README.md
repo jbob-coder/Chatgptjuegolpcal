@@ -1,6 +1,6 @@
 # 20_gameplay/combat — Tactical Combat Package
 
-Status: ACTIVE DESIGN PACKAGE / THREE CORE CONTRACTS RECORDED / NO COMBAT IMPLEMENTATION
+Status: ACTIVE DESIGN PACKAGE / FOUR CORE CONTRACTS RECORDED / NO COMBAT IMPLEMENTATION
 Last reconciled: 2026-09-02
 
 ## Purpose
@@ -11,7 +11,7 @@ This package must not redefine one monster's anatomy, one region's terrain graph
 
 ## Current authorities
 
-### Action timing/economy
+### 1. Action timing/economy
 `ACTION_ECONOMY_CONTRACT.md`
 
 Owns:
@@ -31,7 +31,7 @@ Selected first-slice prototype:
 - no AP banking;
 - no ordinary extra-turn progression.
 
-### Contact / hit quality / defense
+### 2. Contact / hit quality / defense
 `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`
 
 Owns:
@@ -53,7 +53,7 @@ Selected hit-quality classes:
 Selected randomness law:
 **no unrelated hidden critical-hit roll; committed attacks use one reproducible bounded seeded variance source, while legality/anatomy/cover state remain deterministic.**
 
-### First weapon family
+### 3. First weapon family
 `FIRST_WEAPON_FAMILY_CONTRACT.md`
 
 Selected first-slice family:
@@ -76,15 +76,72 @@ Initial technique packet:
 - `POLEBLADE_HAFT_CHECK` — short-range low-impact spacing/control action;
 - weapon-supported Guard/Parry according to the generic defense contracts.
 
-The family is intentionally not a universal best weapon. Its first-slice purpose is to prove reach, anatomy targeting, severing, AP commitment, Stamina pressure and bounded defense while leaving room for later specialized impact, shield, ranged and mobility families.
+### 4. Stamina scale/recovery
+`STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`
 
-Supporting root authorities:
+Owns the first-slice Stamina numbers and recovery behavior.
+
+Selected prototype:
+- neutral test-profile Max Stamina: `100`;
+- passive recovery: `+10` once at the start of each normal activation;
+- reserve bands: `READY 50–100 / LOW 25–49 / CRITICAL 1–24 / EMPTY 0`;
+- low reserve does not automatically apply hidden global accuracy/evasion penalties;
+- ordinary action/reaction must have enough Stamina to pay its final cost;
+- no normal overexertion below zero;
+- normal stable-ground adjacent reposition: `0 Stamina` baseline;
+- Sprint: `8`;
+- deliberate Brace: `6`;
+- reactive Brace: `10`;
+- Dodge: `14`;
+- generic compatible Parry baseline: `10`;
+- Guard preparation: `4`;
+- Block/guard commitment: `6 + incoming-force impact drain`;
+- ordinary positive-cost reduction floor: `max(1, ceil(base × 0.50))` unless an exceptional capability explicitly overrides it.
+
+`CATCH_BREATH`:
+- 1 AP;
+- 0 Stamina cost;
+- +20 delayed recovery at turn-end when its recovery commitment remains valid;
+- once per activation;
+- cannot be paired with a damaging attack in the same activation;
+- incompatible later heavy exertion cancels pending recovery;
+- cannot immediately finance a 3-AP attack with the remaining 1 AP.
+
+Field Poleblade prototype Stamina costs:
+- Measured Cut `12`;
+- Driving Thrust `10`;
+- Placed Hew `18`;
+- Committed Cleave `30`;
+- Haft Check `8`;
+- Poleblade Guard preparation `4`;
+- Poleblade Block commitment `6 + impact drain`;
+- Poleblade Parry `10`.
+
+## Specificity / supersession rule
+
+Earlier combat documents were intentionally written before Stamina numbers existed and may still contain phrases such as `exact Stamina values open`.
+
+For the first-slice prototype:
+
+**`STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md` is now the more specific authority for Stamina scale, recovery and first-slice cost values.**
+
+It supersedes those older Stamina placeholders only.
+It does not override:
+- AP/RP laws owned by Action Economy;
+- weapon identity/technique targeting/hit-quality rules owned by the Field Poleblade contract;
+- combat-contact/defense rules owned by Combat Resolution.
+
+Final production balance remains test-dependent.
+
+## Supporting authorities
+
+Root:
 - `/MECHANICAL_SYSTEMS_GUIDE.md`;
 - `/STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
 - `/BEHAVIOR_PATTERN_SYSTEM.md`;
 - `/DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
 
-Progression interaction:
+Progression:
 - `../progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
 
 Monster-specific anatomy/content remains owned by the relevant content package, including:
@@ -93,7 +150,8 @@ Monster-specific anatomy/content remains owned by the relevant content package, 
 ## Ownership
 
 Belongs here:
-- AP/reaction/stamina timing;
+- AP/RP/Stamina timing;
+- Stamina affordability/recovery/cost floors;
 - turn/round ordering;
 - action-cost categories;
 - generic movement/cover/posture timing;
@@ -117,13 +175,14 @@ Does not belong here:
 - final damage numbers;
 - animation duration;
 - renderer/UI implementation;
-- final balance constants beyond explicitly marked prototype targets.
+- final production balance constants.
 
 ## Authority rule
 
-Combat presentation may visualize timing/contact/results but never:
+Combat presentation may visualize timing/contact/resources/results but never:
 - advances turns;
 - refunds/spends AP/RP/Stamina independently;
+- grants passive or Catch Breath recovery independently;
 - rerolls attacks;
 - resolves hits;
 - chooses fallback body parts;
@@ -140,10 +199,13 @@ Recorded:
 - `DODGE_BLOCK_PARRY_BRACE_ROLES = RECORDED`;
 - `SEEDED_VARIANCE_BOUNDARY = RECORDED`;
 - `FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`;
-- `FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`.
+- `FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`;
+- `STAMINA_PROTOTYPE_CONTRACT = RECORDED`;
+- `BASELINE_MAX_STAMINA = 100`;
+- `BASE_PASSIVE_RECOVERY = 10`;
+- `CATCH_BREATH = 1_AP / +20_DELAYED / ONCE_PER_ACTIVATION`.
 
 Still required before real combat implementation:
-- prototype Stamina scale/recovery;
 - prototype Initiative/tie rule;
 - small first-slice status set;
 - concrete first terrain-effect set;
@@ -157,6 +219,15 @@ Still required before real combat implementation:
 
 ## Exact next bounded combat-design dependency
 
-**Stamina Prototype Scale and Recovery Contract**.
+**Initiative and Turn-Order Prototype Contract**.
 
-It should define only the first-slice Stamina scale, recovery timing, exertion bands, low-Stamina consequences, cost floors/caps and Field Poleblade prototype costs. Do not expand into the full status system or endgame Stamina progression in that pass.
+That pass should define only:
+- first-slice initiative inputs;
+- deterministic ordering;
+- tie resolution;
+- round participation/late-entry rules;
+- incapacitated/dead/escaped actor removal;
+- no-extra-turn invariant;
+- reproducible trace/testing requirements.
+
+Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk or party design.
