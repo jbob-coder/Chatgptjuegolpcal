@@ -1,7 +1,7 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 IMPLEMENTATION + BOUNDED DESIGN
-Last reconciled: 2026-09-02
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 TARGET-DEVICE VERIFICATION + BOUNDED DESIGN
+Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
 
@@ -87,7 +87,7 @@ Current state:
 - `ENGINE_PROBE_CANDIDATE = GODOT_4_7_GDSCRIPT_GL_COMPATIBILITY`;
 - `TARGET_BASELINE_DEVICE = SAMSUNG_GALAXY_A03S`;
 - `BASELINE_DEVICE_FRAME_TARGET = STABLE_30_FPS_PROBE_TARGET`;
-- `FINAL_ENGINE_SELECTED = NO / PROBE_PENDING`.
+- `FINAL_ENGINE_SELECTED = NO / PHONE_PROTOCOL_PENDING`.
 
 Authorization is bounded by readiness gates. It does not authorize skipping directly to combat, the full vertical slice or mass content production.
 
@@ -96,36 +96,40 @@ Authorization is bounded by readiness gates. It does not authorize skipping dire
 Current isolated Stage 1 source:
 `probes/android_stage1/`.
 
+Current target-device evidence:
+`docs/70_handoff/STAGE1_GALAXY_A03S_RUNTIME_EVIDENCE_2026-09-03.md`.
+
 Recorded current truth:
-- Stage 1 probe source exists;
-- source readback has been performed;
-- Godot parse/editor execution is not yet verified;
-- Android export preset is not yet verified;
-- APK build is not verified;
-- Galaxy A03s install/runtime/performance are not verified.
+- Stage 1 probe source exists and has been read back;
+- real-checkout static preflight passed `123 / 123`;
+- Godot 4.7.2 import/parse passed;
+- Boot headless smoke passed;
+- ProbeWorld headless smoke passed;
+- Android debug export passed;
+- APK archive integrity passed;
+- APK installed on the Galaxy A03s;
+- user-provided screenshot proves ProbeWorld renders on the target device in landscape aerial mode;
+- target-device HUD showed `60 FPS`, approximately `16.7 ms/frame`, `gl_compatibility / opengl3`, and `40.9 MiB` debug static memory in that captured instant;
+- touch reliability, first-person transition behavior, sustained frame pacing, thermal behavior and lifecycle remain unverified.
 
 The probe is disposable evidence-gathering source. It must not silently become the production domain project.
 
 ## Exact current implementation gate
 
-Before adding more Stage 1 features, verify the existing probe with Godot 4.7-family tooling:
-1. open/import the existing project;
-2. resolve project/scene/GDScript parse errors;
-3. run Boot;
-4. enter ProbeWorld;
-5. verify movement and camera toggle;
-6. verify runtime renderer/driver and metrics readout;
-7. record warnings/errors.
+Do not add more Stage 1 features yet.
 
-Only after editor/runtime smoke passes:
-- create/verify Android export preset;
-- build debug APK;
-- install on Galaxy A03s;
-- execute the recorded phone protocol;
-- measure frame pacing/memory/thermal behavior;
-- decide whether the engine-phone gate passes.
+Execute only the remaining Galaxy A03s phone protocol against the existing verified APK:
+1. verify all directional touch controls start/stop movement correctly;
+2. rapidly alternate directions and verify no stuck movement state;
+3. toggle aerial ↔ first-person repeatedly;
+4. verify no teleport, authoritative-position drift, or severe first-person clipping;
+5. run the probe continuously for at least 10 minutes and observe FPS, stutter, input latency and heat;
+6. background/resume and lock/unlock once;
+7. record any repeatable crash/ANR or other defect with exact reproduction steps.
 
-Do not add real combat to the probe before this gate closes.
+Only after this phone protocol is sufficiently green may `ENGINE_PHONE_PROBE_VERIFIED` be considered for PASS and Stage 2 domain-skeleton implementation be reconsidered.
+
+Do not call the observed `60 FPS` screenshot sustained-performance verification.
 
 ## Independent design lane — current state
 
@@ -190,9 +194,11 @@ Additional useful Stage 1 distinctions:
 - SOURCE_CREATED
 - SOURCE_READBACK_VERIFIED
 - GODOT_PARSE_VERIFIED
-- EDITOR_RUN_VERIFIED
+- HEADLESS_BOOT_SMOKE_VERIFIED
+- HEADLESS_PROBEWORLD_SMOKE_VERIFIED
 - ANDROID_PRESET_VERIFIED
 - PHONE_INSTALL_VERIFIED
+- PHONE_RUNTIME_PARTIAL
 - ENGINE_PHONE_PROBE_VERIFIED
 
 Never call a design implemented, source tested, APK phone-verified, or engine accepted without direct evidence for that exact gate.
@@ -261,7 +267,7 @@ Do not expand scope to unrelated cleanup while repairing one defect unless the d
 
 ## Performance rule
 
-Performance is verified on the target device, not inferred from source quality or desktop behavior.
+Performance is verified on the target device, not inferred from source quality or one instantaneous FPS display.
 
 Protect in order:
 1. input responsiveness;
@@ -286,11 +292,20 @@ Do not overwrite/remove current authoritative source or documents merely to simp
 `IMPLEMENTATION_AUTHORIZED = YES`
 `STAGE_1_PROBE_SOURCE_CREATED = YES`
 `SOURCE_READBACK_VERIFIED = YES`
-`GODOT_PARSE_VERIFIED = NO`
-`EDITOR_RUN_VERIFIED = NO`
-`APK_BUILD_VERIFIED = NO`
-`PHONE_RUNTIME_VERIFIED = NO`
+`STATIC_PREFLIGHT_VERIFIED = YES`
+`GODOT_PARSE_VERIFIED = YES`
+`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
+`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
+`ANDROID_PRESET_VERIFIED = YES`
+`APK_BUILD_VERIFIED = YES`
+`GALAXY_A03S_INSTALL_VERIFIED = YES`
+`PHONE_RUNTIME_VERIFIED = PARTIAL`
+`TARGET_DEVICE_SNAPSHOT_FPS = 60`
+`TARGET_DEVICE_SNAPSHOT_FRAME_TIME = ~16.7_MS`
+`TARGET_DEVICE_RENDERER = GL_COMPATIBILITY_OPENGL3`
+`TARGET_DEVICE_DEBUG_STATIC_MEMORY = 40.9_MIB`
 `PERFORMANCE_VERIFIED = NO`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
 `COMBAT_ACTION_ECONOMY = RECORDED`
@@ -300,6 +315,6 @@ Do not overwrite/remove current authoritative source or documents merely to simp
 `STAMINA_PROTOTYPE_CONTRACT = RECORDED`
 `BASELINE_MAX_STAMINA = 100`
 
-`NEXT_IMPLEMENTATION_ACTION = GODOT_PARSE_AND_EDITOR_SMOKE_VERIFY_EXISTING_PROBE`
+`NEXT_IMPLEMENTATION_ACTION = COMPLETE_GALAXY_A03S_TOUCH_CAMERA_PERFORMANCE_LIFECYCLE_PROTOCOL`
 
 `NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
