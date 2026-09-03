@@ -4,6 +4,14 @@ const MOVE_SPEED_MPS := 3.5
 const PROBE_BOUNDS := 8.5
 const METRICS_REFRESH_SECONDS := 0.25
 
+# Stage-1 camera-follow prototype values. These are evidence-gathering values,
+# not final production camera tuning.
+const HUNTER_TURN_RESPONSE := 9.0
+const AERIAL_CAMERA_HEIGHT_M := 8.6
+const AERIAL_CAMERA_TRAIL_M := 8.4
+const AERIAL_CAMERA_LOOK_AHEAD_M := 2.2
+const AERIAL_CAMERA_FOLLOW_RESPONSE := 8.0
+
 @onready var hunter: CharacterBody3D = $Hunter
 @onready var hunter_body: MeshInstance3D = $Hunter/Body
 @onready var monster: MeshInstance3D = $Monster
@@ -23,7 +31,7 @@ var _monster_phase := 0.0
 var _metrics_elapsed := 0.0
 
 func _ready() -> void:
-	_update_aerial_camera()
+	_update_aerial_camera(0.0, true)
 	_update_renderer_label()
 	_update_view_state()
 
@@ -37,7 +45,11 @@ func _physics_process(delta: float) -> void:
 	if movement.length() > 1.0:
 		movement = movement.normalized()
 
-	hunter.velocity = Vector3(movement.x, 0.0, movement.y) * MOVE_SPEED_MPS
+	var movement_world := Vector3(movement.x, 0.0, movement.y)
+	if movement_world.length_squared() > 0.0001:
+		_update_hunter_heading(movement_world.normalized(), delta)
+
+	hunter.velocity = movement_world * MOVE_SPEED_MPS
 	hunter.move_and_slide()
 
 	var bounded_position := hunter.global_position
@@ -46,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	hunter.global_position = bounded_position
 
 	if not _first_person:
-		_update_aerial_camera()
+		_update_aerial_camera(delta)
 
 	_monster_phase += delta
 	monster.position.y = 1.2 + sin(_monster_phase * 1.8) * 0.08
@@ -64,9 +76,31 @@ func _process(delta: float) -> void:
 	fps_label.text = "FPS: %d | approx %.1f ms/frame" % [fps, frame_ms]
 	memory_label.text = "Debug static memory: %.1f MiB" % static_memory_mb
 
-func _update_aerial_camera() -> void:
-	aerial_camera.global_position = hunter.global_position + Vector3(0.0, 8.6, 8.4)
-	aerial_camera.look_at(hunter.global_position + Vector3(0.0, 0.7, -1.0), Vector3.UP)
+func _update_hunter_heading(direction: Vector3, delta: float) -> void:
+	# Godot's conventional 3D forward direction is local -Z.
+	var target_yaw := atan2(-direction.x, -direction.z)
+	var turn_weight := clampf(HUNTER_TURN_RESPONSE * delta, 0.0, 1.0)
+	hunter.rotation.y = lerp_angle(hunter.rotation.y, target_yaw, turn_weight)
+
+func _hunter_forward() -> Vector3:
+	var forward := -hunter.global_transform.basis.z
+	forward.y = 0.0
+	if forward.length_squared() <= 0.0001:
+		return Vector3(0.0, 0.0, -1.0)
+	return forward.normalized()
+
+func _update_aerial_camera(delta: float, snap: bool = false) -> void:
+	var forward := _hunter_forward()
+	var desired_position := hunter.global_position + Vector3(0.0, AERIAL_CAMERA_HEIGHT_M, 0.0) - forward * AERIAL_CAMERA_TRAIL_M
+
+	if snap:
+		aerial_camera.global_position = desired_position
+	else:
+		var follow_weight := 1.0 - exp(-AERIAL_CAMERA_FOLLOW_RESPONSE * maxf(delta, 0.0))
+		aerial_camera.global_position = aerial_camera.global_position.lerp(desired_position, follow_weight)
+
+	var look_target := hunter.global_position + Vector3(0.0, 0.7, 0.0) + forward * AERIAL_CAMERA_LOOK_AHEAD_M
+	aerial_camera.look_at(look_target, Vector3.UP)
 
 func _update_renderer_label() -> void:
 	renderer_label.text = "Renderer: %s / %s" % [
