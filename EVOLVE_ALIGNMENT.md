@@ -38,6 +38,7 @@ For runtime claims:
 → `VERIFY STATE`
 → `IDENTIFY EXACTLY ONE SMALL PIECE`
 → `IDENTIFY OWNER + READINESS GATE`
+→ `STATE THE EXACT CURRENT BOUNDED ACTION TO THE USER`
 → `RESEARCH IF REQUIRED`
 → `IMPLEMENT OR DOCUMENT`
 → `TEST AT HIGHEST AVAILABLE LEVEL`
@@ -47,11 +48,38 @@ For runtime claims:
 → `SAVE/COMMIT`
 → `READ BACK`
 → `MARK EXACT STATUS`
-→ `SELECT NEXT PIECE`
+→ `SELECT EXACT NEXT PIECE`
+→ `WRITE THAT NEXT PIECE INTO EVOLVE`
+→ `STATE THE SAME NEXT ACTION TO THE USER`
 
 Never begin the next unrelated piece before closing the current verification/documentation boundary.
 
 If the highest required verification is unavailable, stop at the highest achieved level and record the missing gate rather than claiming success.
+
+## Mandatory next-action declaration rule
+
+Before ending **every** bounded work pass, the assistant must do all of the following:
+1. decide the single exact next action for the active implementation lane;
+2. if an independent design lane is active, keep its next action separately identified rather than mixing it into implementation;
+3. update the current-state section of this file so the repository records the exact next action;
+4. state to the user, in plain language, **what the assistant will do next**;
+5. make the user-visible next action match the action recorded in EVOLVE;
+6. if progress is blocked on user/device/external evidence, state the blocker and then state exactly what the assistant will do once that evidence arrives;
+7. do not write vague next actions such as `continue`, `work on gameplay`, `improve the game`, or `do more testing`.
+
+Preferred wording at the end of a pass:
+`NEXT THING I WILL DO: <one exact bounded action>`
+
+If blocked:
+`BLOCKER: <exact missing evidence or action>`
+`NEXT THING I WILL DO AFTER THAT: <one exact bounded action>`
+
+The same exact action must be represented in the current-state keys below, such as:
+- `NEXT_IMPLEMENTATION_ACTION`;
+- `NEXT_IMPLEMENTATION_AFTER_PASS`;
+- `NEXT_INDEPENDENT_DESIGN_ACTION`.
+
+**Do not finish a work pass with the next step existing only in chat. The repository EVOLVE file must carry it forward.**
 
 ## Build-readiness taxonomy
 
