@@ -1,7 +1,7 @@
 # 20_gameplay/combat — Tactical Combat Package
 
-Status: ACTIVE DESIGN PACKAGE / FOUR CORE CONTRACTS RECORDED / NO COMBAT IMPLEMENTATION
-Last reconciled: 2026-09-02
+Status: ACTIVE DESIGN PACKAGE / FIVE CORE CONTRACTS RECORDED / NO COMBAT IMPLEMENTATION
+Last reconciled: 2026-09-03
 
 ## Purpose
 
@@ -14,130 +14,100 @@ This package must not redefine one monster's anatomy, one region's terrain graph
 ### 1. Action timing/economy
 `ACTION_ECONOMY_CONTRACT.md`
 
-Owns:
-- AP/RP/Stamina separation;
-- turn/round timing;
-- action-cost bands;
-- movement/cover/posture timing;
-- reaction windows;
-- telegraph timing;
-- cancellation/refund laws;
-- anti-extra-turn/anti-loop invariants.
+Owns AP/RP/Stamina separation, turn/round timing hooks, action-cost bands, movement/cover/posture timing, reaction windows, cancellation/refunds and anti-extra-turn/anti-loop invariants.
 
 Selected first-slice prototype:
 - 4 AP;
 - 1 RP;
 - persistent Stamina;
 - no AP banking;
-- no ordinary extra-turn progression.
+- no ordinary progression-driven extra turns.
 
 ### 2. Contact / hit quality / defense
 `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`
 
-Owns:
-- hard legality vs contested resolution;
-- attack/defense control separation;
-- body contact vs selected-part contact;
-- target-part exposure states;
-- directional physical cover;
-- Dodge/Block/Parry/Brace resolution roles;
-- bounded seeded variance;
-- hit-quality classes;
-- local protection ordering;
-- off-target contact;
-- resolution/calculation traces.
+Owns hard legality vs contested resolution, attack/defense control, body vs selected-part contact, exposure, directional cover, Dodge/Block/Parry/Brace boundaries, bounded seeded variance, hit quality, protection ordering and traces.
 
-Selected hit-quality classes:
+Hit-quality classes:
 `MISS / GRAZE / SOLID / CLEAN / PRECISION`.
 
-Selected randomness law:
-**no unrelated hidden critical-hit roll; committed attacks use one reproducible bounded seeded variance source, while legality/anatomy/cover state remain deterministic.**
+Randomness law:
+**no unrelated hidden critical-hit roll; a committed attack uses one reproducible bounded seeded variance source while legality/anatomy/cover remain deterministic.**
 
 ### 3. First weapon family
 `FIRST_WEAPON_FAMILY_CONTRACT.md`
 
-Selected first-slice family:
-- technical ID: `WEAPON_FAMILY_FIELD_POLEBLADE`;
-- working name: Field Poleblade;
+Selected family:
+`WEAPON_FAMILY_FIELD_POLEBLADE`.
+
+Identity:
 - two-handed long-hafted hunting blade;
-- primary cutting/sever identity;
-- secondary piercing/control identity;
-- limited impact capability;
-- useful medium melee reach;
+- primary controlled cutting/sever;
+- secondary piercing/control;
+- limited impact;
+- medium melee reach;
 - directional Guard;
 - restricted Parry;
-- intentionally weaker at dedicated hard-structure breaking, cramped fighting and shield-like defense.
+- deliberate weaknesses at hard-structure breaking, cramped fighting and shield-like defense.
 
-Initial technique packet:
-- `POLEBLADE_MEASURED_CUT` — 2 AP, controlled cutting, body fallback allowed, CLEAN ceiling;
-- `POLEBLADE_DRIVING_THRUST` — 2 AP, piercing/reach, body fallback allowed, CLEAN ceiling;
-- `POLEBLADE_PLACED_HEW` — 3 AP, selected-part cutting, selected part required, PRECISION allowed;
-- `POLEBLADE_COMMITTED_CLEAVE` — 4 AP, high commitment/force, body fallback allowed, CLEAN ceiling;
-- `POLEBLADE_HAFT_CHECK` — short-range low-impact spacing/control action;
-- weapon-supported Guard/Parry according to the generic defense contracts.
+Initial techniques include Measured Cut, Driving Thrust, Placed Hew, Committed Cleave and Haft Check with explicit AP/Stamina/targeting commitments.
 
 ### 4. Stamina scale/recovery
 `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`
 
-Owns the first-slice Stamina numbers and recovery behavior.
-
 Selected prototype:
-- neutral test-profile Max Stamina: `100`;
-- passive recovery: `+10` once at the start of each normal activation;
-- reserve bands: `READY 50–100 / LOW 25–49 / CRITICAL 1–24 / EMPTY 0`;
-- low reserve does not automatically apply hidden global accuracy/evasion penalties;
-- ordinary action/reaction must have enough Stamina to pay its final cost;
-- no normal overexertion below zero;
-- normal stable-ground adjacent reposition: `0 Stamina` baseline;
-- Sprint: `8`;
-- deliberate Brace: `6`;
-- reactive Brace: `10`;
-- Dodge: `14`;
-- generic compatible Parry baseline: `10`;
-- Guard preparation: `4`;
-- Block/guard commitment: `6 + incoming-force impact drain`;
-- ordinary positive-cost reduction floor: `max(1, ceil(base × 0.50))` unless an exceptional capability explicitly overrides it.
+- neutral Max Stamina `100`;
+- passive recovery `+10` once at normal activation start;
+- `READY 50–100 / LOW 25–49 / CRITICAL 1–24 / EMPTY 0`;
+- no hidden generic low-Stamina accuracy/evasion penalty;
+- ordinary positive-cost action/reaction requires enough Stamina;
+- no normal negative-Stamina overexertion;
+- `CATCH_BREATH = 1 AP / +20 delayed turn-end recovery / once per activation` with anti-financing rules.
 
-`CATCH_BREATH`:
-- 1 AP;
-- 0 Stamina cost;
-- +20 delayed recovery at turn-end when its recovery commitment remains valid;
-- once per activation;
-- cannot be paired with a damaging attack in the same activation;
-- incompatible later heavy exertion cancels pending recovery;
-- cannot immediately finance a 3-AP attack with the remaining 1 AP.
+### 5. Initiative / turn order
+`INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`
 
-Field Poleblade prototype Stamina costs:
-- Measured Cut `12`;
-- Driving Thrust `10`;
-- Placed Hew `18`;
-- Committed Cleave `30`;
-- Haft Check `8`;
-- Poleblade Guard preparation `4`;
-- Poleblade Block commitment `6 + impact drain`;
-- Poleblade Parry `10`.
+Selected first-slice prototype:
+
+```text
+InitiativeRating =
+    (2 × EffectiveAgility)
+  + EffectivePerception
+  + ExplicitInitiativeModifier
+```
+
+Key laws:
+- no Initiative/random opener roll;
+- Initiative snapshot captured when an actor enters the encounter;
+- ordinary mid-encounter stat changes do not silently resort the schedule;
+- deterministic tie order: `Rating DESC → Agility DESC → Perception DESC → stable combatant ID ASC`;
+- one normal activation maximum per eligible actor per round;
+- reactions/counters are not normal activations;
+- late entrants wait until the next round for their first normal activation;
+- temporarily ineligible actor at its slot is skipped for that round, not reinserted later;
+- dead/escaped/terminal actors are removed from pending/future scheduling;
+- save/reload must preserve consumed slots and must not duplicate turn-start recovery/AP/RP refresh;
+- combat domain alone owns schedule advancement.
 
 ## Specificity / supersession rule
 
-Earlier combat documents were intentionally written before Stamina numbers existed and may still contain phrases such as `exact Stamina values open`.
+More-specific prototype contracts supersede older placeholders only inside their ownership scope.
 
-For the first-slice prototype:
+Current examples:
+- Stamina contract owns first-slice Stamina scale/recovery/cost values;
+- Initiative contract owns first-slice Initiative formula/snapshot/order/tie/roster laws;
+- Action Economy still owns AP/RP timing and one-normal-activation architecture;
+- Combat Resolution owns contact/defense/hit-quality ordering;
+- Field Poleblade contract owns the first weapon family/technique identity.
 
-**`STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md` is now the more specific authority for Stamina scale, recovery and first-slice cost values.**
-
-It supersedes those older Stamina placeholders only.
-It does not override:
-- AP/RP laws owned by Action Economy;
-- weapon identity/technique targeting/hit-quality rules owned by the Field Poleblade contract;
-- combat-contact/defense rules owned by Combat Resolution.
-
-Final production balance remains test-dependent.
+No contract silently overrides another system's owned rule.
 
 ## Supporting authorities
 
 Root:
 - `/MECHANICAL_SYSTEMS_GUIDE.md`;
 - `/STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
+- `/CONTENT_DATA_GUIDE.md`;
 - `/BEHAVIOR_PATTERN_SYSTEM.md`;
 - `/DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
 
@@ -152,7 +122,7 @@ Monster-specific anatomy/content remains owned by the relevant content package, 
 Belongs here:
 - AP/RP/Stamina timing;
 - Stamina affordability/recovery/cost floors;
-- turn/round ordering;
+- Initiative/turn order/round scheduling;
 - action-cost categories;
 - generic movement/cover/posture timing;
 - reaction windows;
@@ -163,31 +133,33 @@ Belongs here:
 - generic defense-resolution boundaries;
 - generic cover/protection ordering;
 - seeded-resolution/replay invariants;
-- first-slice weapon-family contract and generic weapon-technique interaction;
-- action cancellation/refund rules;
+- first-slice weapon-family contract;
+- cancellation/refund rules;
 - anti-loop/anti-extra-turn invariants;
-- generic combat end/escape timing.
+- generic encounter scheduler trace requirements.
 
 Does not belong here:
-- exact Mudcrest Raker attacks;
+- exact Mudcrest Raker attack packet;
 - broad weapon roster;
-- exact Region 01 encounter-node layouts;
+- exact Region 01 encounter-node layouts/terrain values;
 - final damage numbers;
 - animation duration;
 - renderer/UI implementation;
-- final production balance constants.
+- final production balance constants;
+- party composition rules;
+- broad status catalog.
 
-## Authority rule
+## Authority boundary
 
-Combat presentation may visualize timing/contact/resources/results but never:
-- advances turns;
+Combat presentation may visualize timing/contact/resources/results/order but never:
+- chooses/advances the next authoritative actor;
+- adds/removes normal activation slots;
 - refunds/spends AP/RP/Stamina independently;
-- grants passive or Catch Breath recovery independently;
-- rerolls attacks;
+- grants passive/Catch Breath recovery independently;
+- rerolls Initiative or attacks;
 - resolves hits;
-- chooses fallback body parts;
-- changes hit quality;
-- applies armor/protection;
+- chooses fallback anatomy;
+- applies armor/protection independently;
 - ends encounters independently.
 
 ## Current combat-design gate
@@ -202,32 +174,26 @@ Recorded:
 - `FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`;
 - `STAMINA_PROTOTYPE_CONTRACT = RECORDED`;
 - `BASELINE_MAX_STAMINA = 100`;
-- `BASE_PASSIVE_RECOVERY = 10`;
-- `CATCH_BREATH = 1_AP / +20_DELAYED / ONCE_PER_ACTIVATION`.
+- `INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`;
+- `INITIATIVE_RANDOM_ROLL = NONE`;
+- `NORMAL_ACTIVATIONS_PER_ELIGIBLE_ACTOR_PER_ROUND = 1`.
 
 Still required before real combat implementation:
-- prototype Initiative/tie rule;
-- small first-slice status set;
+- small first-slice status/tactical-state set;
 - concrete first terrain-effect set;
 - Monster 01 attack packet;
 - first berserk prototype;
 - solo/party baseline;
 - defeat/retreat baseline;
-- prerequisite implementation stages and tests.
+- prerequisite implementation stages/tests.
 
+`COMBAT_DESIGN_READINESS = PARTIAL / FIVE CORE CONTRACTS RECORDED`.
 `COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`.
 
 ## Exact next bounded combat-design dependency
 
-**Initiative and Turn-Order Prototype Contract**.
+**`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`**.
 
-That pass should define only:
-- first-slice initiative inputs;
-- deterministic ordering;
-- tie resolution;
-- round participation/late-entry rules;
-- incapacitated/dead/escaped actor removal;
-- no-extra-turn invariant;
-- reproducible trace/testing requirements.
+That pass should define only the smallest reusable statuses/tactical states required to prove the existing architecture, including ownership, stacking/timing/removal boundaries and first-slice candidate set.
 
-Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk or party design.
+Do not combine it with terrain values, Monster 01 attacks, berserk, party design or defeat/retreat behavior.

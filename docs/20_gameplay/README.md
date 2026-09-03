@@ -1,9 +1,14 @@
 # 20_gameplay — Gameplay Systems
 
-Purpose: rules that can apply across many settlements, regions, monsters and content packages.
+Status: ACTIVE GAMEPLAY DESIGN MAP / COMBAT FIVE-CORE-CONTRACT FOUNDATION RECORDED
+Last reconciled: 2026-09-03
 
-Belongs here after future migration/new work:
-- combat/action economy;
+## Purpose
+
+Own reusable gameplay rules that apply across many settlements, regions, monsters and content packages.
+
+Belongs here:
+- combat/action economy/turn order;
 - attributes and derived stats;
 - equipment/effect/status/terrain rule framework;
 - anatomy/damage/harvest generic rules;
@@ -15,61 +20,76 @@ Belongs here after future migration/new work:
 - failure/death/recovery mechanics.
 
 Does not belong here:
-- the exact sector graph of Region 01;
-- one monster's exact anatomy package;
-- one smithy layout;
+- exact Region 01 sector graph;
+- one monster's exact anatomy/attack package;
+- one settlement-building layout;
 - engine renderer/import settings.
 
 ## Current package map
 
 ### Progression
-`progression/README.md`
+Front door:
+`progression/README.md`.
 
 Primary authority:
-`progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`
+`progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
 
 Selected direction:
 - hybrid progression;
 - equipment + weapon mastery + knowledge weighted;
 - slow bounded base-attribute growth;
 - Hunter Rank primarily controls access/trust;
-- progression favors specialization/options over exponential stat inflation;
+- specialization/options over exponential stat inflation;
 - no universal gear-score treadmill as primary truth;
-- anatomy, terrain and preparation must remain relevant at high progression.
+- anatomy, terrain and preparation remain relevant at high progression.
 
 ### Combat
-`combat/README.md`
+Front door:
+`combat/README.md`.
 
-Primary current authority:
-`combat/ACTION_ECONOMY_CONTRACT.md`
+Current core contracts:
+1. `combat/ACTION_ECONOMY_CONTRACT.md`;
+2. `combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
+3. `combat/FIRST_WEAPON_FAMILY_CONTRACT.md`;
+4. `combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`;
+5. `combat/INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`.
 
-Selected first-slice direction:
-- separate AP / RP / Stamina resources;
-- prototype hunter baseline `4 AP / 1 RP`;
+Current first-slice combat direction:
+- `4 AP / 1 RP / persistent Stamina`;
 - no AP banking;
-- ordinary attributes/progression do not grant extra normal turns;
-- standard movement commonly 1 AP;
-- standard attack commonly 2 AP;
-- precision attack commonly 3 AP;
-- heavy/full-turn commitment commonly 4 AP;
-- explicit reaction windows;
-- one normal reaction per baseline reaction window;
-- reaction recursion blocked;
-- body-part selection inside an attack is not automatically an extra AP tax;
-- UI/animation cannot own turn timing or resource spending.
+- no ordinary progression-driven extra turns;
+- explicit bounded reaction windows;
+- deterministic legality/contact/hit-quality/defense pipeline;
+- hit quality `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- first family `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- neutral Max Stamina prototype `100`;
+- deterministic Initiative formula `(2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier`;
+- no random Initiative/opener roll;
+- one normal activation maximum per eligible actor per round;
+- stable tie/late-entry/removal/save-load scheduler rules;
+- UI/animation never owns turn advancement or resource spending.
+
+Current combat status:
+`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`.
+
+Real combat source remains blocked by readiness gates.
 
 Next dependent gameplay packet:
-**Combat Resolution / Hit Quality and Defense Contract**.
+**`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`**.
 
-## Existing root authorities
+That pass must remain small: only the reusable first-slice statuses/tactical states required to prove the architecture. Do not combine it with terrain values, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
 
-Current root authorities remain authoritative, including:
+## Existing root/system authorities
+
+Current root authorities remain authoritative within their scope, including:
 - `/MECHANICAL_SYSTEMS_GUIDE.md`;
 - `/STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
+- `/CONTENT_DATA_GUIDE.md`;
 - `/BEHAVIOR_PATTERN_SYSTEM.md`;
 - `/CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`;
 - `/NEW_GAME_MASTER_PLAN.md`.
 
-The package-local combat/progression authorities refine compatible generic statements in those root files. If a root file still calls the action economy a candidate, `combat/ACTION_ECONOMY_CONTRACT.md` is the more specific current authority for the first-slice action-economy design.
+Package-local gameplay contracts refine compatible generic statements in those root files. A local package cannot silently fork global invariants.
 
-Rule: a content/world package may select/configure gameplay definitions but may not fork the generic rules locally.
+Rule:
+a content/world package may select/configure gameplay definitions but may not redefine the generic gameplay rule system locally.

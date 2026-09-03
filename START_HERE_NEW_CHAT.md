@@ -20,18 +20,19 @@ Then read:
 3. `DOCUMENTATION_INDEX.md`;
 4. root `README.md`;
 5. `docs/README.md`;
-6. the newest relevant `docs/70_handoff/` record;
-7. the owning package/README/source/tests for the exact task.
+6. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`;
+7. newest relevant `docs/70_handoff/` record;
+8. owning package/README/source/tests for the exact task.
 
 Do not reconstruct the project from old chat summaries when current repository authorities exist.
 
 ## Current phase
 
-**STAGE 1 ENGINE/ANDROID FOUNDATION — PERFORMANCE MEASUREMENT PREPARED / DIRECT GALAXY A03s FOUNDATION EVIDENCE STILL REQUIRED.**
+**STAGE 1 ENGINE/ANDROID FOUNDATION — AUTOMATED FOUNDATION + PERFORMANCE PROCEDURE PREPARED / DIRECT GALAXY A03s EVIDENCE STILL REQUIRED.**
 
-Implementation is authorized inside the isolated Stage-1 probe. Production domain/combat implementation remains behind readiness gates.
+Production domain/combat source remains behind readiness gates.
 
-The user explicitly instructed development not to stop waiting for phone reports. Therefore the phone implementation gate stays deferred/unverified while independent non-phone work continues.
+The user explicitly instructed development not to stop waiting for phone reports. Therefore the phone gate stays deferred/unverified while independent non-phone design proceeds.
 
 ## Current engine/device truth
 
@@ -46,156 +47,140 @@ Candidate:
 
 Godot remains `PROBE_PENDING`, not final production-engine truth.
 
-Current protocol/documentation revision built by CI:
+Current protocol revision built by CI:
 `c02971996e35770bbaaaf9bf6c460af208db4f83`.
-
-Performance telemetry source revision:
-`89394067971120df43b184a8509934f5458185f2`.
 
 Workflow:
 `33811355891` — `SUCCESS`.
 
-Verified automated gates:
-- protected static preflight `154 / 154 PASS`;
-- Monster collision `8 / 8 PASS`;
-- world boundary `12 / 12 PASS`;
-- Godot import/parse PASS;
-- Boot + ProbeWorld smoke PASS;
-- aerial↔first-person continuity `17 / 17 PASS`;
-- lifecycle transient input `47 / 47 PASS`;
-- performance telemetry `20 / 20 PASS`;
-- Android export + APK archive integrity PASS;
-- artifact upload PASS.
+Automated gates:
+- protected static `154/154 PASS`;
+- Monster collision `8/8 PASS`;
+- world boundary `12/12 PASS`;
+- Godot parse/smoke PASS;
+- aerial↔first-person `17/17 PASS`;
+- lifecycle transient input `47/47 PASS`;
+- performance telemetry `20/20 PASS`;
+- Android export/APK integrity/artifact upload PASS.
 
 Exact inner APK:
-- `UnnamedHuntRPG-Stage1Probe-debug.apk`;
-- `57,570,361 bytes`;
-- SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
+`57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-Workflow artifact ZIP:
-- artifact ID `9914945271`;
-- size `57,124,301 bytes`;
-- digest `sha256:a02d8a1b79f3d0b87f4694c72f897beaf925016f86495a264bd72303563a6188`.
+Sustained-performance authority:
+`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
 
-The ZIP digest/size are not the inner APK digest/size.
+The 24-minute phone run has not executed.
 
-## Protected control-camera baseline
+`PERFORMANCE_VERIFIED = NO`.
+`ENGINE_PHONE_PROBE_VERIFIED = NO`.
+`FINAL_ENGINE_SELECTED = NO`.
+
+## Protected Stage-1 control/camera baseline
 
 Authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
-Protected direction includes:
-- analog movement joystick;
-- each new touch captures current Hunter heading;
-- movement basis stays stable during that touch;
-- release/re-touch captures the latest heading;
-- Hunter faces resolved movement;
-- aerial camera follows/trails Hunter heading;
-- aerial camera stays synchronized while first person is active;
-- Settings + Controls → Look Speed;
-- default Look Speed `35%`;
-- persistence `user://stage1_settings.cfg` / `controls/look_speed`;
-- opening Settings resets movement.
-
-Do not silently remove, replace or materially retune this contract.
-
-## Completed Stage-1 source/build pieces
-
-- heading-reset controls: source/build verified; phone deferred;
-- Monster representative solidity: static/build verified; phone deferred;
-- world boundary: static/build verified; current phone regression deferred;
-- aerial↔first-person state continuity: `17/17` headless/build verified; phone visual/input/clipping deferred;
-- lifecycle transient-input reset: `47/47` headless/build verified; Android background/resume/lock behavior deferred;
-- performance telemetry: `20/20` headless/build verified; direct sustained phone performance deferred.
-
-## Sustained-performance evidence package
-
-Primary authority:
-`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
-
-Probe-local mapping:
-`probes/android_stage1/README.md` and `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`.
-
-Specialized pass record:
-`docs/70_handoff/STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION_2026-09-03.md`.
-
-The current probe exposes FPS, rolling one-second process-frame average/max, cumulative >34 ms and >=50 ms counters, worst frame, debug static memory, renderer and view mode.
-
-The prepared Galaxy A03s run is a fixed `24` minute procedure with checkpoints at `T+02`, `T+07`, `T+09`, `T+14`, `T+19`, `T+24`. It includes a controlled 20-transition aerial↔first-person segment and a final ten-minute thermal/frame-pacing soak.
-
-No current sustained phone result exists. `PERFORMANCE_VERIFIED = NO`.
+Do not silently change analog joystick behavior, heading-reset basis, Hunter-facing behavior, aerial camera follow/synchronization, Settings, Look Speed default/persistence, or Settings movement reset.
 
 ## Documentation map rule
 
-The repository must answer at all times:
+The repository must answer:
 **WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT.**
 
 Use:
 - root `README.md` — human project front door;
 - `docs/README.md` — documentation/package placement rules;
-- local package README files — package front doors/file maps;
+- local package READMEs — local file maps/front doors;
 - `DOCUMENTATION_INDEX.md` — global where-is-what/read-order map;
-- `docs/70_handoff/` — bounded-pass continuity evidence;
+- `docs/70_handoff/` — bounded-pass continuity records;
 - `PROJECT_HANDOFF.md` — current project snapshot;
 - this file — new-chat reconstruction;
-- `EVOLVE_ALIGNMENT.md` — operating contract and exact next-action state.
+- `EVOLVE_ALIGNMENT.md` — operating contract + exact next actions.
 
-## Build-readiness classes
+## Build readiness
 
 Authority:
 `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
 
-1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
-2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`;
-3. `MUST_EXIST_BEFORE_COMBAT`;
-4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
-5. `CAN_WAIT_UNTIL_EXPANSION`.
-
-Current state:
-- engine probe — automated preparation advanced; direct current-phone regression + sustained performance remain;
-- domain implementation — blocked by engine-phone foundation gate;
-- combat design — partial/advanced;
-- vertical slice — partial;
+Current:
+- engine probe — automated foundation prepared; direct current-phone bundle remains;
+- domain implementation — blocked by engine-phone gate;
+- combat design — partial/advanced with five core contracts recorded;
+- vertical slice — partial/later;
 - expansion — intentionally open.
 
-## Current gameplay authorities
+## Combat design package
 
-Combat package:
-`docs/20_gameplay/combat/`.
+Read:
+`docs/20_gameplay/combat/README.md`.
 
-Recorded contracts:
-- 4 AP / 1 RP / persistent Stamina;
-- deterministic hit-quality/defense pipeline;
-- `WEAPON_FAMILY_FIELD_POLEBLADE`;
-- first-slice Max Stamina `100`.
+Recorded authorities:
+1. `ACTION_ECONOMY_CONTRACT.md`;
+2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
+3. `FIRST_WEAPON_FAMILY_CONTRACT.md`;
+4. `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`;
+5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`.
 
-Next active non-phone design packet:
-`INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`.
+### Current Initiative / turn-order prototype
 
-Do not combine it with statuses, terrain-number finalization, Monster 01 attack authoring, berserk, party design or defeat/retreat behavior.
+Selected:
 
-## Locked direction summary
+```text
+InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier
+```
 
-- walkable settlement/hub;
-- elevated angled aerial wilderness exploration;
-- first-person turn-based tactical combat from the same physical encounter;
-- world atlas → settlement → hunter gate → continuous hunting region → local encounter;
-- `1 world unit = 1 meter`;
-- deterministic authored NPC/creature behavior;
-- Might / Finesse / Agility / Endurance / Perception / Resolve;
-- equipment + mastery + knowledge weighted progression;
-- anatomy, terrain and preparation matter;
-- crystal Energy is life force and berserk spends the same reserve.
+Laws:
+- no Initiative/random opener roll;
+- snapshot on encounter entry;
+- deterministic tie order `Rating DESC → Agility DESC → Perception DESC → stable combatant ID ASC`;
+- no ordinary mid-encounter resorting;
+- one normal activation maximum per eligible actor per round;
+- reactions/counters are not normal activations;
+- late entrants wait until next round for a normal activation;
+- ineligible actor at its slot skips that round;
+- dead/escaped actors leave pending/future schedule;
+- save/reload may not duplicate consumed slots or turn-start recovery/resource refresh;
+- UI/animation cannot advance turn order.
+
+Specialized record:
+`docs/70_handoff/INITIATIVE_AND_TURN_ORDER_PASS_2026-09-03.md`.
+
+This is design-recorded only. No combat runtime is claimed.
+
+## Current content anchors
+
+World hierarchy:
+`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
+
+Scale:
+`1 world unit = 1 meter`.
+
+Hunter Base 01:
+1.75 m reusable humanoid base.
+
+Monster 01 — Mudcrest Raker:
+~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs/feet; severable distal tail; internal crystal.
+
+Primary attributes:
+Might / Finesse / Agility / Endurance / Perception / Resolve.
+
+Progression:
+equipment + mastery + knowledge weighted.
+
+Combat baseline:
+4 AP / 1 RP / persistent Stamina / Max Stamina prototype 100 / deterministic hit resolution / Field Poleblade first family / deterministic turn order.
 
 ## Exact continuation state
 
 Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-Implementation action when the phone is available:
+Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-Active action that can proceed now without phone evidence:
-`INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`.
+Active action that can proceed now:
+`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`.
 
-Current explicit user instruction > verified source/tests > current owning repository authorities > direct target-device evidence for runtime claims > build evidence > old notes/chat memory.
+That pass must remain limited to the smallest reusable first-slice statuses/tactical states and their ownership/timing/stacking/removal/trace rules. Do not combine it with terrain values, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
+
+Current explicit user instruction > current verified source/tests > current owning repository authorities > direct target-device evidence for runtime claims > build evidence > old notes/chat memory.

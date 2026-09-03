@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PERFORMANCE MEASUREMENT PREPARED / TARGET-PHONE EVIDENCE REQUIRED
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / FIVE CORE COMBAT CONTRACTS RECORDED / STATUS SET NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -11,8 +11,8 @@ Then read:
 1. `PROJECT_HANDOFF.md`;
 2. `START_HERE_NEW_CHAT.md`;
 3. `DOCUMENTATION_INDEX.md`;
-4. the newest relevant specialized handoff;
-5. the owning source/package/tests for the exact bounded task.
+4. newest relevant specialized handoff;
+5. owning package/README/source/tests for the exact bounded task.
 
 Do not rely on remembered state when repository/source/build/device evidence exists.
 
@@ -21,9 +21,9 @@ Do not rely on remembered state when repository/source/build/device evidence exi
 For intended changes:
 1. current explicit user instruction;
 2. current verified source/tests;
-3. current owning project documentation and locked decisions;
+3. current owning project documentation/locked decisions;
 4. direct build/runtime/device evidence;
-5. external documentation/research;
+5. external research/documentation;
 6. conversation summaries/memory.
 
 For runtime claims:
@@ -40,23 +40,23 @@ For runtime claims:
 → `VERIFY STATE`
 → `IDENTIFY EXACTLY ONE SMALL PIECE`
 → `IDENTIFY OWNER + READINESS GATE`
-→ `STATE THE EXACT CURRENT BOUNDED ACTION TO THE USER`
+→ `STATE EXACT BOUNDED ACTION`
 → `RESEARCH IF REQUIRED`
 → `IMPLEMENT OR DOCUMENT`
-→ `TEST AT HIGHEST AVAILABLE LEVEL`
+→ `TEST/REVIEW AT HIGHEST AVAILABLE LEVEL`
 → `INSPECT REGRESSION`
-→ `FIX FAILURES WITHIN SAME PIECE`
-→ `UPDATE OWNING DOCS/HANDOFF/README/INDEX AS REQUIRED`
+→ `FIX SAME-PIECE FAILURES`
+→ `UPDATE OWNER/HANDOFF/README/INDEX AS REQUIRED`
 → `SAVE/COMMIT`
 → `READ BACK`
 → `MARK EXACT STATUS`
 → `SELECT EXACT NEXT PIECE`
-→ `WRITE THAT NEXT PIECE INTO EVOLVE`
-→ `STATE THE SAME NEXT ACTION TO THE USER`.
+→ `WRITE NEXT PIECE INTO EVOLVE`
+→ `STATE SAME NEXT ACTION TO USER`.
 
 Never begin the next unrelated piece before closing the current verification/documentation boundary.
 
-If the highest required verification is unavailable, stop at the highest achieved level and record the missing gate rather than claiming success.
+If the highest required verification is unavailable, record the highest achieved state and missing gate rather than claiming success.
 
 ## Documentation/navigation law
 
@@ -65,31 +65,15 @@ Every substantial durable piece must leave enough repository state to answer:
 `WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
 
 Use:
-- root `README.md` for the human project front door;
-- `docs/README.md` for documentation/package placement rules;
-- local package/folder `README.md` files as local front doors;
-- `DOCUMENTATION_INDEX.md` for the cross-project authority/read-order map;
-- `docs/70_handoff/` for bounded-pass continuity records;
-- `PROJECT_HANDOFF.md` and `START_HERE_NEW_CHAT.md` for current-state reconstruction;
-- this file for the exact operating contract and next-action state.
+- root `README.md` — human project front door;
+- `docs/README.md` — documentation/package placement rules;
+- local package/folder `README.md` — local front door/file map;
+- `DOCUMENTATION_INDEX.md` — cross-project authority/read-order map;
+- `docs/70_handoff/` — bounded-pass continuity records;
+- `PROJECT_HANDOFF.md` + `START_HERE_NEW_CHAT.md` — current reconstruction;
+- this file — operating contract + exact next actions.
 
-A new important authority that cannot be discovered from its local README or `DOCUMENTATION_INDEX.md` is incompletely integrated documentation.
-
-## Mandatory next-action declaration rule
-
-Before ending every bounded work pass:
-1. decide the single exact next action for the active implementation lane;
-2. keep an independent design lane separate;
-3. write the implementation next action here;
-4. state the same exact action to the user;
-5. record unavailable phone evidence as deferred, never PASS.
-
-Preferred wording:
-`NEXT THING I WILL DO: <one exact bounded action>`
-
-If blocked:
-`BLOCKER: <exact missing evidence or action>`
-`NEXT THING I WILL DO AFTER THAT: <one exact bounded action>`
+An important authority not discoverable from its local README or `DOCUMENTATION_INDEX.md` is incompletely integrated documentation.
 
 ## Build-readiness taxonomy
 
@@ -109,217 +93,195 @@ Primary law:
 `IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
 
-Current candidate:
+## Stage-1 engine/device candidate
+
 - Godot 4.7 family;
-- CI/build tooling Godot 4.7.2 stable;
+- current CI/build tooling Godot 4.7.2 stable;
 - GDScript;
 - GL Compatibility / OpenGL3;
 - Android;
 - Samsung Galaxy A03s baseline;
-- stable 30 FPS representative-scene minimum target.
+- stable `30 FPS` representative-scene minimum target.
 
-`probes/android_stage1/` is disposable evidence-gathering probe source and must not silently become production game architecture.
+`probes/android_stage1/` is disposable evidence-gathering source and must not silently become production game architecture.
 
-## Protected control/camera contract
-
-Authority:
+Protected controls/camera authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
-Protected behavior includes:
-- analog movement joystick;
-- each new touch captures current Hunter heading as a stable movement reference;
-- active touch keeps that basis stable;
-- release/re-touch captures latest Hunter heading;
-- Hunter faces resolved movement;
-- aerial camera follows/trails Hunter heading;
-- aerial camera stays synchronized while first person is active;
-- Settings overlay + Controls → Look Speed;
-- default Look Speed `35%`;
-- persistence `user://stage1_settings.cfg` / `controls/look_speed`;
-- opening Settings resets movement.
-
-Do not silently remove, replace or materially retune this contract.
+Do not silently remove or materially retune the analog joystick, per-touch heading basis, Hunter-facing behavior, aerial follow/synchronization, Settings/Look Speed behavior, or Settings movement reset.
 
 ## Explicit phone-evidence rule
 
-On 2026-09-03 the user explicitly instructed development not to stop waiting for phone reports.
+The user explicitly instructed development not to stop waiting for phone reports.
 
 Therefore:
-- record each phone-only test for later;
+- record phone-only tests for later;
 - never infer phone PASS from source/CI;
-- continue independent non-phone foundation/design work that can be validly advanced;
-- do not close the Stage-1 engine-phone gate until its direct Galaxy A03s evidence exists.
+- continue independent non-phone work that does not consume missing phone evidence;
+- do not close the Stage-1 engine-phone gate without direct Galaxy A03s evidence.
 
-Deferred Galaxy A03s evidence includes:
-1. heading-reset joystick behavior;
-2. current controls/Look-Speed regression;
-3. Monster placeholder solidity;
-4. current-build world-boundary containment;
-5. aerial↔first-person visual/input continuity and clipping;
-6. background/resume + lock/unlock lifecycle behavior;
-7. sustained frame pacing/thermal/input/transition behavior.
+Current implementation blocker:
+`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-## Completed Stage-1 automated foundation
+Current implementation action when device evidence is available:
+`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-### Controls / heading reset
-`JOYSTICK_HEADING_RESET_SOURCE_IMPLEMENTED = YES`
-`JOYSTICK_HEADING_RESET_APK_BUILD_VERIFIED = YES`
-`JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / DEFERRED`
+Deferred phone evidence includes:
+- heading-reset controls / Look Speed regression;
+- Monster solidity;
+- boundary containment;
+- aerial↔first-person visual/input/clipping continuity;
+- lifecycle background/resume + lock/unlock;
+- sustained frame pacing/thermal/input/transition behavior;
+- crash/ANR observation.
 
-### Monster placeholder collision
-Representative fixed `StaticBody3D` + matching `BoxShape3D` exists without production Monster physics.
+## Current exact automated Stage-1 lineage
 
-`MONSTER_COLLISION_STATIC_VERIFIED = YES / 8_OF_8`
-`MONSTER_COLLISION_APK_BUILD_VERIFIED = YES`
-`MONSTER_COLLISION_PHONE_VERIFIED = NO / DEFERRED`
+Current protocol revision built by CI:
+`c02971996e35770bbaaaf9bf6c460af208db4f83`.
 
-Layout note:
-full rear approach is unavailable because Monster rear extent is approximately `z=-8.4` and Hunter-center boundary is `z=-8.5`.
-
-### World boundary
-Existing `PROBE_BOUNDS = 8.5` behavior was not retuned.
-
-`WORLD_BOUNDARY_STATIC_VERIFIED = YES / 12_OF_12`
-`WORLD_BOUNDARY_APK_BUILD_VERIFIED = YES`
-`WORLD_BOUNDARY_CURRENT_APK_PHONE_VERIFIED = NO / DEFERRED`
-
-### Aerial ↔ first-person continuity
-Executable owner:
-`ci/stage1/state_continuity_test.gd`.
-
-`AERIAL_FIRST_PERSON_STATE_CONTINUITY_HEADLESS_VERIFIED = YES / 17_OF_17`
-`AERIAL_FIRST_PERSON_STATE_CONTINUITY_APK_BUILD_VERIFIED = YES`
-`AERIAL_FIRST_PERSON_STATE_CONTINUITY_PHONE_VERIFIED = NO / DEFERRED`
-
-### Android lifecycle transient-input reset
-Source owner:
-`probes/android_stage1/scripts/probe_world.gd`.
-
-Executable regression:
-`ci/stage1/lifecycle_transient_input_test.gd`.
-
-Application pause/resume and focus-out/focus-in route only transient joystick/touch state through existing `_reset_joystick()`.
-
-`LIFECYCLE_TRANSIENT_INPUT_SOURCE_IMPLEMENTED = YES`
-`LIFECYCLE_TRANSIENT_INPUT_HEADLESS_VERIFIED = YES / 47_OF_47`
-`LIFECYCLE_TRANSIENT_INPUT_APK_BUILD_VERIFIED = YES`
-`LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
-
-### Sustained-performance evidence preparation
-Source owner:
-`probes/android_stage1/scripts/probe_world.gd`.
-
-Executable telemetry regression:
-`ci/stage1/performance_telemetry_test.gd`.
-
-Phone procedure authority:
-`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
-
-Preparation handoff:
-`docs/70_handoff/STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION_2026-09-03.md`.
-
-Telemetry source commit:
+Performance telemetry source:
 `89394067971120df43b184a8509934f5458185f2`.
 
-Telemetry added without changing camera/control/Monster/boundary/render-quality/gameplay costs:
-- engine FPS;
-- rolling approximately one-second actual process-frame average/max;
-- cumulative frames above `34 ms`;
-- cumulative frames at/above `50 ms`;
-- cumulative worst process-frame delta;
-- existing debug static memory/renderer/view mode.
+Workflow:
+`33811355891` — `SUCCESS`.
 
-`PERFORMANCE_TELEMETRY_SOURCE_IMPLEMENTED = YES`
-`PERFORMANCE_TELEMETRY_HEADLESS_VERIFIED = YES / 20_OF_20`
+Verified automated gates:
+- protected static `154 / 154 PASS`;
+- Monster collision `8 / 8 PASS`;
+- world boundary `12 / 12 PASS`;
+- Godot 4.7.2 import/parse PASS;
+- Boot smoke PASS;
+- ProbeWorld smoke PASS;
+- aerial↔first-person `17 / 17 PASS`;
+- lifecycle transient input `47 / 47 PASS`;
+- performance telemetry `20 / 20 PASS`;
+- Android debug export PASS;
+- APK integrity PASS;
+- artifact upload PASS.
+
+Current exact inner APK:
+- `UnnamedHuntRPG-Stage1Probe-debug.apk`;
+- `57,570,361 bytes`;
+- SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
+
+Current artifact ZIP:
+- ID `9914945271`;
+- `57,124,301 bytes`;
+- SHA-256 `a02d8a1b79f3d0b87f4694c72f897beaf925016f86495a264bd72303563a6188`.
+
+The APK and artifact ZIP are different files and must not exchange size/hash labels.
+
+Sustained performance authority:
+`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
+
+Prepared run:
+`24` minutes with checkpoints `T+02 / T+07 / T+09 / T+14 / T+19 / T+24`, including 20 controlled aerial↔first-person transitions and a final ten-minute soak.
+
 `SUSTAINED_PERFORMANCE_PROTOCOL_PREPARED = YES`
 `SUSTAINED_PERFORMANCE_PHONE_EXECUTED = NO / DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
+`FINAL_ENGINE_SELECTED = NO`
 
-## Current exact build lineage
+## Combat design package
 
-Current documentation/protocol revision built by CI:
-`c02971996e35770bbaaaf9bf6c460af208db4f83`
+Authority front door:
+`docs/20_gameplay/combat/README.md`.
 
-Workflow:
-`33811355891`
+### 1. Action Economy — RECORDED
+`docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`.
 
-Workflow conclusion:
-`SUCCESS`.
+First-slice baseline:
+- 4 AP;
+- 1 RP;
+- persistent Stamina;
+- no AP banking;
+- bounded reaction windows;
+- one normal activation max per eligible actor/round.
 
-Verified gates on that exact revision:
-- protected static preflight PASS (`154 / 154`);
-- Monster collision guard PASS (`8 / 8`);
-- world-boundary guard PASS (`12 / 12`);
-- Godot 4.7.2 import/parse PASS;
-- Boot headless smoke PASS;
-- ProbeWorld headless smoke PASS;
-- aerial↔first-person runtime regression PASS (`17 / 17`);
-- lifecycle transient-input runtime regression PASS (`47 / 47`);
-- performance telemetry runtime regression PASS (`20 / 20`);
-- Android debug export PASS;
-- APK archive integrity PASS;
-- artifact upload PASS.
+### 2. Combat Resolution / Hit Quality / Defense — RECORDED
+`docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
 
-Exact inner APK from workflow `33811355891`:
-- file `UnnamedHuntRPG-Stage1Probe-debug.apk`;
-- size `57,570,361 bytes`;
-- SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
+Recorded:
+- deterministic legality/context;
+- AttackControl vs DefenseControl;
+- body/selected-part contact;
+- exposure/directional cover;
+- one bounded seeded variance source;
+- `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- explainable local protection/anatomy trace.
 
-Uploaded workflow artifact ZIP:
-- name `UnnamedHuntRPG-Stage1Probe-debug`;
-- artifact ID `9914945271`;
-- archive size `57,124,301 bytes`;
-- archive digest `sha256:a02d8a1b79f3d0b87f4694c72f897beaf925016f86495a264bd72303563a6188`.
+### 3. First Weapon Family — RECORDED
+`docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`.
 
-The APK and uploaded artifact ZIP are different files. Never exchange their size/hash labels.
+Selected:
+`WEAPON_FAMILY_FIELD_POLEBLADE`.
 
-## Prepared Galaxy A03s sustained run
+### 4. Stamina Prototype — RECORDED
+`docs/20_gameplay/combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`.
 
-The phone protocol defines one uninterrupted `24` minute run:
-1. `T+00–02` launch/baseline stabilization;
-2. `T+02–07` sustained aerial analog movement;
-3. `T+07–09` exactly 20 controlled aerial↔first-person transitions;
-4. `T+09–14` mixed movement/view interaction;
-5. `T+14–24` sustained thermal/frame-pacing soak;
-6. checkpoints at `T+02`, `T+07`, `T+09`, `T+14`, `T+19`, `T+24`.
+Selected:
+- neutral Max Stamina `100`;
+- passive recovery `+10` once at normal activation start;
+- delayed Catch Breath anti-loop recovery;
+- explicit first-slice exertion costs.
 
-The protocol records FPS, rolling frame-time telemetry, hitch counters, worst frame, static memory, battery, thermal feel, input response, transition hitches and evidence identifiers, with explicit PASS/FAIL/REVIEW/STOP conditions.
+### 5. Initiative and Turn Order — RECORDED
+`docs/20_gameplay/combat/INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`.
 
-The prior one-frame `60 FPS / ~16.7 ms / 40.9 MiB` Galaxy A03s sample is not sustained-performance verification.
+Specialized handoff:
+`docs/70_handoff/INITIATIVE_AND_TURN_ORDER_PASS_2026-09-03.md`.
 
-## Exact current implementation gate
+Selected prototype:
 
-`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
+```text
+InitiativeRating =
+    (2 × EffectiveAgility)
+  + EffectivePerception
+  + ExplicitInitiativeModifier
+```
 
-This gate is blocked only by target-phone evidence. It requires:
-- the prepared sustained performance/thermal run;
-- current controls/heading reset;
-- Monster collision;
-- world boundary;
-- aerial↔first-person visual/input continuity;
-- lifecycle background/resume + lock/unlock;
-- crash/ANR observation.
+Selected laws:
+- `INITIATIVE_RANDOM_ROLL = NONE`;
+- snapshot once when actor enters encounter;
+- tie order `RATING_DESC → AGILITY_DESC → PERCEPTION_DESC → STABLE_COMBATANT_ID_ASC`;
+- no ordinary mid-encounter resorting;
+- `NORMAL_ACTIVATIONS_PER_ELIGIBLE_ACTOR_PER_ROUND = 1`;
+- reactions/counters are not normal activations;
+- late entrants receive their first normal activation next round earliest;
+- actor ineligible when its slot arrives is skipped for the rest of that round;
+- dead/escaped actors are removed from pending/future rosters;
+- save/reload may not resurrect consumed slots or duplicate passive recovery/AP/RP refresh;
+- UI/animation never advances schedule.
 
-Do not tune rendering/gameplay costs before measured evidence identifies a bounded failure.
+This is design-recorded. No combat runtime exists; no runtime verification is claimed.
 
-`IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
+`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`.
+`COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`.
 
-## Active non-phone lane
+## Exact current active non-phone gate
 
-Because the user explicitly instructed development not to stop waiting for phone evidence, the next bounded action that can proceed independently is:
+`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`
 
-`NEXT_ACTIVE_NON_PHONE_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
+Bounded scope:
+1. read current status/effect ownership in `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` and the five combat contracts;
+2. choose only the smallest reusable first-slice status/tactical-state set needed to prove the architecture;
+3. define each selected state's owner, timing, stacking/refresh/removal law, relevant capability/stat hooks and trace requirements;
+4. keep tactical states such as Braced/Aimed distinct from persistent injury/anatomy where appropriate;
+5. do not create a large status catalog;
+6. do not select terrain numbers, Monster 01 attacks, berserk, party design or defeat/retreat behavior;
+7. record future implementation tests without claiming runtime verification.
 
-Authority package:
-`docs/20_gameplay/combat/`.
+## Remaining combat-design sequence
 
-Recorded combat authorities already exist for:
-- action economy;
-- hit-quality/defense resolution;
-- first weapon family;
-- Stamina prototype scale/recovery.
-
-Do not combine initiative/turn order with statuses, terrain-number finalization, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
+After status-set contract, still required before real combat implementation:
+- concrete first-slice terrain-effect set;
+- Monster 01 attack packet;
+- first berserk prototype;
+- solo/party baseline;
+- defeat/retreat baseline;
+- prerequisite production implementation/testing gates.
 
 ## Current gate truth
 
@@ -330,17 +292,20 @@ Do not combine initiative/turn order with statuses, terrain-number finalization,
 `LIFECYCLE_TRANSIENT_INPUT_HEADLESS = YES / 47_OF_47`
 `PERFORMANCE_TELEMETRY_HEADLESS = YES / 20_OF_20`
 `SUSTAINED_PERFORMANCE_PROTOCOL_PREPARED = YES`
-`GODOT_PARSE_VERIFIED = YES`
-`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
-`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
 `APK_BUILD_VERIFIED = YES`
-`PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD REGRESSION DEFERRED`
-`LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
-`SUSTAINED_PERFORMANCE_PHONE_EXECUTED = NO / DEFERRED`
+`PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
+`ACTION_ECONOMY_CONTRACT = RECORDED`
+`COMBAT_RESOLUTION_CONTRACT = RECORDED`
+`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
+`STAMINA_PROTOTYPE_CONTRACT = RECORDED`
+`INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
+`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`
+
+`IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`

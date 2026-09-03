@@ -1,80 +1,26 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 ENGINE/ANDROID PROBE / PERFORMANCE MEASUREMENT PREPARED / PHONE FOUNDATION GATE DEFERRED
+Status: STAGE 1 ENGINE/ANDROID PHONE GATE DEFERRED / FIVE CORE COMBAT CONTRACTS RECORDED / STATUS-SET DESIGN NEXT
 Last reconciled: 2026-09-03
 
-This repository area now belongs to a completely new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
+This repository area belongs to a completely new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
 `Unnamed Hunt RPG` remains a temporary working label.
 
 ## 1. Game identity
 
 The game connects three playable layers:
-
 1. **Walkable settlement / hub** — preparation, services, crafting, research, deterministic NPC schedules and recovery.
-2. **Elevated angled aerial wilderness exploration** — physically traversed hunting regions with continuous sectors, tracking and persistent monsters.
-3. **First-person turn-based tactical combat** — the battle begins from the same physical encounter and lets the player make explicit positional, defensive and anatomy-targeting decisions.
+2. **Elevated angled aerial wilderness exploration** — physically traversed hunting regions with tracking and persistent monsters.
+3. **First-person turn-based tactical combat** — the battle starts from the same physical encounter and gives explicit positional, defensive and anatomy-targeting choices.
 
 Core loop:
-
 `PREPARE → LEAVE SETTLEMENT → ENTER REGION → TRACK → OBSERVE → APPROACH → ENGAGE → POSITION → TARGET ANATOMY → BREAK/SEVER → MONSTER ESCAPES OR FALLS → REACQUIRE/HARVEST → RETURN → PROCESS → CRAFT/EQUIP/RESEARCH`.
 
 Visual direction:
 **an illustrated hunting world brought to life**.
 
-## 2. Current implementation state
-
-Authorized now:
-**Stage 1 — bounded engine + Android target-device probe only.**
-
-Current candidate:
-- Godot 4.7 family;
-- CI/build version Godot 4.7.2 stable;
-- GDScript;
-- GL Compatibility / OpenGL3;
-- Samsung Galaxy A03s baseline device;
-- stable `30 FPS` representative-scene minimum target.
-
-Engine decision authority:
-`docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`.
-
-Godot remains `PROBE_PENDING`, not permanently selected production-engine truth.
-
-Current Stage-1 source/build foundation includes:
-- protected analog joystick + heading-reset/camera/settings baseline;
-- representative solid Monster placeholder;
-- world-boundary guard;
-- aerial↔first-person state-continuity regression;
-- Android lifecycle transient-input reset;
-- low-overhead rolling frame telemetry;
-- reproducible 24-minute Galaxy A03s sustained-performance protocol.
-
-Current protocol/documentation revision built by CI:
-`c02971996e35770bbaaaf9bf6c460af208db4f83`.
-
-Performance telemetry source:
-`89394067971120df43b184a8509934f5458185f2`.
-
-Workflow `33811355891`: `SUCCESS`.
-
-Automated gates:
-- static `154/154 PASS`;
-- Monster collision `8/8 PASS`;
-- world boundary `12/12 PASS`;
-- Godot parse + Boot/ProbeWorld smoke PASS;
-- aerial↔first-person `17/17 PASS`;
-- lifecycle transient input `47/47 PASS`;
-- performance telemetry `20/20 PASS`;
-- Android export/APK integrity/artifact upload PASS.
-
-Current exact inner APK:
-- `UnnamedHuntRPG-Stage1Probe-debug.apk`;
-- `57,570,361 bytes`;
-- SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
-
-The current-build Galaxy A03s regression bundle and sustained performance run have **not** been executed. Missing phone evidence is not PASS.
-
-## 3. Mandatory start/read order
+## 2. Mandatory start/read order
 
 Before any bounded work read:
 1. `EVOLVE_ALIGNMENT.md`;
@@ -87,21 +33,19 @@ Before any bounded work read:
 8. newest relevant `docs/70_handoff/` record;
 9. owning package/README/source/tests.
 
-For Stage-1 Android work also read the probe-local front doors under `probes/android_stage1/`.
+Never reconstruct current state from old chat summaries when current repository authorities exist.
 
-Never reconstruct current project state from old chat summaries when current repository authorities exist.
-
-## 4. Where is what
+## 3. Where is what
 
 ```text
 docs/
-├── 00_project/        governance, scope, readiness and dependency gates
-├── 10_world/          world atlas, settlements, regions and spatial packages
+├── 00_project/        governance, readiness and dependency gates
+├── 10_world/          world, settlements, regions and spatial packages
 ├── 20_gameplay/       reusable mechanics, progression and combat contracts
 ├── 30_content/        hunters, monsters, equipment and content packages
 ├── 40_art/            concept/model/runtime asset pipeline and art QA
 ├── 50_technical/      engine, Android, architecture and build mapping
-├── 60_quality/        QA, performance, testing, debug/admin guidance
+├── 60_quality/        QA, performance, testing and debug/admin guidance
 └── 70_handoff/        bounded-pass continuity/readback/verification records
 ```
 
@@ -114,123 +58,159 @@ Documentation/package rules:
 Stage-1 probe front door:
 `probes/android_stage1/README.md`.
 
-Stage-1 phone test contract:
-`probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`.
-
-Sustained-performance phone procedure:
-`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
-
-Protected controls/camera authority:
-`probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
+Combat front door:
+`docs/20_gameplay/combat/README.md`.
 
 Law:
 **folders organize ownership; packages organize one playable thing/system; owning authorities define reusable rules.**
 
-Every substantial pass must leave enough durable repository state to answer:
+Every substantial pass must leave enough durable state to answer:
 **WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT.**
 
-## 5. Build readiness taxonomy
+## 4. Current Stage-1 engine/device state
+
+Candidate:
+- Godot 4.7 family;
+- CI/build version Godot 4.7.2 stable;
+- GDScript;
+- GL Compatibility / OpenGL3;
+- Galaxy A03s baseline;
+- stable `30 FPS` representative-scene minimum target.
+
+Godot remains `PROBE_PENDING`.
+
+Current protocol revision built by CI:
+`c02971996e35770bbaaaf9bf6c460af208db4f83`.
+
+Workflow:
+`33811355891` — `SUCCESS`.
+
+Automated gates:
+- protected static `154/154 PASS`;
+- Monster collision `8/8 PASS`;
+- boundary `12/12 PASS`;
+- Godot parse/smoke PASS;
+- aerial↔first-person `17/17 PASS`;
+- lifecycle transient input `47/47 PASS`;
+- performance telemetry `20/20 PASS`;
+- Android export/APK integrity/artifact upload PASS.
+
+Current exact inner APK:
+`57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
+
+Sustained-performance phone protocol:
+`probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
+
+The fixed 24-minute Galaxy A03s run and current phone regression bundle have not executed.
+
+`PERFORMANCE_VERIFIED = NO`.
+`ENGINE_PHONE_PROBE_VERIFIED = NO`.
+`FINAL_ENGINE_SELECTED = NO`.
+
+Implementation blocker:
+`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
+
+Implementation action when device evidence is available:
+`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
+
+## 5. Build readiness
 
 Authority:
 `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
 
-Classes:
-1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
-2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`;
-3. `MUST_EXIST_BEFORE_COMBAT`;
-4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
-5. `CAN_WAIT_UNTIL_EXPANSION`.
-
-Current readiness:
-- engine probe — automated preparation advanced; direct current-phone evidence remains;
-- domain implementation — blocked by engine-phone foundation gate;
-- combat design — partial/advanced;
-- vertical slice — partial;
+Current:
+- engine probe — automated foundation + phone procedure prepared; direct current-phone evidence remains;
+- domain implementation — blocked by engine-phone gate;
+- combat design — partial/advanced with five core contracts recorded;
+- vertical slice — partial/later;
 - expansion — intentionally open.
 
-## 6. World structure
+## 6. Combat foundation — five recorded contracts
 
-Selected hierarchy:
+Package:
+`docs/20_gameplay/combat/`.
 
-`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE / FRONTIER TRANSITION → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
+1. `ACTION_ECONOMY_CONTRACT.md`
+   - 4 AP;
+   - 1 RP;
+   - persistent Stamina;
+   - no AP banking;
+   - bounded reactions;
+   - one normal activation max per eligible actor/round.
+
+2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`
+   - deterministic legality/context;
+   - AttackControl vs DefenseControl;
+   - body/selected-part contact;
+   - directional cover;
+   - one bounded seeded variance source;
+   - `MISS / GRAZE / SOLID / CLEAN / PRECISION`.
+
+3. `FIRST_WEAPON_FAMILY_CONTRACT.md`
+   - first family `WEAPON_FAMILY_FIELD_POLEBLADE`;
+   - cutting/sever primary;
+   - piercing/control secondary;
+   - deliberate defensive/range/hard-break tradeoffs.
+
+4. `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`
+   - neutral Max Stamina `100`;
+   - `+10` passive recovery once at activation start;
+   - delayed `CATCH_BREATH` anti-loop recovery;
+   - explicit first-slice exertion costs.
+
+5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`
+   - `InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier`;
+   - no random Initiative/opener roll;
+   - snapshot on encounter entry;
+   - deterministic tie order `Rating DESC → Agility DESC → Perception DESC → stable combatant ID ASC`;
+   - no ordinary mid-encounter resorting;
+   - late entrants wait until next round;
+   - reactions/counters do not become normal activations;
+   - ineligible-at-slot actors skip that round;
+   - dead/escaped actors are removed from pending/future schedule;
+   - save/reload may not duplicate consumed slots or turn-start resource hooks;
+   - UI/animation never owns schedule advancement.
+
+Initiative handoff:
+`docs/70_handoff/INITIATIVE_AND_TURN_ORDER_PASS_2026-09-03.md`.
+
+No combat runtime is claimed. Combat implementation is still blocked by readiness gates.
+
+## 7. World/content anchors
+
+World hierarchy:
+`WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
 
 Scale:
-**1 world unit = 1 meter.**
+`1 world unit = 1 meter`.
 
-Region 01 uses planned sectors S00–S06 with physical tracking, branching traversal and persistent monster escape/reacquisition.
+Hunter Base 01:
+1.75 m reusable prototype human scale.
 
-## 7. Core gameplay laws
-
-Behavior:
-**deterministic authored states/patterns; no generative runtime AI.**
+Monster 01 — Mudcrest Raker:
+~6.6 m long / ~3.0 m shoulder/body height; mineral horn crest; breakable dorsal plates; mud-adapted legs; severable distal tail; internal crystal.
 
 Primary attributes:
 Might / Finesse / Agility / Endurance / Perception / Resolve.
 
 Progression:
-**equipment + mastery + knowledge weighted** rather than a universal gear-score treadmill.
+equipment + mastery + knowledge weighted.
 
-Combat foundation currently records:
-- 4 AP;
-- 1 RP;
-- persistent Stamina;
-- deterministic hit-quality/defense resolution;
-- first weapon family `WEAPON_FAMILY_FIELD_POLEBLADE`;
-- first-slice Max Stamina `100`.
+Crystal Energy is life force; zero usable Energy means death; berserk spends that same reserve.
 
-Crystal Energy is life force; zero usable Energy means death; berserk spends the same reserve.
+## 8. Exact current continuation
 
-## 8. First content anchors
+Current active non-phone design action:
+`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`.
 
-Hunter Base 01:
-- 1.75 m reusable prototype human scale.
+That pass must define only the smallest reusable first-slice statuses/tactical states and their ownership, timing, stacking, removal, capability/stat effects and trace/test requirements.
 
-Monster 01 — Mudcrest Raker:
-- ~6.6 m length;
-- ~3.0 m shoulder/body height;
-- paired mineral horn crest;
-- breakable dorsal plates;
-- mud-adapted feet;
-- severable distal tail;
-- internal crystal;
-- deterministic Region 01 behavior/retreat patterns.
+Do not combine it with terrain values, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
 
-Final production assets are not required for Stage 1; representative placeholders are used.
-
-## 9. Performance evidence state
-
-Stage-1 telemetry now exposes:
-- engine FPS;
-- rolling approximately one-second real process-frame average/max;
-- cumulative frames above `34 ms`;
-- cumulative frames at/above `50 ms`;
-- cumulative worst process-frame delta;
-- debug static memory;
-- renderer and view mode.
-
-The prepared phone procedure is one uninterrupted `24` minute Galaxy A03s run with checkpoints at `T+02`, `T+07`, `T+09`, `T+14`, `T+19`, `T+24`, including exactly 20 controlled aerial↔first-person transitions and a final ten-minute soak.
-
-`PERFORMANCE_VERIFIED = NO` until direct target-device evidence exists.
-
-Do not preemptively reduce shadows, render scale, camera behavior, controls, Monster readability or gameplay before measured evidence identifies a bounded problem.
-
-## 10. Exact current continuation
-
-Implementation gate requiring the phone:
-`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
-
-Blocker:
-`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
-
-Because the user explicitly instructed development not to stop waiting for phone reports, the current active non-phone action is:
-`INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`.
-
-Combat source implementation is still blocked by readiness gates; this next piece is a design contract only.
-
-## 11. Quality/documentation law
+## 9. Quality/documentation law
 
 All substantial work follows:
 
-`READ EVOLVE → READ CURRENT STATE → VERIFY → ONE SMALL PIECE → IDENTIFY OWNER/GATE → IMPLEMENT OR DOCUMENT → TEST → REGRESSION CHECK → FIX → UPDATE OWNER/README/INDEX/HANDOFF → COMMIT → READ BACK → MARK STATUS → RECORD NEXT`.
+`READ EVOLVE → READ CURRENT STATE → VERIFY → ONE SMALL PIECE → IDENTIFY OWNER/GATE → IMPLEMENT OR DOCUMENT → TEST/REVIEW → REGRESSION CHECK → FIX → UPDATE OWNER/README/INDEX/HANDOFF → COMMIT → READ BACK → MARK STATUS → RECORD NEXT`.
 
-Never claim phone runtime, sustained performance, visual quality or final production readiness without the evidence required by that gate.
+Never claim phone runtime, sustained performance, combat runtime or final production readiness without evidence required by that gate.
