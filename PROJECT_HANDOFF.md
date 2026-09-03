@@ -1,22 +1,22 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PROBE SOURCE CREATED / GODOT PARSE + PHONE VERIFICATION PENDING / STAMINA PROTOTYPE RECORDED
-Last reconciled: 2026-09-02
+Status: STAGE 1 APK BUILT / GALAXY A03s VISUAL RUNTIME SMOKE PASS / FULL PHONE PROTOCOL PENDING
+Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
 
-Verify the existing isolated Godot Stage 1 probe before adding more probe features.
+Finish the existing Galaxy A03s Stage 1 phone protocol against the verified APK before adding more probe features or Stage 2 gameplay source.
 
 Implementation is authorized, but later implementation systems remain controlled by readiness gates and EVOLVE.
 
 Current probe source:
 `probes/android_stage1/`
 
-Current specialized implementation handoff:
-`docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`.
+Current target-device evidence:
+`docs/70_handoff/STAGE1_GALAXY_A03S_RUNTIME_EVIDENCE_2026-09-03.md`.
 
 Exact next implementation gate:
-**Godot 4.7-family parse/editor smoke verification of the existing source.**
+**Galaxy A03s touch/camera/sustained-performance/lifecycle verification of the existing APK.**
 
 Do not recreate the skeleton and do not add real combat before this gate.
 
@@ -32,9 +32,10 @@ Do not recreate the skeleton and do not add real combat before this gate.
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
 8. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
-9. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
-10. `probes/android_stage1/README.md`
-11. owning package for any independent design task.
+9. `docs/70_handoff/STAGE1_GALAXY_A03S_RUNTIME_EVIDENCE_2026-09-03.md`
+10. `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
+11. `probes/android_stage1/README.md`
+12. owning package for any independent design task.
 
 Mandatory law:
 **read the current repository copy of EVOLVE before every bounded pass.**
@@ -56,7 +57,7 @@ Classes:
 - `CAN_WAIT_UNTIL_EXPANSION`.
 
 Current gates:
-- Engine probe: `SOURCE CREATED / EXECUTION PENDING`;
+- Engine probe: `APK BUILT / TARGET-DEVICE VISUAL SMOKE PASS / FULL PHONE PROTOCOL PENDING`;
 - Domain implementation: `BLOCKED_BY_ENGINE_PHONE_PROBE`;
 - Combat design: `PARTIAL / FOUR CORE CONTRACTS RECORDED`;
 - Vertical slice: `PARTIAL`;
@@ -82,7 +83,7 @@ Stage 1 candidate:
 
 Godot remains `PROBE_PENDING`, not final production-engine truth.
 
-Final engine acceptance requires actual Galaxy A03s runtime evidence.
+Final engine acceptance requires completion of the Galaxy A03s phone protocol, especially touch, camera, sustained performance/thermal and lifecycle behavior.
 
 ---
 
@@ -100,7 +101,8 @@ Created:
 - probe README;
 - probe `.gitignore`;
 - Android export setup guide;
-- Galaxy A03s test protocol.
+- Galaxy A03s test protocol;
+- GitHub Actions Android debug build workflow.
 
 Probe behavior represented in source:
 - landscape project configuration;
@@ -133,62 +135,78 @@ Quality law:
 
 ## VERIFICATION TRUTH
 
-Completed:
+Completed with build/CI evidence:
 - Stage 1 source files created;
 - GitHub source readback;
-- engine/Android documentation cross-check;
-- repository hygiene rules;
-- Galaxy A03s test protocol.
+- real checkout static preflight `123 / 123 PASS`;
+- Godot 4.7.2 import/parse gate PASS;
+- Boot headless smoke PASS;
+- ProbeWorld headless smoke PASS;
+- Android export preset exercised successfully;
+- debug APK built successfully;
+- APK archive integrity check PASS;
+- APK delivered to the user.
 
-Not completed:
-- Godot project parse/import;
-- GDScript parse;
-- scene import;
-- editor desktop run;
-- Android export preset;
-- APK build;
-- Galaxy A03s install;
-- phone runtime;
-- measured performance/thermal behavior.
+Completed with target-device screenshot evidence:
+- Galaxy A03s APK installation PASS;
+- application reached ProbeWorld without visible black screen/crash/ANR;
+- landscape rendering observed;
+- aerial view observed;
+- GL Compatibility / OpenGL3 observed;
+- visible probe metrics observed at `60 FPS`, approximately `16.7 ms/frame`, debug static memory `40.9 MiB`;
+- Hunter, Monster, ground, lighting/shadows, touch controls and view toggle visibly rendered.
 
-Do not infer engine success from static source readback.
+Still pending:
+- touch movement reliability;
+- rapid direction changes / stuck-input check;
+- first-person transition and repeated toggle stability;
+- authoritative-position drift check;
+- sustained 10+ minute performance/frame-pacing sample;
+- thermal behavior;
+- background/resume and lock/unlock lifecycle;
+- repeatable crash/ANR check across the full phone protocol.
 
 Current gates:
 `IMPLEMENTATION_AUTHORIZED = YES`
 `STAGE_1_PROBE_SOURCE_CREATED = YES`
 `SOURCE_READBACK_VERIFIED = YES`
-`GODOT_PARSE_VERIFIED = NO`
-`EDITOR_RUN_VERIFIED = NO`
-`ANDROID_PRESET_CREATED = NO`
-`APK_BUILD_VERIFIED = NO`
-`GALAXY_A03S_INSTALL_VERIFIED = NO`
-`PHONE_RUNTIME_VERIFIED = NO`
+`STATIC_PREFLIGHT_VERIFIED = YES`
+`GODOT_PARSE_VERIFIED = YES`
+`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
+`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
+`ANDROID_PRESET_VERIFIED = YES`
+`APK_BUILD_VERIFIED = YES`
+`GALAXY_A03S_INSTALL_VERIFIED = YES`
+`PHONE_RUNTIME_VERIFIED = PARTIAL`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
+
+Observed target-device snapshot:
+`FPS = 60`
+`FRAME_TIME_DISPLAY = ~16.7_MS`
+`RENDERER = GL_COMPATIBILITY / OPENGL3`
+`DEBUG_STATIC_MEMORY = 40.9_MIB`
+`VIEW = AERIAL`
+
+The snapshot is not evidence of stable 60 FPS over time.
 
 ---
 
 ## EXACT NEXT IMPLEMENTATION PIECE
 
-Use Godot 4.7-family tooling to verify only the existing skeleton:
-1. open `probes/android_stage1/project.godot`;
-2. inspect project-setting warnings;
-3. fix any `.tscn`/GDScript parse errors;
-4. run Boot;
-5. enter ProbeWorld;
-6. verify WASD movement;
-7. verify aerial ↔ first-person toggle;
-8. verify renderer/driver label;
-9. verify metrics readout;
-10. record all warnings/errors.
+Do not change probe source yet. Execute only the remaining target-device protocol against the existing APK:
+1. hold each directional control and verify movement starts/stops correctly;
+2. rapidly alternate directions and verify no stuck movement;
+3. toggle AERIAL ↔ FIRST PERSON repeatedly;
+4. verify no hunter teleport/position drift or severe first-person clipping;
+5. run continuously for at least 10 minutes while watching FPS/stutter/input/heat;
+6. background/resume and lock/unlock once;
+7. record any repeatable defect with exact reproduction steps and screenshot/video evidence.
 
-Only after that passes:
-- create Android export preset;
-- build debug APK;
-- install/test on Galaxy A03s according to `PROBE_TEST_PROTOCOL.md`.
+Only after these tests pass should the engine-phone gate be considered for closure and Stage 2 domain skeleton work be reconsidered.
 
-Do not add further Stage 1 visual complexity until the skeleton itself passes.
+Do not add further Stage 1 visual complexity merely because one phone screenshot looks good.
 
 ---
 
