@@ -39,7 +39,7 @@ Current Stage 1 candidate:
 
 Stage 1 source exists, but Godot parse/editor/Android/phone/performance verification is still pending.
 
-Final engine selection is still probe-pending.
+Final engine selection remains probe-pending.
 
 ## Layer 2 — player experience/world/model direction
 15. `GAME_EXPERIENCE_BIBLE.md`
@@ -77,54 +77,59 @@ Region 01 package-local authorities:
 34. `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`
 35. `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`
 36. `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`
-37. `NEW_GAME_MASTER_PLAN.md`
-38. `MECHANICAL_SYSTEMS_GUIDE.md`
-39. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
-40. `BEHAVIOR_PATTERN_SYSTEM.md`
-41. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
-42. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+37. `docs/20_gameplay/combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`
+38. `NEW_GAME_MASTER_PLAN.md`
+39. `MECHANICAL_SYSTEMS_GUIDE.md`
+40. `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`
+41. `BEHAVIOR_PATTERN_SYSTEM.md`
+42. `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`
+43. `NEW_GAME_DISCUSSION_CHECKLIST.md`
+
+Specificity law:
+where older Action Economy or First Weapon text still says exact Stamina values are open, `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md` now owns the first-slice Stamina values only.
 
 Current next independent gameplay packet:
-**Stamina Prototype Scale and Recovery Contract**.
+**Initiative and Turn-Order Prototype Contract**.
 
-Do not combine it with Initiative, statuses, Monster 01 attack authoring or terrain-number finalization.
+Do not combine it with statuses, Monster 01 attack authoring, terrain-number finalization, berserk, party design or defeat/retreat behavior.
 
 ## Layer 5 — art/model/runtime-2D/3D conversion
-43. `docs/40_art/README.md`
-44. `docs/40_art/asset_pipeline/README.md`
-45. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
-46. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
-47. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
-48. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
-49. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
-50. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
-51. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
-52. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
-53. `docs/40_art/reviews/README.md`
-54. specific Hunter H02/H02A QA records when relevant.
+44. `docs/40_art/README.md`
+45. `docs/40_art/asset_pipeline/README.md`
+46. `docs/40_art/asset_pipeline/ASSET_LINEAGE_AND_APPROVAL_MANIFEST.md`
+47. `docs/40_art/asset_pipeline/RASTER_RESOLUTION_AND_ZOOM_QUALITY.md`
+48. `docs/40_art/asset_pipeline/RUNTIME_2D_ASSET_GUIDE.md`
+49. `docs/40_art/asset_pipeline/PNG_TO_3D_AUTOMATION_PIPELINE.md`
+50. `docs/40_art/asset_pipeline/ASSET_QA_GATES.md`
+51. `docs/40_art/asset_pipeline/GENERATED_SHEET_REGISTRY.md`
+52. `docs/40_art/asset_pipeline/HUNTER_TECHNICAL_SOURCE_PACK_STANDARD.md`
+53. `docs/40_art/asset_pipeline/HUNTER_DCC_BLOCKOUT_SPECIFICATION.md`
+54. `docs/40_art/reviews/README.md`
+55. specific Hunter H02/H02A QA records when relevant.
 
-Hunter same-method technical multiview generation is paused by QA. The DCC blockout specification is recorded, but final Hunter geometry is not required for the Stage 1 engine probe.
+Hunter same-method technical multiview generation remains paused by QA. The DCC blockout specification is recorded, but final Hunter geometry is not required for Stage 1.
 
 ## Layer 6 — architecture/code/data
-55. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
-56. `CONTENT_DATA_GUIDE.md`
-57. `CODE_GUIDE.md`
-58. `docs/50_technical/README.md`
-59. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
+56. `SYSTEM_ARCHITECTURE_BLUEPRINT.md`
+57. `CONTENT_DATA_GUIDE.md`
+58. `CODE_GUIDE.md`
+59. `docs/50_technical/README.md`
+60. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md` only for older supporting detail not overridden by newer authorities.
 
 ## Layer 7 — performance/debug/creator/testing
-60. `PERFORMANCE_BUDGETS_AND_CAPS.md`
-61. `ADMIN_CREATOR_SYSTEM.md`
-62. `TESTING_VERIFICATION_PLAN.md`
+61. `PERFORMANCE_BUDGETS_AND_CAPS.md`
+62. `ADMIN_CREATOR_SYSTEM.md`
+63. `TESTING_VERIFICATION_PLAN.md`
 
 ## Layer 8 — continuity/build discipline
-63. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
-64. `docs/70_handoff/COMBAT_ACTION_ECONOMY_PASS_2026-09-02.md`
-65. `docs/70_handoff/COMBAT_RESOLUTION_PASS_2026-09-02.md`
-66. `docs/70_handoff/FIRST_WEAPON_FAMILY_PASS_2026-09-02.md`
-67. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when art/model work is active.
-68. `DEVELOPMENT_REFERENCE.md`
-69. `EVOLVE_ALIGNMENT.md`
+64. `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`
+65. `docs/70_handoff/COMBAT_ACTION_ECONOMY_PASS_2026-09-02.md`
+66. `docs/70_handoff/COMBAT_RESOLUTION_PASS_2026-09-02.md`
+67. `docs/70_handoff/FIRST_WEAPON_FAMILY_PASS_2026-09-02.md`
+68. `docs/70_handoff/STAMINA_PROTOTYPE_PASS_2026-09-02.md`
+69. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when art/model work is active.
+70. `DEVELOPMENT_REFERENCE.md`
+71. `EVOLVE_ALIGNMENT.md`
 
 # 2. Build readiness taxonomy
 
@@ -141,7 +146,7 @@ Classes:
 Current state:
 - engine probe — source created / execution verification pending;
 - domain implementation — blocked by engine-phone probe;
-- combat design — partial/advanced, with action economy + combat resolution + first weapon family recorded;
+- combat design — partial/advanced, with four core contracts recorded;
 - vertical slice — partial;
 - expansion decisions — intentionally open.
 
@@ -160,7 +165,8 @@ docs/
 │       ├── README.md
 │       ├── ACTION_ECONOMY_CONTRACT.md
 │       ├── COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md
-│       └── FIRST_WEAPON_FAMILY_CONTRACT.md
+│       ├── FIRST_WEAPON_FAMILY_CONTRACT.md
+│       └── STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md
 ├── 30_content/
 │   ├── hunters/HUNTER_BASE_01/
 │   └── monsters/MONSTER_01/
@@ -192,41 +198,51 @@ Progression:
 **HYBRID / EQUIPMENT + MASTERY + KNOWLEDGE WEIGHTED**.
 
 Combat economy:
-- 4 AP prototype;
-- 1 RP prototype;
-- persistent Stamina;
+- 4 AP;
+- 1 RP;
 - no AP banking;
-- no ordinary extra-turn progression;
 - explicit reaction windows;
 - reaction recursion blocked.
 
 Combat resolution:
 - hard legality before contest;
-- one frozen resolution context;
+- frozen resolution context;
 - AttackControl vs DefenseControl;
 - selected-part vs body contact;
-- explicit exposure states;
-- directional physical cover;
-- distinct Dodge/Block/Parry/Brace roles;
-- one bounded seeded variance source per committed attack resolution;
-- no separate random critical-hit roll;
-- hit quality: MISS / GRAZE / SOLID / CLEAN / PRECISION;
-- local protection/anatomy ordering;
-- explainable development traces.
+- exposure states;
+- directional cover;
+- distinct Dodge/Block/Parry/Brace;
+- bounded seeded variance;
+- no separate random critical roll;
+- `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- local protection/anatomy ordering.
 
-First weapon family:
-- technical ID `WEAPON_FAMILY_FIELD_POLEBLADE`;
-- working name Field Poleblade;
-- two-handed long-hafted hunting blade;
+First weapon:
+- `WEAPON_FAMILY_FIELD_POLEBLADE`;
 - cutting/sever primary;
 - piercing/control secondary;
 - limited impact;
 - directional Guard/restricted Parry;
-- intentionally not a universal best weapon;
-- first technique packet maps into the 2/3/4 AP economy and explicit hit-quality/fallback policies.
+- 2/3/4 AP technique packet;
+- deliberately non-universal.
+
+Stamina prototype:
+- Max `100`;
+- passive `+10`/normal activation;
+- `READY / LOW / CRITICAL / EMPTY` bands;
+- no hidden generic low-Stamina accuracy/evasion penalty;
+- Catch Breath `1 AP / +20 delayed / once / no attack pairing`;
+- stable reposition `0`;
+- Sprint `8`;
+- Brace `6`;
+- reactive Brace `10`;
+- Dodge `14`;
+- Parry `10`;
+- positive-cost ordinary floor `50% of base, minimum 1`;
+- Field Poleblade costs `12 / 10 / 18 / 30 / 8`.
 
 Crystal:
-Energy is life force; zero usable Energy means death; berserk spends the same reserve; intrinsic crystal properties remain distinct from runtime Energy/Condition.
+Energy is life force; zero usable Energy means death; berserk spends the same reserve; intrinsic properties remain separate from runtime Energy/Condition.
 
 First monster:
 Mudcrest Raker, ~6.6 m long / ~3.0 m shoulder-body height, breakable horn/plates, mud-adapted legs, severable distal tail, internal crystal.
@@ -239,7 +255,7 @@ Mudcrest Raker, ~6.6 m long / ~3.0 m shoulder-body height, breakable horn/plates
 Do not add further Stage-1 features or proceed into Stage 2 until the existing source passes its current verification gate.
 
 ## Design
-**Stamina Prototype Scale and Recovery Contract** may proceed independently as its own bounded EVOLVE pass.
+**Initiative and Turn-Order Prototype Contract** may proceed independently as its own bounded EVOLVE pass.
 
 # 6. Maintenance
 
