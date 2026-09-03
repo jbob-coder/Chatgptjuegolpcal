@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: STAGE 1 TARGET-DEVICE FOUNDATION / JOYSTICK + SETTINGS BUILD VERIFIED / PHONE RETEST PENDING
+Status: STAGE 1 TARGET-DEVICE FOUNDATION / HEADING-RESET JOYSTICK BUILD VERIFIED / PHONE RETEST PENDING
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -25,7 +25,7 @@ Mandatory law:
 
 ## Layer 1 — current platform/implementation gate
 10. `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`
-11. `docs/70_handoff/STAGE1_CONTROL_CAMERA_REFINEMENT_2026-09-03.md`
+11. `docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`
 12. `probes/android_stage1/README.md`
 13. `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
 14. `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
@@ -41,20 +41,23 @@ Current Stage 1 candidate:
 - Samsung Galaxy A03s;
 - stable 30 FPS representative-scene target.
 
-Current control build:
+Current protected control build:
 - analog movement joystick;
 - tabbed Settings overlay;
 - Controls → Look Speed;
 - Look Speed persisted to `user://stage1_settings.cfg`;
-- default Look Speed `35%` after direct phone feedback that prior camera turning was too aggressive;
+- default Look Speed `35%`;
+- camera follows/trails Hunter heading;
+- **each new joystick touch captures Hunter heading as a stable movement reference**;
+- release/re-touch resets forward to the latest Hunter heading;
 - protected control-camera README + executable static regression guards;
-- static preflight `147 / 147 PASS`;
+- static preflight `151 / 151 PASS`;
 - Godot parse/smoke PASS;
 - Android export/APK integrity PASS;
-- phone retest pending.
+- Galaxy A03s heading-reset retest pending.
 
 Protected law:
-**do not silently remove, replace or materially retune the joystick/settings/look-speed/camera baseline. Read `CONTROL_CAMERA_FOUNDATION_README.md` and explicitly document/warn about the reason for any change.**
+**do not silently remove, replace or materially retune the joystick/settings/look-speed/heading-reset/camera baseline. Read `CONTROL_CAMERA_FOUNDATION_README.md` and explicitly document/warn about the reason for any change.**
 
 Known next separate defect after control retest:
 `MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR`.
@@ -141,13 +144,14 @@ Hunter same-method technical multiview generation remains paused by QA. Final Hu
 66. `docs/70_handoff/STAGE1_GALAXY_A03S_RUNTIME_EVIDENCE_2026-09-03.md`
 67. `docs/70_handoff/STAGE1_TARGET_DEVICE_FEEDBACK_CAMERA_COLLISION_2026-09-03.md`
 68. `docs/70_handoff/STAGE1_CONTROL_CAMERA_REFINEMENT_2026-09-03.md`
-69. `docs/70_handoff/COMBAT_ACTION_ECONOMY_PASS_2026-09-02.md`
-70. `docs/70_handoff/COMBAT_RESOLUTION_PASS_2026-09-02.md`
-71. `docs/70_handoff/FIRST_WEAPON_FAMILY_PASS_2026-09-02.md`
-72. `docs/70_handoff/STAMINA_PROTOTYPE_PASS_2026-09-02.md`
-73. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when art/model work is active.
-74. `DEVELOPMENT_REFERENCE.md`
-75. `EVOLVE_ALIGNMENT.md`
+69. `docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`
+70. `docs/70_handoff/COMBAT_ACTION_ECONOMY_PASS_2026-09-02.md`
+71. `docs/70_handoff/COMBAT_RESOLUTION_PASS_2026-09-02.md`
+72. `docs/70_handoff/FIRST_WEAPON_FAMILY_PASS_2026-09-02.md`
+73. `docs/70_handoff/STAMINA_PROTOTYPE_PASS_2026-09-02.md`
+74. `docs/70_handoff/ASSET_GENERATION_PASS_2026-09-02.md` when art/model work is active.
+75. `DEVELOPMENT_REFERENCE.md`
+76. `EVOLVE_ALIGNMENT.md`
 
 # 2. Build readiness taxonomy
 
@@ -162,7 +166,7 @@ Classes:
 5. `CAN_WAIT_UNTIL_EXPANSION`.
 
 Current state:
-- engine probe — APK/device runtime active; control-camera retest + collision/lifecycle/performance evidence remain;
+- engine probe — APK/device runtime active; heading-reset control retest + collision/lifecycle/performance evidence remain;
 - domain implementation — blocked by engine-phone foundation gate;
 - combat design — partial/advanced, four core contracts recorded;
 - vertical slice — partial;
@@ -203,7 +207,10 @@ Mudcrest Raker, ~6.6 m long / ~3.0 m shoulder-body height, breakable horn/plates
 # 4. Exact current work
 
 ## Implementation
-**Phone-retest the build-verified analog joystick + Settings/Look-Speed Stage-1 APK.**
+**Phone-retest the build-verified heading-reset analog joystick APK.**
+
+Acceptance example:
+`turn east → release → new touch + joystick up → continue east/forward`.
 
 After that passes:
 **Monster placeholder solid collision repair only.**
