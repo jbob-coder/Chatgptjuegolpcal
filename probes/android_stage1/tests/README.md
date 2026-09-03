@@ -1,11 +1,11 @@
 # Stage 1 Probe Static QA
 
-Status: STATIC PREFLIGHT HARNESS RECORDED / GODOT EXECUTION STILL REQUIRED
-Last reconciled: 2026-09-02
+Status: STATIC PREFLIGHT ACTIVE / CONTROL-CAMERA FOUNDATION GUARDS ADDED / GODOT + PHONE EVIDENCE STILL REQUIRED
+Last reconciled: 2026-09-03
 
 ## Purpose
 
-Prepare the isolated Stage 1 Android probe for later Godot/editor/APK/Galaxy A03s testing by catching repository-level regressions before runtime tooling is available.
+Catch repository-level regressions in the isolated Stage 1 Android probe before runtime testing.
 
 Primary command from the probe root:
 
@@ -13,86 +13,85 @@ Primary command from the probe root:
 python tests/static_preflight.py
 ```
 
-The script uses only the Python standard library.
+The checker uses only the Python standard library.
 
 ## What a PASS means
 
-`STATIC_PREFLIGHT_VERIFIED` means the checker found no failure in the static invariants it owns, including:
-- required probe files exist;
-- project main-scene path resolves;
-- Godot 4.7 / GL Compatibility request text remains present;
-- 1600×720 probe viewport settings remain present;
-- Android frame-pacing request remains present;
-- scene `ExtResource` paths resolve;
-- scene `ExtResource` and `SubResource` uses have declarations;
-- duplicate external/sub-resource IDs are rejected;
-- the scene has one root node;
-- duplicate node paths are rejected;
-- child node parent paths exist;
-- root scenes still point to the intended scripts;
-- connected signal methods exist in the root scripts;
-- `$Node/Path` references used by current `@onready` declarations exist in the owning scene;
-- Boot and ProbeWorld keep their intended root/script inheritance pairing;
-- the probe contains only the currently authorized GDScript source files.
+`STATIC_PREFLIGHT_VERIFIED` means the static invariants owned by this checker passed. It includes:
+- required probe/docs files exist;
+- main-scene/resource paths resolve;
+- Godot 4.7 / GL Compatibility / 1600×720 / Android frame-pacing settings remain present;
+- scene resource declarations/uses are valid at the static-text level;
+- duplicate resource IDs and duplicate node paths are rejected;
+- scene parent paths, root scripts, signals and current `@onready` paths resolve;
+- Boot/ProbeWorld retain intended root/script pairings;
+- the probe contains only the authorized GDScript source boundary.
+
+## Protected control-camera guard
+
+User-approved continuity authority:
+`../docs/CONTROL_CAMERA_FOUNDATION_README.md`.
+
+The preflight now intentionally fails if a future change silently removes or reverts the Stage-1 control baseline.
+
+It verifies static evidence for:
+- analog `MoveJoystick`;
+- joystick knob;
+- `SETTINGS` button;
+- tabbed Settings overlay;
+- `Controls` tab;
+- `Look Speed` slider and signal;
+- stable persistence path `user://stage1_settings.cfg`;
+- persistence key `controls/look_speed`;
+- default Look Speed `35%`;
+- joystick update/reset handlers;
+- camera synchronization call;
+- absence of the old Up/Down/Left/Right arrow Button nodes.
+
+This is deliberate. If a later evidence-based change legitimately alters one of those protected behaviors, update the protected README, explain the reason, update the guard in the same bounded pass, and re-test on the Galaxy A03s.
+
+**Do not weaken the guard merely to make a red build green.**
 
 ## What a PASS does NOT mean
 
-The script is not a Godot parser and is not an Android runtime.
+The checker is not Godot and is not Android.
 
-A PASS must never be promoted to:
-- `GODOT_PARSE_VERIFIED`;
-- `EDITOR_RUN_VERIFIED`;
-- `ANDROID_PRESET_VERIFIED`;
-- `APK_BUILD_VERIFIED`;
-- `PHONE_INSTALL_VERIFIED`;
-- `PHONE_RUNTIME_VERIFIED`;
-- `PERFORMANCE_VERIFIED`;
-- `ENGINE_PHONE_PROBE_VERIFIED`.
+A PASS never substitutes for:
+- Godot import/parse;
+- scene runtime smoke;
+- Android export/APK integrity;
+- phone installation;
+- joystick touch behavior;
+- Look Speed persistence behavior;
+- camera quality;
+- sustained performance/thermal verification.
 
-Those gates still require the actual environments defined by `../docs/PROBE_TEST_PROTOCOL.md`.
+## Current expected source boundary
 
-## Source-boundary guard
-
-The current probe is intentionally disposable and must not silently become production gameplay source.
-
-The checker therefore currently expects only:
+Authorized GDScript files remain:
 - `scripts/boot.gd`;
 - `scripts/probe_world.gd`.
 
-If a later EVOLVE-approved Stage 1 change legitimately adds another GDScript file, update the expected-source set in the same bounded change and explain why the new source belongs to the probe.
+The joystick/settings refinement intentionally stays in `probe_world.gd`; it does not create a production input/settings architecture inside this disposable probe.
 
-Do not disable this guard merely to make a failing check green.
+## Required workflow
 
-## Expected development workflow
-
-1. Read current `EVOLVE_ALIGNMENT.md`.
-2. Make one bounded Stage 1 source/configuration change only when its gate permits it.
-3. Run `python tests/static_preflight.py`.
-4. Fix static failures before Godot execution.
-5. Run the Godot import/parse gate.
-6. Run editor smoke.
-7. Configure/build Android only after editor smoke passes.
-8. Test the resulting APK on the Galaxy A03s using the phone protocol.
-9. Record evidence at each gate separately.
-
-## Harness self-test evidence
-
-During creation/hardening of this harness, its logic was exercised against the current fetched probe source snapshot:
-- positive snapshot: `123 / 123` checks passed;
-- negative test: changing Boot's `res://scenes/probe_world.tscn` reference to a missing scene correctly returned a failing exit code;
-- negative test: adding an unexpected `scripts/rogue_gameplay.gd` correctly failed the probe-source-boundary guard;
-- negative test: deliberately creating a duplicate scene sub-resource ID correctly failed the duplicate-resource guard.
-
-Environment limitation:
-the working runtime cannot clone GitHub or execute Godot, so this does not replace a later run from a real repository checkout or Godot/editor environment.
+1. Read current repository `EVOLVE_ALIGNMENT.md`.
+2. Read `../docs/CONTROL_CAMERA_FOUNDATION_README.md` for camera/control work.
+3. Make one bounded source/configuration change.
+4. Run static preflight.
+5. Fix static failures at their cause.
+6. Run Godot import/parse.
+7. Run Boot and ProbeWorld smoke.
+8. Export and integrity-check Android APK.
+9. Test the exact APK on Galaxy A03s.
+10. Record phone evidence separately from build evidence.
 
 ## Current gate
 
-`STATIC_PREFLIGHT_HARNESS = RECORDED`
-`HARNESS_LOGIC_SELF_TESTED = YES`
-`CURRENT_FETCHED_SOURCE_SNAPSHOT = 123_OF_123_PASS`
-`REAL_CHECKOUT_PREFLIGHT_RUN = PENDING`
-`GODOT_PARSE_VERIFIED = NO`
-`EDITOR_RUN_VERIFIED = NO`
-`APK_BUILD_VERIFIED = NO`
-`PHONE_RUNTIME_VERIFIED = NO`
+The harness has previously proven it can catch missing resources, unexpected GDScript and duplicate resource IDs. The current joystick/settings extension adds protected-behavior checks; the exact new check count is determined by the next real-checkout CI run and must not be guessed here.
+
+`STATIC_PREFLIGHT_HARNESS = ACTIVE`
+`CONTROL_CAMERA_PROTECTED_GUARDS = RECORDED`
+`GODOT_RUNTIME_VERIFICATION = REQUIRED_AFTER_EACH_RELEVANT_CHANGE`
+`PHONE_RUNTIME_VERIFICATION = REQUIRED_FOR_PLAYER_FACING_CONTROL/CAMERA_CHANGES`
