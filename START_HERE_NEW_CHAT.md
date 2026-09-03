@@ -6,7 +6,7 @@ Last reconciled: 2026-09-03
 
 This is the Android-targeted monster-hunting RPG using the repository area that previously contained WorldLife RPG.
 
-WorldLife is not active and must not be resumed.
+WorldLife is abandoned and must not be resumed unless a current repository authority explicitly preserves a specific item.
 
 `Unnamed Hunt RPG` remains a temporary working name.
 
@@ -14,49 +14,61 @@ WorldLife is not active and must not be resumed.
 
 **Read `EVOLVE_ALIGNMENT.md` before every bounded pass.**
 
-Then read `PROJECT_HANDOFF.md`, the newest specialized handoff, and the owning package/source for the exact task.
+Then read `PROJECT_HANDOFF.md`, this file, `DOCUMENTATION_INDEX.md`, the newest relevant specialized handoff, and the owning source/tests for the exact task.
 
 ## Current phase
 
-**STAGE 1 ENGINE/ANDROID PHONE FOUNDATION — HEADING-RESET JOYSTICK BUILD VERIFIED / GALAXY A03s RETEST PENDING**
+**STAGE 1 ENGINE/ANDROID FOUNDATION — VIEW CONTINUITY BUILD VERIFIED / PHONE EVIDENCE DEFERRED / LIFECYCLE REVIEW NEXT**
 
-Implementation authorization is active, but later stages remain controlled by readiness gates.
+Implementation authorization is active inside the isolated probe. Later production stages remain controlled by readiness gates.
 
 ## Read order
 
 1. `EVOLVE_ALIGNMENT.md`
 2. `PROJECT_HANDOFF.md`
 3. `START_HERE_NEW_CHAT.md`
-4. `README.md`
-5. `DOCUMENTATION_INDEX.md`
+4. `DOCUMENTATION_INDEX.md`
+5. `README.md`
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-8. `docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`
+8. newest relevant `docs/70_handoff/` file
 9. `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
 10. `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
 11. `probes/android_stage1/README.md`
-12. owning package/source for the bounded task.
+12. owning package/source/tests.
 
 ## Current Stage-1 engine/device truth
 
 Candidate:
 - Godot 4.7 family;
-- current build tooling Godot 4.7.2 stable;
+- current CI/build tooling Godot 4.7.2 stable;
 - GDScript;
 - GL Compatibility / OpenGL3;
 - Android;
 - Samsung Galaxy A03s baseline;
 - stable 30 FPS representative-scene minimum target.
 
-Verified to date:
-- static preflight;
-- Godot import/parse;
-- Boot + ProbeWorld headless smoke;
-- Android debug APK export/integrity;
-- Galaxy A03s installation/runtime smoke on earlier probe builds;
-- GL Compatibility/OpenGL3 on target phone;
-- prior instantaneous sample `60 FPS / ~16.7 ms` and `40.9 MiB` debug static memory;
-- basic movement, first-person entry and outer world-boundary behavior received positive phone evidence.
+Current automated build:
+- source commit `c218b273a49dbdce78ce143698fd87d07bdd2643`;
+- workflow `33807677829`;
+- static preflight `154/154 PASS`;
+- Monster collision guard `8/8 PASS`;
+- world-boundary guard `12/12 PASS`;
+- Godot parse PASS;
+- Boot + ProbeWorld smoke PASS;
+- executable aerial↔first-person continuity `17/17 PASS`;
+- Android export + APK integrity PASS.
+
+APK:
+`UnnamedHuntRPG-Stage1Probe-debug.apk`
+
+Size:
+`57,570,361 bytes`
+
+SHA-256:
+`db046d03d778228e6343b5ada35f2fa9392a8c79c519d1e7cd58d632e701c6da`
+
+Prior Galaxy A03s evidence remains useful but does not automatically verify the current APK.
 
 Godot remains a probe candidate until the full phone-foundation gate closes.
 
@@ -66,77 +78,51 @@ Authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
 
 Protected direction:
-- analog movement joystick instead of four arrow keys;
-- Settings button;
-- tabbed Settings;
-- Controls → Look Speed;
-- default Look Speed `35%`;
-- Look Speed saved at `user://stage1_settings.cfg`, key `controls/look_speed`;
+- analog movement joystick;
+- per-touch Hunter-heading movement reference;
+- stable basis during active touch;
+- re-touch captures latest heading;
+- Hunter faces resolved movement;
 - aerial camera follows/trails Hunter heading;
-- opening Settings resets movement;
-- **each new joystick touch captures the Hunter's current heading as its forward/right reference**;
-- the reference stays stable while that touch remains active;
-- release/re-touch captures the newest Hunter heading again.
+- aerial camera stays synchronized while first person is active;
+- Settings + Controls tab + Look Speed;
+- default Look Speed `35%`;
+- persistence `user://stage1_settings.cfg` / `controls/look_speed`;
+- opening Settings resets movement.
 
-Example:
-`face north → joystick right → turn/move east → release → new touch + joystick up → continue east/forward`.
+Do not silently remove, replace or materially retune this contract.
 
-This specifically fixes the prior behavior where the player had to keep holding an absolute east direction after turning east.
+## Completed source/build foundation repairs
 
-No-silent-change law:
-**do not remove, replace or materially retune this joystick/settings/look-speed/heading-reset/camera contract without reading the protected README and explicitly documenting/warning about the reason.**
+Monster placeholder:
+- fixed representative solid collider source added;
+- static/Godot/APK build verified;
+- phone solidity still deferred.
 
-## Current exact build
+World boundary:
+- existing `±8.5 m` X/Z containment kept unchanged;
+- semantic regression guard/build verified;
+- current-build phone containment still deferred.
 
-Heading-reset source commit:
-`9d9e83898616e16c902d0d3caf8e9c82253bf8a7`
+View continuity:
+- executable Godot regression verifies no Hunter transform drift and no stale aerial-camera revival through first-person transitions;
+- `17/17 PASS`;
+- phone visual/clipping/input verification still deferred.
 
-Exact tested revision:
-`2e112210c60b62335f94adfd1a1573afb81426f6`
+## Current explicit user instruction about phone testing
 
-Workflow:
-`33783404093`
+Do not stop development waiting for the user to test on the phone.
 
-Build evidence:
-- static preflight `151 / 151 PASS`;
-- Godot 4.7.2 parse PASS;
-- Boot smoke PASS;
-- ProbeWorld smoke PASS;
-- Android export PASS;
-- APK integrity PASS.
-
-APK:
-`UnnamedHuntRPG-Stage1Probe-heading-reset.apk`
-
-Size:
-`57,570,361 bytes`
-
-SHA-256:
-`1727750c3fc1f8385ed8c9bf1e4ccc3c559cede156e750380a1ff462c2bcfa8c`
+Record phone-only checks for later and continue with independent Stage-1 foundation work. Never convert missing evidence into PASS.
 
 ## Exact next implementation action
 
-Phone-test that exact APK on the Galaxy A03s:
-1. turn/move east with joystick-right;
-2. release;
-3. touch again and push joystick-up;
-4. verify Hunter continues east/forward;
-5. repeat for multiple headings;
-6. verify held input remains stable rather than circling;
-7. verify partial/diagonal input;
-8. verify Settings + saved Look Speed;
-9. verify aerial ↔ first-person still preserves physical position.
+**ANDROID_LIFECYCLE_BACKGROUND_RESUME_FOUNDATION_REVIEW**
 
-After that passes, next separate bounded repair:
-**MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR**.
-
-The brown Monster placeholder has direct phone fail evidence because the Hunter can move through it.
-
-Do not combine that collision repair with combat, Monster AI, damage, navigation, harvesting, or production physics.
+This is review-first. Inspect the lifecycle test contract, current joystick/settings/view state ownership and official Godot pause/resume notification behavior. Then select and record the smallest lifecycle source/verification piece before coding it.
 
 ## Build readiness classes
 
-Every open requirement belongs to:
 1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
 2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`;
 3. `MUST_EXIST_BEFORE_COMBAT`;
@@ -147,7 +133,7 @@ Primary law:
 **an open question blocks only the earliest implementation gate that genuinely needs its answer.**
 
 Current state:
-- engine probe: active target-device foundation verification;
+- engine probe: active Stage-1 lifecycle/performance + deferred phone evidence;
 - domain implementation: blocked by engine-phone foundation gate;
 - combat design: partial/advanced;
 - vertical slice: partial;
@@ -159,67 +145,50 @@ Combat package:
 `docs/20_gameplay/combat/`
 
 Recorded:
-- Action Economy — 4 AP / 1 RP / persistent Stamina;
-- Combat Resolution / Hit Quality / Defense;
-- First Weapon Family — `WEAPON_FAMILY_FIELD_POLEBLADE`;
-- Stamina Prototype — Max `100` with bounded recovery/exertion.
+- 4 AP / 1 RP / persistent Stamina;
+- deterministic hit quality/defense pipeline;
+- `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- Max Stamina prototype `100`.
 
 Next independent design packet:
-**Initiative and Turn-Order Prototype Contract**.
+**INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT**.
 
-Do not combine that design pass with statuses, terrain numbers, Monster 01 attacks, berserk, party design, or defeat/retreat behavior.
-
-## Locked game direction summary
+## Locked direction summary
 
 - walkable settlement/hub;
 - elevated angled aerial wilderness exploration;
-- first-person turn-based tactical combat derived from the same physical encounter;
+- first-person turn-based tactical combat from the same physical encounter;
 - world atlas → settlement → hunter gate → continuous hunting region → local encounter;
 - `1 world unit = 1 meter`;
-- deterministic authored NPC/creature behavior, not an AI behavior system;
+- deterministic authored NPC/creature behavior;
 - six core attributes: Might / Finesse / Agility / Endurance / Perception / Resolve;
-- hybrid progression weighted toward equipment, mastery and knowledge;
-- anatomy, terrain and preparation remain mechanically relevant;
-- crystal Energy is life force and berserk spends that same reserve.
+- hybrid equipment/mastery/knowledge-weighted progression;
+- anatomy, terrain and preparation matter;
+- crystal Energy is life force and berserk spends the same reserve.
 
 ## Current content anchors
 
 Hunter Base 01:
-- 1.75 m reusable humanoid base.
+1.75 m reusable humanoid base.
 
 Monster 01 — Mudcrest Raker:
-- ~6.6 m long / ~3.0 m shoulder-body height;
-- horn crest;
-- dorsal plates;
-- mud-adapted feet;
-- legal distal tail sever;
-- internal life crystal;
-- deterministic Region 01 behavior.
+~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted feet; legal distal tail sever; internal life crystal.
 
 Region 01:
 S00–S06 physical hunting sectors with tracking and persistent escape/reacquisition.
 
 ## Current verification truth
 
-`IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
-`STATIC_PREFLIGHT_VERIFIED = YES / 151_OF_151_CURRENT_CONTROL_BUILD`
+`STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154`
+`MONSTER_COLLISION_STATIC = YES / 8_OF_8`
+`WORLD_BOUNDARY_STATIC = YES / 12_OF_12`
+`VIEW_CONTINUITY_HEADLESS = YES / 17_OF_17`
 `GODOT_PARSE_VERIFIED = YES`
-`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
-`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
-`ANDROID_PRESET_VERIFIED = YES`
 `APK_BUILD_VERIFIED = YES`
-`GALAXY_A03S_INSTALL_VERIFIED = YES_ON_PRIOR_STAGE1_APKS`
-`ANALOG_JOYSTICK_SOURCE_IMPLEMENTED = YES`
-`JOYSTICK_HEADING_RESET_SOURCE_IMPLEMENTED = YES`
-`JOYSTICK_HEADING_RESET_APK_BUILD_VERIFIED = YES`
-`JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / RETEST_PENDING`
-`LOOK_SPEED_SETTING_SOURCE_IMPLEMENTED = YES`
-`LOOK_SPEED_PERSISTENCE_IMPLEMENTED = YES`
-`CONTROL_CAMERA_PROTECTED_README = RECORDED`
-`MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE`
+`PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-Current explicit user instruction > current verified source/tests > direct device evidence > current owning repository authority > older documents > chat memory.
+Current explicit user instruction > verified source/tests > current repository authority > direct device evidence for runtime claims > older documents > chat memory.
