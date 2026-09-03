@@ -48,6 +48,10 @@ Pass when:
 - project requests GL Compatibility for desktop/mobile;
 - expected 1600×720/landscape/frame-pacing settings remain present;
 - current scene external/sub-resource uses are declared;
+- duplicate external/sub-resource IDs are rejected;
+- each scene has one root node;
+- duplicate node paths are rejected;
+- child node parent paths resolve;
 - current root scene scripts resolve;
 - connected signal methods exist;
 - current `@onready` node paths exist;
@@ -56,10 +60,11 @@ Pass when:
 - no unapproved extra GDScript source is mixed into the probe;
 - the script exits with code `0` and reports `STATIC_PREFLIGHT_VERIFIED`.
 
-Harness creation evidence:
-- current fetched source snapshot produced `81 / 81` PASS;
+Harness creation/hardening evidence:
+- current fetched source snapshot produced `123 / 123` PASS;
 - missing-scene negative test correctly failed;
-- unexpected-GDScript negative test correctly failed.
+- unexpected-GDScript negative test correctly failed;
+- duplicate-sub-resource negative test correctly failed.
 
 Environment limitation:
 that creation-time execution used the current fetched source snapshot because this runtime cannot clone GitHub. Therefore a real-checkout Test 0 run remains required before promoting the repository state to `STATIC_PREFLIGHT_VERIFIED` for an actual checkout.
@@ -235,7 +240,7 @@ Do not switch engines merely because the first configuration is imperfect. Switc
 `TEST_PROTOCOL_RECORDED = YES`
 `STATIC_PREFLIGHT_HARNESS = RECORDED`
 `HARNESS_LOGIC_SELF_TESTED = YES`
-`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 81_OF_81_PASS`
+`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 123_OF_123_PASS`
 `REAL_CHECKOUT_PREFLIGHT_RUN = PENDING`
 `GODOT_PARSE_VERIFIED = NO`
 `EDITOR_RUN_VERIFIED = NO`
