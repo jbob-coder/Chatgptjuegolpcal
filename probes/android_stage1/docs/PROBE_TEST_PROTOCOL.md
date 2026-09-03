@@ -1,7 +1,7 @@
 # Galaxy A03s Stage 1 Probe Test Protocol
 
-Status: TEST CONTRACT READY / STATIC PREFLIGHT HARNESS RECORDED / GODOT-PHONE EXECUTION NOT STARTED
-Last reconciled: 2026-09-02
+Status: TEST CONTRACT ACTIVE / APK BUILT / TARGET-DEVICE VISUAL SMOKE PASS / FULL PHONE PROTOCOL PENDING
+Last reconciled: 2026-09-03
 
 ## Purpose
 
@@ -60,14 +60,8 @@ Pass when:
 - no unapproved extra GDScript source is mixed into the probe;
 - the script exits with code `0` and reports `STATIC_PREFLIGHT_VERIFIED`.
 
-Harness creation/hardening evidence:
-- current fetched source snapshot produced `123 / 123` PASS;
-- missing-scene negative test correctly failed;
-- unexpected-GDScript negative test correctly failed;
-- duplicate-sub-resource negative test correctly failed.
-
-Environment limitation:
-that creation-time execution used the current fetched source snapshot because this runtime cannot clone GitHub. Therefore a real-checkout Test 0 run remains required before promoting the repository state to `STATIC_PREFLIGHT_VERIFIED` for an actual checkout.
+Current real-checkout CI evidence:
+- `123 / 123 PASS` on the successful Android build lineage.
 
 A Test 0 PASS still does not prove that Godot accepts the project syntax/API usage.
 
@@ -84,7 +78,8 @@ Pass when:
 - no missing ext/sub-resource errors;
 - no broken node paths/signals are reported.
 
-Record exact errors before changing source.
+Current evidence:
+Godot 4.7.2 headless import/parse PASS on the successful APK build lineage.
 
 ## Test 2 — desktop/editor smoke
 
@@ -101,17 +96,21 @@ Pass when:
 - FPS/debug static memory values update;
 - no repeatable runtime error appears in editor output.
 
-This does not prove Android behavior.
+Current evidence:
+- Boot headless smoke PASS;
+- ProbeWorld headless smoke PASS.
+
+These headless smoke results do not claim full interactive desktop/editor verification of WASD or camera input.
 
 ## Test 3 — Android build/install
 
 Pass when:
 - Android export preset is valid;
 - debug APK/export completes without unresolved export errors;
-- device is recognized through ADB/Godot deploy path;
+- device is recognized through ADB/Godot deploy path or the resulting APK is otherwise installed on the target phone;
 - APK installs on Galaxy A03s;
 - app launches from the device launcher;
-- cold launch reaches Boot without crash/ANR.
+- cold/normal launch reaches Boot/ProbeWorld without crash/ANR.
 
 Record:
 - export method;
@@ -119,6 +118,16 @@ Record:
 - build warnings;
 - install warnings;
 - package ID used.
+
+Current evidence:
+- Android export PASS under Godot 4.7.2 CI;
+- APK integrity PASS;
+- delivered APK size: `57,566,265 bytes`;
+- APK SHA-256: `c4fad6db29dfc554cda476550f27b61a51cbc42ce6af76b8ca167966d0e7f73e`;
+- user installed APK on the Galaxy A03s;
+- user-provided screenshot shows the application running ProbeWorld.
+
+Therefore `PHONE_INSTALL_VERIFIED = YES`.
 
 ## Test 4 — touch/orientation
 
@@ -129,7 +138,16 @@ Pass when:
 - simultaneous/rapid direction changes do not leave a stuck movement flag;
 - view toggle responds reliably;
 - Android system gestures do not make primary controls unusable;
-- HUD text remains legible at 1600×720 physical display resolution.
+- HUD text remains legible at the device display resolution.
+
+Current partial evidence:
+- landscape visual state observed;
+- touch controls visible;
+- view-toggle control visible;
+- HUD text legible in supplied screenshot.
+
+Still pending:
+actual touch reliability, rapid direction changes, stuck-input behavior and system-gesture usability.
 
 If touch buttons are unreliable, fix input before adding joystick polish.
 
@@ -142,6 +160,15 @@ Pass when:
 - first-person transition does not teleport hunter/monster;
 - first-person monster framing is viable without severe clipping;
 - toggling view repeatedly does not drift authoritative hunter position.
+
+Current partial evidence:
+- aerial view renders correctly;
+- Hunter placeholder is visible;
+- Monster placeholder reads substantially larger than Hunter;
+- current HUD reports `View: AERIAL`.
+
+Still pending:
+first-person transition, repeated toggle stability, clipping and position-drift checks.
 
 Do not judge final art quality here.
 
@@ -166,6 +193,15 @@ Suggested sustained sample:
 - 5 minutes repeated movement/view changes;
 - at least 10 minutes continuous run for an initial thermal signal.
 
+Current instantaneous screenshot sample:
+- FPS: `60`;
+- approximate frame time: `16.7 ms/frame`;
+- renderer: `gl_compatibility / opengl3`;
+- debug static memory: `40.9 MiB`;
+- view: `AERIAL`.
+
+This is a useful target-device sample but **not** `PERFORMANCE_VERIFIED`. Sustained frame pacing, input responsiveness, transition hitch and thermal behavior remain pending.
+
 These durations are practical probe samples, not release certification.
 
 ## Test 7 — lifecycle
@@ -177,6 +213,8 @@ Pass when:
 - touch flags do not remain stuck after resume;
 - audio behavior is recorded once audio is added;
 - no repeatable crash/ANR occurs.
+
+Current state: PENDING.
 
 ## Test 8 — visual-cost isolation
 
@@ -210,11 +248,14 @@ For every executed gate record:
 
 This prevents a later test from being attributed to the wrong source revision.
 
+Current target-device evidence record:
+`docs/70_handoff/STAGE1_GALAXY_A03S_RUNTIME_EVIDENCE_2026-09-03.md`.
+
 ## Current Stage 1 acceptance
 
 `ENGINE_PHONE_PROBE_VERIFIED` may pass only when:
 - static repository preflight passes in the tested checkout;
-- parse/editor smoke passes;
+- parse/smoke checks pass at the available engine level;
 - Android build/install passes;
 - phone runtime behavior passes;
 - landscape/touch/camera transition are usable;
@@ -240,12 +281,23 @@ Do not switch engines merely because the first configuration is imperfect. Switc
 `TEST_PROTOCOL_RECORDED = YES`
 `STATIC_PREFLIGHT_HARNESS = RECORDED`
 `HARNESS_LOGIC_SELF_TESTED = YES`
-`CURRENT_FETCHED_SOURCE_SNAPSHOT_PREFLIGHT = 123_OF_123_PASS`
-`REAL_CHECKOUT_PREFLIGHT_RUN = PENDING`
-`GODOT_PARSE_VERIFIED = NO`
-`EDITOR_RUN_VERIFIED = NO`
-`APK_BUILD_VERIFIED = NO`
-`PHONE_INSTALL_VERIFIED = NO`
-`PHONE_RUNTIME_VERIFIED = NO`
+`REAL_CHECKOUT_PREFLIGHT_RUN = 123_OF_123_PASS`
+`GODOT_PARSE_VERIFIED = YES`
+`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
+`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
+`ANDROID_PRESET_VERIFIED = YES`
+`APK_BUILD_VERIFIED = YES`
+`PHONE_INSTALL_VERIFIED = YES`
+`PHONE_RUNTIME_VERIFIED = PARTIAL`
+`LANDSCAPE_VISUAL_SMOKE = PASS_EVIDENCE`
+`AERIAL_RENDER_VISUAL_SMOKE = PASS_EVIDENCE`
+`TARGET_DEVICE_SNAPSHOT_FPS = 60`
+`TARGET_DEVICE_SNAPSHOT_FRAME_TIME = ~16.7_MS`
+`TARGET_DEVICE_RENDERER = GL_COMPATIBILITY_OPENGL3`
+`TARGET_DEVICE_DEBUG_STATIC_MEMORY = 40.9_MIB`
+`TOUCH_RELIABILITY_VERIFIED = NO`
+`FIRST_PERSON_TRANSITION_VERIFIED = NO`
+`SUSTAINED_PERFORMANCE_VERIFIED = NO`
+`LIFECYCLE_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
