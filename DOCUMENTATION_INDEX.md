@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK + BERSERK PACKETS RECORDED / SOLO-PARTY NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -78,17 +78,46 @@ Gameplay front door:
 Combat front door:
 `docs/20_gameplay/combat/README.md`.
 
-Seven generic combat contracts:
+Eight generic first-slice combat contracts:
 1. `ACTION_ECONOMY_CONTRACT.md`;
 2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
 3. `FIRST_WEAPON_FAMILY_CONTRACT.md`;
 4. `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`;
 5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`;
 6. `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
-7. `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`.
+7. `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`;
+8. `SOLO_PARTY_BASELINE_CONTRACT.md` — newest generic combat authority.
 
 Generic baseline:
-4 AP / 1 RP / persistent Stamina; deterministic contact/defense/hit quality; Field Poleblade; deterministic Initiative; one normal activation max; five-state status packet; four primary terrain surfaces + Brush/High Ground/Narrow; no independent status/terrain RNG layers.
+4 AP / 1 RP / persistent Stamina; deterministic contact/defense/hit quality; Field Poleblade; deterministic Initiative; one normal activation max; five-state status packet; four primary terrain surfaces + Brush/High Ground/Narrow; solo-capable optional companions with deterministic command/behavior ownership.
+
+## Solo / party baseline
+
+Authority:
+`docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
+
+Handoff:
+`docs/70_handoff/SOLO_PARTY_BASELINE_PASS_2026-09-03.md`.
+
+Selected:
+- solo-capable with optional companions;
+- first-slice active party cap = 3 hunters;
+- player directly controls only their hunter;
+- no shared AP/RP/Stamina;
+- same Initiative scheduler for all combatants;
+- no automatic allied-turn grouping;
+- companions use deterministic authored behavior;
+- mid-combat order action = player 1 AP, max one successful order action per player activation;
+- orders = Standard / Focus Part / Hold Position / Close Distance;
+- companion reactions consume their own RP/Stamina;
+- absent companions do not teleport into encounter;
+- late entrants wait until next round;
+- defeat/retreat/revive/reward sharing remain outside this contract.
+
+Older open `solo/party` placeholders in root planning/behavior docs are superseded within this scope by this newer specific authority.
+
+`SOLO_PARTY_BASELINE_RECORDED = YES`
+`PARTY_RUNTIME_IMPLEMENTED = NO`
 
 # 5. Content authorities
 
@@ -106,26 +135,19 @@ Front door:
 Current authorities:
 - `ANATOMY_AND_DAMAGE.md`;
 - `COMBAT_ATTACK_PACKET.md`;
-- `BERSERK_PROTOTYPE_CONTRACT.md` — newest Monster 01 content authority;
+- `BERSERK_PROTOTYPE_CONTRACT.md`;
 - `BEHAVIOR_AND_REGION.md`;
 - `CRYSTAL_AND_MUTATION.md`.
 
 Normal attacks:
 Horn Charge / Head Sweep-Gore / Shoulder Ram / Foreleg Stomp / Tail Sweep.
 
-Berserk prototype:
-- entry `>20%` and `<=60%` Core Energy plus deterministic desperation pressure;
-- one episode/hunt until explicit ecological recovery reset;
-- entry = full activation +10% Max Core Energy +20 strain;
-- later active activation = 5% Max +10 strain;
-- attack Core surcharges: 5/2/4/2/3% for Charge/Head/Ram/Stomp/Tail;
-- Berserk AP: 3/2/2/2/2;
-- existing Stamina unchanged;
-- max one damaging attack remains;
-- no extra turns, reaction removal or anatomy restoration;
-- critical at Energy <=12% or strain >=80;
-- critical exits only with legal retreat and no active Nest Defense;
-- zero Energy means immediate death.
+Berserk:
+- deterministic desperation entry;
+- explicit Core Energy/strain costs;
+- bounded AP discounts to existing anatomy-legal attacks;
+- no extra turn/second attack/anatomy restoration;
+- critical exit/zero-Energy death.
 
 Specialized handoffs:
 - `docs/70_handoff/MONSTER_01_COMBAT_ATTACK_PACKET_PASS_2026-09-03.md`;
@@ -166,13 +188,13 @@ Implementation lane:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Completed design sequence:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype`.
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype → Solo/Party Baseline`.
 
 Current active non-phone action:
-`SOLO_PARTY_BASELINE_CONTRACT`.
+`DEFEAT_RETREAT_BASELINE_CONTRACT`.
 
 Then:
-`DEFEAT_RETREAT_BASELINE_CONTRACT → production implementation after prerequisite gates`.
+`production implementation after prerequisite gates`.
 
 # 10. Documentation placement law
 

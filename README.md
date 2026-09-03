@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK + BERSERK PACKETS RECORDED / SOLO-PARTY BASELINE NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
 Last reconciled: 2026-09-03
 
 This repository area belongs to the new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -50,6 +50,7 @@ docs/
 Global map: `DOCUMENTATION_INDEX.md`.
 Documentation placement rules: `docs/README.md`.
 Combat front door: `docs/20_gameplay/combat/README.md`.
+Solo/party authority: `docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
 Monster 01 front door: `docs/30_content/monsters/MONSTER_01/README.md`.
 
 Every substantial pass must answer:
@@ -93,14 +94,15 @@ Blocker:
 
 ## 5. Generic combat foundation
 
-Seven reusable contracts are recorded:
+Eight reusable first-slice contracts are recorded:
 1. Action Economy;
 2. Combat Resolution / Hit Quality / Defense;
 3. Field Poleblade;
 4. Stamina;
 5. Initiative / Turn Order;
 6. First-Slice Status Set;
-7. First-Slice Terrain Effect Set.
+7. First-Slice Terrain Effect Set;
+8. Solo / Party Baseline.
 
 Reusable baseline:
 - 4 AP / 1 RP / persistent Stamina;
@@ -111,7 +113,34 @@ Reusable baseline:
 - Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow;
 - no independent terrain/status RNG layers.
 
-## 6. Monster 01 — normal combat + Berserk
+## 6. Solo / party baseline
+
+Authority:
+`docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
+
+Selected first-slice mode:
+`SOLO_CAPABLE_WITH_OPTIONAL_COMPANIONS`.
+
+Prototype party cap:
+`3` active hunters total = player + up to two companions.
+
+Selected control model:
+- player directly controls only the player hunter;
+- no mid-combat body switching;
+- every hunter has independent AP/RP/Stamina/Health/status/position/equipment;
+- all actors use the same Initiative scheduler;
+- allied turns are not automatically grouped;
+- companions use deterministic authored behavior, not runtime generative AI;
+- player may issue one successful companion order per own activation for `1 AP`;
+- orders: Standard / Focus Part / Hold Position / Close Distance;
+- commands do not bypass legality;
+- companion reactions use their own RP/Stamina;
+- absent companions do not teleport into an encounter;
+- late entrants wait until the next round.
+
+The core hunt loop must remain completable solo. Party-required hunts are not part of the first slice.
+
+## 7. Monster 01 — normal combat + Berserk
 
 Monster 01: Mudcrest Raker.
 
@@ -137,51 +166,19 @@ Normal-combat laws:
 - no separate status-proc RNG;
 - normal attacks do not spend Crystal Energy by default.
 
-### Berserk first-slice rules
-
-Entry requires:
-- Core Energy ratio `>20%` and `<=60%`;
-- Berserk not already active/used in this hunt;
-- at least one deterministic desperation pressure: Retreat Denied, Nest Defense, or Severe Anatomy;
-- Severe Anatomy = at least two major capability-loss facts.
-
-Entry transition:
-- consumes full 4-AP activation;
-- no attack same activation;
-- costs 10% Max Core Energy;
-- adds +20 Core Strain;
-- visibly telegraphed.
-
-Every later active Berserk activation:
-- costs 5% Max Core Energy;
-- adds +10 strain.
-
-Berserk attack Core surcharges:
-- Charge 5%; Head 2%; Ram 4%; Stomp 2%; Tail 3%.
-
-Berserk AP:
-- Charge 3; Head 2; Ram 2; Stomp 2; Tail 2.
-
-Existing Stamina costs remain unchanged.
-
-Berserk does not:
-- grant a second damaging attack;
-- grant extra turns or reroll Initiative;
-- remove reaction windows;
-- restore broken/severed anatomy;
-- bypass cover/terrain/range/bearing/status legality.
-
-Critical state:
-`Energy <=12% OR Core Strain >=80`.
-
-If critical + legal retreat + no active Nest Defense, Berserk ends to `EXHAUSTED_CRITICAL`. Otherwise it may continue spending life force until zero Energy, which means immediate death.
-
-Berserk pass handoff:
-`docs/70_handoff/MONSTER_01_BERSERK_PROTOTYPE_PASS_2026-09-03.md`.
+Berserk first-slice:
+- deterministic desperation entry at >20% and <=60% Core Energy;
+- entry consumes full activation +10% Max Core Energy +20 strain;
+- later active activation consumes 5% Max Core Energy +10 strain;
+- existing attacks receive bounded Core surcharges/AP discounts;
+- still max one damaging attack/activation;
+- no extra turn/reaction removal/anatomy restoration;
+- critical at Energy <=12% or strain >=80;
+- zero Core Energy means death.
 
 No combat runtime is claimed.
 
-## 7. World/content anchors
+## 8. World/content anchors
 
 World hierarchy:
 `WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
@@ -194,22 +191,23 @@ Riverbank Ford / Meadow Edge / Root-Boulder Hollow / Deep Nest Shelf.
 Monster 01 prototype:
 ~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs; severable distal tail; internal Crystal core.
 
-## 8. Planned bounded sequence
+## 9. Planned bounded sequence
 
 Completed:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype`.
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype → Solo/Party Baseline`.
 
 Next:
-`SOLO_PARTY_BASELINE_CONTRACT`
-→ `DEFEAT_RETREAT_BASELINE_CONTRACT`
+`DEFEAT_RETREAT_BASELINE_CONTRACT`
 → production implementation only after prerequisite engine/domain gates.
 
-## 9. Exact continuation
+## 10. Exact continuation
 
 Implementation action when device evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`SOLO_PARTY_BASELINE_CONTRACT`.
+`DEFEAT_RETREAT_BASELINE_CONTRACT`.
 
-Keep it limited to first-slice solo-vs-party participation, control authority, party-size assumptions and turn/scheduler ownership. Do not combine it with defeat/retreat resolution or production implementation.
+Keep it limited to first-slice defeat/downed/terminal outcome, voluntary retreat/escape, monster defeat/escape, encounter termination, hunt continuation/failure and scheduler/persistence ownership.
+
+Do not combine it with reward/economy expansion, companion relationships or production implementation.

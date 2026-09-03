@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / MONSTER 01 NORMAL ATTACK + BERSERK PACKETS RECORDED / SOLO-PARTY BASELINE NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -153,138 +153,96 @@ Prepared sustained phone run:
 
 ## Generic combat package
 
-Seven reusable authorities recorded:
+Eight reusable first-slice authorities recorded:
 1. Action Economy;
 2. Combat Resolution;
 3. Field Poleblade;
 4. Stamina;
 5. Initiative/Turn Order;
 6. Status Set;
-7. Terrain Set.
+7. Terrain Set;
+8. Solo / Party Baseline.
 
-These are generic rules. Species attacks/Berserk remain content.
-
-## Monster 01 normal attack packet — RECORDED
-
-Authority:
-`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
-
-Selected normal attacks:
-- Horn Charge 4 AP / 30 Stamina;
-- Head Sweep/Gore 2 / 14;
-- Shoulder Ram 3 / 22;
-- Foreleg Stomp 2 / 12;
-- Tail Sweep 3 / 18.
-
-Hard laws:
-- one normal activation per round;
-- internal 4-AP budget;
-- max one damaging attack/activation;
-- normal attacks use Stamina but not Core Energy by default;
-- no independent status RNG;
-- anatomy/terrain/cover/range/bearing hard legality;
-- behavior selects only legal candidates.
-
-## Monster 01 Berserk prototype — RECORDED
+## Solo / Party Baseline — RECORDED
 
 Authority:
-`docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
+`docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
 
 Handoff:
-`docs/70_handoff/MONSTER_01_BERSERK_PROTOTYPE_PASS_2026-09-03.md`.
+`docs/70_handoff/SOLO_PARTY_BASELINE_PASS_2026-09-03.md`.
 
-### Entry
+Selected:
+- `FIRST_SLICE_PARTY_MODE = SOLO_CAPABLE_WITH_OPTIONAL_COMPANIONS`;
+- `MAX_ACTIVE_HUNTERS_IN_PARTY = 3`;
+- one player hunter + zero to two companions;
+- first-slice hunts must remain completable solo;
+- no party-required core hunt;
+- `PLAYER_DIRECT_CONTROL = PLAYER_HUNTER_ONLY`;
+- no mid-combat body switching;
+- every hunter owns independent Health/AP/RP/Stamina/status/position/equipment;
+- all combatants share the same deterministic Initiative/RoundRoster owner;
+- party affiliation never creates automatic consecutive allied slots;
+- one normal activation maximum per actor/round remains absolute;
+- companions use authored deterministic behavior, not runtime generative AI.
 
-Required:
-- alive/nonterminal;
-- not active/used;
-- Core Energy ratio `>0.20` and `<=0.60`;
-- at least one: Retreat Denied, Nest Defense, Severe Anatomy;
-- Severe Anatomy requires at least two major capability losses.
+Mid-combat command:
+`ISSUE_COMPANION_ORDER`:
+- costs player 1 AP;
+- max one successful order action per player normal activation;
+- targets one companion;
+- does not spend companion AP or move Initiative.
 
-No HP-only/random trigger.
+Minimal orders:
+- `ORDER_STANDARD`;
+- `ORDER_FOCUS_PART`;
+- `ORDER_HOLD_POSITION`;
+- `ORDER_CLOSE_DISTANCE`.
 
-`M01_ENTER_BERSERK`:
-- consumes full 4-AP activation;
-- no damaging attack same activation;
-- costs 10% Max Core Energy;
-- adds +20 strain;
-- marks episode used;
-- visibly telegraphed.
+Orders are bounded priorities/constraints and cannot bypass attack, target-part, equipment, terrain, cover, AP/Stamina or knowledge legality.
 
-### Active cadence
+Companion reactions are deterministic and use that companion's own RP/Stamina.
 
-Each later Berserk normal activation that continues:
-- costs 5% Max Core Energy;
-- adds +10 strain.
+Absent companions do not teleport into combat. Late entrants use Initiative's next-round rule.
 
-Attack Core surcharge / strain:
-- Charge 5% / +12;
-- Head 2% / +5;
-- Ram 4% / +8;
-- Stomp 2% / +4;
-- Tail 3% / +6.
+`SOLO_PARTY_BASELINE_RECORDED = YES`
+`PARTY_RUNTIME_IMPLEMENTED = NO`
+`PARTY_RUNTIME_VERIFIED = NO`
 
-Berserk AP:
-- Charge 3;
-- Head 2;
-- Ram 2;
-- Stomp 2;
-- Tail 2.
+Older root-master-plan/behavior open solo-party placeholders are superseded within this scope by this newer specific contract.
 
-Existing Stamina costs remain unchanged.
+## Monster 01 content — RECORDED
 
-### Invariants
+Normal attack authority:
+`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
 
-- one normal activation max/round;
-- one damaging attack max/activation;
-- no Initiative reroll/extra turn;
-- no reaction-window removal;
-- no Precision/independent crit/status roll;
-- no anatomy regeneration/substitution;
-- status/terrain/cover/range legality remains active;
-- attack surcharge cannot spend Energy to zero/below;
-- zero Core Energy means immediate death.
-
-### Critical exit
-
-`BERSERK_CRITICAL = core_energy_ratio <= 0.12 OR core_strain >= 80`.
-
-If critical + legal retreat + no active Nest Defense:
-- Berserk exits to `EXHAUSTED_CRITICAL`;
-- no 5% Berserk activation drain that activation;
-- episode-used remains true.
-
-If critical but retreat unavailable or Nest Defense remains:
-- Berserk continues and can burn to death.
+Berserk authority:
+`docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`MONSTER_01_BERSERK_RUNTIME_IMPLEMENTED = NO`
-`MONSTER_01_BERSERK_RUNTIME_VERIFIED = NO`
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
+`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`
 
 ## Exact current active non-phone gate
 
-`SOLO_PARTY_BASELINE_CONTRACT`
+`DEFEAT_RETREAT_BASELINE_CONTRACT`
 
 Bounded scope:
-1. reread current generic combat/Initiative/action-economy owners plus the current game-experience/master-plan party direction;
-2. decide whether the first playable slice is solo-only, solo-with-optional-companions, or party-required;
-3. define first-slice maximum active party size as a prototype target;
-4. define who the player directly controls;
-5. define how companion normal activations participate in the same deterministic round scheduler;
-6. preserve one normal activation max per eligible actor/round;
-7. define party/non-player companion command authority without runtime generative AI;
-8. define join/leave/incapacitation scheduling boundaries needed before implementation;
-9. do not define defeat/retreat resolution in this pass;
+1. reread current Action Economy, Initiative, Combat Resolution, Solo/Party baseline, Monster 01 behavior/Berserk/attack owners and hunt-loop authorities;
+2. define player-hunter and companion temporary-ineligible/downed/terminal defeat boundaries required for the first slice;
+3. define monster defeated/dead versus escaped/retreated encounter states without rewriting Crystal/anatomy rules;
+4. define voluntary hunter retreat/escape request and the minimum deterministic legality/progress boundary;
+5. define when an encounter ends and whether the hunt continues, fails, or returns to exploration/reacquisition;
+6. define party implications when one ally is removed while other actors remain;
+7. preserve one-normal-activation-per-actor scheduler invariants and consumed-slot behavior;
+8. define save/reload/persistence boundaries for outcome/escape state;
+9. do not define reward/loot/XP sharing beyond the minimum outcome ownership needed;
 10. do not implement production combat source.
 
 ## Remaining combat-design sequence
 
-After Solo/Party baseline:
-- `DEFEAT_RETREAT_BASELINE_CONTRACT`;
-- prerequisite production implementation/testing gates.
+After Defeat/Retreat baseline:
+- prerequisite production implementation/testing gates;
+- only then expand additional combat/content systems as evidence requires.
 
 ## Current gate truth
 
@@ -308,11 +266,12 @@ After Solo/Party baseline:
 `INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
 `FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
 `FIRST_SLICE_TERRAIN_EFFECT_SET = RECORDED`
+`SOLO_PARTY_BASELINE_RECORDED = YES`
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
+`COMBAT_DESIGN_READINESS = PARTIAL / EIGHT_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = SOLO_PARTY_BASELINE_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = SOLO_PARTY_BASELINE_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = DEFEAT_RETREAT_BASELINE_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = DEFEAT_RETREAT_BASELINE_CONTRACT`

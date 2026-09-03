@@ -56,12 +56,43 @@ Phone regression + 24-minute sustained run remain deferred.
 Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-## Generic combat foundation
+## Combat/gameplay foundation
 
-Seven reusable contracts are recorded:
-Action Economy / Combat Resolution / Field Poleblade / Stamina / Initiative / Status Set / Terrain Set.
+Eight generic first-slice contracts are recorded:
+1. Action Economy;
+2. Combat Resolution;
+3. Field Poleblade;
+4. Stamina;
+5. Initiative / Turn Order;
+6. First-Slice Status Set;
+7. First-Slice Terrain Effect Set;
+8. Solo / Party Baseline.
 
-They define shared mechanics. Monster-specific attacks and Berserk values belong in Monster 01's content package.
+## Solo / party baseline
+
+Read:
+`docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
+
+Selected:
+- first slice is fully solo-capable with optional companions;
+- maximum active hunting party = 3 hunters total;
+- player + zero to two companions;
+- no party-required core hunt;
+- player directly controls only own hunter;
+- no mid-combat body switching;
+- each hunter owns independent AP/RP/Stamina/Health/status/position/equipment;
+- all use same deterministic Initiative/RoundRoster;
+- companions use authored deterministic behavior, not runtime generative AI;
+- player can spend `1 AP` to issue one successful companion order per own activation;
+- commands: Standard / Focus Part / Hold Position / Close Distance;
+- companion reactions use their own RP/Stamina;
+- absent companions do not teleport into combat;
+- late entrants wait for next round.
+
+Pass record:
+`docs/70_handoff/SOLO_PARTY_BASELINE_PASS_2026-09-03.md`.
+
+No party runtime is claimed.
 
 ## Monster 01 — Mudcrest Raker
 
@@ -74,64 +105,23 @@ Read in this order when relevant:
 6. `CRYSTAL_AND_MUTATION.md`.
 
 Normal attacks:
-- Horn Charge 4 AP / 30 Stamina;
-- Head Sweep/Gore 2 / 14;
-- Shoulder Ram 3 / 22;
-- Foreleg Stomp 2 / 12;
-- Tail Sweep 3 / 18.
+Horn Charge / Head Sweep-Gore / Shoulder Ram / Foreleg Stomp / Tail Sweep.
 
-Normal laws:
-- internal 4 AP;
-- max one damaging attack;
-- anatomy/terrain/cover legality authoritative;
-- normal attacks do not spend Crystal Energy;
-- behavior chooses only legal attacks.
-
-### Berserk now recorded
-
-Authority:
-`BERSERK_PROTOTYPE_CONTRACT.md`.
-
-Entry:
-- one episode/hunt until explicit ecological reset;
-- Energy >20% and <=60%;
-- plus Retreat Denied, Nest Defense or Severe Anatomy;
-- Severe Anatomy requires at least two major capability losses;
-- no HP-only/random trigger.
-
-Transition:
-- full activation;
-- no attack same activation;
-- 10% Max Core Energy;
-- +20 strain;
-- visible telegraph.
-
-Active:
-- each later activation 5% Max Core Energy +10 strain;
-- attack Core surcharges 5/2/4/2/3% for Charge/Head/Ram/Stomp/Tail;
-- Berserk AP 3/2/2/2/2;
-- Stamina unchanged;
-- still max one damaging attack;
-- no extra turns/reaction removal/anatomy restoration.
-
-Critical:
-`Energy <=12% OR strain >=80`.
-
-Critical + legal retreat + no active Nest Defense exits to `EXHAUSTED_CRITICAL`; otherwise the monster may continue burning life force. Zero Core Energy means death.
-
-Pass record:
-`docs/70_handoff/MONSTER_01_BERSERK_PROTOTYPE_PASS_2026-09-03.md`.
+Berserk:
+- deterministic desperation entry;
+- Core Energy/strain costs;
+- no extra turns/second damaging attack/anatomy restoration;
+- critical exit/death rules.
 
 No combat runtime is claimed.
 
 ## Current planned sequence
 
 Completed:
-`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype`.
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Set → Monster 01 Normal Attack Packet → Monster 01 Berserk Prototype → Solo/Party Baseline`.
 
 Next:
-`SOLO_PARTY_BASELINE_CONTRACT`
-→ `DEFEAT_RETREAT_BASELINE_CONTRACT`
+`DEFEAT_RETREAT_BASELINE_CONTRACT`
 → implementation after prerequisite engine/domain gates.
 
 ## Exact continuation
@@ -140,8 +130,8 @@ Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Active non-phone action:
-`SOLO_PARTY_BASELINE_CONTRACT`.
+`DEFEAT_RETREAT_BASELINE_CONTRACT`.
 
-That pass must define only first-slice solo-vs-party participation, control authority, party-size assumptions and scheduler/turn ownership.
+That pass must define only first-slice player/party defeat, monster defeat, voluntary retreat/escape, encounter termination, hunt continuation/failure and scheduler/persistence boundaries.
 
-Do not combine it with defeat/retreat resolution or production implementation.
+Do not combine it with reward/economy expansion, companion relationship systems or production implementation.

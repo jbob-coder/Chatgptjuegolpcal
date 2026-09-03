@@ -1,6 +1,6 @@
 # 20_gameplay — Gameplay Systems
 
-Status: ACTIVE GAMEPLAY DESIGN MAP / MONSTER 01 NORMAL ATTACK + BERSERK CONTENT RECORDED
+Status: ACTIVE GAMEPLAY DESIGN MAP / SOLO-PARTY BASELINE RECORDED / DEFEAT-RETREAT NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -41,25 +41,47 @@ Direction:
 ### Combat
 Front door: `combat/README.md`.
 
-Seven generic first-slice contracts:
+Eight generic first-slice contracts now recorded:
 1. Action Economy;
 2. Combat Resolution;
 3. Field Poleblade;
 4. Stamina;
 5. Initiative/Turn Order;
 6. First-Slice Status Set;
-7. First-Slice Terrain Effect Set.
+7. First-Slice Terrain Effect Set;
+8. Solo / Party Baseline.
 
 Reusable baseline:
 - 4 AP / 1 RP / persistent Stamina;
 - deterministic contact/defense/hit quality;
-- normalized Stamina reference 100;
 - deterministic Initiative/no random opener;
 - one normal activation max per eligible actor/round;
 - Bleeding/Staggered/Off-Balance/Braced/Guarded;
 - Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow;
-- no independent terrain/status RNG layers;
+- solo-capable optional party framework;
+- max three active hunters for first-slice prototype;
+- player directly controls only their hunter;
+- companions use deterministic authored behavior plus bounded player orders;
+- independent per-actor AP/RP/Stamina;
+- no runtime generative companion AI;
 - presentation never owns gameplay resolution.
+
+## Solo / party selected baseline
+
+Authority:
+`combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
+
+Selected:
+- solo completion remains mandatory;
+- optional companions allowed;
+- active party cap `3` hunters total;
+- no mid-combat body switching;
+- `ISSUE_COMPANION_ORDER` costs player `1 AP`, max one successful command action per player activation;
+- orders: Standard / Focus Part / Hold Position / Close Distance;
+- companions use the same Initiative scheduler and get one normal activation max each;
+- companion reactions are deterministic through their own RP/Stamina;
+- absent companions do not teleport into combat;
+- late entrants wait until next round.
 
 ## Monster 01 content consumer
 
@@ -71,29 +93,22 @@ Recorded content authorities:
 - `BERSERK_PROTOTYPE_CONTRACT.md` — Crystal-life-force desperation state;
 - anatomy/behavior/Crystal package files.
 
-Berserk key laws:
-- deterministic entry at >20% and <=60% Core Energy plus desperation pressure;
-- entry costs full activation +10% Max Core Energy +20 strain;
-- active activation costs 5% Max +10 strain;
-- existing attacks receive bounded AP discounts + attack-specific Core surcharges;
-- still one damaging attack max;
-- no extra turns/anatomy restoration/reaction removal;
-- critical Energy/strain can exit only under legal non-Nest retreat conditions;
-- zero Core Energy means death.
-
-These are Monster 01 content values, not generic combat laws.
+Monster 01 remains the first content consumer of the generic combat package.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`COMBAT_DESIGN_READINESS = PARTIAL / SEVEN_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
+`SOLO_PARTY_BASELINE_RECORDED = YES`
+`COMBAT_DESIGN_READINESS = PARTIAL / EIGHT_GENERIC_CONTRACTS + MONSTER_01_ATTACK + BERSERK_RECORDED`
 
 Real combat source remains blocked by readiness gates.
 
 ## Exact next gameplay dependency
 
-`SOLO_PARTY_BASELINE_CONTRACT`
+`DEFEAT_RETREAT_BASELINE_CONTRACT`
 
-That pass must define only first-slice solo-vs-party participation/control/scheduler ownership and must not simultaneously define defeat/retreat resolution.
+That pass must stay limited to first-slice defeat, retreat/escape, monster defeat/escape, encounter termination, hunt continuation/failure and scheduler/persistence ownership.
+
+Do not combine it with reward sharing, relationship systems or production implementation.
 
 ## Existing root/system authorities
 
@@ -104,4 +119,7 @@ That pass must define only first-slice solo-vs-party participation/control/sched
 - `/CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`;
 - `/NEW_GAME_MASTER_PLAN.md`.
 
-Rule: content/world packages configure shared gameplay definitions but do not silently override generic ownership.
+Specificity rule:
+`combat/SOLO_PARTY_BASELINE_CONTRACT.md` supersedes older open solo/party placeholders within its scope.
+
+Content/world packages configure shared gameplay definitions but do not silently override generic ownership.
