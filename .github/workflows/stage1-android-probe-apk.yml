@@ -159,6 +159,17 @@ jobs:
           fi
           grep -q "Gate: AERIAL_FIRST_PERSON_STATE_CONTINUITY_RUNTIME_VERIFIED" build-evidence/state-continuity.log
 
+      - name: Headless Android lifecycle transient-input regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/ci/stage1/lifecycle_transient_input_test.gd" 2>&1 | tee build-evidence/lifecycle-transient-input.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file|Node not found" build-evidence/lifecycle-transient-input.log; then
+            echo "Lifecycle transient-input regression log contains a blocking error."
+            exit 1
+          fi
+          grep -q "Gate: ANDROID_LIFECYCLE_TRANSIENT_INPUT_RUNTIME_VERIFIED" build-evidence/lifecycle-transient-input.log
+
       - name: Export Android debug APK
         shell: bash
         env:

@@ -1,6 +1,6 @@
 # Stage 1 Android Engine Probe
 
-Status: VIEW-CONTINUITY APK BUILD VERIFIED / PHONE REGRESSION BUNDLE DEFERRED / LIFECYCLE REVIEW NEXT
+Status: LIFECYCLE TRANSIENT-INPUT RESET SOURCE IMPLEMENTED / AUTOMATED BUILD VERIFICATION IN PROGRESS / PHONE REGRESSION DEFERRED
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -47,11 +47,12 @@ Do not silently remove or materially retune this behavior.
 - `scenes/boot.tscn` — minimal entry;
 - `scenes/probe_world.tscn` — representative 3D scene + touch/settings UI + fixed Monster placeholder collider;
 - `scripts/boot.gd` — scene transition;
-- `scripts/probe_world.gd` — movement, heading reset, cameras, settings, boundary, visual Monster motion and metrics;
+- `scripts/probe_world.gd` — movement, heading reset, cameras, settings, boundary, lifecycle transient-input reset, visual Monster motion and metrics;
 - `tests/static_preflight.py` — repository/protected-control QA;
 - `tests/monster_collision_preflight.py` — Monster collision source guard;
 - `tests/world_boundary_preflight.py` — outer-boundary source/geometry guard;
 - root `ci/stage1/state_continuity_test.gd` — executable Godot view-continuity regression;
+- root `ci/stage1/lifecycle_transient_input_test.gd` — executable lifecycle/focus transient-input regression;
 - `docs/ANDROID_EXPORT_SETUP.md`;
 - `docs/PROBE_TEST_PROTOCOL.md`;
 - `docs/CONTROL_CAMERA_FOUNDATION_README.md`.
@@ -73,6 +74,12 @@ Environment:
 - one directional shadow test;
 - current Hunter-center boundary `±8.5 m` on X/Z;
 - no production Region 01 assets.
+
+Lifecycle:
+- no production lifecycle manager;
+- no production save/load architecture;
+- only transient joystick/touch ownership is cleared on application pause/resume and focus-out/focus-in;
+- Hunter transform, view state, Settings state and Look Speed remain owned by their existing systems.
 
 ## Renderer/platform configuration
 
@@ -99,7 +106,7 @@ Observed on earlier Stage-1 APKs:
 
 Current-build phone regression remains deferred by explicit user instruction; missing evidence is not PASS.
 
-## Current exact automated build
+## Latest fully verified automated lineage before lifecycle source change
 
 Source commit:
 `c218b273a49dbdce78ce143698fd87d07bdd2643`
@@ -126,30 +133,53 @@ Size:
 SHA-256:
 `db046d03d778228e6343b5ada35f2fa9392a8c79c519d1e7cd58d632e701c6da`
 
-## Current gate truth
+## Current lifecycle source piece
+
+Selected owner:
+`scripts/probe_world.gd`.
+
+Implemented behavior:
+`_notification()` routes these boundaries to existing `_reset_joystick()`:
+- application paused;
+- application resumed;
+- application focus out;
+- application focus in.
+
+Reason:
+if the OS interrupts an active touch before the release event reaches the node, stale `_joystick_touch_id` / `_joystick_vector` state must not survive resume.
+
+Executable verification:
+`ci/stage1/lifecycle_transient_input_test.gd`.
+
+The test seeds stale transient input and verifies the reset while preserving Hunter transform, first-person/camera ownership, Settings state, Look Speed and single-ProbeWorld ownership.
+
+Phone background/resume and lock/unlock remain deferred and unverified until direct Galaxy A03s evidence exists.
+
+## Current gate truth before CI readback
 
 `IMPLEMENTATION_AUTHORIZED = YES`
-`STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154`
+`STATIC_PREFLIGHT_PRE_LIFECYCLE = YES / 154_OF_154`
 `MONSTER_COLLISION_STATIC_VERIFIED = YES / 8_OF_8`
 `WORLD_BOUNDARY_STATIC_VERIFIED = YES / 12_OF_12`
 `VIEW_CONTINUITY_HEADLESS_VERIFIED = YES / 17_OF_17`
-`GODOT_PARSE_VERIFIED = YES`
-`HEADLESS_BOOT_SMOKE_VERIFIED = YES`
-`HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
-`APK_BUILD_VERIFIED = YES`
+`LIFECYCLE_TRANSIENT_INPUT_SOURCE_IMPLEMENTED = YES`
+`LIFECYCLE_TRANSIENT_INPUT_HEADLESS_VERIFIED = PENDING_CURRENT_CI`
+`GODOT_PARSE_CURRENT_LIFECYCLE_SOURCE = PENDING_CURRENT_CI`
+`APK_BUILD_CURRENT_LIFECYCLE_SOURCE = PENDING_CURRENT_CI`
 `JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / DEFERRED`
 `MONSTER_COLLISION_PHONE_VERIFIED = NO / DEFERRED`
 `WORLD_BOUNDARY_CURRENT_APK_PHONE_VERIFIED = NO / DEFERRED`
 `VIEW_CONTINUITY_PHONE_VERIFIED = NO / DEFERRED`
+`LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-## Exact next probe action
+## Exact next probe action after lifecycle CI passes
 
-`ANDROID_LIFECYCLE_BACKGROUND_RESUME_FOUNDATION_REVIEW`
+`STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION`
 
-Review `docs/PROBE_TEST_PROTOCOL.md`, current state ownership and Godot lifecycle notifications before making lifecycle source changes.
+Prepare a bounded, reproducible Galaxy A03s sustained frame-pacing/thermal evidence packet without pretending it is executed until the phone is available.
 
 ## Scope stop
 
