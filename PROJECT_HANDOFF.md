@@ -1,13 +1,13 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PROBE SOURCE CREATED / GODOT PARSE + PHONE VERIFICATION PENDING / FIRST WEAPON FAMILY RECORDED
+Status: STAGE 1 PROBE SOURCE CREATED / GODOT PARSE + PHONE VERIFICATION PENDING / STAMINA PROTOTYPE RECORDED
 Last reconciled: 2026-09-02
 
 ## CURRENT_OBJECTIVE
 
 Verify the existing isolated Godot Stage 1 probe before adding more probe features.
 
-Implementation is authorized, but later systems remain controlled by readiness gates and EVOLVE.
+Implementation is authorized, but later implementation systems remain controlled by readiness gates and EVOLVE.
 
 Current probe source:
 `probes/android_stage1/`
@@ -16,7 +16,7 @@ Current specialized implementation handoff:
 `docs/70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`.
 
 Exact next implementation gate:
-**Godot 4.7 parse/editor smoke verification of the existing source.**
+**Godot 4.7-family parse/editor smoke verification of the existing source.**
 
 Do not recreate the skeleton and do not add real combat before this gate.
 
@@ -58,7 +58,7 @@ Classes:
 Current gates:
 - Engine probe: `SOURCE CREATED / EXECUTION PENDING`;
 - Domain implementation: `BLOCKED_BY_ENGINE_PHONE_PROBE`;
-- Combat design: `PARTIAL / THREE CORE CONTRACTS RECORDED`;
+- Combat design: `PARTIAL / FOUR CORE CONTRACTS RECORDED`;
 - Vertical slice: `PARTIAL`;
 - Expansion decisions: `INTENTIONALLY_OPEN`.
 
@@ -151,7 +151,7 @@ Not completed:
 - phone runtime;
 - measured performance/thermal behavior.
 
-The execution environment used for the source pass does not contain Godot. Do not infer engine success from static source readback.
+Do not infer engine success from static source readback.
 
 Current gates:
 `IMPLEMENTATION_AUTHORIZED = YES`
@@ -192,16 +192,16 @@ Do not add further Stage 1 visual complexity until the skeleton itself passes.
 
 ---
 
-## COMBAT DESIGN — CURRENT RECORDED STATE
+# COMBAT DESIGN — CURRENT RECORDED STATE
 
-Combat package:
+Package:
 `docs/20_gameplay/combat/`.
 
-### Action economy
+## 1. Action Economy
 Authority:
 `ACTION_ECONOMY_CONTRACT.md`.
 
-Selected first-slice prototype:
+Selected:
 - 4 AP;
 - 1 RP;
 - persistent Stamina;
@@ -209,57 +209,97 @@ Selected first-slice prototype:
 - explicit reaction windows;
 - reaction recursion blocked.
 
-### Combat resolution / hit quality / defense
+## 2. Combat Resolution / Hit Quality / Defense
 Authority:
 `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
 
-Recorded decisions:
-- hard legality is separate from contested resolution;
-- resolution uses one frozen authoritative context snapshot;
-- attack control and defense control are separate from raw damage/protection;
-- body contact is distinct from selected-part contact;
-- target parts use exposure states;
-- cover is directional/physical rather than a universal percentage buff;
-- Dodge, Block, Parry and Brace have different mechanical roles;
-- one reproducible bounded seeded variance source is used per committed attack resolution;
+Recorded:
+- hard legality separate from contested resolution;
+- one frozen authoritative resolution context;
+- AttackControl vs DefenseControl;
+- body contact distinct from selected-part contact;
+- explicit exposure states;
+- directional physical cover;
+- distinct Dodge/Block/Parry/Brace roles;
+- one reproducible bounded seeded variance source per committed attack;
 - no independent random critical-hit roll;
-- hit-quality classes: `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
-- protection resolves from cover/guard to local armor/anatomy after actual contact location is known;
-- off-target body contact is supported when the technique allows it;
-- development resolution traces are mandatory.
+- hit quality `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
+- local cover/guard/armor/anatomy ordering;
+- off-target body contact when technique permits;
+- mandatory development resolution traces.
 
-Numeric thresholds remain balance-open until combat prototype evidence.
-
-### First weapon family
+## 3. First Weapon Family
 Authority:
 `FIRST_WEAPON_FAMILY_CONTRACT.md`.
 
-Selected first-slice family:
-- technical ID `WEAPON_FAMILY_FIELD_POLEBLADE`;
-- working name **Field Poleblade**;
-- two-handed long-hafted hunting weapon;
-- primary cutting/sever identity;
-- secondary piercing/control identity;
-- limited impact capability;
+Selected:
+- `WEAPON_FAMILY_FIELD_POLEBLADE`;
+- working name Field Poleblade;
+- two-handed long-hafted hunting blade;
+- cutting/sever primary;
+- piercing/control secondary;
+- limited impact;
 - medium-melee reach advantage;
 - directional Guard;
 - restricted Parry;
-- intentional weakness at dedicated hard-structure break, cramped combat, shield-level defense and repeated high-exertion attacks.
+- deliberately weaker at hard-structure break, cramped combat, shield defense and sustained high exertion.
 
-Initial technique packet:
-- `MEASURED_CUT` — 2 AP, body fallback allowed, CLEAN ceiling;
-- `DRIVING_THRUST` — 2 AP, body fallback allowed, CLEAN ceiling;
-- `PLACED_HEW` — 3 AP, selected part required, PRECISION allowed;
-- `COMMITTED_CLEAVE` — 4 AP, full-turn high-force cut, CLEAN ceiling;
-- `HAFT_CHECK` — bounded short-range impact/spacing tool;
+Technique packet:
+- `MEASURED_CUT` — 2 AP;
+- `DRIVING_THRUST` — 2 AP;
+- `PLACED_HEW` — 3 AP / selected part required / Precision allowed;
+- `COMMITTED_CLEAVE` — 4 AP / full-turn commitment;
+- `HAFT_CHECK` — bounded close-range spacing/control;
 - weapon-supported Guard/Parry under generic defense rules.
 
-Exact Stamina costs, final damage values, meter ranges, animation timings and final setting-facing name remain prototype-open.
+## 4. Stamina Prototype Scale / Recovery
+Authority:
+`STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`.
 
+Selected neutral test profile:
+- `MAX_STAMINA = 100`;
+- `PASSIVE_RECOVERY = +10` once at normal activation start;
+- reserve bands: `READY 50–100 / LOW 25–49 / CRITICAL 1–24 / EMPTY 0`;
+- LOW/CRITICAL do not automatically reduce accuracy/evasion/damage;
+- positive-cost action/reaction requires enough Stamina to commit;
+- no first-slice negative-Stamina overexertion;
+- normal stable-ground reposition = `0 Stamina`;
+- Sprint `8`;
+- Brace `6`;
+- reactive Brace `10`;
+- Dodge `14`;
+- compatible Parry baseline `10`;
+- Guard preparation `4`;
+- Block commitment `6 + resolved impact drain`;
+- ordinary positive-cost reduction floor = `max(1, ceil(base × 0.50))`.
+
+`CATCH_BREATH`:
+- 1 AP;
+- +20 delayed Stamina at turn end when valid;
+- once per activation;
+- illegal after a damaging attack in that activation;
+- later damaging/sprint/high-exertion action cancels pending recovery;
+- recovery is not immediate, preventing `3 AP attack + 1 AP battery` loops.
+
+Field Poleblade Stamina:
+- Measured Cut `12`;
+- Driving Thrust `10`;
+- Placed Hew `18`;
+- Committed Cleave `30`;
+- Haft Check `8`;
+- Guard preparation `4`;
+- Block `6 + impact drain`;
+- Parry `10`.
+
+Specificity rule:
+where older Action Economy/Field Poleblade text says exact Stamina values were open, this Stamina contract now owns the first-slice prototype values. Final production tuning remains test-dependent.
+
+Current combat gates:
 `COMBAT_ACTION_ECONOMY = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
 `FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
 `FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
+`STAMINA_PROTOTYPE_CONTRACT = RECORDED`
 `COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`
 
 ---
@@ -267,21 +307,27 @@ Exact Stamina costs, final damage values, meter ranges, animation timings and fi
 ## INDEPENDENT DESIGN LANE
 
 Exact next bounded combat-design dependency:
-**Stamina Prototype Scale and Recovery Contract**.
+**Initiative and Turn-Order Prototype Contract**.
 
-It should define only first-slice exertion behavior:
-- prototype Max Stamina scale;
-- passive recovery timing;
-- deliberate 1 AP recovery behavior;
-- low-Stamina consequence bands;
-- action/reaction Stamina floors/caps;
-- Field Poleblade Stamina costs;
-- anti-infinite-recovery and anti-zero-cost invariants.
+It should define only:
+- Initiative inputs;
+- deterministic ordering;
+- tie resolution;
+- start/round participation;
+- late encounter entry if relevant;
+- incapacitated/dead/escaped removal;
+- no-extra-turn invariant;
+- reproducible trace/testing.
 
-Do not combine that pass with Initiative, statuses, Monster 01 attacks or terrain numbers.
+Do not combine that pass with:
+- status definitions;
+- Region 01 terrain numbers;
+- Monster 01 attack packet;
+- berserk design;
+- solo/party design;
+- defeat/retreat behavior.
 
-Other combat blockers remain after Stamina:
-- Initiative/tie rule;
+Remaining combat blockers after Initiative:
 - first status set;
 - first terrain-effect numbers;
 - Monster 01 attack packet;
@@ -303,12 +349,12 @@ Region 01:
 seven planned sectors S00–S06 with physical tracking, persistent monster escape/reacquisition, and encounter footprints derived from real terrain.
 
 Hunter Base 01:
-1.75 m reusable humanoid base; final story identity remains open. The first-slice weapon family is now selected at design level, but final weapon geometry is not yet produced.
+1.75 m reusable humanoid base; final story identity remains open. First-slice Field Poleblade design exists, but final weapon geometry is not yet produced.
 
 Monster 01 — Mudcrest Raker:
 ~6.6 m long / ~3.0 m shoulder-body height, horn crest, dorsal plates, mud-adapted feet, severable distal tail, internal life crystal, deterministic Region 01 behavior.
 
-These design packages do not require final production assets for Stage 1.
+These content packages do not require final production assets for Stage 1.
 
 ---
 
