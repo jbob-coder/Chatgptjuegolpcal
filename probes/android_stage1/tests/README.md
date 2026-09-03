@@ -25,6 +25,10 @@ The script uses only the Python standard library.
 - Android frame-pacing request remains present;
 - scene `ExtResource` paths resolve;
 - scene `ExtResource` and `SubResource` uses have declarations;
+- duplicate external/sub-resource IDs are rejected;
+- the scene has one root node;
+- duplicate node paths are rejected;
+- child node parent paths exist;
 - root scenes still point to the intended scripts;
 - connected signal methods exist in the root scripts;
 - `$Node/Path` references used by current `@onready` declarations exist in the owning scene;
@@ -73,10 +77,11 @@ Do not disable this guard merely to make a failing check green.
 
 ## Harness self-test evidence
 
-During creation of this harness, its logic was exercised against the current fetched probe source snapshot:
-- positive snapshot: `81 / 81` checks passed;
+During creation/hardening of this harness, its logic was exercised against the current fetched probe source snapshot:
+- positive snapshot: `123 / 123` checks passed;
 - negative test: changing Boot's `res://scenes/probe_world.tscn` reference to a missing scene correctly returned a failing exit code;
-- negative test: adding an unexpected `scripts/rogue_gameplay.gd` correctly failed the probe-source-boundary guard.
+- negative test: adding an unexpected `scripts/rogue_gameplay.gd` correctly failed the probe-source-boundary guard;
+- negative test: deliberately creating a duplicate scene sub-resource ID correctly failed the duplicate-resource guard.
 
 Environment limitation:
 the working runtime cannot clone GitHub or execute Godot, so this does not replace a later run from a real repository checkout or Godot/editor environment.
@@ -85,7 +90,7 @@ the working runtime cannot clone GitHub or execute Godot, so this does not repla
 
 `STATIC_PREFLIGHT_HARNESS = RECORDED`
 `HARNESS_LOGIC_SELF_TESTED = YES`
-`CURRENT_FETCHED_SOURCE_SNAPSHOT = 81_OF_81_PASS`
+`CURRENT_FETCHED_SOURCE_SNAPSHOT = 123_OF_123_PASS`
 `REAL_CHECKOUT_PREFLIGHT_RUN = PENDING`
 `GODOT_PARSE_VERIFIED = NO`
 `EDITOR_RUN_VERIFIED = NO`
