@@ -39,6 +39,14 @@ var _metrics_elapsed := 0.0
 var _look_speed := LOOK_SPEED_DEFAULT
 var _settings_open := false
 
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_RESUMED, NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_FOCUS_IN:
+			# Active touch state is transient. If Android pauses/defocuses before a
+			# release arrives, clear it defensively so resume cannot inherit stuck
+			# movement or a stale touch owner. This must not mutate world/view state.
+			_reset_joystick()
+
 func _ready() -> void:
 	_load_settings()
 	look_speed_slider.value = _look_speed * 100.0
