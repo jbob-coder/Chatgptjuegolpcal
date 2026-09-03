@@ -225,6 +225,21 @@ This pass maps/updates:
 The repository therefore continues to answer:
 `WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
 
+## Write anomaly and repair audit
+
+During publication, an incorrect connector write call created intermediate commit `0cf33ad28a24465272adc5d57f2a83379b33b16d` with root `README.md` temporarily empty.
+
+The error was detected before the pass was closed.
+
+Repair:
+- no force push was used;
+- commit `58985bfdbb31b6d6ccd2ccca03e03297f29c6ffb` fast-forwarded from that intermediate commit;
+- the repair restored the intended root README and applied the complete intended ten-file status/design/navigation tree;
+- final comparison from Initiative baseline `e457f1134063bdd17ac134a7ae228da200bd6378` to repaired status head showed only the intended ten final file differences;
+- no Android workflow was triggered because the final changes were design/documentation only and no probe/build source changed.
+
+The intermediate bad state is therefore present only in commit history; it is not the current branch tree.
+
 ## Verification boundary
 
 `STATUS_SET_DESIGN_RECORDED = YES`.
