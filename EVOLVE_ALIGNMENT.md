@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT DESIGN BASELINE RECORDED / HARVEST BASELINE NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST DESIGN BASELINES RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -60,7 +60,7 @@ For runtime claims:
 -> `WRITE NEXT PIECE INTO EVOLVE`
 -> `STATE SAME NEXT ACTION TO USER`.
 
-Never begin the next unrelated piece before closing the current boundary.
+Never begin an unrelated next piece before closing the current boundary.
 
 ## Documentation/navigation law
 
@@ -78,7 +78,8 @@ Use:
 
 ## Build-readiness taxonomy
 
-Authority: `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
+Authority:
+`docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
 
 Classes:
 1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
@@ -151,173 +152,99 @@ Prepared sustained phone run:
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## Generic combat package
+## Combat design baseline — RECORDED
 
-Nine reusable first-slice authorities are recorded:
+Nine reusable first-slice authorities:
 1. Action Economy;
 2. Combat Resolution;
 3. Field Poleblade;
 4. Stamina;
 5. Initiative/Turn Order;
-6. Status Set;
-7. Terrain Set;
-8. Solo / Party Baseline;
-9. Defeat / Retreat Baseline.
+6. Status;
+7. Terrain;
+8. Solo/Party;
+9. Defeat/Retreat.
 
-`COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`
+`COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
-This is a design baseline only. Production combat source/runtime tests remain absent.
+Monster 01 attack/Berserk/behavior/outcome content remains design-recorded, not runtime implemented.
 
-## Solo / Party Baseline — RECORDED
+## Harvest baseline — RECORDED
 
-Authority:
-`docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
+Generic owner:
+`docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-Selected:
-- solo-capable with optional companions;
-- maximum three active Hunters;
-- player directly controls own Hunter only;
-- each actor owns independent resources/state;
-- same deterministic Initiative/RoundRoster;
-- deterministic companion behavior/orders;
-- no body switching/runtime generative AI.
+Package front door:
+`docs/20_gameplay/harvest/README.md`.
 
-`SOLO_PARTY_BASELINE_RECORDED = YES`.
-
-## Defeat / Retreat Baseline — RECORDED
-
-Authority:
-`docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+Worked example:
+`docs/20_gameplay/harvest/HARVEST_TRANSACTION_EXAMPLE.md`.
 
 Handoff:
-`docs/70_handoff/DEFEAT_RETREAT_BASELINE_PASS_2026-09-03.md`.
+`docs/70_handoff/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_PASS_2026-09-03.md`.
 
-### Hunter defeat/downed
+Selected generic model:
+- finite authored source capacity;
+- first-slice material-specific capacity units;
+- preservation bands PRISTINE/GOOD/DAMAGED/POOR/RUINED/DESTROYED = `1.00/0.90/0.70/0.40/0.10/0.00`;
+- `surviving_capacity = floor(original_capacity * preservation_multiplier)`;
+- clean sever transfers source lineage rather than creating material;
+- carcass and detached-part containers preserve source identity;
+- deterministic recovery efficiency, prototype clamp `0.50..1.00` when legal;
+- partial extraction depletes only recovered quantity;
+- quality and quantity are separate;
+- no independent harvest RNG;
+- save/load/reacquisition cannot restore or duplicate depleted sources.
 
-Selected:
-- `hunter_health <= 0 -> DOWNED`;
-- Downed is not permanent death in first slice;
-- no in-combat revive;
-- Downed actor cannot normal-activate/react/command;
-- pending Downed slot -> `SKIPPED_INELIGIBLE`;
-- Downed actor excluded from later round rosters;
-- player Hunter Downed -> `HUNTERS_DEFEATED` after current authoritative resolution;
-- companion Downed alone does not end encounter while player remains Active.
+## Monster 01 harvest packet — RECORDED
 
-### Voluntary Hunter withdrawal
+Authority:
+`docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Selected:
-- escape is spatial/deterministic, not a random roll;
-- actor must reach a legal world-connected Hunter escape node;
-- `WITHDRAW_FROM_ENCOUNTER` = `1 AP`;
-- successful withdrawal removes actor from encounter scheduler without resource refund/refresh.
+Prototype pristine selected-source capacities:
+- horn L 4;
+- horn R 4;
+- dorsal plates 8;
+- torso hide 12;
+- distal-tail ridge 5;
+- distal-tail tendon 4;
+- dense bone 8.
 
-Solo:
-- player withdraws from legal escape node;
-- outcome `HUNTERS_WITHDREW`;
-- hunt state `HUNT_ACTIVE_DISENGAGED`.
+Total:
+`45` prototype capacity units.
 
-Party:
-- `DECLARE_PARTY_RETREAT` = player `1 AP`;
-- sets emergency retreat intent;
-- companions withdraw using their own scheduler slots/AP/RP/Stamina;
-- player exits last after all non-Downed companions withdrew;
-- Downed companions do not deadlock first-slice withdrawal; exact rescue penalties are deferred.
+This is not guaranteed yield. Final combat source condition + extraction efficiency determine actual recovery.
 
-### Monster escape/death
+Clean distal-tail sever transfers both tail source lineages to the detached-tail container; later carcass creation cannot duplicate them.
 
-Monster 01 behavior owns retreat selection/route.
-Defeat/Retreat owns final escape completion.
-
-`MONSTER_WITHDRAW_FROM_ENCOUNTER`:
-- requires legal current escape boundary/route;
-- consumes the Monster's remaining/full normal activation opportunity;
-- no damaging attack after successful withdrawal in that activation.
-
-Success:
-- outcome `MONSTER_ESCAPED`;
-- hunt state `HUNT_ACTIVE_REACQUIRE`;
-- same Monster instance, injuries, anatomy, Core/Berserk/status/route intent persist.
-
-Monster death remains Crystal/body-terminal owned.
-Current hard example:
-`core_energy_current <= 0 -> creature death`.
-
-Monster death:
-- stops further action;
-- preserves final anatomy/detached-part state;
-- outcome `MONSTER_DEAD`;
-- hunt state `HUNT_COMPLETE_MONSTER_DEAD`;
-- next harvest layer consumes physical state rather than generating disconnected loot.
-
-### Simultaneous terminal
-
-Same authoritative resolution boundary causing both Monster death and player Hunter Downed commits:
-`MUTUAL_TERMINAL`.
-
-Meaning:
-- Monster objective complete;
-- party forced into recovery;
-- carcass/part state persists;
-- immediate harvest is not auto-granted by this contract.
-
-### Scheduler/persistence invariants
-
-Terminal encounter:
-- stops new activations/reaction windows/round advance;
-- closes remaining pending slots with encounter-termination removal reason;
-- cannot be reopened by UI/animation/save reload.
-
-Save/load preserves:
-- terminal/outcome/hunt state;
-- Downed/withdrawn actor states;
-- party retreat intent;
-- scheduler state;
-- Monster persistent identity/route/anatomy/Core/Berserk/status;
-- outcome sequence ID.
-
-No reload may duplicate withdrawal costs, death, carcasses, severed parts or escaped Monsters.
-
-`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
-`DEFEAT_RETREAT_RUNTIME_IMPLEMENTED = NO`
-`DEFEAT_RETREAT_RUNTIME_VERIFIED = NO`.
-
-## Monster 01 content — RECORDED
-
-Normal attack authority:
-`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
-
-Berserk authority:
-`docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
-
-Behavior authority:
-`docs/30_content/monsters/MONSTER_01/BEHAVIOR_AND_REGION.md`.
-
-Behavior now explicitly hands final Monster escape/encounter outcome to Defeat/Retreat.
-
-`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`.
+`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
+`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`HARVEST_RUNTIME_IMPLEMENTED = NO`
+`HARVEST_RUNTIME_VERIFIED = NO`.
 
 ## Exact current active non-phone gate
 
-`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
 
 Bounded scope:
-1. reread current anatomy/damage/harvest root authorities, Monster 01 anatomy, Combat Resolution and Defeat/Retreat outcome ownership;
-2. create a local `docs/20_gameplay/harvest/` package/front door if none exists;
-3. define per-anatomy harvest capacity as finite physical capacity, not random loot-table quantity;
-4. define remaining usable mass/condition from actual wounded/broken/severed/destroyed state;
-5. define clean sever versus crushed/shattered/damaged consequences;
-6. define carcass and detached-part harvest containers/remaining capacity;
-7. define tool/knowledge/skill modifiers that improve recovery but cannot exceed surviving capacity;
-8. define unique-part anti-duplication and persistence/save-load boundaries;
-9. define deterministic yield trace/future tests;
-10. do not bundle crafting recipes, economy prices, reward sharing or production implementation.
+1. reread current harvest owner, Monster 01 harvest packet, `CONTENT_DATA_GUIDE.md`, mechanical inventory/crafting authorities and current vertical-slice requirements;
+2. create a local inventory/material package/front door only if current structure genuinely needs one;
+3. define authoritative ownership for recovered material quantities after a committed harvest transaction;
+4. define material stack identity by stable material ID plus only the minimum quality/provenance fields required by current design;
+5. define quantity conservation between harvest extraction result and inventory acceptance;
+6. define inventory rejection/full-capacity handling so material is neither deleted nor duplicated;
+7. define stack merge/split rules without losing quality/provenance determinism;
+8. define save/load transaction IDs and anti-replay;
+9. define minimum deterministic trace/future tests;
+10. do not bundle crafting recipes, market prices, broad equipment loadouts, party reward splitting or production implementation.
 
-## After harvest baseline
+## After inventory baseline
 
-Select the next smallest vertical-slice prerequisite from current repository evidence—likely inventory/material ownership or one-recipe crafting linkage—without preempting the phone implementation gate.
+Select the smallest one-recipe crafting/equipment linkage that closes:
+`HARVEST -> INVENTORY -> CRAFT/EQUIP -> REASON TO HUNT AGAIN`.
+
+Do not build a broad crafting/economy catalog before that one linkage works.
 
 ## Current gate truth
 
@@ -334,21 +261,13 @@ Select the next smallest vertical-slice prerequisite from current repository evi
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-`ACTION_ECONOMY_CONTRACT = RECORDED`
-`COMBAT_RESOLUTION_CONTRACT = RECORDED`
-`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
-`STAMINA_PROTOTYPE_CONTRACT = RECORDED`
-`INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
-`FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
-`FIRST_SLICE_TERRAIN_EFFECT_SET = RECORDED`
-`SOLO_PARTY_BASELINE_RECORDED = YES`
-`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
-`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
-`COMBAT_RUNTIME_IMPLEMENTED = NO`.
+`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
+`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`COMBAT_RUNTIME_IMPLEMENTED = NO`
+`HARVEST_RUNTIME_IMPLEMENTED = NO`.
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.

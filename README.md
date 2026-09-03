@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 PHONE GATE DEFERRED / NINE GENERIC COMBAT CONTRACTS RECORDED / HARVEST BASELINE NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / COMBAT DESIGN BASELINE + FIRST HARVEST BASELINE RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
 Last reconciled: 2026-09-03
 
 This repository area belongs to the new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -11,7 +11,7 @@ This repository area belongs to the new Android-targeted monster-hunting tactica
 
 The game connects three playable layers:
 1. walkable settlement/hub for preparation, services, crafting, research and recovery;
-2. elevated angled aerial wilderness exploration for tracking and persistent monster hunting;
+2. elevated angled aerial wilderness exploration for tracking and persistent Monster hunting;
 3. first-person turn-based tactical combat from the same physical encounter, with explicit movement, cover, defense, attack and anatomy-targeting decisions.
 
 Core hunt loop:
@@ -39,7 +39,7 @@ Before bounded work read:
 docs/
 ├── 00_project/   governance/readiness
 ├── 10_world/     world/regions/spatial packages
-├── 20_gameplay/  reusable gameplay/combat/progression rules
+├── 20_gameplay/  reusable gameplay/combat/harvest/progression rules
 ├── 30_content/   hunters/monsters/content packages
 ├── 40_art/       reference/model/runtime asset pipeline
 ├── 50_technical/ engine/Android/architecture
@@ -50,8 +50,10 @@ docs/
 Global map: `DOCUMENTATION_INDEX.md`.
 Documentation placement rules: `docs/README.md`.
 Combat front door: `docs/20_gameplay/combat/README.md`.
-Defeat/retreat authority: `docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+Harvest front door: `docs/20_gameplay/harvest/README.md`.
+Harvest authority: `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 Monster 01 front door: `docs/30_content/monsters/MONSTER_01/README.md`.
+Monster 01 harvest packet: `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
 Every substantial pass must answer:
 `WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
@@ -59,12 +61,7 @@ Every substantial pass must answer:
 ## 4. Current Stage-1 engine/device state
 
 Candidate:
-- Godot 4.7 family;
-- CI/build Godot 4.7.2 stable;
-- GDScript;
-- GL Compatibility/OpenGL3;
-- Galaxy A03s baseline;
-- stable 30 FPS representative-scene minimum target.
+Godot 4.7 family / CI-build Godot 4.7.2 stable / GDScript / GL Compatibility/OpenGL3 / Galaxy A03s baseline / stable 30 FPS representative-scene minimum target.
 
 Automated protocol revision:
 `c02971996e35770bbaaaf9bf6c460af208db4f83`.
@@ -83,7 +80,7 @@ Verified automated gates:
 Inner APK:
 `57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-Direct Galaxy A03s regression and 24-minute sustained run remain deferred.
+Direct Galaxy A03s regression + 24-minute sustained run remain deferred.
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
@@ -94,7 +91,7 @@ Blocker:
 
 ## 5. Combat design baseline
 
-Nine reusable first-slice contracts are now recorded:
+Nine reusable first-slice contracts are recorded:
 1. Action Economy;
 2. Combat Resolution / Hit Quality / Defense;
 3. Field Poleblade;
@@ -107,102 +104,86 @@ Nine reusable first-slice contracts are now recorded:
 
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
 
-This means the minimum first-slice combat design packet is recorded. It does **not** mean combat runtime exists or is verified.
+Design baseline does not equal runtime implementation.
 
-## 6. Solo / party baseline
+## 6. First-slice harvest baseline
 
-Selected:
-- fully solo-capable with optional companions;
-- max three active Hunters total = player + up to two companions;
-- player directly controls only their own Hunter;
-- independent AP/RP/Stamina/Health/status/position/equipment per actor;
-- same deterministic Initiative scheduler for all combatants;
-- companions use authored deterministic behavior;
-- bounded 1-AP companion-order action;
-- no mid-combat body switching;
-- absent companions do not teleport into combat.
+Generic authority:
+`docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-## 7. Defeat / retreat baseline
+Selected laws:
+- every harvest source has finite authored physical capacity;
+- first slice uses material-specific capacity units rather than pretending final kilograms are known;
+- final combat damage maps each source to a preservation band;
+- PRISTINE/GOOD/DAMAGED/POOR/RUINED/DESTROYED multipliers are `1.00/0.90/0.70/0.40/0.10/0.00`;
+- clean sever preserves/transfers existing source capacity and never creates bonus matter;
+- break/shatter can reduce quantity/quality while leaving fragments recoverable;
+- carcass and detached parts are separate physical containers with stable lineage;
+- extraction efficiency is deterministic, clamped to `<=1.00`;
+- partial harvest depletes only the quantity actually recovered;
+- save/load/reacquisition cannot restore or duplicate already-removed capacity;
+- no generic harvest RNG layer.
+
+### Monster 01 first content packet
 
 Authority:
-`docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+`docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Selected first-slice laws:
-- Hunter Health `<=0` -> Downed, not permanent death;
-- no in-combat revive;
-- player Hunter Downed -> `HUNTERS_DEFEATED` after current resolution;
-- companion Downed alone does not end combat;
-- voluntary escape is spatial/deterministic, not a random roll;
-- `WITHDRAW_FROM_ENCOUNTER` = 1 AP from a legal escape node;
-- party retreat declaration = player 1 AP; companions withdraw on own turns/resources;
-- Monster behavior chooses retreat route; outcome contract decides final escape completion;
-- Monster escape -> `HUNT_ACTIVE_REACQUIRE`;
-- Hunter voluntary withdrawal -> `HUNT_ACTIVE_DISENGAGED`;
-- Monster death remains Crystal/body-terminal owned and preserves anatomy for harvest;
-- same-boundary Monster death + player Downed -> `MUTUAL_TERMINAL`;
-- terminal encounter stops scheduler advancement and cannot reopen on reload.
+Prototype pristine authored capacities:
+- left horn: 4 horn units;
+- right horn: 4 horn units;
+- dorsal plates: 8 plate units;
+- torso hide: 12 hide units;
+- distal-tail ridge: 5 units;
+- distal-tail tendon: 4 units;
+- dense structural bone: 8 units.
 
-No reward, recovery-penalty or harvest quantity is invented by this contract.
+Total selected pristine source capacity:
+`45 units`.
 
-## 8. Monster 01 — normal combat + Berserk
+This is not guaranteed yield. Damage condition and extraction efficiency lower the actual recovered amount.
 
-Monster 01: Mudcrest Raker.
+Core player consequence:
+**the way the player damages, breaks and severs anatomy changes how much usable material remains.**
 
-Normal attack authority:
-`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
+A cleanly severed distal tail transfers its ridge/tendon sources to the detached tail. Those sources cannot appear again on the later carcass.
 
-Berserk authority:
-`docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
+`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
+`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`HARVEST_RUNTIME_IMPLEMENTED = NO`.
 
-Behavior/retreat selection authority:
-`docs/30_content/monsters/MONSTER_01/BEHAVIOR_AND_REGION.md`.
+## 7. Monster 01 — Mudcrest Raker
 
-Normal attacks:
-- Horn Charge;
-- Head Sweep/Gore;
-- Shoulder Ram;
-- Foreleg Stomp;
-- Tail Sweep.
+Prototype body:
+~6.6 m long / ~3.0 m shoulder-body height; front-loaded quadruped; horn crest; dorsal plates; mud-adapted legs; severable distal tail; deep internal Crystal core.
 
-Monster escape preserves the same instance, injuries, anatomy, Core/Berserk state and route intent for aerial reacquisition.
+Combat packet:
+Horn Charge / Head Sweep-Gore / Shoulder Ram / Foreleg Stomp / Tail Sweep.
 
-Monster death preserves final body/part condition for the next harvest layer.
+Berserk:
+deterministic Crystal-life-force desperation state with no extra turn, no anatomy repair and no reaction removal.
 
-No combat runtime is claimed.
+Outcome continuity:
+- escape preserves the same injured Monster for reacquisition;
+- death preserves the final carcass/anatomy state;
+- harvesting consumes that physical state rather than generating disconnected loot.
 
-## 9. World/content anchors
-
-World hierarchy:
-`WORLD ATLAS -> WALKABLE SETTLEMENT -> HUNTER GATE -> CONTINUOUS HUNTING REGION -> LOCAL FIRST-PERSON ENCOUNTER`.
-
-Scale: `1 world unit = 1 meter`.
-
-Region 01 proof footprints:
-Riverbank Ford / Meadow Edge / Root-Boulder Hollow / Deep Nest Shelf.
-
-Monster 01 prototype:
-~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs; severable distal tail; internal Crystal core.
-
-## 10. Planned bounded sequence
+## 8. Planned bounded sequence
 
 Completed design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status Set -> Terrain Set -> Monster 01 Normal Attacks -> Monster 01 Berserk -> Solo/Party -> Defeat/Retreat`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition`.
 
 Current next independent game-design action:
-`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
 
-That work advances the hunt loop from **what the fight physically did to the Monster** into **what material actually remains recoverable**.
+That next packet must define how recovered material quantities/quality/provenance transfer into authoritative inventory without duplication before the one-recipe crafting linkage is selected.
 
-Production implementation remains blocked by prerequisite engine/domain gates.
+## 9. Exact continuation
 
-## 11. Exact continuation
-
-Implementation action when device evidence is available:
+Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
 
-Keep that pass limited to anatomical harvest capacity, remaining usable mass/condition, clean sever/damage consequences, carcass/detached-part depletion, tool/knowledge modifiers, deterministic yield traces and anti-duplication.
-
-Do not combine it with crafting/economy implementation.
+Do not combine it with broad economy, many recipes or production implementation.

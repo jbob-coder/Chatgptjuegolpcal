@@ -1,6 +1,6 @@
 # 20_gameplay — Gameplay Systems
 
-Status: ACTIVE GAMEPLAY DESIGN MAP / NINE GENERIC COMBAT CONTRACTS RECORDED / HARVEST BASELINE NEXT
+Status: ACTIVE GAMEPLAY DESIGN MAP / COMBAT DESIGN BASELINE + HARVEST BASELINE RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -10,24 +10,64 @@ Own reusable gameplay rules that apply across settlements, regions, monsters and
 The game is the objective. This package organizes mechanics so content can configure them without forking generic laws.
 
 Belongs here:
-- combat/action economy/turn order;
+- combat/action economy/turn order/outcome;
 - statuses/tactical states;
 - terrain/effect framework;
-- attributes/derived stats;
-- equipment/progression;
-- anatomy/damage/harvest generic rules;
-- deterministic behavior-pattern rules;
+- anatomy-aware harvesting;
+- inventory/material ownership;
+- attributes/equipment/progression;
+- deterministic behavior;
 - Crystal/mutation mechanics;
-- party/control/failure rules;
-- inventory/crafting/knowledge systems.
+- crafting/knowledge systems.
 
-Does not belong here:
-- exact Region 01 geography;
-- one monster's anatomy/attack/Berserk numbers;
-- one settlement layout;
-- renderer/import implementation.
+Exact Region geography, one species' capacities/attacks and renderer implementation belong elsewhere.
 
 ## Package map
+
+### Combat
+Front door: `combat/README.md`.
+
+Nine generic first-slice combat/outcome contracts are recorded:
+1. Action Economy;
+2. Combat Resolution;
+3. Field Poleblade;
+4. Stamina;
+5. Initiative/Turn Order;
+6. Status Set;
+7. Terrain Set;
+8. Solo/Party Baseline;
+9. Defeat/Retreat Baseline.
+
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
+
+### Harvest
+Front door: `harvest/README.md`.
+
+Generic authority:
+`harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
+
+Supporting worked example:
+`harvest/HARVEST_TRANSACTION_EXAMPLE.md`.
+
+Selected reusable baseline:
+- finite per-source capacity;
+- condition determines surviving capacity/quality;
+- clean sever transfers, never duplicates;
+- break/shatter can preserve fragments at lower condition;
+- carcass and detached-part containers use stable source lineage;
+- deterministic recovery efficiency `<=1.00`;
+- partial extraction depletes only recovered quantity;
+- no harvest RNG layer;
+- save/load cannot restore depleted capacity.
+
+First content consumer:
+`/docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
+
+Monster 01 pristine selected-source total = `45` prototype capacity units across horn, plate, hide, distal-tail ridge/tendon and dense bone sources.
+
+`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
+`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`HARVEST_RUNTIME_IMPLEMENTED = NO`.
 
 ### Progression
 Front door: `progression/README.md`.
@@ -35,92 +75,42 @@ Front door: `progression/README.md`.
 Direction:
 - equipment + weapon mastery + knowledge weighted;
 - bounded attribute growth;
-- specialization/options over exponential inflation;
 - anatomy, terrain and preparation remain relevant.
 
-### Combat
-Front door: `combat/README.md`.
+## First-slice ownership chain
 
-Nine generic first-slice contracts are recorded:
-1. Action Economy;
-2. Combat Resolution;
-3. Field Poleblade;
-4. Stamina;
-5. Initiative/Turn Order;
-6. First-Slice Status Set;
-7. First-Slice Terrain Effect Set;
-8. Solo / Party Baseline;
-9. Defeat / Retreat Baseline.
+```text
+COMBAT DAMAGE/SEVER
+-> FINAL ANATOMY STATE
+-> DEFEAT/ESCAPE OUTCOME
+-> HARVEST SOURCE CAPACITY/CONDITION
+-> MATERIAL TRANSFER
+-> INVENTORY OWNERSHIP
+-> RECIPE/CRAFTING
+```
 
-Reusable baseline includes:
-- 4 AP / 1 RP / persistent Stamina;
-- deterministic contact/defense/hit quality;
-- deterministic Initiative/no random opener;
-- one normal activation max per eligible actor/round;
-- first-slice status/terrain packets;
-- solo-capable optional parties up to three active Hunters;
-- deterministic companion behavior/orders;
-- Hunter Downed state without first-slice permanent death;
-- deterministic spatial withdrawal rather than random escape chance;
-- Monster escape preserving same persistent instance;
-- Monster death preserving final anatomy for harvest;
-- terminal encounter scheduler/persistence ownership;
-- presentation never owns gameplay resolution.
-
-## Defeat / retreat selected baseline
-
-Authority:
-`combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
-
-Selected:
-- Hunter Health `<=0` -> Downed;
-- no in-combat revive first slice;
-- player Hunter Downed ends encounter as Hunter defeat unless same boundary also kills Monster;
-- companion Downed alone does not end encounter;
-- `WITHDRAW_FROM_ENCOUNTER` costs 1 AP from a legal escape node;
-- party retreat declaration costs player 1 AP and companions withdraw using their own turns/resources;
-- Monster behavior owns retreat selection/route, outcome contract owns final escape completion;
-- Monster escape -> reacquisition;
-- Hunter voluntary withdrawal -> hunt remains active/disengaged;
-- Monster death -> hunt complete and later harvest reads final anatomy;
-- mutual terminal result is deterministic;
-- terminal encounter cannot reopen or duplicate actors/outcomes on reload.
-
-`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
-`DEFEAT_RETREAT_RUNTIME_IMPLEMENTED = NO`.
+No downstream package may manufacture matter or silently rewrite an upstream physical result.
 
 ## Monster 01 content consumer
 
 Package:
 `/docs/30_content/monsters/MONSTER_01/`.
 
-Recorded content authorities:
-- `COMBAT_ATTACK_PACKET.md` — normal attacks;
-- `BERSERK_PROTOTYPE_CONTRACT.md` — Crystal-life-force desperation state;
-- `BEHAVIOR_AND_REGION.md` — deterministic activity/combat/retreat route selection;
-- anatomy/Crystal package files.
-
-Monster 01 remains the first content consumer of the generic combat package.
-
-`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`COMBAT_DESIGN_BASELINE_COMPLETE = YES`
-`COMBAT_RUNTIME_IMPLEMENTED = NO`.
+Current content authorities include anatomy, attacks, Berserk, behavior/Region use, Crystal state and the first harvest-capacity packet.
 
 ## Exact next gameplay dependency
 
-`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
 
-The next pass should create a local harvest gameplay package/front door if needed and define:
-- per-anatomy harvest capacity;
-- remaining usable mass/condition;
-- clean sever/break/destroy consequences;
-- carcass and detached-part depletion;
-- tool/knowledge/skill modifiers within physical capacity;
-- deterministic yield traces;
-- anti-duplication/persistence.
+That pass should define:
+- authoritative recovered-material container ownership;
+- material stack identity;
+- quantity/quality/provenance transfer from harvest transaction;
+- inventory acceptance/rejection without matter loss/duplication;
+- save/load persistence and anti-replay;
+- minimal first-slice capacity/stack rules only where needed.
 
-Do not combine that pass with crafting/economy implementation.
+Do not combine it with broad economy, many recipes or production implementation.
 
 ## Existing root/system authorities
 
@@ -131,7 +121,4 @@ Do not combine that pass with crafting/economy implementation.
 - `/CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`;
 - `/NEW_GAME_MASTER_PLAN.md`.
 
-Specificity rule:
-current bounded contracts supersede older unresolved placeholders within their exact scope.
-
-Content/world packages configure shared gameplay definitions but do not silently override generic ownership.
+Current bounded contracts supersede older unresolved placeholders within their exact scope.

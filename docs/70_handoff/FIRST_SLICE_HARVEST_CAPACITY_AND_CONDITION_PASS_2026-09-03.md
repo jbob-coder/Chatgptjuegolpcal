@@ -12,106 +12,88 @@ The game remains the objective. This pass advances the hunt loop from combat ana
 
 Current repository copies were reread for:
 - `EVOLVE_ALIGNMENT.md`;
-- `PROJECT_HANDOFF.md`;
-- `START_HERE_NEW_CHAT.md`;
-- `DOCUMENTATION_INDEX.md`;
-- `docs/70_handoff/DEFEAT_RETREAT_BASELINE_PASS_2026-09-03.md`;
+- current handoff/new-chat/index/front doors;
+- `DEFEAT_RETREAT_BASELINE_PASS_2026-09-03.md`;
 - `MECHANICAL_SYSTEMS_GUIDE.md`;
 - `CONTENT_DATA_GUIDE.md`;
 - Monster 01 `ANATOMY_AND_DAMAGE.md`;
 - Defeat/Retreat outcome ownership;
-- current gameplay/readiness/front-door maps.
+- current gameplay/readiness maps.
 
 ## New reusable authority
 
 `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-Local front door:
+Local package front door:
 `docs/20_gameplay/harvest/README.md`.
 
+Supporting worked example:
+`docs/20_gameplay/harvest/HARVEST_TRANSACTION_EXAMPLE.md`.
+
 Selected generic laws:
-- harvest sources have finite authored capacity;
-- first slice uses material-specific capacity units, not final kilograms;
-- condition bands map to preservation multipliers;
-- clean sever preserves/transfers capacity rather than adding bonus matter;
-- break/shatter may reduce capacity/quality without automatically deleting all material;
-- carcass and detached-part containers own stable source lineages;
-- extraction recovery efficiency is deterministic and clamped to `<=1.00`;
-- partial harvesting depletes only successfully recovered quantity;
-- no separate random harvest-roll layer;
-- unique structures cannot duplicate through container transfer/save-load;
-- Monster escape creates no carcass;
-- Monster death creates one physical carcass harvest state from final anatomy;
-- mutual terminal preserves carcass state without auto-crediting materials.
+- finite authored capacity per physical source;
+- material-specific capacity units for first slice, not fake final kilograms;
+- condition bands determine surviving quantity/quality ceiling;
+- clean sever transfers capacity rather than adding matter;
+- break/shatter can preserve reduced fragments;
+- carcass/detached-part containers use stable source lineage;
+- extraction recovery is deterministic and capped at `1.00`;
+- partial harvest depletes only recovered quantity;
+- no separate harvest RNG;
+- escape creates no carcass;
+- death creates one carcass state from final anatomy;
+- mutual-terminal preserves carcass but does not auto-credit material;
+- save/load cannot restore/de-duplicate incorrectly.
 
-## Condition model
-
-Generic preservation targets:
-- PRISTINE = 1.00;
-- GOOD = 0.90;
-- DAMAGED = 0.70;
-- POOR = 0.40;
-- RUINED = 0.10;
-- DESTROYED = 0.00.
-
-`surviving_capacity = floor(original_capacity * preservation_multiplier)`.
-
-Source-specific physical damage history chooses the condition band; one global anatomy label does not blindly decide every material.
+Condition targets:
+PRISTINE/GOOD/DAMAGED/POOR/RUINED/DESTROYED = `1.00/0.90/0.70/0.40/0.10/0.00` preservation.
 
 ## Monster 01 application
 
-New content authority:
+Authority:
 `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Selected first-slice materials/capacities:
-- left horn: 4 horn units;
-- right horn: 4 horn units;
-- dorsal plate group: 8 plate units;
-- torso hide: 12 hide units;
-- distal-tail ridge: 5 ridge units;
-- distal-tail tendon: 4 tendon units;
-- dense structural bone: 8 units.
+Prototype pristine capacities:
+- left horn 4;
+- right horn 4;
+- dorsal plates 8;
+- torso hide 12;
+- distal-tail ridge 5;
+- distal-tail tendon 4;
+- dense bone 8.
 
-Pristine authored selected-source total:
-`45` capacity units.
+Total selected pristine source capacity:
+`45` units.
 
-This is not guaranteed yield. Combat condition + extraction efficiency reduce actual recovered material.
+This is not guaranteed yield. Combat condition and extraction efficiency reduce actual recovered quantity.
 
-Clean distal-tail sever transfers the same tail ridge/tendon lineages into one detached-tail container. Later Monster death may not recreate those sources on the carcass.
+The user's core gameplay rule is now explicit in project authority:
+**how much usable material the player can recover depends on how the anatomy survived the hunt.**
 
-## Intended player consequence
+## Anti-duplication
 
-A cleaner hunt can preserve significantly more usable material than a destructive one.
+A clean distal-tail sever transfers the same ridge/tendon source lineages to the detached tail. Later Monster death cannot recreate them on the carcass.
 
-The contract therefore makes the user's core rule explicit:
-**how the player damages/breaks/severs a part changes how much usable material remains to harvest.**
+One horn lineage cannot become multiple physical horns or exceed its authored lifetime capacity.
 
-## Anti-duplication/persistence
-
-Save/load must preserve source/container/lineage IDs, original/surviving/remaining/extracted capacities, condition/quality, and attached/detached ownership.
-
-No reload may:
-- restore depleted source capacity;
-- respawn severed tail material on a carcass;
-- create a second horn lineage;
-- replay a committed extraction;
-- create a second carcass for one dead Monster instance.
+Save/load/region reload cannot regenerate depleted source quantity.
 
 ## Future verification
 
-Generic contract records 28 minimum implementation tests.
+Generic authority records 28 minimum runtime tests.
 Monster 01 packet records 16 content-specific tests.
 
 No runtime verification is claimed because harvest/inventory source does not yet exist.
 
-## Documentation/navigation reconciliation
+## Repository-write audit
 
-This pass creates/maps:
-- `docs/20_gameplay/harvest/README.md`;
-- `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`;
-- `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`;
-- relevant gameplay/content/front-door/readiness/current-state files;
-- this handoff.
+During this pass, an accidental temporary `docs/20_gameplay/harvest/README.pending.md` placeholder was created while switching write paths. It was immediately deleted in the next repository commit before pass closure.
+
+Final-state requirement:
+- placeholder must not exist in the live tree;
+- final comparison against the pre-harvest baseline must contain only durable harvest/navigation changes.
+
+No force push was used.
 
 ## Verification boundary
 
@@ -120,13 +102,16 @@ This pass creates/maps:
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_VERIFIED = NO`.
 
-Phone truth remains unchanged:
+Stage-1 truth remains:
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
+
+Implementation blocker remains:
+`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
 ## Exact next independent non-phone action
 
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
 
-That next pass should define recovered-material ownership/storage/stack/provenance/quality/save-load transfer semantics before one-recipe crafting linkage. Do not bundle broad economy, many recipes or production implementation.
+That next pass must consume committed harvest-transfer results and define authoritative material container/stack/quality/provenance/save-load ownership before one-recipe crafting linkage. Do not bundle broad economy, many recipes or production implementation.

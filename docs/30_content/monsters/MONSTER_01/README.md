@@ -1,231 +1,177 @@
 # MONSTER_01 — Mudcrest Raker
 
-Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / NORMAL ATTACK + BERSERK + ESCAPE/DEFEAT LINKS RECORDED / DISPLAY NAME PROVISIONAL / NO IMPLEMENTATION
+Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / COMBAT + BERSERK + HARVEST PACKETS RECORDED / DISPLAY NAME PROVISIONAL / NO IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Identity
 
 Technical package ID: `MONSTER_01`
-Provisional species ID: `species_r01_mudcrest_raker`
+Species ID: `species_r01_mudcrest_raker`
 Working display name: **Mudcrest Raker**
 
-The display name can change. Stable package/species IDs and the current mechanical body design are the authority.
+The display name may change. Stable package/species IDs and current mechanical body design are the authority.
 
-## Why this is the first monster
+## Why this is the first Monster
 
-Monster 01 proves the core hunt systems with one coherent animal rather than an exception-heavy boss.
-
-It must demonstrate:
+Monster 01 must prove the complete first hunt relationship:
 - Region 01 ecology/tracking/escape;
 - deterministic authored behavior;
-- horn break, plate break, leg impairment and distal-tail sever;
+- horn/plate/leg/tail functional anatomy;
 - anatomy-dependent attack loss/change;
-- terrain/cover-aware first-person combat;
-- Crystal life-force desperation Berserk;
-- persistent Monster state through escape/reacquisition;
-- condition-based harvesting;
-- readable aerial silhouette + close anatomy states.
+- Crystal-life-force Berserk;
+- persistent injury through escape/reacquisition;
+- condition-based finite harvesting;
+- readable aerial silhouette + first-person anatomy.
 
 ## Body plan
 
-Selected prototype:
+Prototype:
 - ~6.6 m nose-to-tail;
 - ~3.0 m shoulder/main-body height;
 - front-loaded quadrupedal mass;
-- low wedge head;
 - paired mineralized horn/crest structures;
-- heavy shoulder/dorsal plates;
-- four robust mud-adapted legs;
-- muscular tail with mineralized distal ridge;
-- deep forward-torso internal Crystal core, not a normal externally targetable part.
+- dorsal/shoulder armor plates;
+- four mud-adapted legs;
+- muscular tail with severable distal section;
+- deep forward-torso internal Crystal core, not normally targetable.
 
-Exact mass remains open until blockout volume is checked.
+Player-facing groups:
+Head / Horn Crest / Foreleg L / Foreleg R / Hindleg L / Hindleg R / Dorsal Plates / Tail + general torso contact.
 
-## Player-facing target groups
-
-Authority: `ANATOMY_AND_DAMAGE.md`.
-
-First-slice groups:
-1. Head;
-2. Horn Crest;
-3. Foreleg L;
-4. Foreleg R;
-5. Hindleg L;
-6. Hindleg R;
-7. Dorsal Plates;
-8. Tail;
-plus general torso contact.
+Anatomy authority:
+`ANATOMY_AND_DAMAGE.md`.
 
 ## Normal combat packet
 
-Authority: `COMBAT_ATTACK_PACKET.md`.
+Authority:
+`COMBAT_ATTACK_PACKET.md`.
 
-Selected damaging attacks:
-- `M01_HORN_CHARGE` — 4 AP / 30 Stamina;
-- `M01_HEAD_SWEEP_GORE` — 2 / 14;
-- `M01_SHOULDER_RAM` — 3 / 22;
-- `M01_FORELEG_STOMP` — 2 / 12;
-- `M01_TAIL_SWEEP` — 3 / 18.
-
-Normal laws:
-- one normal activation per round;
-- internal 4-AP budget;
-- maximum one damaging attack per activation;
-- persistent Stamina;
-- no normal attack spends Crystal Energy by default;
-- no hidden multiattack/status-proc RNG;
-- lost anatomy removes/changes dependent attacks.
-
-## Berserk prototype
-
-Authority: `BERSERK_PROTOTYPE_CONTRACT.md`.
-
-Berserk is a one-episode-per-hunt desperation state that spends Crystal life force for increased commitment/aggression.
-
-Selected entry:
-- `core_energy_ratio >0.20` and `<=0.60`;
-- plus Retreat Denied, Nest Defense or Severe Anatomy pressure;
-- no HP-only/random trigger.
-
-Entry:
-- full 4-AP activation;
-- no attack same activation;
-- 10% Max Core Energy;
-- +20 strain;
-- visible telegraph.
-
-Later active activation:
-- 5% Max Core Energy;
-- +10 strain.
-
-Attack Core surcharges:
-- Charge 5%; Head 2%; Ram 4%; Stomp 2%; Tail 3%.
-
-Berserk AP:
-- Charge 3; Head 2; Ram 2; Stomp 2; Tail 2.
-
-Existing Stamina remains unchanged.
+Attacks:
+- Horn Charge;
+- Head Sweep/Gore;
+- Shoulder Ram;
+- Foreleg Stomp;
+- Tail Sweep.
 
 Hard laws:
-- still max one damaging attack/activation;
-- no extra turns/Initiative reroll;
-- no reaction-window removal;
-- no anatomy repair/substitution;
-- normal terrain/cover/range/status legality remains;
-- zero Core Energy means death.
+- one normal activation per round;
+- internal 4-AP budget;
+- max one damaging attack per activation;
+- anatomy/range/bearing/terrain/cover remain authoritative;
+- no hidden multiattack/status RNG;
+- damaged anatomy disables or changes dependent attacks.
 
-Critical:
-`core_energy_ratio <=0.12 OR core_strain >=80`.
+## Berserk
 
-Critical + legal retreat + no active Nest Defense exits Berserk to `EXHAUSTED_CRITICAL`; otherwise the Raker may continue burning life force.
+Authority:
+`BERSERK_PROTOTYPE_CONTRACT.md`.
 
-## Deterministic behavior / Region 01
+Berserk:
+- is deterministic desperation, not a random rage roll;
+- spends Crystal life force/strain;
+- may reduce AP costs of existing legal attacks;
+- never grants another normal turn or second damaging attack;
+- never restores broken horns, damaged legs or severed tail;
+- never removes reaction windows;
+- can burn the Monster toward zero-Energy death.
 
-Authority: `BEHAVIOR_AND_REGION.md`.
+## Deterministic behavior and Region use
 
-There is no runtime generative AI decision system.
+Authority:
+`BEHAVIOR_AND_REGION.md`.
 
-Ownership:
-- `COMBAT_ATTACK_PACKET.md` owns normal attack legality/profile;
-- `BERSERK_PROTOTYPE_CONTRACT.md` owns Berserk state/cost/action modifiers;
-- `BEHAVIOR_AND_REGION.md` selects deterministic legal actions and retreat routes;
-- `/docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` owns final Monster escape/encounter outcome.
+Behavior selects only currently legal actions/routes from authored deterministic rules.
 
-Behavior cannot bypass attack/Crystal/terrain/anatomy/outcome legality.
+Monster escape preserves this exact persistent instance for reacquisition.
 
-## Escape / reacquisition integration
+## Harvest packet
 
-When behavior selects Wounded Retreat or Exhausted Critical retreat:
-1. choose a legal Region route deterministically;
-2. obey body-fit/anatomy/terrain blockers;
-3. move through current encounter/world space;
-4. at a legal Monster escape boundary request `MONSTER_WITHDRAW_FROM_ENCOUNTER` through the generic Defeat/Retreat owner.
+Authority:
+`HARVEST_CAPACITY_PACKET.md`.
 
-Successful escape:
-- outcome `MONSTER_ESCAPED`;
-- hunt state `HUNT_ACTIVE_REACQUIRE`;
-- same Monster instance persists;
-- anatomy/injury/Core/Berserk/status/route intent persist;
-- tracking evidence can continue from behavior/world state.
+Generic owner:
+`/docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-No fresh uninjured replacement Monster is spawned.
+First-slice selected materials/capacities:
+- left horn: 4 `material_m01_horn` units;
+- right horn: 4;
+- dorsal plate group: 8 `material_m01_dorsal_plate` units;
+- torso hide: 12 `material_m01_hide` units;
+- distal-tail ridge: 5 `material_m01_tail_ridge` units;
+- distal-tail tendon: 4 `material_m01_tail_tendon` units;
+- dense structural bone: 8 `material_m01_dense_bone` units.
 
-## Death / harvest handoff
+Pristine authored selected-source total:
+`45` prototype harvest-capacity units.
 
-Crystal/body death ownership remains authoritative.
+This is not guaranteed yield.
 
-Current hard example:
-`core_energy_current <=0 -> creature death`.
+Final combat condition determines surviving capacity. Extraction efficiency then determines how much of that surviving capacity the Hunter actually recovers.
 
-On death:
-- final anatomy/detached-part condition is preserved;
-- combat outcome becomes Monster-dead through the generic Defeat/Retreat owner;
-- later harvest systems read that physical state rather than spawning disconnected loot.
+Important physical rules:
+- a shattered horn yields less/bad material than an intact or cleaner break;
+- broken plate can still yield fragments but at reduced capacity/quality;
+- a clean distal-tail sever can preserve more ridge/tendon value;
+- sever transfers the same tail-source lineage to a detached-tail container;
+- later Monster death cannot recreate those tail sources on the carcass;
+- save/load/reacquisition cannot restore consumed or destroyed harvest capacity.
 
-The next independent gameplay contract will define finite harvest capacity/condition. This Monster package does not invent those generic formulas.
+This is the direct implementation of the core player-facing rule:
+**what you damage determines what you can harvest and how much remains.**
 
 ## Crystal/mutation
 
-Authority: `CRYSTAL_AND_MUTATION.md`.
+Authority:
+`CRYSTAL_AND_MUTATION.md`.
 
-Provisional expression: Mineral / Earth-type biological adaptation.
+Provisional expression: Mineral/Earth-type biological adaptation.
 
-Core Energy is life force. Berserk uses percentage-of-Max costs so behavior is exact without freezing final absolute capacity.
+Core Energy is life force. Zero usable Energy means death. The core remains internal and is not automatically a harvest target in this first packet.
 
 ## Region 01 relationship
 
 Primary sectors:
-S01 River Ford, S02 Rootwood Thicket, S03 Feeding Meadow, S04 Rocky Rise, S05 Deepwood Basin, S06 Nesting Shelf/Crystal Fault.
+S01 River Ford / S02 Rootwood Thicket / S03 Feeding Meadow / S04 Rocky Rise / S05 Deepwood Basin / S06 Nesting Shelf-Crystal Fault.
 
-S00 Field Camp is not a normal activity anchor.
-
-Combat implications:
-- Meadow Edge is clearest for Horn Charge;
-- Riverbank Ford supports close attacks plus lane-validated charge/sweep;
-- Root/Boulder Hollow often restricts Charge/Sweep through Narrow/solid geometry;
-- Deep Nest Shelf is strongest Nest Defense/Berserk context;
-- physical terrain remains authoritative; High Ground gives no generic damage bonus.
+Combat/escape/harvest consequences remain connected to the same physical Monster instance and Region state.
 
 ## Package file map
 
-- `README.md` — Monster 01 package front door;
+- `README.md` — local front door;
 - `ANATOMY_AND_DAMAGE.md` — target groups/break/sever/impairment;
-- `COMBAT_ATTACK_PACKET.md` — normal attack definitions;
-- `BERSERK_PROTOTYPE_CONTRACT.md` — Berserk entry/Energy/strain/action changes/exit/death;
-- `BEHAVIOR_AND_REGION.md` — deterministic activity/combat/retreat/Region 01 selection;
-- `CRYSTAL_AND_MUTATION.md` — Crystal/mutation and species energy context.
-
-Generic cross-package outcome authority:
-`/docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+- `COMBAT_ATTACK_PACKET.md` — normal attacks;
+- `BERSERK_PROTOTYPE_CONTRACT.md` — Crystal desperation state;
+- `BEHAVIOR_AND_REGION.md` — deterministic activity/combat/retreat route selection;
+- `CRYSTAL_AND_MUTATION.md` — Crystal/mutation context;
+- `HARVEST_CAPACITY_PACKET.md` — first-slice concrete harvest materials/capacities/condition application.
 
 ## Current decision state
 
 RECORDED:
-- first-monster body/anatomy/Region relationship;
-- deterministic behavior architecture;
-- five normal attacks;
-- normal AP/Stamina/reaction relationships;
-- anatomy-dependent attack loss/change;
-- first-slice Berserk entry/Energy/strain/AP/critical rules;
-- deterministic retreat route ownership;
-- generic Monster escape/reacquisition and death-to-harvest handoff.
+- anatomy/body plan;
+- Region relationship;
+- deterministic behavior;
+- normal attacks;
+- Berserk;
+- defeat/escape continuity;
+- first-slice finite harvest packet.
 
 OPEN/LATER:
-- final name/mass/element naming;
-- final Crystal tier/rank/quality and absolute Max Energy;
-- final health/damage numbers;
-- final species Max Stamina;
-- final harvest quantities/capacity application — next gameplay layer;
+- final display name/mass/absolute health/Stamina/Core capacity;
+- broader materials/organs/meat;
 - final art/audio;
+- inventory/crafting linkage;
 - runtime implementation/tests.
 
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
-`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
-`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`.
+`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_HARVEST_RUNTIME_IMPLEMENTED = NO`.
 
-## Current next independent game dependency
+## Exact next package dependency
 
-`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+Recovered Monster 01 materials now need the generic inventory owner:
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
 
-That next contract belongs to reusable gameplay/harvest ownership and will consume this package's real anatomy state.
+Inventory must preserve quantity, quality and provenance without duplicating the physical harvest result.

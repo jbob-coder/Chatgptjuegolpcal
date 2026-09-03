@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / NINE GENERIC COMBAT CONTRACTS RECORDED / HARVEST BASELINE NEXT
+Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / COMBAT DESIGN + HARVEST BASELINE RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -17,50 +17,41 @@ Readiness classes:
 4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`
 5. `CAN_WAIT_UNTIL_EXPANSION`
 
----
-
-# 1. Gate status summary
+## 1. Gate summary
 
 | Gate | Current status | Meaning |
 |---|---|---|
-| ENGINE PROBE | AUTOMATED FOUNDATION + PERFORMANCE PROCEDURE PREPARED / PHONE GATE DEFERRED | source/build/headless gates pass; direct Galaxy A03s bundle remains |
-| DOMAIN IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | production domain source waits for direct device gate |
-| COMBAT DESIGN | BASELINE PACKETS RECORDED | nine generic contracts + Monster 01 normal attacks/Berserk recorded; runtime not implemented |
-| COMBAT IMPLEMENTATION | BLOCKED BY PRIOR IMPLEMENTATION GATES | design baseline is recorded but production engine/domain/stats/Crystal/content source/tests still required |
-| VERTICAL SLICE | PARTIAL / HARVEST + IMPLEMENTATION PREREQUISITES REMAIN | integrated loop not yet playable |
-| EXPANSION | INTENTIONALLY OPEN | broad content/lore/endgame must not delay first slice |
+| ENGINE PROBE | AUTOMATED FOUNDATION / PHONE GATE DEFERRED | source/build/headless gates pass; direct Galaxy A03s evidence remains |
+| DOMAIN IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | production architecture waits for target-device gate |
+| COMBAT DESIGN | BASELINE RECORDED | nine generic combat/outcome contracts + Monster 01 content packets recorded |
+| COMBAT IMPLEMENTATION | NOT STARTED | production domain/combat source and tests absent |
+| HARVEST DESIGN | BASELINE RECORDED | finite anatomy capacity + Monster 01 source packet recorded |
+| VERTICAL SLICE | PARTIAL | inventory/material ownership, one-recipe crafting and implementation prerequisites remain |
+| EXPANSION | INTENTIONALLY OPEN | broad content/lore/endgame does not block first slice |
 
----
-
-# 2. MUST EXIST BEFORE ENGINE PROBE
+## 2. Engine probe truth
 
 Candidate:
-- Godot 4.7 family;
-- CI/build Godot 4.7.2 stable;
-- GDScript;
-- GL Compatibility/OpenGL3;
-- Samsung Galaxy A03s baseline;
-- stable 30 FPS representative-scene minimum target.
+Godot 4.7 family / CI 4.7.2 stable / GDScript / GL Compatibility/OpenGL3 / Galaxy A03s / stable 30 FPS representative-scene minimum.
 
-Current automated protocol revision:
+Protocol revision:
 `c02971996e35770bbaaaf9bf6c460af208db4f83`.
 Workflow `33811355891`: SUCCESS.
 
-Automated gates:
+Automated evidence:
 - protected static 154/154 PASS;
 - Monster collision 8/8 PASS;
 - boundary 12/12 PASS;
-- aerial↔first-person 17/17 PASS;
-- lifecycle transient input 47/47 PASS;
+- view continuity 17/17 PASS;
+- lifecycle 47/47 PASS;
 - performance telemetry 20/20 PASS;
 - Godot parse/smoke PASS;
 - Android export/APK integrity/artifact upload PASS.
 
-Current inner APK:
+Inner APK:
 `57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-Remaining direct phone evidence:
-heading/reset + Look Speed; Monster solidity; boundary containment; aerial/first-person visual/input/clipping; lifecycle background/lock; crash/ANR observation; sustained 24-minute performance/thermal/input/transition run.
+Still missing direct Galaxy A03s regression + sustained 24-minute run.
 
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`
@@ -72,182 +63,110 @@ Implementation blocker:
 Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
----
-
-# 3. MUST EXIST BEFORE DOMAIN IMPLEMENTATION
+## 3. Domain implementation gate
 
 Stage 2 begins only after `ENGINE_PHONE_PROBE_VERIFIED`.
 
-Recorded design prerequisites include:
-- module/domain ownership;
-- stable IDs/content vs runtime state;
-- deterministic behavior;
-- seeded/reproducible randomness boundary;
-- stats/effects ownership;
-- Crystal/mutation ownership;
-- combat Action Economy/Resolution/Stamina/Initiative/status/terrain;
-- party/control ownership;
-- defeat/retreat/outcome ownership;
-- Monster 01 normal attack/Berserk content design.
+Recorded design prerequisites include stable IDs, data ownership, stats/effects, deterministic behavior, Crystal state, combat contracts, Monster 01 attack/Berserk/outcome integration and harvest-source semantics.
 
 `DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`.
 
----
+## 4. Combat design baseline
 
-# 4. MUST EXIST BEFORE COMBAT
-
-## Generic first-slice contracts recorded
-
-1. Action Economy — 4 AP / 1 RP / persistent Stamina / one normal activation max.
-2. Combat Resolution — hard legality, deterministic context, bounded seeded variance, hit-quality/cover/defense pipeline.
-3. First Weapon — Field Poleblade.
-4. Stamina — normalized 100-point reference, +10 passive, Catch Breath, explicit action/reaction costs.
-5. Initiative — deterministic snapshot/no random opener/no ordinary extra turns.
-6. Status Set — Bleeding/Staggered/Off-Balance/Braced/Guarded, no independent status RNG.
-7. Terrain Set — Stable/Rough/Shallow Water/Mud + Brush/High Ground/Narrow, no random terrain slip.
-8. Solo/Party Baseline — solo-capable optional companions, max three active Hunters, deterministic companion behavior/orders, same scheduler with independent resources.
-9. Defeat/Retreat Baseline — Hunter Downed/defeat, spatial voluntary withdrawal, Monster escape/death, encounter termination and hunt-state persistence.
-
-## Defeat / retreat baseline — RECORDED
-
-Authority:
-`docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
-
-Selected:
-- Hunter Health `<=0` -> Downed, not first-slice permanent death;
-- no in-combat revive;
-- player Hunter Downed -> Hunter defeat after current resolution;
-- companion Downed alone does not end combat;
-- Downed actor loses future encounter activations;
-- voluntary withdrawal is spatial/deterministic, not a random roll;
-- `WITHDRAW_FROM_ENCOUNTER` = 1 AP from legal escape node;
-- party retreat declaration = player 1 AP; companions withdraw on own turns/resources;
-- player exits last after non-Downed companions withdraw;
-- Monster behavior owns retreat selection/route; Defeat/Retreat owns final escape completion;
-- Monster escape preserves same instance and returns hunt to reacquisition;
-- Hunter voluntary withdrawal keeps hunt active/disengaged;
-- Monster death remains Crystal/body-terminal owned and preserves final anatomy for harvest;
-- simultaneous Monster death + player Downed -> `MUTUAL_TERMINAL`;
-- terminal encounter closes pending scheduler slots and cannot reopen on reload.
-
-`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
-`DEFEAT_RETREAT_RUNTIME_IMPLEMENTED = NO`
-`DEFEAT_RETREAT_RUNTIME_VERIFIED = NO`.
-
-## Solo / party baseline — RECORDED
-
-Authority:
-`docs/20_gameplay/combat/SOLO_PARTY_BASELINE_CONTRACT.md`.
-
-Selected:
-- solo-capable optional companions;
-- max three active Hunters;
-- player controls own Hunter only;
-- deterministic companion behavior/orders;
-- same Initiative scheduler;
-- independent actor resources.
-
-`SOLO_PARTY_BASELINE_RECORDED = YES`.
-
-## Monster 01 content — RECORDED
-
-Normal attack authority:
-`docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
-
-Berserk authority:
-`docs/30_content/monsters/MONSTER_01/BERSERK_PROTOTYPE_CONTRACT.md`.
-
-`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`.
-
-## Combat design status
+Recorded reusable contracts:
+1. Action Economy;
+2. Combat Resolution;
+3. Field Poleblade;
+4. Stamina;
+5. Initiative;
+6. Status Set;
+7. Terrain Set;
+8. Solo/Party Baseline;
+9. Defeat/Retreat Baseline.
 
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `COMBAT_RUNTIME_VERIFIED = NO`.
 
-The first-slice reusable combat-design packet no longer has an unresolved design blocker before implementation.
+Monster 01 normal attacks/Berserk/behavior consume these rules but remain unimplemented runtime content.
 
-Real combat implementation is still blocked by:
-1. Stage-1 target-device phone gate;
-2. subsequent production engine/domain/stats/Crystal/content foundations;
-3. implementation tests corresponding to the recorded contracts.
+## 5. Harvest design baseline
 
----
+Generic authority:
+`docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-# 5. MUST EXIST BEFORE VERTICAL SLICE
+Monster 01 packet:
+`docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
+
+Recorded:
+- finite source capacities;
+- condition bands `PRISTINE/GOOD/DAMAGED/POOR/RUINED/DESTROYED`;
+- preservation multipliers `1.00/0.90/0.70/0.40/0.10/0.00`;
+- clean sever transfers source lineage without duplication;
+- carcass/detached-part container ownership;
+- deterministic recovery efficiency `0.50..1.00`;
+- partial extraction/depletion;
+- unique-source anti-duplication;
+- Monster escape/death/mutual-terminal boundaries;
+- save/load transaction persistence;
+- no independent harvest RNG.
+
+Monster 01 pristine selected-source capacities:
+- horn L 4;
+- horn R 4;
+- dorsal plates 8;
+- torso hide 12;
+- distal-tail ridge 5;
+- distal-tail tendon 4;
+- dense bone 8;
+- total 45 prototype capacity units.
+
+`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
+`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`HARVEST_RUNTIME_IMPLEMENTED = NO`
+`HARVEST_RUNTIME_VERIFIED = NO`.
+
+## 6. Vertical-slice prerequisites
 
 Required integrated loop:
-`TITLE/PREP -> WALKABLE HUB -> GATE -> REGION 01 -> TRACK -> ENGAGE -> COMBAT -> BREAK/SEVER/BERSERK -> DEFEAT OR ESCAPE/REACQUIRE -> HARVEST -> RETURN -> CRAFT/EQUIP ONE UPGRADE -> SAVE/RELOAD`.
-
-First-slice participation law:
-- integrated hunt must be completable solo;
-- optional companion support may be tested without changing ownership;
-- no party-required encounter is required to prove the loop.
+`TITLE/PREP -> HUB -> GATE -> REGION 01 -> TRACK -> ENGAGE -> COMBAT -> BREAK/SEVER/BERSERK -> DEFEAT/ESCAPE -> HARVEST -> INVENTORY -> RETURN -> CRAFT/EQUIP ONE UPGRADE -> SAVE/RELOAD`.
 
 Still requires:
 - Stage-1 Galaxy A03s gate;
-- tested production domain/stats/Crystal/content/combat foundations;
-- playable Field Poleblade;
+- production domain/stats/Crystal/content/combat implementation/tests;
 - Region 01 graybox/tracking/escape continuity;
-- first-slice harvest capacity/depletion contract + implementation;
+- first-slice harvest implementation;
+- material inventory ownership;
+- one recipe/equipment-upgrade linkage;
 - minimal settlement service loop;
-- inventory/equipment/one recipe;
-- persistent Monster transfer;
-- save/reload relevant hunt/progression state;
-- Android lifecycle/performance verification of integrated loop.
+- persistent Monster/harvest/inventory save state;
+- integrated Android lifecycle/performance verification.
 
-`VERTICAL_SLICE_READINESS = PARTIAL / HARVEST + IMPLEMENTATION STAGES REMAIN`.
+`VERTICAL_SLICE_READINESS = PARTIAL / INVENTORY + CRAFT LINKAGE + IMPLEMENTATION STAGES REMAIN`.
 
-## Exact next independent design dependency
+## 7. Exact next independent design dependency
 
-`FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
 
-This is a vertical-slice gameplay prerequisite, not a blocker for the already-recorded combat design packet.
+This packet should consume committed harvest-transfer results and define material stack/quality/provenance ownership without broad economy or recipe expansion.
 
----
+## 8. Can wait until expansion
 
-# 6. CAN WAIT UNTIL EXPANSION
+Final name/lore; broad elements; many regions/monsters/weapons/recipes; deep companion relationships; multiplayer; permanent Hunter death; advanced revive/capture; large status/terrain/material catalogs; final store/signing/localization/device matrix.
 
-Examples:
-- final game name/lore;
-- broad element roster;
-- deep ecology simulation;
-- many regions/monsters/weapons/recipes;
-- endgame breadth;
-- companion relationship/recruitment depth;
-- four-plus active Hunters;
-- multiplayer/co-op;
-- permanent Hunter death/permadeath;
-- advanced revive/rescue/capture systems;
-- large status/terrain catalogs;
-- final store/signing/localization/device matrix.
-
----
-
-# 7. Exact current state
+## 9. Exact state
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
-`DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`
-
-`ACTION_ECONOMY_CONTRACT = RECORDED`
-`COMBAT_RESOLUTION_CONTRACT = RECORDED`
-`FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
-`STAMINA_PROTOTYPE_CONTRACT = RECORDED`
-`INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
-`FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
-`FIRST_SLICE_TERRAIN_EFFECT_SET = RECORDED`
-`SOLO_PARTY_BASELINE_RECORDED = YES`
-`DEFEAT_RETREAT_BASELINE_RECORDED = YES`
-`MONSTER_01_ATTACK_PACKET_RECORDED = YES`
-`MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
-`COMBAT_RUNTIME_IMPLEMENTED = NO`.
+`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
+`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`COMBAT_RUNTIME_IMPLEMENTED = NO`
+`HARVEST_RUNTIME_IMPLEMENTED = NO`
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
 
 Implementation and design may advance in parallel only when dependencies do not conflict. Every pass remains governed by `EVOLVE_ALIGNMENT.md`.
