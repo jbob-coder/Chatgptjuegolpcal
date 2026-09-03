@@ -1,6 +1,6 @@
 # Galaxy A03s Stage 1 Probe Test Protocol
 
-Status: TEST CONTRACT ACTIVE / LIFECYCLE AUTOMATED BUILD VERIFIED / PHONE + SUSTAINED PERFORMANCE EVIDENCE DEFERRED
+Status: TEST CONTRACT ACTIVE / SUSTAINED-PERFORMANCE PROCEDURE PREPARED / PHONE EXECUTION DEFERRED
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -62,7 +62,7 @@ Pass when:
 - world-boundary source/geometry contract remains present;
 - each script exits with code `0` and its expected gate marker.
 
-Current lifecycle build evidence from workflow `33809412041` on source `9bcde8404d787180e399b9e44e89cc6760d31c3c`:
+Current telemetry-source build evidence from workflow `33810956117` on source `89394067971120df43b184a8509934f5458185f2`:
 - protected static preflight PASS (`154 / 154` existing suite);
 - Monster collision guard `8 / 8 PASS`;
 - world-boundary guard `12 / 12 PASS`.
@@ -80,7 +80,7 @@ Pass when:
 - no missing resource/node-path errors exist.
 
 Current evidence:
-Godot 4.7.2 headless import/parse PASS on workflow `33809412041`.
+Godot 4.7.2 headless import/parse PASS on workflow `33810956117`.
 
 ## Test 2 — Boot / ProbeWorld smoke
 
@@ -89,7 +89,7 @@ Pass when:
 - ProbeWorld starts without a repeatable runtime error;
 - current scene/script/node ownership resolves.
 
-Current evidence on workflow `33809412041`:
+Current evidence on workflow `33810956117`:
 - Boot headless smoke PASS;
 - ProbeWorld headless smoke PASS.
 
@@ -103,16 +103,23 @@ Automated build pass requires:
 - APK archive integrity passes;
 - build evidence is uploaded.
 
-Current automated evidence on workflow `33809412041`:
+Current automated evidence on workflow `33810956117`:
 - Android export PASS;
 - APK archive integrity PASS;
-- artifact upload PASS;
-- artifact name `UnnamedHuntRPG-Stage1Probe-debug`;
-- artifact ID `9914228633`;
-- artifact archive size `57,122,507 bytes`;
-- artifact archive digest `sha256:7ccf8396616f85d582ec325e3c3b92829153864b1777eb2d170f0e222ef75687`.
+- artifact upload PASS.
 
-The artifact archive digest/size are not the inner APK digest/size.
+Exact inner APK:
+- file `UnnamedHuntRPG-Stage1Probe-debug.apk`;
+- size `57,570,361 bytes`;
+- SHA-256 `6d1d5da79b350c15bab89aebea27bacf8eb38f44ff0ddf5943c56dd195670610`.
+
+Uploaded workflow artifact archive:
+- name `UnnamedHuntRPG-Stage1Probe-debug`;
+- artifact ID `9914806265`;
+- archive size `57,124,305 bytes`;
+- archive digest `sha256:fbcef13d4a95102caa679aedd2ac15f6eb4123e80c3c2c9b32455f917569f4b7`.
+
+The artifact ZIP and inner APK are different files; keep their size/hash labels separate.
 
 Phone install/runtime pass additionally requires:
 - APK installs on Galaxy A03s;
@@ -155,28 +162,44 @@ Galaxy A03s still must verify:
 ## Test 6 — representative sustained performance
 
 Status:
-`PREPARATION NEXT / PHONE EXECUTION DEFERRED`.
+`PROCEDURE PREPARED / TELEMETRY BUILD VERIFIED / PHONE EXECUTION DEFERRED`.
 
-Authority also includes root `PERFORMANCE_BUDGETS_AND_CAPS.md`.
+Detailed execution authority:
+`SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
 
-Use the same scene state for comparisons.
+Performance budget authority:
+root `PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
-Observe at minimum:
+Current non-invasive ProbeWorld telemetry now exposes:
 - FPS;
-- approximate frame time;
-- debug static memory where available;
-- visible frame-pacing instability;
-- input responsiveness;
-- transition hitch;
-- shadow-cost impression;
-- thermal degradation during sustained run.
+- real process-delta rolling `1s avg/max` frame time;
+- cumulative `>34ms` diagnostic slow-frame count;
+- cumulative `>50ms` hitch count;
+- cumulative worst process-frame delta;
+- debug static memory;
+- renderer;
+- view mode.
 
-Existing rough sequence that the next bounded preparation pass must formalize:
-- 2 minutes Boot/initial load observation;
-- 5 minutes aerial movement;
-- 20 aerial↔first-person transitions;
-- 5 minutes repeated movement/view changes;
-- at least 10 minutes continuous run for an initial thermal signal.
+Executable telemetry owner:
+root `ci/stage1/performance_telemetry_test.gd`.
+
+Current automated result on workflow `33810956117` / source `89394067971120df43b184a8509934f5458185f2`:
+`20 / 20 PASS` by deterministic test definition.
+
+Gate marker:
+`STAGE1_PERFORMANCE_TELEMETRY_RUNTIME_VERIFIED`.
+
+The headless test proves telemetry calculation/display and verifies that telemetry does not mutate Hunter transform, camera/view ownership, Settings state or Look Speed. It does not prove Galaxy A03s sustained frame pacing or thermal behavior.
+
+The phone protocol is one uninterrupted `24` minute representative sequence:
+1. `0–2 min` cold launch/baseline stabilization;
+2. `2–7 min` sustained aerial analog movement;
+3. `7–9 min` exactly 20 controlled aerial↔first-person transitions;
+4. `9–14 min` mixed movement/view interaction;
+5. `14–24 min` sustained representative thermal/frame-pacing soak;
+6. evidence checkpoints at `T+02`, `T+07`, `T+09`, `T+14`, `T+19`, `T+24`.
+
+Exact preconditions, checkpoint fields, PASS/FAIL/REVIEW/STOP rules, and copy/paste return template live in `SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md` and must be used rather than improvising a shorter run.
 
 Prior instantaneous Galaxy A03s sample:
 - `60 FPS`;
@@ -184,7 +207,7 @@ Prior instantaneous Galaxy A03s sample:
 - `gl_compatibility / opengl3`;
 - `40.9 MiB` debug static memory.
 
-This is useful evidence but not `PERFORMANCE_VERIFIED`.
+This prior sample remains useful but is not `PERFORMANCE_VERIFIED`.
 
 Do not retune visual/gameplay costs before sustained evidence identifies an actual failure.
 
@@ -231,7 +254,7 @@ The test:
 8. verifies no duplicate ProbeWorld node is created.
 
 Current automated result:
-`47 / 47 PASS` by deterministic test definition on workflow `33809412041`.
+`47 / 47 PASS` by deterministic test definition on workflow `33810956117`.
 
 Gate marker:
 `ANDROID_LIFECYCLE_TRANSIENT_INPUT_RUNTIME_VERIFIED`.
@@ -276,6 +299,8 @@ For every executed gate record:
 - files changed for a repair;
 - rerun result.
 
+For sustained performance, use the more detailed checkpoint template in `SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
+
 ## Current Stage-1 acceptance
 
 `ENGINE_PHONE_PROBE_VERIFIED` may pass only when:
@@ -308,9 +333,13 @@ Do not switch engines merely because the first configuration is imperfect. Switc
 `VIEW_CONTINUITY_HEADLESS = 17_OF_17_PASS`
 `LIFECYCLE_TRANSIENT_INPUT_SOURCE_IMPLEMENTED = YES`
 `LIFECYCLE_TRANSIENT_INPUT_HEADLESS = 47_OF_47_PASS`
-`GODOT_PARSE_CURRENT_LIFECYCLE_SOURCE = PASS`
-`APK_BUILD_CURRENT_LIFECYCLE_SOURCE = PASS`
+`PERFORMANCE_TELEMETRY_SOURCE_IMPLEMENTED = YES`
+`PERFORMANCE_TELEMETRY_HEADLESS = 20_OF_20_PASS`
+`SUSTAINED_PERFORMANCE_PROTOCOL_PREPARED = YES`
+`GODOT_PARSE_CURRENT_TELEMETRY_SOURCE = PASS`
+`APK_BUILD_CURRENT_TELEMETRY_SOURCE = PASS`
 `PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
 `LIFECYCLE_PHONE_VERIFIED = NO / DEFERRED`
+`SUSTAINED_PERFORMANCE_PHONE_EXECUTED = NO / DEFERRED`
 `SUSTAINED_PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
