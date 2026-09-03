@@ -14,13 +14,11 @@ WorldLife is not active and must not be resumed.
 
 **Read `EVOLVE_ALIGNMENT.md` before every bounded pass.**
 
-Do not rely on remembered EVOLVE state.
-
-Then read the current handoff and the owning package/source for the exact task.
+Then read `PROJECT_HANDOFF.md`, the newest specialized handoff, and the owning package/source for the exact task.
 
 ## Current phase
 
-**STAGE 1 ENGINE/ANDROID PHONE FOUNDATION — JOYSTICK + SETTINGS/LOOK SPEED BUILD VERIFIED / GALAXY A03s RETEST PENDING**
+**STAGE 1 ENGINE/ANDROID PHONE FOUNDATION — HEADING-RESET JOYSTICK BUILD VERIFIED / GALAXY A03s RETEST PENDING**
 
 Implementation authorization is active, but later stages remain controlled by readiness gates.
 
@@ -33,10 +31,11 @@ Implementation authorization is active, but later stages remain controlled by re
 5. `DOCUMENTATION_INDEX.md`
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-8. `docs/70_handoff/STAGE1_CONTROL_CAMERA_REFINEMENT_2026-09-03.md`
-9. `probes/android_stage1/README.md`
-10. `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
-11. owning package/source for the bounded task.
+8. `docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`
+9. `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
+10. `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
+11. `probes/android_stage1/README.md`
+12. owning package/source for the bounded task.
 
 ## Current Stage-1 engine/device truth
 
@@ -61,45 +60,45 @@ Verified to date:
 
 Godot remains a probe candidate until the full phone-foundation gate closes.
 
-## Current protected control-camera baseline
-
-Direct user feedback found the first heading-follow camera too aggressive and requested:
-- analog movement joystick instead of four arrow keys;
-- Settings button;
-- tabbed Settings;
-- `Look Speed` in Controls;
-- saved Look Speed;
-- durable warning/documentation so these choices are not changed silently later.
+## Protected control-camera baseline
 
 Authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
 
-Current implementation:
-- lower-left analog movement joystick;
-- joystick analog magnitude + deadzone;
-- Hunter faces movement heading;
-- aerial camera follows/trails Hunter heading;
-- camera remains synchronized through first-person mode;
-- Settings button + tabbed overlay;
+Protected direction:
+- analog movement joystick instead of four arrow keys;
+- Settings button;
+- tabbed Settings;
 - Controls → Look Speed;
 - default Look Speed `35%`;
-- setting persisted at `user://stage1_settings.cfg`, key `controls/look_speed`;
+- Look Speed saved at `user://stage1_settings.cfg`, key `controls/look_speed`;
+- aerial camera follows/trails Hunter heading;
 - opening Settings resets movement;
-- static preflight rejects silent restoration of old arrow Button controls or removal of protected settings behavior.
+- **each new joystick touch captures the Hunter's current heading as its forward/right reference**;
+- the reference stays stable while that touch remains active;
+- release/re-touch captures the newest Hunter heading again.
+
+Example:
+`face north → joystick right → turn/move east → release → new touch + joystick up → continue east/forward`.
+
+This specifically fixes the prior behavior where the player had to keep holding an absolute east direction after turning east.
 
 No-silent-change law:
-**do not remove, replace or materially retune this joystick/settings/look-speed/camera contract without reading the protected README and explicitly documenting/warning about the reason.**
+**do not remove, replace or materially retune this joystick/settings/look-speed/heading-reset/camera contract without reading the protected README and explicitly documenting/warning about the reason.**
 
 ## Current exact build
 
-Source/build revision tested:
-`1a90569e4b625c929274dffbeaf4f9ede368fe43`
+Heading-reset source commit:
+`9d9e83898616e16c902d0d3caf8e9c82253bf8a7`
+
+Exact tested revision:
+`2e112210c60b62335f94adfd1a1573afb81426f6`
 
 Workflow:
-`33781148418`
+`33783404093`
 
 Build evidence:
-- static preflight `147 / 147 PASS`;
+- static preflight `151 / 151 PASS`;
 - Godot 4.7.2 parse PASS;
 - Boot smoke PASS;
 - ProbeWorld smoke PASS;
@@ -107,29 +106,33 @@ Build evidence:
 - APK integrity PASS.
 
 APK:
-`UnnamedHuntRPG-Stage1Probe-joystick-settings.apk`
+`UnnamedHuntRPG-Stage1Probe-heading-reset.apk`
+
+Size:
+`57,570,361 bytes`
 
 SHA-256:
-`afb007424b9abfc6108b5759b2bbe974ae1db754b45b71fab58ca927a227a3cd`
+`1727750c3fc1f8385ed8c9bf1e4ccc3c559cede156e750380a1ff462c2bcfa8c`
 
 ## Exact next implementation action
 
 Phone-test that exact APK on the Galaxy A03s:
-1. partial/full joystick travel;
-2. diagonal movement;
-3. release → immediate stop/no stuck input;
-4. Settings opens and zeros movement;
-5. Look Speed visibly changes turn/camera response;
-6. chosen Look Speed persists after restart;
-7. camera feels controlled at the chosen value;
-8. aerial ↔ first-person continues preserving position.
+1. turn/move east with joystick-right;
+2. release;
+3. touch again and push joystick-up;
+4. verify Hunter continues east/forward;
+5. repeat for multiple headings;
+6. verify held input remains stable rather than circling;
+7. verify partial/diagonal input;
+8. verify Settings + saved Look Speed;
+9. verify aerial ↔ first-person still preserves physical position.
 
 After that passes, next separate bounded repair:
 **MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR**.
 
-The brown Monster placeholder currently has direct phone fail evidence because the Hunter can move through it.
+The brown Monster placeholder has direct phone fail evidence because the Hunter can move through it.
 
-Do not combine that collision repair with combat, Monster AI, damage, navigation, harvesting or production physics.
+Do not combine that collision repair with combat, Monster AI, damage, navigation, harvesting, or production physics.
 
 ## Build readiness classes
 
@@ -164,7 +167,7 @@ Recorded:
 Next independent design packet:
 **Initiative and Turn-Order Prototype Contract**.
 
-Do not combine that design pass with statuses, terrain numbers, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
+Do not combine that design pass with statuses, terrain numbers, Monster 01 attacks, berserk, party design, or defeat/retreat behavior.
 
 ## Locked game direction summary
 
@@ -200,7 +203,7 @@ S00–S06 physical hunting sectors with tracking and persistent escape/reacquisi
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
-`STATIC_PREFLIGHT_VERIFIED = YES / 147_OF_147_CURRENT_CONTROL_BUILD`
+`STATIC_PREFLIGHT_VERIFIED = YES / 151_OF_151_CURRENT_CONTROL_BUILD`
 `GODOT_PARSE_VERIFIED = YES`
 `HEADLESS_BOOT_SMOKE_VERIFIED = YES`
 `HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
@@ -208,11 +211,12 @@ S00–S06 physical hunting sectors with tracking and persistent escape/reacquisi
 `APK_BUILD_VERIFIED = YES`
 `GALAXY_A03S_INSTALL_VERIFIED = YES_ON_PRIOR_STAGE1_APKS`
 `ANALOG_JOYSTICK_SOURCE_IMPLEMENTED = YES`
+`JOYSTICK_HEADING_RESET_SOURCE_IMPLEMENTED = YES`
+`JOYSTICK_HEADING_RESET_APK_BUILD_VERIFIED = YES`
+`JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / RETEST_PENDING`
 `LOOK_SPEED_SETTING_SOURCE_IMPLEMENTED = YES`
 `LOOK_SPEED_PERSISTENCE_IMPLEMENTED = YES`
 `CONTROL_CAMERA_PROTECTED_README = RECORDED`
-`CONTROL_CAMERA_CURRENT_APK_BUILD_VERIFIED = YES`
-`CONTROL_CAMERA_PHONE_RUNTIME_VERIFIED = NO / RETEST_PENDING`
 `MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
