@@ -1,6 +1,6 @@
 # Stage 1 Galaxy A03s Feedback — Camera / Collision — 2026-09-03
 
-Status: TARGET-DEVICE FEEDBACK RECORDED / CAMERA ROOT CAUSE PATCHED / COLLISION DEFECT DEFERRED TO NEXT BOUNDED PIECE
+Status: TARGET-DEVICE FEEDBACK RECORDED / CAMERA ROOT CAUSE PATCHED + REBUILT / PHONE RETEST PENDING / COLLISION DEFECT NEXT
 
 ## Purpose
 
@@ -24,12 +24,12 @@ User reported:
 
 ## Evidence classification
 
-Supported:
+Supported on the prior APK:
 - `BASIC_TOUCH_DIRECTIONAL_MOVEMENT = PASS_EVIDENCE`;
 - `FIRST_PERSON_BASIC_ENTRY = PASS_EVIDENCE`;
 - `OUTER_PROBE_BOUNDARY_CONTAINMENT = PASS_EVIDENCE`;
-- `AERIAL_CAMERA_HEADING_FOLLOW = FAIL_EVIDENCE` on the tested prior APK;
-- `MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE` on the tested prior APK.
+- `AERIAL_CAMERA_HEADING_FOLLOW = FAIL_EVIDENCE`;
+- `MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE`.
 
 Not yet proven:
 - rapid alternating touch input / stuck-state resistance;
@@ -37,11 +37,11 @@ Not yet proven:
 - sustained 10+ minute performance and thermal behavior;
 - background/resume and lock/unlock lifecycle;
 - collision response after repair;
-- camera-follow behavior after repair.
+- camera-follow behavior on the revised APK.
 
 ## Camera root cause
 
-Current source inspection showed the old camera implementation used a world-fixed look target:
+Source inspection showed the old camera implementation used a world-fixed look target:
 
 `hunter.global_position + Vector3(0.0, 0.7, -1.0)`
 
@@ -62,13 +62,43 @@ Repair direction:
 
 Prototype camera values are explicitly Stage-1 tuning only, not final production camera values.
 
+## Camera rebuild verification
+
+GitHub Actions run:
+`33778332943`
+
+Result for camera repair commit `af83b5451996fba46f584a7fd8091cdee6d49b47`:
+- checkout: PASS;
+- static preflight: `123 / 123 PASS`;
+- Godot 4.7.2 import/parse: PASS;
+- Boot headless smoke: PASS;
+- ProbeWorld headless smoke: PASS;
+- Android debug export: PASS;
+- APK archive integrity: PASS;
+- artifact upload: PASS.
+
+Revised APK:
+`UnnamedHuntRPG-Stage1Probe-camera-follow.apk`
+
+APK size:
+`57,566,265 bytes`
+
+APK SHA-256:
+`33b6a98063393c1916455cf3c740bc0a938d3ab9a8b2e664342b61852dbfd3a0`
+
+Gate truth:
+- `CAMERA_FOLLOW_SOURCE_IMPLEMENTED = YES`;
+- `CAMERA_FOLLOW_GODOT_PARSE_VERIFIED = YES`;
+- `CAMERA_FOLLOW_APK_BUILD_VERIFIED = YES`;
+- `CAMERA_FOLLOW_PHONE_RUNTIME_VERIFIED = NO / RETEST_PENDING`.
+
 ## Deferred collision defect
 
 The brown Monster placeholder is currently visually present but is not yet a solid authoritative obstacle for the Hunter.
 
 This is a starting-element defect because future terrain, monsters, props and combat positioning require trustworthy collision ownership.
 
-Next bounded implementation piece after the camera repair is verified:
+Next bounded implementation piece after the camera repair is phone-verified:
 **MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR**.
 
 That piece should:
