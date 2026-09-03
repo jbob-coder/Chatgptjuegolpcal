@@ -27,6 +27,7 @@ REQUIRED_FILES = (
     "scripts/probe_world.gd",
     "docs/ANDROID_EXPORT_SETUP.md",
     "docs/PROBE_TEST_PROTOCOL.md",
+    "docs/CONTROL_CAMERA_FOUNDATION_README.md",
     "README.md",
 )
 
@@ -49,6 +50,39 @@ EXPECTED_PROJECT_TEXT = {
 EXPECTED_ROOT_EXTENDS = {
     "scenes/boot.tscn": ("Control", "scripts/boot.gd", "Control"),
     "scenes/probe_world.tscn": ("Node3D", "scripts/probe_world.gd", "Node3D"),
+}
+
+# User-directed Stage-1 control/camera foundation. These checks intentionally
+# make silent reversion to the old arrow controls or removal of Look Speed fail
+# static preflight. See docs/CONTROL_CAMERA_FOUNDATION_README.md.
+EXPECTED_CONTROL_SCENE_TEXT = {
+    '[node name="MoveJoystick" type="ColorRect" parent="HUD/Touch"]': "analog movement joystick exists",
+    '[node name="Knob" type="ColorRect" parent="HUD/Touch/MoveJoystick"]': "joystick knob exists",
+    '[node name="SettingsButton" type="Button" parent="HUD/Touch"]': "Settings button exists",
+    '[node name="SettingsOverlay" type="PanelContainer" parent="HUD"]': "Settings overlay exists",
+    '[node name="Tabs" type="TabContainer" parent="HUD/SettingsOverlay/Layout"]': "tabbed Settings structure exists",
+    '[node name="Controls" type="VBoxContainer" parent="HUD/SettingsOverlay/Layout/Tabs"]': "Controls tab exists",
+    '[node name="LookSpeed" type="HSlider" parent="HUD/SettingsOverlay/Layout/Tabs/Controls"]': "Look Speed slider exists",
+    'method="_on_look_speed_changed"': "Look Speed signal remains connected",
+}
+
+FORBIDDEN_CONTROL_SCENE_TEXT = {
+    '[node name="Up" type="Button" parent="HUD/Touch"]': "old Up arrow button must not return",
+    '[node name="Down" type="Button" parent="HUD/Touch"]': "old Down arrow button must not return",
+    '[node name="Left" type="Button" parent="HUD/Touch"]': "old Left arrow button must not return",
+    '[node name="Right" type="Button" parent="HUD/Touch"]': "old Right arrow button must not return",
+}
+
+EXPECTED_CONTROL_SCRIPT_TEXT = {
+    'const SETTINGS_PATH := "user://stage1_settings.cfg"': "settings persistence path remains stable",
+    "const LOOK_SPEED_DEFAULT := 0.35": "calmer Look Speed default remains 35%",
+    'config.set_value("controls", "look_speed", _look_speed)': "Look Speed persistence write remains present",
+    'config.get_value("controls", "look_speed", LOOK_SPEED_DEFAULT)': "Look Speed persistence read remains present",
+    "func _update_joystick_from_screen_position": "analog joystick processing remains present",
+    "func _reset_joystick": "joystick release/reset path remains present",
+    "func _on_settings_pressed": "Settings open/close handler remains present",
+    "func _on_look_speed_changed": "Look Speed handler remains present",
+    "_update_aerial_camera(delta)": "aerial camera stays synchronized during both view modes",
 }
 
 RES_PATH_RE = re.compile(r'res://[A-Za-z0-9_./-]+')
@@ -332,6 +366,20 @@ def check_scene(rel: str, checks: list[Check]) -> None:
         )
 
 
+def check_control_foundation(checks: list[Check]) -> None:
+    scene = read("scenes/probe_world.tscn")
+    script = read("scripts/probe_world.gd")
+
+    for needle, label in EXPECTED_CONTROL_SCENE_TEXT.items():
+        checks.append(Check(f"control-foundation:scene:{label}", needle in scene, needle))
+
+    for needle, label in FORBIDDEN_CONTROL_SCENE_TEXT.items():
+        checks.append(Check(f"control-foundation:no-legacy:{label}", needle not in scene, needle))
+
+    for needle, label in EXPECTED_CONTROL_SCRIPT_TEXT.items():
+        checks.append(Check(f"control-foundation:script:{label}", needle in script, needle))
+
+
 def check_source_boundary(checks: list[Check]) -> None:
     gd_files = {
         path.relative_to(ROOT).as_posix()
@@ -368,6 +416,7 @@ def main() -> int:
         check_project(checks)
         check_scene("scenes/boot.tscn", checks)
         check_scene("scenes/probe_world.tscn", checks)
+        check_control_foundation(checks)
         check_source_boundary(checks)
     except Exception as exc:
         checks.append(Check("preflight-internal", False, f"{type(exc).__name__}: {exc}"))
