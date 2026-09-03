@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 CONTROL-CAMERA FOUNDATION RETEST
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 HEADING-RESET JOYSTICK RETEST
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -68,7 +68,7 @@ Classes:
 Primary law:
 **an open question blocks only the earliest implementation gate that genuinely consumes its answer.**
 
-Do not advance into Stage 2 while the Stage-1 phone foundation gate still has unresolved control/collision/lifecycle/performance evidence.
+Do not advance into Stage 2 while Stage-1 phone foundation still has unresolved control/collision/lifecycle/performance evidence.
 
 ## Current implementation authorization
 
@@ -77,7 +77,7 @@ Do not advance into Stage 2 while the Stage-1 phone foundation gate still has un
 
 Current candidate:
 - Godot 4.7 family;
-- current build tooling: Godot 4.7.2 stable;
+- build tooling: Godot 4.7.2 stable;
 - GDScript;
 - GL Compatibility / OpenGL3;
 - Android;
@@ -88,116 +88,114 @@ The isolated source under `probes/android_stage1/` remains evidence-gathering pr
 
 ## Verified Stage-1 evidence
 
-Previously verified:
+Verified before the current change:
 - source/readback;
 - real-checkout static preflight;
 - Godot import/parse;
 - Boot/ProbeWorld headless smoke;
-- Android debug export and APK integrity;
+- Android debug export/APK integrity;
 - Galaxy A03s install and 3D runtime smoke;
 - GL Compatibility/OpenGL3 observed on device;
-- one instantaneous device sample showed 60 FPS / ~16.7 ms and 40.9 MiB debug static memory;
-- basic prior touch movement, first-person entry and outer-boundary containment received positive user evidence.
+- instantaneous device sample `60 FPS / ~16.7 ms / 40.9 MiB debug static memory`;
+- basic touch movement, first-person entry and outer-boundary containment received positive user evidence.
 
 The one-frame FPS sample is not sustained-performance verification.
 
-## Current user-directed control/camera baseline
-
-Latest direct Galaxy A03s feedback established that the heading-follow camera concept was correct but its turn response was too aggressive.
-
-The user explicitly requested:
-- replace the four directional touch keys with an analog joystick;
-- add a Settings button;
-- Settings must use tabs;
-- Controls tab must contain `Look Speed`;
-- Look Speed must be saved;
-- document/protect the chosen behavior so it is not later changed silently.
+## Protected user-directed control/camera baseline
 
 Protected authority:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
-Specialized implementation handoff:
-`docs/70_handoff/STAGE1_CONTROL_CAMERA_REFINEMENT_2026-09-03.md`.
+Latest specialized handoff:
+`docs/70_handoff/STAGE1_JOYSTICK_HEADING_RESET_2026-09-03.md`.
 
-### Implemented control behavior
-
-- lower-left analog `MoveJoystick`;
-- normalized analog magnitude + `0.12` deadzone;
-- joystick release resets movement;
-- Settings opening resets movement;
-- Hunter turns toward movement heading;
-- aerial camera follows/trails Hunter heading rather than world-fixed `-Z`;
-- aerial camera remains synchronized while first-person is active;
+User-approved/protected direction now includes:
+- analog movement joystick instead of four arrow keys;
 - tabbed Settings overlay;
-- Controls tab with Look Speed slider;
-- Look Speed default `35%`;
-- Look Speed persists through `ConfigFile` at `user://stage1_settings.cfg`;
-- persistence key `controls/look_speed`;
-- Look Speed changes turn/follow response, not movement speed.
+- Controls → Look Speed;
+- default Look Speed `35%`;
+- persistence `user://stage1_settings.cfg`, key `controls/look_speed`;
+- Hunter turns toward resolved movement heading;
+- aerial camera follows/trails Hunter heading;
+- camera stays synchronized during first person;
+- opening Settings resets movement;
+- **each new joystick touch captures the Hunter's current heading as the movement reference**;
+- active touch keeps that reference stable;
+- release/re-touch resets joystick forward to the Hunter's latest heading.
+
+Example:
+`face north → push right → turn/move east → release → touch again → push up → continue east/forward`.
+
+Reason:
+the prior world-axis mapping forced the player to keep holding an absolute east direction after turning east.
+
+A continuously rotating control basis was rejected because it can curve/circle while the same input remains held.
 
 ### No-silent-change law
 
-**Do not remove, replace or materially retune the joystick/settings/look-speed/camera interaction contract without first reading the protected README and explicitly documenting/warning about the reason for the change.**
+**Do not remove, replace or materially retune the joystick/settings/look-speed/heading-reset/camera interaction contract without first reading the protected README and explicitly documenting/warning about the reason for the change.**
 
-The static preflight now also enforces this baseline and rejects restoration of the old Up/Down/Left/Right touch buttons.
+Static preflight enforces the protected baseline.
 
 ## Current exact build evidence
 
-Exact tested control-refinement revision:
-`1a90569e4b625c929274dffbeaf4f9ede368fe43`
+Heading-reset source commit:
+`9d9e83898616e16c902d0d3caf8e9c82253bf8a7`
+
+Exact tested revision:
+`2e112210c60b62335f94adfd1a1573afb81426f6`
 
 Workflow run:
-`33781148418`
+`33783404093`
 
 Results:
-- static preflight `147 / 147 PASS`;
+- static preflight `151 / 151 PASS`;
 - Godot 4.7.2 import/parse PASS;
 - Boot headless smoke PASS;
 - ProbeWorld headless smoke PASS;
 - Android debug export PASS;
-- APK integrity PASS.
+- APK archive integrity PASS.
 
 Current retest APK:
-`UnnamedHuntRPG-Stage1Probe-joystick-settings.apk`
+`UnnamedHuntRPG-Stage1Probe-heading-reset.apk`
 
 Size:
 `57,570,361 bytes`
 
 SHA-256:
-`afb007424b9abfc6108b5759b2bbe974ae1db754b45b71fab58ca927a227a3cd`
+`1727750c3fc1f8385ed8c9bf1e4ccc3c559cede156e750380a1ff462c2bcfa8c`
 
 Build verification is not phone-control verification.
 
 ## Exact current implementation gate
 
-Next action is **phone-test this exact joystick/settings APK on the Galaxy A03s**.
+Phone-test this exact heading-reset APK on Galaxy A03s:
+1. turn/move east using joystick-right;
+2. release fully;
+3. touch again and push joystick-up;
+4. verify up now continues east/forward;
+5. repeat for multiple headings;
+6. verify an active held gesture remains stable and does not spiral/circle;
+7. verify partial/diagonal movement;
+8. verify Settings + saved Look Speed;
+9. verify aerial ↔ first-person still preserves physical position.
 
-Test only:
-1. partial/full joystick travel;
-2. diagonal movement;
-3. release → immediate stop/no stuck input;
-4. Settings opens and zeros movement;
-5. Controls tab Look Speed visibly changes turn/camera response;
-6. preferred Look Speed remains after app restart;
-7. aerial camera remains smooth/coherent at the chosen setting;
-8. aerial ↔ first-person still preserves position.
-
-Do not begin the next unrelated repair until this bounded control/camera pass has phone evidence unless a newer explicit user instruction supersedes the sequence.
+Do not begin the next unrelated implementation repair before this control behavior receives phone evidence unless a newer explicit user instruction supersedes the sequence.
 
 ## Next separate foundation defect
 
-Already confirmed on the prior phone build:
+Already confirmed on prior phone build:
 `MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE`.
 
-After the current control/camera retest passes, the next bounded implementation piece is:
+After the heading-reset joystick retest passes, next bounded implementation piece:
 **MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR**.
 
-That piece must not expand into combat, Monster AI, damage, navigation, harvesting, or production physics.
+Do not expand that piece into combat, Monster AI, damage, navigation, harvesting, or production physics.
 
 ## Remaining Stage-1 foundation sequence
 
 Before broad game construction:
-1. joystick/control behavior phone-verified;
+1. joystick/input/reference-frame behavior phone-verified;
 2. camera/look-speed behavior phone-verified;
 3. solid Monster/world obstacle collision;
 4. world-boundary regression;
@@ -229,14 +227,14 @@ Do not combine it with statuses, terrain numbers, Monster 01 attacks, berserk, p
 ## Root-cause / performance rules
 
 For a defect:
-1. preserve the observed symptom;
-2. identify the owning system/root cause;
-3. fix the smallest correct cause;
-4. rerun relevant static/Godot/APK gates;
+1. preserve observed symptom;
+2. identify owning system/root cause;
+3. fix smallest correct cause;
+4. rerun static/Godot/APK gates;
 5. rerun target-phone behavior when player-facing;
 6. update durable state.
 
-Performance is verified on the target phone, not inferred from source, CI, or one FPS screenshot.
+Performance is verified on target phone, not inferred from source, CI, or one FPS screenshot.
 
 Protect in order:
 1. input responsiveness;
@@ -249,7 +247,7 @@ Protect in order:
 
 ## Current stop / next condition
 
-`STATIC_PREFLIGHT_VERIFIED = YES / 147_OF_147_CURRENT_CONTROL_BUILD`
+`STATIC_PREFLIGHT_VERIFIED = YES / 151_OF_151_CURRENT_CONTROL_BUILD`
 `GODOT_PARSE_VERIFIED = YES`
 `HEADLESS_BOOT_SMOKE_VERIFIED = YES`
 `HEADLESS_PROBEWORLD_SMOKE_VERIFIED = YES`
@@ -257,16 +255,17 @@ Protect in order:
 `APK_BUILD_VERIFIED = YES`
 `GALAXY_A03S_INSTALL_VERIFIED = YES_ON_PRIOR_STAGE1_APKS`
 `ANALOG_JOYSTICK_SOURCE_IMPLEMENTED = YES`
+`JOYSTICK_HEADING_RESET_SOURCE_IMPLEMENTED = YES`
+`JOYSTICK_HEADING_RESET_APK_BUILD_VERIFIED = YES`
+`JOYSTICK_HEADING_RESET_PHONE_VERIFIED = NO / RETEST_PENDING`
 `LOOK_SPEED_SETTING_SOURCE_IMPLEMENTED = YES`
 `LOOK_SPEED_PERSISTENCE_IMPLEMENTED = YES`
 `CONTROL_CAMERA_PROTECTED_README = RECORDED`
-`CONTROL_CAMERA_CURRENT_APK_BUILD_VERIFIED = YES`
-`CONTROL_CAMERA_PHONE_RUNTIME_VERIFIED = NO / RETEST_PENDING`
 `MONSTER_PLACEHOLDER_SOLID_COLLISION = FAIL_EVIDENCE / NEXT_REPAIR_AFTER_RETEST`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-`NEXT_IMPLEMENTATION_ACTION = PHONE_RETEST_JOYSTICK_SETTINGS_LOOK_SPEED_APK`
+`NEXT_IMPLEMENTATION_ACTION = PHONE_RETEST_HEADING_RESET_JOYSTICK_APK`
 `NEXT_IMPLEMENTATION_AFTER_PASS = MONSTER_PLACEHOLDER_SOLID_COLLISION_REPAIR`
 `NEXT_INDEPENDENT_DESIGN_ACTION = INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT`
