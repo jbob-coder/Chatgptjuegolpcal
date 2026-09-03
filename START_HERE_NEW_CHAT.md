@@ -4,7 +4,7 @@ Last reconciled: 2026-09-03
 
 ## Active project identity
 
-This is the Android-targeted monster-hunting RPG using the repository area that previously contained WorldLife RPG.
+This is the Android-targeted monster-hunting tactical RPG using the repository area that previously contained WorldLife RPG.
 
 WorldLife is abandoned and must not be resumed unless a current repository authority explicitly preserves a specific item.
 
@@ -26,13 +26,22 @@ Then read:
 
 Do not reconstruct the project from old chat summaries when current repository authorities exist.
 
+## Main working rule
+
+The game is the main goal.
+
+README/Markdown/index/handoff files exist to answer:
+`WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
+
+Do not create documentation with no implementation/design/QA/continuity consumer.
+
 ## Current phase
 
 **STAGE 1 ENGINE/ANDROID FOUNDATION — AUTOMATED FOUNDATION + PERFORMANCE PROCEDURE PREPARED / DIRECT GALAXY A03s EVIDENCE STILL REQUIRED.**
 
 Production domain/combat source remains behind readiness gates.
 
-The user explicitly instructed development not to stop waiting for phone reports. Therefore the phone gate stays deferred/unverified while independent non-phone design proceeds.
+The user explicitly instructed development not to stop waiting for phone reports. Therefore the phone gate stays deferred/unverified while independent non-phone game design proceeds.
 
 ## Current engine/device truth
 
@@ -84,9 +93,6 @@ Do not silently change analog joystick behavior, heading-reset basis, Hunter-fac
 
 ## Documentation map rule
 
-The repository must answer:
-**WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT.**
-
 Use:
 - root `README.md` — human project front door;
 - `docs/README.md` — documentation/package placement rules;
@@ -105,7 +111,7 @@ Authority:
 Current:
 - engine probe — automated foundation prepared; direct current-phone bundle remains;
 - domain implementation — blocked by engine-phone gate;
-- combat design — partial/advanced with five core contracts recorded;
+- combat design — partial/advanced with six core contracts recorded;
 - vertical slice — partial/later;
 - expansion — intentionally open.
 
@@ -119,35 +125,34 @@ Recorded authorities:
 2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
 3. `FIRST_WEAPON_FAMILY_CONTRACT.md`;
 4. `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`;
-5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`.
+5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`;
+6. `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`.
 
-### Current Initiative / turn-order prototype
+### Current status/tactical-state prototype
 
-Selected:
+Selected minimal set:
+- `status_bleeding`;
+- `status_staggered`;
+- `status_off_balance`;
+- `tactical_braced`;
+- `tactical_guarded`.
 
-```text
-InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier
-```
-
-Laws:
-- no Initiative/random opener roll;
-- snapshot on encounter entry;
-- deterministic tie order `Rating DESC → Agility DESC → Perception DESC → stable combatant ID ASC`;
-- no ordinary mid-encounter resorting;
-- one normal activation maximum per eligible actor per round;
-- reactions/counters are not normal activations;
-- late entrants wait until next round for a normal activation;
-- ineligible actor at its slot skips that round;
-- dead/escaped actors leave pending/future schedule;
-- save/reload may not duplicate consumed slots or turn-start recovery/resource refresh;
-- UI/animation cannot advance turn order.
+Key laws:
+- no independent random status-proc roll;
+- Bleeding intensity maximum `3`, max one periodic event per affected actor/round, first tick next round earliest;
+- Staggered blocks Dodge/Parry but never auto-skips the next normal activation;
+- Staggered transitions once to Off-Balance at next activation start;
+- Off-Balance blocks Parry and can be cleared through deliberate Brace or after one completed activation;
+- Braced and Guarded are separate tactical states;
+- Guarded is directional and never auto-Blocks;
+- none of the five alters Initiative or creates extra normal activations.
 
 Specialized record:
-`docs/70_handoff/INITIATIVE_AND_TURN_ORDER_PASS_2026-09-03.md`.
+`docs/70_handoff/FIRST_SLICE_STATUS_SET_PASS_2026-09-03.md`.
 
 This is design-recorded only. No combat runtime is claimed.
 
-## Current content anchors
+## Current game/content anchors
 
 World hierarchy:
 `WORLD ATLAS → WALKABLE SETTLEMENT → HUNTER GATE → CONTINUOUS HUNTING REGION → LOCAL FIRST-PERSON ENCOUNTER`.
@@ -159,7 +164,7 @@ Hunter Base 01:
 1.75 m reusable humanoid base.
 
 Monster 01 — Mudcrest Raker:
-~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs/feet; severable distal tail; internal crystal.
+~6.6 m long / ~3.0 m shoulder/body height; horn crest; dorsal plates; mud-adapted legs/feet; severable distal tail; internal crystal.
 
 Primary attributes:
 Might / Finesse / Agility / Endurance / Perception / Resolve.
@@ -168,7 +173,17 @@ Progression:
 equipment + mastery + knowledge weighted.
 
 Combat baseline:
-4 AP / 1 RP / persistent Stamina / Max Stamina prototype 100 / deterministic hit resolution / Field Poleblade first family / deterministic turn order.
+4 AP / 1 RP / persistent Stamina / Max Stamina prototype 100 / deterministic hit resolution / Field Poleblade / deterministic turn order / minimal five-state status packet.
+
+## Planned bounded sequence
+
+`STATUS SET = RECORDED`
+→ `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`
+→ `MONSTER 01 ATTACK PACKET`
+→ `BERSERK PROTOTYPE`
+→ `SOLO/PARTY BASELINE`
+→ `DEFEAT/RETREAT BASELINE`
+→ implementation after prerequisite engine/domain gates.
 
 ## Exact continuation state
 
@@ -179,8 +194,8 @@ Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Active action that can proceed now:
-`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`.
+`FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`.
 
-That pass must remain limited to the smallest reusable first-slice statuses/tactical states and their ownership/timing/stacking/removal/trace rules. Do not combine it with terrain values, Monster 01 attacks, berserk, party design or defeat/retreat behavior.
+That pass must stay limited to the concrete first-slice terrain surfaces/effects required to prove combat-space interaction. Do not combine it with Monster 01 attacks, berserk, party design, defeat/retreat behavior or production implementation.
 
 Current explicit user instruction > current verified source/tests > current owning repository authorities > direct target-device evidence for runtime claims > build evidence > old notes/chat memory.

@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / STAGE 1 AUTOMATED FOUNDATION ADVANCED / PHONE FOUNDATION GATE DEFERRED / LATER GATES CONTROLLED
+Status: ACTIVE GOVERNANCE / STAGE 1 AUTOMATED FOUNDATION ADVANCED / PHONE FOUNDATION GATE DEFERRED / COMBAT SIX-CORE-CONTRACT FOUNDATION RECORDED
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -9,8 +9,6 @@ Classify every design/documentation requirement by the first implementation stag
 
 Primary law:
 **an open question blocks only the earliest implementation gate that genuinely needs its answer.**
-
-Do not hold the whole project because expansion-level lore/content remains open.
 
 Readiness classes:
 1. `MUST_EXIST_BEFORE_ENGINE_PROBE`
@@ -29,7 +27,7 @@ A requirement moves earlier only when verified implementation dependency proves 
 |---|---|---|
 | ENGINE PROBE | **AUTOMATED FOUNDATION + PERFORMANCE PROCEDURE PREPARED / CURRENT PHONE GATE DEFERRED** | source/build/headless gates pass; direct Galaxy A03s regression + sustained evidence remain |
 | DOMAIN IMPLEMENTATION | **BLOCKED BY ENGINE PHONE GATE** | production domain source must not be founded on an unclosed engine/device gate |
-| COMBAT | **PARTIAL / ADVANCED / FIVE CORE CONTRACTS RECORDED** | action economy, resolution, first weapon, Stamina, Initiative/turn order recorded; remaining first-slice packets still open |
+| COMBAT | **PARTIAL / ADVANCED / SIX CORE CONTRACTS RECORDED** | action economy, resolution, first weapon, Stamina, Initiative and first status set recorded; terrain/content/berserk/failure packets remain |
 | VERTICAL SLICE | **PARTIAL / LATER** | world/content packages exist; integrated loop prerequisites remain |
 | EXPANSION | **INTENTIONALLY OPEN** | broad content/lore/endgame decisions must not delay earlier gates |
 
@@ -82,7 +80,7 @@ Current protocol revision built by CI:
 Workflow:
 `33811355891` — `SUCCESS`.
 
-Current automated gates:
+Automated gates:
 - static `154 / 154 PASS`;
 - Monster collision `8 / 8 PASS`;
 - boundary `12 / 12 PASS`;
@@ -95,9 +93,9 @@ Current automated gates:
 Prepared sustained-performance authority:
 `probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
 
-## Remaining engine-probe evidence
+## Remaining direct phone evidence
 
-Direct current-build Galaxy A03s evidence remains required for:
+Need current Galaxy A03s evidence for:
 - heading-reset controls and Look Speed persistence;
 - Monster solidity;
 - boundary containment;
@@ -115,15 +113,6 @@ Implementation blocker:
 
 Implementation action when device evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
-
-Not required before Stage 1:
-- final game name/lore;
-- final combat damage numbers;
-- production art;
-- full crafting/economy;
-- party design;
-- endgame progression;
-- complete ecology.
 
 ---
 
@@ -143,7 +132,7 @@ Stage-1 phone evidence:
 
 - module/domain ownership — `SYSTEM_ARCHITECTURE_BLUEPRINT.md`, `CODE_GUIDE.md`;
 - stable IDs/content definitions vs runtime state — `CONTENT_DATA_GUIDE.md`;
-- GameState/PlayerState/WorldState/Monster/BodyPart/Encounter boundaries — design level recorded;
+- GameState/PlayerState/WorldState/Monster/BodyPart/Encounter boundaries — design recorded;
 - deterministic authored behavior — recorded;
 - seeded/reproducible randomness direction — recorded;
 - stats/effects ownership — recorded;
@@ -151,11 +140,12 @@ Stage-1 phone evidence:
 - verification/testing vocabulary — recorded;
 - combat resolution randomness boundary — recorded;
 - Stamina state/recovery ownership — recorded;
-- Initiative/turn-order prototype ownership — recorded.
+- Initiative/turn-order ownership — recorded;
+- first-slice status/state ownership — recorded.
 
 May remain unfinished before Stage 2:
 - final combat numeric tuning;
-- first-slice status/terrain balance;
+- first-slice terrain balance;
 - final weapon animation/range meters;
 - settlement final art;
 - full crafting tree;
@@ -168,11 +158,11 @@ May remain unfinished before Stage 2:
 # 4. MUST EXIST BEFORE COMBAT
 
 Purpose:
-ensure real combat implementation has enough mechanical authority to avoid foundational rewrites.
+ensure real combat implementation has enough mechanical authority to avoid repeated foundational rewrites.
 
 ## Recorded core contracts
 
-### Action Economy — DONE
+### Action Economy — RECORDED
 Authority:
 `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`.
 
@@ -182,10 +172,9 @@ Selected:
 - persistent Stamina;
 - no AP banking;
 - explicit reaction windows;
-- no recursive reaction loops;
-- one normal activation per eligible actor per round.
+- one normal activation max per eligible actor/round.
 
-### Combat Resolution / Hit Quality / Defense — DONE AT ARCHITECTURAL DESIGN LEVEL
+### Combat Resolution / Hit Quality / Defense — RECORDED
 Authority:
 `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`.
 
@@ -194,23 +183,22 @@ Recorded:
 - frozen resolution context;
 - AttackControl vs DefenseControl;
 - body vs selected-part contact;
-- exposure states;
-- directional cover;
-- distinct Dodge/Block/Parry/Brace roles;
+- exposure/directional cover;
+- Dodge/Block/Parry/Brace roles;
 - one bounded seeded variance source;
 - no unrelated random crit roll;
 - `MISS / GRAZE / SOLID / CLEAN / PRECISION`;
 - local protection/anatomy ordering;
 - explainable traces.
 
-### First Weapon Family — DONE AT FIRST-SLICE DESIGN LEVEL
+### First Weapon Family — RECORDED
 Authority:
 `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`.
 
 Selected:
 `WEAPON_FAMILY_FIELD_POLEBLADE` with explicit tradeoffs and 2/3/4-AP technique commitments.
 
-### Stamina Prototype Scale / Recovery — DONE AT FIRST-SLICE PROTOTYPE LEVEL
+### Stamina Prototype — RECORDED
 Authority:
 `docs/20_gameplay/combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`.
 
@@ -219,9 +207,9 @@ Selected:
 - passive recovery `+10` once at normal activation start;
 - affordability/recovery-driven pressure;
 - delayed `CATCH_BREATH` anti-loop model;
-- explicit Field Poleblade Stamina costs.
+- explicit first-slice exertion/Field Poleblade costs.
 
-### Initiative and Turn-Order Prototype — DONE AT FIRST-SLICE PROTOTYPE LEVEL
+### Initiative / Turn Order — RECORDED
 Authority:
 `docs/20_gameplay/combat/INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`.
 
@@ -235,14 +223,37 @@ Laws:
 - no Initiative/random opener roll;
 - snapshot on encounter entry;
 - deterministic ties `Rating DESC → Agility DESC → Perception DESC → stable combatant ID ASC`;
-- no ordinary mid-round/mid-encounter resorting;
-- one normal activation max per eligible actor per round;
+- no ordinary mid-encounter resorting;
+- one normal activation max per eligible actor/round;
 - reactions are not normal activations;
 - late entrants wait until next round;
 - ineligible-at-slot actor skips that round;
 - dead/escaped actors are removed;
-- save/reload may not duplicate consumed slots or turn-start resource hooks;
-- combat domain alone advances schedule.
+- save/reload may not duplicate consumed slots/resource-refresh hooks.
+
+### First-Slice Status / Tactical-State Set — RECORDED
+Authority:
+`docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`.
+
+Selected minimal set:
+- `status_bleeding`;
+- `status_staggered`;
+- `status_off_balance`;
+- `tactical_braced`;
+- `tactical_guarded`.
+
+Selected laws:
+- no separate random status-proc roll;
+- Bleeding `STACK_INTENSITY_CAPPED`, max intensity `3`;
+- one Bleeding periodic event max per affected actor/round;
+- first Bleeding tick `application_round + 1` earliest;
+- Staggered blocks Dodge/Parry but does not skip next normal activation;
+- Staggered transitions once to Off-Balance before next activation recovery/resource refresh;
+- Off-Balance blocks Parry and clears via deliberate Brace or after one completed activation;
+- Braced/Guarded are tactical states, not cure/resistance statuses;
+- Guarded is directional and never auto-Blocks;
+- Braced + Guarded may coexist;
+- none of the five changes Initiative or grants extra activations.
 
 ## Other recorded prerequisites
 
@@ -256,22 +267,15 @@ Deterministic monster behavior architecture: `DONE AT DESIGN LEVEL`.
 
 ## Still required before real combat implementation
 
-### First-slice status/tactical-state set
+### Concrete first-slice terrain-effect set
 Status: `OPEN / NEXT COMBAT DESIGN DEPENDENCY`.
 
-Need only the smallest reusable set required to prove the architecture, with explicit ownership, timing, stacking/removal, capability/stat effects and trace requirements.
-
-Do not assume every candidate status is required. Candidates previously discussed include Bleeding, Staggered, Off-Balance and explicit tactical states such as Braced/Aimed; `EXHAUSTED` remains conditional on testing need.
-
-### First-slice terrain effects
-Status: `PARTIALLY DESIGNED / NUMBERS OPEN`.
-
-Need concrete values only for surfaces used by the first combat test.
+Need only the surfaces/effects required by the first combat test, using the existing terrain-tag/effect architecture. Avoid a large biome catalog.
 
 ### Monster 01 combat attack packet
 Status: `PARTIAL`.
 
-Need minimal legal attack list, capability requirements, telegraphs, commitment profiles, reactions and guard-impact drains.
+Need minimal legal attack list, capability requirements, telegraphs, commitment profiles, reactions, status consequences and guard-impact drains.
 
 ### First berserk prototype
 Status: `PARTIAL`.
@@ -292,7 +296,7 @@ Status: `OPEN`.
 - crystal/mutation core implemented/tested;
 - content-validation foundation implemented/tested.
 
-`COMBAT_DESIGN_READINESS = PARTIAL / FIVE CORE CONTRACTS RECORDED`.
+`COMBAT_DESIGN_READINESS = PARTIAL / SIX_CORE_CONTRACTS_RECORDED`.
 `COMBAT_IMPLEMENTATION = BLOCKED UNTIL REMAINING PACKETS + PRIOR IMPLEMENTATION GATES`.
 
 ---
@@ -329,9 +333,7 @@ Before vertical-slice verification need:
 - inventory/equipment/one crafting recipe;
 - persistent monster transfer;
 - save/reload relevant hunt/progression state;
-- Android lifecycle/performance verification of the complete loop.
-
-Full town art/population, broad content roster and endgame systems are not required.
+- Android lifecycle/performance verification of complete loop.
 
 `VERTICAL_SLICE_READINESS = PARTIAL / DEPENDS_ON_IMPLEMENTATION_STAGES`.
 
@@ -339,7 +341,7 @@ Full town art/population, broad content roster and endgame systems are not requi
 
 # 6. CAN WAIT UNTIL EXPANSION
 
-Important but intentionally later unless evidence promotes them:
+Intentionally later unless evidence promotes them:
 - final game name and complete lore/history;
 - complete crystal element/tier/genetics breadth;
 - deep ecology/breeding/migration simulation;
@@ -360,54 +362,42 @@ Important but intentionally later unless evidence promotes them:
 
 # 7. Promotion rule
 
-When a new requirement is discovered:
-1. identify which implementation stage first consumes it;
-2. assign it to the earliest justified class;
+When a new requirement appears:
+1. identify the earliest implementation stage that consumes it;
+2. assign it to that readiness class;
 3. document why;
 4. do not promote it merely because it is interesting;
 5. move it only when implementation evidence proves the classification wrong.
 
-Examples:
-- touch-control layout → `MUST_EXIST_BEFORE_ENGINE_PROBE`;
-- hit-resolution architecture → `MUST_EXIST_BEFORE_COMBAT`;
-- first weapon family → `MUST_EXIST_BEFORE_COMBAT`;
-- Stamina prototype → `MUST_EXIST_BEFORE_COMBAT`;
-- Initiative/turn order → `MUST_EXIST_BEFORE_COMBAT`;
-- one crafting recipe → `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
-- complete elemental roster → `CAN_WAIT_UNTIL_EXPANSION`.
+Current examples:
+- touch control behavior → before engine probe;
+- combat hit resolution → before combat, recorded;
+- first weapon family → before combat, recorded;
+- Stamina prototype → before combat, recorded;
+- Initiative prototype → before combat, recorded;
+- first status set → before combat, recorded;
+- one crafting recipe → before vertical slice;
+- complete elemental roster → expansion.
 
 ---
 
-# 8. Current project decision
+# 8. Current exact state
 
 `IMPLEMENTATION_AUTHORIZED = YES`
-`ENGINE_PROBE_CANDIDATE = GODOT_4_7_GDSCRIPT_GL_COMPATIBILITY`
-`TARGET_BASELINE_DEVICE = SAMSUNG_GALAXY_A03S`
-`STAGE1_AUTOMATED_FOUNDATION_VERIFIED = YES`
-`STAGE1_SUSTAINED_PERFORMANCE_PROTOCOL_PREPARED = YES`
+`CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 `DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`
 
-`COMBAT_ACTION_ECONOMY = RECORDED`
+`ACTION_ECONOMY_CONTRACT = RECORDED`
 `COMBAT_RESOLUTION_CONTRACT = RECORDED`
 `FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
-`FIRST_WEAPON_FAMILY = FIELD_POLEBLADE`
 `STAMINA_PROTOTYPE_CONTRACT = RECORDED`
 `INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
-`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`
+`FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
+`COMBAT_DESIGN_READINESS = PARTIAL / SIX_CORE_CONTRACTS_RECORDED`
 
-`VERTICAL_SLICE_READINESS = PARTIAL`
-`EXPANSION_DECISIONS = INTENTIONALLY_OPEN`
+`NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`
 
-Implementation blocker:
-`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
-
-Next implementation action when phone evidence is available:
-`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
-
-Next active independent non-phone design piece:
-`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`.
-
-Implementation and design may advance independently only when their dependencies do not conflict. Every bounded pass remains controlled by EVOLVE and repository readback/evidence gates.
+Implementation and independent design may advance in parallel only when dependencies do not conflict. Every bounded pass remains governed by `EVOLVE_ALIGNMENT.md`.

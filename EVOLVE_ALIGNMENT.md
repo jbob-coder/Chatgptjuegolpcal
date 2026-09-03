@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / FIVE CORE COMBAT CONTRACTS RECORDED / STATUS SET NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / SIX CORE COMBAT CONTRACTS RECORDED / TERRAIN EFFECT SET NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -15,6 +15,21 @@ Then read:
 5. owning package/README/source/tests for the exact bounded task.
 
 Do not rely on remembered state when repository/source/build/device evidence exists.
+
+## Main-goal rule
+
+The game is the objective.
+
+Documentation exists to preserve:
+- intent;
+- ownership;
+- dependencies;
+- implementation readiness;
+- verification evidence;
+- continuity;
+- exact next action.
+
+Do not create documentation with no game/design/implementation/QA/continuity consumer.
 
 ## Authority order
 
@@ -65,7 +80,7 @@ Every substantial durable piece must leave enough repository state to answer:
 `WHAT EXISTS → WHERE IT IS → WHAT OWNS IT → WHAT IS VERIFIED → WHAT REMAINS UNVERIFIED → WHAT HAPPENS NEXT`.
 
 Use:
-- root `README.md` — human project front door;
+- root `README.md` — human project front door/main game goal;
 - `docs/README.md` — documentation/package placement rules;
 - local package/folder `README.md` — local front door/file map;
 - `DOCUMENTATION_INDEX.md` — cross-project authority/read-order map;
@@ -230,54 +245,73 @@ Selected:
 ### 5. Initiative and Turn Order — RECORDED
 `docs/20_gameplay/combat/INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`.
 
+Selected:
+`InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier`.
+
+Laws:
+- no random Initiative/opener roll;
+- snapshot on encounter entry;
+- deterministic tie order;
+- no ordinary mid-encounter resorting;
+- one normal activation max per eligible actor/round;
+- late entrants wait until next round;
+- save/reload cannot duplicate schedule/resource hooks.
+
+### 6. First-Slice Status / Tactical-State Set — RECORDED
+`docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`.
+
 Specialized handoff:
-`docs/70_handoff/INITIATIVE_AND_TURN_ORDER_PASS_2026-09-03.md`.
+`docs/70_handoff/FIRST_SLICE_STATUS_SET_PASS_2026-09-03.md`.
 
-Selected prototype:
-
-```text
-InitiativeRating =
-    (2 × EffectiveAgility)
-  + EffectivePerception
-  + ExplicitInitiativeModifier
-```
+Selected minimal set:
+- `status_bleeding`;
+- `status_staggered`;
+- `status_off_balance`;
+- `tactical_braced`;
+- `tactical_guarded`.
 
 Selected laws:
-- `INITIATIVE_RANDOM_ROLL = NONE`;
-- snapshot once when actor enters encounter;
-- tie order `RATING_DESC → AGILITY_DESC → PERCEPTION_DESC → STABLE_COMBATANT_ID_ASC`;
-- no ordinary mid-encounter resorting;
-- `NORMAL_ACTIVATIONS_PER_ELIGIBLE_ACTOR_PER_ROUND = 1`;
-- reactions/counters are not normal activations;
-- late entrants receive their first normal activation next round earliest;
-- actor ineligible when its slot arrives is skipped for the rest of that round;
-- dead/escaped actors are removed from pending/future rosters;
-- save/reload may not resurrect consumed slots or duplicate passive recovery/AP/RP refresh;
-- UI/animation never advances schedule.
+- `FIRST_SLICE_STATUS_RANDOM_PROC = NONE`;
+- Bleeding `STACK_INTENSITY_CAPPED`, max `3`;
+- Bleeding periodic cadence max once per affected actor/round;
+- first Bleeding tick `application_round + 1` earliest;
+- Staggered blocks Dodge/Parry while active but does not skip next normal activation;
+- Staggered transitions once to Off-Balance at next activation start before recovery/AP-RP refresh;
+- Off-Balance blocks Parry and clears through deliberate Brace or after one completed normal activation;
+- Braced and Guarded are tactical states, not generic cure/resistance statuses;
+- Braced improves stability/consequence context, not contact Evasion by default;
+- Guarded records authoritative direction and enables compatible Block attempts but never auto-Blocks;
+- Braced + Guarded may coexist;
+- none of the five changes Initiative or grants extra normal activations.
+
+Explicitly deferred:
+- Exhausted;
+- generic Wounded;
+- Focused/Aimed;
+- Concealed;
+- environmental/toxin/psychological catalogs.
 
 This is design-recorded. No combat runtime exists; no runtime verification is claimed.
 
-`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`.
-`COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`.
+`COMBAT_DESIGN_READINESS = PARTIAL / SIX_CORE_CONTRACTS_RECORDED`.
 
 ## Exact current active non-phone gate
 
-`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`
+`FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`
 
 Bounded scope:
-1. read current status/effect ownership in `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` and the five combat contracts;
-2. choose only the smallest reusable first-slice status/tactical-state set needed to prove the architecture;
-3. define each selected state's owner, timing, stacking/refresh/removal law, relevant capability/stat hooks and trace requirements;
-4. keep tactical states such as Braced/Aimed distinct from persistent injury/anatomy where appropriate;
-5. do not create a large status catalog;
-6. do not select terrain numbers, Monster 01 attacks, berserk, party design or defeat/retreat behavior;
+1. read current terrain ownership in `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`, Region 01 terrain authority and the six combat contracts;
+2. choose only the concrete surfaces/effects required by the first combat test;
+3. define each selected terrain tag's movement/footing/cover/exposure/defense hooks through the shared modifier architecture;
+4. keep values bounded and explainable;
+5. do not create a broad biome catalog;
+6. do not author Monster 01 attacks, berserk, party design or defeat/retreat behavior;
 7. record future implementation tests without claiming runtime verification.
 
 ## Remaining combat-design sequence
 
-After status-set contract, still required before real combat implementation:
-- concrete first-slice terrain-effect set;
-- Monster 01 attack packet;
+After terrain-effect set:
+- Monster 01 combat attack packet;
 - first berserk prototype;
 - solo/party baseline;
 - defeat/retreat baseline;
@@ -303,9 +337,10 @@ After status-set contract, still required before real combat implementation:
 `FIRST_WEAPON_FAMILY_CONTRACT = RECORDED`
 `STAMINA_PROTOTYPE_CONTRACT = RECORDED`
 `INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
-`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`
+`FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
+`COMBAT_DESIGN_READINESS = PARTIAL / SIX_CORE_CONTRACTS_RECORDED`
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`

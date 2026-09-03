@@ -1,11 +1,13 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / FIVE CORE COMBAT CONTRACTS RECORDED / STATUS-SET DESIGN NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / SIX CORE COMBAT CONTRACTS RECORDED / TERRAIN-EFFECT DESIGN NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
 
-Finish the Stage-1 Android engine/device foundation without blocking independent non-phone design work on unavailable Galaxy A03s evidence.
+Continue building the new Android monster-hunting RPG one verified layer at a time while the Stage-1 Galaxy A03s implementation gate waits on direct device evidence.
+
+The game is the primary objective. Documentation is the continuity/ownership/test-control system used to prevent design drift and lost state.
 
 Current implementation-lane gate:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
@@ -14,13 +16,10 @@ Current implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
 Current active non-phone action:
-`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`.
+`FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`.
 
 Operating contract:
 `EVOLVE_ALIGNMENT.md`.
-
-Probe root:
-`probes/android_stage1/`.
 
 ## Mandatory read order
 
@@ -32,18 +31,13 @@ Probe root:
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
 8. newest relevant `docs/70_handoff/` record
-9. local package README/owning authorities/source/tests for the exact bounded task.
+9. local package README/authorities/source/tests for the bounded task.
 
-For combat design now read:
+For current combat design additionally read:
+- `docs/20_gameplay/README.md`;
 - `docs/20_gameplay/combat/README.md`;
-- the five recorded combat contracts;
-- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` and other specifically referenced owners as required.
-
-For Stage-1 Android work additionally read:
-- `probes/android_stage1/README.md`;
-- `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md` before control/camera changes;
-- `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`;
-- `probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
+- the six recorded combat contracts;
+- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md` and any specifically referenced owner required by the exact packet.
 
 Use current repository/source/build/device evidence rather than old WorldLife material or chat memory.
 
@@ -58,10 +52,11 @@ Playable direction:
 - walkable settlement/hub;
 - elevated angled aerial wilderness exploration;
 - first-person turn-based tactical combat from the same physical encounter;
-- anatomy, positioning, terrain, preparation, break/sever and harvest matter;
-- deterministic authored creature/NPC behavior rather than generative runtime AI.
+- explicit movement/cover/defense/attack/anatomy-targeting choices;
+- break/sever/harvest quality matters;
+- deterministic authored creature/NPC behavior rather than runtime generative AI.
 
-## Engine/device candidate and current build evidence
+## Current engine/device candidate and evidence
 
 Candidate:
 - Godot 4.7 family;
@@ -102,7 +97,7 @@ Current workflow artifact ZIP:
 - `57,124,301 bytes`;
 - SHA-256 `a02d8a1b79f3d0b87f4694c72f897beaf925016f86495a264bd72303563a6188`.
 
-Do not confuse the APK and artifact ZIP identities.
+Do not confuse APK and artifact ZIP identities.
 
 ## Completed Stage-1 automated foundation
 
@@ -117,14 +112,11 @@ Do not confuse the APK and artifact ZIP identities.
 Performance authority:
 `probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`.
 
-Performance-preparation handoff:
-`docs/70_handoff/STAGE1_SUSTAINED_PERFORMANCE_EVIDENCE_PREPARATION_2026-09-03.md`.
-
 `PERFORMANCE_VERIFIED = NO`.
 `ENGINE_PHONE_PROBE_VERIFIED = NO`.
 `FINAL_ENGINE_SELECTED = NO`.
 
-## Combat design foundation — five recorded contracts
+## Combat design foundation — six recorded contracts
 
 Combat package:
 `docs/20_gameplay/combat/`.
@@ -132,7 +124,7 @@ Combat package:
 ### 1. Action Economy
 `ACTION_ECONOMY_CONTRACT.md`
 
-Selected first-slice foundation:
+Selected:
 - 4 AP;
 - 1 RP;
 - persistent Stamina;
@@ -170,45 +162,73 @@ Selected:
 ### 5. Initiative and Turn Order
 `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`
 
-Selected formula:
+Selected:
+`InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier`.
 
-```text
-InitiativeRating = (2 × EffectiveAgility) + EffectivePerception + ExplicitInitiativeModifier
-```
-
-Selected scheduler laws:
-- no Initiative/random opener roll;
+Laws:
+- no random Initiative/opener roll;
 - snapshot on encounter entry;
+- deterministic tie order;
 - no ordinary mid-encounter resorting;
-- ties: `Rating DESC → Agility DESC → Perception DESC → stable combatant ID ASC`;
 - one normal activation max per eligible actor/round;
+- late entrants wait until next round;
 - reactions/counters are not normal activations;
-- late entrant acts next round earliest;
-- actor ineligible at its slot skips that round;
-- dead/escaped actor removed from pending/future schedule;
-- save/reload cannot duplicate consumed slots or turn-start recovery/resource refresh;
-- UI/animation cannot advance schedule.
+- save/reload cannot duplicate consumed slots or turn-start resource hooks.
 
-Initiative pass handoff:
-`docs/70_handoff/INITIATIVE_AND_TURN_ORDER_PASS_2026-09-03.md`.
+### 6. First-Slice Status / Tactical-State Set
+`FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`
 
-No combat runtime verification is claimed because combat source is not implemented.
+Selected minimal set:
+- `status_bleeding`;
+- `status_staggered`;
+- `status_off_balance`;
+- `tactical_braced`;
+- `tactical_guarded`.
 
-`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`.
+Selected laws:
+- no independent random status-proc roll;
+- Bleeding caps at intensity `3`, ticks max once per affected actor/round, first tick no earlier than next round;
+- Staggered blocks Dodge/Parry but does not skip next normal activation;
+- Staggered transitions once to Off-Balance before next activation recovery/resource refresh;
+- Off-Balance blocks Parry and clears through deliberate Brace or one completed normal activation;
+- Braced/Guarded are tactical states, not generic cure/resistance conditions;
+- Braced improves stability/consequence context, not Evasion by default;
+- Guarded stores authoritative direction and enables compatible Block attempts but never auto-Blocks;
+- Braced + Guarded can coexist;
+- none of the five changes Initiative or grants an extra normal activation.
+
+Status pass handoff:
+`docs/70_handoff/FIRST_SLICE_STATUS_SET_PASS_2026-09-03.md`.
+
+This is design-recorded only. No combat runtime exists and no runtime verification is claimed.
+
+`COMBAT_DESIGN_READINESS = PARTIAL / SIX_CORE_CONTRACTS_RECORDED`.
 `COMBAT_IMPLEMENTATION = BLOCKED_BY_READINESS_GATES`.
 
 ## Remaining combat-design dependencies
 
 Still required before real combat implementation:
-1. `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT` — current next non-phone piece;
-2. concrete first-slice terrain-effect values;
-3. Monster 01 combat attack packet;
-4. first berserk prototype;
-5. solo/party baseline;
-6. defeat/retreat baseline;
-7. prior production implementation/testing gates.
+1. `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT` — current next non-phone piece;
+2. Monster 01 combat attack packet;
+3. first berserk prototype;
+4. solo/party baseline;
+5. defeat/retreat baseline;
+6. prior production implementation/testing gates.
 
-The next status pass must not be combined with terrain values, Monster 01 attacks, berserk, party or defeat/retreat design.
+The terrain pass must not be combined with Monster 01 attack authoring, berserk, party or defeat/retreat design.
+
+## Current game-development plan
+
+The current bounded sequence is:
+
+`ENGINE/PHONE FOUNDATION (DIRECT DEVICE GATE DEFERRED)`
+parallel with
+`COMBAT DESIGN FOUNDATION`.
+
+Combat design sequence:
+`Action Economy → Resolution → First Weapon → Stamina → Initiative → Status Set → Terrain Effect Set → Monster 01 Attacks → Berserk → Solo/Party → Defeat/Retreat`.
+
+After the engine-phone gate and prerequisite production-domain stages pass, those contracts become implementation inputs rather than being re-invented in code.
 
 ## Documentation/navigation discipline
 
@@ -218,7 +238,7 @@ The project must always answer:
 Navigation ownership:
 - `README.md` — human project front door;
 - `docs/README.md` — documentation/package placement rules;
-- local package `README.md` — local map/front door;
+- local package README — local map/front door;
 - `DOCUMENTATION_INDEX.md` — global authority/read-order map;
 - `docs/70_handoff/` — bounded-pass continuity records;
 - `PROJECT_HANDOFF.md` + `START_HERE_NEW_CHAT.md` — current reconstruction;
@@ -240,9 +260,9 @@ Navigation ownership:
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 
-`INITIATIVE_TURN_ORDER_PROTOTYPE = RECORDED`
-`COMBAT_DESIGN_READINESS = PARTIAL / FIVE_CORE_CONTRACTS_RECORDED`
+`FIRST_SLICE_STATUS_SET_PROTOTYPE = RECORDED`
+`COMBAT_DESIGN_READINESS = PARTIAL / SIX_CORE_CONTRACTS_RECORDED`
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT`
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT`
