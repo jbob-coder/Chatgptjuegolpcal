@@ -119,45 +119,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Up" type="Button" parent="HUD/Touch"]
+[node name="MoveJoystick" type="ColorRect" parent="HUD/Touch"]
 layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 110.0
-offset_top = -205.0
-offset_right = 200.0
-offset_bottom = -125.0
-text = "▲"
+offset_left = 35.0
+offset_top = -255.0
+offset_right = 255.0
+offset_bottom = -35.0
+color = Color(0.06, 0.07, 0.07, 0.5)
 
-[node name="Left" type="Button" parent="HUD/Touch"]
+[node name="Knob" type="ColorRect" parent="HUD/Touch/MoveJoystick"]
 layout_mode = 0
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -120.0
-offset_right = 110.0
-offset_bottom = -40.0
-text = "◀"
+offset_left = 74.0
+offset_top = 74.0
+offset_right = 146.0
+offset_bottom = 146.0
+mouse_filter = 2
+color = Color(0.82, 0.84, 0.82, 0.82)
 
-[node name="Down" type="Button" parent="HUD/Touch"]
+[node name="MoveLabel" type="Label" parent="HUD/Touch/MoveJoystick"]
 layout_mode = 0
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 110.0
-offset_top = -120.0
-offset_right = 200.0
-offset_bottom = -40.0
-text = "▼"
-
-[node name="Right" type="Button" parent="HUD/Touch"]
-layout_mode = 0
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 200.0
-offset_top = -120.0
-offset_right = 290.0
-offset_bottom = -40.0
-text = "▶"
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = 52.0
+offset_right = 42.0
+offset_bottom = 78.0
+mouse_filter = 2
+text = "MOVE"
+horizontal_alignment = 1
 
 [node name="ToggleView" type="Button" parent="HUD/Touch"]
 layout_mode = 0
@@ -171,25 +164,89 @@ offset_right = -24.0
 offset_bottom = -40.0
 text = "AERIAL / FIRST PERSON"
 
+[node name="SettingsButton" type="Button" parent="HUD/Touch"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 84.0
+text = "SETTINGS"
+
 [node name="Help" type="Label" parent="HUD/Touch"]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -230.0
+offset_left = -300.0
 offset_top = -48.0
-offset_right = 230.0
+offset_right = 300.0
 offset_bottom = -16.0
-text = "Desktop: WASD • Phone: touch buttons • View toggle does not alter authoritative position"
+text = "Move: analog joystick • Settings: Look Speed • View toggle preserves authoritative position"
 horizontal_alignment = 1
 
-[connection signal="button_down" from="HUD/Touch/Up" to="." method="_on_up_down"]
-[connection signal="button_up" from="HUD/Touch/Up" to="." method="_on_up_up"]
-[connection signal="button_down" from="HUD/Touch/Left" to="." method="_on_left_down"]
-[connection signal="button_up" from="HUD/Touch/Left" to="." method="_on_left_up"]
-[connection signal="button_down" from="HUD/Touch/Down" to="." method="_on_down_down"]
-[connection signal="button_up" from="HUD/Touch/Down" to="." method="_on_down_up"]
-[connection signal="button_down" from="HUD/Touch/Right" to="." method="_on_right_down"]
-[connection signal="button_up" from="HUD/Touch/Right" to="." method="_on_right_up"]
+[node name="SettingsOverlay" type="PanelContainer" parent="HUD"]
+visible = false
+offset_left = 470.0
+offset_top = 145.0
+offset_right = 1130.0
+offset_bottom = 600.0
+
+[node name="Layout" type="VBoxContainer" parent="HUD/SettingsOverlay"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HUD/SettingsOverlay/Layout"]
+layout_mode = 2
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="Tabs" type="TabContainer" parent="HUD/SettingsOverlay/Layout"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Controls" type="VBoxContainer" parent="HUD/SettingsOverlay/Layout/Tabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Description" type="Label" parent="HUD/SettingsOverlay/Layout/Tabs/Controls"]
+layout_mode = 2
+text = "Camera / Control"
+
+[node name="LookSpeedValue" type="Label" parent="HUD/SettingsOverlay/Layout/Tabs/Controls"]
+layout_mode = 2
+text = "Look Speed: 35%"
+
+[node name="LookSpeed" type="HSlider" parent="HUD/SettingsOverlay/Layout/Tabs/Controls"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+min_value = 0.0
+max_value = 100.0
+step = 5.0
+value = 35.0
+
+[node name="LookSpeedHelp" type="Label" parent="HUD/SettingsOverlay/Layout/Tabs/Controls"]
+layout_mode = 2
+text = "Lower = calmer turns. Higher = faster Hunter/camera heading response. Saved automatically."
+autowrap_mode = 2
+
+[node name="Display" type="VBoxContainer" parent="HUD/SettingsOverlay/Layout/Tabs"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="DisplayInfo" type="Label" parent="HUD/SettingsOverlay/Layout/Tabs/Display"]
+layout_mode = 2
+text = "Display controls will be added only when a tested Stage-1 need exists."
+autowrap_mode = 2
+
+[node name="Close" type="Button" parent="HUD/SettingsOverlay/Layout"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "CLOSE"
+
 [connection signal="pressed" from="HUD/Touch/ToggleView" to="." method="_on_toggle_view_pressed"]
+[connection signal="pressed" from="HUD/Touch/SettingsButton" to="." method="_on_settings_pressed"]
+[connection signal="value_changed" from="HUD/SettingsOverlay/Layout/Tabs/Controls/LookSpeed" to="." method="_on_look_speed_changed"]
+[connection signal="pressed" from="HUD/SettingsOverlay/Layout/Close" to="." method="_on_settings_close_pressed"]
