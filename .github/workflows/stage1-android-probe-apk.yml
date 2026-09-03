@@ -170,6 +170,17 @@ jobs:
           fi
           grep -q "Gate: ANDROID_LIFECYCLE_TRANSIENT_INPUT_RUNTIME_VERIFIED" build-evidence/lifecycle-transient-input.log
 
+      - name: Headless performance telemetry regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/ci/stage1/performance_telemetry_test.gd" 2>&1 | tee build-evidence/performance-telemetry.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file|Node not found" build-evidence/performance-telemetry.log; then
+            echo "Performance telemetry regression log contains a blocking error."
+            exit 1
+          fi
+          grep -q "Gate: STAGE1_PERFORMANCE_TELEMETRY_RUNTIME_VERIFIED" build-evidence/performance-telemetry.log
+
       - name: Export Android debug APK
         shell: bash
         env:

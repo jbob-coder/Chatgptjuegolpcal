@@ -3,6 +3,9 @@ extends Node3D
 const MOVE_SPEED_MPS := 3.5
 const PROBE_BOUNDS := 8.5
 const METRICS_REFRESH_SECONDS := 0.25
+const PERFORMANCE_WINDOW_SECONDS := 1.0
+const SLOW_FRAME_THRESHOLD_MS := 34.0
+const HITCH_THRESHOLD_MS := 50.0
 const SETTINGS_PATH := "user://stage1_settings.cfg"
 const LOOK_SPEED_DEFAULT := 0.35
 const JOYSTICK_DEADZONE := 0.12
@@ -38,6 +41,18 @@ var _monster_phase := 0.0
 var _metrics_elapsed := 0.0
 var _look_speed := LOOK_SPEED_DEFAULT
 var _settings_open := false
+
+# Low-overhead Stage-1 measurement state. These counters describe ProbeWorld
+# frame delivery only; they are evidence instrumentation, not gameplay logic.
+var _perf_window_elapsed := 0.0
+var _perf_window_frames := 0
+var _perf_window_total_ms := 0.0
+var _perf_window_max_ms := 0.0
+var _perf_last_avg_ms := 0.0
+var _perf_last_max_ms := 0.0
+var _perf_worst_frame_ms := 0.0
+var _perf_total_slow_frames := 0
+var _perf_total_hitch_frames := 0
 
 func _notification(what: int) -> void:
 	match what:
@@ -109,15 +124,46 @@ func _physics_process(delta: float) -> void:
 	monster.rotation.y = sin(_monster_phase * 0.65) * 0.12
 
 func _process(delta: float) -> void:
+	_record_performance_frame(delta)
 	_metrics_elapsed += delta
 	if _metrics_elapsed < METRICS_REFRESH_SECONDS:
 		return
 	_metrics_elapsed = 0.0
+	_refresh_metrics_display()
 
+func _record_performance_frame(delta: float) -> void:
+	var safe_delta := maxf(delta, 0.0)
+	var frame_ms := safe_delta * 1000.0
+	_perf_window_elapsed += safe_delta
+	_perf_window_frames += 1
+	_perf_window_total_ms += frame_ms
+	_perf_window_max_ms = maxf(_perf_window_max_ms, frame_ms)
+	_perf_worst_frame_ms = maxf(_perf_worst_frame_ms, frame_ms)
+
+	if frame_ms > SLOW_FRAME_THRESHOLD_MS:
+		_perf_total_slow_frames += 1
+	if frame_ms >= HITCH_THRESHOLD_MS:
+		_perf_total_hitch_frames += 1
+
+	if _perf_window_elapsed >= PERFORMANCE_WINDOW_SECONDS:
+		_perf_last_avg_ms = _perf_window_total_ms / maxf(float(_perf_window_frames), 1.0)
+		_perf_last_max_ms = _perf_window_max_ms
+		_perf_window_elapsed = 0.0
+		_perf_window_frames = 0
+		_perf_window_total_ms = 0.0
+		_perf_window_max_ms = 0.0
+
+func _refresh_metrics_display() -> void:
 	var fps := Engine.get_frames_per_second()
-	var frame_ms := 1000.0 / maxf(float(fps), 1.0)
 	var static_memory_mb := Performance.get_monitor(Performance.MEMORY_STATIC) / (1024.0 * 1024.0)
-	fps_label.text = "FPS: %d | approx %.1f ms/frame" % [fps, frame_ms]
+	fps_label.text = "FPS: %d | 1s avg/max %.1f/%.1f ms\n>34ms: %d | >50ms: %d | worst %.1f ms" % [
+		fps,
+		_perf_last_avg_ms,
+		_perf_last_max_ms,
+		_perf_total_slow_frames,
+		_perf_total_hitch_frames,
+		_perf_worst_frame_ms
+	]
 	memory_label.text = "Debug static memory: %.1f MiB" % static_memory_mb
 
 func _effective_hunter_turn_response() -> float:
