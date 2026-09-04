@@ -1,88 +1,76 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE-1 FINAL PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED
+Status: STAGE-1 ADAPTIVE JOYSTICK PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED
 Last reconciled: 2026-09-04
 
 ## Current objective
 
-Finish the one remaining Stage-1 Galaxy A03s control/camera retest, then begin the smallest production Hunt-01 graybox implementation if the user confirms the corrected behavior.
+Validate the final adaptive joystick feel on Galaxy A03s. If the user accepts it, close the Stage-1 functional phone gate and begin the smallest production Hunt-01 graybox implementation.
 
-The game is primary. Documentation/data/tests exist to preserve what exists, where it lives, what owns it, what is verified, what is not verified, and what happens next.
+The game is primary. Documentation/data/tests preserve what exists, where it lives, ownership, verification state and next action.
 
-## Current direct phone evidence
+## Latest direct phone direction
 
-User reports the previous Stage-1 APK otherwise works correctly with no clipping or other reported general problem.
+User rejected any requirement to release the joystick or return it to center/0 merely to continue forward after a turn. User also reported the previous test arena was too small.
 
-Repair commit:
-`02459116216d3ac75ddd3d90c80f32bcbaa9662b`.
+Current tested source head:
+`e9b89912f1c80e90114a68a6de9de4ffbcdd6777`.
 
-Changed behavior:
-- neutral-crossing joystick recenter without finger release;
-- first-person turn-response multiplier `0.55`;
-- first-person FOV `115°`;
-- aerial response intentionally unchanged.
+Adaptive behavior:
+- current world movement remains latched while held;
+- after sustained Hunter alignment, the joystick frame rebases without altering that movement;
+- same finger can slide side->diagonal-up->up while retaining the established world heading;
+- no release/deadzone crossing required;
+- unchanged held input cannot continuously circle.
+
+Arena:
+`120×120 m`, bound `±56 m`, usable span `~112×112 m`.
+
+First person:
+FOV `115°`; turn-response scale `0.55`; aerial behavior unchanged.
 
 Automated evidence:
-- dedicated control workflow `33831517381`: SUCCESS;
-- full Android pipeline `33831517331`: SUCCESS.
+- adaptive workflow `33833083005`: SUCCESS;
+- full Android workflow `33833083007`: SUCCESS.
 
-Retest APK:
-`UnnamedHuntRPG-Stage1-Phone-Retest.apk`
-57,570,361 bytes
-SHA-256 `09b1faf49a4f7ca41d0a0926497e8c11469f5882bf6eba2f8799792f8e9d9c71`.
+Adaptive retest APK:
+`UnnamedHuntRPG-Stage1-AdaptiveJoystick-Retest.apk`
+`57,574,457 bytes`
+SHA-256 `88b53cb20cac97751f30cc79033ed0e715544e8e26446b06e887e8ea894a5cf1`.
 
 Drive file ID:
-`1X86K00hKsvPorcUKXO4b-UIBHBHtwXoc`.
+`1anJ1sY4ajJuJsID62pvgNKZYBvyYi3QV`.
 
-Exact final phone check:
-right turn -> same finger through neutral -> up follows new heading; first-person feel calmer; 115° FOV acceptable; no regression.
+Detailed handoff:
+`docs/70_handoff/STAGE1_GALAXY_A03S_ADAPTIVE_JOYSTICK_REPAIR_2026-09-04.md`.
 
-## Hunt-01 static validator
+## Hunt-01 static geometry state
 
-Source:
-`tests/quality/hunt01/`.
+Validator:
+`tests/quality/hunt01/hunt01_graybox_manifest_validator.py`.
 
-Workflow:
-`33830978945` SUCCESS.
-
-Result:
+Workflow `33830978945`: SUCCESS.
 13/13 MANIFEST_STATIC rules PASS, 0 errors, 0 warnings.
 
-Observation ramp measurement:
-6.607 m; 15.2% and 15.38% segment grades.
-
-Negative self-test correctly generated 5 errors and passed failure detection.
-
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
+Observation ramp: `6.607 m`; grades `15.2%` and `15.38%`.
+Negative self-test correctly generated five errors and proved failure detection.
 
 No engine scene/runtime/phone graybox verification exists yet.
 
 ## Current game/design state
 
 Recorded chain:
-Combat/outcome -> Monster 01 -> Berserk -> Defeat/Retreat -> Harvest -> Inventory -> one Poleblade refinement recipe -> physical Smith -> Persistence -> world coordinates/dimensions -> Hunt-01 tracking/encounter integration -> Hunt-01 geometry -> machine build manifest -> static manifest verification.
+Combat/outcome -> Monster 01 -> Berserk -> Defeat/Retreat -> Harvest -> Inventory -> one Poleblade refinement -> physical Smith -> Persistence -> world coordinates/dimensions -> Hunt-01 tracking/encounter -> geometry -> machine manifest -> static manifest verification.
 
 Production runtime for the full game does not yet exist.
 
-## Current Hunt-01 build facts
-
-- route target 285–315 m;
-- River Ford basin 58×54 m;
-- water 34×18 m at 0.15–0.55 m required depth;
-- wallow 16×12 m;
-- exit mud 20×12 m;
-- EF02 floor 70×54 m;
-- 10 tactical nodes / 14 links;
-- boulder 5×4×3 m;
-- Charge corridor ~48×>=9 m;
-- Monster pivot radius 8 m;
-- same persistent Monster escapes via S03→S05 and is reacquired.
-
-## Current verification truth
+## Verification truth
 
 `PHONE_GENERAL_RUNTIME_USER_REPORTED_PASS = YES`
-`STAGE1_CONTROL_CAMERA_REPAIR_AUTOMATED_VERIFIED = YES`
-`ENGINE_PHONE_PROBE_VERIFIED = NO / FINAL RETEST REQUIRED`
+`STAGE1_ADAPTIVE_JOYSTICK_AUTOMATED_VERIFIED = YES`
+`STAGE1_ENLARGED_ARENA_AUTOMATED_VERIFIED = YES`
+`STAGE1_ADAPTIVE_JOYSTICK_PHONE_ACCEPTED = NO / FINAL RETEST REQUIRED`
+`ENGINE_PHONE_PROBE_VERIFIED = NO / PENDING ADAPTIVE FEEL RETEST`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 `HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`
@@ -91,9 +79,9 @@ Production runtime for the full game does not yet exist.
 
 ## Exact next action
 
-`STAGE1_FINAL_GALAXY_A03S_CONTROL_CAMERA_RETEST`.
+`STAGE1_FINAL_GALAXY_A03S_ADAPTIVE_JOYSTICK_RETEST`.
 
-If user reports PASS, close Stage-1 functional phone gate and begin:
+If PASS:
 `FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
 
-Do not call the current Stage-1 probe a full-game APK. The first broader playable APK must come from actual production graybox/game runtime work after this retest.
+Do not call the Stage-1 probe a full-game APK.

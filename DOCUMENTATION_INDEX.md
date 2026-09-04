@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE-1 FINAL PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED
+Status: ACTIVE GLOBAL MAP / STAGE-1 ADAPTIVE JOYSTICK PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED
 Last reconciled: 2026-09-04
 
 ## Mandatory read order
@@ -25,23 +25,24 @@ Last reconciled: 2026-09-04
 - `.github/workflows/stage1-control-camera-feedback.yml`
 - `ci/stage1/control_camera_phone_feedback_test.gd`
 
-Latest control repair:
-commit `02459116216d3ac75ddd3d90c80f32bcbaa9662b`.
+Latest adaptive source head:
+`e9b89912f1c80e90114a68a6de9de4ffbcdd6777`.
 
-Dedicated regression:
-workflow `33831517381` SUCCESS.
+Adaptive regression:
+workflow `33833083005` SUCCESS.
 
 Full Android build:
-workflow `33831517331` SUCCESS.
+workflow `33833083007` SUCCESS.
 
-Retest APK SHA-256:
-`09b1faf49a4f7ca41d0a0926497e8c11469f5882bf6eba2f8799792f8e9d9c71`.
+Adaptive retest APK:
+`57,574,457 bytes`
+SHA-256 `88b53cb20cac97751f30cc79033ed0e715544e8e26446b06e887e8ea894a5cf1`.
 
-Drive file ID:
-`1X86K00hKsvPorcUKXO4b-UIBHBHtwXoc`.
+Drive ID:
+`1anJ1sY4ajJuJsID62pvgNKZYBvyYi3QV`.
 
 Latest phone handoff:
-`docs/70_handoff/STAGE1_GALAXY_A03S_CONTROL_CAMERA_REPAIR_2026-09-04.md`.
+`docs/70_handoff/STAGE1_GALAXY_A03S_ADAPTIVE_JOYSTICK_REPAIR_2026-09-04.md`.
 
 ## Hunt-01 world/geometry authorities
 
@@ -64,46 +65,39 @@ Executable static QA:
 - `tests/quality/hunt01/hunt01_stable_coordinate_fixture.json`
 - `.github/workflows/hunt01-graybox-manifest-static.yml`.
 
-Static validator workflow:
-`33830978945` SUCCESS.
-
+Static validator workflow `33830978945`: SUCCESS.
 Latest static QA handoff:
 `docs/70_handoff/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_PASS_2026-09-04.md`.
 
 ## Gameplay package map
 
-- `docs/20_gameplay/combat/` — reusable combat/outcome contracts.
-- `docs/20_gameplay/harvest/` — finite anatomy-linked harvesting.
-- `docs/20_gameplay/inventory/` — Inventory/Recovery Bundle material ownership.
+- `docs/20_gameplay/combat/` — combat/outcome contracts.
+- `docs/20_gameplay/harvest/` — anatomy-linked harvesting.
+- `docs/20_gameplay/inventory/` — Inventory/Recovery Bundle ownership.
 - `docs/20_gameplay/crafting/` — first recipe transaction.
-- `docs/20_gameplay/progression/` — Field Poleblade refinement linkage.
+- `docs/20_gameplay/progression/` — Field Poleblade refinement.
+- `docs/30_content/monsters/MONSTER_01/` — Mudcrest Raker.
+- `docs/50_technical/persistence/` — save/reload ownership.
+- `docs/60_quality/` — QA ownership.
 
-Monster 01:
-`docs/30_content/monsters/MONSTER_01/`.
-
-Persistence:
-`docs/50_technical/persistence/`.
-
-Quality:
-`docs/60_quality/`.
-
-## Current verification boundary
+## Verification boundary
 
 `HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`
 `REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
 `REGION01_HUNT01_RUNTIME_VERIFIED = NO`
 `PHONE_GENERAL_RUNTIME_USER_REPORTED_PASS = YES`
-`STAGE1_FINAL_PHONE_CONTROL_CAMERA_RETEST = REQUIRED`
-`ENGINE_PHONE_PROBE_VERIFIED = NO / PENDING FINAL RETEST`
+`STAGE1_ADAPTIVE_JOYSTICK_AUTOMATED_VERIFIED = YES`
+`STAGE1_ADAPTIVE_JOYSTICK_PHONE_ACCEPTED = NO / FINAL RETEST REQUIRED`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
 ## Exact continuation
 
 Current:
-`STAGE1_FINAL_GALAXY_A03S_CONTROL_CAMERA_RETEST`.
+`STAGE1_FINAL_GALAXY_A03S_ADAPTIVE_JOYSTICK_RETEST`.
 
 If PASS:
 `FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
 
-The current Stage-1 probe is not the full game. Do not represent design/build-spec systems as already playable runtime.
+The Stage-1 probe is not the full game.
