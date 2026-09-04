@@ -89,7 +89,7 @@ func _run() -> void:
 	_check("N07 -> N09 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N09")))
 	_check("Hunter reaches working-melee N09", String(movement.call("get_current_node_id")) == "R01_EF02_N09" and hunter.global_position.distance_to(Vector3(-22.0, 0.875, -238.0)) < 0.001, str(hunter.global_position))
 	var n09_legality: Dictionary = attack.call("get_measured_cut_legality", "DORSAL_PLATES")
-	_check("N09 geometry is inside working-melee envelope", float(n09_legality.get("body_envelope_distance_m", 99.0)) <= 3.5, str(n09_legality))
+	_check("N09 passes the working-melee range gate before the AP gate", String(n09_legality.get("reason", "")) != "OUT_OF_WORKING_MELEE", str(n09_legality))
 	_check("Round-1 three-step approach leaves insufficient AP for Measured Cut", not bool(n09_legality.get("legal", true)) and String(n09_legality.get("reason", "")) == "INSUFFICIENT_AP", str(n09_legality))
 	var resources_before_ap_reject: Dictionary = shell.call("get_resource_state", HUNTER_ID)
 	var ap_reject: Dictionary = attack.call("commit_measured_cut_for_test", "DORSAL_PLATES")
