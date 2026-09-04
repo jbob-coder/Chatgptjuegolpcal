@@ -1,6 +1,6 @@
 # 10_world — World, Settlements, Spatial Framework and Hunting Regions
 
-Status: ACTIVE WORLD PACKAGE MAP / HUNT-01 PHYSICAL TRACKING→ENCOUNTER INTEGRATION RECORDED / NO WORLD RUNTIME IMPLEMENTATION
+Status: ACTIVE WORLD PACKAGE MAP / HUNT-01 PHYSICAL INTEGRATION + GRAYBOX GEOMETRY SPECIFICATIONS RECORDED / NO WORLD RUNTIME IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -16,7 +16,7 @@ Belongs here:
 - tracking/evidence routes;
 - persistent Monster routes;
 - encounter-footprint placement;
-- graybox geometry specifications;
+- graybox geometry specifications/registries;
 - local streaming adjacency/application.
 
 Does not own generic combat/stat formulas, behavior-engine semantics, Crystal definitions, persistence implementation or final art standards.
@@ -56,7 +56,7 @@ Selected:
 Rules:
 `regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`.
 
-Concrete Hunt-01 registry:
+Concrete Hunt-01 spatial registry:
 `regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
 
 Recorded proof:
@@ -69,12 +69,31 @@ It includes:
 - observation/engagement coordinates;
 - 10 EF02 tactical nodes;
 - two physical cover objects;
-- Charge/pivot/body-clearance targets;
-- Monster escape/reacquisition anchors;
+- Monster clearance targets;
+- escape/reacquisition anchors;
 - Persistence checkpoint application.
 
-`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
-`REGION01_HUNT01_TACTICAL_NODES_RECORDED = YES`
+## Region 01 Hunt-01 graybox geometry
+
+Rules:
+`regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`.
+
+Concrete geometry registry:
+`regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
+
+Selected prototype build targets include:
+- required route 285–315 m after smoothing;
+- sustained grade <=15%, short <=18%, step <=0.25 m;
+- required Raker corridors >=9 m with >=4.5 m overhead;
+- S01 ford/water/mud dimensions;
+- S01->S03 ascent/visibility breaks;
+- EF02 meadow/observation dimensions;
+- tactical-node/link authoring dimensions;
+- physical cover primitives;
+- Charge/pivot/escape clearances;
+- camera/streaming debug volumes.
+
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
 `REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`.
 
 ## Root authorities
@@ -88,6 +107,6 @@ World packages apply shared owners rather than redefining them.
 
 ## Exact next world dependency
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`
 
-That pass should turn only the recorded S00→S01→S03 + EF02 route into build-ready primitive geometry dimensions, not expand to final art or the entire Region.
+That pass should map the now-dimensioned Hunt-01 geometry into an engine-neutral build/scene manifest plus validation ownership, without expanding to final art or the entire Region.

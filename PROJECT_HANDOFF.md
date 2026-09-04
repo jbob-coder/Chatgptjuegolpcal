@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / HUNT-01 TRACKING→ENCOUNTER INTEGRATION RECORDED / GRAYBOX GEOMETRY SPECIFICATION NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / HUNT-01 TRACKING→ENCOUNTER + GRAYBOX GEOMETRY SPECIFICATIONS RECORDED / BUILD MANIFEST + VALIDATION SPECIFICATION NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
@@ -16,7 +16,7 @@ Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.
 
 ## Mandatory read order
 
@@ -30,13 +30,13 @@ Current active non-phone action:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-For current graybox-geometry work additionally read:
-- shared spatial framework + major registry;
-- Region 01 README;
-- Hunt-01 integration contract + concrete registry;
-- Region topology/tracking/terrain/encounter/streaming/acceptance;
-- Monster 01 anatomy/attacks;
-- Persistence.
+For the current next piece additionally read:
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`;
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`;
+- Hunt-01 integration contract/spatial registry;
+- shared spatial framework;
+- Region topology/streaming/acceptance;
+- current engine/domain gate.
 
 ## Project identity
 
@@ -52,9 +52,19 @@ Godot 4.7 family / CI 4.7.2 stable / GDScript / GL Compatibility / Galaxy A03s /
 
 Automated Stage-1 lineage remains successful through workflow `33811355891`.
 
+`IMPLEMENTATION_AUTHORIZED = YES` for the current Stage-1 probe/bounded work.
+
+`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
+
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
+
+## Saved project report
+
+`docs/00_project/PROJECT_STATUS_REPORT_2026-09-03.md`.
+
+It is a dated snapshot for review. It is not the live current-action authority; EVOLVE remains authoritative for continuation.
 
 ## Recorded design chain
 
@@ -67,7 +77,8 @@ Recorded through:
 - physical Settlement 01 Smith;
 - Persistence;
 - shared world coordinates/dimensions;
-- first complete Region 01 Hunt-01 tracking→encounter→escape/reacquisition integration.
+- complete Region 01 Hunt-01 tracking->encounter->escape/reacquisition integration;
+- Hunt-01 primitive graybox geometry specification.
 
 No production gameplay/world runtime is claimed.
 
@@ -102,11 +113,11 @@ Monster 01:
 Rules:
 `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`.
 
-Concrete registry:
+Concrete spatial registry:
 `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
 
-Handoff:
-`docs/70_handoff/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_PASS_2026-09-03.md`.
+Physical proof:
+`S00 -> S01 River Ford -> S03 Feeding Meadow -> R01_EF02 -> Monster escape east -> canonical S03->S05 route -> same-Monster reacquisition`.
 
 Stable IDs:
 - scenario `R01_HUNT01_M01_TRACK_TO_MEADOW`;
@@ -114,57 +125,77 @@ Stable IDs:
 - Monster `monster_r01_m01_0001`;
 - encounter `enc_r01_ef02_m01_0001`.
 
-Physical proof:
-`S00 -> S01 River Ford -> S03 Feeding Meadow -> R01_EF02 -> Monster escape east -> canonical S03→S05 route -> same-Monster reacquisition`.
-
-Concrete values:
+Recorded:
 - 7 evidence anchors;
-- ~253 m straight cumulative intended clue chain;
-- future actual route target ~260–340 m;
-- observation anchor `(-72,5,-236)`;
-- initial Hunter node `(-70,4,-238)`;
-- initial Monster anchor `(-18,4,-252)`;
-- ~54 m initial separation;
 - 10 tactical nodes;
-- legal node links ~14.0–18.5 m;
-- boulder ~5×4×3 m;
-- scarred tree/root cover;
-- Charge lane ~48×9 m clearance target;
-- Monster pivot-clearance radius ~8 m;
-- east escape boundary `(-8,4,-258)`;
-- S05 same-Monster staging `(58,-3,-268)`;
+- initial Hunter/Monster separation ~54 m;
+- physical boulder/tree cover;
+- Charge/pivot/body-clearance targets;
+- escape/reacquisition positions;
 - six Persistence checkpoint applications.
 
-No GPS is exposed to the player merely because authoring coordinates exist.
+## Hunt-01 graybox geometry — RECORDED
+
+Rules:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`.
+
+Concrete primitive/volume registry:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_PASS_2026-09-03.md`.
+
+Major prototype build targets:
+- required S00->N01 route 285–315 m after smoothing;
+- normal sustained grade <=15%; short <=18%; step <=0.25 m;
+- S00->S01 normal surface >=7 m / Raker corridor >=9 m;
+- Monster-route overhead >=4.5 m;
+- S01 ford envelope 58×54 m;
+- shallow water 34×18 m, required depth 0.15–0.55 m;
+- wallow mud 16×12 m;
+- exit mud 20×12 m;
+- S01->S03 hunter route >=6 m / Raker route >=9 m;
+- two visibility-break geometry targets;
+- EF02 meadow working patch 70×54 m;
+- observation shelf 16×12 m;
+- observation->N01 ramp 6–7 m / >=3.5 m wide;
+- node-link corridors >=3.5 m;
+- boulder 5×4×3 m;
+- tree trunk 1.4 m diameter + 4×3 m root base;
+- Charge lane ~48 m / >=9 m solid-free;
+- pivot radius 8 m;
+- escape corridor >=9 m;
+- camera and streaming debug volumes.
+
+These values are environment graybox targets, not final Monster collider/attack/camera/streaming laws.
 
 ## Verification boundary
 
 `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
 `REGION01_HUNT01_TACTICAL_NODES_RECORDED = YES`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_REGISTRY_RECORDED = YES`
 `REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
 `REGION01_HUNT01_RUNTIME_VERIFIED = NO`
 `REGION01_HUNT01_PHONE_VERIFIED = NO`.
 
 ## Exact next game-development piece
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`
 
 Purpose:
-convert the recorded Hunt-01 route into primitive build-ready geometry for only S00→S01→S03 + EF02.
+turn the geometry IDs/measurements into an engine-neutral build manifest and explicit validation ownership so later engine graybox construction can be small, repeatable and testable.
 
-Bounded expected content:
-- route corridor widths;
-- grade/elevation segments;
-- river/mud/wallow terrain-patch dimensions;
-- meadow/observation terrain-patch dimensions;
-- evidence marker/inspection volumes;
-- tactical-node marker volumes;
-- boulder/tree primitive placement tolerances;
-- Monster Charge/pivot/escape clearance volumes;
-- camera-transition clearances;
-- streaming boundary/grace-zone proxies;
-- path-length/large-body-fit/visibility tests;
-- no final art/all-seven-sector expansion/runtime PASS.
+Bounded expected scope:
+- scene/build grouping for only S00->S01->S03 + EF02 + escape stub;
+- stable primitive IDs and parent groups;
+- collision/navigation/debug classification per geometry entry;
+- terrain-tag binding points;
+- evidence/node/Monster/camera/stream proxy bindings;
+- machine-readable validation data requirements;
+- static validation/checklist ownership;
+- build order/acceptance output;
+- no final art, no all-seven-sector expansion, no production gameplay implementation, no phone PASS.
 
 ## Saved visual concept
 
@@ -182,7 +213,8 @@ Visual intent only.
 `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
 `FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
 `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
 `REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`.
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.

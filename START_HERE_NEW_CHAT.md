@@ -6,7 +6,8 @@ Last reconciled: 2026-09-03
 
 New Android-targeted monster-hunting tactical RPG. WorldLife is abandoned.
 
-Working name: `Unnamed Hunt RPG`.
+Working name:
+`Unnamed Hunt RPG`.
 
 ## Mandatory first read
 
@@ -34,6 +35,10 @@ Documentation must preserve:
 Candidate:
 Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene minimum.
 
+`IMPLEMENTATION_AUTHORIZED = YES` for current Stage-1 probe/bounded work.
+
+Production domain implementation remains blocked by the engine-phone gate.
+
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
@@ -42,6 +47,11 @@ Phone blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
 ## Current owner map
+
+Project status snapshot:
+`docs/00_project/PROJECT_STATUS_REPORT_2026-09-03.md`.
+
+Use it for review only; EVOLVE remains the live current-action authority.
 
 Shared spatial:
 `docs/10_world/spatial/README.md`.
@@ -55,6 +65,10 @@ Region 01:
 Current Hunt-01 integration:
 - `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`;
 - `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
+
+Current Hunt-01 geometry:
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`;
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
 
 Combat/Harvest/Inventory/Crafting:
 `docs/20_gameplay/` package front doors.
@@ -81,6 +95,12 @@ Frontier:
 Region:
 seven sector centers; canonical linked spacing ~117–165 m; deepest center ~402 m from entry.
 
+Hunter:
+1.75 m `LOCKED/CURRENT`.
+
+Monster:
+~6.6 m long / ~3.0 m shoulder-body prototype.
+
 ## Hunt-01 physical proof
 
 Scenario:
@@ -93,34 +113,46 @@ Encounter:
 `enc_r01_ef02_m01_0001`.
 
 Path:
-`S00 -> S01 -> S03 -> EF02 -> escape via S03→S05 -> reacquisition`.
+`S00 -> S01 -> S03 -> EF02 -> escape via S03->S05 -> reacquisition`.
 
-Recorded:
+Recorded integration:
 - 7 evidence anchors;
-- ~253 m intended clue-chain straight cumulative planning distance;
-- future actual route target ~260–340 m;
-- observation `(-72,5,-236)`;
-- N01 entry `(-70,4,-238)`;
-- Monster MA01 `(-18,4,-252)`;
-- ~54 m initial separation;
 - 10 tactical nodes;
-- links ~14.0–18.5 m;
-- west boulder ~5×4×3 m;
-- scarred tree/root cover;
-- Charge lane ~48×9 m clearance target;
-- pivot-clearance ~8 m radius;
-- escape boundary `(-8,4,-258)`;
-- same-Monster S05 staging `(58,-3,-268)`.
+- boulder/tree cover;
+- Charge/pivot/body-force clearances;
+- escape/reacquisition positions;
+- six Persistence checkpoints.
 
-All are prototype graybox-authoring targets. No runtime/phone verification is implied.
+## Hunt-01 geometry proof
+
+Current prototype build targets include:
+- smoothed required route 285–315 m;
+- sustained required-route grade <=15%; short <=18%; step <=0.25 m;
+- S00->S01 route >=7 m and required Raker corridor >=9 m;
+- S01 shallow-water patch 34×18 m at 0.15–0.55 m required depth;
+- wallow mud 16×12 m;
+- exit mud 20×12 m;
+- S01->S03 Raker corridor >=9 m;
+- EF02 meadow working floor 70×54 m;
+- observation shelf 16×12 m;
+- observation->N01 ramp 6–7 m / >=3.5 m wide;
+- node-link corridors >=3.5 m;
+- boulder 5×4×3 m;
+- tree trunk 1.4 m diameter + 4×3 m root base;
+- Charge lane ~48 m / >=9 m clear;
+- Monster pivot radius 8 m;
+- escape corridor >=9 m;
+- camera + streaming debug volumes.
+
+These are prototype geometry targets only. No runtime/phone verification is implied.
 
 ## Exact continuation
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.
 
-Read the Hunt-01 integration contract/registry first, then Region topology/tracking/terrain/encounter/streaming/acceptance, Monster 01 anatomy/attacks, shared spatial framework and Persistence.
+Read the geometry specification/registry first, then the current integration/spatial/Region/engine-gate authorities.
 
-The next pass must convert only S00→S01→S03 + EF02 into build-ready primitive blockout dimensions/grades/volumes. Do not expand to final art or all seven sectors.
+The next pass must map only this Hunt-01 geometry into a build/scene manifest and validation-data/test ownership. Do not expand to final art/all seven sectors or claim production runtime verification.
 
 ## Saved finished-game concept
 

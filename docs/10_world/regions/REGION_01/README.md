@@ -1,11 +1,16 @@
 # REGION_01 — First Hunting Region
 
-Status: DESIGNED AT DOCUMENTATION LEVEL / PROTOTYPE COORDINATES + HUNT-01 TRACKING→ENCOUNTER INTEGRATION RECORDED / GRAYBOX RUNTIME NOT STARTED
+Status: DESIGNED AT DOCUMENTATION LEVEL / HUNT-01 TRACKING→ENCOUNTER + GRAYBOX GEOMETRY SPECIFICATIONS RECORDED / GRAYBOX RUNTIME NOT STARTED
 Last reconciled: 2026-09-03
 
-Technical package ID: `REGION_01`
-Final display name: OPEN.
-Working biome: temperate river-and-root forest basin with feeding meadow, rocky elevation, deepwood and crystal-influenced nesting shelf.
+Technical package ID:
+`REGION_01`.
+
+Final display name:
+OPEN.
+
+Working biome:
+temperate river-and-root forest basin with feeding meadow, rocky elevation, deepwood and crystal-influenced nesting shelf.
 
 ## Purpose
 
@@ -32,8 +37,10 @@ Canonical adjacency remains owned by `REGION_TOPOLOGY.md` and is unchanged.
 - `STREAMING_AND_PERFORMANCE.md` — bounded Ring 0/1/2 streaming/simulation;
 - `VISUAL_REFERENCE_PLAN.md` — environment reference needs;
 - `ACCEPTANCE_CHECKLIST.md` — documentation/graybox/tracking/encounter/streaming/phone gates;
-- `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md` — first full physical pursuit/engagement/escape proof;
-- `FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md` — concrete Hunt-01 evidence/Monster/tactical-node/cover/checkpoint coordinates.
+- `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md` — first full pursuit/engagement/escape proof;
+- `FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md` — concrete Hunt-01 evidence/Monster/tactical-node/cover/checkpoint coordinates;
+- `FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md` — route/terrain/cover/Monster/camera/streaming graybox dimension rules;
+- `FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md` — concrete primitive and debug-volume dimensions.
 
 Shared major spatial owner:
 `/docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
@@ -83,30 +90,37 @@ Recorded:
 
 The player does not receive exact Monster GPS from these authoring coordinates.
 
-## Key first encounter dimensions
+## Hunt-01 graybox geometry
 
-Initial Hunter node:
-`R01_EF02_N01 = (-70,4,-238)`.
+Rules:
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`.
 
-Initial Monster anchor:
-`R01_EF02_MA01 = (-18,4,-252)`.
+Concrete geometry registry:
+`FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
 
-Initial geometric separation:
-~54 m.
+Selected prototype build targets:
+- required S00 departure->N01 route 285–315 m after smoothing;
+- normal sustained required-route grade <=15%; short <=18%; step <=0.25 m;
+- S00->S01 player route >=7 m and Raker corridor >=9 m;
+- Monster-route overhead >=4.5 m;
+- S01 ford working envelope 58×54 m;
+- shallow-water patch 34×18 m at 0.15–0.55 m required depth;
+- wallow mud 16×12 m;
+- exit mud 20×12 m;
+- S01->S03 player corridor >=6 m / Raker corridor >=9 m;
+- two visibility-break structures;
+- EF02 Meadow working terrain 70×54 m;
+- observation shelf 16×12 m;
+- observation->N01 curved ramp 6–7 m / >=3.5 m wide;
+- tactical-node legal-link corridors >=3.5 m;
+- west boulder 5×4×3 m;
+- scarred tree trunk 1.4 m diameter + 4×3 m root base;
+- Charge lane ~48 m / >=9 m clear;
+- initial Monster pivot clear radius 8 m;
+- escape/S05 staging corridor >=9 m;
+- camera-transition + streaming proxy debug volumes.
 
-Tactical links:
-~14.0–18.5 m straight planning distances.
-
-Physical cover:
-- west boulder ~5×4×3 m;
-- scarred tree/root mass.
-
-Clearance targets:
-- west Charge lane ~48 m long × ~9 m wide;
-- initial Monster pivot-clearance radius ~8 m;
-- ~12 m local body-force clearance.
-
-All are `PROTOTYPE TARGETS`, not runtime/final attack-range facts.
+These are environment geometry targets, not final collision/attack/camera/streaming laws.
 
 ## Core Region laws
 
@@ -121,10 +135,14 @@ All are `PROTOTYPE TARGETS`, not runtime/final attack-range facts.
 
 ## Verification state
 
+`IMPLEMENTATION_AUTHORIZED = YES / STAGE1_BOUNDED_WORK`
+`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`
 `REGION_01_DESIGNED = YES / DOCUMENTATION LEVEL`
 `REGION_01_COORDINATE_TARGETS_RECORDED = YES`
 `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
 `REGION01_HUNT01_TACTICAL_NODES_RECORDED = YES`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_REGISTRY_RECORDED = YES`
 `REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
 `REGION_01_RUNTIME_IMPLEMENTED = NO`
 `REGION_01_PHONE_RUNTIME_VERIFIED = NO`
@@ -132,6 +150,6 @@ All are `PROTOTYPE TARGETS`, not runtime/final attack-range facts.
 
 ## Exact next package dependency
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`
 
-That pass should translate only this recorded Hunt-01 path into primitive blockout geometry dimensions/grades/volumes suitable for later engine graybox implementation.
+That pass should translate only the dimensioned Hunt-01 route/geometry into an engine-neutral build/scene manifest and explicit validation-data/test ownership suitable for a later engine graybox implementation.
