@@ -1,146 +1,81 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / HUNT-01 BUILD MANIFEST + VALIDATION CONTRACT RECORDED / STATIC VALIDATOR NEXT
-Last reconciled: 2026-09-03
+Status: ACTIVE GOVERNANCE / HUNT-01 MANIFEST STATIC VERIFIED / STAGE-1 FINAL PHONE RETEST NEXT
+Last reconciled: 2026-09-04
 
-## Purpose
+## Primary law
 
-Classify requirements by the earliest implementation stage that genuinely consumes them.
+An open question blocks only the earliest implementation gate that genuinely consumes it. Verification labels remain evidence-specific.
 
-Primary law:
-**an open question blocks only the earliest implementation gate that actually needs its answer.**
-
-Readiness classes:
-1. `MUST_EXIST_BEFORE_ENGINE_PROBE`
-2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`
-3. `MUST_EXIST_BEFORE_COMBAT`
-4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`
-5. `CAN_WAIT_UNTIL_EXPANSION`
-
-## Gate summary
+## Current gate summary
 
 | Gate | Status | Meaning |
 |---|---|---|
-| ENGINE PROBE | AUTOMATED FOUNDATION / PHONE GATE DEFERRED | direct Galaxy A03s evidence remains |
-| DOMAIN IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | production architecture waits for target-device gate |
-| COMBAT DESIGN | BASELINE RECORDED | nine reusable combat/outcome contracts + Monster 01 packets |
-| HARVEST / INVENTORY / CRAFT / SMITH | BASELINES RECORDED | design chain through physical upgrade service |
-| PERSISTENCE DESIGN | BASELINE RECORDED | schema-1 safe-point/anti-replay continuity |
-| SPATIAL COORDINATE/DIMENSION DESIGN | BASELINE RECORDED | meter frame + Settlement/Frontier/Region coordinates |
-| REGION TRACKING→ENCOUNTER INTEGRATION | RECORDED | complete S00→S01→S03→EF02→S05 proof mapped |
-| HUNT-01 GRAYBOX GEOMETRY SPEC | RECORDED | primitive dimensions/grades/volumes recorded |
-| HUNT-01 BUILD MANIFEST / VALIDATION CONTRACT | RECORDED | human + machine build data and 30 validation rules recorded |
-| HUNT-01 MANIFEST STATIC VALIDATION | NEXT | implement engine-independent validator and run static rule subset |
-| ENGINE GRAYBOX IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | do not create production world scene before gate changes |
-| VERTICAL SLICE | PARTIAL | validator + graybox/runtime/phone verification remain |
+| ENGINE PROBE AUTOMATION | PASS | source/static/headless/APK pipeline green |
+| GALAXY A03s GENERAL PHONE FUNCTION | USER-REPORTED PASS | no clipping/general issue reported in prior build |
+| CONTROL/CAMERA FINAL RETEST | REQUIRED | corrected neutral-recenter + first-person tuning must be accepted |
+| HUNT-01 MANIFEST STATIC VALIDATION | PASS | executable validator 13/13 |
+| ENGINE GRAYBOX IMPLEMENTATION | NOT STARTED | may begin after Stage-1 functional phone closure per user direction |
+| FULL GAME RUNTIME | NOT BUILT | design/build-spec systems are not yet production runtime |
+| SUSTAINED PERFORMANCE | NOT VERIFIED | remains separate target-device evidence gate |
 
-## Engine/device truth
+## Stage-1 corrected build
 
-Candidate:
-Godot 4.7 family / CI 4.7.2 stable / GDScript / GL Compatibility/OpenGL3 / Galaxy A03s / stable 30 FPS representative-scene minimum.
+Repair commit:
+`02459116216d3ac75ddd3d90c80f32bcbaa9662b`.
 
-Workflow `33811355891`: SUCCESS for automated Stage-1 protocol lineage.
+Changes:
+- same-finger neutral-crossing joystick recenter;
+- first-person response multiplier 0.55;
+- first-person FOV 115°;
+- aerial behavior preserved.
 
-Verified automated evidence:
-154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; Godot parse/smoke PASS; Android export/APK integrity/artifact upload PASS.
+Dedicated control workflow:
+`33831517381` SUCCESS.
 
-`ENGINE_PHONE_PROBE_VERIFIED = NO`
-`PERFORMANCE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
+Full Android build workflow:
+`33831517331` SUCCESS.
 
-Blocker:
-`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
+Fresh APK:
+57,570,361 bytes
+SHA-256 `09b1faf49a4f7ca41d0a0926497e8c11469f5882bf6eba2f8799792f8e9d9c71`.
 
-Important distinction:
-`IMPLEMENTATION_AUTHORIZED = YES` for bounded Stage-1 probe/design/specification/QA work.
+Drive ID:
+`1X86K00hKsvPorcUKXO4b-UIBHBHtwXoc`.
 
-`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
+## Hunt-01 static build gate
 
-## Hunt-01 build readiness chain
+Validator:
+`tests/quality/hunt01/hunt01_graybox_manifest_validator.py`.
 
-Current authorities:
-- spatial registry;
-- geometry specification;
-- geometry registry;
-- build manifest Markdown;
-- build manifest JSON;
-- validation specification.
+Workflow:
+`33830978945` SUCCESS.
 
-The machine manifest contains:
-- stable proof identities;
-- meter/axis/space metadata;
-- 12 build groups;
-- physical terrain/corridor/cover entries;
-- 7 evidence placements;
-- 10 tactical nodes;
-- 14 legal links;
-- Monster pivot/body-force/Charge clearances;
-- escape corridor;
-- camera clearances;
-- 3 stream proxies;
-- allowed terrain tags;
-- `H01VAL001..030` rule references.
+Result:
+- 13/13 static rules PASS;
+- 0 errors;
+- 0 warnings;
+- negative mutation correctly rejected;
+- measured observation ramp 6.607 m;
+- grades 15.2% and 15.38%.
 
-New build-only controls:
-- observation ramp midpoint `(-74.0,4.62,-237.5)`;
-- nominal west-brush placement `(-74,4,-250)`.
+`HUNT01_BUILD_SPEC_GATE_B0 = PASS`
+`HUNT01_MANIFEST_STATIC_GATE_B1 = PASS`
+`HUNT01_GRAYBOX_SCENE_STATIC_GATE = NOT_EXECUTED`
+`HUNT01_RUNTIME_GATE = NOT_EXECUTED`.
 
-Both are explicitly non-gameplay build controls.
+## Production permission boundary
 
-## Validation levels
+Current:
+`PRODUCTION_DOMAIN_IMPLEMENTATION = PENDING_FINAL_STAGE1_PHONE_RETEST`.
 
-`MANIFEST_STATIC`
-can run before any engine scene.
+Per current user direction, if the corrected Galaxy A03s control/camera retest passes, the Stage-1 functional phone gate may be closed and the smallest production Hunt-01 graybox implementation may begin.
 
-`SCENE_STATIC_FUTURE`
-requires actual graybox scene measurements.
+This does not convert sustained performance into PASS. `PERFORMANCE_VERIFIED` remains separate until actual soak evidence exists.
 
-`RUNTIME_FUTURE`
-requires traversal/encounter execution.
+## Exact next
 
-`PHONE_FUTURE`
-requires direct target-device evidence.
+`STAGE1_FINAL_GALAXY_A03S_CONTROL_CAMERA_RETEST`.
 
-No lower level can promote a higher-level PASS.
-
-## Next validator minimum
-
-Exact next bounded piece:
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.
-
-Minimum rules to implement/run:
-`H01VAL001,002,003,004,012,013,014,021,024,025,026,027,030`.
-
-Required informational calculations:
-- entry/group counts;
-- tactical-link recomputed distances;
-- ramp path length and segment grades;
-- route target metadata;
-- stable coordinate-copy comparisons.
-
-The validator should fail non-zero on ERROR and must state that scene/runtime/phone rules were NOT EXECUTED.
-
-## Current exact state
-
-`IMPLEMENTATION_AUTHORIZED = YES`
-`CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
-`ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
-`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`
-`COMBAT_DESIGN_BASELINE_COMPLETE = YES`
-`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
-`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
-`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
-`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_RECORDED = YES`
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION_RECORDED = YES`
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VALIDATOR_IMPLEMENTED = NO`
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = NO`
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`.
-
-`NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.
+After PASS:
+`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.

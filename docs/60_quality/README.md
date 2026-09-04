@@ -1,72 +1,74 @@
 # 60_quality — Verification, Performance, Debug and Creator Quality
 
-Status: ACTIVE QUALITY PACKAGE / HUNT-01 MANIFEST VALIDATION CONTRACT RECORDED / EXECUTABLE STATIC VALIDATOR NEXT
-Last reconciled: 2026-09-03
+Status: ACTIVE QUALITY PACKAGE / HUNT-01 MANIFEST STATIC VERIFIED / PHONE RETEST ACTIVE
+Last reconciled: 2026-09-04
 
 ## Purpose
 
-Prove the game remains correct, explainable and affordable as content grows.
+Own executable validation, test fixtures, regression evidence, performance budgets/device ledgers and bounded debug/creator quality requirements.
 
-Belongs here:
-- test plans/fixtures;
-- content/build-manifest validators;
-- performance budgets/device ledgers;
-- regression records;
-- profiling procedures;
-- Admin/Creator/debug tool requirements;
-- measured quality reports.
+## Hunt-01 manifest static validation
 
-Current root authorities:
-- `/TESTING_VERIFICATION_PLAN.md`;
-- `/PERFORMANCE_BUDGETS_AND_CAPS.md`;
-- `/ADMIN_CREATOR_SYSTEM.md`;
-- `/DESIGN_QUALITY_GATES_AND_DEPENDENCY_MATRIX.md`.
-
-Rules:
-- design targets are not measured limits;
-- compile success is not phone runtime verification;
-- every scalable system needs caps/cleanup/instrumentation;
-- important results should be explainable through traces/debug tooling;
-- regression tests accompany root-cause fixes once source exists.
-
-Package-local acceptance criteria may live inside the owning package, while executable validators/tests belong to the quality/test layer.
-
-## Current Hunt-01 package validation
-
-Owning Region validation contract:
+Owner contract:
 `../10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
 
-Machine input:
-`../10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
+Executable package:
+`../../tests/quality/hunt01/`.
 
-The package defines 30 validation rules across:
-- `MANIFEST_STATIC`;
-- `SCENE_STATIC_FUTURE`;
-- `RUNTIME_FUTURE`;
-- `PHONE_FUTURE`.
+Workflow:
+`.github/workflows/hunt01-graybox-manifest-static.yml`.
 
-The first executable validator must implement only the engine-independent MANIFEST_STATIC subset first and must explicitly report higher-level checks as NOT EXECUTED.
+Workflow run:
+`33830978945` SUCCESS.
 
-Minimum static rule set:
-`H01VAL001,002,003,004,012,013,014,021,024,025,026,027,030`.
+Result:
+- 13/13 MANIFEST_STATIC rules PASS;
+- 0 errors;
+- 0 warnings;
+- invalid fixture/mutation correctly rejected with 5 errors;
+- observation ramp measured 6.607 m;
+- segment grades 15.2% / 15.38%.
 
-## Exact next quality piece
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VALIDATOR_IMPLEMENTED = YES`
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.
+Higher levels remain:
+`SCENE_STATIC_FUTURE = NOT_EXECUTED`
+`RUNTIME_FUTURE = NOT_EXECUTED`
+`PHONE_FUTURE = NOT_EXECUTED`.
 
-Before selecting source placement, reread `CODE_GUIDE.md`. Preferred architecture direction is test/tool source that consumes content/build data and does not depend on rendering/UI or production gameplay mutation.
+## Stage-1 control/camera QA
 
-The validator should:
-- parse the JSON manifest;
-- return non-zero on ERROR;
-- recompute tactical-link distances;
-- verify stable coordinate copies;
-- verify manifest family/count requirements;
-- verify debug/non-authority classifications;
-- calculate ramp path/grade information;
-- emit bounded human + machine-readable results;
-- never claim scene/runtime/phone verification.
+User phone feedback generated one repair pass.
 
-Current:
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VALIDATOR_IMPLEMENTED = NO`
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = NO`.
+Repair commit:
+`02459116216d3ac75ddd3d90c80f32bcbaa9662b`.
+
+Dedicated headless regression:
+`.github/workflows/stage1-control-camera-feedback.yml`.
+
+Run:
+`33831517381` SUCCESS.
+
+Checks include:
+- 115° first-person FOV;
+- first-person response lower than aerial at same Look Speed;
+- held off-center joystick basis remains stable;
+- same-finger neutral crossing recaptures current Hunter heading;
+- up after neutral follows recaptured heading;
+- reset clears touch state.
+
+Full Android build run:
+`33831517331` SUCCESS.
+
+Phone acceptance remains required for the corrected feel.
+
+## Verification law
+
+- static PASS is not scene PASS;
+- headless PASS is not phone PASS;
+- compile/APK PASS is not performance PASS;
+- direct user/device evidence may verify the exact behavior observed, but must not be generalized beyond it.
+
+Exact current quality action:
+`STAGE1_FINAL_GALAXY_A03S_CONTROL_CAMERA_RETEST`.

@@ -1,165 +1,91 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 PHONE GATE DEFERRED / HUNT-01 PHYSICAL GEOMETRY + BUILD MANIFEST + VALIDATION CONTRACT RECORDED / STATIC MANIFEST VALIDATOR NEXT
-Last reconciled: 2026-09-03
+Status: STAGE-1 FINAL PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED / FULL GAME RUNTIME NOT YET BUILT
+Last reconciled: 2026-09-04
 
-New Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
+Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
 ## Main game goal
 
-Playable layers:
-1. walkable Settlement 01;
-2. aerial Region 01 tracking/exploration;
-3. first-person turn-based tactical combat at the same physical world location.
+Playable direction:
+`SETTLEMENT -> FRONTIER -> AERIAL REGION TRACKING -> SAME-LOCATION FIRST-PERSON TACTICAL COMBAT -> BREAK/SEVER -> ESCAPE/DEFEAT -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> SMITH -> CRAFT/EQUIP -> NEXT HUNT`.
 
-Core loop:
-`PREPARE -> SETTLEMENT -> GATE -> REGION -> TRACK -> OBSERVE -> ENGAGE -> TARGET ANATOMY -> BREAK/SEVER -> ESCAPE/DEFEAT -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> PHYSICAL SMITH -> CRAFT/EQUIP -> SAVE/RELOAD -> NEXT HUNT`.
+The game is the objective. Documentation exists to keep it coherent and verifiable.
 
-Primary law:
-**documentation exists to keep the game coherent; the game is the objective.**
+## Current Stage-1 phone state
 
-## Mandatory read order
+Direct user report:
+- prior APK otherwise works correctly;
+- no reported clipping/general problem;
+- aerial camera behavior acceptable.
 
-1. `EVOLVE_ALIGNMENT.md`
-2. `PROJECT_HANDOFF.md`
-3. `START_HERE_NEW_CHAT.md`
-4. `DOCUMENTATION_INDEX.md`
-5. this README
-6. `docs/README.md`
-7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-8. newest relevant `docs/70_handoff/`
-9. owning package/README/source/tests.
+Current repair commit:
+`02459116216d3ac75ddd3d90c80f32bcbaa9662b`.
 
-Current repository/source/build/device evidence outranks chat memory.
+Repair:
+- joystick recaptures latest heading when the same finger passes back through neutral/deadzone;
+- no finger release required before pushing up along the new heading;
+- first-person turn response multiplier 0.55;
+- first-person FOV 115°;
+- aerial response unchanged.
 
-## Where is what
+Automated control regression `33831517381`: SUCCESS.
+Full Android pipeline `33831517331`: SUCCESS.
 
-```text
-docs/
-├── 00_project/   governance/readiness/status snapshots
-├── 10_world/     spatial framework/settlements/regions/graybox build data
-├── 20_gameplay/  combat/harvest/inventory/crafting/progression
-├── 30_content/   hunters/monsters/content packets
-├── 40_art/       art/reference/model pipeline
-├── 50_technical/ engine/Android/persistence
-├── 60_quality/   QA/validation/performance/debug
-└── 70_handoff/   bounded-pass continuity
-```
+Fresh retest APK:
+`UnnamedHuntRPG-Stage1-Phone-Retest.apk`
+57,570,361 bytes
+SHA-256 `09b1faf49a4f7ca41d0a0926497e8c11469f5882bf6eba2f8799792f8e9d9c71`.
 
-Global map: `DOCUMENTATION_INDEX.md`.
+Google Drive ID:
+`1X86K00hKsvPorcUKXO4b-UIBHBHtwXoc`.
 
-Region 01 current build authorities:
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.md`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
+## Hunt-01 world/build status
 
-## Engine / Android truth
+Shared units: `1 world unit = 1 meter`.
 
-Candidate:
-Godot 4.7 family / CI 4.7.2 stable / GDScript / GL Compatibility/OpenGL3 / Galaxy A03s / stable 30 FPS representative-scene minimum.
+Settlement 01 prototype: 200×260 m.
+Frontier: ~80 m.
+Region 01 first proof:
+S00 -> S01 -> S03 -> EF02 -> S03→S05 escape/reacquisition.
 
-Automated Stage-1 lineage remains successful through workflow `33811355891`.
-
-`PERFORMANCE_VERIFIED = NO`
-`ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
-`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
-
-Phone blocker:
-`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
-
-## Recorded game-design/build chain
-
-Recorded at design/build-spec level:
-- combat/outcome baseline through Defeat/Retreat;
-- Mudcrest Raker anatomy/attacks/Berserk/behavior/escape/harvest;
-- Harvest -> Recovery Bundle -> Inventory;
-- one Raker-Tendon Grip craft/equip proof;
-- physical Settlement 01 Smith service;
-- schema-1 Persistence safe-point/anti-replay design;
-- shared world dimensions/coordinates;
-- first complete Region 01 tracking→encounter→escape/reacquisition proof;
-- first Hunt-01 geometry specification/registry;
-- engine-neutral Hunt-01 build manifest + JSON + validation contract.
-
-No production combat/world runtime is claimed.
-
-## Current dimensions and coordinates
-
-Measurement:
-`1 world unit = 1 meter`.
-
-Axes:
-+X East / +Y Up / -Z North-outbound / +Z South-inbound.
-
-Settlement 01:
-- 200×260 m prototype envelope;
-- Hunter Gate inner `(0,0,0)`;
-- Smith workbench `(-22,3,40)`.
-
-Frontier:
-~80 m centerline.
-
-Region 01:
-seven sector centers, connected spacing ~117–165 m, deepest center ~402 m from entry.
-
-Hunt-01 required route:
-- geometry control polyline ~279 m before final ramp smoothing;
-- selected navigable target 285–315 m;
-- normal sustained grade <=15%; short <=18%; required step <=0.25 m.
-
-River Ford:
-- working envelope 58×54 m;
+Key graybox targets:
+- route 285–315 m;
+- River Ford 58×54 m;
 - water 34×18 m at 0.15–0.55 m required depth;
 - wallow 16×12 m;
-- exit mud 20×12 m.
-
-EF02 Meadow:
-- 70×54 m working floor inside existing 76×60 m footprint;
-- open core ~48×34 m;
-- observation shelf 16×12 m;
-- 10 tactical nodes;
+- exit mud 20×12 m;
+- EF02 floor 70×54 m;
+- 10 tactical nodes / 14 links;
 - boulder 5×4×3 m;
-- tree trunk 1.4 m diameter / root base 4×3 m;
-- Charge clear corridor ~48 m × >=9 m;
-- Monster pivot clearance 8 m radius.
+- Charge corridor ~48×>=9 m;
+- pivot radius 8 m.
 
-Build-only observation-ramp control:
-`(-74.0,4.62,-237.5)`.
+Machine build manifest:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
 
-It is explicitly not a gameplay/persistence anchor.
+Static validator:
+`tests/quality/hunt01/hunt01_graybox_manifest_validator.py`.
 
-## Machine-readable build manifest
+Workflow `33830978945`: SUCCESS.
 
-The first Hunt-01 machine manifest records:
-- stable proof identities;
-- 12 build groups;
-- physical build entries;
-- 7 evidence placements;
-- 10 tactical nodes;
-- 14 tactical links;
-- Monster/camera/streaming clearances;
-- allowed terrain tags;
-- validation IDs `H01VAL001..030`.
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
 
-Manifest static validation is not yet implemented or PASS.
+Scene/runtime graybox verification remains NO.
 
-## Saved visual concept
+## Full-game APK truth
 
-Google Drive folder `Unnamed Hunt RPG`:
-`Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`
-Drive file ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+A full playable game APK does not yet exist.
 
-Visual intent only.
+Combat, harvesting, inventory, crafting, Settlement services, Persistence and Hunt-01 are currently recorded primarily as design/build-spec authorities rather than production runtime code. The Stage-1 APK must not be mislabeled as the full game.
 
-## Exact next bounded action
+After the corrected phone retest passes, the next development move is to start the first real production Hunt-01 engine graybox slice and produce broader playable development APKs from that implementation.
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`
+## Exact next action
 
-Next will implement the engine-independent MANIFEST_STATIC rule subset over the JSON manifest and source-coordinate invariants. It may produce manifest PASS/FAIL evidence only; it cannot claim scene/runtime/phone verification.
+`STAGE1_FINAL_GALAXY_A03S_CONTROL_CAMERA_RETEST`.
 
-Implementation action when phone becomes available:
-`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
+If PASS:
+`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
+
+Sustained `PERFORMANCE_VERIFIED` remains a separate evidence label until the required device soak evidence exists.
