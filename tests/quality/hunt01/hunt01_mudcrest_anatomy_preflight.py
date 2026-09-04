@@ -50,7 +50,7 @@ def main() -> int:
     check("anatomy does not reroll contact", all(token not in anatomy for token in ("randf(", "randi(", "RandomNumberGenerator", "randomize(", "control_margin", "PART_ACQUISITION_MARGIN")))
     check("runtime has no global health/death arithmetic", all(token not in anatomy for token in ("health -=", "max_health", "death_state", "kill_monster")))
     check("runtime has no break/sever/status implementation", all(token not in anatomy for token in ("break_part(", "sever_part(", "apply_bleed(", "apply_status(")))
-    check("structural thresholds remain explicitly deferred", "NOT_EVALUATED_BREAK_SEVER_DEFERRED" in anatomy and "break/sever" in package_readme)
+    check("structural thresholds remain explicitly deferred", "NOT_EVALUATED_BREAK_SEVER_DEFERRED" in anatomy and "crack/break thresholds" in package_readme and "sever thresholds" in package_readme)
     check("encounter preloads species anatomy runtime", 'preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd")' in encounter)
     check("encounter initializes anatomy before Hunter attack", 'anatomy.call("initialize", _world, _encounter_record)' in encounter and 'attack.call("initialize", _world, shell, movement, anatomy, _encounter_record)' in encounter)
     check("Hunter attack emits stable anatomy transaction identity", all(token in attack for token in ('"resolution_id"', '"encounter_id"', '"round_id"', '"action_sequence"', '"attacker_id"', '"defender_id"', '"technique_id"')))
