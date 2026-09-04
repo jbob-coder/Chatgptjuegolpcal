@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY + ONE-RECIPE BASELINES RECORDED / SETTLEMENT SMITH SERVICE NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH SMITH SERVICE RECORDED / PERSISTENCE NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -12,26 +12,24 @@ Required repository answer:
 
 ## 1. Mandatory read order
 
-1. `EVOLVE_ALIGNMENT.md` — operating contract + exact next actions.
-2. `PROJECT_HANDOFF.md` — current project snapshot.
-3. `START_HERE_NEW_CHAT.md` — reconstruction guide.
-4. `DOCUMENTATION_INDEX.md` — this global map.
-5. root `README.md` — game/main-goal front door.
-6. `docs/README.md` — placement/package rules.
-7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md` — readiness gates.
-8. newest relevant `docs/70_handoff/`.
+1. `EVOLVE_ALIGNMENT.md`
+2. `PROJECT_HANDOFF.md`
+3. `START_HERE_NEW_CHAT.md`
+4. `DOCUMENTATION_INDEX.md`
+5. root `README.md`
+6. `docs/README.md`
+7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
+8. newest relevant `docs/70_handoff/`
 9. exact owning package/README/source/tests.
 
 Current repository/source/build/device evidence outranks old chat memory.
 
-## 2. Stage-1 engine / Android
+## 2. Stage-1 engine/Android
 
-Primary authorities:
+Authorities:
 - `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`;
 - `probes/android_stage1/README.md`;
-- `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`;
-- `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`;
-- `probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`;
+- control/camera/probe/performance protocols;
 - `PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
 Candidate:
@@ -39,25 +37,53 @@ Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable
 
 Workflow `33811355891`: SUCCESS on automated protocol revision `c02971996e35770bbaaaf9bf6c460af208db4f83`.
 
-Phone blocker:
-`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
-
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## 3. World / visual authorities
+Phone blocker:
+`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
+## 3. World / settlement / Region authorities
+
+Root world authorities:
 - `GAME_EXPERIENCE_BIBLE.md`;
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`;
 - `MAP_WORLD_SETTLEMENT_STRUCTURE.md`;
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
-- `FIRST_SETTLEMENT_BLUEPRINT.md`;
-- `docs/10_world/README.md`;
-- `docs/10_world/regions/REGION_01/README.md` + Region 01 local authorities.
+- `FIRST_SETTLEMENT_BLUEPRINT.md`.
 
-World hierarchy:
-`WORLD ATLAS -> WALKABLE SETTLEMENT -> HUNTER GATE -> CONTINUOUS HUNTING REGION -> LOCAL FIRST-PERSON ENCOUNTER`.
+World package front door:
+`docs/10_world/README.md`.
+
+### Settlement 01
+
+Settlement package map:
+`docs/10_world/settlements/README.md`.
+
+Local front door:
+`docs/10_world/settlements/SETTLEMENT_01/README.md`.
+
+Smith service authority:
+`docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_PASS_2026-09-03.md`.
+
+Selected Smith proof:
+- physical workbench on Hunter Service Loop;
+- `CRAFT_STATION_WEAPON_WORKBENCH` mapped to actual Settlement 01 service;
+- <=25-second gate-return-to-workbench graybox target;
+- normal essential service does not depend on one NPC schedule;
+- one-recipe read-only preview + authoritative Confirm;
+- UI/NPC/Settlement never directly consumes Inventory or writes refinement.
+
+### Region 01
+
+Front door:
+`docs/10_world/regions/REGION_01/README.md`.
+
+Region package already records topology, tracking/escape, terrain/ecology, encounter footprints, streaming/performance and graybox acceptance requirements.
 
 ## 4. Combat gameplay authorities
 
@@ -83,119 +109,85 @@ Generic owner:
 Monster 01 application:
 `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Handoff:
-`docs/70_handoff/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_PASS_2026-09-03.md`.
-
-## 6. Inventory / material ownership authorities
+## 6. Inventory authorities
 
 Front door:
 `docs/20_gameplay/inventory/README.md`.
 
-Generic owner:
+Owner:
 `docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
 
 Supporting example:
 `docs/20_gameplay/inventory/INVENTORY_TRANSFER_EXAMPLE.md`.
 
-Handoff:
-`docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
+## 7. Crafting / progression authorities
 
-## 7. Crafting / equipment linkage authorities
-
-Front door:
+Crafting front door:
 `docs/20_gameplay/crafting/README.md`.
 
-First-slice owner:
+One-recipe authority:
 `docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
 
-Specialized handoff:
-`docs/70_handoff/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_PASS_2026-09-03.md`.
-
-Selected first recipe:
-`recipe_field_poleblade_raker_tendon_grip`.
-
-Requirements:
-- 2 HIGH `material_m01_tail_tendon`;
-- 2 STANDARD-or-better `material_m01_hide`.
-
-Output:
-`refinement_field_poleblade_raker_tendon_grip`.
-
-Effect:
-`POLEBLADE_PLACED_HEW` Stamina 18 -> 16 through typed `COST_MODIFIER`.
-
-Craft transaction reserves exact input stacks/provenance, then atomically consumes materials and applies the refinement exactly once. No random craft-quality layer or broad economy exists in the first proof.
-
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
-`CRAFTING_RUNTIME_IMPLEMENTED = NO`.
-
-## 8. Content authorities
-
-Content front door:
-`docs/30_content/README.md`.
-
-Monster 01 front door:
-`docs/30_content/monsters/MONSTER_01/README.md`.
-
-Important Monster 01 files:
-- `ANATOMY_AND_DAMAGE.md`;
-- `COMBAT_ATTACK_PACKET.md`;
-- `BERSERK_PROTOTYPE_CONTRACT.md`;
-- `BEHAVIOR_AND_REGION.md`;
-- `CRYSTAL_AND_MUTATION.md`;
-- `HARVEST_CAPACITY_PACKET.md`.
-
-## 9. Progression authorities
-
-Front door:
+Progression front door:
 `docs/20_gameplay/progression/README.md`.
 
-Primary owner:
-`docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
+First recipe:
+`recipe_field_poleblade_raker_tendon_grip`.
 
-The first Raker-Tendon Grip is the current concrete proof of equipment-weighted, bounded, anatomy-connected progression.
+Inputs:
+2 HIGH Monster 01 tail tendon + 2 STANDARD-or-better Monster 01 hide.
 
-## 10. Art/reference authorities
+Output/effect:
+Raker-Tendon Grip refinement; Placed Hew Stamina 18 -> 16 through typed equipment `COST_MODIFIER` only.
 
-Repository:
-- `docs/40_art/README.md`;
-- `docs/40_art/asset_pipeline/README.md`;
-- `docs/40_art/reviews/README.md`.
+## 8. Monster 01 content
 
-External saved visual reference:
-- Google Drive folder: `Unnamed Hunt RPG`;
-- file: `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`;
-- Drive file ID: `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+Front door:
+`docs/30_content/monsters/MONSTER_01/README.md`.
 
-Generated concept images establish visual intent only unless technically validated. They do not define collision, UVs, dimensions, stable gameplay IDs or performance.
+Current authorities include anatomy, normal attacks, Berserk, behavior/Region use, Crystal/mutation and harvest capacity.
 
-## 11. Architecture/data/quality authorities
+## 9. Architecture / data / quality
 
 Architecture/data:
 `SYSTEM_ARCHITECTURE_BLUEPRINT.md`, `CODE_GUIDE.md`, `CONTENT_DATA_GUIDE.md`, `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`, `BEHAVIOR_PATTERN_SYSTEM.md`, `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`, `MECHANICAL_SYSTEMS_GUIDE.md`.
 
 Quality:
-`TESTING_VERIFICATION_PLAN.md`, `PERFORMANCE_BUDGETS_AND_CAPS.md`, `docs/60_quality/README.md` and Stage-1 probe/test protocols.
+`TESTING_VERIFICATION_PLAN.md`, `PERFORMANCE_BUDGETS_AND_CAPS.md`, `docs/60_quality/README.md`, Stage-1 probe/test protocols.
 
-## 12. Current game-development sequence
+## 10. Art and saved concept
+
+Art package:
+`docs/40_art/README.md` + asset-pipeline/review authorities.
+
+Saved finished-game visual concept:
+Google Drive folder `Unnamed Hunt RPG`;
+file `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`;
+Drive ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+
+Generated concept imagery establishes visual intent only unless separately technically validated. It does not override mechanics, dimensions, collision, stable IDs or performance evidence.
+
+## 11. Current game-development sequence
 
 Implementation lane:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-Completed design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip Linkage`.
+Completed bounded design sequence:
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip -> Settlement Smith Service`.
 
 Current active non-phone action:
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
 
-That next pass maps the logical workbench requirement into the walkable Settlement 01 Smith/Workshop and Hunter Service Loop.
+Reason:
+current save/reload requirements are distributed across persistent Monster identity, encounter/outcome state, harvest depletion, recovery bundles, Inventory transfers, crafting transaction IDs/refinement and Settlement service re-entry. The next pass should unify the smallest vertical-slice persistence contract before broad expansion.
 
-## 13. Documentation placement law
+## 12. Documentation placement law
 
 - root README — human game/front door;
 - `docs/README.md` — placement/package rules;
 - package README — local map;
 - generic mechanics — gameplay owner;
+- spatial/local service application — world/settlement package;
 - species-specific values — species package;
 - `docs/70_handoff/` — bounded-pass records;
 - this index — global discovery/read order;
