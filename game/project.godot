@@ -1,3 +1,6 @@
+; Production engine configuration.
+config_version=5
+
 [application]
 config/name="Unnamed Hunt RPG"
 run/main_scene="res://scenes/app_shell.tscn"
@@ -16,6 +19,7 @@ window/frame_pacing/android/enable_frame_pacing=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 renderer/rendering_method.web="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 textures/default_filters/use_nearest_mipmap_filter=false
 
 [physics]

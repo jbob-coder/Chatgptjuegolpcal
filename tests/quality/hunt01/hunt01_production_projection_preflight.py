@@ -89,6 +89,7 @@ def main() -> int:
     scene_text = (ROOT / "game/scenes/regions/region_01_hunt01_graybox.tscn").read_text(encoding="utf-8")
 
     check("production GL Compatibility renderer", 'renderer/rendering_method="gl_compatibility"' in project_text)
+    check("Android ETC2/ASTC import enabled", 'textures/vram_compression/import_etc2_astc=true' in project_text)
     check("production package ID is not probe ID", 'package/unique_name="org.unnamedhuntrpg.game"' in export_text and "stage1probe" not in export_text)
     check("production source does not import probe tree", "probes/android_stage1" not in region_text and "probes/android_stage1" not in scene_text)
     check("accepted 115 degree first-person FOV", "FIRST_PERSON_FOV_DEG := 115.0" in region_text and "fov = 115.0" in scene_text)
