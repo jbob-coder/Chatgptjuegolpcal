@@ -16,6 +16,8 @@ const JOYSTICK_DEADZONE := 0.12
 const AERIAL_CAMERA_HEIGHT_M := 8.6
 const AERIAL_CAMERA_TRAIL_M := 8.4
 const AERIAL_CAMERA_LOOK_AHEAD_M := 2.2
+const FIRST_PERSON_FOV_DEG := 115.0
+const FIRST_PERSON_TURN_RESPONSE_SCALE := 0.55
 
 @onready var hunter: CharacterBody3D = $Hunter
 @onready var hunter_body: MeshInstance3D = $Hunter/Body
@@ -36,6 +38,7 @@ var _joystick_vector := Vector2.ZERO
 var _joystick_touch_id := -1
 var _joystick_reference_forward := Vector3(0.0, 0.0, -1.0)
 var _joystick_reference_right := Vector3(1.0, 0.0, 0.0)
+var _joystick_in_deadzone := true
 var _first_person := false
 var _monster_phase := 0.0
 var _metrics_elapsed := 0.0
@@ -68,6 +71,7 @@ func _ready() -> void:
 	_update_look_speed_label()
 	_reset_joystick()
 	_capture_joystick_reference_heading()
+	first_person_camera.fov = FIRST_PERSON_FOV_DEG
 	_update_aerial_camera(0.0, true)
 	_update_renderer_label()
 	_update_view_state()
@@ -81,6 +85,7 @@ func _input(event: InputEvent) -> void:
 		var touch := event as InputEventScreenTouch
 		if touch.pressed and _joystick_touch_id == -1 and joystick_base.get_global_rect().has_point(touch.position):
 			_joystick_touch_id = touch.index
+			_joystick_in_deadzone = true
 			_capture_joystick_reference_heading()
 			_update_joystick_from_screen_position(touch.position)
 			get_viewport().set_input_as_handled()
@@ -167,7 +172,10 @@ func _refresh_metrics_display() -> void:
 	memory_label.text = "Debug static memory: %.1f MiB" % static_memory_mb
 
 func _effective_hunter_turn_response() -> float:
-	return lerpf(2.0, 10.0, _look_speed)
+	var response := lerpf(2.0, 10.0, _look_speed)
+	if _first_person:
+		return response * FIRST_PERSON_TURN_RESPONSE_SCALE
+	return response
 
 func _effective_camera_follow_response() -> float:
 	return lerpf(1.5, 9.0, _look_speed)
@@ -186,10 +194,10 @@ func _hunter_forward() -> Vector3:
 	return forward.normalized()
 
 func _capture_joystick_reference_heading() -> void:
-	# Each new touch gesture gets a stable movement basis from the Hunter's
-	# current heading. Releasing and touching again therefore "re-centers" the
-	# joystick's forward direction without making the basis rotate under the
-	# player's finger during the active gesture.
+	# The movement basis is stable while the stick remains outside its deadzone.
+	# It is captured at touch start and recaptured after the same finger returns
+	# through neutral, so the player can turn, center, then push up to continue
+	# along the newly faced heading without lifting the finger.
 	_joystick_reference_forward = _hunter_forward()
 	_joystick_reference_right = _joystick_reference_forward.cross(Vector3.UP)
 	_joystick_reference_right.y = 0.0
@@ -222,6 +230,22 @@ func _update_aerial_camera(delta: float, snap: bool = false) -> void:
 	var look_target := hunter.global_position + Vector3(0.0, 0.7, 0.0) + forward * AERIAL_CAMERA_LOOK_AHEAD_M
 	aerial_camera.look_at(look_target, Vector3.UP)
 
+func _set_joystick_from_raw_vector(raw_vector: Vector2) -> void:
+	var raw_strength := minf(raw_vector.length(), 1.0)
+	if raw_strength < JOYSTICK_DEADZONE:
+		# Re-entering neutral is the re-center event. Capture the Hunter's latest
+		# heading once, but do not continuously rotate the basis while the player
+		# keeps the stick held away from center.
+		if not _joystick_in_deadzone:
+			_capture_joystick_reference_heading()
+		_joystick_in_deadzone = true
+		_joystick_vector = Vector2.ZERO
+		return
+
+	_joystick_in_deadzone = false
+	var remapped_strength := inverse_lerp(JOYSTICK_DEADZONE, 1.0, raw_strength)
+	_joystick_vector = raw_vector.normalized() * remapped_strength
+
 func _update_joystick_from_screen_position(screen_position: Vector2) -> void:
 	var base_rect := joystick_base.get_global_rect()
 	var center := base_rect.get_center()
@@ -231,17 +255,13 @@ func _update_joystick_from_screen_position(screen_position: Vector2) -> void:
 	var clamped_offset := offset.limit_length(travel_radius)
 	var raw_vector := clamped_offset / travel_radius
 
-	if raw_vector.length() < JOYSTICK_DEADZONE:
-		_joystick_vector = Vector2.ZERO
-	else:
-		var remapped_strength := inverse_lerp(JOYSTICK_DEADZONE, 1.0, minf(raw_vector.length(), 1.0))
-		_joystick_vector = raw_vector.normalized() * remapped_strength
-
+	_set_joystick_from_raw_vector(raw_vector)
 	joystick_knob.position = (joystick_base.size - joystick_knob.size) * 0.5 + clamped_offset
 
 func _reset_joystick() -> void:
 	_joystick_vector = Vector2.ZERO
 	_joystick_touch_id = -1
+	_joystick_in_deadzone = true
 	if is_instance_valid(joystick_base) and is_instance_valid(joystick_knob):
 		joystick_knob.position = (joystick_base.size - joystick_knob.size) * 0.5
 

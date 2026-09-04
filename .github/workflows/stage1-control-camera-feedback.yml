@@ -1,0 +1,48 @@
+name: Stage 1 Phone Feedback Control Camera Regression
+
+on:
+  push:
+    branches:
+      - worldlife-reference-docs
+    paths:
+      - ".github/workflows/stage1-control-camera-feedback.yml"
+      - "probes/android_stage1/scripts/probe_world.gd"
+      - "probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md"
+      - "ci/stage1/control_camera_phone_feedback_test.gd"
+
+permissions:
+  contents: read
+
+jobs:
+  control-camera-regression:
+    name: Verify neutral-recenter, first-person damping, and FOV
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout tested revision
+        uses: actions/checkout@v4
+
+      - name: Set up Godot 4.7.2
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+
+      - name: Godot import and parse gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build-evidence
+          godot --headless --editor --path probes/android_stage1 --quit 2>&1 | tee build-evidence/control-camera-import.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file|Node not found" build-evidence/control-camera-import.log; then
+            exit 1
+          fi
+
+      - name: Run phone-feedback control camera regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path probes/android_stage1 --script "$GITHUB_WORKSPACE/ci/stage1/control_camera_phone_feedback_test.gd" 2>&1 | tee build-evidence/control-camera-phone-feedback.log
+          grep -q "Gate: STAGE1_PHONE_FEEDBACK_CONTROL_CAMERA_RUNTIME_VERIFIED" build-evidence/control-camera-phone-feedback.log
