@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST DESIGN BASELINES RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY DESIGN BASELINES RECORDED / ONE-RECIPE LINKAGE NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -175,76 +175,78 @@ Monster 01 attack/Berserk/behavior/outcome content remains design-recorded, not 
 Generic owner:
 `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-Package front door:
-`docs/20_gameplay/harvest/README.md`.
-
-Worked example:
-`docs/20_gameplay/harvest/HARVEST_TRANSACTION_EXAMPLE.md`.
-
-Handoff:
-`docs/70_handoff/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_PASS_2026-09-03.md`.
+Monster 01 application:
+`docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
 Selected generic model:
 - finite authored source capacity;
-- first-slice material-specific capacity units;
 - preservation bands PRISTINE/GOOD/DAMAGED/POOR/RUINED/DESTROYED = `1.00/0.90/0.70/0.40/0.10/0.00`;
-- `surviving_capacity = floor(original_capacity * preservation_multiplier)`;
 - clean sever transfers source lineage rather than creating material;
-- carcass and detached-part containers preserve source identity;
-- deterministic recovery efficiency, prototype clamp `0.50..1.00` when legal;
+- deterministic recovery efficiency `<=1.00`;
 - partial extraction depletes only recovered quantity;
 - quality and quantity are separate;
 - no independent harvest RNG;
 - save/load/reacquisition cannot restore or duplicate depleted sources.
 
-## Monster 01 harvest packet — RECORDED
-
-Authority:
-`docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
-
-Prototype pristine selected-source capacities:
-- horn L 4;
-- horn R 4;
-- dorsal plates 8;
-- torso hide 12;
-- distal-tail ridge 5;
-- distal-tail tendon 4;
-- dense bone 8.
-
-Total:
+Monster 01 selected pristine source total:
 `45` prototype capacity units.
-
-This is not guaranteed yield. Final combat source condition + extraction efficiency determine actual recovery.
-
-Clean distal-tail sever transfers both tail source lineages to the detached-tail container; later carcass creation cannot duplicate them.
 
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `MONSTER_01_HARVEST_PACKET_RECORDED = YES`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_VERIFIED = NO`.
 
+## Inventory material ownership baseline — RECORDED
+
+Front door:
+`docs/20_gameplay/inventory/README.md`.
+
+Authority:
+`docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
+
+Supporting example:
+`docs/20_gameplay/inventory/INVENTORY_TRANSFER_EXAMPLE.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
+
+Selected model:
+- `PLAYER_FIELD_INVENTORY` is first-slice recovered-material destination;
+- prototype `PLAYER_FIELD_INVENTORY_MAX_STACK_ENTRIES = 20`;
+- `MATERIAL_STACK_MAX_QUANTITY = 99`;
+- visible merge compatibility = material ID + quality band;
+- provenance remains internally conserved as lots;
+- every committed harvest recovery first becomes owned by persistent `RECOVERY_BUNDLE`;
+- inventory-full/partial acceptance leaves exact unaccepted quantity in that bundle;
+- committed transfer invariant: `SOURCE_LOSS == DESTINATION_GAIN`;
+- deterministic existing-stack fill before new stack creation;
+- merge/split preserves quantity, quality and provenance;
+- stable transfer IDs are idempotent across UI/save/load;
+- inventory rejection never restores already-depleted anatomy.
+
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`
+`INVENTORY_RUNTIME_VERIFIED = NO`.
+
 ## Exact current active non-phone gate
 
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
 
 Bounded scope:
-1. reread current harvest owner, Monster 01 harvest packet, `CONTENT_DATA_GUIDE.md`, mechanical inventory/crafting authorities and current vertical-slice requirements;
-2. create a local inventory/material package/front door only if current structure genuinely needs one;
-3. define authoritative ownership for recovered material quantities after a committed harvest transaction;
-4. define material stack identity by stable material ID plus only the minimum quality/provenance fields required by current design;
-5. define quantity conservation between harvest extraction result and inventory acceptance;
-6. define inventory rejection/full-capacity handling so material is neither deleted nor duplicated;
-7. define stack merge/split rules without losing quality/provenance determinism;
-8. define save/load transaction IDs and anti-replay;
-9. define minimum deterministic trace/future tests;
-10. do not bundle crafting recipes, market prices, broad equipment loadouts, party reward splitting or production implementation.
+1. reread Inventory owner, Harvest owner, Monster 01 harvest packet, `CONTENT_DATA_GUIDE.md`, progression/equipment/weapon authorities and vertical-slice requirements;
+2. select exactly one Monster-01-derived recipe/output that improves the current first-slice Hunter/Field Poleblade experience;
+3. define exact material IDs/quantities/minimum quality consumed from authoritative inventory;
+4. define one deterministic crafting transaction with source-stack conservation and transaction anti-replay;
+5. define output item/equipment stable ID and authoritative owner;
+6. define equip/upgrade effect through existing equipment/effect ownership rather than an ad hoc stat edit;
+7. define failure/rejection so inputs are not deleted or duplicated;
+8. define save/load persistence and debug trace;
+9. record future tests;
+10. do not create a broad recipe tree, market economy, multiple weapon families or production implementation.
 
-## After inventory baseline
+## After one-recipe linkage
 
-Select the smallest one-recipe crafting/equipment linkage that closes:
-`HARVEST -> INVENTORY -> CRAFT/EQUIP -> REASON TO HUNT AGAIN`.
-
-Do not build a broad crafting/economy catalog before that one linkage works.
+Select the next smallest vertical-slice prerequisite from current repository evidence. Do not expand content breadth until the single complete loop is coherent.
 
 ## Current gate truth
 
@@ -264,10 +266,12 @@ Do not build a broad crafting/economy catalog before that one linkage works.
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
-`HARVEST_RUNTIME_IMPLEMENTED = NO`.
+`HARVEST_RUNTIME_IMPLEMENTED = NO`
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`.
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
