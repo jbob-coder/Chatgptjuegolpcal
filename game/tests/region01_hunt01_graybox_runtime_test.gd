@@ -46,6 +46,12 @@ func _move_hunter_to_and_wait(hunter: CharacterBody3D, position: Vector3, world:
 		await physics_frame
 		await process_frame
 		if int(world.call("get_collected_evidence_count")) >= expected_count:
+			# Evidence collection and encounter-zone overlap are separate physics consumers.
+			# Allow both to settle before the caller inspects derived encounter state.
+			await physics_frame
+			await process_frame
+			await physics_frame
+			await process_frame
 			return true
 	return int(world.call("get_collected_evidence_count")) >= expected_count
 
