@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH MUDCREST ANATOMY INTEGRITY BUILD VERIFIED
+Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH HUNTER REACTION WINDOW BUILD VERIFIED / FIRST MUDCREST HEAD SWEEP IMPLEMENTED / AUTOMATED ATTACK VERIFICATION PENDING
 Last reconciled: 2026-09-04
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -19,82 +19,68 @@ The Stage-1 probe under `probes/android_stage1/` is evidence only.
 
 ## Current production stack
 
-### Layer 1 — continuous Hunt-01 world / exploration
-
-- one continuous 440×440 m physical foundation;
+World / exploration:
+- one continuous 440×440 m physical Hunt-01 foundation;
 - Hunter exploration speed 6.25 m/s;
 - accepted shooter-style control law retained;
-- grounded stylized Hunter / Mudcrest Raker / forest presentation;
-- River Ford, Feeding Meadow, physical cover and escape corridor;
-- rejected disconnected/debug graybox superseded.
+- grounded stylized Hunter / Mudcrest / forest presentation.
 
-### Layer 2 — tracking/evidence
+Tracking / encounter:
+- seven physical clues with deterministic freshness/confidence/activity history;
+- no Monster GPS and audio-independent progression;
+- terminal `OBSERVATION_READY`;
+- explicit physical observation/engagement and same-location first-person ENGAGE.
 
-- seven physical clues;
-- clue investigation/disappearance and no duplicate collection;
-- deterministic freshness/confidence/activity history;
-- conflicting old/weak versus fresh evidence;
-- rough directional reasoning without Monster GPS;
-- audio-independent progression;
-- terminal `OBSERVATION_READY`.
-
-### Layer 3 — observation / encounter entry
-
-- explicit ENGAGE after observation readiness;
-- same physical Meadow encounter location;
-- existing Hunter and `monster_r01_m01_0001` identities/transforms remain the encounter basis;
-- aerial exploration transitions to first-person combat staging without a disconnected generic arena.
-
-### Combat foundation
-
-- deterministic turn/initiative/action-economy shell;
+Combat foundation:
+- deterministic initiative/round/activation shell;
 - adjacent tactical-node movement on the authored Meadow graph;
-- first Hunter `POLEBLADE_MEASURED_CUT` attack;
-- hard range/line-of-effect/AP/Stamina legality;
-- eight Mudcrest target groups;
-- deterministic contact/hit-quality resolution;
-- selected-part acquisition or declared body fallback;
-- local protection routing.
+- Hunter `POLEBLADE_MEASURED_CUT` through hard legality, deterministic contact/hit quality/local protection and species anatomy handoff;
+- Mudcrest normalized per-target anatomy integrity with stable idempotent resolution identity;
+- verified generic Hunter reaction window with `POLEBLADE_BLOCK = 1 RP + 6 Stamina` and explicit free decline.
 
-### Mudcrest anatomy integrity
+First real Mudcrest attack now implemented:
+- species owner `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
+- `M01_HEAD_SWEEP_GORE`;
+- exact `2 AP / 14 Stamina`;
+- physical working-melee/front-front-flank/cover legality;
+- authoritative text + non-colliding world telegraph;
+- shared reaction window consumption;
+- one deterministic hostile contact/hit-quality trace;
+- stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff.
 
-- species-owned under `game/scripts/gameplay/monsters/monster_01/`;
-- consumes the committed Hunter attack consequence without rerolling contact;
-- deterministic normalized integrity per target group;
-- stable resolution identity and idempotent replay/readback;
-- mismatch/collision rejection;
-- current arithmetic explicitly provisional rather than final balance.
+Final Hunter HP/damage arithmetic is intentionally not invented in this slice. Final Block outcome, structural break/sever, status effects, the other Mudcrest attacks, behavior/Berserk, defeat/escape, harvest, inventory, crafting, settlement services and persistence remain incomplete.
 
-Not yet runtime-complete: reaction windows, Monster attacks/behavior, break/sever/detached parts, status effects, defeat/escape resolution, harvesting, inventory, crafting, settlement services and persistence.
+## Current verified baseline
 
-## Current automated verification
+Verified stack through Hunter reactions:
+`be389c393f993c0cbab60c0e15688f827951f8f8`.
 
-Current verified source head:
-`a70b7680f3a7d552a08fc9080a04bc40617c916b`.
+Production workflow `33884922855`: SUCCESS.
 
-Production workflow `33853607287`: SUCCESS.
-Static manifest workflow `33853607294`: SUCCESS.
-
-Passed:
+Passed through that verified baseline:
 - manifest / production projection;
-- Mudcrest anatomy source preflight;
+- combat/reaction/Hunter-attack/anatomy source preflights;
 - Godot 4.7.2 parse/import;
 - AppShell smoke;
 - Region-01 smoke;
 - Hunt-01 production integration headless;
 - combat turn shell + tactical movement headless;
+- Hunter reaction window headless;
 - Mudcrest anatomy integrity headless;
 - first Hunter attack + anatomy integration headless;
 - Android debug APK export;
 - APK/evidence artifact upload.
 
-Therefore current runtime through Mudcrest anatomy integrity is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Therefore the runtime through Hunter reactions is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
-Phone acceptance for newer production gameplay is deferred/batched and is not a PASS.
+The new Head Sweep layer is currently IMPLEMENTED only until its full automated chain passes.
+
+Phone acceptance for newer production gameplay remains deferred/batched and is not a PASS.
 `PERFORMANCE_VERIFIED = NO`.
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
-## Next
+## Current bounded piece
 
-`FIRST_SLICE_HUNTER_REACTION_WINDOW_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`.
 
-Before the selected Mudcrest attack packet can replace the current Monster `WAIT_NO_ATTACK_RUNTIME`, generic combat needs a real reaction-window owner and out-of-turn Hunter RP/Stamina commitment path. The first bounded prerequisite will exercise the already-recorded Field Poleblade Block commitment without inventing unresolved final Dodge/Parry/Brace tuning or Hunter damage.
+Do not advance beyond this piece until its static, Godot parse/headless regressions, dedicated Head Sweep test and Android export/upload are green.

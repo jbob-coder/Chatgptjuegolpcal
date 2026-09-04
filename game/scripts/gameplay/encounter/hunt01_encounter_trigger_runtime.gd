@@ -5,6 +5,7 @@ const TACTICAL_MOVEMENT_SCRIPT: Script = preload("res://scripts/gameplay/combat/
 const REACTION_WINDOW_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_reaction_window_runtime.gd")
 const MUDCREST_ANATOMY_SCRIPT: Script = preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd")
 const HUNTER_ATTACK_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd")
+const MUDCREST_ATTACK_SCRIPT: Script = preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd")
 const ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const FOOTPRINT_ID := "R01_EF02"
 const MONSTER_ID := "monster_r01_m01_0001"
@@ -32,6 +33,7 @@ var _tactical_movement_runtime: Node = null
 var _reaction_window_runtime: Node = null
 var _mudcrest_anatomy_runtime: Node = null
 var _hunter_attack_runtime: Node = null
+var _mudcrest_attack_runtime: Node = null
 
 func _ready() -> void:
 	call_deferred("_bind_runtime")
@@ -184,7 +186,7 @@ func _engage() -> bool:
 	_state = "ENCOUNTER_STAGED_FIRST_PERSON"
 	_set_engage_button(false)
 	if _status_label != null:
-		_status_label.text = "Encounter staged • R01_EF02 • deterministic turns + tactical movement + Measured Cut + Mudcrest integrity + shared reaction-window authority active. Monster attacks remain the next combat layer."
+		_status_label.text = "Encounter staged • R01_EF02 • deterministic turns, tactical movement, Measured Cut, Mudcrest integrity, shared reactions and first Head Sweep hostile attack active. Final Hunter damage remains a later layer."
 	return true
 
 func _start_combat_turn_shell() -> bool:
@@ -255,11 +257,31 @@ func _start_combat_turn_shell() -> bool:
 		shell.queue_free()
 		return false
 
+	var mudcrest_attack := MUDCREST_ATTACK_SCRIPT.new() as Node
+	if mudcrest_attack == null:
+		attack.queue_free()
+		anatomy.queue_free()
+		reaction.queue_free()
+		movement.queue_free()
+		shell.queue_free()
+		return false
+	mudcrest_attack.name = "MudcrestAttackRuntime"
+	shell.add_child(mudcrest_attack)
+	if not bool(mudcrest_attack.call("initialize", _world, shell, reaction, anatomy, _encounter_record)):
+		mudcrest_attack.queue_free()
+		attack.queue_free()
+		anatomy.queue_free()
+		reaction.queue_free()
+		movement.queue_free()
+		shell.queue_free()
+		return false
+
 	_combat_turn_shell = shell
 	_tactical_movement_runtime = movement
 	_reaction_window_runtime = reaction
 	_mudcrest_anatomy_runtime = anatomy
 	_hunter_attack_runtime = attack
+	_mudcrest_attack_runtime = mudcrest_attack
 	return true
 
 func get_state() -> String:
@@ -306,6 +328,12 @@ func has_hunter_attack_started() -> bool:
 
 func get_hunter_attack_runtime() -> Node:
 	return _hunter_attack_runtime
+
+func has_mudcrest_attack_started() -> bool:
+	return _mudcrest_attack_runtime != null and bool(_mudcrest_attack_runtime.call("is_initialized"))
+
+func get_mudcrest_attack_runtime() -> Node:
+	return _mudcrest_attack_runtime
 
 func engage_for_test() -> bool:
 	return _engage()
