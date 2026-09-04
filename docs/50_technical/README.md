@@ -1,68 +1,80 @@
-# 50_technical — Architecture, Code and Platform Mapping
+# 50_technical — Architecture, Persistence, Code and Platform Mapping
 
-Purpose: technical ownership, platform evidence and implementation-facing documentation once matching source exists.
+Status: ACTIVE TECHNICAL MAP / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE PERSISTENCE DESIGN RECORDED
+Last reconciled: 2026-09-03
+
+## Purpose
+
+Own technical/platform documentation, architecture mapping and persistence boundaries while keeping implementation claims tied to real source/build/device evidence.
 
 Belongs here:
 - engine/platform probe decisions;
-- domain/module architecture;
-- engine-specific scene/module maps after probe evidence;
-- persistence/save schemas when implemented;
+- domain/module architecture mapping;
+- persistence/save contracts and later schemas;
 - streaming implementation mapping;
 - Android lifecycle/platform notes;
-- actual build/install documentation;
-- import/export pipeline tied to real tools/assets;
-- subsystem READMEs beside/source-linked to implementation.
+- build/install documentation tied to real artifacts;
+- implementation-facing subsystem READMEs once matching source exists.
 
-## Current engine/platform authority
+## Current packages
 
-`ENGINE_ANDROID_PROBE_DECISION.md`
+Engine/Android candidate authority:
+`ENGINE_ANDROID_PROBE_DECISION.md`.
 
-Current Stage 1 candidate:
+Persistence front door:
+`persistence/README.md`.
+
+First-slice persistence authority:
+`persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
+
+## Stage-1 candidate truth
+
 - Godot 4.7 family;
+- CI/build Godot 4.7.2 stable;
 - GDScript;
 - GL Compatibility renderer;
 - Samsung Galaxy A03s baseline;
-- stable 30 FPS representative-probe target.
+- stable 30 FPS representative-scene target.
 
-Godot remains `PROBE_PENDING`; do not label it the final production engine until the Galaxy A03s acceptance gate passes.
+Current matching implementation is probe-only:
+`/probes/android_stage1/`.
 
-## Current matching source
+The Stage-1 probe is disposable evidence-gathering source and is not automatically production architecture.
 
-Probe-only implementation root:
-`/probes/android_stage1/`
+Automated protocol/build evidence is recorded in current project/readiness handoffs. Direct Galaxy A03s regression + sustained-performance evidence remains deferred.
 
-Current source status:
-- Godot project configuration created;
-- Boot/title scene created;
-- primitive 3D probe scene created;
-- Hunter/Monster placeholders created;
-- touch/WASD probe input created;
-- aerial↔first-person toggle created;
-- runtime renderer/FPS/debug-memory HUD created;
-- Android export setup documented;
-- phone test protocol documented;
-- GitHub source readback completed;
-- Godot parse/editor run NOT yet verified;
-- APK/phone runtime NOT yet verified.
+`PERFORMANCE_VERIFIED = NO`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
-Implementation handoff:
-`../70_handoff/STAGE1_PROBE_SKELETON_PASS_2026-09-02.md`.
+## First-slice persistence baseline
 
-Important quality rule:
-**the Stage 1 probe is disposable evidence-gathering source and is not automatically the production game/domain source.**
+Selected:
+- schema `UHR_SAVE_SCHEMA_1`, version 1;
+- one prototype player slot `save_slot_01`;
+- monotonically increasing committed generations;
+- state snapshot, not event sourcing;
+- save requests commit only at persistence-safe domain boundaries;
+- active encounter save allowed at stable combat decision/reaction points;
+- exact scheduler/transaction sequence state survives reload;
+- same Monster/anatomy/Crystal/harvest/bundle/Inventory/equipment identities survive reload;
+- transaction IDs remain idempotent;
+- presentation is reconstructed and never replayed as gameplay truth;
+- incomplete new write cannot invalidate last committed generation;
+- load validation precedes state activation.
 
-If the probe passes, later production source should be created under a separately approved Stage 2 structure.
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
+`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`
+`PERSISTENCE_RUNTIME_VERIFIED = NO`.
 
-## Build-readiness governance
+## Spatial persistence interface
 
-`../00_project/BUILD_READINESS_GATE_MATRIX.md`
+Persistence stores stable spatial context/sector/anchor references plus position in meters and orientation.
 
-Technical work must obey the first stage that consumes a decision:
-- engine probe prerequisites;
-- domain prerequisites;
-- combat prerequisites;
-- vertical-slice prerequisites;
-- expansion-only questions.
+Existing world authority prefers `1 world unit = 1 meter`.
+
+Exact coordinate axes/origins/bounds belong to the next world-design owner:
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
 
 ## Existing engine-neutral authorities
 
@@ -70,14 +82,14 @@ Technical work must obey the first stage that consumes a decision:
 - `/CODE_GUIDE.md`;
 - `/DEVELOPMENT_REFERENCE.md`;
 - `/IMPLEMENTATION_ROADMAP.md`;
-- `/PERFORMANCE_BUDGETS_AND_CAPS.md`.
+- `/PERFORMANCE_BUDGETS_AND_CAPS.md`;
+- `/WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`.
 
-Important rules:
-- do not create detailed class/API/scene documentation for code that does not exist;
-- implementation claims require verified current source;
-- build success is not phone-runtime verification;
-- desktop runtime is not Galaxy A03s verification;
-- source readback is not Godot parse verification;
-- engine-specific architecture should be added only as the real probe/project creates evidence.
+## Quality rules
 
-World packages may specify desired streaming relationships; this area documents how the verified engine implements them.
+- Do not create detailed class/API/scene claims for code that does not exist.
+- Source readback is not runtime verification.
+- Build success is not Galaxy A03s verification.
+- Persistence design is not persistence implementation.
+- UI/animation may request/display but never own persistent gameplay state.
+- Current exact work/next action remains owned by root `EVOLVE_ALIGNMENT.md`.

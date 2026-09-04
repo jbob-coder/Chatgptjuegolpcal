@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PHYSICAL SMITH SERVICE RECORDED / PERSISTENCE NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PERSISTENCE RECORDED / WORLD COORDINATES + DIMENSIONS NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
@@ -16,7 +16,7 @@ Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
 
 Operating contract:
 `EVOLVE_ALIGNMENT.md`.
@@ -33,13 +33,16 @@ Operating contract:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-For current persistence work additionally read:
-- `SYSTEM_ARCHITECTURE_BLUEPRINT.md`;
-- current combat outcome/Monster persistence rules;
-- harvest/inventory/crafting transaction contracts;
-- Settlement 01 Smith service contract;
-- Region 01 tracking/escape package;
-- current save/reload requirements in all recorded first-slice owners.
+For current spatial work additionally read:
+- `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
+- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`;
+- `FIRST_SETTLEMENT_BLUEPRINT.md`;
+- `docs/10_world/README.md`;
+- Settlement 01 package/Smith contract;
+- Region 01 README/topology/encounter footprints/streaming acceptance;
+- Monster 01 anatomy/dimension authority;
+- Hunter scale/model authorities;
+- new persistence contract because saved positions must consume the same coordinate framework.
 
 ## Project identity
 
@@ -51,7 +54,7 @@ Playable direction:
 - first-person turn-based tactical combat from the same physical encounter;
 - anatomy damage changes capability and harvest;
 - deterministic authored behavior;
-- physical harvest -> Inventory -> physical Smith -> equipment refinement -> next hunt.
+- physical harvest -> Inventory -> physical Smith -> equipment refinement -> save/reload -> next hunt.
 
 ## Stage-1 engine/device truth
 
@@ -74,52 +77,68 @@ Direct phone regression + sustained 24-minute run remain deferred.
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## Recorded gameplay/world design chain
+## Recorded gameplay/world chain
 
-Combat baseline:
-nine reusable first-slice combat/outcome contracts through Defeat/Retreat.
+Completed design sequence:
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip -> Settlement Smith Service -> Persistence`.
 
-Harvest:
-finite anatomy-derived capacity / condition preservation / deterministic extraction / lineage conservation.
-
-Inventory:
-`PLAYER_FIELD_INVENTORY`, recovery bundles, material/quality stacks, provenance lots, conserved idempotent transfers.
-
-Craft/equip:
+Key first recipe:
 `recipe_field_poleblade_raker_tendon_grip`
-consumes 2 HIGH tail tendon + 2 STANDARD-or-better hide and applies one Raker-Tendon Grip refinement to a compatible Field Poleblade.
+= 2 HIGH tail tendon + 2 STANDARD-or-better hide -> Raker-Tendon Grip refinement -> Placed Hew Stamina 18 -> 16.
 
-Effect:
-Placed Hew Stamina 18 -> 16 via typed `COST_MODIFIER` only.
+Settlement Smith:
+physical workbench in Craft/Processing Quarter; normal essential service independent of one NPC schedule; future gate-return route target <=25 seconds normal walk.
 
-## Settlement 01 Smith service — RECORDED
+## Persistence baseline — RECORDED
 
-World package:
-`docs/10_world/settlements/SETTLEMENT_01/`.
+Front door:
+`docs/50_technical/persistence/README.md`.
 
 Authority:
-`docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
+`docs/50_technical/persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
 
 Handoff:
-`docs/70_handoff/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_PASS_2026-09-03.md`.
+`docs/70_handoff/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_PASS_2026-09-03.md`.
 
 Selected:
-- service ID `service_settlement01_smith_weapon_workbench`;
-- interaction ID `interact_settlement01_smith_weapon_workbench`;
-- capability `CRAFT_STATION_WEAPON_WORKBENCH`;
-- physical Smith/Workshop on the Hunter Service Loop near gate/processing path;
-- gate-return-to-workbench graybox target <=25 seconds normal walk;
-- normal essential service does not depend on one NPC schedule;
-- only Raker-Tendon Grip recipe exposed in first proof;
-- open/preview/cancel are read-only;
-- Confirm submits authoritative Craft transaction;
-- stable Field Poleblade target selected/revalidated by instance ID;
-- UI/NPC/Settlement never directly consume Inventory or write refinement;
-- save/re-entry hooks prevent presentation replay.
+- `UHR_SAVE_SCHEMA_1`, schema version 1;
+- one prototype slot `save_slot_01`;
+- monotonically increasing committed generations;
+- state snapshot, not event sourcing;
+- safe-point-only snapshot commits;
+- active encounter saves at stable combat decision/reaction points;
+- exact Initiative/RoundRoster/current-actor/resource state persists;
+- same Monster/anatomy/Core/Strain/Berserk/route/evidence state persists;
+- harvest lineage/depletion, Recovery Bundles, Inventory/provenance, craft ledgers/refinement persist;
+- Smith overlay reloads closed while domain state remains authoritative;
+- transaction/ID sequences cannot replay or collide after reload;
+- incomplete new write cannot destroy last committed generation;
+- load validates invariants before state activation;
+- presentation rebuilds from domain truth.
 
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
-`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`
-`SETTLEMENT_SMITH_RUNTIME_VERIFIED = NO`.
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
+`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`
+`PERSISTENCE_RUNTIME_VERIFIED = NO`.
+
+## User-requested dimensions/coordinates direction
+
+Current world authority already uses the preferred standard:
+`1 world unit = 1 meter`.
+
+Current prototype size evidence includes:
+- Hunter baseline around 1.75–1.80 m;
+- Mudcrest Raker ~6.6 m long / ~3.0 m shoulder-body height;
+- Settlement 01 specific blueprint roughly 220–280 m long axis × 160–230 m short axis;
+- Region 01 sectors roughly 100–180 m characteristic spans;
+- normal first-person encounter footprints tens of meters, with 30–90 m global starting guidance;
+- workshop/smith guide roughly 10–20 m × 12–28 m.
+
+These are ranges, not yet one coordinate map.
+
+Exact next pass:
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
+
+That pass must select axis/origin conventions and documented prototype coordinates/bounds/anchors for Settlement 01, Hunter Gate/transition, Region 01 sectors and encounter footprints, while preserving existing topology and labeling untested geometry as prototype graybox targets.
 
 ## Saved visual concept
 
@@ -128,18 +147,9 @@ Google Drive folder:
 
 File:
 `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
-Drive file ID: `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+Drive file ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
 
-Visual intent only; repository mechanics/runtime evidence remain authoritative.
-
-## Current game-development sequence
-
-Completed design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip -> Settlement Smith Service`.
-
-Next:
-`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`
--> then select the next smallest vertical-slice dependency from live readiness evidence.
+Visual intent only; repository mechanics/runtime/dimensions/coordinates remain authoritative.
 
 ## Documentation/navigation discipline
 
@@ -159,11 +169,13 @@ root README / `docs/README.md` / package READMEs / `DOCUMENTATION_INDEX.md` / `d
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
 `FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
 `FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
 `INVENTORY_RUNTIME_IMPLEMENTED = NO`
 `CRAFTING_RUNTIME_IMPLEMENTED = NO`
-`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`.
+`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`
+`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`.
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.

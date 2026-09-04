@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH SMITH SERVICE RECORDED / PERSISTENCE NEXT
+Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PERSISTENCE RECORDED / WORLD COORDINATES + DIMENSIONS NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -23,13 +23,15 @@ Readiness classes:
 |---|---|---|
 | ENGINE PROBE | AUTOMATED FOUNDATION / PHONE GATE DEFERRED | source/build/headless gates pass; direct Galaxy A03s evidence remains |
 | DOMAIN IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | production architecture waits for target-device gate |
-| COMBAT DESIGN | BASELINE RECORDED | reusable combat/outcome contracts + Monster 01 packets recorded |
-| HARVEST DESIGN | BASELINE RECORDED | finite anatomy-derived capacity + Monster 01 packet recorded |
-| INVENTORY MATERIAL DESIGN | BASELINE RECORDED | conserved material ownership/transfer recorded |
-| CRAFT/EQUIP LINKAGE DESIGN | FIRST RECIPE RECORDED | one Monster-01-derived Poleblade refinement recorded |
-| SETTLEMENT SMITH SERVICE DESIGN | BASELINE RECORDED | logical workbench mapped to physical Settlement 01 service interaction |
-| PERSISTENCE DESIGN | NEXT | first-slice cross-system save/reload contract still required |
-| VERTICAL SLICE | PARTIAL | persistence + Region/implementation/device integration remain |
+| COMBAT DESIGN | BASELINE RECORDED | nine reusable combat/outcome contracts + Monster 01 content packets recorded |
+| COMBAT IMPLEMENTATION | NOT STARTED | production domain/combat source and tests absent |
+| HARVEST DESIGN | BASELINE RECORDED | finite anatomy capacity + Monster 01 source packet recorded |
+| INVENTORY DESIGN | BASELINE RECORDED | deterministic recovered-material ownership/transfer recorded |
+| CRAFT/EQUIP DESIGN | FIRST RECIPE RECORDED | one Monster-derived Poleblade refinement transaction/effect recorded |
+| SETTLEMENT SMITH DESIGN | BASELINE RECORDED | logical workbench mapped to physical Settlement 01 service |
+| PERSISTENCE DESIGN | BASELINE RECORDED | schema-1 snapshot/safe-point/active-encounter/transaction continuity recorded |
+| SPATIAL COORDINATE/DIMENSION DESIGN | NEXT | convert current meter-scale ranges/topology into one documented prototype coordinate framework |
+| VERTICAL SLICE | PARTIAL | spatial graybox/integration + production implementation + phone verification remain |
 | EXPANSION | INTENTIONALLY OPEN | broad content/lore/economy does not block first slice |
 
 ## 2. Engine probe truth
@@ -47,7 +49,7 @@ Automated evidence:
 Inner APK:
 `57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-Still missing direct Galaxy A03s regression + sustained 24-minute run.
+Direct Galaxy A03s regression + sustained 24-minute run remain deferred.
 
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`
@@ -59,72 +61,86 @@ Implementation blocker:
 Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-## 3. Domain implementation gate
-
-Stage 2 production-domain implementation begins only after `ENGINE_PHONE_PROBE_VERIFIED`.
-
-Recorded design prerequisites now include stable IDs/data ownership, stats/effects, deterministic behavior, Crystal state, combat, Monster 01 content, harvest, material inventory, one craft/refinement transaction and one physical Settlement Smith service.
-
-`DOMAIN_IMPLEMENTATION_READINESS = BLOCKED_BY_ENGINE_PHONE_PROBE`.
-
-## 4. Recorded first-slice design chain
+## 3. Recorded first-slice design chain
 
 Combat:
 Action Economy / Resolution / Field Poleblade / Stamina / Initiative / Status / Terrain / Solo-Party / Defeat-Retreat.
 
+Monster 01:
+anatomy / attacks / Berserk / deterministic Region behavior / escape-reacquisition / finite harvest packet.
+
 Harvest:
-`docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
+finite source capacity, preservation/quality, deterministic extraction, lineage/depletion conservation.
 
 Inventory:
-`docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
+Recovery Bundle -> player material inventory; quality/provenance stacks; conserved idempotent transfers.
 
 Craft/equip:
-`docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
+`recipe_field_poleblade_raker_tendon_grip`
+uses 2 HIGH tail tendon + 2 STANDARD-or-better hide and applies one refinement to a compatible Field Poleblade.
 
-Settlement Smith service:
-`docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
+Smith:
+physical Settlement 01 workbench on Hunter Service Loop; normal essential service independent of one NPC schedule; <=25-second gate-return route is a future graybox target.
 
-Smith proof records:
-- physical `CRAFT_STATION_WEAPON_WORKBENCH` in Settlement 01;
-- <=25-second gate-return-to-workbench graybox target;
-- normal service availability independent of one NPC schedule;
-- exactly one first-slice recipe exposed;
-- read-only preview + authoritative Confirm;
-- stable Field Poleblade instance selection/revalidation;
-- no UI/NPC/Settlement direct Inventory or refinement mutation;
-- save/re-entry hooks and transaction anti-replay requirements.
+Persistence:
+`docs/50_technical/persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
 
-Runtime for these gameplay/world domains remains unimplemented/unverified.
+Selected persistence laws:
+- `UHR_SAVE_SCHEMA_1`, version 1;
+- `save_slot_01`;
+- committed generation snapshots;
+- save only at persistence-safe domain boundaries;
+- active combat save at stable decision/reaction points;
+- exact Initiative/roster/resources/transaction ledgers persist;
+- Monster/anatomy/Core/Berserk/harvest/bundle/Inventory/refinement identities persist;
+- presentation rebuilds from domain state;
+- incomplete write never replaces prior committed generation;
+- load validates invariants before activation.
 
-## 5. Vertical-slice prerequisites
+`COMBAT_DESIGN_BASELINE_COMPLETE = YES`
+`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`.
+
+Runtime for these production domains remains unimplemented/unverified.
+
+## 4. Vertical-slice prerequisites
 
 Required integrated loop:
-`TITLE/PREP -> WALKABLE HUB -> GATE -> REGION 01 -> TRACK -> ENGAGE -> COMBAT -> BREAK/SEVER/BERSERK -> DEFEAT/ESCAPE -> HARVEST -> INVENTORY -> RETURN -> PHYSICAL SMITH -> CRAFT/EQUIP -> SAVE/RELOAD`.
+`TITLE/PREP -> WALKABLE HUB -> GATE -> REGION 01 -> TRACK -> ENGAGE -> COMBAT -> BREAK/SEVER/BERSERK -> DEFEAT/ESCAPE -> HARVEST -> INVENTORY -> RETURN -> SMITH/CRAFT -> EQUIP -> SAVE/RELOAD`.
 
 Still requires:
 - Stage-1 Galaxy A03s phone gate;
 - production domain/stats/Crystal/content/combat implementation/tests;
-- Region 01 graybox/tracking/escape continuity implementation;
-- runtime harvest/inventory/crafting/Smith interaction;
-- first-slice persistence/save-reload contract + implementation;
+- concrete Settlement 01 / gate / Region 01 coordinate-and-dimension graybox authority;
+- Region 01 graybox/tracking/escape/encounter integration;
+- runtime harvest/Inventory/crafting/Smith/persistence;
 - integrated Android lifecycle/performance verification.
 
-`VERTICAL_SLICE_READINESS = PARTIAL / PERSISTENCE + IMPLEMENTATION + DEVICE GATES REMAIN`.
+`VERTICAL_SLICE_READINESS = PARTIAL / SPATIAL GRAYBOX + IMPLEMENTATION STAGES REMAIN`.
 
-## 6. Exact next independent design dependency
+## 5. Exact next independent design dependency
 
-`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`
 
-Reason:
-Region 01 already has topology/tracking/encounter-footprint design packages, while save/reload semantics are currently scattered as requirements across combat, Monster identity, harvest depletion, Inventory transfer, crafting anti-replay and Settlement service re-entry.
+Required bounded scope:
+- consume existing `1 world unit = 1 meter` rule;
+- select an engine-neutral axis/origin convention;
+- choose prototype Settlement 01 outer bounds and major service/landmark anchor coordinates;
+- assign Hunter Gate + transition-corridor geometry/anchors;
+- assign Region 01 sector centers/bounds/adjacency corridors without turning the region into a visible square grid;
+- anchor first combat footprints to real Region terrain;
+- document Hunter/Monster/building/street dimensional reference values used by the graybox;
+- mark every value `PROTOTYPE TARGET` vs `LOCKED/CURRENT` explicitly;
+- keep final art, exact camera/FOV and target-phone profiling open.
 
-The next contract should unify the smallest vertical-slice persistence boundary without prematurely implementing full long-term migration/recovery tooling.
+## 6. Can wait until expansion
 
-## 7. Can wait until expansion
+Final name/lore; many regions/Monsters/weapons/recipes; deep companion relationships; multiplayer; permanent Hunter death; advanced revive/capture; broad market/economy; final store/signing/localization/device matrix; large migration/cloud-save system.
 
-Final name/lore; broad elements; many regions/Monsters/weapons/recipes; deep companion relationships; multiplayer; permanent Hunter death; advanced revive/capture; large status/terrain/material catalogs; market breadth; final store/signing/localization/device matrix.
-
-## 8. Exact state
+## 7. Exact state
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
@@ -135,13 +151,15 @@ Final name/lore; broad elements; many regions/Monsters/weapons/recipes; deep com
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
 `FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
 `FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
 `INVENTORY_RUNTIME_IMPLEMENTED = NO`
 `CRAFTING_RUNTIME_IMPLEMENTED = NO`
-`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`.
+`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`
+`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`.
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
 
-Implementation and design may advance in parallel only when dependencies do not conflict. Every pass remains governed by `EVOLVE_ALIGNMENT.md`.
+Every pass remains governed by `EVOLVE_ALIGNMENT.md`.
