@@ -8,10 +8,10 @@ roughness = 1.0
 
 [sub_resource type="BoxMesh" id="Mesh_floor"]
 material = SubResource("Mat_floor")
-size = Vector3(20, 0.5, 20)
+size = Vector3(120, 0.5, 120)
 
 [sub_resource type="BoxShape3D" id="Shape_floor"]
-size = Vector3(20, 0.5, 20)
+size = Vector3(120, 0.5, 120)
 
 [sub_resource type="StandardMaterial3D" id="Mat_hunter"]
 albedo_color = Color(0.46, 0.36, 0.24, 1)
@@ -44,7 +44,7 @@ script = ExtResource("1_probe")
 rotation_degrees = Vector3(-52, -28, 0)
 light_energy = 1.05
 shadow_enabled = true
-directional_shadow_max_distance = 35.0
+directional_shadow_max_distance = 55.0
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 position = Vector3(0, -0.25, 0)
@@ -68,9 +68,9 @@ shape = SubResource("Shape_hunter")
 [node name="FirstPersonCamera" type="Camera3D" parent="Hunter"]
 position = Vector3(0, 0.68, -0.08)
 current = false
-fov = 68.0
+fov = 115.0
 near = 0.05
-far = 80.0
+far = 140.0
 
 [node name="Monster" type="MeshInstance3D" parent="."]
 position = Vector3(0, 1.2, -5.5)
@@ -87,7 +87,7 @@ position = Vector3(0, 9.5, 10.5)
 current = true
 fov = 52.0
 near = 0.1
-far = 100.0
+far = 160.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -193,7 +193,7 @@ offset_left = -300.0
 offset_top = -48.0
 offset_right = 300.0
 offset_bottom = -16.0
-text = "Move: analog joystick • Settings: Look Speed • View toggle preserves authoritative position"
+text = "Move: adaptive analog joystick • Settings: Look Speed • View toggle preserves authoritative position"
 horizontal_alignment = 1
 
 [node name="SettingsOverlay" type="PanelContainer" parent="HUD"]

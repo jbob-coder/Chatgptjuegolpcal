@@ -1,155 +1,133 @@
 # Stage 1 Control / Camera Foundation — Protected Behavior README
 
-Status: USER-DIRECTED FOUNDATION CONTRACT / PHONE FEEDBACK RECEIVED / REPAIR IMPLEMENTED / FINAL GALAXY A03s RETEST REQUIRED
+Status: USER-DIRECTED FOUNDATION CONTRACT / ADAPTIVE-JOYSTICK REVISION IMPLEMENTED / GALAXY A03s RETEST REQUIRED
 Last reconciled: 2026-09-04
 
 ## Why this file exists
 
-This file protects the current user-approved control/camera direction from accidental later replacement or retuning.
+This file protects the current user-approved control/camera direction from silent later replacement or retuning.
 
-The Stage 1 probe is disposable engine-evidence source, but the interaction lessons proven here are design evidence for the future production game.
-
-**Do not silently replace, remove, substantially retune, or reinterpret the behaviors below.**
-
-If a later implementation needs to change one of them:
-1. state the reason before changing it;
-2. identify which behavior is affected;
-3. preserve the old value/behavior in the change record;
-4. run the relevant static/Godot/APK tests;
-5. run a Galaxy A03s phone regression test;
-6. document the new evidence and whether the user accepted the change.
+If a future implementation changes the joystick interaction model, Settings/Look Speed persistence, aerial behavior, first-person FOV, or first-person damping, the change and reason must be stated before it is presented as the new baseline, then re-tested through source/Godot/APK and Galaxy A03s evidence.
 
 ## Latest direct phone evidence — 2026-09-04
 
-User reported that the current Stage-1 APK otherwise works correctly on phone with no clipping or other reported problems.
+User reported:
+- the Stage-1 probe otherwise works correctly;
+- no clipping or other general problem was observed;
+- aerial camera behavior is acceptable;
+- the neutral-crossing repair still required an unwanted control gesture;
+- the player should not have to release the finger **or return the joystick to 0/center** just so the control recognizes the new direction as forward;
+- the test arena is too small for meaningful sustained steering tests.
 
-Two control/camera issues remain before Stage 1 may be considered closed:
-1. after steering right, the player should not need to lift the joystick finger before pushing up/forward relative to the new heading;
-2. first-person left/right turning feels too snappy and first-person FOV should be in the 110–120 degree range.
+This feedback explicitly supersedes both older recenter models:
+1. release-to-recenter — superseded;
+2. neutral/deadzone-crossing-to-recenter — superseded.
 
-Selected repair:
-- keep the movement basis frozen while the stick is held outside neutral;
-- when the same finger passes back through the joystick deadzone, recapture the Hunter's latest heading once;
-- the next non-neutral stick direction uses that new reference without requiring touch release;
-- first-person turn response is damped relative to aerial mode only;
-- first-person FOV is set to `115°`.
+## Current protected movement contract — adaptive continuous steering
 
-This is an explicit user-directed revision to the previous release-required recenter behavior. The old release-to-recenter behavior remains documented below as superseded history.
+Phone movement uses one analog joystick on the lower-left.
 
-## Protected control contract
+Core behavior:
+1. touch claims one pointer;
+2. analog magnitude controls movement magnitude;
+3. diagonal input is legal;
+4. initial input resolves relative to Hunter heading captured at touch start;
+5. current world movement is latched while the same physical direction is held;
+6. once Hunter facing has aligned with a sustained movement direction, the joystick reference may rebase to that heading **without changing the current world movement**;
+7. the player can then straighten/rotate the same held stick toward screen-up/forward and continue along the already-established world heading;
+8. no finger release is required;
+9. no deadzone/center crossing is required;
+10. holding the same off-center input after a rebase must not cause continuous circling;
+11. a deliberate stick movement away from the straightening path is interpreted as a new steering request;
+12. release, Settings, pause/focus transitions still clear transient movement/touch ownership.
 
-### Movement
-
-Phone movement uses one **analog movement joystick** on the lower-left.
-
-Required behavior:
-- touch inside the joystick claims one touch pointer;
-- dragging produces an analog movement vector;
-- movement magnitude scales from deadzone to full travel;
-- diagonal movement is supported;
-- releasing the controlling touch resets movement to zero;
-- opening Settings resets the joystick to zero;
-- desktop WASD remains a development fallback;
-- the joystick is movement input only and does not directly own authoritative world state.
-
-Prototype deadzone:
+Prototype deadzone remains:
 `0.12` normalized stick radius.
 
-### Heading-relative joystick reference — current rule
+### Adaptive steering thresholds
 
-The joystick is **not permanently world-axis-relative** and the reference does **not continuously rotate** while the stick is held away from center.
+Prototype values:
+- alignment hold: `0.18 s`;
+- Hunter/movement alignment dot: `0.985`;
+- raw-direction meaningful-change dot: `0.985`;
+- strength meaningful-change threshold: `0.12`;
+- screen-forward completion dot: `0.90`.
 
-Current behavior:
-1. a new joystick touch captures Hunter forward/right;
-2. while the stick remains outside the deadzone, that basis stays stable;
-3. if the same finger returns through the deadzone/neutral, capture the Hunter's latest heading once;
-4. pushing away from neutral again uses the newly captured heading;
-5. releasing still resets touch ownership and movement to zero;
-6. a later new touch also captures the latest Hunter heading.
+These are Stage-1 tuning values and may change after phone feel evidence.
 
-Required example:
+### Required behavior example
+
 - Hunter starts north;
-- player drags stick right and Hunter turns/moves east;
-- without lifting the finger, player drags the stick back through center;
-- the neutral crossing captures east as the new forward reference;
-- player pushes stick up;
-- Hunter continues east/forward.
+- player pushes joystick right;
+- Hunter/camera turns and moves east;
+- player keeps the same finger down;
+- after the eastward motion has stabilized, the control commits east as the updated forward frame while keeping the current eastward motion unchanged;
+- player slides the same joystick from right toward up;
+- Hunter continues east while the stick is straightened;
+- once the stick is up, up now means east/forward;
+- at no point was finger release or center/deadzone entry required.
 
-While the player continues holding the stick right/off-center, the basis must remain frozen. This preserves the anti-circling behavior already validated conceptually.
+The same pattern must work again for later turns in the same touch gesture.
 
-### Superseded prototype rule
+## Enlarged Stage-1 steering arena
 
-Previous Stage-1 behavior required full touch release before a new heading reference could be captured.
+Direct phone feedback found the previous arena too small.
 
-That rule solved the rotating-basis/circling problem but direct phone feedback showed it required an unnecessary finger lift. It is superseded by **neutral-crossing recenter**.
+Current probe floor:
+`120 m × 120 m`.
+
+Current horizontal Hunter bound:
+`±56 m` on X and Z.
+
+Usable bounded span:
+approximately `112 m × 112 m`.
+
+The floor extends 4 m beyond the Hunter-center bound on each outer side, preserving collision margin.
+
+This larger arena exists only for Stage-1 movement/camera testing. It is not production Region 01 geometry and does not override the documented Hunt-01 world dimensions.
 
 ## Hunter facing
 
-When movement is non-zero, the Hunter turns toward resolved world movement heading.
+When movement is non-zero, Hunter facing turns toward authoritative world movement intent.
 
-Movement direction remains authoritative input intent; visual facing/camera response is smoothed.
+The adaptive joystick may change the reference used for a future input sample, but it must never silently alter the already-latched current world movement merely because the camera/Hunter finished turning.
 
 ## Aerial camera
 
-The aerial camera:
-- follows Hunter world position;
-- derives forward from Hunter heading rather than fixed world `-Z`;
-- trails behind Hunter heading;
-- looks slightly ahead of the Hunter;
-- uses smoothed response rather than snapping around turns;
-- remains synchronized while first-person is active so returning to aerial does not revive a stale camera position.
+Aerial behavior remains accepted and unchanged in principle:
+- follows Hunter position;
+- trails Hunter heading;
+- looks ahead;
+- smooth response;
+- remains synchronized while first-person is active.
 
-Prototype geometry remains:
-- height: `8.6 m`;
-- trail distance: `8.4 m`;
-- look-ahead: `2.2 m`.
+Prototype geometry:
+- height `8.6 m`;
+- trail `8.4 m`;
+- look-ahead `2.2 m`.
 
-Direct phone feedback on 2026-09-04 did not request a change to aerial behavior, so this repair must not slow or retune aerial follow merely to fix first-person feel.
+## First-person camera
 
-## First-person camera — current repair
-
-First-person FOV:
+Current Stage-1 FOV:
 `115°`.
 
 User-requested acceptable range:
 `110–120°`.
 
-The 115° midpoint is the current Stage-1 retest value.
-
-First-person turn response uses the existing Hunter turn-response calculation multiplied by:
+Current first-person Hunter turn-response multiplier:
 `0.55`.
 
-Aerial mode keeps the existing response unchanged.
+Aerial turn/follow tuning is not reduced by this multiplier.
 
-Purpose:
-reduce left/right first-person snapping while preserving the already-accepted aerial response.
+## Look Speed
 
-This is still prototype phone tuning, not a final production accessibility/sensitivity contract.
-
-## Look Speed setting
-
-Settings contains a tabbed panel.
-
-Current tabs:
-- `Controls`;
-- `Display` placeholder.
-
-Controls contains:
-`Look Speed`.
+Settings → Controls → Look Speed.
 
 Range:
-`0%` to `100%` in `5%` increments.
+`0–100%` in `5%` increments.
 
 Default:
 `35%`.
-
-Look Speed does not increase movement speed.
-
-Base response mapping remains:
-- Hunter turn response: `lerp(2.0, 10.0, look_speed)`;
-- aerial-camera follow response: `lerp(1.5, 9.0, look_speed)`.
-
-When first-person is active, the Hunter turn response additionally uses the current `0.55` first-person damping multiplier.
 
 Persistence:
 `user://stage1_settings.cfg`
@@ -157,65 +135,32 @@ Persistence:
 Key:
 `controls/look_speed`.
 
-## Settings interaction contract
+Look Speed controls turn/camera response, not movement speed.
 
-A visible `SETTINGS` button opens/closes the overlay.
+## Settings / lifecycle safety
 
-While Settings is open:
-- movement input is zeroed;
-- joystick touch state is reset;
-- view-toggle input is ignored by the probe controller;
-- underlying scene can continue rendering for Stage-1 performance observation;
-- changing Look Speed applies immediately and saves automatically.
+Opening Settings:
+- zeroes movement;
+- releases joystick touch ownership;
+- leaves authoritative Hunter world position intact.
 
-Closing Settings returns to the same physical Hunter state.
+Android pause/resume/focus transitions also clear transient joystick state so movement cannot remain stuck after interruption.
 
-## What is NOT locked yet
+## Current Galaxy A03s acceptance test
 
-Not final:
-- final joystick art/size/placement;
-- final production settings architecture;
-- final first-person free-look/right-stick design;
-- camera collision/occlusion system;
-- final production FOV/accessibility sensitivity range;
-- final camera distances.
+Minimum phone retest:
+1. start north and hold joystick right until movement/facing stabilizes east;
+2. keep the same finger down;
+3. **do not return through center**;
+4. slide the joystick gradually from right toward up;
+5. Hunter should continue east rather than turning away or stopping;
+6. once up, up should remain east/forward;
+7. repeat with another turn in the same touch gesture;
+8. verify no circular drift while simply holding one off-center direction;
+9. verify first-person FOV/turn feel remains acceptable;
+10. use the larger arena for long straight and repeated steering paths;
+11. verify collision, boundary, Settings, view toggle and lifecycle input did not regress.
 
-## Current phone acceptance boundary
+## Verification boundary
 
-Direct user report already supports:
-- app/game probe runs correctly on phone;
-- no reported clipping problem;
-- no reported additional general issue in the tested Stage-1 probe;
-- aerial camera adjustment behavior is acceptable.
-
-Still requires one corrected-APK retest:
-1. turn right while holding joystick, pass through neutral, push up without lifting finger → continues along new forward heading;
-2. first-person left/right movement/turning no longer feels excessively snappy;
-3. 115° first-person FOV is acceptable on the Galaxy A03s;
-4. no regression to collision, boundary, Settings, lifecycle, view toggle or performance behavior.
-
-Stage 1 should only be marked fully accepted after that retest.
-
-## Regression checklist
-
-At minimum verify:
-1. joystick starts movement;
-2. release stops movement;
-3. diagonal/partial movement works;
-4. held off-center basis remains stable;
-5. same-finger neutral crossing recaptures latest heading;
-6. neutral→up follows newly faced heading without release;
-7. Settings opening resets movement/touch ownership;
-8. Look Speed changes response and persists;
-9. aerial camera remains unchanged from accepted behavior;
-10. first-person FOV reports 115°;
-11. first-person turn response is calmer than aerial response at the same Look Speed;
-12. aerial↔first-person toggle preserves position;
-13. no stuck input;
-14. no clipping or nausea-inducing snap/spin;
-15. static/Godot/headless/APK build gates remain green;
-16. Galaxy A03s final retest passes.
-
-## Change-warning law
-
-Any future assistant/developer changing joystick neutral-recenter behavior, Settings/Look Speed persistence, first-person FOV, first-person damping, or aerial response must state the change and reason before presenting it as the new baseline.
+Automated/headless validation can prove the steering-state transitions and enlarged source geometry, but only the Galaxy A03s retest can establish phone feel/acceptance.

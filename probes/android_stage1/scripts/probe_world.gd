@@ -1,7 +1,7 @@
 extends Node3D
 
 const MOVE_SPEED_MPS := 3.5
-const PROBE_BOUNDS := 8.5
+const PROBE_BOUNDS := 56.0
 const METRICS_REFRESH_SECONDS := 0.25
 const PERFORMANCE_WINDOW_SECONDS := 1.0
 const SLOW_FRAME_THRESHOLD_MS := 34.0
@@ -9,6 +9,20 @@ const HITCH_THRESHOLD_MS := 50.0
 const SETTINGS_PATH := "user://stage1_settings.cfg"
 const LOOK_SPEED_DEFAULT := 0.35
 const JOYSTICK_DEADZONE := 0.12
+
+# Adaptive steering thresholds. The active world movement is latched while a
+# direction is held. Once the Hunter has aligned with that sustained movement,
+# the local joystick frame can rebase without changing the current world intent.
+# The next deliberate stick movement is then interpreted relative to the new
+# heading, so the player never has to release or pass through center merely to
+# continue forward after a turn.
+const JOYSTICK_ADAPT_HOLD_SECONDS := 0.18
+const JOYSTICK_ADAPT_ALIGNMENT_DOT := 0.985
+const JOYSTICK_RAW_CHANGE_DOT := 0.985
+const JOYSTICK_STRENGTH_CHANGE_THRESHOLD := 0.12
+const JOYSTICK_STRAIGHTEN_FORWARD_DOT := 0.90
+const JOYSTICK_STRAIGHTEN_PROGRESS_EPS := 0.03
+const SCREEN_STICK_FORWARD := Vector2(0.0, -1.0)
 
 # Stage-1 camera/control prototype values. The user-approved behavior is
 # documented in docs/CONTROL_CAMERA_FOUNDATION_README.md. Do not retune or
@@ -35,10 +49,16 @@ const FIRST_PERSON_TURN_RESPONSE_SCALE := 0.55
 @onready var look_speed_value: Label = $HUD/SettingsOverlay/Layout/Tabs/Controls/LookSpeedValue
 
 var _joystick_vector := Vector2.ZERO
+var _joystick_world_intent := Vector3.ZERO
 var _joystick_touch_id := -1
 var _joystick_reference_forward := Vector3(0.0, 0.0, -1.0)
 var _joystick_reference_right := Vector3(1.0, 0.0, 0.0)
 var _joystick_in_deadzone := true
+var _joystick_stable_elapsed := 0.0
+var _joystick_adaptive_latched := false
+var _joystick_rebase_raw_direction := Vector2.ZERO
+var _joystick_last_raw_direction := Vector2.ZERO
+var _joystick_last_strength := 0.0
 var _first_person := false
 var _monster_phase := 0.0
 var _metrics_elapsed := 0.0
@@ -60,9 +80,6 @@ var _perf_total_hitch_frames := 0
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_RESUMED, NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_FOCUS_IN:
-			# Active touch state is transient. If Android pauses/defocuses before a
-			# release arrives, clear it defensively so resume cannot inherit stuck
-			# movement or a stale touch owner. This must not mutate world/view state.
 			_reset_joystick()
 
 func _ready() -> void:
@@ -111,6 +128,9 @@ func _physics_process(delta: float) -> void:
 
 	if movement_world.length_squared() > 0.0001:
 		_update_hunter_heading(movement_world.normalized(), delta)
+		_update_joystick_adaptation(delta)
+	else:
+		_joystick_stable_elapsed = 0.0
 
 	hunter.velocity = movement_world * MOVE_SPEED_MPS
 	hunter.move_and_slide()
@@ -120,8 +140,6 @@ func _physics_process(delta: float) -> void:
 	bounded_position.z = clampf(bounded_position.z, -PROBE_BOUNDS, PROBE_BOUNDS)
 	hunter.global_position = bounded_position
 
-	# Keep the aerial camera synchronized even while first-person is active so
-	# returning to aerial does not revive an old camera position.
 	_update_aerial_camera(delta)
 
 	_monster_phase += delta
@@ -181,7 +199,6 @@ func _effective_camera_follow_response() -> float:
 	return lerpf(1.5, 9.0, _look_speed)
 
 func _update_hunter_heading(direction: Vector3, delta: float) -> void:
-	# Godot's conventional 3D forward direction is local -Z.
 	var target_yaw := atan2(-direction.x, -direction.z)
 	var turn_weight := 1.0 - exp(-_effective_hunter_turn_response() * maxf(delta, 0.0))
 	hunter.rotation.y = lerp_angle(hunter.rotation.y, target_yaw, turn_weight)
@@ -194,10 +211,6 @@ func _hunter_forward() -> Vector3:
 	return forward.normalized()
 
 func _capture_joystick_reference_heading() -> void:
-	# The movement basis is stable while the stick remains outside its deadzone.
-	# It is captured at touch start and recaptured after the same finger returns
-	# through neutral, so the player can turn, center, then push up to continue
-	# along the newly faced heading without lifting the finger.
 	_joystick_reference_forward = _hunter_forward()
 	_joystick_reference_right = _joystick_reference_forward.cross(Vector3.UP)
 	_joystick_reference_right.y = 0.0
@@ -206,16 +219,108 @@ func _capture_joystick_reference_heading() -> void:
 	else:
 		_joystick_reference_right = _joystick_reference_right.normalized()
 
-func _joystick_world_vector() -> Vector3:
-	if _joystick_vector.length_squared() <= 0.0001:
+func _resolve_joystick_world(raw_vector: Vector2) -> Vector3:
+	if raw_vector.length_squared() <= 0.0001:
 		return Vector3.ZERO
-
-	# Screen-stick up is negative Y, so invert Y to produce positive forward
-	# intent in the captured Hunter-relative basis.
 	return (
-		_joystick_reference_right * _joystick_vector.x
-		+ _joystick_reference_forward * -_joystick_vector.y
+		_joystick_reference_right * raw_vector.x
+		+ _joystick_reference_forward * -raw_vector.y
 	)
+
+func _joystick_world_vector() -> Vector3:
+	return _joystick_world_intent
+
+func _raw_change_is_meaningful(new_direction: Vector2, new_strength: float) -> bool:
+	if _joystick_last_raw_direction.length_squared() <= 0.0001:
+		return true
+	if new_direction.dot(_joystick_last_raw_direction) < JOYSTICK_RAW_CHANGE_DOT:
+		return true
+	return absf(new_strength - _joystick_last_strength) > JOYSTICK_STRENGTH_CHANGE_THRESHOLD
+
+func _update_joystick_adaptation(delta: float) -> void:
+	if _joystick_touch_id == -1 or _joystick_world_intent.length_squared() <= 0.0001:
+		_joystick_stable_elapsed = 0.0
+		return
+	if _joystick_adaptive_latched:
+		return
+
+	var raw_direction := _joystick_vector.normalized()
+	# Screen-up is already the semantic forward direction. No rebase is needed.
+	if raw_direction.dot(SCREEN_STICK_FORWARD) >= 0.95:
+		_joystick_stable_elapsed = 0.0
+		return
+
+	var movement_direction := _joystick_world_intent.normalized()
+	var alignment := _hunter_forward().dot(movement_direction)
+	if alignment < JOYSTICK_ADAPT_ALIGNMENT_DOT:
+		_joystick_stable_elapsed = 0.0
+		return
+
+	_joystick_stable_elapsed += maxf(delta, 0.0)
+	if _joystick_stable_elapsed < JOYSTICK_ADAPT_HOLD_SECONDS:
+		return
+
+	# Rebase only the frame used for the NEXT deliberate stick change. The
+	# current world intent stays latched, so holding the same right/left input
+	# never turns into an unwanted continuous circle.
+	_capture_joystick_reference_heading()
+	_joystick_adaptive_latched = true
+	_joystick_rebase_raw_direction = raw_direction
+	_joystick_stable_elapsed = 0.0
+
+func _set_joystick_from_raw_vector(raw_vector: Vector2) -> void:
+	var raw_strength := minf(raw_vector.length(), 1.0)
+	if raw_strength < JOYSTICK_DEADZONE:
+		_joystick_in_deadzone = true
+		_joystick_vector = Vector2.ZERO
+		_joystick_world_intent = Vector3.ZERO
+		_joystick_stable_elapsed = 0.0
+		_joystick_adaptive_latched = false
+		_joystick_rebase_raw_direction = Vector2.ZERO
+		_joystick_last_raw_direction = Vector2.ZERO
+		_joystick_last_strength = 0.0
+		return
+
+	_joystick_in_deadzone = false
+	var remapped_strength := inverse_lerp(JOYSTICK_DEADZONE, 1.0, raw_strength)
+	var new_direction := raw_vector.normalized()
+	var new_vector := new_direction * remapped_strength
+	var meaningful_change := _raw_change_is_meaningful(new_direction, remapped_strength)
+
+	if _joystick_adaptive_latched:
+		var start_forwardness := _joystick_rebase_raw_direction.dot(SCREEN_STICK_FORWARD)
+		var new_forwardness := new_direction.dot(SCREEN_STICK_FORWARD)
+		var straightening := new_forwardness > start_forwardness + JOYSTICK_STRAIGHTEN_PROGRESS_EPS
+
+		if straightening:
+			# While the player physically straightens the stick toward screen-up,
+			# preserve the already-committed world direction. Once the stick enters
+			# the forward cone, normal mapping resumes seamlessly in the rebased frame.
+			var committed_direction := _joystick_world_intent.normalized()
+			if committed_direction.length_squared() <= 0.0001:
+				committed_direction = _hunter_forward()
+			_joystick_vector = new_vector
+			_joystick_world_intent = committed_direction * remapped_strength
+			if new_forwardness >= JOYSTICK_STRAIGHTEN_FORWARD_DOT:
+				_joystick_adaptive_latched = false
+				_joystick_world_intent = _resolve_joystick_world(new_vector)
+		else:
+			if meaningful_change:
+				_joystick_adaptive_latched = false
+				_joystick_vector = new_vector
+				_joystick_world_intent = _resolve_joystick_world(new_vector)
+			else:
+				var held_direction := _joystick_world_intent.normalized()
+				_joystick_vector = new_vector
+				_joystick_world_intent = held_direction * remapped_strength
+	else:
+		_joystick_vector = new_vector
+		_joystick_world_intent = _resolve_joystick_world(new_vector)
+
+	if meaningful_change:
+		_joystick_stable_elapsed = 0.0
+	_joystick_last_raw_direction = new_direction
+	_joystick_last_strength = remapped_strength
 
 func _update_aerial_camera(delta: float, snap: bool = false) -> void:
 	var forward := _hunter_forward()
@@ -229,22 +334,6 @@ func _update_aerial_camera(delta: float, snap: bool = false) -> void:
 
 	var look_target := hunter.global_position + Vector3(0.0, 0.7, 0.0) + forward * AERIAL_CAMERA_LOOK_AHEAD_M
 	aerial_camera.look_at(look_target, Vector3.UP)
-
-func _set_joystick_from_raw_vector(raw_vector: Vector2) -> void:
-	var raw_strength := minf(raw_vector.length(), 1.0)
-	if raw_strength < JOYSTICK_DEADZONE:
-		# Re-entering neutral is the re-center event. Capture the Hunter's latest
-		# heading once, but do not continuously rotate the basis while the player
-		# keeps the stick held away from center.
-		if not _joystick_in_deadzone:
-			_capture_joystick_reference_heading()
-		_joystick_in_deadzone = true
-		_joystick_vector = Vector2.ZERO
-		return
-
-	_joystick_in_deadzone = false
-	var remapped_strength := inverse_lerp(JOYSTICK_DEADZONE, 1.0, raw_strength)
-	_joystick_vector = raw_vector.normalized() * remapped_strength
 
 func _update_joystick_from_screen_position(screen_position: Vector2) -> void:
 	var base_rect := joystick_base.get_global_rect()
@@ -260,8 +349,14 @@ func _update_joystick_from_screen_position(screen_position: Vector2) -> void:
 
 func _reset_joystick() -> void:
 	_joystick_vector = Vector2.ZERO
+	_joystick_world_intent = Vector3.ZERO
 	_joystick_touch_id = -1
 	_joystick_in_deadzone = true
+	_joystick_stable_elapsed = 0.0
+	_joystick_adaptive_latched = false
+	_joystick_rebase_raw_direction = Vector2.ZERO
+	_joystick_last_raw_direction = Vector2.ZERO
+	_joystick_last_strength = 0.0
 	if is_instance_valid(joystick_base) and is_instance_valid(joystick_knob):
 		joystick_knob.position = (joystick_base.size - joystick_knob.size) * 0.5
 

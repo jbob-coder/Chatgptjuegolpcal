@@ -1,4 +1,4 @@
-name: Stage 1 Phone Feedback Control Camera Regression
+name: Stage 1 Adaptive Joystick Camera Regression
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
     paths:
       - ".github/workflows/stage1-control-camera-feedback.yml"
       - "probes/android_stage1/scripts/probe_world.gd"
+      - "probes/android_stage1/scenes/probe_world.tscn"
+      - "probes/android_stage1/tests/world_boundary_preflight.py"
       - "probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md"
       - "ci/stage1/control_camera_phone_feedback_test.gd"
 
@@ -15,7 +17,7 @@ permissions:
 
 jobs:
   control-camera-regression:
-    name: Verify neutral-recenter, first-person damping, and FOV
+    name: Verify adaptive steering, larger arena, first-person damping, and FOV
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -30,6 +32,12 @@ jobs:
           use-dotnet: false
           include-templates: false
 
+      - name: Static enlarged-arena boundary regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 probes/android_stage1/tests/world_boundary_preflight.py
+
       - name: Godot import and parse gate
         shell: bash
         run: |
@@ -40,9 +48,9 @@ jobs:
             exit 1
           fi
 
-      - name: Run phone-feedback control camera regression
+      - name: Run adaptive joystick regression
         shell: bash
         run: |
           set -euo pipefail
           godot --headless --path probes/android_stage1 --script "$GITHUB_WORKSPACE/ci/stage1/control_camera_phone_feedback_test.gd" 2>&1 | tee build-evidence/control-camera-phone-feedback.log
-          grep -q "Gate: STAGE1_PHONE_FEEDBACK_CONTROL_CAMERA_RUNTIME_VERIFIED" build-evidence/control-camera-phone-feedback.log
+          grep -q "Gate: STAGE1_ADAPTIVE_JOYSTICK_RUNTIME_VERIFIED" build-evidence/control-camera-phone-feedback.log
