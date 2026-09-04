@@ -13,13 +13,8 @@ The game is the objective. Documentation exists to keep ownership, dimensions, c
 
 ## Current Stage-1 phone control state
 
-Latest user feedback rejected the adaptive/latching joystick as too janky and requested an Apex Legends Mobile-like control structure.
-
-Current implementation commit:
-`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
-
-Current control architecture:
-- left joystick = direct camera-relative movement vector;
+The adaptive/latching joystick is superseded. The current mobile-shooter architecture uses:
+- left joystick = direct camera-relative movement;
 - fixed stick direction stays fixed and does not accumulate camera turn;
 - right-side drag = independent camera/view control;
 - movement and look can operate simultaneously;
@@ -27,21 +22,29 @@ Current control architecture:
 - first-person pitch clamp = `±80°`;
 - no adaptive hold/alignment/latch/rebase variables remain in runtime steering.
 
+Runtime implementation commit:
+`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+
+Final tested source/UI head:
+`5af416f48a7542b964084f83301de0a5f826bb46`.
+
 Dedicated shooter-style workflow:
-`33834546073` SUCCESS.
+`33834916358` SUCCESS.
 
 Full Android pipeline:
-`33834546084` SUCCESS.
+`33834916327` SUCCESS.
 
-Pre-reconciliation retest APK:
-`UnnamedHuntRPG-Stage1-ShooterStyle-Retest.apk`
-57,574,457 bytes
-SHA-256 `aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
+Final APK:
+`UnnamedHuntRPG-Stage1-ShooterStyle-FinalRetest.apk`
+`57,574,457 bytes`
+SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
+
+Final artifact ZIP:
+`57,126,005 bytes`
+SHA-256 `a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
 
 Google Drive ID:
 `1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
-
-A final UI/help reconciliation may create a newer byte identity; newest handoff/build evidence wins.
 
 ## Hunt-01 world/build status
 
@@ -67,10 +70,7 @@ Key graybox targets:
 Machine build manifest:
 `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
 
-Static validator:
-`tests/quality/hunt01/hunt01_graybox_manifest_validator.py`.
-
-Workflow `33830978945`: SUCCESS.
+Static validator workflow `33830978945`: SUCCESS.
 
 `HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
 
@@ -79,8 +79,6 @@ Scene/runtime graybox verification remains NO.
 ## Full-game APK truth
 
 A full playable game APK does not yet exist. Combat, harvesting, inventory, crafting, Settlement services, Persistence, and Hunt-01 are largely recorded as design/build-spec authorities rather than full production runtime code.
-
-After the shooter-style phone retest passes, begin the first production Hunt-01 engine graybox slice.
 
 ## Exact next action
 

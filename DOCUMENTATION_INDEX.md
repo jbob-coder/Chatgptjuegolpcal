@@ -25,17 +25,23 @@ Last reconciled: 2026-09-04
 - `.github/workflows/stage1-control-camera-feedback.yml`
 - `ci/stage1/control_camera_phone_feedback_test.gd`
 
-Shooter-style control implementation:
+Shooter-style runtime implementation:
 `6079c95f90a6329b2685f4c078527ae4a0dc1523`.
 
+Final tested source/UI head:
+`5af416f48a7542b964084f83301de0a5f826bb46`.
+
 Dedicated regression:
-`33834546073` SUCCESS.
+`33834916358` SUCCESS.
 
 Full Android pipeline:
-`33834546084` SUCCESS.
+`33834916327` SUCCESS.
 
-Intermediate retest APK SHA-256:
-`aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
+Final APK SHA-256:
+`e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
+
+Final artifact ZIP SHA-256:
+`a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
 
 Drive file ID:
 `1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.

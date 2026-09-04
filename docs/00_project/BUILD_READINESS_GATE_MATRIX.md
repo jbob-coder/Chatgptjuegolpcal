@@ -22,8 +22,11 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Stage-1 shooter-style control revision
 
-Implementation commit:
+Runtime implementation commit:
 `6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+
+Final tested source/UI head:
+`5af416f48a7542b964084f83301de0a5f826bb46`.
 
 Architecture:
 - left fixed joystick = direct camera-relative movement vector;
@@ -35,19 +38,21 @@ Architecture:
 - no adaptive timer/alignment/latch/rebase runtime state.
 
 Dedicated workflow:
-`33834546073` SUCCESS.
+`33834916358` SUCCESS.
 
 Full Android workflow:
-`33834546084` SUCCESS.
+`33834916327` SUCCESS.
 
-Intermediate APK:
+Final APK:
 57,574,457 bytes
-SHA-256 `aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
+SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
+
+Artifact ZIP:
+57,126,005 bytes
+SHA-256 `a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
 
 Drive ID:
 `1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
-
-If the UI/help reconciliation produces a later build, newest handoff/build identity supersedes this one.
 
 ## Hunt-01 static build gate
 

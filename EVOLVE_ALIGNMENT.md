@@ -36,15 +36,18 @@ User clarification:
 - unchanged input must not keep accumulating turn;
 - use a control structure similar to Apex Legends Mobile.
 
-All earlier recenter/adaptive models are superseded.
+All earlier release/recenter/adaptive joystick models are superseded.
 
 ### Current protected control architecture
 
 Owner:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
-Implementation commit:
+Runtime implementation commit:
 `6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+
+Final tested source/UI head:
+`5af416f48a7542b964084f83301de0a5f826bb46`.
 
 Control law:
 1. left fixed joystick is movement only;
@@ -61,7 +64,7 @@ Control law:
 First person:
 - FOV `115°`;
 - direct right-side look;
-- prior `0.55` movement-driven turn multiplier removed because movement no longer rotates view.
+- prior movement-driven turn-response multiplier removed because movement no longer rotates view.
 
 Look Speed:
 - default `35%`;
@@ -74,31 +77,34 @@ Arena:
 - Hunter bound `±56 m` X/Z;
 - usable span ~`112×112 m`.
 
-### Automated shooter-style evidence
+### Final automated shooter-style evidence
 
 Dedicated workflow:
-`33834546073` SUCCESS.
+`33834916358` SUCCESS.
 
 Gate:
 `STAGE1_SHOOTER_STYLE_CONTROLS_RUNTIME_VERIFIED` — headless evidence only.
 
 Full Android workflow:
-`33834546084` SUCCESS.
+`33834916327` SUCCESS.
 
 Passed:
 static preflight / Monster collision / enlarged boundary / Godot parse / Boot smoke / ProbeWorld smoke / aerial-first-person continuity / lifecycle / telemetry / Android export / APK integrity / artifact upload.
 
-Artifact ID:
-`9922844781`.
+Final artifact:
+ID `9922965651`.
+ZIP size `57,126,005 bytes`.
+ZIP SHA-256 `a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
 
-Pre-reconciliation APK:
+Final phone-retest APK:
+`UnnamedHuntRPG-Stage1-ShooterStyle-FinalRetest.apk`
 `57,574,457 bytes`
-SHA-256 `aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
+SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
 
-Google Drive file ID:
-`1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
-
-If the UI/documentation reconciliation triggers a new build, the newest build/handoff supersedes this pre-reconciliation APK identity.
+Google Drive:
+folder `Unnamed Hunt RPG`;
+file ID `1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`;
+file `UnnamedHuntRPG-Stage1-ShooterStyle-FinalRetest.apk`.
 
 Current phone truth:
 `PHONE_GENERAL_RUNTIME_USER_REPORTED_PASS = YES`

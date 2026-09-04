@@ -23,8 +23,11 @@ Current repository/source/build/device evidence outranks old chat memory.
 
 The adaptive/latching joystick is superseded.
 
-Current implementation:
+Current control implementation:
 `6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+
+Final tested source/UI head:
+`5af416f48a7542b964084f83301de0a5f826bb46`.
 
 Current controls:
 - left fixed joystick = direct camera-relative movement;
@@ -34,14 +37,12 @@ Current controls:
 - no adaptive hold/alignment/latch/rebase state;
 - first-person FOV 115°.
 
-Dedicated regression:
-`33834546073` SUCCESS.
+Dedicated regression `33834916358`: SUCCESS.
+Full Android build `33834916327`: SUCCESS.
 
-Full Android build:
-`33834546084` SUCCESS.
-
-Intermediate retest APK SHA-256:
-`aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
+Final retest APK:
+`UnnamedHuntRPG-Stage1-ShooterStyle-FinalRetest.apk`
+SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
 
 Drive file ID:
 `1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
@@ -51,13 +52,8 @@ Exact next action:
 
 ## Hunt-01 static geometry state
 
-Validator:
-`tests/quality/hunt01/`.
-
 Workflow `33830978945`: SUCCESS.
-
 `HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
-
 No engine graybox exists yet.
 
 Hunt path:

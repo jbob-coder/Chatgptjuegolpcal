@@ -5,20 +5,15 @@ Last reconciled: 2026-09-04
 
 ## Current objective
 
-Finish one Galaxy A03s feel retest of the new shooter-style mobile controls. If accepted, close the Stage-1 functional phone-control gate and begin the smallest production Hunt-01 graybox implementation.
-
-The game is primary. Documentation/data/tests preserve what exists, where it lives, what owns it, what is verified, and what happens next.
-
-## Latest direct phone evidence
-
-Prior builds otherwise worked correctly with no reported clipping/general issue and acceptable aerial visuals, but the adaptive joystick still felt janky because hidden variables determined reference changes.
-
-User clarified that unchanged held input means the desired direction has already been reached and must not keep accumulating turn.
+Finish one Galaxy A03s feel retest of the shooter-style mobile controls. If accepted, close the Stage-1 functional phone-control gate and begin the smallest production Hunt-01 graybox implementation.
 
 ## Current control implementation
 
-Implementation commit:
+Runtime implementation commit:
 `6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+
+Final tested source/UI head:
+`5af416f48a7542b964084f83301de0a5f826bb46`.
 
 Protected owner:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
@@ -32,35 +27,29 @@ Current model:
 - first-person FOV `115°`;
 - first-person pitch `±80°`.
 
-Dedicated workflow `33834546073`: SUCCESS.
-Full Android workflow `33834546084`: SUCCESS.
+Dedicated workflow `33834916358`: SUCCESS.
+Full Android workflow `33834916327`: SUCCESS.
 
-Intermediate retest APK:
+Final APK:
+`UnnamedHuntRPG-Stage1-ShooterStyle-FinalRetest.apk`
 57,574,457 bytes
-SHA-256 `aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
+SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
+
+Artifact ZIP:
+57,126,005 bytes
+SHA-256 `a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
 
 Drive file ID:
 `1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
 
-If a later UI/documentation reconciliation produces another APK, use the newest build identity.
-
 ## Hunt-01 static validator
 
-Source:
-`tests/quality/hunt01/`.
-
 Workflow `33830978945`: SUCCESS.
-
-Result:
-13/13 MANIFEST_STATIC rules PASS, 0 errors, 0 warnings.
-
-Observation ramp:
-6.607 m; 15.2% and 15.38% segment grades.
-
-Negative self-test correctly generated 5 errors.
+Result: 13/13 MANIFEST_STATIC rules PASS, 0 errors, 0 warnings.
+Observation ramp: 6.607 m; 15.2% and 15.38% segment grades.
+Negative self-test generated 5 intended errors.
 
 `HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
-
 No engine scene/runtime/phone graybox verification exists yet.
 
 ## Current game/design state
