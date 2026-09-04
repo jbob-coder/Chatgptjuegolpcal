@@ -1,5 +1,6 @@
 extends Node
 
+const COMBAT_TURN_SHELL_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")
 const ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const FOOTPRINT_ID := "R01_EF02"
 const MONSTER_ID := "monster_r01_m01_0001"
@@ -22,6 +23,7 @@ var _inside_engagement := false
 var _encounter_started := false
 var _state := "SEARCHING"
 var _encounter_record: Dictionary = {}
+var _combat_turn_shell: Node = null
 
 func _ready() -> void:
 	call_deferred("_bind_runtime")
@@ -164,16 +166,34 @@ func _engage() -> bool:
 		if marker != null:
 			marker.visible = true
 
+	# Defensive invariant: encounter staging remains presentation/state only.
+	if not _hunter.global_transform.is_equal_approx(hunter_before) or not _monster.global_transform.is_equal_approx(monster_before):
+		push_error("Encounter staging changed an actor world transform; same-location continuity violated.")
+		return false
+
+	if not _start_combat_turn_shell():
+		push_error("Encounter staging could not start the authoritative combat turn shell.")
+		return false
+
 	_encounter_started = true
 	_state = "ENCOUNTER_STAGED_FIRST_PERSON"
 	_set_engage_button(false)
 	if _status_label != null:
-		_status_label.text = "Encounter staged • R01_EF02 • same Hunter + same Mudcrest Raker • tactical positions active. Attack resolution is not implemented in this layer."
+		_status_label.text = "Encounter staged • R01_EF02 • same Hunter + same Mudcrest Raker • deterministic turn shell active. Tactical movement and attacks are not implemented yet."
+	return true
 
-	# A defensive invariant: this transition is presentation/state only.
-	if not _hunter.global_transform.is_equal_approx(hunter_before) or not _monster.global_transform.is_equal_approx(monster_before):
-		push_error("Encounter staging changed an actor world transform; same-location continuity violated.")
+func _start_combat_turn_shell() -> bool:
+	if _combat_turn_shell != null:
 		return false
+	var shell := COMBAT_TURN_SHELL_SCRIPT.new() as Node
+	if shell == null:
+		return false
+	shell.name = "CombatTurnShellRuntime"
+	_world.add_child(shell)
+	if not bool(shell.call("initialize", _world, _encounter_record)):
+		shell.queue_free()
+		return false
+	_combat_turn_shell = shell
 	return true
 
 func get_state() -> String:
@@ -190,6 +210,12 @@ func is_inside_observation_zone() -> bool:
 
 func is_inside_engagement_zone() -> bool:
 	return _inside_engagement
+
+func has_combat_turn_shell_started() -> bool:
+	return _combat_turn_shell != null and bool(_combat_turn_shell.call("is_initialized"))
+
+func get_combat_turn_shell() -> Node:
+	return _combat_turn_shell
 
 func engage_for_test() -> bool:
 	return _engage()

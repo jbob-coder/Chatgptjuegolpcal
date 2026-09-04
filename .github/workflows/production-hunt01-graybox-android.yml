@@ -8,6 +8,7 @@ on:
       - ".github/workflows/production-hunt01-graybox-android.yml"
       - "game/**"
       - "tests/quality/hunt01/hunt01_production_projection_preflight.py"
+      - "tests/quality/hunt01/hunt01_combat_turn_shell_preflight.py"
       - "docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json"
 
 permissions:
@@ -110,6 +111,9 @@ jobs:
           python3 tests/quality/hunt01/hunt01_production_projection_preflight.py \
             | tee build-evidence/hunt01-production-projection.log
           grep -q "Gate: HUNT01_PRODUCTION_GRAYBOX_STATIC_VERIFIED" build-evidence/hunt01-production-projection.log
+          python3 tests/quality/hunt01/hunt01_combat_turn_shell_preflight.py \
+            | tee build-evidence/hunt01-combat-turn-shell-static.log
+          grep -q "Gate: HUNT01_COMBAT_TURN_SHELL_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-combat-turn-shell-static.log
 
       - name: Godot import and parse gate
         shell: bash
@@ -150,6 +154,13 @@ jobs:
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/region01_hunt01_graybox_runtime_test.gd" 2>&1 | tee build-evidence/hunt01-production-integration.log
           grep -q "Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_VERIFIED" build-evidence/hunt01-production-integration.log
+
+      - name: Headless Hunt-01 combat turn shell
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/hunt01_combat_turn_shell_runtime_test.gd" 2>&1 | tee build-evidence/hunt01-combat-turn-shell-runtime.log
+          grep -q "Gate: HUNT01_COMBAT_TURN_SHELL_RUNTIME_VERIFIED" build-evidence/hunt01-combat-turn-shell-runtime.log
 
       - name: Export production Android debug APK
         shell: bash
