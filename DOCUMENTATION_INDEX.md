@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST BASELINES RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY BASELINES RECORDED / ONE-RECIPE LINKAGE NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -39,16 +39,14 @@ Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable
 
 Workflow `33811355891`: SUCCESS on automated protocol revision `c02971996e35770bbaaaf9bf6c460af208db4f83`.
 
-Automated gates:
-154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; parse/smoke PASS; Android APK/export integrity PASS.
-
-Direct phone gate remains deferred.
+Phone blocker:
+`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## 3. World/spatial authorities
+## 3. World / visual authorities
 
 - `GAME_EXPERIENCE_BIBLE.md`;
 - `VISUAL_WORLD_BEHAVIOR_BIBLE.md`;
@@ -56,12 +54,10 @@ Direct phone gate remains deferred.
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
 - `FIRST_SETTLEMENT_BLUEPRINT.md`;
 - `docs/10_world/README.md`;
-- `docs/10_world/regions/REGION_01/README.md` + local Region 01 topology/tracking/terrain/encounter files.
+- `docs/10_world/regions/REGION_01/README.md` + Region 01 local authorities.
 
 World hierarchy:
 `WORLD ATLAS -> WALKABLE SETTLEMENT -> HUNTER GATE -> CONTINUOUS HUNTING REGION -> LOCAL FIRST-PERSON ENCOUNTER`.
-
-Scale: `1 world unit = 1 meter`.
 
 ## 4. Combat gameplay authorities
 
@@ -71,23 +67,14 @@ Gameplay front door:
 Combat front door:
 `docs/20_gameplay/combat/README.md`.
 
-Nine reusable first-slice authorities:
-1. `ACTION_ECONOMY_CONTRACT.md`;
-2. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
-3. `FIRST_WEAPON_FAMILY_CONTRACT.md`;
-4. `STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`;
-5. `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`;
-6. `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
-7. `FIRST_SLICE_TERRAIN_EFFECT_SET_CONTRACT.md`;
-8. `SOLO_PARTY_BASELINE_CONTRACT.md`;
-9. `DEFEAT_RETREAT_BASELINE_CONTRACT.md`.
+Nine reusable first-slice combat/outcome contracts are recorded through Defeat/Retreat.
 
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
 Runtime combat remains unimplemented/unverified.
 
 ## 5. Harvest authorities
 
-Harvest front door:
+Front door:
 `docs/20_gameplay/harvest/README.md`.
 
 Generic owner:
@@ -96,28 +83,48 @@ Generic owner:
 Worked example:
 `docs/20_gameplay/harvest/HARVEST_TRANSACTION_EXAMPLE.md`.
 
-Specialized handoff:
+Monster 01 application:
+`docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
+
+Handoff:
 `docs/70_handoff/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_PASS_2026-09-03.md`.
 
-Generic selected law:
-finite physical source capacity -> condition preservation -> deterministic extraction efficiency -> depletion -> inventory transfer.
+## 6. Inventory / material ownership authorities
 
-No random loot-table quantity and no capacity creation from skill/tools.
+Front door:
+`docs/20_gameplay/inventory/README.md`.
 
-## 6. Content authorities
+Generic owner:
+`docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
+
+Supporting example:
+`docs/20_gameplay/inventory/INVENTORY_TRANSFER_EXAMPLE.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
+
+Selected baseline:
+- player field material inventory;
+- prototype 20 stack entries / max 99 units per stack;
+- material ID + quality merge key;
+- provenance lots preserved internally;
+- recovery bundle owns committed harvest output before inventory acceptance;
+- partial/full-capacity rejection preserves source bundle remainder;
+- source loss equals destination gain;
+- idempotent transaction IDs prevent replay.
+
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`.
+
+## 7. Content authorities
 
 Content front door:
 `docs/30_content/README.md`.
 
-### Hunter Base 01
-`docs/30_content/hunters/HUNTER_BASE_01/README.md` + package files.
-
-### Monster 01 — Mudcrest Raker
-
-Front door:
+Monster 01 front door:
 `docs/30_content/monsters/MONSTER_01/README.md`.
 
-Current package authorities:
+Current Monster 01 authorities:
 - `ANATOMY_AND_DAMAGE.md`;
 - `COMBAT_ATTACK_PACKET.md`;
 - `BERSERK_PROTOTYPE_CONTRACT.md`;
@@ -125,64 +132,33 @@ Current package authorities:
 - `CRYSTAL_AND_MUTATION.md`;
 - `HARVEST_CAPACITY_PACKET.md`.
 
-Monster 01 harvest packet selected pristine capacity:
-- horn L 4;
-- horn R 4;
-- dorsal plate 8;
-- torso hide 12;
-- tail ridge 5;
-- tail tendon 4;
-- dense bone 8;
-- total `45` prototype units.
+## 8. Architecture / data / art / quality
 
-Damage condition/extraction reduce actual recovery.
+Architecture/data:
+`SYSTEM_ARCHITECTURE_BLUEPRINT.md`, `CODE_GUIDE.md`, `CONTENT_DATA_GUIDE.md`, `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`, `BEHAVIOR_PATTERN_SYSTEM.md`, `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`, `MECHANICAL_SYSTEMS_GUIDE.md`.
 
-`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
-`MONSTER_01_HARVEST_RUNTIME_IMPLEMENTED = NO`.
+Art:
+`docs/40_art/README.md`, `docs/40_art/asset_pipeline/README.md`, `docs/40_art/reviews/README.md`.
 
-## 7. Architecture/data authorities
+Generated concept images establish visual intent only unless separately technically validated; they do not define collision, UVs, dimensions, target IDs or performance.
 
-- `SYSTEM_ARCHITECTURE_BLUEPRINT.md`;
-- `CODE_GUIDE.md`;
-- `CONTENT_DATA_GUIDE.md`;
-- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
-- `BEHAVIOR_PATTERN_SYSTEM.md`;
-- `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`;
-- `MECHANICAL_SYSTEMS_GUIDE.md`;
-- `docs/50_technical/README.md`.
+Quality:
+`TESTING_VERIFICATION_PLAN.md`, `PERFORMANCE_BUDGETS_AND_CAPS.md`, `docs/60_quality/README.md` and Stage-1 probe/test protocols.
 
-## 8. Art/asset authorities
-
-- `docs/40_art/README.md`;
-- `docs/40_art/asset_pipeline/README.md`;
-- current model/reference/animation/runtime-asset standards;
-- `docs/40_art/reviews/README.md`.
-
-Generated concept images establish visual intent unless separately technically validated. They do not define collision, UVs, dimensions, target IDs or runtime performance.
-
-## 9. Quality/performance authorities
-
-- `TESTING_VERIFICATION_PLAN.md`;
-- `PERFORMANCE_BUDGETS_AND_CAPS.md`;
-- `ADMIN_CREATOR_SYSTEM.md`;
-- `docs/60_quality/README.md`;
-- Stage-1 probe/test/performance protocols.
-
-## 10. Current game-development sequence
+## 9. Current game-development sequence
 
 Implementation lane:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Completed design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership`.
 
 Current active non-phone action:
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
 
-Then, based on current evidence:
-`one-recipe crafting/equipment linkage` before broader progression/economy expansion.
+Then select the next smallest vertical-slice prerequisite from current repository evidence.
 
-## 11. Documentation placement law
+## 10. Documentation placement law
 
 - root README — human game/front door;
 - `docs/README.md` — placement/package rules;
