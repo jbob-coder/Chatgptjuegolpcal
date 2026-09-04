@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY + ONE-RECIPE DESIGN BASELINES RECORDED / SETTLEMENT SMITH SERVICE NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH SETTLEMENT SMITH SERVICE RECORDED / PERSISTENCE NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -152,58 +152,40 @@ Prepared sustained phone run:
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## Combat design baseline — RECORDED
+## Recorded combat baseline
 
-Nine reusable first-slice authorities:
-1. Action Economy;
-2. Combat Resolution;
-3. Field Poleblade;
-4. Stamina;
-5. Initiative/Turn Order;
-6. Status;
-7. Terrain;
-8. Solo/Party;
-9. Defeat/Retreat.
+Nine reusable first-slice combat/outcome authorities are recorded through Defeat/Retreat.
 
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
-Monster 01 attack/Berserk/behavior/outcome content remains design-recorded, not runtime implemented.
+Monster 01 attacks/Berserk/behavior/outcome remain design-recorded content, not runtime implementation.
 
 ## Harvest baseline — RECORDED
 
-Generic owner:
+Owner:
 `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
 Monster 01 application:
 `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Selected generic model:
-- finite authored source capacity;
-- condition/preservation determines surviving quantity/quality;
-- clean sever transfers source lineage rather than creating matter;
-- deterministic recovery efficiency `<=1.00`;
-- no independent harvest RNG;
-- save/load/reacquisition cannot restore or duplicate depleted sources.
-
-Monster 01 selected pristine source total:
-`45` prototype capacity units.
+Selected laws:
+finite authored source capacity; condition/preservation changes surviving quantity/quality; clean sever transfers lineage rather than creating matter; deterministic recovery efficiency <=1.00; no independent harvest RNG; save/reload cannot restore depleted sources.
 
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`.
 
-## Inventory material ownership baseline — RECORDED
+## Inventory baseline — RECORDED
 
-Authority:
+Owner:
 `docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
 
-Selected model:
+Selected laws:
 - `PLAYER_FIELD_INVENTORY` first-slice destination;
-- prototype 20 material stacks / max 99 units per stack;
-- merge compatibility = material ID + quality band;
-- provenance remains internally conserved as lots;
+- 20 prototype stack entries / 99 units max per stack;
+- material ID + quality defines visible merge compatibility;
+- provenance preserved internally as lots;
 - committed harvest output first belongs to persistent `RECOVERY_BUNDLE`;
-- partial/full inventory rejection leaves exact unaccepted quantity in bundle;
 - source loss equals destination gain;
 - stable transfer IDs prevent replay.
 
@@ -212,47 +194,60 @@ Selected model:
 
 ## One-recipe craft/equip linkage — RECORDED
 
-Front door:
-`docs/20_gameplay/crafting/README.md`.
-
-Authority:
+Owner:
 `docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
-
-Handoff:
-`docs/70_handoff/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_PASS_2026-09-03.md`.
 
 Recipe:
 `recipe_field_poleblade_raker_tendon_grip`.
 
-Exact inputs:
-- `2 x material_m01_tail_tendon`, minimum HIGH;
-- `2 x material_m01_hide`, minimum STANDARD.
+Inputs:
+- 2 HIGH `material_m01_tail_tendon`;
+- 2 STANDARD-or-better `material_m01_hide`.
 
 Refinement:
 `refinement_field_poleblade_raker_tendon_grip`.
 
-Effect:
-`effect_field_poleblade_raker_tendon_grip_placed_hew_stamina`.
+Typed effect:
+Placed Hew Stamina 18 -> 16 through `COST_MODIFIER` only.
 
-Typed behavior:
-- `COST_MODIFIER`;
-- Placed Hew Stamina base 18 -> 16 with only this refinement;
-- no AP/damage/hit-quality/sever/Initiative/reaction/Max-Stamina bonus.
-
-Craft transaction law:
-- material must already be owned by `PLAYER_FIELD_INVENTORY`;
-- deterministic lowest-sufficient-quality/stack/provenance selection;
-- reserve exact inputs before mutation;
-- validate recipe + workbench context + compatible Poleblade + empty grip-refinement state;
-- atomically consume exact 2 tendon + 2 hide and apply one refinement;
-- stable craft transaction ID is idempotent across UI/save/load;
-- failure before commit consumes nothing;
-- interrupted transaction must recover to full commit once or no commit;
-- no random craft quality/currency/broad recipe tree in first proof.
+Craft transaction is deterministic, atomic and idempotent.
 
 `FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
-`CRAFTING_RUNTIME_IMPLEMENTED = NO`
-`CRAFTING_RUNTIME_VERIFIED = NO`.
+`CRAFTING_RUNTIME_IMPLEMENTED = NO`.
+
+## Settlement 01 Smith service — RECORDED
+
+Settlement package map:
+`docs/10_world/settlements/README.md`.
+
+Local front door:
+`docs/10_world/settlements/SETTLEMENT_01/README.md`.
+
+Authority:
+`docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_PASS_2026-09-03.md`.
+
+Selected service model:
+- settlement `SETTLEMENT_01`;
+- service `service_settlement01_smith_weapon_workbench`;
+- interaction anchor `interact_settlement01_smith_weapon_workbench`;
+- capability `CRAFT_STATION_WEAPON_WORKBENCH`;
+- Smith/Workshop in Craft/Processing Quarter on Hunter Service Loop;
+- gate-return-to-workbench graybox target <=25 seconds normal walking;
+- normal essential service availability independent of one Smith NPC schedule;
+- only Raker-Tendon Grip recipe exposed in first proof;
+- opening/previewing/canceling does not mutate Inventory/equipment;
+- Confirm submits authoritative Craft request;
+- selected Field Poleblade is stored/revalidated by stable instance ID;
+- materials may be consumed only from `PLAYER_FIELD_INVENTORY`, not directly from recovery bundles;
+- UI/NPC/Settlement code may not directly consume material or write refinement;
+- save/re-entry cannot replay committed craft transaction.
+
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
+`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`
+`SETTLEMENT_SMITH_RUNTIME_VERIFIED = NO`.
 
 ## Saved finished-game visual concept
 
@@ -265,27 +260,35 @@ File:
 Drive file ID:
 `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
 
-This is visual intent only; repository mechanics/runtime evidence remain authoritative.
+Visual intent only; repository mechanics/runtime evidence remain authoritative.
 
 ## Exact current active non-phone gate
 
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`
+
+Why this is next:
+- Region 01 already records topology, tracking/escape, terrain and encounter-footprint design;
+- every major first-slice owner now has save/reload requirements, but there is no single first-slice persistence authority connecting them;
+- save/reload is required by the vertical-slice integration gate;
+- the next design must close persistence before content breadth expands.
 
 Bounded scope:
-1. reread `FIRST_SETTLEMENT_BLUEPRINT.md`, current world/settlement front doors, crafting contract, gameplay/readiness authorities and interaction/UI ownership;
-2. map `CRAFT_STATION_WEAPON_WORKBENCH` to the physical Settlement 01 Smith/Workshop;
-3. define the smallest return-from-hunt path from gate/material ownership to Smith interaction;
-4. define interaction authority and service availability without depending on an NPC always standing at one spot;
-5. expose only the one recorded first-slice recipe in the proof service;
-6. define open/close/confirm/cancel behavior so UI cannot consume material independently;
-7. define how the selected Field Poleblade target instance is chosen/validated;
-8. define save/load/service re-entry anti-replay behavior;
-9. record future interaction/runtime tests;
-10. do not build broad shop inventory, market prices, many recipes, social systems or production implementation.
+1. reread `SYSTEM_ARCHITECTURE_BLUEPRINT.md`, current readiness/roadmap, combat outcome/Initiative persistence hooks, Region 01 tracking/escape, Monster 01 anatomy/Crystal/behavior, harvest/inventory/crafting/Smith service contracts;
+2. define one first-slice authoritative save snapshot/slot boundary and stable save version marker;
+3. define minimum persisted player/world position/loadout/state required to resume the walkable hub/hunt loop;
+4. preserve the same Monster instance ID, current Region/sector, anatomy damage/sever, persistent statuses, Crystal Energy/Strain/Berserk history and hunt/outcome state;
+5. preserve carcass/detached harvest containers, source lineage/capacity depletion and recovery bundles;
+6. preserve Inventory stacks/provenance, transfer ledgers, crafted refinement and craft transaction ledger;
+7. preserve Settlement 01 service availability/local state needed for Smith re-entry;
+8. select bounded active-encounter save policy for the first slice without creating a giant general save system;
+9. define atomic write/read validation and replay/duplicate prevention sufficient for the vertical slice;
+10. define presentation/session reconstruction after reload so UI/animation never becomes authority;
+11. record deterministic trace + future tests;
+12. do not bundle full migration history, cloud sync, multiple profiles, broad corruption recovery, production implementation or Stage-14 hardening.
 
-## After Smith service baseline
+## After persistence baseline
 
-Select the next smallest vertical-slice prerequisite from current repository evidence. Candidate areas include persistence/save continuity or Region 01 tracking/encounter graybox integration, but do not preselect until the Smith-service pass is closed and current readiness is reread.
+Reread current vertical-slice readiness and choose the smallest remaining playable integration dependency, likely Region 01 graybox/tracking-to-encounter integration unless current evidence changes. Do not pre-authorize broad implementation before required gates.
 
 ## Current gate truth
 
@@ -306,12 +309,14 @@ Select the next smallest vertical-slice prerequisite from current repository evi
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
 `FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
 `INVENTORY_RUNTIME_IMPLEMENTED = NO`
-`CRAFTING_RUNTIME_IMPLEMENTED = NO`.
+`CRAFTING_RUNTIME_IMPLEMENTED = NO`
+`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`.
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
