@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY + ONE-RECIPE DESIGN BASELINES RECORDED / SETTLEMENT SMITH SERVICE NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PHYSICAL SMITH SERVICE RECORDED / PERSISTENCE NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
@@ -16,7 +16,7 @@ Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
 
 Operating contract:
 `EVOLVE_ALIGNMENT.md`.
@@ -33,12 +33,13 @@ Operating contract:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-For the next Smith-service pass additionally read:
-- `FIRST_SETTLEMENT_BLUEPRINT.md`;
-- `docs/20_gameplay/crafting/README.md`;
-- `docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`;
-- current settlement/world package front doors;
-- current interaction/UI/service authorities before adding any service state.
+For current persistence work additionally read:
+- `SYSTEM_ARCHITECTURE_BLUEPRINT.md`;
+- current combat outcome/Monster persistence rules;
+- harvest/inventory/crafting transaction contracts;
+- Settlement 01 Smith service contract;
+- Region 01 tracking/escape package;
+- current save/reload requirements in all recorded first-slice owners.
 
 ## Project identity
 
@@ -48,9 +49,9 @@ Playable direction:
 - walkable settlement/hub;
 - aerial wilderness tracking/exploration;
 - first-person turn-based tactical combat from the same physical encounter;
-- anatomy damage affects Monster capability and physical harvest;
-- deterministic authored creature/NPC/companion behavior;
-- harvest -> inventory -> crafting/equipment progression.
+- anatomy damage changes capability and harvest;
+- deterministic authored behavior;
+- physical harvest -> Inventory -> physical Smith -> equipment refinement -> next hunt.
 
 ## Stage-1 engine/device truth
 
@@ -73,59 +74,72 @@ Direct phone regression + sustained 24-minute run remain deferred.
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## Recorded gameplay design chain
+## Recorded gameplay/world design chain
 
-Combat:
-nine reusable first-slice contracts through Defeat/Retreat.
+Combat baseline:
+nine reusable first-slice combat/outcome contracts through Defeat/Retreat.
 
 Harvest:
-`docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
+finite anatomy-derived capacity / condition preservation / deterministic extraction / lineage conservation.
 
 Inventory:
-`docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
+`PLAYER_FIELD_INVENTORY`, recovery bundles, material/quality stacks, provenance lots, conserved idempotent transfers.
 
 Craft/equip:
-`docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
-
-Selected first recipe:
-`recipe_field_poleblade_raker_tendon_grip`.
-
-Inputs:
-- 2 HIGH `material_m01_tail_tendon`;
-- 2 STANDARD-or-better `material_m01_hide`.
-
-Output:
-`refinement_field_poleblade_raker_tendon_grip` applied to one compatible Field Poleblade instance.
+`recipe_field_poleblade_raker_tendon_grip`
+consumes 2 HIGH tail tendon + 2 STANDARD-or-better hide and applies one Raker-Tendon Grip refinement to a compatible Field Poleblade.
 
 Effect:
-`POLEBLADE_PLACED_HEW` Stamina 18 -> 16 through typed `COST_MODIFIER`.
+Placed Hew Stamina 18 -> 16 via typed `COST_MODIFIER` only.
 
-Crafting is deterministic/atomic/idempotent. Exact inventory provenance lots are reserved and consumed exactly once if and only if the refinement commits exactly once.
+## Settlement 01 Smith service — RECORDED
 
-No runtime implementation is claimed for combat/harvest/inventory/crafting.
+World package:
+`docs/10_world/settlements/SETTLEMENT_01/`.
 
-## Saved finished-game visual reference
+Authority:
+`docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
 
-Google Drive project folder:
+Handoff:
+`docs/70_handoff/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_PASS_2026-09-03.md`.
+
+Selected:
+- service ID `service_settlement01_smith_weapon_workbench`;
+- interaction ID `interact_settlement01_smith_weapon_workbench`;
+- capability `CRAFT_STATION_WEAPON_WORKBENCH`;
+- physical Smith/Workshop on the Hunter Service Loop near gate/processing path;
+- gate-return-to-workbench graybox target <=25 seconds normal walk;
+- normal essential service does not depend on one NPC schedule;
+- only Raker-Tendon Grip recipe exposed in first proof;
+- open/preview/cancel are read-only;
+- Confirm submits authoritative Craft transaction;
+- stable Field Poleblade target selected/revalidated by instance ID;
+- UI/NPC/Settlement never directly consume Inventory or write refinement;
+- save/re-entry hooks prevent presentation replay.
+
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
+`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`
+`SETTLEMENT_SMITH_RUNTIME_VERIFIED = NO`.
+
+## Saved visual concept
+
+Google Drive folder:
 `Unnamed Hunt RPG`.
 
-Saved image:
+File:
 `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
+Drive file ID: `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
 
-Drive file ID:
-`1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
-
-This is a visual-intent artifact, not technical/runtime authority.
+Visual intent only; repository mechanics/runtime evidence remain authoritative.
 
 ## Current game-development sequence
 
-Completed:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership -> One Recipe/Craft-Equip Linkage`.
+Completed design sequence:
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip -> Settlement Smith Service`.
 
 Next:
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`
--> then select the next smallest vertical-slice prerequisite from repository evidence
--> production implementation only after prerequisite engine/domain gates.
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`
+-> then select the next smallest vertical-slice dependency from live readiness evidence.
 
 ## Documentation/navigation discipline
 
@@ -144,10 +158,12 @@ root README / `docs/README.md` / package READMEs / `DOCUMENTATION_INDEX.md` / `d
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
 `FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
 `INVENTORY_RUNTIME_IMPLEMENTED = NO`
-`CRAFTING_RUNTIME_IMPLEMENTED = NO`.
+`CRAFTING_RUNTIME_IMPLEMENTED = NO`
+`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`.
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
