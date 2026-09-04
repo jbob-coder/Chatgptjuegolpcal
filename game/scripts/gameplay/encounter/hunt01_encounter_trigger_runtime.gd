@@ -2,6 +2,7 @@ extends Node
 
 const COMBAT_TURN_SHELL_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")
 const TACTICAL_MOVEMENT_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_tactical_movement_runtime.gd")
+const MUDCREST_ANATOMY_SCRIPT: Script = preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd")
 const HUNTER_ATTACK_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd")
 const ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const FOOTPRINT_ID := "R01_EF02"
@@ -27,6 +28,7 @@ var _state := "SEARCHING"
 var _encounter_record: Dictionary = {}
 var _combat_turn_shell: Node = null
 var _tactical_movement_runtime: Node = null
+var _mudcrest_anatomy_runtime: Node = null
 var _hunter_attack_runtime: Node = null
 
 func _ready() -> void:
@@ -180,7 +182,7 @@ func _engage() -> bool:
 	_state = "ENCOUNTER_STAGED_FIRST_PERSON"
 	_set_engage_button(false)
 	if _status_label != null:
-		_status_label.text = "Encounter staged • R01_EF02 • deterministic turns + adjacent movement + Field Poleblade Measured Cut targeting active. Anatomy damage is the next layer."
+		_status_label.text = "Encounter staged • R01_EF02 • deterministic turns + adjacent movement + Field Poleblade Measured Cut + provisional Mudcrest integrity active. Break/sever/status remain later layers."
 	return true
 
 func _start_combat_turn_shell() -> bool:
@@ -206,21 +208,37 @@ func _start_combat_turn_shell() -> bool:
 		shell.queue_free()
 		return false
 
+	var anatomy := MUDCREST_ANATOMY_SCRIPT.new() as Node
+	if anatomy == null:
+		movement.queue_free()
+		shell.queue_free()
+		return false
+	anatomy.name = "MudcrestAnatomyRuntime"
+	shell.add_child(anatomy)
+	if not bool(anatomy.call("initialize", _world, _encounter_record)):
+		anatomy.queue_free()
+		movement.queue_free()
+		shell.queue_free()
+		return false
+
 	var attack := HUNTER_ATTACK_SCRIPT.new() as Node
 	if attack == null:
+		anatomy.queue_free()
 		movement.queue_free()
 		shell.queue_free()
 		return false
 	attack.name = "HunterAttackRuntime"
 	shell.add_child(attack)
-	if not bool(attack.call("initialize", _world, shell, movement, _encounter_record)):
+	if not bool(attack.call("initialize", _world, shell, movement, anatomy, _encounter_record)):
 		attack.queue_free()
+		anatomy.queue_free()
 		movement.queue_free()
 		shell.queue_free()
 		return false
 
 	_combat_turn_shell = shell
 	_tactical_movement_runtime = movement
+	_mudcrest_anatomy_runtime = anatomy
 	_hunter_attack_runtime = attack
 	return true
 
@@ -250,6 +268,12 @@ func has_tactical_movement_started() -> bool:
 
 func get_tactical_movement_runtime() -> Node:
 	return _tactical_movement_runtime
+
+func has_mudcrest_anatomy_started() -> bool:
+	return _mudcrest_anatomy_runtime != null and bool(_mudcrest_anatomy_runtime.call("is_initialized"))
+
+func get_mudcrest_anatomy_runtime() -> Node:
+	return _mudcrest_anatomy_runtime
 
 func has_hunter_attack_started() -> bool:
 	return _hunter_attack_runtime != null and bool(_hunter_attack_runtime.call("is_initialized"))

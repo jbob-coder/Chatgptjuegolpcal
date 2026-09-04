@@ -57,17 +57,21 @@ def main() -> int:
     check("contact classes distinguish miss/part/fallback", all(token in attack for token in ("NO_CONTACT", "SELECTED_PART_CONTACT", "BODY_CONTACT_OFF_TARGET")))
     check("hit-quality set is bounded to MISS/GRAZE/SOLID/CLEAN", all(token in attack for token in ('return "MISS"', 'return "GRAZE"', 'return "SOLID"', 'return "CLEAN"')) and 'return "PRECISION"' not in attack)
     check("control fixture is explicitly provisional", "PROVISIONAL_FIRST_SLICE_CONTROL_FIXTURE" in attack)
-    check("damage handoff is explicit rather than fabricated", "PENDING_ANATOMY_DAMAGE_RUNTIME" in attack)
-    check("attack runtime applies no health/anatomy damage yet", all(token not in attack for token in ("apply_damage", "health -=", "integrity -=", "break_part", "sever_part")))
+    check("pending anatomy handoff is built before species consequence", '"status": "PENDING_ANATOMY_DAMAGE_RUNTIME"' in attack)
+    check("stable anatomy transaction identity is emitted", all(token in attack for token in ('"resolution_id"', '"encounter_id"', '"round_id"', '"action_sequence"', '"attacker_id"', '"defender_id"', '"technique_id"')))
+    check("attack delegates consequence to injected anatomy owner", '_anatomy.call("apply_damage_handoff", damage_handoff)' in attack and '"anatomy_result"' in attack)
+    check("attack runtime applies no direct health/anatomy arithmetic", all(token not in attack for token in ("health -=", "integrity -=", "break_part(", "sever_part(")))
     check("encounter preloads Hunter attack runtime", 'preload("res://scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd")' in encounter)
-    check("encounter initializes attack with same shell/movement/record", 'attack.call("initialize", _world, shell, movement, _encounter_record)' in encounter)
+    check("encounter initializes attack with same shell/movement/anatomy/record", 'attack.call("initialize", _world, shell, movement, anatomy, _encounter_record)' in encounter)
     check("test verifies range rejection", "Measured Cut is hard-illegal from N01" in test)
     check("test verifies three-step tactical approach to N09", "N01 -> N04 move succeeds" in test and "N07 -> N09 move succeeds" in test)
     check("test verifies 2 AP / 12 Stamina spend", "first attack spends exactly 2 AP / 12 Stamina" in test)
     check("test verifies selected-part contact", "Dorsal target acquires selected-part contact" in test)
     check("test verifies body fallback", "difficult Tail acquisition demonstrates body fallback" in test)
-    check("test verifies no reroll on readback", "readback does not reroll committed attack" in test)
-    check("runtime doc labels anatomy damage as next layer", "anatomy-damage/integrity consequences" in doc)
+    check("test verifies no reroll on readback", "readback does not reroll committed attack/anatomy" in test)
+    check("test verifies integrated Dorsal anatomy consequence", "Dorsal provisional integrity changes 100 -> 95" in test)
+    check("test verifies anatomy replay does not double-apply", "replaying committed Dorsal handoff does not apply twice" in test)
+    check("runtime doc records anatomy consumer integration", "Mudcrest anatomy integrity runtime" in doc and "PENDING_ANATOMY_DAMAGE_RUNTIME" in doc)
 
     print()
     print(f"Checks: {checks} | Passed: {checks - len(failures)} | Failed: {len(failures)}")
@@ -75,7 +79,7 @@ def main() -> int:
         print("Gate: HUNT01_FIRST_HUNTER_ATTACK_SOURCE_STATIC_FAILED")
     else:
         print("Gate: HUNT01_FIRST_HUNTER_ATTACK_SOURCE_STATIC_VERIFIED")
-    print("This gate does not claim health/break/sever/status, phone acceptance or performance verification.")
+    print("This gate does not claim final damage balance, break/sever/status, Monster behavior, phone acceptance or performance verification.")
     return 0 if not failures else 1
 
 

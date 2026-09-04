@@ -57,6 +57,7 @@ const TARGET_PROTECTION := {
 var _world: Node3D = null
 var _shell: Node = null
 var _movement: Node = null
+var _anatomy: Node = null
 var _hunter: CharacterBody3D = null
 var _monster: Node3D = null
 var _encounter_record: Dictionary = {}
@@ -75,10 +76,12 @@ var _attack_button: Button = null
 var _legality_label: Label = null
 var _result_label: Label = null
 
-func initialize(world: Node3D, shell: Node, movement: Node, encounter_record: Dictionary) -> bool:
-	if _initialized or world == null or shell == null or movement == null:
+func initialize(world: Node3D, shell: Node, movement: Node, anatomy: Node, encounter_record: Dictionary) -> bool:
+	if _initialized or world == null or shell == null or movement == null or anatomy == null:
 		return false
 	if String(encounter_record.get("encounter_id", "")) != EXPECTED_ENCOUNTER_ID:
+		return false
+	if not bool(anatomy.call("is_initialized")):
 		return false
 	if not _load_manifest_combat_envelope():
 		return false
@@ -86,6 +89,7 @@ func initialize(world: Node3D, shell: Node, movement: Node, encounter_record: Di
 	_world = world
 	_shell = shell
 	_movement = movement
+	_anatomy = anatomy
 	_encounter_record = encounter_record.duplicate(true)
 	_hunter = _world.get_node_or_null("Hunter") as CharacterBody3D
 	_monster = _world.get_node_or_null("WorldGeometry/%s" % MONSTER_COMBATANT_ID) as Node3D
@@ -100,6 +104,7 @@ func initialize(world: Node3D, shell: Node, movement: Node, encounter_record: Di
 		"stamina_cost": STAMINA_COST,
 		"working_melee_body_envelope_distance_m": WORKING_MELEE_MAX_BODY_ENVELOPE_DISTANCE_M,
 		"fixture_status": FIXTURE_STATUS,
+		"anatomy_schema": String(_anatomy.call("get_schema")),
 	})
 	_refresh_hud()
 	return true
@@ -206,14 +211,27 @@ func _refresh_hud() -> void:
 		_legality_label.text = "NOT READY • %s" % String(legality.get("reason", "UNKNOWN"))
 	if _last_resolution.is_empty():
 		_result_label.text = "No attack committed yet. Positioning, target legality and resources are authoritative."
-	else:
-		_result_label.text = "%s • %s • %s → %s • protection %s • anatomy damage is the next layer" % [
+		return
+	var anatomy_result := _last_resolution.get("anatomy_result", {}) as Dictionary
+	if anatomy_result.is_empty():
+		_result_label.text = "%s • %s • %s → %s • protection %s • anatomy result unavailable" % [
 			String(_last_resolution.get("hit_quality", "")),
 			String(_last_resolution.get("contact_class", "")),
 			String(_last_resolution.get("selected_target_group", "")),
 			String(_last_resolution.get("resolved_target_group", "")),
 			String(_last_resolution.get("protection_profile", "")),
 		]
+		return
+	_result_label.text = "%s • %s • %s → %s • protection %s • integrity %s → %s (−%s) • provisional" % [
+		String(_last_resolution.get("hit_quality", "")),
+		String(_last_resolution.get("contact_class", "")),
+		String(_last_resolution.get("selected_target_group", "")),
+		String(_last_resolution.get("resolved_target_group", "")),
+		String(_last_resolution.get("protection_profile", "")),
+		str(anatomy_result.get("integrity_before", "—")),
+		str(anatomy_result.get("integrity_after", "—")),
+		str(anatomy_result.get("integrity_loss", 0)),
+	]
 
 func _hunter_has_activation() -> bool:
 	if _shell == null:
@@ -355,12 +373,34 @@ func commit_measured_cut(target_group: String) -> Dictionary:
 		resolved_target_group = "GENERAL_TORSO"
 	var hit_quality := _classify_hit_quality(control_margin)
 	var protection_profile := String(TARGET_PROTECTION.get(resolved_target_group, "NONE_NO_CONTACT")) if not resolved_target_group.is_empty() else "NONE_NO_CONTACT"
+	var resolution_id := "%s:%d:%d:%s" % [EXPECTED_ENCOUNTER_ID, round_id, _attack_sequence, TECHNIQUE_ID]
+	var damage_handoff := {
+		"status": "PENDING_ANATOMY_DAMAGE_RUNTIME",
+		"resolution_id": resolution_id,
+		"encounter_id": EXPECTED_ENCOUNTER_ID,
+		"round_id": round_id,
+		"action_sequence": _attack_sequence,
+		"attacker_id": HUNTER_COMBATANT_ID,
+		"defender_id": MONSTER_COMBATANT_ID,
+		"technique_id": TECHNIQUE_ID,
+		"resolved_target_group": resolved_target_group,
+		"hit_quality": hit_quality,
+		"damage_channel": DAMAGE_CHANNEL,
+		"protection_profile": protection_profile,
+	}
+	var anatomy_result := _anatomy.call("apply_damage_handoff", damage_handoff) as Dictionary
+	if not bool(anatomy_result.get("success", false)):
+		damage_handoff["status"] = "ANATOMY_APPLICATION_FAILED"
+		push_error("Committed Hunter attack could not apply its Mudcrest anatomy handoff: %s" % str(anatomy_result))
+	else:
+		damage_handoff["status"] = String(anatomy_result.get("status", "ANATOMY_INTEGRITY_RESULT_UNKNOWN"))
 
 	_last_resolution = {
 		"success": true,
 		"encounter_id": EXPECTED_ENCOUNTER_ID,
 		"round_id": round_id,
 		"action_sequence": _attack_sequence,
+		"resolution_id": resolution_id,
 		"technique_id": TECHNIQUE_ID,
 		"technique_label": TECHNIQUE_LABEL,
 		"attacker_id": HUNTER_COMBATANT_ID,
@@ -388,13 +428,8 @@ func commit_measured_cut(target_group: String) -> Dictionary:
 		"control_margin": control_margin,
 		"fixture_status": FIXTURE_STATUS,
 		"resource_cost": {"ap": AP_COST, "stamina": STAMINA_COST},
-		"damage_handoff": {
-			"status": "PENDING_ANATOMY_DAMAGE_RUNTIME",
-			"resolved_target_group": resolved_target_group,
-			"hit_quality": hit_quality,
-			"damage_channel": DAMAGE_CHANNEL,
-			"protection_profile": protection_profile,
-		},
+		"damage_handoff": damage_handoff.duplicate(true),
+		"anatomy_result": anatomy_result.duplicate(true),
 	}
 	_record_trace("HUNTER_ATTACK_RESOLVED", _last_resolution)
 	_refresh_hud()

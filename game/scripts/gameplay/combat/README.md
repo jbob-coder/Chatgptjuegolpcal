@@ -1,14 +1,15 @@
 # Hunt-01 Combat Runtime
 
-Purpose: own the first production combat-domain runtime stack after explicit same-location ENGAGE.
+Purpose: own the first production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy state to the Monster package.
 
 ## Runtime ownership
 
 - `hunt01_combat_turn_shell_runtime.gd` — deterministic initiative, round/slot state, one-normal-activation invariant, AP/RP refresh, normalized Hunter Stamina/recovery, resource commitment and END TURN HUD.
 - `hunt01_tactical_movement_runtime.gd` — adjacent tactical-node movement, authored adjacency, destination terrain Stamina surcharge, current node, Hunter relocation and movement trace/HUD.
-- `hunt01_hunter_attack_runtime.gd` — first real Hunter weapon attack: Field Poleblade `POLEBLADE_MEASURED_CUT`, target-group selection, hard range/line-of-effect/resource legality, one bounded deterministic contact variance sample, hit-quality classification and local protection/anatomy handoff.
-- encounter runtime owns tracking completion → observation → explicit ENGAGE → same-location first-person staging, then creates this combat stack.
-- later layers own actual anatomy integrity/health loss, break/sever, status consequences, Monster reactions/attacks/behavior and encounter outcomes.
+- `hunt01_hunter_attack_runtime.gd` — Hunter Field Poleblade `POLEBLADE_MEASURED_CUT`: target-group selection, hard range/line-of-effect/resource legality, one bounded deterministic contact variance sample, hit-quality classification, local protection routing and a single committed anatomy transaction handoff.
+- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species-specific normalized anatomy integrity consequence owner; this is intentionally outside the generic combat package.
+- encounter runtime owns tracking completion → observation → explicit ENGAGE → same-location first-person staging, then creates the combat stack and injects the Mudcrest anatomy owner into the Hunter attack runtime.
+- later layers own final damage balance, break/sever thresholds, status consequences, Monster reactions/attacks/behavior and encounter outcomes.
 
 First-slice identities:
 - encounter `enc_r01_ef02_m01_0001`;
@@ -62,32 +63,36 @@ Prototype contract:
 Player-facing target groups are the eight existing Mudcrest groups:
 `HEAD`, `HORN_CREST`, `FORELEG_L`, `FORELEG_R`, `HINDLEG_L`, `HINDLEG_R`, `DORSAL_PLATES`, `TAIL`.
 
-Working-melee legality uses the real tactical layout rather than a global attack button:
+Working-melee legality uses the real tactical layout:
 - runtime reads the manifest Monster `body_force` envelope;
 - current tactical node must be within 3.5 m of that envelope;
-- current first-slice graph makes `R01_EF02_N09` the practical Measured Cut contact node;
+- `R01_EF02_N09` is the current practical Measured Cut contact node;
 - line of effect is physics-ray validated before commitment;
-- full blocked line of effect is hard illegal;
 - AP/Stamina are validated before commitment and spent once through the turn shell.
 
-Contact resolution currently uses a transparent `PROVISIONAL_FIRST_SLICE_CONTROL_FIXTURE` because final Hunter/Mudcrest combat statistics remain balance-open:
+Contact resolution remains `PROVISIONAL_FIRST_SLICE_CONTROL_FIXTURE` because final Hunter/Mudcrest combat statistics are balance-open:
 - AttackControl base 70;
 - explicit per-target control penalty;
 - DefenseControl 55;
 - one stable FNV-1a-derived variance sample in `[-6,+6]` per committed attack;
-- same authoritative seed inputs produce the same result;
-- no UI/animation reopening rerolls it;
 - control margin classifies `MISS / GRAZE / SOLID / CLEAN`;
 - selected-part acquisition requires margin >= 6;
-- legal body contact below that threshold falls back to `GENERAL_TORSO` under Measured Cut's declared fallback policy.
+- legal body contact below that threshold falls back to `GENERAL_TORSO`.
 
-After contact, the runtime records local protection such as `MINERALIZED_DORSAL_PLATE`, `HARD_HORN_STRUCTURE`, limb hide or torso hide, then emits `PENDING_ANATOMY_DAMAGE_RUNTIME`.
+After contact, generic combat records the local protection profile and builds one stable anatomy `resolution_id` from existing encounter/round/action identity. The Monster-01 runtime consumes that handoff exactly once; readback/replay does not reroll or double-apply it.
+
+## Current anatomy integrity slice
+
+The species runtime tracks normalized target integrity using `PROVISIONAL_FIRST_SLICE_ANATOMY_INTEGRITY_FIXTURE`.
+
+The fixture is deliberately not final HP/armor balance. It only makes deterministic per-target integrity state executable now and reflects the existing qualitative rule that hard horn/mineralized plates resist CUTTING more than hide.
+
+Structural thresholds are not evaluated. The runtime returns `NOT_EVALUATED_BREAK_SEVER_DEFERRED` rather than inventing crack/break/sever authority.
 
 ## Explicitly not implemented yet
 
-- anatomy integrity/health arithmetic;
-- break/sever thresholds;
-- horn/plate state changes;
+- final damage/health arithmetic;
+- crack/break/sever thresholds and structural state transitions;
 - tail detachment;
 - bleeding/status consequences;
 - Monster reaction decision runtime;

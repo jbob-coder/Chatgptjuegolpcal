@@ -1,4 +1,4 @@
-name: Production Hunt 01 Graybox Android
+name: Production Hunt 01 Android
 
 on:
   push:
@@ -10,22 +10,23 @@ on:
       - "tests/quality/hunt01/hunt01_production_projection_preflight.py"
       - "tests/quality/hunt01/hunt01_combat_turn_shell_preflight.py"
       - "tests/quality/hunt01/hunt01_hunter_attack_preflight.py"
+      - "tests/quality/hunt01/hunt01_mudcrest_anatomy_preflight.py"
       - "docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json"
 
 permissions:
   contents: read
 
 concurrency:
-  group: production-hunt01-graybox-${{ github.ref }}
+  group: production-hunt01-${{ github.ref }}
   cancel-in-progress: true
 
 env:
   PROJECT_PATH: game
-  APK_NAME: UnnamedHuntRPG-Hunt01-Graybox-debug.apk
+  APK_NAME: UnnamedHuntRPG-Hunt01-AnatomyIntegrity-debug.apk
 
 jobs:
-  build-production-graybox:
-    name: Verify production Hunt-01 graybox and export Android APK
+  build-production-hunt01:
+    name: Verify production Hunt-01 gameplay and export Android APK
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -39,7 +40,7 @@ jobs:
           python-version: "3.12"
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
@@ -118,6 +119,9 @@ jobs:
           python3 tests/quality/hunt01/hunt01_hunter_attack_preflight.py \
             | tee build-evidence/hunt01-hunter-attack-static.log
           grep -q "Gate: HUNT01_FIRST_HUNTER_ATTACK_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-hunter-attack-static.log
+          python3 tests/quality/hunt01/hunt01_mudcrest_anatomy_preflight.py \
+            | tee build-evidence/hunt01-mudcrest-anatomy-static.log
+          grep -q "Gate: HUNT01_MUDCREST_ANATOMY_INTEGRITY_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-mudcrest-anatomy-static.log
 
       - name: Godot import and parse gate
         shell: bash
@@ -167,6 +171,13 @@ jobs:
           grep -q "Gate: HUNT01_COMBAT_TURN_SHELL_RUNTIME_VERIFIED" build-evidence/hunt01-combat-turn-shell-runtime.log
           grep -q "Gate: HUNT01_TACTICAL_MOVEMENT_RUNTIME_VERIFIED" build-evidence/hunt01-combat-turn-shell-runtime.log
 
+      - name: Headless Hunt-01 Mudcrest anatomy integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/hunt01_mudcrest_anatomy_runtime_test.gd" 2>&1 | tee build-evidence/hunt01-mudcrest-anatomy-runtime.log
+          grep -q "Gate: HUNT01_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_VERIFIED" build-evidence/hunt01-mudcrest-anatomy-runtime.log
+
       - name: Headless Hunt-01 first Hunter attack
         shell: bash
         run: |
@@ -192,9 +203,9 @@ jobs:
       - name: Upload production APK and evidence
         uses: actions/upload-artifact@v4
         with:
-          name: UnnamedHuntRPG-Hunt01-Graybox-debug
+          name: UnnamedHuntRPG-Hunt01-AnatomyIntegrity-debug
           path: |
-            build/android/UnnamedHuntRPG-Hunt01-Graybox-debug.apk
+            build/android/UnnamedHuntRPG-Hunt01-AnatomyIntegrity-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 2

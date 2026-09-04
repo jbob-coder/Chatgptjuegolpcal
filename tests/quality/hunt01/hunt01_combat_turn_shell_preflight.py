@@ -41,7 +41,7 @@ def main() -> int:
     test = COMBAT_TEST.read_text(encoding="utf-8")
     encounter = ENCOUNTER_RUNTIME.read_text(encoding="utf-8")
 
-    check("combat owner defers anatomy/damage consequence layers", all(token in readme for token in ("actual anatomy integrity/health loss", "break/sever", "status consequences", "Monster reactions/attacks/behavior")))
+    check("combat owner delegates species anatomy and defers structural/behavior layers", all(token in readme for token in ("game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd", "final damage/health arithmetic", "break/sever", "status consequences", "Monster reactions/attacks/behavior")))
     check("adjacent tactical movement is explicitly owned now", "adjacent tactical-node movement" in readme)
     check("initiative fixture is explicitly provisional", "PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE" in readme and "PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE" in combat)
     check("encounter preloads combat shell", 'preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")' in encounter)
