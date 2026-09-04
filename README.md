@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY + ONE-RECIPE DESIGN BASELINES RECORDED / SETTLEMENT SMITH SERVICE NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PHYSICAL SMITH SERVICE RECORDED / PERSISTENCE NEXT
 Last reconciled: 2026-09-03
 
 This repository area belongs to the new Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -15,7 +15,7 @@ The game connects three playable layers:
 3. first-person turn-based tactical combat from the same physical encounter, with explicit movement, cover, defense, attack and anatomy-targeting decisions.
 
 Core hunt loop:
-`PREPARE -> LEAVE SETTLEMENT -> ENTER REGION -> TRACK -> OBSERVE -> APPROACH -> ENGAGE -> POSITION -> TARGET ANATOMY -> BREAK/SEVER -> MONSTER ESCAPES OR FALLS -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> CRAFT/EQUIP -> PREPARE AGAIN`.
+`PREPARE -> LEAVE SETTLEMENT -> ENTER REGION -> TRACK -> OBSERVE -> APPROACH -> ENGAGE -> POSITION -> TARGET ANATOMY -> BREAK/SEVER -> MONSTER ESCAPES OR FALLS -> REACQUIRE/HARVEST -> INVENTORY -> RETURN THROUGH GATE -> PHYSICAL SMITH -> CRAFT/EQUIP -> PREPARE AGAIN`.
 
 Primary law:
 **documentation exists to keep the game coherent; the game is the objective.**
@@ -38,22 +38,24 @@ Before bounded work read:
 ```text
 docs/
 ├── 00_project/   governance/readiness
-├── 10_world/     world/regions/spatial packages
+├── 10_world/     settlements/regions/spatial application
 ├── 20_gameplay/  combat/harvest/inventory/crafting/progression rules
 ├── 30_content/   hunters/monsters/content packages
 ├── 40_art/       reference/model/runtime asset pipeline
-├── 50_technical/ engine/Android/architecture
+├── 50_technical/ engine/Android/architecture/persistence ownership
 ├── 60_quality/   QA/performance/testing
 └── 70_handoff/   bounded-pass continuity records
 ```
 
 Global map: `DOCUMENTATION_INDEX.md`.
-Documentation placement rules: `docs/README.md`.
-Combat front door: `docs/20_gameplay/combat/README.md`.
-Harvest front door: `docs/20_gameplay/harvest/README.md`.
-Inventory front door: `docs/20_gameplay/inventory/README.md`.
-Crafting front door: `docs/20_gameplay/crafting/README.md`.
-Monster 01 front door: `docs/30_content/monsters/MONSTER_01/README.md`.
+Documentation placement: `docs/README.md`.
+Settlement 01 front door: `docs/10_world/settlements/SETTLEMENT_01/README.md`.
+Smith service authority: `docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
+Combat: `docs/20_gameplay/combat/README.md`.
+Harvest: `docs/20_gameplay/harvest/README.md`.
+Inventory: `docs/20_gameplay/inventory/README.md`.
+Crafting: `docs/20_gameplay/crafting/README.md`.
+Monster 01: `docs/30_content/monsters/MONSTER_01/README.md`.
 
 Every substantial pass must answer:
 `WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
@@ -84,16 +86,8 @@ Blocker:
 
 ## 5. Recorded first-slice gameplay chain
 
-Combat design baseline:
-- Action Economy;
-- Combat Resolution;
-- Field Poleblade;
-- Stamina;
-- Initiative;
-- Status;
-- Terrain;
-- Solo/Party;
-- Defeat/Retreat.
+Combat baseline:
+Action Economy / Resolution / Field Poleblade / Stamina / Initiative / Status / Terrain / Solo-Party / Defeat-Retreat.
 
 Harvest:
 `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
@@ -101,40 +95,33 @@ Harvest:
 Inventory:
 `docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
 
-One-recipe crafting/equipment linkage:
+Craft/equip:
 `docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
 
-Current recipe:
-`recipe_field_poleblade_raker_tendon_grip`.
+Physical Smith service:
+`docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
 
-Requirements:
-- 2 HIGH `material_m01_tail_tendon`;
-- 2 STANDARD-or-better `material_m01_hide`.
+First recipe:
+`recipe_field_poleblade_raker_tendon_grip`
+= 2 HIGH tail tendon + 2 STANDARD-or-better hide -> Raker-Tendon Grip -> Placed Hew Stamina 18 -> 16.
 
-Output/refinement:
-`refinement_field_poleblade_raker_tendon_grip`.
+The Smith proof adds:
+- physical workbench in Settlement 01 Craft/Processing Quarter;
+- gate-return-to-workbench graybox target <=25 seconds normal walking;
+- normal essential service independent of one Smith NPC schedule;
+- read-only preview;
+- authoritative Craft Confirm;
+- stable Poleblade target revalidation;
+- no UI/NPC/Settlement direct material/refinement mutation.
 
-Effect:
-`POLEBLADE_PLACED_HEW` Stamina `18 -> 16` through one typed `COST_MODIFIER`; no AP/damage/turn/Initiative bonus.
+No production combat/harvest/inventory/crafting/Settlement-service runtime is claimed.
 
-This closes the design proof:
-`ANATOMY DAMAGE -> HARVEST CONDITION -> MATERIAL INVENTORY -> CRAFT REFINEMENT -> NEXT-HUNT TACTICAL EDGE`.
-
-No runtime combat/harvest/inventory/crafting implementation is claimed.
-
-## 6. Monster 01 — Mudcrest Raker
-
-Prototype body:
-~6.6 m long / ~3.0 m shoulder-body height; horn crest; dorsal plates; mud-adapted legs; severable distal tail; internal Crystal core.
-
-The selected pristine first-slice harvest packet totals 45 prototype material-capacity units across horn, plate, hide, tail ridge/tendon and dense bone sources. Actual recovered quantity/quality depends on physical combat damage and deterministic extraction.
-
-## 7. Saved finished-game visual concept
+## 6. Saved finished-game visual concept
 
 Google Drive project folder:
 `Unnamed Hunt RPG`.
 
-Saved reference image:
+File:
 `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
 
 Drive file ID:
@@ -142,20 +129,21 @@ Drive file ID:
 
 This image is visual intent only. Repository mechanics, stable IDs, dimensions, collision and verified performance remain authoritative.
 
-## 8. Planned bounded sequence
+## 7. Planned bounded sequence
 
 Completed design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership -> One Recipe/Craft-Equip Linkage`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip -> Settlement Smith Service`.
 
-Current next independent game-design action:
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
+Current next independent design action:
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
 
-That next packet maps the logical weapon-workbench requirement into the real walkable Settlement 01 Smith/Workshop and return-from-hunt service loop without building broad shops/economy.
+Why next:
+Region 01 already has topology/tracking/encounter-footprint design, while save/reload requirements are scattered across Monster identity, harvest depletion, Inventory transfer, crafting anti-replay and Settlement re-entry. The next packet will unify that vertical-slice persistence boundary before broader content expansion.
 
-## 9. Exact continuation
+## 8. Exact continuation
 
 Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
+`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT`.
