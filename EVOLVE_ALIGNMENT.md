@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY DESIGN BASELINES RECORDED / ONE-RECIPE LINKAGE NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY + ONE-RECIPE DESIGN BASELINES RECORDED / SETTLEMENT SMITH SERVICE NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -180,11 +180,9 @@ Monster 01 application:
 
 Selected generic model:
 - finite authored source capacity;
-- preservation bands PRISTINE/GOOD/DAMAGED/POOR/RUINED/DESTROYED = `1.00/0.90/0.70/0.40/0.10/0.00`;
-- clean sever transfers source lineage rather than creating material;
+- condition/preservation determines surviving quantity/quality;
+- clean sever transfers source lineage rather than creating matter;
 - deterministic recovery efficiency `<=1.00`;
-- partial extraction depletes only recovered quantity;
-- quality and quantity are separate;
 - no independent harvest RNG;
 - save/load/reacquisition cannot restore or duplicate depleted sources.
 
@@ -192,61 +190,102 @@ Monster 01 selected pristine source total:
 `45` prototype capacity units.
 
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
-`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
-`HARVEST_RUNTIME_IMPLEMENTED = NO`
-`HARVEST_RUNTIME_VERIFIED = NO`.
+`HARVEST_RUNTIME_IMPLEMENTED = NO`.
 
 ## Inventory material ownership baseline — RECORDED
-
-Front door:
-`docs/20_gameplay/inventory/README.md`.
 
 Authority:
 `docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
 
-Supporting example:
-`docs/20_gameplay/inventory/INVENTORY_TRANSFER_EXAMPLE.md`.
-
-Handoff:
-`docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
-
 Selected model:
-- `PLAYER_FIELD_INVENTORY` is first-slice recovered-material destination;
-- prototype `PLAYER_FIELD_INVENTORY_MAX_STACK_ENTRIES = 20`;
-- `MATERIAL_STACK_MAX_QUANTITY = 99`;
-- visible merge compatibility = material ID + quality band;
+- `PLAYER_FIELD_INVENTORY` first-slice destination;
+- prototype 20 material stacks / max 99 units per stack;
+- merge compatibility = material ID + quality band;
 - provenance remains internally conserved as lots;
-- every committed harvest recovery first becomes owned by persistent `RECOVERY_BUNDLE`;
-- inventory-full/partial acceptance leaves exact unaccepted quantity in that bundle;
-- committed transfer invariant: `SOURCE_LOSS == DESTINATION_GAIN`;
-- deterministic existing-stack fill before new stack creation;
-- merge/split preserves quantity, quality and provenance;
-- stable transfer IDs are idempotent across UI/save/load;
-- inventory rejection never restores already-depleted anatomy.
+- committed harvest output first belongs to persistent `RECOVERY_BUNDLE`;
+- partial/full inventory rejection leaves exact unaccepted quantity in bundle;
+- source loss equals destination gain;
+- stable transfer IDs prevent replay.
 
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
-`INVENTORY_RUNTIME_IMPLEMENTED = NO`
-`INVENTORY_RUNTIME_VERIFIED = NO`.
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`.
+
+## One-recipe craft/equip linkage — RECORDED
+
+Front door:
+`docs/20_gameplay/crafting/README.md`.
+
+Authority:
+`docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_PASS_2026-09-03.md`.
+
+Recipe:
+`recipe_field_poleblade_raker_tendon_grip`.
+
+Exact inputs:
+- `2 x material_m01_tail_tendon`, minimum HIGH;
+- `2 x material_m01_hide`, minimum STANDARD.
+
+Refinement:
+`refinement_field_poleblade_raker_tendon_grip`.
+
+Effect:
+`effect_field_poleblade_raker_tendon_grip_placed_hew_stamina`.
+
+Typed behavior:
+- `COST_MODIFIER`;
+- Placed Hew Stamina base 18 -> 16 with only this refinement;
+- no AP/damage/hit-quality/sever/Initiative/reaction/Max-Stamina bonus.
+
+Craft transaction law:
+- material must already be owned by `PLAYER_FIELD_INVENTORY`;
+- deterministic lowest-sufficient-quality/stack/provenance selection;
+- reserve exact inputs before mutation;
+- validate recipe + workbench context + compatible Poleblade + empty grip-refinement state;
+- atomically consume exact 2 tendon + 2 hide and apply one refinement;
+- stable craft transaction ID is idempotent across UI/save/load;
+- failure before commit consumes nothing;
+- interrupted transaction must recover to full commit once or no commit;
+- no random craft quality/currency/broad recipe tree in first proof.
+
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
+`CRAFTING_RUNTIME_IMPLEMENTED = NO`
+`CRAFTING_RUNTIME_VERIFIED = NO`.
+
+## Saved finished-game visual concept
+
+Google Drive folder:
+`Unnamed Hunt RPG`.
+
+File:
+`Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
+
+Drive file ID:
+`1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+
+This is visual intent only; repository mechanics/runtime evidence remain authoritative.
 
 ## Exact current active non-phone gate
 
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`
 
 Bounded scope:
-1. reread Inventory owner, Harvest owner, Monster 01 harvest packet, `CONTENT_DATA_GUIDE.md`, progression/equipment/weapon authorities and vertical-slice requirements;
-2. select exactly one Monster-01-derived recipe/output that improves the current first-slice Hunter/Field Poleblade experience;
-3. define exact material IDs/quantities/minimum quality consumed from authoritative inventory;
-4. define one deterministic crafting transaction with source-stack conservation and transaction anti-replay;
-5. define output item/equipment stable ID and authoritative owner;
-6. define equip/upgrade effect through existing equipment/effect ownership rather than an ad hoc stat edit;
-7. define failure/rejection so inputs are not deleted or duplicated;
-8. define save/load persistence and debug trace;
-9. record future tests;
-10. do not create a broad recipe tree, market economy, multiple weapon families or production implementation.
+1. reread `FIRST_SETTLEMENT_BLUEPRINT.md`, current world/settlement front doors, crafting contract, gameplay/readiness authorities and interaction/UI ownership;
+2. map `CRAFT_STATION_WEAPON_WORKBENCH` to the physical Settlement 01 Smith/Workshop;
+3. define the smallest return-from-hunt path from gate/material ownership to Smith interaction;
+4. define interaction authority and service availability without depending on an NPC always standing at one spot;
+5. expose only the one recorded first-slice recipe in the proof service;
+6. define open/close/confirm/cancel behavior so UI cannot consume material independently;
+7. define how the selected Field Poleblade target instance is chosen/validated;
+8. define save/load/service re-entry anti-replay behavior;
+9. record future interaction/runtime tests;
+10. do not build broad shop inventory, market prices, many recipes, social systems or production implementation.
 
-## After one-recipe linkage
+## After Smith service baseline
 
-Select the next smallest vertical-slice prerequisite from current repository evidence. Do not expand content breadth until the single complete loop is coherent.
+Select the next smallest vertical-slice prerequisite from current repository evidence. Candidate areas include persistence/save continuity or Region 01 tracking/encounter graybox integration, but do not preselect until the Smith-service pass is closed and current readiness is reread.
 
 ## Current gate truth
 
@@ -265,13 +304,14 @@ Select the next smallest vertical-slice prerequisite from current repository evi
 
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
-`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
-`INVENTORY_RUNTIME_IMPLEMENTED = NO`.
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`
+`CRAFTING_RUNTIME_IMPLEMENTED = NO`.
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
