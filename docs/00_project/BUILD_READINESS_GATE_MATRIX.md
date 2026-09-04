@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / STAGE-1 FUNCTIONAL PHONE GATE CLOSED / HUNT-01 PRODUCTION GRAYBOX BUILD VERIFIED
+Status: ACTIVE GOVERNANCE / PRODUCTION LAYERS 1–2 BUILD VERIFIED / PHONE QA BATCHED
 Last reconciled: 2026-09-04
 
 ## Primary law
@@ -14,21 +14,20 @@ An open question blocks only the earliest implementation gate that genuinely con
 | STAGE-1 ENGINE PROBE AUTOMATION | PASS | source/static/headless/APK pipeline green |
 | GALAXY A03s GENERAL FUNCTION | USER PASS | prior phone run reported no clipping/general problems |
 | SHOOTER-STYLE PHONE CONTROLS | USER PASS 100% | functional control gate closed |
-| HUNT-01 MANIFEST STATIC | PASS | 13/13 authoritative manifest rules |
+| HUNT-01 MANIFEST STATIC | PASS | authoritative manifest rules green |
 | PRODUCTION GAME ROOT | IMPLEMENTED | `game/` exists independently of probe |
-| HUNT-01 PRODUCTION SOURCE/PROJECTION | PASS | 29/29 |
-| HUNT-01 PRODUCTION HEADLESS INTEGRATION | PASS | 23/23 |
-| HUNT-01 ANDROID BUILD | PASS | export/integrity/artifact upload green |
-| HUNT-01 GALAXY A03s TRAVERSAL | REQUIRED | new production APK needs device traversal/visual test |
+| HUNT-01 FLAT-THEMED FOUNDATION | BUILD VERIFIED | continuous production world foundation present |
+| TRACKING/EVIDENCE SOURCE/PROJECTION | PASS | 49/49 |
+| TRACKING/EVIDENCE HEADLESS INTEGRATION | PASS | 66/66 |
+| TRACKING/EVIDENCE ANDROID BUILD | PASS | export/integrity/artifact upload green |
+| HUNT-01 PHONE ACCEPTANCE | DEFERRED BATCH | not a blocker for independent layers; not a phone PASS |
 | HUNT-01 FULL DIMENSIONAL SCENE GATE | NOT EXECUTED | final scene-space tolerances/smoothed path still pending |
-| TRACKING/EVIDENCE RUNTIME | NEXT | next independent game system |
+| OBSERVATION/ENCOUNTER TRIGGER RUNTIME | NEXT | next independent game layer |
 | FULL GAMEPLAY LOOP | PARTIAL | combat/harvest/inventory/crafting/etc. not runtime-complete |
 | SUSTAINED PERFORMANCE | NOT VERIFIED | separate Galaxy A03s soak evidence gate |
 | FINAL ENGINE SELECTION | NOT CLOSED | production candidate in use, formal gate remains open |
 
 ## Stage-1 closure
-
-The final shooter-style Galaxy A03s controls were accepted by the user as 100% PASS.
 
 `STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
 `ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
@@ -36,48 +35,52 @@ The final shooter-style Galaxy A03s controls were accepted by the user as 100% P
 
 The Stage-1 probe remains a separate evidence package and does not own production architecture.
 
-## Hunt-01 build gates
+## Production Layer 1
 
-`HUNT01_BUILD_SPEC_GATE_B0 = PASS`
-`HUNT01_MANIFEST_STATIC_GATE_B1 = PASS / 13_OF_13`
-`HUNT01_PRODUCTION_IMPLEMENTATION_GATE_B2 = IMPLEMENTED`
-`HUNT01_PRODUCTION_SOURCE_STATIC_GATE = PASS / 29_OF_29`
-`HUNT01_PRODUCTION_HEADLESS_GATE = PASS / 23_OF_23`
-`HUNT01_PRODUCTION_ANDROID_BUILD_GATE = PASS`
-`HUNT01_PRODUCTION_PHONE_GATE = REQUIRED`
-`HUNT01_FULL_SCENE_DIMENSION_GATE = NOT_EXECUTED`.
+`HUNT01_FLAT_THEMED_FOUNDATION_IMPLEMENTED = YES`
+`HUNT01_FLAT_THEMED_FOUNDATION_HEADLESS_VERIFIED = YES`
+`HUNT01_FLAT_THEMED_FOUNDATION_ANDROID_BUILD_VERIFIED = YES`
+`HUNT01_FLAT_THEMED_FOUNDATION_PHONE_ACCEPTANCE = DEFERRED`.
 
-Production tested source:
-`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
+The earlier disconnected/ugly production graybox visual result is rejected and superseded by the current flat-themed foundation.
+
+## Production Layer 2
+
+`HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTED = YES`
+`HUNT01_TRACKING_EVIDENCE_SOURCE_STATIC_GATE = PASS / 49_OF_49`
+`HUNT01_TRACKING_EVIDENCE_HEADLESS_GATE = PASS / 66_OF_66`
+`HUNT01_TRACKING_EVIDENCE_ANDROID_BUILD_GATE = PASS`
+`HUNT01_TRACKING_EVIDENCE_PHONE_ACCEPTANCE = DEFERRED`.
+
+Tested source:
+`0df278eba2d9265ed84483265957d9f8c2d7f415`.
 
 Workflow:
-`33836865365` SUCCESS.
+`33845109063` SUCCESS.
 
 APK:
-`UnnamedHuntRPG-Hunt01-Graybox-Retest.apk`
-57,587,191 bytes
-SHA-256 `7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
+`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
+57,633,529 bytes
+SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`.
 
 Drive ID:
-`150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
+`13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
+
+## User validation cadence
+
+`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`.
+
+Development must not stop after each APK waiting for phone feedback. Independent layers continue after automated verification. Missing phone/performance evidence remains explicitly missing and cannot be promoted to PASS.
 
 ## Dimensional evidence boundary
 
-The raw construction-anchor polyline is `282.926 m`.
-The `285–315 m` value is the future finished/smoothed navigable-path target.
-
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
-No gate may convert the raw polyline into a false final route-length PASS.
+No gate may convert the raw construction route into a false final smoothed-path PASS.
 
 ## Current production authorization
 
-Production implementation is now active under `game/`.
+Production implementation remains active under `game/`.
 
-The Galaxy A03s graybox test remains required for phone-specific traversal/visual acceptance, but it does not block independent implementation work that does not consume missing phone evidence.
-
-External device gate:
-`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
-
-Next independent implementation:
-`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.
+Exact next independent implementation:
+`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`.

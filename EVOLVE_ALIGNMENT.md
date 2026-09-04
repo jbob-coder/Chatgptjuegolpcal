@@ -1,150 +1,107 @@
-# Unnamed Hunt RPG — EVOLVE Alignment
+# EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: ACTIVE OPERATING CONTRACT / STAGE-1 FUNCTIONAL PHONE GATE CLOSED / FIRST PRODUCTION HUNT-01 GRAYBOX BUILT
+Status: PRODUCTION DEVELOPMENT ACTIVE / LAYER 2 TRACKING VERIFIED / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-04
 
-## Mandatory rule
+## Operating law
 
-The game is the objective. Documentation/data/tests preserve ownership, dimensions, coordinates, evidence, continuity, and the exact next action.
+The game is the objective. Documentation preserves ownership, evidence, dimensions, coordinates and continuation.
 
-Before every bounded pass read:
-1. this file;
-2. `PROJECT_HANDOFF.md`;
-3. `START_HERE_NEW_CHAT.md`;
-4. `DOCUMENTATION_INDEX.md`;
-5. newest relevant `docs/70_handoff/`;
-6. exact owning package/source/tests.
+`READ LIVE STATE → VERIFY → ONE BOUNDED LAYER → IMPLEMENT → STATIC/HEADLESS/BUILD QA → FIX SAME-LAYER FAILURES → RECORD → CONTINUE`.
 
-Current repository/source/build/device evidence outranks old chat memory.
+Current repository/build evidence outranks chat memory.
 
-Mandatory loop:
-`READ -> VERIFY -> ONE BOUNDED PIECE -> IDENTIFY OWNER/GATE -> IMPLEMENT/DOCUMENT -> TEST -> FIX SAME-PIECE FAILURES -> UPDATE OWNER/HANDOFF/README/INDEX -> SAVE/COMMIT -> READ BACK -> MARK EXACT STATUS -> RECORD NEXT PIECE`.
+## User validation policy
 
-## Stage-1 phone gate
+`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`
+`PHONE_ACCEPTANCE_DOES_NOT_BLOCK_INDEPENDENT_LAYER_DEVELOPMENT = YES`
 
-User reported the final shooter-style Galaxy A03s controls **PASS 100%**.
+Do not stop after each APK waiting for phone feedback. Continue independent layers after automated QA. Still never convert missing device evidence into a false phone/performance PASS.
 
-Accepted control architecture:
-- left fixed joystick = direct camera-relative movement;
-- fixed stick direction does not accumulate camera yaw;
-- right-side drag = independent view;
-- simultaneous movement/look;
-- first-person FOV `115°`;
-- first-person pitch `±80°`;
-- no adaptive timer/alignment/latch/rebase steering state.
-
-Stage-1 tested source/UI head:
-`5af416f48a7542b964084f83301de0a5f826bb46`.
-
-Dedicated control workflow `33834916358`: SUCCESS.
-Full Stage-1 Android workflow `33834916327`: SUCCESS.
+## Accepted controls
 
 `STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
 `ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
-`PERFORMANCE_VERIFIED = NO / SUSTAINED_A03S_SOAK_SEPARATE`
-`FINAL_ENGINE_SELECTED = NO`.
 
-`probes/android_stage1/` remains disposable evidence source and is not production architecture.
+Protected production behavior:
+- left joystick = direct camera-relative analog movement;
+- fixed stick direction does not accumulate turning;
+- right-side drag = independent look;
+- simultaneous movement/look;
+- first-person FOV 115°;
+- first-person pitch ±80°.
 
-## Production game root
+## Production world Layer 1
 
-Production Godot project:
-`game/`
+Initial production graybox visual phone result: `FAIL / SUPERSEDED`.
 
-First production piece completed:
-`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
+Current flat-themed foundation:
+- one continuous 440×440 m physical surface;
+- 6.25 m/s Hunter movement;
+- themed Hunter/Mudcrest/environment asset kit;
+- River Ford, mud/water, Feeding Meadow, cover and escape route layered over one collision foundation;
+- physical evidence triggers disappear on collection;
+- audio not required.
+
+`HUNT01_FLAT_THEMED_FOUNDATION_IMPLEMENTED = YES`
+`HUNT01_FLAT_THEMED_FOUNDATION_HEADLESS_VERIFIED = YES`
+`HUNT01_FLAT_THEMED_FOUNDATION_ANDROID_BUILD_VERIFIED = YES`
+`HUNT01_FLAT_THEMED_FOUNDATION_PHONE_ACCEPTANCE = DEFERRED`
+
+## Production Layer 2 — tracking/evidence
 
 Tested source head:
-`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
+`0df278eba2d9265ed84483265957d9f8c2d7f415`
 
-Production workflow:
-`33836865365` SUCCESS.
+Workflow:
+`33845109063` SUCCESS.
 
-Static/projection/source:
-`29/29 PASS`.
+Automated evidence:
+- source/projection: `49/49 PASS`;
+- production tracking/headless integration: `66/66 PASS`;
+- Godot parse/AppShell/Region smoke: PASS;
+- Android export/APK integrity/artifact upload: PASS.
 
-Headless production integration:
-`23/23 PASS`.
+Tracking runtime:
+- 7 physical evidence types;
+- freshness/confidence/activity interpretation;
+- deterministic clue history;
+- fresh S03 water-exit evidence outweighs old/weak S02 Rootwood evidence;
+- rough route reasoning without Monster GPS;
+- final clue reaches `OBSERVATION_READY`;
+- evidence disappears after investigation and cannot duplicate;
+- audio is optional.
 
-Android debug export/integrity/upload:
-PASS.
+APK:
+`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
+57,633,529 bytes
+SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`
+Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
+Artifact ID `9926241504`.
 
-Production APK:
-`UnnamedHuntRPG-Hunt01-Graybox-Retest.apk`
-`57,587,191 bytes`
-SHA-256 `7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
+`HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTED = YES`
+`HUNT01_TRACKING_EVIDENCE_HEADLESS_VERIFIED = YES / 66_OF_66`
+`HUNT01_TRACKING_EVIDENCE_ANDROID_BUILD_VERIFIED = YES`
+`HUNT01_TRACKING_EVIDENCE_PHONE_ACCEPTANCE = DEFERRED`
 
-Artifact ID `9923580879`.
-Artifact ZIP `57,142,468 bytes`; SHA-256 `184d158058df55f1b02dd92801c4af87376bc8f867d2bd77d29e6223368420db`.
+## Still unverified
 
-Google Drive:
-file ID `150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
-
-## Hunt-01 physical implementation
-
-The production scene now contains:
-- S00 departure/choice area;
-- required route through River Ford and Feeding Meadow;
-- reversible S02 wrong-route stub;
-- Ford/water/mud visual zones;
-- EF02 Meadow/open core/observation shelf;
-- physical boulder/tree cover;
-- 7 evidence markers;
-- 10 tactical nodes;
-- solid Monster placeholder;
-- pivot/Charge clearance debug geometry;
-- S03→S05 escape corridor;
-- camera/stream debug volumes;
-- production shooter-style controls, cameras, Settings and S00 reset.
-
-Authority remains under:
-`docs/10_world/regions/REGION_01/`.
-
-Runtime projection:
-`game/content/regions/region_01/hunt01_graybox_build_manifest.json`
-must remain equal to the authoritative docs manifest.
-
-Raw construction-anchor route = `282.926 m`.
-Future finished/smoothed navigable route target = `285–315 m`.
-
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
-Do not alter valid coordinates merely to force the raw construction polyline into the future smoothed-path target.
-
-## Current verification truth
-
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = YES`
-`HUNT01_PRODUCTION_PROJECTION_STATIC_VERIFIED = YES / 29_OF_29`
-`HUNT01_PRODUCTION_GRAYBOX_HEADLESS_VERIFIED = YES / 23_OF_23`
-`HUNT01_PRODUCTION_ANDROID_BUILD_VERIFIED = YES`
-`REGION01_HUNT01_PHONE_VERIFIED = NO / RETEST_REQUIRED`
-`HUNT01_GRAYBOX_SCENE_STATIC_FULL_DIMENSION_GATE = NOT_EXECUTED`
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 `PERFORMANCE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
+`FINAL_ENGINE_SELECTED = NO`
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-## Current external device gate
+## Exact next independent layer
 
-`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
-
-Phone test should verify real-world traversal, no gaps/softlocks, Ford/Meadow readability, evidence/node visibility, solid cover/Monster, escape path, aerial/first-person continuity, Settings, pause/resume and quick FPS behavior.
-
-## Exact next independent game-development piece
-
-Do not stop valid development while phone evidence is pending.
-
-`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`
 
 Bounded scope:
-1. reread Region tracking/integration authorities and seven evidence anchors;
-2. implement interactable evidence state on the real production map;
-3. preserve exact stable evidence IDs/coordinates;
-4. implement deterministic evidence freshness/confidence/activity interpretation for the first proof;
-5. preserve the physically legal S02 inference-error route;
-6. make normal player presentation communicate rough direction/confidence/activity rather than exact Monster GPS coordinates;
-7. add static/headless tests and Android build verification;
-8. do not implement combat, harvesting, crafting, persistence expansion or additional Monsters in the same piece.
-
-## Full-game truth
-
-A production game root now exists, but the complete gameplay loop is not yet runtime-complete. Combat, tracking semantics, harvesting, inventory, crafting, Settlement services and persistence must be implemented and verified incrementally on `game/`.
+1. consume `OBSERVATION_READY` from tracking;
+2. establish a physical observation/engagement zone at the existing Meadow coordinates;
+3. preserve the same Hunter and `monster_r01_m01_0001` world transforms;
+4. require explicit engage/approach authority rather than auto-starting combat from clue pickup;
+5. transition aerial → first-person at the same physical encounter;
+6. reveal/activate the existing tactical-node graph only after encounter entry;
+7. create an encounter state/ID without implementing attacks yet;
+8. ensure retreat/escape corridor remains physically available;
+9. add static/headless/build verification;
+10. do not wait for phone acceptance before the next independent layer.

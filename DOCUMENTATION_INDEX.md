@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / PRODUCTION GAME ROOT + HUNT-01 GRAYBOX BUILD VERIFIED
+Status: ACTIVE GLOBAL MAP / PRODUCTION LAYERS 1–2 BUILD VERIFIED / LAYER 3 NEXT
 Last reconciled: 2026-09-04
 
 ## Mandatory read order
@@ -24,90 +24,76 @@ Production root:
 - `game/scenes/app_shell.tscn`
 - `game/scenes/regions/region_01_hunt01_graybox.tscn`
 - `game/scripts/presentation/exploration/region_01_hunt01_graybox.gd`
-- `game/content/regions/region_01/README.md`
+- `game/scripts/gameplay/tracking/README.md`
+- `game/scripts/gameplay/tracking/hunt01_tracking_runtime.gd`
 - `game/content/regions/region_01/hunt01_graybox_build_manifest.json`
+- `game/content/regions/region_01/hunt01_tracking_evidence.json`
 - `game/tests/region01_hunt01_graybox_runtime_test.gd`
 - `.github/workflows/production-hunt01-graybox-android.yml`.
 
 Runtime projection/source QA:
 `tests/quality/hunt01/hunt01_production_projection_preflight.py`.
 
-Production tested source head:
-`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
+Latest tested production source head:
+`0df278eba2d9265ed84483265957d9f8c2d7f415`.
 
-Production workflow `33836865365`: SUCCESS.
-29/29 source/projection PASS; 23/23 headless integration PASS; Android export/integrity PASS.
+Workflow `33845109063`: SUCCESS.
+49/49 source/projection PASS.
+66/66 production/headless tracking integration PASS.
+Godot parse/AppShell/Region smoke PASS.
+Android export/integrity/upload PASS.
 
-Production APK SHA-256:
-`7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
-Drive ID `150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
+Layer-2 APK:
+`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
+SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`.
+Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
+Artifact ID `9926241504`.
 
-Latest production handoff:
-`docs/70_handoff/HUNT01_PRODUCTION_GRAYBOX_IMPLEMENTATION_PASS_2026-09-04.md`.
+Latest handoff:
+`docs/70_handoff/HUNT01_TRACKING_EVIDENCE_RUNTIME_PASS_2026-09-04.md`.
+
+## Layer ownership
+
+Layer 1 — world foundation/presentation:
+- `game/scripts/presentation/exploration/region_01_hunt01_graybox.gd`
+- `game/scenes/regions/region_01_hunt01_graybox.tscn`
+- region/world docs under `docs/10_world/regions/REGION_01/`.
+
+Layer 2 — tracking/evidence runtime:
+- `game/scripts/gameplay/tracking/`
+- `game/content/regions/region_01/hunt01_tracking_evidence.json`
+- tracking/escape world authority under `docs/10_world/regions/REGION_01/TRACKING_AND_ESCAPE.md`.
+
+Layer 3 next — observation/encounter trigger runtime:
+- must consume Layer-2 `OBSERVATION_READY`;
+- must preserve existing physical Hunter/Monster encounter location;
+- must not implement attacks in the same piece.
 
 ## Stage-1 evidence map
 
-`probes/android_stage1/` is retained as disposable evidence source, not production architecture.
-
+`probes/android_stage1/` is retained as evidence source, not production architecture.
 Primary control owner:
 `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
 
-The user accepted the shooter-style Galaxy A03s controls 100%.
-
 `STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
-`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
-`PERFORMANCE_VERIFIED = NO`.
+`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`.
 
-## Hunt-01 world/geometry authorities
+## Validation policy
 
-Shared spatial:
-- `docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`
-- `docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
-
-Region 01:
-- `docs/10_world/regions/REGION_01/README.md`
-- `FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`
-- `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`
-- `FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`
-- `FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`
-- `FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.md`
-- `FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`
-- `FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
-
-Authoritative manifest static QA:
-- `tests/quality/hunt01/README.md`
-- `tests/quality/hunt01/hunt01_graybox_manifest_validator.py`
-- `tests/quality/hunt01/hunt01_stable_coordinate_fixture.json`
-- `.github/workflows/hunt01-graybox-manifest-static.yml`.
-
-Manifest static workflow `33830978945`: SUCCESS / 13/13.
-
-## Gameplay package map
-
-- `docs/20_gameplay/combat/` — reusable combat/outcome contracts.
-- `docs/20_gameplay/harvest/` — anatomy-linked harvesting.
-- `docs/20_gameplay/inventory/` — Inventory/Recovery Bundle.
-- `docs/20_gameplay/crafting/` — crafting transaction contracts.
-- `docs/20_gameplay/progression/` — Field Poleblade refinement.
-- `docs/30_content/monsters/MONSTER_01/` — Monster 01 species/content.
-- `docs/50_technical/persistence/` — persistence contracts.
-- `docs/60_quality/` — quality ownership.
+`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`.
+Independent development continues after automated verification. Phone/runtime/performance claims remain separate and must not be fabricated.
 
 ## Verification boundary
 
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = YES`
-`HUNT01_PRODUCTION_PROJECTION_STATIC_VERIFIED = YES / 29_OF_29`
-`HUNT01_PRODUCTION_GRAYBOX_HEADLESS_VERIFIED = YES / 23_OF_23`
-`HUNT01_PRODUCTION_ANDROID_BUILD_VERIFIED = YES`
-`REGION01_HUNT01_PHONE_VERIFIED = NO / RETEST_REQUIRED`
+`HUNT01_FLAT_THEMED_FOUNDATION_IMPLEMENTED = YES`
+`HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTED = YES`
+`HUNT01_TRACKING_EVIDENCE_HEADLESS_VERIFIED = YES / 66_OF_66`
+`HUNT01_TRACKING_EVIDENCE_ANDROID_BUILD_VERIFIED = YES`
+`HUNT01_TRACKING_EVIDENCE_PHONE_ACCEPTANCE = DEFERRED`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
 ## Exact continuation
 
-External:
-`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
-
-Independent development:
-`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`.

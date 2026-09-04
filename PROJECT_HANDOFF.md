@@ -1,114 +1,67 @@
-# Unnamed Hunt RPG — Project Handoff
+# PROJECT HANDOFF — Unnamed Hunt RPG
 
-Status: STAGE-1 FUNCTIONAL PHONE GATE CLOSED / FIRST PRODUCTION HUNT-01 GRAYBOX BUILD VERIFIED / PHONE GRAYBOX RETEST NEXT
+Status: PRODUCTION LAYER 2 COMPLETE / LAYER 3 NEXT / PHONE QA DEFERRED-BATCH
 Last reconciled: 2026-09-04
 
-## Current objective
+## Live project
 
-Use the first production `game/` APK to verify Hunt-01 on the Galaxy A03s while continuing the next independent gameplay piece: physical tracking/evidence interaction.
+Repository: `jbob-coder/Chatgptjuegolpcal`
+Branch: `worldlife-reference-docs`
+Production Godot root: `game/`
+Stage-1 probe: `probes/android_stage1/` — evidence only, not production architecture.
 
-## Stage-1 closure
+## Current playable production stack
 
-The user reported the final shooter-style controls **PASS 100%**.
+Layer 1 foundation:
+- flat continuous 440×440 m Hunt-01 world foundation;
+- S00 / River Ford / Feeding Meadow / EF02 / S03→S05 route context;
+- 6.25 m/s Hunter;
+- accepted shooter-style mobile controls;
+- themed Hunter, Mudcrest Raker, trees and rocks;
+- physical cover and Monster collision;
+- physical evidence triggers; audio independent.
 
-Accepted:
-- left stick direct camera-relative movement;
-- right-side independent look;
-- no fixed-input turn accumulation;
-- simultaneous move/look;
-- first-person FOV 115° / pitch ±80°.
-
-`STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
-`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
-`PERFORMANCE_VERIFIED = NO`.
-
-Stage-1 remains evidence under `probes/android_stage1/`; production now lives under `game/`.
-
-## First production game root
-
-Created:
-`game/`
-
-Primary first-slice scene:
-`game/scenes/regions/region_01_hunt01_graybox.tscn`.
-
-Owning build authority:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
-
-Derived runtime projection:
-`game/content/regions/region_01/hunt01_graybox_build_manifest.json`.
-
-The projection is CI-checked against the docs authority.
-
-## Production graybox status
-
-Implemented:
-- S00 Trailhead/choice clearing;
-- Hunt-01 route to S01 River Ford and S03 Feeding Meadow;
-- S02 build-only wrong-route stub;
-- water/mud visual zones;
-- EF02 Meadow/open core/observation shelf;
-- 7 evidence markers;
-- 10 tactical nodes;
-- physical boulder/tree cover;
-- solid Mudcrest Raker placeholder;
-- Monster pivot/Charge debug clearances;
-- S03→S05 escape corridor;
-- camera/stream debug volumes;
-- accepted controls/cameras/Settings/reset.
-
-Raw construction centerline: `282.926 m`.
-Final smoothed route target remains `285–315 m` and has not been measured.
-
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
+Layer 2 tracking/evidence:
+- `game/content/regions/region_01/hunt01_tracking_evidence.json`;
+- `game/scripts/gameplay/tracking/hunt01_tracking_runtime.gd`;
+- seven authored evidence types;
+- deterministic freshness/confidence/activity inference;
+- old weak Rootwood clue remains a valid historical lead;
+- fresh S03 water-exit evidence correctly outweighs it;
+- final clue reaches `OBSERVATION_READY`;
+- no exact Monster GPS;
+- no required audio.
 
 ## Verification
 
-Tested production source head:
-`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
+Tested source head: `0df278eba2d9265ed84483265957d9f8c2d7f415`.
+Workflow `33845109063`: SUCCESS.
 
-Workflow:
-`33836865365` SUCCESS.
+- source/projection: 49/49 PASS;
+- headless production + tracking integration: 66/66 PASS;
+- Godot parse/AppShell/Region smoke: PASS;
+- Android export/integrity/upload: PASS.
 
-- production projection/source: 29/29 PASS;
-- Godot 4.7.2 parse: PASS;
-- AppShell smoke: PASS;
-- Region-01 smoke: PASS;
-- production Hunt-01 headless integration: 23/23 PASS;
-- Android export: PASS;
-- APK integrity: PASS;
-- artifact upload: PASS.
+APK:
+`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
+57,633,529 bytes
+SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`
+Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
 
-Production APK:
-`UnnamedHuntRPG-Hunt01-Graybox-Retest.apk`
-57,587,191 bytes
-SHA-256 `7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
+## User/device policy
 
-Artifact:
-ID `9923580879`
-ZIP 57,142,468 bytes
-SHA-256 `184d158058df55f1b02dd92801c4af87376bc8f867d2bd77d29e6223368420db`.
+The user explicitly does not want development paused after every phone build.
 
-Google Drive file ID:
-`150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
+`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`
 
-## Verification boundary
+Phone acceptance is accumulated and tested later. Missing phone evidence remains labeled missing; it does not block unrelated independently verifiable layers.
 
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = YES`
-`HUNT01_PRODUCTION_PROJECTION_STATIC_VERIFIED = YES / 29_OF_29`
-`HUNT01_PRODUCTION_GRAYBOX_HEADLESS_VERIFIED = YES / 23_OF_23`
-`HUNT01_PRODUCTION_ANDROID_BUILD_VERIFIED = YES`
-`REGION01_HUNT01_PHONE_VERIFIED = NO / RETEST_REQUIRED`
-`HUNT01_GRAYBOX_SCENE_STATIC_FULL_DIMENSION_GATE = NOT_EXECUTED`
-`PERFORMANCE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
+Stage-1 shooter-style controls were already accepted 100% on Galaxy A03s.
 
-## Exact next actions
+The first production graybox visual presentation was rejected and is superseded by the flat-themed foundation.
 
-External phone gate:
-`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
+## Exact next action
 
-Next independent development:
-`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`
 
-Do not confuse the existing colored evidence markers with implemented tracking semantics yet. Combat/harvest/inventory/crafting/Settlement/persistence are also not runtime-complete.
+Build observation/engagement authority on the same Meadow location, preserve transforms/Monster identity, make engagement explicit, enter first-person at the same physical encounter, activate tactical-node presentation only after encounter start, create authoritative encounter state, and test it. Do not implement attack resolution in the same layer.

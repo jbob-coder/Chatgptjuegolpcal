@@ -19,51 +19,44 @@ Current repository/source/build/device evidence outranks old chat memory.
 
 ## Current implementation state
 
-Stage-1 shooter-style controls were accepted by the user on the Galaxy A03s: **PASS 100%**.
+Stage-1 shooter-style controls were accepted on Galaxy A03s: PASS 100%.
 
-Production runtime root now exists at:
-`game/`.
+Production runtime root: `game/`.
 
-First production piece:
-`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION` — IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+### Layer 1
 
-Tested production source head:
-`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
+Flat-themed Hunt-01 world foundation is implemented, headless verified and Android-build verified. The earlier disconnected/ugly production graybox presentation is rejected and superseded.
 
-Workflow `33836865365`: SUCCESS.
-Static/source: 29/29 PASS.
-Headless integration: 23/23 PASS.
+### Layer 2
 
-Production APK:
-`UnnamedHuntRPG-Hunt01-Graybox-Retest.apk`
-SHA-256 `7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
-Drive ID `150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
+`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION` — IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
-## What is playable in this APK
+Tested source head:
+`0df278eba2d9265ed84483265957d9f8c2d7f415`.
 
-S00 -> River Ford -> Feeding Meadow -> N01 plus the S03→S05 escape corridor, using the accepted shooter-style controls.
+Workflow `33845109063`: SUCCESS.
+Source/projection: 49/49 PASS.
+Headless production + tracking integration: 66/66 PASS.
+Android export/integrity/upload: PASS.
 
-Visible/physical proof content includes:
-- Ford/water/mud graybox;
-- 7 gold evidence markers;
-- 10 cyan tactical nodes;
-- physical boulder/tree cover;
-- solid magenta Monster placeholder;
-- Monster clearance debug geometry;
-- aerial/first-person cameras and Settings.
+APK:
+`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
+SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`.
+Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
 
-Tracking interpretation, combat, harvesting, inventory, crafting, Settlement services and persistence are not yet complete gameplay runtime.
+Layer 2 includes seven physical clue types, deterministic freshness/confidence/activity interpretation, old-S02-versus-fresh-S03 reasoning, clue history, no exact Monster GPS, no required audio, and final `OBSERVATION_READY` state.
 
-Raw construction route is `282.926 m`; final smoothed-path target remains `285–315 m`.
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
+## Validation cadence
 
-## Current gates
+`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`.
 
-Phone test now:
-`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
+Do not stop development after each APK. Missing phone evidence stays explicitly unverified but does not block independent layers.
 
-Next independent development:
-`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.
+## Exact next action
 
-`PERFORMANCE_VERIFIED = NO` until sustained Galaxy A03s soak evidence exists.
+`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`.
+
+This will consume `OBSERVATION_READY`, create explicit same-location engagement authority, transition aerial to first-person without teleporting the encounter, and activate tactical-node presentation only after encounter entry. Attack resolution remains later.
+
+`PERFORMANCE_VERIFIED = NO`.
 `FINAL_ENGINE_SELECTED = NO`.
