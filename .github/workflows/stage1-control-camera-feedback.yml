@@ -1,4 +1,4 @@
-name: Stage 1 Adaptive Joystick Camera Regression
+name: Stage 1 Shooter-Style Joystick Camera Regression
 
 on:
   push:
@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   control-camera-regression:
-    name: Verify adaptive steering, larger arena, first-person damping, and FOV
+    name: Verify direct movement vector, independent look, larger arena, and FOV
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -48,9 +48,9 @@ jobs:
             exit 1
           fi
 
-      - name: Run adaptive joystick regression
+      - name: Run shooter-style mobile control regression
         shell: bash
         run: |
           set -euo pipefail
           godot --headless --path probes/android_stage1 --script "$GITHUB_WORKSPACE/ci/stage1/control_camera_phone_feedback_test.gd" 2>&1 | tee build-evidence/control-camera-phone-feedback.log
-          grep -q "Gate: STAGE1_ADAPTIVE_JOYSTICK_RUNTIME_VERIFIED" build-evidence/control-camera-phone-feedback.log
+          grep -q "Gate: STAGE1_SHOOTER_STYLE_CONTROLS_RUNTIME_VERIFIED" build-evidence/control-camera-phone-feedback.log

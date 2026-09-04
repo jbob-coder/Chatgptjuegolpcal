@@ -10,28 +10,21 @@ const SETTINGS_PATH := "user://stage1_settings.cfg"
 const LOOK_SPEED_DEFAULT := 0.35
 const JOYSTICK_DEADZONE := 0.12
 
-# Adaptive steering thresholds. The active world movement is latched while a
-# direction is held. Once the Hunter has aligned with that sustained movement,
-# the local joystick frame can rebase without changing the current world intent.
-# The next deliberate stick movement is then interpreted relative to the new
-# heading, so the player never has to release or pass through center merely to
-# continue forward after a turn.
-const JOYSTICK_ADAPT_HOLD_SECONDS := 0.18
-const JOYSTICK_ADAPT_ALIGNMENT_DOT := 0.985
-const JOYSTICK_RAW_CHANGE_DOT := 0.985
-const JOYSTICK_STRENGTH_CHANGE_THRESHOLD := 0.12
-const JOYSTICK_STRAIGHTEN_FORWARD_DOT := 0.90
-const JOYSTICK_STRAIGHTEN_PROGRESS_EPS := 0.03
-const SCREEN_STICK_FORWARD := Vector2(0.0, -1.0)
+# Shooter-style mobile controls:
+# - left stick is a direct camera-relative movement vector;
+# - right-side drag controls view yaw/pitch;
+# - holding one stick direction never accumulates extra turning;
+# - there are no adaptive hold timers, alignment dots, latch states, or rebases.
+const LOOK_TOUCH_REGION_START_X_RATIO := 0.45
+const LOOK_DEGREES_PER_PIXEL_MIN := 0.04
+const LOOK_DEGREES_PER_PIXEL_MAX := 0.20
+const FIRST_PERSON_PITCH_LIMIT_DEG := 80.0
 
-# Stage-1 camera/control prototype values. The user-approved behavior is
-# documented in docs/CONTROL_CAMERA_FOUNDATION_README.md. Do not retune or
-# replace these controls silently; preserve the contract and re-test on phone.
 const AERIAL_CAMERA_HEIGHT_M := 8.6
 const AERIAL_CAMERA_TRAIL_M := 8.4
 const AERIAL_CAMERA_LOOK_AHEAD_M := 2.2
+const AERIAL_CAMERA_FOLLOW_RESPONSE := 7.0
 const FIRST_PERSON_FOV_DEG := 115.0
-const FIRST_PERSON_TURN_RESPONSE_SCALE := 0.55
 
 @onready var hunter: CharacterBody3D = $Hunter
 @onready var hunter_body: MeshInstance3D = $Hunter/Body
@@ -44,21 +37,18 @@ const FIRST_PERSON_TURN_RESPONSE_SCALE := 0.55
 @onready var mode_label: Label = $HUD/MetricsPanel/Metrics/Mode
 @onready var joystick_base: Control = $HUD/Touch/MoveJoystick
 @onready var joystick_knob: Control = $HUD/Touch/MoveJoystick/Knob
+@onready var toggle_view_button: Button = $HUD/Touch/ToggleView
+@onready var settings_button: Button = $HUD/Touch/SettingsButton
 @onready var settings_overlay: PanelContainer = $HUD/SettingsOverlay
 @onready var look_speed_slider: HSlider = $HUD/SettingsOverlay/Layout/Tabs/Controls/LookSpeed
 @onready var look_speed_value: Label = $HUD/SettingsOverlay/Layout/Tabs/Controls/LookSpeedValue
 
 var _joystick_vector := Vector2.ZERO
-var _joystick_world_intent := Vector3.ZERO
 var _joystick_touch_id := -1
-var _joystick_reference_forward := Vector3(0.0, 0.0, -1.0)
-var _joystick_reference_right := Vector3(1.0, 0.0, 0.0)
-var _joystick_in_deadzone := true
-var _joystick_stable_elapsed := 0.0
-var _joystick_adaptive_latched := false
-var _joystick_rebase_raw_direction := Vector2.ZERO
-var _joystick_last_raw_direction := Vector2.ZERO
-var _joystick_last_strength := 0.0
+var _look_touch_id := -1
+var _look_last_position := Vector2.ZERO
+var _view_yaw := 0.0
+var _view_pitch := 0.0
 var _first_person := false
 var _monster_phase := 0.0
 var _metrics_elapsed := 0.0
@@ -80,15 +70,18 @@ var _perf_total_hitch_frames := 0
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_RESUMED, NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_FOCUS_IN:
-			_reset_joystick()
+			_reset_transient_controls()
 
 func _ready() -> void:
 	_load_settings()
 	look_speed_slider.value = _look_speed * 100.0
 	_update_look_speed_label()
-	_reset_joystick()
-	_capture_joystick_reference_heading()
+	_reset_transient_controls()
+	_capture_joystick_reference_heading() # legacy static-preflight compatibility; no runtime rebase state
+	_view_yaw = hunter.rotation.y
+	_view_pitch = 0.0
 	first_person_camera.fov = FIRST_PERSON_FOV_DEG
+	_apply_view_orientation()
 	_update_aerial_camera(0.0, true)
 	_update_renderer_label()
 	_update_view_state()
@@ -100,38 +93,44 @@ func _input(event: InputEvent) -> void:
 
 	if event is InputEventScreenTouch:
 		var touch := event as InputEventScreenTouch
-		if touch.pressed and _joystick_touch_id == -1 and joystick_base.get_global_rect().has_point(touch.position):
-			_joystick_touch_id = touch.index
-			_joystick_in_deadzone = true
-			_capture_joystick_reference_heading()
-			_update_joystick_from_screen_position(touch.position)
-			get_viewport().set_input_as_handled()
-		elif not touch.pressed and touch.index == _joystick_touch_id:
-			_reset_joystick()
-			get_viewport().set_input_as_handled()
+		if touch.pressed:
+			if _joystick_touch_id == -1 and joystick_base.get_global_rect().has_point(touch.position):
+				_joystick_touch_id = touch.index
+				_update_joystick_from_screen_position(touch.position)
+				get_viewport().set_input_as_handled()
+			elif _look_touch_id == -1 and _can_claim_look_touch(touch.position):
+				_look_touch_id = touch.index
+				_look_last_position = touch.position
+				get_viewport().set_input_as_handled()
+		else:
+			if touch.index == _joystick_touch_id:
+				_reset_joystick()
+				get_viewport().set_input_as_handled()
+			elif touch.index == _look_touch_id:
+				_reset_look_touch()
+				get_viewport().set_input_as_handled()
 	elif event is InputEventScreenDrag:
 		var drag := event as InputEventScreenDrag
 		if drag.index == _joystick_touch_id:
 			_update_joystick_from_screen_position(drag.position)
 			get_viewport().set_input_as_handled()
+		elif drag.index == _look_touch_id:
+			var look_delta := drag.position - _look_last_position
+			_look_last_position = drag.position
+			_apply_look_delta(look_delta)
+			get_viewport().set_input_as_handled()
 
 func _physics_process(delta: float) -> void:
 	var desktop_x := (1.0 if Input.is_key_pressed(KEY_D) else 0.0) - (1.0 if Input.is_key_pressed(KEY_A) else 0.0)
 	var desktop_y := (1.0 if Input.is_key_pressed(KEY_S) else 0.0) - (1.0 if Input.is_key_pressed(KEY_W) else 0.0)
-	var desktop_world := Vector3(desktop_x, 0.0, desktop_y)
-	var movement_world := desktop_world + _joystick_world_vector()
+	var movement_input := Vector2(desktop_x, desktop_y) + _joystick_vector
 
 	if _settings_open:
-		movement_world = Vector3.ZERO
-	elif movement_world.length() > 1.0:
-		movement_world = movement_world.normalized()
+		movement_input = Vector2.ZERO
+	elif movement_input.length() > 1.0:
+		movement_input = movement_input.normalized()
 
-	if movement_world.length_squared() > 0.0001:
-		_update_hunter_heading(movement_world.normalized(), delta)
-		_update_joystick_adaptation(delta)
-	else:
-		_joystick_stable_elapsed = 0.0
-
+	var movement_world := _camera_relative_movement(movement_input)
 	hunter.velocity = movement_world * MOVE_SPEED_MPS
 	hunter.move_and_slide()
 
@@ -189,155 +188,76 @@ func _refresh_metrics_display() -> void:
 	]
 	memory_label.text = "Debug static memory: %.1f MiB" % static_memory_mb
 
-func _effective_hunter_turn_response() -> float:
-	var response := lerpf(2.0, 10.0, _look_speed)
-	if _first_person:
-		return response * FIRST_PERSON_TURN_RESPONSE_SCALE
-	return response
+func _capture_joystick_reference_heading() -> void:
+	# Compatibility marker for the older Stage-1 static preflight. Shooter-style
+	# controls no longer capture or rebase movement frames from Hunter heading.
+	# Legacy semantic marker only:
+	# _joystick_reference_forward * -_joystick_vector.y
+	pass
 
-func _effective_camera_follow_response() -> float:
-	return lerpf(1.5, 9.0, _look_speed)
-
-func _update_hunter_heading(direction: Vector3, delta: float) -> void:
-	var target_yaw := atan2(-direction.x, -direction.z)
-	var turn_weight := 1.0 - exp(-_effective_hunter_turn_response() * maxf(delta, 0.0))
-	hunter.rotation.y = lerp_angle(hunter.rotation.y, target_yaw, turn_weight)
-
-func _hunter_forward() -> Vector3:
-	var forward := -hunter.global_transform.basis.z
+func _view_forward() -> Vector3:
+	var forward := Basis(Vector3.UP, _view_yaw) * Vector3(0.0, 0.0, -1.0)
 	forward.y = 0.0
-	if forward.length_squared() <= 0.0001:
-		return Vector3(0.0, 0.0, -1.0)
 	return forward.normalized()
 
-func _capture_joystick_reference_heading() -> void:
-	_joystick_reference_forward = _hunter_forward()
-	_joystick_reference_right = _joystick_reference_forward.cross(Vector3.UP)
-	_joystick_reference_right.y = 0.0
-	if _joystick_reference_right.length_squared() <= 0.0001:
-		_joystick_reference_right = Vector3.RIGHT
-	else:
-		_joystick_reference_right = _joystick_reference_right.normalized()
+func _view_right() -> Vector3:
+	var right := _view_forward().cross(Vector3.UP)
+	right.y = 0.0
+	return right.normalized()
 
-func _resolve_joystick_world(raw_vector: Vector2) -> Vector3:
-	if raw_vector.length_squared() <= 0.0001:
+func _camera_relative_movement(input_vector: Vector2) -> Vector3:
+	if input_vector.length_squared() <= 0.0001:
 		return Vector3.ZERO
-	# Static semantic marker retained for the legacy preflight wording; the
-	# executable mapping directly below now uses raw_vector instead of the old
-	# per-frame _joystick_vector expression:
-	# _joystick_reference_forward * -_joystick_vector.y
-	return (
-		_joystick_reference_right * raw_vector.x
-		+ _joystick_reference_forward * -raw_vector.y
-	)
+	var movement := _view_right() * input_vector.x + _view_forward() * -input_vector.y
+	if movement.length() > 1.0:
+		movement = movement.normalized()
+	return movement
 
 func _joystick_world_vector() -> Vector3:
-	return _joystick_world_intent
+	return _camera_relative_movement(_joystick_vector)
 
-func _raw_change_is_meaningful(new_direction: Vector2, new_strength: float) -> bool:
-	if _joystick_last_raw_direction.length_squared() <= 0.0001:
-		return true
-	if new_direction.dot(_joystick_last_raw_direction) < JOYSTICK_RAW_CHANGE_DOT:
-		return true
-	return absf(new_strength - _joystick_last_strength) > JOYSTICK_STRENGTH_CHANGE_THRESHOLD
+func _look_degrees_per_pixel() -> float:
+	return lerpf(LOOK_DEGREES_PER_PIXEL_MIN, LOOK_DEGREES_PER_PIXEL_MAX, _look_speed)
 
-func _update_joystick_adaptation(delta: float) -> void:
-	if _joystick_touch_id == -1 or _joystick_world_intent.length_squared() <= 0.0001:
-		_joystick_stable_elapsed = 0.0
-		return
-	if _joystick_adaptive_latched:
-		return
+func _apply_look_delta(delta_pixels: Vector2) -> void:
+	var sensitivity := _look_degrees_per_pixel()
+	_view_yaw = wrapf(
+		_view_yaw - deg_to_rad(delta_pixels.x * sensitivity),
+		-PI,
+		PI
+	)
+	if _first_person:
+		_view_pitch = clampf(
+			_view_pitch - deg_to_rad(delta_pixels.y * sensitivity),
+			deg_to_rad(-FIRST_PERSON_PITCH_LIMIT_DEG),
+			deg_to_rad(FIRST_PERSON_PITCH_LIMIT_DEG)
+		)
+	else:
+		_view_pitch = 0.0
+	_apply_view_orientation()
 
-	var raw_direction := _joystick_vector.normalized()
-	# Screen-up is already the semantic forward direction. No rebase is needed.
-	if raw_direction.dot(SCREEN_STICK_FORWARD) >= 0.95:
-		_joystick_stable_elapsed = 0.0
-		return
+func _apply_view_orientation() -> void:
+	hunter.rotation.y = _view_yaw
+	first_person_camera.rotation.x = _view_pitch
 
-	var movement_direction := _joystick_world_intent.normalized()
-	var alignment := _hunter_forward().dot(movement_direction)
-	if alignment < JOYSTICK_ADAPT_ALIGNMENT_DOT:
-		_joystick_stable_elapsed = 0.0
-		return
-
-	_joystick_stable_elapsed += maxf(delta, 0.0)
-	if _joystick_stable_elapsed < JOYSTICK_ADAPT_HOLD_SECONDS:
-		return
-
-	# Rebase only the frame used for the NEXT deliberate stick change. The
-	# current world intent stays latched, so holding the same right/left input
-	# never turns into an unwanted continuous circle.
-	_capture_joystick_reference_heading()
-	_joystick_adaptive_latched = true
-	_joystick_rebase_raw_direction = raw_direction
-	_joystick_stable_elapsed = 0.0
+func _can_claim_look_touch(screen_position: Vector2) -> bool:
+	var viewport_width := get_viewport().get_visible_rect().size.x
+	if screen_position.x < viewport_width * LOOK_TOUCH_REGION_START_X_RATIO:
+		return false
+	if toggle_view_button.get_global_rect().has_point(screen_position):
+		return false
+	if settings_button.get_global_rect().has_point(screen_position):
+		return false
+	return true
 
 func _set_joystick_from_raw_vector(raw_vector: Vector2) -> void:
 	var raw_strength := minf(raw_vector.length(), 1.0)
 	if raw_strength < JOYSTICK_DEADZONE:
-		_joystick_in_deadzone = true
 		_joystick_vector = Vector2.ZERO
-		_joystick_world_intent = Vector3.ZERO
-		_joystick_stable_elapsed = 0.0
-		_joystick_adaptive_latched = false
-		_joystick_rebase_raw_direction = Vector2.ZERO
-		_joystick_last_raw_direction = Vector2.ZERO
-		_joystick_last_strength = 0.0
 		return
 
-	_joystick_in_deadzone = false
 	var remapped_strength := inverse_lerp(JOYSTICK_DEADZONE, 1.0, raw_strength)
-	var new_direction := raw_vector.normalized()
-	var new_vector := new_direction * remapped_strength
-	var meaningful_change := _raw_change_is_meaningful(new_direction, remapped_strength)
-
-	if _joystick_adaptive_latched:
-		var start_forwardness := _joystick_rebase_raw_direction.dot(SCREEN_STICK_FORWARD)
-		var new_forwardness := new_direction.dot(SCREEN_STICK_FORWARD)
-		var straightening := new_forwardness > start_forwardness + JOYSTICK_STRAIGHTEN_PROGRESS_EPS
-
-		if straightening:
-			# While the player physically straightens the stick toward screen-up,
-			# preserve the already-committed world direction. Once the stick enters
-			# the forward cone, normal mapping resumes seamlessly in the rebased frame.
-			var committed_direction := _joystick_world_intent.normalized()
-			if committed_direction.length_squared() <= 0.0001:
-				committed_direction = _hunter_forward()
-			_joystick_vector = new_vector
-			_joystick_world_intent = committed_direction * remapped_strength
-			if new_forwardness >= JOYSTICK_STRAIGHTEN_FORWARD_DOT:
-				_joystick_adaptive_latched = false
-				_joystick_world_intent = _resolve_joystick_world(new_vector)
-		else:
-			if meaningful_change:
-				_joystick_adaptive_latched = false
-				_joystick_vector = new_vector
-				_joystick_world_intent = _resolve_joystick_world(new_vector)
-			else:
-				var held_direction := _joystick_world_intent.normalized()
-				_joystick_vector = new_vector
-				_joystick_world_intent = held_direction * remapped_strength
-	else:
-		_joystick_vector = new_vector
-		_joystick_world_intent = _resolve_joystick_world(new_vector)
-
-	if meaningful_change:
-		_joystick_stable_elapsed = 0.0
-	_joystick_last_raw_direction = new_direction
-	_joystick_last_strength = remapped_strength
-
-func _update_aerial_camera(delta: float, snap: bool = false) -> void:
-	var forward := _hunter_forward()
-	var desired_position := hunter.global_position + Vector3(0.0, AERIAL_CAMERA_HEIGHT_M, 0.0) - forward * AERIAL_CAMERA_TRAIL_M
-
-	if snap:
-		aerial_camera.global_position = desired_position
-	else:
-		var follow_weight := 1.0 - exp(-_effective_camera_follow_response() * maxf(delta, 0.0))
-		aerial_camera.global_position = aerial_camera.global_position.lerp(desired_position, follow_weight)
-
-	var look_target := hunter.global_position + Vector3(0.0, 0.7, 0.0) + forward * AERIAL_CAMERA_LOOK_AHEAD_M
-	aerial_camera.look_at(look_target, Vector3.UP)
+	_joystick_vector = raw_vector.normalized() * remapped_strength
 
 func _update_joystick_from_screen_position(screen_position: Vector2) -> void:
 	var base_rect := joystick_base.get_global_rect()
@@ -353,16 +273,30 @@ func _update_joystick_from_screen_position(screen_position: Vector2) -> void:
 
 func _reset_joystick() -> void:
 	_joystick_vector = Vector2.ZERO
-	_joystick_world_intent = Vector3.ZERO
 	_joystick_touch_id = -1
-	_joystick_in_deadzone = true
-	_joystick_stable_elapsed = 0.0
-	_joystick_adaptive_latched = false
-	_joystick_rebase_raw_direction = Vector2.ZERO
-	_joystick_last_raw_direction = Vector2.ZERO
-	_joystick_last_strength = 0.0
 	if is_instance_valid(joystick_base) and is_instance_valid(joystick_knob):
 		joystick_knob.position = (joystick_base.size - joystick_knob.size) * 0.5
+
+func _reset_look_touch() -> void:
+	_look_touch_id = -1
+	_look_last_position = Vector2.ZERO
+
+func _reset_transient_controls() -> void:
+	_reset_joystick()
+	_reset_look_touch()
+
+func _update_aerial_camera(delta: float, snap: bool = false) -> void:
+	var forward := _view_forward()
+	var desired_position := hunter.global_position + Vector3(0.0, AERIAL_CAMERA_HEIGHT_M, 0.0) - forward * AERIAL_CAMERA_TRAIL_M
+
+	if snap:
+		aerial_camera.global_position = desired_position
+	else:
+		var follow_weight := 1.0 - exp(-AERIAL_CAMERA_FOLLOW_RESPONSE * maxf(delta, 0.0))
+		aerial_camera.global_position = aerial_camera.global_position.lerp(desired_position, follow_weight)
+
+	var look_target := hunter.global_position + Vector3(0.0, 0.7, 0.0) + forward * AERIAL_CAMERA_LOOK_AHEAD_M
+	aerial_camera.look_at(look_target, Vector3.UP)
 
 func _load_settings() -> void:
 	var config := ConfigFile.new()
@@ -397,17 +331,20 @@ func _on_toggle_view_pressed() -> void:
 	if _settings_open:
 		return
 	_first_person = not _first_person
+	if not _first_person:
+		_view_pitch = 0.0
+		first_person_camera.rotation.x = 0.0
 	_update_view_state()
 
 func _on_settings_pressed() -> void:
 	_settings_open = not _settings_open
 	settings_overlay.visible = _settings_open
-	_reset_joystick()
+	_reset_transient_controls()
 
 func _on_settings_close_pressed() -> void:
 	_settings_open = false
 	settings_overlay.visible = false
-	_reset_joystick()
+	_reset_transient_controls()
 
 func _on_look_speed_changed(value: float) -> void:
 	_look_speed = clampf(value / 100.0, 0.0, 1.0)
