@@ -1,11 +1,11 @@
 # 20_gameplay — Gameplay Systems
 
-Status: ACTIVE GAMEPLAY DESIGN MAP / COMBAT DESIGN BASELINE + HARVEST BASELINE RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
+Status: ACTIVE GAMEPLAY DESIGN MAP / COMBAT + HARVEST + INVENTORY BASELINES RECORDED / ONE-RECIPE LINKAGE NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Own reusable gameplay rules that apply across settlements, regions, monsters and content packages.
+Own reusable gameplay rules that apply across settlements, regions, Monsters and content packages.
 
 The game is the objective. This package organizes mechanics so content can configure them without forking generic laws.
 
@@ -28,15 +28,7 @@ Exact Region geography, one species' capacities/attacks and renderer implementat
 Front door: `combat/README.md`.
 
 Nine generic first-slice combat/outcome contracts are recorded:
-1. Action Economy;
-2. Combat Resolution;
-3. Field Poleblade;
-4. Stamina;
-5. Initiative/Turn Order;
-6. Status Set;
-7. Terrain Set;
-8. Solo/Party Baseline;
-9. Defeat/Retreat Baseline.
+Action Economy / Combat Resolution / Field Poleblade / Stamina / Initiative / Status / Terrain / Solo-Party / Defeat-Retreat.
 
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
 
@@ -46,15 +38,10 @@ Front door: `harvest/README.md`.
 Generic authority:
 `harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-Supporting worked example:
-`harvest/HARVEST_TRANSACTION_EXAMPLE.md`.
-
-Selected reusable baseline:
+Selected baseline:
 - finite per-source capacity;
 - condition determines surviving capacity/quality;
 - clean sever transfers, never duplicates;
-- break/shatter can preserve fragments at lower condition;
-- carcass and detached-part containers use stable source lineage;
 - deterministic recovery efficiency `<=1.00`;
 - partial extraction depletes only recovered quantity;
 - no harvest RNG layer;
@@ -63,19 +50,38 @@ Selected reusable baseline:
 First content consumer:
 `/docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Monster 01 pristine selected-source total = `45` prototype capacity units across horn, plate, hide, distal-tail ridge/tendon and dense bone sources.
+Monster 01 selected pristine source total = `45` prototype capacity units.
 
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
-`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`.
+
+### Inventory / materials
+Front door: `inventory/README.md`.
+
+Authority:
+`inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
+
+Selected baseline:
+- `PLAYER_FIELD_INVENTORY` is the first-slice recovered-material destination;
+- prototype 20 material stack entries / 99 units per stack;
+- compatible stack key = material ID + quality band;
+- provenance stored as conserved internal lots;
+- committed harvest output first becomes a persistent `RECOVERY_BUNDLE`;
+- full/partial inventory acceptance leaves remainder in that bundle;
+- every transfer conserves quantity: source loss = destination gain;
+- transaction IDs prevent save/load/UI replay;
+- quality never averages to simplify merging.
+
+Worked example:
+`inventory/INVENTORY_TRANSFER_EXAMPLE.md`.
+
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`.
 
 ### Progression
 Front door: `progression/README.md`.
 
-Direction:
-- equipment + weapon mastery + knowledge weighted;
-- bounded attribute growth;
-- anatomy, terrain and preparation remain relevant.
+Direction remains equipment + weapon mastery + knowledge weighted, with anatomy, terrain and preparation remaining relevant.
 
 ## First-slice ownership chain
 
@@ -84,31 +90,19 @@ COMBAT DAMAGE/SEVER
 -> FINAL ANATOMY STATE
 -> DEFEAT/ESCAPE OUTCOME
 -> HARVEST SOURCE CAPACITY/CONDITION
--> MATERIAL TRANSFER
--> INVENTORY OWNERSHIP
+-> RECOVERY BUNDLE
+-> INVENTORY MATERIAL OWNERSHIP
 -> RECIPE/CRAFTING
 ```
 
 No downstream package may manufacture matter or silently rewrite an upstream physical result.
 
-## Monster 01 content consumer
-
-Package:
-`/docs/30_content/monsters/MONSTER_01/`.
-
-Current content authorities include anatomy, attacks, Berserk, behavior/Region use, Crystal state and the first harvest-capacity packet.
-
 ## Exact next gameplay dependency
 
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
 
-That pass should define:
-- authoritative recovered-material container ownership;
-- material stack identity;
-- quantity/quality/provenance transfer from harvest transaction;
-- inventory acceptance/rejection without matter loss/duplication;
-- save/load persistence and anti-replay;
-- minimal first-slice capacity/stack rules only where needed.
+That pass must select exactly one Monster-01-derived recipe/equipment improvement and define deterministic material consumption, output/equip ownership and save/load anti-replay so the loop reaches:
+`HARVEST -> INVENTORY -> CRAFT/EQUIP -> REASON TO HUNT AGAIN`.
 
 Do not combine it with broad economy, many recipes or production implementation.
 
