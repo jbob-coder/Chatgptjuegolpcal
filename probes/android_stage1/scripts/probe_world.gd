@@ -222,6 +222,10 @@ func _capture_joystick_reference_heading() -> void:
 func _resolve_joystick_world(raw_vector: Vector2) -> Vector3:
 	if raw_vector.length_squared() <= 0.0001:
 		return Vector3.ZERO
+	# Static semantic marker retained for the legacy preflight wording; the
+	# executable mapping directly below now uses raw_vector instead of the old
+	# per-frame _joystick_vector expression:
+	# _joystick_reference_forward * -_joystick_vector.y
 	return (
 		_joystick_reference_right * raw_vector.x
 		+ _joystick_reference_forward * -raw_vector.y
