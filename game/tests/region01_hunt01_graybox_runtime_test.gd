@@ -41,8 +41,15 @@ func _ray_hit_name(world: Node3D, from: Vector3, to: Vector3, exclude: Array[RID
 		return ""
 	return String(collider.get("name"))
 
+func _move_hunter_to(hunter: CharacterBody3D, position: Vector3) -> void:
+	hunter.global_position = position
+	hunter.velocity = Vector3.ZERO
+	await physics_frame
+	await physics_frame
+	await process_frame
+
 func _run() -> void:
-	print("Hunt-01 flat-foundation visual/evidence repair integration")
+	print("Hunt-01 production integration + tracking/evidence layer")
 	var packed := load("res://scenes/regions/region_01_hunt01_graybox.tscn") as PackedScene
 	if packed == null:
 		_check("production Region-01 scene loads", false, "PackedScene load returned null")
@@ -54,6 +61,7 @@ func _run() -> void:
 	await process_frame
 	await physics_frame
 	await physics_frame
+	await process_frame
 
 	_check("world reports built", bool(world.call("is_world_built")))
 	var identity: Dictionary = world.call("get_manifest_identity")
@@ -70,7 +78,7 @@ func _run() -> void:
 	_check("one continuous world foundation exists", get_nodes_in_group("hunt01_foundation").size() == 1, "count=%d" % get_nodes_in_group("hunt01_foundation").size())
 	var foundation_size: Vector2 = world.call("get_foundation_size_m")
 	_check("foundation covers 440 x 440 m", foundation_size == Vector2(440.0, 440.0), str(foundation_size))
-	_check("Hunter movement speed increased to 6.25 m/s", is_equal_approx(float(world.call("get_move_speed_mps")), 6.25), str(world.call("get_move_speed_mps")))
+	_check("Hunter movement speed remains 6.25 m/s", is_equal_approx(float(world.call("get_move_speed_mps")), 6.25), str(world.call("get_move_speed_mps")))
 
 	_check("7 evidence areas exist initially", get_nodes_in_group("hunt01_evidence").size() == 7, "count=%d" % get_nodes_in_group("hunt01_evidence").size())
 	var all_evidence_are_areas := true
@@ -79,6 +87,12 @@ func _run() -> void:
 			all_evidence_are_areas = false
 	_check("all evidence uses walk-over Area3D triggers", all_evidence_are_areas)
 	_check("10 tactical nodes exist", get_nodes_in_group("hunt01_tactical_nodes").size() == 10, "count=%d" % get_nodes_in_group("hunt01_tactical_nodes").size())
+	var tactical_hidden := true
+	for marker_variant in get_nodes_in_group("hunt01_tactical_nodes"):
+		var marker := marker_variant as Node3D
+		if marker != null and marker.visible:
+			tactical_hidden = false
+	_check("future tactical-node debug discs are hidden during exploration", tactical_hidden)
 	_check("3 streaming proxies exist", get_nodes_in_group("hunt01_stream_proxy").size() == 3, "count=%d" % get_nodes_in_group("hunt01_stream_proxy").size())
 	_check("one Monster exists", get_nodes_in_group("hunt01_monster").size() == 1, "count=%d" % get_nodes_in_group("hunt01_monster").size())
 	_check("two physical cover objects exist", get_nodes_in_group("hunt01_cover").size() == 2, "count=%d" % get_nodes_in_group("hunt01_cover").size())
@@ -106,24 +120,69 @@ func _run() -> void:
 	_check("Mudcrest Raker themed visual exists", monster.get_node_or_null("MudcrestRakerVisual") != null)
 	_check("Hunter themed visual exists", world.get_node_or_null("Hunter/Visual") != null)
 
-	# Actual proximity-trigger proof: move the Hunter into EV02 and allow physics
-	# overlap processing to emit Area3D.body_entered. This is the regression for
-	# the user's report that walking across the old yellow balls did nothing.
-	hunter.global_position = Vector3(-70.0, 0.875, -110.0)
-	hunter.velocity = Vector3.ZERO
-	await physics_frame
-	await physics_frame
-	await process_frame
-	_check("walking into evidence triggers investigation", int(world.call("get_collected_evidence_count")) == 1, str(world.call("get_collected_evidence_count")))
-	_check("walked-over evidence disappears", world.get_node_or_null("WorldGeometry/R01_H01_EV02_BANK_REEDS") == null)
-	_check("walked-over evidence leaves active group", get_nodes_in_group("hunt01_evidence").size() == 6, "count=%d" % get_nodes_in_group("hunt01_evidence").size())
+	var tracking := world.get_node_or_null("TrackingRuntime")
+	_check("tracking runtime node exists", tracking != null)
+	if tracking != null:
+		_check("tracking schema v1 loaded", String(tracking.call("get_schema")) == "uhr.hunt01.tracking_evidence.v1", String(tracking.call("get_schema")))
+		_check("tracking does not require audio", not bool(tracking.call("is_audio_required")))
+		_check("tracking enforces no-GPS presentation", bool(tracking.call("is_no_gps_enabled")))
+		var initial_inference: Dictionary = tracking.call("get_current_inference")
+		_check("tracking begins unresolved", String(initial_inference.get("phase", "")) == "SEARCHING", str(initial_inference))
 
-	var collected := bool(world.call("collect_evidence_for_test", "R01_H01_EV01_OUTER_PRINTS"))
-	_check("evidence domain path can investigate another clue", collected)
-	await process_frame
-	_check("second investigated evidence disappears", world.get_node_or_null("WorldGeometry/R01_H01_EV01_OUTER_PRINTS") == null)
-	_check("second investigated evidence leaves active group", get_nodes_in_group("hunt01_evidence").size() == 5, "count=%d" % get_nodes_in_group("hunt01_evidence").size())
-	_check("evidence collection count increments deterministically", int(world.call("get_collected_evidence_count")) == 2, str(world.call("get_collected_evidence_count")))
+	# Walk the real Hunter through all seven stable evidence coordinates. This proves
+	# Area3D collection, disappearance and deterministic interpretation together.
+	await _move_hunter_to(hunter, Vector3(-24.0, 0.875, -68.0))
+	_check("EV01 walk-over collected", int(world.call("get_collected_evidence_count")) == 1)
+	_check("EV01 disappears", world.get_node_or_null("WorldGeometry/R01_H01_EV01_OUTER_PRINTS") == null)
+	if tracking != null:
+		var ev01_inference: Dictionary = tracking.call("get_current_inference")
+		_check("EV01 points toward River Ford", String(ev01_inference.get("phase", "")) == "OUTER_TRAIL" and String(ev01_inference.get("primary_route_id", "")) == "R01_S01", str(ev01_inference))
+
+	await _move_hunter_to(hunter, Vector3(-70.0, 0.875, -110.0))
+	_check("EV02 walk-over collected", int(world.call("get_collected_evidence_count")) == 2)
+	if tracking != null:
+		var ev02_inference: Dictionary = tracking.call("get_current_inference")
+		_check("EV02 confirms River Ford approach", String(ev02_inference.get("phase", "")) == "RIVER_APPROACH", str(ev02_inference))
+
+	await _move_hunter_to(hunter, Vector3(-100.0, 0.875, -140.0))
+	_check("EV03 walk-over collected", int(world.call("get_collected_evidence_count")) == 3)
+	if tracking != null:
+		var ev03_inference: Dictionary = tracking.call("get_current_inference")
+		_check("EV03 is activity evidence, not a forced route", String(ev03_inference.get("phase", "")) == "FORD_ACTIVITY" and String(ev03_inference.get("primary_route_id", "")) == "", str(ev03_inference))
+
+	await _move_hunter_to(hunter, Vector3(-35.0, 0.875, -145.0))
+	_check("EV05 old Rootwood clue can be investigated", int(world.call("get_collected_evidence_count")) == 4)
+	if tracking != null:
+		var old_inference: Dictionary = tracking.call("get_current_inference")
+		_check("old S02 clue remains legal but weak", String(old_inference.get("phase", "")) == "WEAK_S02_HISTORY" and String(old_inference.get("alternate_route_id", "")) == "R01_S02" and String(old_inference.get("confidence", "")) == "WEAK", str(old_inference))
+
+	await _move_hunter_to(hunter, Vector3(-78.0, 0.875, -168.0))
+	_check("EV04 fresh water-exit clue can be investigated", int(world.call("get_collected_evidence_count")) == 5)
+	if tracking != null:
+		var resolved_inference: Dictionary = tracking.call("get_current_inference")
+		_check("fresh S03 clue outweighs old S02 clue", String(resolved_inference.get("phase", "")) == "FRESH_S03_LEAD" and String(resolved_inference.get("primary_route_id", "")) == "R01_S03" and String(resolved_inference.get("alternate_route_id", "")) == "R01_S02", str(resolved_inference))
+		_check("route comparison explains confidence instead of GPS", String(resolved_inference.get("lead", "")).contains("outweigh") and not String(resolved_inference.get("lead", "")).contains("-252"), String(resolved_inference.get("lead", "")))
+
+	await _move_hunter_to(hunter, Vector3(-59.0, 0.875, -220.0))
+	_check("EV06 feeding evidence collected", int(world.call("get_collected_evidence_count")) == 6)
+	if tracking != null:
+		var feeding_inference: Dictionary = tracking.call("get_current_inference")
+		_check("feeding remains confirm Meadow activity", String(feeding_inference.get("phase", "")) == "MEADOW_CONFIRMATION", str(feeding_inference))
+
+	await _move_hunter_to(hunter, Vector3(-67.0, 0.875, -232.0))
+	_check("EV07 final pre-contact sign collected", int(world.call("get_collected_evidence_count")) == 7)
+	_check("all collected physical evidence disappears", get_nodes_in_group("hunt01_evidence").size() == 0, "count=%d" % get_nodes_in_group("hunt01_evidence").size())
+	if tracking != null:
+		var final_inference: Dictionary = tracking.call("get_current_inference")
+		_check("final tracking phase reaches observation-ready", String(final_inference.get("phase", "")) == "OBSERVATION_READY" and String(final_inference.get("primary_route_id", "")) == "R01_S03", str(final_inference))
+		var history: Array = tracking.call("get_history")
+		_check("tracking keeps deterministic seven-clue history", history.size() == 7, str(history))
+		_check("tracking count agrees with world evidence state", int(tracking.call("get_collected_count")) == 7, str(tracking.call("get_collected_count")))
+		var ev05_profile: Dictionary = tracking.call("get_profile", "R01_H01_EV05_OLD_ROOT_SCRAPE")
+		_check("old Rootwood profile remains explicitly OLD / WEAK", String(ev05_profile.get("freshness", "")) == "OLD" and String(ev05_profile.get("confidence", "")) == "WEAK", str(ev05_profile))
+		var ev07_profile: Dictionary = tracking.call("get_profile", "R01_H01_EV07_FLATTENED_GRASS_AUDIO")
+		_check("final visual clue explicitly works without audio", String(ev07_profile.get("summary", "")).contains("audio is optional"), String(ev07_profile.get("summary", "")))
+
 	_check("same evidence cannot be collected twice", not bool(world.call("collect_evidence_for_test", "R01_H01_EV01_OUTER_PRINTS")))
 
 	var first_person_camera := world.get_node("Hunter/FirstPersonCamera") as Camera3D
@@ -143,7 +202,12 @@ func _run() -> void:
 func _finish() -> void:
 	print()
 	print("Checks: %d | Passed: %d | Failed: %d" % [checks, checks - failures.size(), failures.size()])
-	print("Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_VERIFIED" if failures.is_empty() else "Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_FAILED")
+	if failures.is_empty():
+		print("Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_VERIFIED")
+		print("Gate: HUNT01_TRACKING_EVIDENCE_RUNTIME_VERIFIED")
+	else:
+		print("Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_FAILED")
+		print("Gate: HUNT01_TRACKING_EVIDENCE_RUNTIME_FAILED")
 	print("H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH=NOT_EXECUTED")
-	print("This result does NOT prove Galaxy A03s visual acceptance, traversal feel, or sustained performance.")
+	print("Phone/user acceptance is intentionally deferred and does not block independent layer development.")
 	quit(0 if failures.is_empty() else 1)

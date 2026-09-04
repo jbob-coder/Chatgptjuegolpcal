@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/presentation/exploration/region_01_hunt01_graybox.gd" id="1_region"]
 [ext_resource type="PackedScene" path="res://assets/characters/hunter_visual.tscn" id="2_hunter"]
+[ext_resource type="Script" path="res://scripts/gameplay/tracking/hunt01_tracking_runtime.gd" id="3_tracking"]
 
 [sub_resource type="CapsuleShape3D" id="HunterShape"]
 radius = 0.32
@@ -69,6 +70,9 @@ directional_shadow_max_distance = 120.0
 
 [node name="DebugGeometry" type="Node3D" parent="."]
 
+[node name="TrackingRuntime" type="Node" parent="."]
+script = ExtResource("3_tracking")
+
 [node name="Hunter" type="CharacterBody3D" parent="."]
 position = Vector3(0, 0.875, -45)
 collision_layer = 1
@@ -117,7 +121,7 @@ text = "REGION 01 • HUNT TRAIL"
 [node name="Objective" type="Label" parent="HUD/MetricsPanel/Metrics"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.86, 0.87, 0.79, 1)
-text = "Track signs: S00 → River Ford → Feeding Meadow"
+text = "Trail Read • SEARCHING • Lead: NO COMMITTED ROUTE"
 
 [node name="EvidenceCount" type="Label" parent="HUD/MetricsPanel/Metrics"]
 layout_mode = 2
@@ -143,13 +147,13 @@ text = "View AERIAL"
 offset_left = 520.0
 offset_top = 18.0
 offset_right = 1195.0
-offset_bottom = 98.0
+offset_bottom = 178.0
 theme_override_styles/panel = SubResource("EvidencePanel")
 
 [node name="EvidenceStatus" type="Label" parent="HUD/EvidencePanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.84, 0.70, 1)
-text = "Walk across a visible trail sign to investigate it. Audio is optional."
+text = "Investigate physical signs. Trail interpretation uses freshness, confidence and activity; audio is optional."
 autowrap_mode = 2
 vertical_alignment = 1
 
@@ -240,7 +244,7 @@ offset_top = -48.0
 offset_right = 430.0
 offset_bottom = -16.0
 theme_override_colors/font_color = Color(0.88, 0.86, 0.75, 1)
-text = "Left stick move • Right drag look • Walk over trail signs to investigate • Teal discs mark future combat positions"
+text = "Left stick move • Right drag look • Investigate physical signs • Follow the strongest recent trail"
 horizontal_alignment = 1
 
 [node name="SettingsOverlay" type="PanelContainer" parent="HUD"]
