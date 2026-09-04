@@ -48,61 +48,70 @@ Phone regression + 24-minute sustained run remain deferred.
 Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-## Combat baseline
+## Current recorded first-slice chain
 
-Nine generic first-slice combat/outcome contracts are recorded through:
+Combat:
 `docs/20_gameplay/combat/README.md`.
 
-`COMBAT_DESIGN_BASELINE_COMPLETE = YES`.
-No production combat runtime is claimed.
+Harvest:
+`docs/20_gameplay/harvest/README.md`.
 
-## Harvest baseline
+Inventory:
+`docs/20_gameplay/inventory/README.md`.
 
-Read:
-- `docs/20_gameplay/harvest/README.md`;
-- `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`;
-- `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
+Crafting:
+`docs/20_gameplay/crafting/README.md`.
 
-Selected: finite anatomy-derived capacity, deterministic condition/extraction, clean-sever lineage transfer, persistent depletion, no random loot quantity.
+Current recipe authority:
+`docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
 
-Monster 01 pristine selected-source total = `45` prototype units.
+Selected recipe:
+`recipe_field_poleblade_raker_tendon_grip`.
 
-## Inventory material ownership baseline
+Requirements:
+- 2 HIGH `material_m01_tail_tendon`;
+- 2 STANDARD-or-better `material_m01_hide`.
 
-Read:
-1. `docs/20_gameplay/inventory/README.md`;
-2. `docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`;
-3. `docs/20_gameplay/inventory/INVENTORY_TRANSFER_EXAMPLE.md`;
-4. `docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
+Output:
+`refinement_field_poleblade_raker_tendon_grip`.
 
-Selected:
-- `PLAYER_FIELD_INVENTORY` first-slice destination;
-- prototype 20 material stack entries;
-- max 99 units per stack;
-- material ID + quality defines stack compatibility;
-- provenance stored as internal lots;
-- successful harvest output first belongs to a persistent `RECOVERY_BUNDLE`;
-- full/partial inventory acceptance leaves unaccepted material in that bundle;
-- every transfer conserves quantity;
-- transaction IDs prevent replay after save/load/UI reopen.
+Effect:
+`POLEBLADE_PLACED_HEW` Stamina 18 -> 16 through one typed `COST_MODIFIER` only.
 
-No inventory runtime is claimed.
+Crafting reserves exact inventory provenance lots and commits input consumption + refinement application atomically/idempotently.
 
-## Monster 01 — Mudcrest Raker
+No production combat/harvest/inventory/crafting runtime is claimed.
 
-Read local front door:
-`docs/30_content/monsters/MONSTER_01/README.md`.
+## Saved visual concept
 
-Monster escape preserves the same instance/anatomy for reacquisition. Monster death preserves one final carcass state for harvesting.
+Google Drive project folder:
+`Unnamed Hunt RPG`.
+
+Image:
+`Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
+
+Drive file ID:
+`1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+
+Visual intent only; repository mechanics/runtime evidence remain authoritative.
 
 ## Current planned sequence
 
 Completed:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip Linkage`.
 
 Next:
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
--> implementation after prerequisite engine/domain gates.
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
+
+For that pass read:
+- `FIRST_SETTLEMENT_BLUEPRINT.md`;
+- current settlement/world front doors;
+- crafting contract;
+- interaction/service/UI authorities.
+
+Map the logical `CRAFT_STATION_WEAPON_WORKBENCH` into the physical walkable Settlement 01 Smith/Workshop and Hunter Service Loop.
+
+Do not expand into broad economy, many shops, many recipes or production implementation.
 
 ## Exact continuation
 
@@ -110,8 +119,4 @@ Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Active non-phone action:
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
-
-That pass must select exactly one Monster-01-derived recipe/equipment improvement and define deterministic material consumption/output/equip/save-load ownership.
-
-Do not combine it with broad economy, many recipes or production implementation.
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
