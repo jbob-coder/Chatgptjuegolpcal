@@ -28,8 +28,10 @@ var _slot_states: Dictionary = {}
 var _initiative_snapshots: Dictionary = {}
 var _resources: Dictionary = {}
 var _activation_started: Dictionary = {}
+var _reaction_commits: Dictionary = {}
 var _current_index := -1
 var _current_actor_id := ""
+var _monster_activation_driver: Node = null
 var _trace: Array[Dictionary] = []
 var _trace_sequence := 0
 
@@ -142,6 +144,22 @@ func _advance_scheduler() -> void:
 			continue
 
 		if combatant_id == MONSTER_COMBATANT_ID:
+			if _monster_activation_driver != null:
+				_record_trace("MONSTER_ACTIVATION_DELEGATED", {
+					"combatant_id": combatant_id,
+					"driver": _monster_activation_driver.name,
+				})
+				var accepted := bool(_monster_activation_driver.call("begin_monster_activation", combatant_id, _round_id))
+				if accepted:
+					_refresh_hud()
+					return
+				_record_trace("MONSTER_DRIVER_REJECTED_ACTIVATION", {
+					"combatant_id": combatant_id,
+					"driver": _monster_activation_driver.name,
+				})
+				_end_current_activation("MONSTER_DRIVER_REJECTED_ACTIVATION")
+				continue
+
 			_record_trace("MONSTER_PLACEHOLDER_WAIT", {
 				"combatant_id": combatant_id,
 				"reason": "WAIT_NO_ATTACK_RUNTIME",
@@ -177,6 +195,26 @@ func _start_activation(combatant_id: String) -> bool:
 	_refresh_hud()
 	return true
 
+func register_monster_activation_driver(driver: Node) -> bool:
+	if not _initialized or driver == null or _monster_activation_driver != null:
+		return false
+	if not driver.has_method("begin_monster_activation"):
+		return false
+	_monster_activation_driver = driver
+	_record_trace("MONSTER_ACTIVATION_DRIVER_REGISTERED", {"driver": driver.name})
+	return true
+
+func complete_external_activation(combatant_id: String, reason: String) -> bool:
+	if not _initialized or _monster_activation_driver == null:
+		return false
+	if combatant_id != MONSTER_COMBATANT_ID or _current_actor_id != combatant_id:
+		return false
+	if reason.is_empty():
+		return false
+	_end_current_activation(reason)
+	_advance_scheduler()
+	return true
+
 func try_commit_cost(combatant_id: String, action_id: String, ap_cost: int, stamina_cost: int) -> bool:
 	if not _initialized or combatant_id != _current_actor_id:
 		return false
@@ -202,6 +240,60 @@ func try_commit_cost(combatant_id: String, action_id: String, ap_cost: int, stam
 	})
 	_refresh_hud()
 	return true
+
+func try_commit_reaction_cost(combatant_id: String, source_actor_id: String, reaction_id: String, window_id: String, rp_cost: int, stamina_cost: int) -> Dictionary:
+	if not _initialized:
+		return {"success": false, "reason": "SHELL_NOT_INITIALIZED"}
+	if combatant_id.is_empty() or source_actor_id.is_empty() or reaction_id.is_empty() or window_id.is_empty():
+		return {"success": false, "reason": "INVALID_REACTION_IDENTITY"}
+	if _current_actor_id != source_actor_id or combatant_id == source_actor_id:
+		return {"success": false, "reason": "REACTION_SOURCE_NOT_CURRENT_HOSTILE_ACTOR"}
+	if not _resources.has(combatant_id):
+		return {"success": false, "reason": "UNKNOWN_REACTOR"}
+	if rp_cost < 0 or stamina_cost < 0:
+		return {"success": false, "reason": "INVALID_REACTION_COST"}
+
+	var commit_key := "%s|%s" % [window_id, combatant_id]
+	if _reaction_commits.has(commit_key):
+		var existing: Dictionary = (_reaction_commits[commit_key] as Dictionary).duplicate(true)
+		existing["duplicate"] = true
+		return existing
+
+	var state: Dictionary = (_resources[combatant_id] as Dictionary).duplicate(true)
+	if int(state["rp"]) < rp_cost or int(state["stamina"]) < stamina_cost:
+		_record_trace("REACTION_RESOURCE_COMMIT_REJECTED", {
+			"combatant_id": combatant_id,
+			"source_actor_id": source_actor_id,
+			"reaction_id": reaction_id,
+			"window_id": window_id,
+			"rp_cost": rp_cost,
+			"stamina_cost": stamina_cost,
+		})
+		return {
+			"success": false,
+			"reason": "INSUFFICIENT_REACTION_RESOURCES",
+			"window_id": window_id,
+			"reaction_id": reaction_id,
+		}
+
+	state["rp"] = int(state["rp"]) - rp_cost
+	state["stamina"] = int(state["stamina"]) - stamina_cost
+	_resources[combatant_id] = state
+	var committed := {
+		"success": true,
+		"reason": "REACTION_RESOURCES_COMMITTED",
+		"window_id": window_id,
+		"combatant_id": combatant_id,
+		"source_actor_id": source_actor_id,
+		"reaction_id": reaction_id,
+		"rp_cost": rp_cost,
+		"stamina_cost": stamina_cost,
+		"duplicate": false,
+	}
+	_reaction_commits[commit_key] = committed.duplicate(true)
+	_record_trace("REACTION_RESOURCE_COMMITTED", committed)
+	_refresh_hud()
+	return committed
 
 func end_player_turn() -> bool:
 	if not _initialized or _current_actor_id != HUNTER_COMBATANT_ID:
@@ -285,7 +377,7 @@ func _build_hud() -> void:
 
 	var note := Label.new()
 	note.name = "BoundaryNote"
-	note.text = "Turn shell active • free roaming locked • attacks and tactical movement are the next layers."
+	note.text = "Turn shell active • free roaming locked • reactions share RP/Stamina authority • Monster attacks remain a later layer."
 	layout.add_child(note)
 
 	_end_turn_button = Button.new()
@@ -326,6 +418,7 @@ func get_current_state() -> Dictionary:
 		"current_actor_id": _current_actor_id,
 		"round_roster": _round_roster.duplicate(),
 		"slot_states": _slot_states.duplicate(true),
+		"monster_activation_driver_registered": _monster_activation_driver != null,
 	}
 
 func get_initiative_snapshot(combatant_id: String) -> Dictionary:
@@ -337,6 +430,12 @@ func get_resource_state(combatant_id: String) -> Dictionary:
 	if not _resources.has(combatant_id):
 		return {}
 	return (_resources[combatant_id] as Dictionary).duplicate(true)
+
+func get_reaction_commit(window_id: String, combatant_id: String) -> Dictionary:
+	var commit_key := "%s|%s" % [window_id, combatant_id]
+	if not _reaction_commits.has(commit_key):
+		return {}
+	return (_reaction_commits[commit_key] as Dictionary).duplicate(true)
 
 func get_trace() -> Array[Dictionary]:
 	return _trace.duplicate(true)

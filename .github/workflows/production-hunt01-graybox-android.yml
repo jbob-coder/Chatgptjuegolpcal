@@ -9,6 +9,7 @@ on:
       - "game/**"
       - "tests/quality/hunt01/hunt01_production_projection_preflight.py"
       - "tests/quality/hunt01/hunt01_combat_turn_shell_preflight.py"
+      - "tests/quality/hunt01/hunt01_reaction_window_preflight.py"
       - "tests/quality/hunt01/hunt01_hunter_attack_preflight.py"
       - "tests/quality/hunt01/hunt01_mudcrest_anatomy_preflight.py"
       - "docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json"
@@ -22,7 +23,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_NAME: UnnamedHuntRPG-Hunt01-AnatomyIntegrity-debug.apk
+  APK_NAME: UnnamedHuntRPG-Hunt01-ReactionWindow-debug.apk
 
 jobs:
   build-production-hunt01:
@@ -116,6 +117,9 @@ jobs:
           python3 tests/quality/hunt01/hunt01_combat_turn_shell_preflight.py \
             | tee build-evidence/hunt01-combat-turn-shell-static.log
           grep -q "Gate: HUNT01_COMBAT_TURN_SHELL_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-combat-turn-shell-static.log
+          python3 tests/quality/hunt01/hunt01_reaction_window_preflight.py \
+            | tee build-evidence/hunt01-reaction-window-static.log
+          grep -q "Gate: HUNT01_HUNTER_REACTION_WINDOW_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-reaction-window-static.log
           python3 tests/quality/hunt01/hunt01_hunter_attack_preflight.py \
             | tee build-evidence/hunt01-hunter-attack-static.log
           grep -q "Gate: HUNT01_FIRST_HUNTER_ATTACK_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-hunter-attack-static.log
@@ -171,6 +175,13 @@ jobs:
           grep -q "Gate: HUNT01_COMBAT_TURN_SHELL_RUNTIME_VERIFIED" build-evidence/hunt01-combat-turn-shell-runtime.log
           grep -q "Gate: HUNT01_TACTICAL_MOVEMENT_RUNTIME_VERIFIED" build-evidence/hunt01-combat-turn-shell-runtime.log
 
+      - name: Headless Hunt-01 Hunter reaction window
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/hunt01_reaction_window_runtime_test.gd" 2>&1 | tee build-evidence/hunt01-reaction-window-runtime.log
+          grep -q "Gate: HUNT01_HUNTER_REACTION_WINDOW_RUNTIME_VERIFIED" build-evidence/hunt01-reaction-window-runtime.log
+
       - name: Headless Hunt-01 Mudcrest anatomy integrity
         shell: bash
         run: |
@@ -203,9 +214,9 @@ jobs:
       - name: Upload production APK and evidence
         uses: actions/upload-artifact@v4
         with:
-          name: UnnamedHuntRPG-Hunt01-AnatomyIntegrity-debug
+          name: UnnamedHuntRPG-Hunt01-ReactionWindow-debug
           path: |
-            build/android/UnnamedHuntRPG-Hunt01-AnatomyIntegrity-debug.apk
+            build/android/UnnamedHuntRPG-Hunt01-ReactionWindow-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 2

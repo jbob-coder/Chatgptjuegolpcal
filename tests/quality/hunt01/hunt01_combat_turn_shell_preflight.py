@@ -41,7 +41,7 @@ def main() -> int:
     test = COMBAT_TEST.read_text(encoding="utf-8")
     encounter = ENCOUNTER_RUNTIME.read_text(encoding="utf-8")
 
-    check("combat owner delegates species anatomy and defers structural/behavior layers", all(token in readme for token in ("game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd", "final damage/health arithmetic", "break/sever", "status consequences", "Monster reactions/attacks/behavior")))
+    check("combat owner delegates species anatomy and defers structural/behavior layers", all(token in readme for token in ("game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd", "final damage/health arithmetic", "crack/break/sever", "status consequences", "Monster normal attack runtime")))
     check("adjacent tactical movement is explicitly owned now", "adjacent tactical-node movement" in readme)
     check("initiative fixture is explicitly provisional", "PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE" in readme and "PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE" in combat)
     check("encounter preloads combat shell", 'preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")' in encounter)
@@ -60,7 +60,8 @@ def main() -> int:
     check("deterministic comparator uses rating/agility/perception/stable ID", all(token in combat for token in ("left_rating", "left_agility", "left_perception", "return a < b")))
     check("one-normal-activation invariant keys actor by round", 'var activation_key := "%d|%s" % [_round_id, combatant_id]' in combat and "INVARIANT_REJECTED_DUPLICATE_ACTIVATION" in combat)
     check("unused AP is discarded before next round", "UNUSED_AP_DISCARDED" in combat and 'state["ap"] = 0' in combat)
-    check("Monster placeholder is explicit and non-attacking", "WAIT_NO_ATTACK_RUNTIME" in combat and "MONSTER_PLACEHOLDER_WAIT" in combat)
+    check("Monster placeholder remains explicit until a real driver registers", "WAIT_NO_ATTACK_RUNTIME" in combat and "MONSTER_PLACEHOLDER_WAIT" in combat)
+    check("external Monster activation path is bounded", "register_monster_activation_driver" in combat and "complete_external_activation" in combat)
     check("free exploration physics is locked after combat entry", "_world.set_physics_process(false)" in combat)
     check("exploration joystick is hidden in combat", 'get_node_or_null("HUD/Touch/MoveJoystick")' in combat and "joystick.visible = false" in combat)
     check("debug reset is disabled in combat", 'get_node_or_null("HUD/Touch/ResetToStart")' in combat and "reset_button.disabled = true" in combat)

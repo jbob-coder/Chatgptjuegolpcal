@@ -4,12 +4,13 @@ Purpose: own the first production combat-domain runtime stack after explicit sam
 
 ## Runtime ownership
 
-- `hunt01_combat_turn_shell_runtime.gd` — deterministic initiative, round/slot state, one-normal-activation invariant, AP/RP refresh, normalized Hunter Stamina/recovery, resource commitment and END TURN HUD.
+- `hunt01_combat_turn_shell_runtime.gd` — deterministic initiative, round/slot state, one-normal-activation invariant, AP/RP refresh, normalized Hunter Stamina/recovery, normal action commitment, out-of-turn reaction resource commitment, Monster external-activation handshake and END TURN HUD.
 - `hunt01_tactical_movement_runtime.gd` — adjacent tactical-node movement, authored adjacency, destination terrain Stamina surcharge, current node, Hunter relocation and movement trace/HUD.
+- `hunt01_reaction_window_runtime.gd` — shared hostile-action reaction window identity/lifecycle, one normal reaction commitment, replay/readback idempotence, explicit decline/close handling and the first closed-cost Field Poleblade Block commitment.
 - `hunt01_hunter_attack_runtime.gd` — Hunter Field Poleblade `POLEBLADE_MEASURED_CUT`: target-group selection, hard range/line-of-effect/resource legality, one bounded deterministic contact variance sample, hit-quality classification, local protection routing and a single committed anatomy transaction handoff.
-- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species-specific normalized anatomy integrity consequence owner; this is intentionally outside the generic combat package.
-- encounter runtime owns tracking completion → observation → explicit ENGAGE → same-location first-person staging, then creates the combat stack and injects the Mudcrest anatomy owner into the Hunter attack runtime.
-- later layers own final damage balance, break/sever thresholds, status consequences, Monster reactions/attacks/behavior and encounter outcomes.
+- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species-specific normalized anatomy integrity consequence owner; intentionally outside the generic combat package.
+- encounter runtime owns tracking completion → observation → explicit ENGAGE → same-location first-person staging, then creates the combat stack and injects the shared owners.
+- later layers own Monster normal attacks/behavior, final damage balance, break/sever thresholds, status consequences and encounter outcomes.
 
 First-slice identities:
 - encounter `enc_r01_ef02_m01_0001`;
@@ -26,7 +27,10 @@ First-slice identities:
 - normalized first-slice Hunter Max Stamina 100;
 - +10 passive Stamina once at Hunter normal activation start;
 - unused AP does not bank;
-- Monster uses a 4-AP internal budget but currently resolves explicit `WAIT_NO_ATTACK_RUNTIME` because Monster attack behavior is a later layer;
+- Monster uses a 4-AP internal budget;
+- without a registered Monster activation driver, Monster activation still resolves explicit `WAIT_NO_ATTACK_RUNTIME`;
+- a future Monster attack owner may register one external activation driver; the shell keeps the Monster as the current normal actor until that driver explicitly completes the activation;
+- reaction spending is separate from normal-turn AP spending and cannot make the Hunter the current actor during the Monster activation;
 - free exploration locomotion is locked after ENGAGE while first-person look remains available.
 
 Initiative numbers currently use the explicit contract example as `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`:
@@ -46,10 +50,37 @@ Initiative numbers currently use the explicit contract example as `PROVISIONAL_C
 - no random terrain slip roll;
 - Sprint, Dodge movement and forced displacement are not implemented yet.
 
+## Hunter reaction window
+
+Schema:
+`uhr.hunt01.reaction_window.v1`.
+
+Selected invariant set:
+- source hostile actor must own the current normal activation;
+- stable reaction-window identity includes encounter, round, source actor, source action and source action sequence;
+- only one normal reaction decision can be committed in one window;
+- an overlapping/recursive normal window is rejected;
+- repeated UI/readback of the same committed window cannot spend resources twice;
+- closed-window readback is deterministic;
+- decline is explicit and free;
+- the reaction commitment records `PENDING_ATTACK_DEFENSE_RESOLUTION` rather than deciding Block success itself;
+- reaction UI is hidden unless a hostile action opens a real window.
+
+First implemented paid reaction:
+`POLEBLADE_BLOCK`.
+
+Cost:
+- 1 RP;
+- 6 Stamina.
+
+The 1-RP law comes from the Action Economy Contract. The 6-Stamina Field Poleblade Block commitment is already recorded by the selected Monster-01 combat attack packet; this runtime does not promote any still-open Dodge/Parry/Brace Stamina values to final authority.
+
+This prerequisite does not resolve Monster attack damage, Hunter health, Block strength, status effects or forced movement. Those remain downstream hostile-action resolution responsibilities.
+
 ## First Hunter attack — Measured Cut
 
 Technical ID:
-`POLEBLADE_MEASURED_CUT`
+`POLEBLADE_MEASURED_CUT`.
 
 Prototype contract:
 - 2 AP;
@@ -95,8 +126,9 @@ Structural thresholds are not evaluated. The runtime returns `NOT_EVALUATED_BREA
 - crack/break/sever thresholds and structural state transitions;
 - tail detachment;
 - bleeding/status consequences;
-- Monster reaction decision runtime;
+- Dodge/Parry/Brace final reaction tuning and movement/outcome resolution;
 - Monster normal attack runtime;
+- Monster deterministic behavior runtime;
 - defeat/escape outcome;
 - Sprint/Dodge/forced-displacement movement.
 
