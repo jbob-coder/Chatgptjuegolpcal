@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY BASELINES RECORDED / ONE-RECIPE LINKAGE NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY + ONE-RECIPE BASELINES RECORDED / SETTLEMENT SMITH SERVICE NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -24,7 +24,7 @@ Required repository answer:
 
 Current repository/source/build/device evidence outranks old chat memory.
 
-## 2. Stage-1 engine/Android
+## 2. Stage-1 engine / Android
 
 Primary authorities:
 - `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`;
@@ -80,9 +80,6 @@ Front door:
 Generic owner:
 `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-Worked example:
-`docs/20_gameplay/harvest/HARVEST_TRANSACTION_EXAMPLE.md`.
-
 Monster 01 application:
 `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
@@ -103,20 +100,36 @@ Supporting example:
 Handoff:
 `docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
 
-Selected baseline:
-- player field material inventory;
-- prototype 20 stack entries / max 99 units per stack;
-- material ID + quality merge key;
-- provenance lots preserved internally;
-- recovery bundle owns committed harvest output before inventory acceptance;
-- partial/full-capacity rejection preserves source bundle remainder;
-- source loss equals destination gain;
-- idempotent transaction IDs prevent replay.
+## 7. Crafting / equipment linkage authorities
 
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
-`INVENTORY_RUNTIME_IMPLEMENTED = NO`.
+Front door:
+`docs/20_gameplay/crafting/README.md`.
 
-## 7. Content authorities
+First-slice owner:
+`docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
+
+Specialized handoff:
+`docs/70_handoff/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_PASS_2026-09-03.md`.
+
+Selected first recipe:
+`recipe_field_poleblade_raker_tendon_grip`.
+
+Requirements:
+- 2 HIGH `material_m01_tail_tendon`;
+- 2 STANDARD-or-better `material_m01_hide`.
+
+Output:
+`refinement_field_poleblade_raker_tendon_grip`.
+
+Effect:
+`POLEBLADE_PLACED_HEW` Stamina 18 -> 16 through typed `COST_MODIFIER`.
+
+Craft transaction reserves exact input stacks/provenance, then atomically consumes materials and applies the refinement exactly once. No random craft-quality layer or broad economy exists in the first proof.
+
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
+`CRAFTING_RUNTIME_IMPLEMENTED = NO`.
+
+## 8. Content authorities
 
 Content front door:
 `docs/30_content/README.md`.
@@ -124,7 +137,7 @@ Content front door:
 Monster 01 front door:
 `docs/30_content/monsters/MONSTER_01/README.md`.
 
-Current Monster 01 authorities:
+Important Monster 01 files:
 - `ANATOMY_AND_DAMAGE.md`;
 - `COMBAT_ATTACK_PACKET.md`;
 - `BERSERK_PROTOTYPE_CONTRACT.md`;
@@ -132,33 +145,52 @@ Current Monster 01 authorities:
 - `CRYSTAL_AND_MUTATION.md`;
 - `HARVEST_CAPACITY_PACKET.md`.
 
-## 8. Architecture / data / art / quality
+## 9. Progression authorities
+
+Front door:
+`docs/20_gameplay/progression/README.md`.
+
+Primary owner:
+`docs/20_gameplay/progression/PLAYER_PROGRESSION_AND_EQUIPMENT_SYSTEM.md`.
+
+The first Raker-Tendon Grip is the current concrete proof of equipment-weighted, bounded, anatomy-connected progression.
+
+## 10. Art/reference authorities
+
+Repository:
+- `docs/40_art/README.md`;
+- `docs/40_art/asset_pipeline/README.md`;
+- `docs/40_art/reviews/README.md`.
+
+External saved visual reference:
+- Google Drive folder: `Unnamed Hunt RPG`;
+- file: `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`;
+- Drive file ID: `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+
+Generated concept images establish visual intent only unless technically validated. They do not define collision, UVs, dimensions, stable gameplay IDs or performance.
+
+## 11. Architecture/data/quality authorities
 
 Architecture/data:
 `SYSTEM_ARCHITECTURE_BLUEPRINT.md`, `CODE_GUIDE.md`, `CONTENT_DATA_GUIDE.md`, `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`, `BEHAVIOR_PATTERN_SYSTEM.md`, `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`, `MECHANICAL_SYSTEMS_GUIDE.md`.
 
-Art:
-`docs/40_art/README.md`, `docs/40_art/asset_pipeline/README.md`, `docs/40_art/reviews/README.md`.
-
-Generated concept images establish visual intent only unless separately technically validated; they do not define collision, UVs, dimensions, target IDs or performance.
-
 Quality:
 `TESTING_VERIFICATION_PLAN.md`, `PERFORMANCE_BUDGETS_AND_CAPS.md`, `docs/60_quality/README.md` and Stage-1 probe/test protocols.
 
-## 9. Current game-development sequence
+## 12. Current game-development sequence
 
 Implementation lane:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Completed design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip Linkage`.
 
 Current active non-phone action:
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
 
-Then select the next smallest vertical-slice prerequisite from current repository evidence.
+That next pass maps the logical workbench requirement into the walkable Settlement 01 Smith/Workshop and Hunter Service Loop.
 
-## 10. Documentation placement law
+## 13. Documentation placement law
 
 - root README — human game/front door;
 - `docs/README.md` — placement/package rules;
