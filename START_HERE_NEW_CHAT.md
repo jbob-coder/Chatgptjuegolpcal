@@ -19,55 +19,49 @@ Mandatory read order:
 
 Current repository/source/build/device evidence outranks old chat memory.
 
-## Current phone state
+## Current phone control state
 
-Latest user direction:
-- no joystick release required after a turn;
-- no forced return to center/0;
-- steering should adapt automatically after sustained movement;
-- larger arena required for sustained testing.
+The adaptive/latching joystick is superseded.
 
-Current tested source head:
-`e9b89912f1c80e90114a68a6de9de4ffbcdd6777`.
+Current implementation:
+`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
 
-Adaptive joystick:
-held movement -> Hunter aligns -> reference rebases without changing current world intent -> same finger may slide toward UP and keep the established heading.
+Current controls:
+- left fixed joystick = direct camera-relative movement;
+- right-side drag = independent view yaw;
+- first-person vertical right-drag = pitch ±80°;
+- unchanged movement-stick direction does not accumulate camera turn;
+- no adaptive hold/alignment/latch/rebase state;
+- first-person FOV 115°.
 
-Arena:
-`120×120 m`; bound `±56 m`; usable `~112×112 m`.
-
-First person:
-FOV `115°`; turn scale `0.55`.
-
-Adaptive regression:
-`33833083005` SUCCESS.
+Dedicated regression:
+`33834546073` SUCCESS.
 
 Full Android build:
-`33833083007` SUCCESS.
+`33834546084` SUCCESS.
 
-APK:
-`UnnamedHuntRPG-Stage1-AdaptiveJoystick-Retest.apk`
-SHA-256 `88b53cb20cac97751f30cc79033ed0e715544e8e26446b06e887e8ea894a5cf1`.
+Intermediate retest APK SHA-256:
+`aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
 
-Google Drive:
-ID `1anJ1sY4ajJuJsID62pvgNKZYBvyYi3QV`.
-
-Phone handoff:
-`docs/70_handoff/STAGE1_GALAXY_A03S_ADAPTIVE_JOYSTICK_REPAIR_2026-09-04.md`.
+Drive file ID:
+`1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
 
 Exact next action:
-`STAGE1_FINAL_GALAXY_A03S_ADAPTIVE_JOYSTICK_RETEST`.
+`STAGE1_FINAL_GALAXY_A03S_SHOOTER_STYLE_CONTROLS_RETEST`.
 
-## Hunt-01 static geometry
+## Hunt-01 static geometry state
 
-`tests/quality/hunt01/` owns executable manifest-static QA.
+Validator:
+`tests/quality/hunt01/`.
+
 Workflow `33830978945`: SUCCESS.
+
 `HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
 
 No engine graybox exists yet.
 
-Current Hunt-01 chain:
-`S00 -> S01 River Ford -> S03 Feeding Meadow -> EF02 -> escape S03→S05 -> same-Monster reacquisition`.
+Hunt path:
+S00 -> S01 River Ford -> S03 Feeding Meadow -> EF02 -> Monster escape via S03→S05 -> same-Monster reacquisition.
 
 Key targets:
 - route 285–315 m;
@@ -80,7 +74,7 @@ Key targets:
 
 ## After phone PASS
 
-Close Stage-1 functional phone gate and begin:
+Close the Stage-1 functional phone-control gate and begin:
 `FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
 
-A full-game APK does not yet exist; current Stage-1 APK is still an engine/control probe.
+The current APK is still a Stage-1 probe. A full-game APK does not yet exist.

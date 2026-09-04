@@ -1,59 +1,47 @@
 # Unnamed Hunt RPG
 
-Status: STAGE-1 ADAPTIVE JOYSTICK PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED / FULL GAME RUNTIME NOT YET BUILT
+Status: STAGE-1 SHOOTER-STYLE CONTROLS PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED / FULL GAME RUNTIME NOT YET BUILT
 Last reconciled: 2026-09-04
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
 ## Main game goal
 
-Playable direction:
 `SETTLEMENT -> FRONTIER -> AERIAL REGION TRACKING -> SAME-LOCATION FIRST-PERSON TACTICAL COMBAT -> BREAK/SEVER -> ESCAPE/DEFEAT -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> SMITH -> CRAFT/EQUIP -> NEXT HUNT`.
 
-The game is the objective. Documentation exists to keep ownership, dimensions, coordinates, verification and continuation coherent.
+The game is the objective. Documentation exists to keep ownership, dimensions, coordinates, verification, and continuation coherent.
 
-## Current Stage-1 phone state
+## Current Stage-1 phone control state
 
-Direct user evidence from prior phone build:
-- general runtime worked correctly;
-- no reported clipping/general problem;
-- aerial camera behavior acceptable.
+Latest user feedback rejected the adaptive/latching joystick as too janky and requested an Apex Legends Mobile-like control structure.
 
-Latest user requirement supersedes release/neutral recentering: joystick steering must adapt while the same finger remains down, without requiring a return to center/0.
+Current implementation commit:
+`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
 
-Final tested adaptive head:
-`e9b89912f1c80e90114a68a6de9de4ffbcdd6777`.
+Current control architecture:
+- left joystick = direct camera-relative movement vector;
+- fixed stick direction stays fixed and does not accumulate camera turn;
+- right-side drag = independent camera/view control;
+- movement and look can operate simultaneously;
+- first-person FOV = `115°`;
+- first-person pitch clamp = `±80°`;
+- no adaptive hold/alignment/latch/rebase variables remain in runtime steering.
 
-Current adaptive behavior:
-- sustained movement is latched in world space;
-- once Hunter facing aligns, the joystick frame can rebase without changing current movement;
-- the same finger can slide from the old side direction toward UP and continue on the newly established heading;
-- no release or center/deadzone crossing is required;
-- unchanged off-center input does not cause continuous circling.
+Dedicated shooter-style workflow:
+`33834546073` SUCCESS.
 
-Arena enlarged for steering tests:
-- floor `120×120 m`;
-- Hunter-center bound `±56 m`;
-- usable span approximately `112×112 m`.
+Full Android pipeline:
+`33834546084` SUCCESS.
 
-First person:
-- FOV `115°`;
-- turn response scale `0.55`;
-- aerial behavior unchanged.
-
-Dedicated adaptive workflow `33833083005`: SUCCESS.
-Full Android workflow `33833083007`: SUCCESS.
-
-Fresh APK:
-`UnnamedHuntRPG-Stage1-AdaptiveJoystick-Retest.apk`
-`57,574,457 bytes`
-SHA-256 `88b53cb20cac97751f30cc79033ed0e715544e8e26446b06e887e8ea894a5cf1`.
+Pre-reconciliation retest APK:
+`UnnamedHuntRPG-Stage1-ShooterStyle-Retest.apk`
+57,574,457 bytes
+SHA-256 `aa93221527c3a2e08543f403199144dc4611b2ac591201fdcfcc563c49a3a6b8`.
 
 Google Drive ID:
-`1anJ1sY4ajJuJsID62pvgNKZYBvyYi3QV`.
+`1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
 
-Latest phone handoff:
-`docs/70_handoff/STAGE1_GALAXY_A03S_ADAPTIVE_JOYSTICK_REPAIR_2026-09-04.md`.
+A final UI/help reconciliation may create a newer byte identity; newest handoff/build evidence wins.
 
 ## Hunt-01 world/build status
 
@@ -83,19 +71,22 @@ Static validator:
 `tests/quality/hunt01/hunt01_graybox_manifest_validator.py`.
 
 Workflow `33830978945`: SUCCESS.
+
 `HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
 
 Scene/runtime graybox verification remains NO.
 
 ## Full-game APK truth
 
-A full playable game APK does not yet exist. Combat, harvesting, inventory, crafting, Settlement services, Persistence and Hunt-01 are recorded primarily as design/build-spec authorities rather than production runtime code. The Stage-1 probe must not be mislabeled as the full game.
+A full playable game APK does not yet exist. Combat, harvesting, inventory, crafting, Settlement services, Persistence, and Hunt-01 are largely recorded as design/build-spec authorities rather than full production runtime code.
+
+After the shooter-style phone retest passes, begin the first production Hunt-01 engine graybox slice.
 
 ## Exact next action
 
-`STAGE1_FINAL_GALAXY_A03S_ADAPTIVE_JOYSTICK_RETEST`.
+`STAGE1_FINAL_GALAXY_A03S_SHOOTER_STYLE_CONTROLS_RETEST`.
 
 If PASS:
 `FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
 
-Sustained `PERFORMANCE_VERIFIED` remains a separate evidence label until required device soak evidence exists.
+Sustained `PERFORMANCE_VERIFIED` remains separate until actual target-device soak evidence exists.

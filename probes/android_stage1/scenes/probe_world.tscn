@@ -189,11 +189,11 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -300.0
+offset_left = -360.0
 offset_top = -48.0
-offset_right = 300.0
+offset_right = 360.0
 offset_bottom = -16.0
-text = "Move: adaptive analog joystick • Settings: Look Speed • View toggle preserves authoritative position"
+text = "Move: left stick • Look: drag right side • Settings: Look Speed • View toggle preserves position"
 horizontal_alignment = 1
 
 [node name="SettingsOverlay" type="PanelContainer" parent="HUD"]
@@ -238,7 +238,7 @@ value = 35.0
 
 [node name="LookSpeedHelp" type="Label" parent="HUD/SettingsOverlay/Layout/Tabs/Controls"]
 layout_mode = 2
-text = "Lower = calmer turns. Higher = faster Hunter/camera heading response. Saved automatically."
+text = "Lower = slower right-side look. Higher = faster view rotation. Movement speed is unchanged. Saved automatically."
 autowrap_mode = 2
 
 [node name="Display" type="VBoxContainer" parent="HUD/SettingsOverlay/Layout/Tabs"]
