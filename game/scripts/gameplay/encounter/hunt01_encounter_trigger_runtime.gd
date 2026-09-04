@@ -2,6 +2,7 @@ extends Node
 
 const COMBAT_TURN_SHELL_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")
 const TACTICAL_MOVEMENT_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_tactical_movement_runtime.gd")
+const HUNTER_ATTACK_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd")
 const ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const FOOTPRINT_ID := "R01_EF02"
 const MONSTER_ID := "monster_r01_m01_0001"
@@ -26,6 +27,7 @@ var _state := "SEARCHING"
 var _encounter_record: Dictionary = {}
 var _combat_turn_shell: Node = null
 var _tactical_movement_runtime: Node = null
+var _hunter_attack_runtime: Node = null
 
 func _ready() -> void:
 	call_deferred("_bind_runtime")
@@ -155,8 +157,6 @@ func _engage() -> bool:
 		"entry_state": "ENCOUNTER_STAGED_FIRST_PERSON",
 	}
 
-	# Use the existing production camera transition so its internal yaw/pitch state
-	# remains authoritative. No actor world transform is changed here.
 	var first_person_camera := _world.get_node("Hunter/FirstPersonCamera") as Camera3D
 	if not first_person_camera.current:
 		_world.call("_on_toggle_view_pressed")
@@ -168,20 +168,19 @@ func _engage() -> bool:
 		if marker != null:
 			marker.visible = true
 
-	# Defensive invariant: encounter staging remains presentation/state only.
 	if not _hunter.global_transform.is_equal_approx(hunter_before) or not _monster.global_transform.is_equal_approx(monster_before):
 		push_error("Encounter staging changed an actor world transform; same-location continuity violated.")
 		return false
 
 	if not _start_combat_turn_shell():
-		push_error("Encounter staging could not start the authoritative combat turn shell.")
+		push_error("Encounter staging could not start the authoritative combat runtime stack.")
 		return false
 
 	_encounter_started = true
 	_state = "ENCOUNTER_STAGED_FIRST_PERSON"
 	_set_engage_button(false)
 	if _status_label != null:
-		_status_label.text = "Encounter staged • R01_EF02 • same Hunter + same Mudcrest Raker • deterministic turn shell + adjacent tactical movement active. Attacks are not implemented yet."
+		_status_label.text = "Encounter staged • R01_EF02 • deterministic turns + adjacent movement + Field Poleblade Measured Cut targeting active. Anatomy damage is the next layer."
 	return true
 
 func _start_combat_turn_shell() -> bool:
@@ -207,8 +206,22 @@ func _start_combat_turn_shell() -> bool:
 		shell.queue_free()
 		return false
 
+	var attack := HUNTER_ATTACK_SCRIPT.new() as Node
+	if attack == null:
+		movement.queue_free()
+		shell.queue_free()
+		return false
+	attack.name = "HunterAttackRuntime"
+	shell.add_child(attack)
+	if not bool(attack.call("initialize", _world, shell, movement, _encounter_record)):
+		attack.queue_free()
+		movement.queue_free()
+		shell.queue_free()
+		return false
+
 	_combat_turn_shell = shell
 	_tactical_movement_runtime = movement
+	_hunter_attack_runtime = attack
 	return true
 
 func get_state() -> String:
@@ -237,6 +250,12 @@ func has_tactical_movement_started() -> bool:
 
 func get_tactical_movement_runtime() -> Node:
 	return _tactical_movement_runtime
+
+func has_hunter_attack_started() -> bool:
+	return _hunter_attack_runtime != null and bool(_hunter_attack_runtime.call("is_initialized"))
+
+func get_hunter_attack_runtime() -> Node:
+	return _hunter_attack_runtime
 
 func engage_for_test() -> bool:
 	return _engage()

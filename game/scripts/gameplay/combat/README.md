@@ -1,62 +1,98 @@
 # Hunt-01 Combat Runtime
 
-Purpose: provide the first authoritative combat-domain runtime after the same-location encounter is explicitly staged.
+Purpose: own the first production combat-domain runtime stack after explicit same-location ENGAGE.
 
-Owner boundary:
-- encounter runtime owns observation, explicit ENGAGE and same-location first-person staging;
-- `hunt01_combat_turn_shell_runtime.gd` owns deterministic initiative snapshots, round roster/slot state, normal activation ownership, AP/RP refresh, normalized first-slice Hunter Stamina storage/recovery, resource commitment and the temporary turn-shell HUD;
-- `hunt01_tactical_movement_runtime.gd` owns first-slice adjacent tactical-node movement, authored adjacency validation, destination terrain Stamina surcharge, current tactical-node state, physical Hunter relocation on the existing Meadow graph and movement trace/HUD;
-- later combat layers own Sprint/Dodge movement extensions, attacks, reactions, hit resolution, anatomy damage, statuses, Monster behavior and encounter outcomes.
+## Runtime ownership
 
-First-slice runtime identities:
+- `hunt01_combat_turn_shell_runtime.gd` — deterministic initiative, round/slot state, one-normal-activation invariant, AP/RP refresh, normalized Hunter Stamina/recovery, resource commitment and END TURN HUD.
+- `hunt01_tactical_movement_runtime.gd` — adjacent tactical-node movement, authored adjacency, destination terrain Stamina surcharge, current node, Hunter relocation and movement trace/HUD.
+- `hunt01_hunter_attack_runtime.gd` — first real Hunter weapon attack: Field Poleblade `POLEBLADE_MEASURED_CUT`, target-group selection, hard range/line-of-effect/resource legality, one bounded deterministic contact variance sample, hit-quality classification and local protection/anatomy handoff.
+- encounter runtime owns tracking completion → observation → explicit ENGAGE → same-location first-person staging, then creates this combat stack.
+- later layers own actual anatomy integrity/health loss, break/sever, status consequences, Monster reactions/attacks/behavior and encounter outcomes.
+
+First-slice identities:
 - encounter `enc_r01_ef02_m01_0001`;
-- Hunter combatant `hunter_player_0001`;
-- Monster combatant `monster_r01_m01_0001`.
+- Hunter `hunter_player_0001`;
+- Monster `monster_r01_m01_0001`.
 
-Selected turn-shell laws:
-- exactly one normal activation per eligible actor per round;
-- Initiative ordering uses `(2 × Agility) + Perception + explicit modifier`;
-- ties resolve Agility DESC → Perception DESC → stable combatant ID ASC;
-- no random opener roll;
-- Hunter normal activation refreshes to 4 AP / 1 RP;
-- unused AP never banks;
-- Hunter normalized first-slice Stamina reference is 100 with +10 passive recovery once at normal activation start;
-- Monster uses the already-selected 4-AP internal normal-activation budget but no player-facing AP UI;
-- the Monster currently performs an explicit `WAIT_NO_ATTACK_RUNTIME` placeholder activation because attack/behavior runtime is not part of this layer;
-- free exploration locomotion is locked after ENGAGE so 6.25 m/s roaming cannot bypass AP-governed tactical movement;
-- first-person look remains available.
+## Turn shell laws
 
-## Adjacent tactical-node movement
+- one normal activation per eligible actor per round;
+- Initiative = `(2 × Agility) + Perception + explicit modifier`;
+- ties: Agility DESC → Perception DESC → stable combatant ID ASC;
+- no random opener;
+- Hunter 4 AP / 1 RP;
+- normalized first-slice Hunter Max Stamina 100;
+- +10 passive Stamina once at Hunter normal activation start;
+- unused AP does not bank;
+- Monster uses a 4-AP internal budget but currently resolves explicit `WAIT_NO_ATTACK_RUNTIME` because Monster attack behavior is a later layer;
+- free exploration locomotion is locked after ENGAGE while first-person look remains available.
 
-Current first-slice runtime scope:
-- starts on authored entry node `R01_EF02_N01`;
-- loads the existing 10-node / 14-link `R01_EF02` graph from the Hunt-01 manifest projection;
-- exposes only directly linked destinations;
-- normal adjacent move costs `1 AP` plus the destination primary-surface Stamina surcharge;
-- Stable Ground `+0`, Rough Ground `+1`, Shallow Water `+2`, Mud `+3` Stamina;
-- current Meadow proof uses Stable/Rough nodes but the complete selected first-slice surcharge map is encoded once in the runtime;
-- movement hard-rejects non-adjacent/unknown destinations and spends nothing on rejection;
-- the combat shell remains the sole AP/Stamina commitment authority;
-- committed movement relocates only the Hunter to the authored destination X/Z on the already-flat production foundation, preserving the current physical Y and same Monster world transform;
-- each move records origin/destination node, primary surfaces, tags, AP/Stamina cost, terrain surcharge, footing and legality result;
-- tactical-node UI is visible only after encounter entry because encounter staging reveals the node graph and starts this runtime;
-- no random terrain slip roll exists.
+Initiative numbers currently use the explicit contract example as `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`:
+- Hunter Agility 50 / Perception 40 / mod 0 → 140;
+- Mudcrest Raker Agility 45 / Perception 50 / mod 0 → 140;
+- Hunter wins the deterministic Agility tie-break.
 
-Not implemented in this movement layer:
-- Sprint;
-- Dodge/reaction movement;
-- forced displacement/knockback;
-- line-of-effect/cover calculation;
-- attack range or targeting;
-- attack, damage, anatomy, status, defeat or escape resolution.
+## Adjacent tactical movement
 
-## Provisional initiative fixture
+- starts at `R01_EF02_N01`;
+- consumes existing 10-node / 14-link Meadow graph;
+- only direct authored links are legal;
+- normal move costs 1 AP + destination primary-surface Stamina surcharge;
+- Stable +0, Rough +1, Shallow Water +2, Mud +3;
+- non-adjacent/unknown destinations reject without resource spend;
+- movement changes only Hunter position; Monster transform remains unchanged;
+- no random terrain slip roll;
+- Sprint, Dodge movement and forced displacement are not implemented yet.
 
-Concrete production Hunter/Mudcrest base attribute values are still balance-open in `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`. This shell therefore uses the explicit numerical example already recorded in `INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md` as a transparent first-slice runtime fixture:
+## First Hunter attack — Measured Cut
 
-- Hunter: Agility 50 / Perception 40 / modifier 0 → Initiative 140;
-- Mudcrest Raker: Agility 45 / Perception 50 / modifier 0 → Initiative 140.
+Technical ID:
+`POLEBLADE_MEASURED_CUT`
 
-The equal rating intentionally exercises the deterministic Agility tie-break, so the Hunter acts first. These values are `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`, not final character/species balance and must be replaced by authored stat data when that domain is implemented.
+Prototype contract:
+- 2 AP;
+- 12 Stamina;
+- primary channel `CUTTING`;
+- selected target group allowed;
+- `ALLOW_BODY_FALLBACK`;
+- maximum hit quality `CLEAN`;
+- no independent critical-hit roll.
 
-Phone/user acceptance is deferred-batch. Automated static/headless/Android-build verification still gates each independent combat layer.
+Player-facing target groups are the eight existing Mudcrest groups:
+`HEAD`, `HORN_CREST`, `FORELEG_L`, `FORELEG_R`, `HINDLEG_L`, `HINDLEG_R`, `DORSAL_PLATES`, `TAIL`.
+
+Working-melee legality uses the real tactical layout rather than a global attack button:
+- runtime reads the manifest Monster `body_force` envelope;
+- current tactical node must be within 3.5 m of that envelope;
+- current first-slice graph makes `R01_EF02_N09` the practical Measured Cut contact node;
+- line of effect is physics-ray validated before commitment;
+- full blocked line of effect is hard illegal;
+- AP/Stamina are validated before commitment and spent once through the turn shell.
+
+Contact resolution currently uses a transparent `PROVISIONAL_FIRST_SLICE_CONTROL_FIXTURE` because final Hunter/Mudcrest combat statistics remain balance-open:
+- AttackControl base 70;
+- explicit per-target control penalty;
+- DefenseControl 55;
+- one stable FNV-1a-derived variance sample in `[-6,+6]` per committed attack;
+- same authoritative seed inputs produce the same result;
+- no UI/animation reopening rerolls it;
+- control margin classifies `MISS / GRAZE / SOLID / CLEAN`;
+- selected-part acquisition requires margin >= 6;
+- legal body contact below that threshold falls back to `GENERAL_TORSO` under Measured Cut's declared fallback policy.
+
+After contact, the runtime records local protection such as `MINERALIZED_DORSAL_PLATE`, `HARD_HORN_STRUCTURE`, limb hide or torso hide, then emits `PENDING_ANATOMY_DAMAGE_RUNTIME`.
+
+## Explicitly not implemented yet
+
+- anatomy integrity/health arithmetic;
+- break/sever thresholds;
+- horn/plate state changes;
+- tail detachment;
+- bleeding/status consequences;
+- Monster reaction decision runtime;
+- Monster normal attack runtime;
+- defeat/escape outcome;
+- Sprint/Dodge/forced-displacement movement.
+
+Phone/user acceptance is deferred-batch. Static/headless/Android-build verification continues to gate each independently implementable production layer.
