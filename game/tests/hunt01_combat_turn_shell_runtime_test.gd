@@ -58,8 +58,10 @@ func _run() -> void:
 	_check("encounter runtime available", encounter != null)
 	_check("tracking runtime available", tracking != null)
 
-	# Resolve the already-verified seven-clue tracking layer without depending on
-	# slow physical traversal in this focused combat-shell test.
+	# This focused combat-shell test bypasses physical clue traversal, which is
+	# already covered by the production integration suite. It must still drive the
+	# authoritative TrackingRuntime evidence path rather than only changing the
+	# world's presentation/evidence counter.
 	var evidence_ids := [
 		"R01_H01_EV01_OUTER_PRINTS",
 		"R01_H01_EV02_BANK_REEDS",
@@ -69,12 +71,12 @@ func _run() -> void:
 		"R01_H01_EV06_FEEDING_REMAINS",
 		"R01_H01_EV07_FLATTENED_GRASS_AUDIO",
 	]
-	var all_collected := true
+	var all_recorded := true
 	for evidence_id in evidence_ids:
-		if not bool(world.call("collect_evidence_for_test", evidence_id)):
-			all_collected = false
+		if not bool(tracking.call("record_evidence_for_test", evidence_id)):
+			all_recorded = false
 		await process_frame
-	_check("seven-clue prerequisite resolves", all_collected and int(world.call("get_collected_evidence_count")) == 7)
+	_check("seven-clue tracking prerequisite resolves", all_recorded and int(tracking.call("get_collected_count")) == 7)
 	var inference: Dictionary = tracking.call("get_current_inference")
 	_check("tracking prerequisite is observation-ready", String(inference.get("phase", "")) == "OBSERVATION_READY", str(inference))
 
