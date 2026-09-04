@@ -105,6 +105,11 @@ func _run() -> void:
 	_check("N04 -> N07 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N07")))
 	_check("N07 -> N09 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N09")))
 	_check("Hunter reaches authored N09", String(movement.call("get_current_node_id")) == "R01_EF02_N09" and hunter.global_position.distance_to(Vector3(-22.0, 0.875, -238.0)) < 0.001, str(hunter.global_position))
+	# move_for_test can commit several authored moves in one script slice. Give
+	# CharacterBody3D one physics boundary so the hostile cover ray observes the
+	# same N09 transform that real frame-separated player movement would expose.
+	await physics_frame
+	await process_frame
 	_check("ending Hunter turn delegates real close-range Monster activation", bool(shell.call("end_player_turn")))
 
 	state = shell.call("get_current_state")
