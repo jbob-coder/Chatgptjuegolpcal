@@ -39,9 +39,6 @@ Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable
 
 Workflow `33811355891`: SUCCESS for automated protocol revision `c02971996e35770bbaaaf9bf6c460af208db4f83`.
 
-Automated gates:
-154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; parse/smoke PASS; Android export/APK integrity PASS.
-
 Phone regression + 24-minute sustained run remain deferred.
 
 `PERFORMANCE_VERIFIED = NO`
@@ -62,51 +59,49 @@ No production combat runtime is claimed.
 ## Harvest baseline
 
 Read:
-1. `docs/20_gameplay/harvest/README.md`;
-2. `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`;
-3. `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`;
-4. `docs/70_handoff/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_PASS_2026-09-03.md`.
+- `docs/20_gameplay/harvest/README.md`;
+- `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`;
+- `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Selected rules:
-- finite physical source capacities;
-- source condition reduces surviving capacity;
-- PRISTINE/GOOD/DAMAGED/POOR/RUINED/DESTROYED = 1.00/0.90/0.70/0.40/0.10/0.00 preservation;
-- clean sever preserves/transfers rather than creates material;
-- deterministic extraction efficiency never exceeds 1.00;
-- partial harvest depletes only recovered amount;
-- stable source lineage prevents horn/tail/carcass duplication;
-- no random loot quantity layer.
+Selected: finite anatomy-derived capacity, deterministic condition/extraction, clean-sever lineage transfer, persistent depletion, no random loot quantity.
 
-Monster 01 pristine selected-source total:
-`45` prototype units across horns, plates, hide, distal-tail ridge/tendon and dense bone.
+Monster 01 pristine selected-source total = `45` prototype units.
 
-Damage and extraction reduce actual recovered quantity.
+## Inventory material ownership baseline
 
-No harvest runtime is claimed.
+Read:
+1. `docs/20_gameplay/inventory/README.md`;
+2. `docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`;
+3. `docs/20_gameplay/inventory/INVENTORY_TRANSFER_EXAMPLE.md`;
+4. `docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
+
+Selected:
+- `PLAYER_FIELD_INVENTORY` first-slice destination;
+- prototype 20 material stack entries;
+- max 99 units per stack;
+- material ID + quality defines stack compatibility;
+- provenance stored as internal lots;
+- successful harvest output first belongs to a persistent `RECOVERY_BUNDLE`;
+- full/partial inventory acceptance leaves unaccepted material in that bundle;
+- every transfer conserves quantity;
+- transaction IDs prevent replay after save/load/UI reopen.
+
+No inventory runtime is claimed.
 
 ## Monster 01 — Mudcrest Raker
 
 Read local front door:
 `docs/30_content/monsters/MONSTER_01/README.md`.
 
-Important package files:
-- `ANATOMY_AND_DAMAGE.md`;
-- `COMBAT_ATTACK_PACKET.md`;
-- `BERSERK_PROTOTYPE_CONTRACT.md`;
-- `BEHAVIOR_AND_REGION.md`;
-- `CRYSTAL_AND_MUTATION.md`;
-- `HARVEST_CAPACITY_PACKET.md`.
-
-Monster escape preserves same persistent instance/anatomy for reacquisition. Monster death preserves one final carcass state for harvesting.
+Monster escape preserves the same instance/anatomy for reacquisition. Monster death preserves one final carcass state for harvesting.
 
 ## Current planned sequence
 
 Completed:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership`.
 
 Next:
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
--> one-recipe crafting/equipment linkage
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
 -> implementation after prerequisite engine/domain gates.
 
 ## Exact continuation
@@ -115,8 +110,8 @@ Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Active non-phone action:
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
 
-That pass must define authoritative material storage/stack identity/quantity/quality/provenance/transfer/save-load semantics from committed harvest results.
+That pass must select exactly one Monster-01-derived recipe/equipment improvement and define deterministic material consumption/output/equip/save-load ownership.
 
 Do not combine it with broad economy, many recipes or production implementation.
