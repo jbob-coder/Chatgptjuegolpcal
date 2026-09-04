@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN THROUGH PERSISTENCE + SPATIAL COORDINATES RECORDED / REGION TRACKING->ENCOUNTER GRAYBOX INTEGRATION NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE PHYSICAL HUNT-01 TRACKING→ENCOUNTER INTEGRATION RECORDED / HUNT-01 GRAYBOX GEOMETRY SPECIFICATION NEXT
 Last reconciled: 2026-09-03
 
 New Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -13,7 +13,7 @@ Playable layers:
 3. first-person turn-based tactical combat at the same physical encounter.
 
 Core loop:
-`PREPARE -> SETTLEMENT -> GATE -> REGION -> TRACK -> ENGAGE -> TARGET ANATOMY -> BREAK/SEVER -> ESCAPE/DEFEAT -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> PHYSICAL SMITH -> CRAFT/EQUIP -> SAVE/RELOAD -> NEXT HUNT`.
+`PREPARE -> SETTLEMENT -> GATE -> REGION -> TRACK -> OBSERVE -> ENGAGE -> TARGET ANATOMY -> BREAK/SEVER -> ESCAPE/DEFEAT -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> PHYSICAL SMITH -> CRAFT/EQUIP -> SAVE/RELOAD -> NEXT HUNT`.
 
 Primary law:
 **documentation exists to keep the game coherent; the game is the objective.**
@@ -35,7 +35,7 @@ Primary law:
 ```text
 docs/
 ├── 00_project/   governance/readiness
-├── 10_world/     spatial framework/settlements/regions
+├── 10_world/     spatial framework/settlements/regions/physical hunt layout
 ├── 20_gameplay/  combat/harvest/inventory/crafting/progression
 ├── 30_content/   hunters/monsters/content packets
 ├── 40_art/       art/reference/model pipeline
@@ -46,17 +46,21 @@ docs/
 
 Global map: `DOCUMENTATION_INDEX.md`.
 
-Spatial front door:
+Shared spatial front door:
 `docs/10_world/spatial/README.md`.
 
-Coordinate registry:
+Major coordinate registry:
 `docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
+
+Region 01 front door:
+`docs/10_world/regions/REGION_01/README.md`.
+
+Current physical Hunt-01 integration:
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`;
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
 
 Settlement 01:
 `docs/10_world/settlements/SETTLEMENT_01/README.md`.
-
-Region 01:
-`docs/10_world/regions/REGION_01/README.md`.
 
 Persistence:
 `docs/50_technical/persistence/README.md`.
@@ -75,62 +79,79 @@ Workflow `33811355891`: SUCCESS for automated Stage-1 lineage.
 Phone blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-## First-slice gameplay chain recorded
+## Recorded game-design chain
 
-Combat design baseline is recorded through Defeat/Retreat.
+Recorded:
+- combat/outcome baseline through Defeat/Retreat;
+- Mudcrest Raker anatomy/attacks/Berserk/behavior/escape/harvest;
+- Harvest -> Recovery Bundle -> Inventory;
+- one Raker-Tendon Grip craft/equip proof;
+- physical Settlement 01 Smith service;
+- schema-1 Persistence safe-point/anti-replay design;
+- shared world dimensions/coordinates;
+- first complete physical Region 01 tracking→encounter→escape/reacquisition proof.
 
-Monster 01 is the Mudcrest Raker:
-~6.6 m nose-to-tail / ~3.0 m shoulder-body height prototype, persistent anatomy/Crystal/Berserk/escape/harvest state.
+No production combat/harvest/Inventory/crafting/Smith/persistence/world runtime is claimed.
 
-Harvest -> Inventory -> one craft/equip proof is recorded.
-
-First recipe:
-`recipe_field_poleblade_raker_tendon_grip`
-= 2 HIGH tail tendon + 2 STANDARD-or-better hide.
-
-Result:
-Raker-Tendon Grip on compatible Field Poleblade; Placed Hew Stamina `18 -> 16` via typed `COST_MODIFIER` only.
-
-Physical Smith service is mapped into Settlement 01.
-
-Persistence baseline is recorded under `docs/50_technical/persistence/` with schema `UHR_SAVE_SCHEMA_1`, slot `save_slot_01`, safe-point snapshots and active-combat anti-duplication rules.
-
-No production combat/harvest/Inventory/crafting/Smith/persistence runtime is claimed.
-
-## Dimensions and coordinates now recorded
+## Current dimensions and coordinates
 
 Measurement:
 `1 world unit = 1 meter`.
 
 World/map axes:
-- +X East;
-- +Y Up;
-- -Z North/outbound wilderness;
-- +Z South/inbound settlement.
++X East / +Y Up / -Z North-outbound / +Z South-inbound.
 
-Major local spaces:
-- `space_settlement_01`;
-- `space_frontier_01`;
-- `space_region_01`.
+Major spaces:
+`space_settlement_01`, `space_frontier_01`, `space_region_01`.
 
-Settlement 01 selected prototype planning envelope:
-`200 m east-west × 260 m north-south`, primary walkable elevation ~0..14 m.
+Settlement 01 prototype:
+- `200 × 260 m` planning envelope;
+- Hunter Gate inner origin `(0,0,0)`;
+- Smith workbench `(-22,3,40)`.
 
-Settlement origin:
-Hunter Gate inner `(0,0,0)`.
-
-Key Smith workbench anchor:
-`(-22,3,40)`.
-
-Frontier transition:
-~80 m centerline from gate to Region handoff.
+Frontier:
+~80 m centerline.
 
 Region 01:
-seven sector-center coordinates now recorded while preserving the canonical topology; connected center distances are ~117–165 m and the deepest center is ~402 m from Region entry.
+- seven sector centers preserving canonical topology;
+- connected center spacing ~117–165 m;
+- deepest center ~402 m from entry.
 
-Four encounter-footprint anchors/envelopes are recorded inside the existing 30–90 m first-slice footprint guidance.
+Monster 01 prototype:
+~6.6 m long / ~3.0 m shoulder-body height.
 
-All unbuilt coordinates are `PROTOTYPE TARGETS`, not runtime/phone-verified production measurements.
+Hunter Base 01:
+1.75 m tall `LOCKED/CURRENT`.
+
+## First physical Hunt-01 proof now recorded
+
+Scenario:
+`R01_HUNT01_M01_TRACK_TO_MEADOW`.
+
+Path:
+`S00 -> S01 River Ford -> S03 Feeding Meadow -> R01_EF02 -> Monster escape toward S05 -> reacquisition`.
+
+Stable Monster:
+`monster_r01_m01_0001`.
+
+Encounter:
+`enc_r01_ef02_m01_0001`.
+
+Seven evidence anchors are recorded. The intended pre-engagement anchor chain is ~253 m straight-line cumulative planning distance; future actual graybox route target is ~260–340 m.
+
+EF02 now has:
+- 10 concrete tactical nodes;
+- legal links ~14.0–18.5 m apart;
+- west boulder cover ~5×4×3 m;
+- scarred tree/root cover;
+- initial Monster anchor `(-18,4,-252)`;
+- initial Hunter node `(-70,4,-238)`;
+- initial range ~54 m;
+- prototype Charge-lane clearance ~48 m long × ~9 m wide;
+- Monster pivot-clearance target ~8 m radius;
+- escape/reacquisition coordinates toward canonical S03→S05 route.
+
+These are `PROTOTYPE TARGETS`, not production/runtime/phone-verified values.
 
 ## Saved visual concept
 
@@ -142,9 +163,9 @@ Visual intent only; repository mechanics/dimensions/coordinates/runtime evidence
 
 ## Exact next bounded action
 
-`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`
 
-This next pass uses the new coordinates to define one physical tracking/evidence route, Monster position/behavior anchors, engagement point, encounter tactical-node plan, escape/reacquisition path and graybox acceptance criteria.
+Next will convert only the recorded S00→S01→S03 + EF02 proof into build-ready primitive geometry dimensions: route widths/grades, terrain patch sizes, evidence marker volumes, cover primitives, Monster-clearance volumes, camera-clearance markers and streaming-boundary proxies.
 
 Implementation action when phone becomes available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.

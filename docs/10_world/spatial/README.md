@@ -1,34 +1,34 @@
 # 10_world/spatial — Coordinate and Dimension Authority
 
-Status: ACTIVE FIRST-SLICE SPATIAL DESIGN PACKAGE / PROTOTYPE COORDINATES RECORDED / NO GRAYBOX IMPLEMENTATION
+Status: ACTIVE FIRST-SLICE SPATIAL DESIGN PACKAGE / MAJOR COORDINATES + HUNT-01 APPLICATION RECORDED / NO GRAYBOX RUNTIME IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Own the shared meter-based spatial reference used to build Settlement 01, its frontier transition, Region 01 and first encounter footprints without allowing individual scenes/assets to invent incompatible scales or coordinates.
+Own the shared meter-based reference used to build Settlement 01, Frontier, Region 01 and encounter footprints without incompatible local scale/axis assumptions.
 
 Primary law:
 
-**All first-slice world geometry is authored against one documented measurement/axis vocabulary, while each major streamed area uses its own stable local coordinate space.**
+**All first-slice world geometry uses one documented measurement/axis vocabulary, while each major streamed area owns a stable local coordinate space.**
 
 ## Local authorities
 
-- `README.md` — this package front door.
-- `FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md` — coordinate-system, origin, dimensional and ownership rules.
-- `FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md` — concrete first-slice prototype spaces, bounds, anchors, sector centers, route anchors and encounter-footprint coordinates.
+- `FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md` — shared coordinate-system/origin/dimension rules;
+- `FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md` — major spaces, Settlement/Frontier/Region sector and footprint coordinates.
 
-## Upstream authorities
+## Region-specific concrete coordinates
 
-- `/WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md` — `1 world unit = 1 meter`, scale ranges and streamed-area architecture.
-- `/MAP_WORLD_SETTLEMENT_STRUCTURE.md` — world hierarchy and encounter continuity.
-- `/FIRST_SETTLEMENT_BLUEPRINT.md` — Settlement 01 physical organization/size ranges.
-- `/docs/10_world/settlements/SETTLEMENT_01/` — local Smith/service application.
-- `/docs/10_world/regions/REGION_01/` — canonical sector topology/terrain/tracking/encounter/streaming rules.
-- `/docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md` — 1.75 m Hunter reference.
-- `/docs/30_content/monsters/MONSTER_01/README.md` — ~6.6 m × ~3.0 m Monster 01 body target.
-- `/docs/50_technical/persistence/` — saved positions consume this framework as `space ID + local position`.
+Content-specific evidence/tactical-node coordinates do not belong in the global registry when they are owned by one Region/hunt proof.
 
-## Selected first-slice spatial model
+Current Region 01 Hunt-01 application:
+- `/docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`;
+- `/docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
+
+This keeps:
+- shared world/sector/footprint coordinates global;
+- hunt-specific evidence, Monster and tactical-node coordinates local to Region 01.
+
+## Selected spatial model
 
 Measurement:
 `1 world unit = 1 meter`.
@@ -36,45 +36,47 @@ Measurement:
 World-map axes:
 - `+X = EAST`;
 - `+Y = UP`;
-- `-Z = NORTH / outbound wilderness direction`;
-- `+Z = SOUTH / settlement-interior direction`.
+- `-Z = NORTH / outbound wilderness`;
+- `+Z = SOUTH / settlement-interior`.
 
-Heading vocabulary:
-- `0° = North (-Z)`;
-- `90° = East (+X)`;
-- `180° = South (+Z)`;
-- `270° = West (-X)`.
-
-The frame is right-handed: `+X × +Y = +Z`.
+Heading:
+0° North / 90° East / 180° South / 270° West.
 
 Major local spaces:
 - `space_settlement_01`;
 - `space_frontier_01`;
 - `space_region_01`.
 
-Each space uses the same axis orientation but an independent local origin. Major transitions map stable source anchors to destination anchors instead of requiring enormous shared coordinates.
+Persistence stores space ID + local XYZ + orientation + stable anchor/sector references.
 
-## Coordinate precision rule
+## Current dimension references
 
-World-layout design coordinates are normally rounded to the nearest meter.
+- Hunter Base 01 = 1.75 m `LOCKED/CURRENT`;
+- Monster 01 = ~6.6 m long / ~3.0 m shoulder-body `PROTOTYPE TARGET`;
+- Settlement 01 = 200×260 m prototype planning envelope;
+- Frontier = ~80 m centerline;
+- Region 01 linked sector centers = ~117–165 m apart;
+- first encounter envelopes = 30–90 m class.
 
-Use decimals only where a real dimensional requirement needs them, such as:
-- Hunter height `1.75 m`;
-- Monster length `6.6 m`.
+Hunt-01 EF02 adds prototype:
+- 10 tactical nodes;
+- legal links ~14.0–18.5 m;
+- boulder ~5×4×3 m;
+- Charge lane ~48×9 m clearance target;
+- Monster pivot-clearance radius ~8 m.
 
-Do not invent centimeter precision for unbuilt graybox landmarks.
+## Precision/status rule
 
-## Status boundary
+Unbuilt layout coordinates are normally rounded to the nearest meter. Decimals are reserved for real dimensional requirements such as Hunter height or Monster length.
 
 `FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
+`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
 `WORLD_SPATIAL_GRAYBOX_IMPLEMENTED = NO`
 `WORLD_SPATIAL_RUNTIME_VERIFIED = NO`
 `SPATIAL_COORDINATES_PHONE_VERIFIED = NO`.
 
-Every coordinate in the registry is a `PROTOTYPE TARGET` unless explicitly labeled `LOCKED/CURRENT`.
-
 ## Exact downstream dependency
 
-`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`
 
-That next pass should use these anchors to specify one coherent graybox pursuit path from Region entry/tracks to a real encounter footprint, Monster escape/reacquisition and return continuity without adding production art or bypassing the Stage-1 phone gate.
+Next should specify build-ready primitive blockout geometry for only S00→S01→S03 + EF02, preserving all current coordinates/topology unless that pass documents a measured design correction.

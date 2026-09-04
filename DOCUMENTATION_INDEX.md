@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN THROUGH SPATIAL COORDINATES RECORDED / REGION TRACKING->ENCOUNTER GRAYBOX INTEGRATION NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / HUNT-01 PHYSICAL TRACKING→ENCOUNTER INTEGRATION RECORDED / GRAYBOX GEOMETRY SPECIFICATION NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -24,19 +24,19 @@ Required answer:
 
 ## Stage-1 engine / Android
 
-Primary authorities:
+Authorities:
 - `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`;
 - `probes/android_stage1/`;
 - `PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
-Current candidate:
-Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS target.
+Candidate:
+Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene target.
 
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## World / spatial authorities
+## World / shared spatial authorities
 
 Root:
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
@@ -49,25 +49,20 @@ World front door:
 Spatial front door:
 `docs/10_world/spatial/README.md`.
 
-Coordinate framework:
+Shared coordinate framework:
 `docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
 
-Coordinate registry:
+Major coordinate registry:
 `docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
 
-Spatial handoff:
-`docs/70_handoff/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_PASS_2026-09-03.md`.
-
-Selected:
+Selected shared facts:
 - 1 unit = 1 meter;
 - +X East / +Y Up / -Z North / +Z South;
 - `space_settlement_01`, `space_frontier_01`, `space_region_01`;
-- Settlement 01 200×260 m prototype planning envelope;
-- concrete service/gate anchors;
-- ~80 m Frontier transition;
+- Settlement 01 200×260 m prototype envelope;
+- Frontier ~80 m;
 - seven Region 01 sector centers + eleven canonical route anchors;
-- four encounter-footprint centers/envelopes;
-- all unbuilt values remain prototype targets.
+- four encounter-footprint centers/envelopes.
 
 ## Settlement 01
 
@@ -78,14 +73,14 @@ Smith service:
 `docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
 
 Smith workbench prototype anchor:
-`space_settlement_01 (-22,3,40) m`.
+`space_settlement_01 (-22,3,40)`.
 
 ## Region 01
 
 Front door:
 `docs/10_world/regions/REGION_01/README.md`.
 
-Detailed owners:
+Reusable Region owners:
 - `REGION_TOPOLOGY.md`;
 - `TRACKING_AND_ESCAPE.md`;
 - `TERRAIN_ECOLOGY_MUTATION.md`;
@@ -93,7 +88,36 @@ Detailed owners:
 - `STREAMING_AND_PERFORMANCE.md`;
 - `ACCEPTANCE_CHECKLIST.md`.
 
-Region coordinates now consume the shared spatial registry; canonical topology remains unchanged.
+### First integrated Hunt-01 proof
+
+Rules:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`.
+
+Concrete spatial registry:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_PASS_2026-09-03.md`.
+
+Proof identity:
+- scenario `R01_HUNT01_M01_TRACK_TO_MEADOW`;
+- Hunt `hunt_r01_m01_proof_01`;
+- Monster `monster_r01_m01_0001`;
+- encounter `enc_r01_ef02_m01_0001`.
+
+Physical chain:
+`S00 -> S01 River Ford -> S03 Feeding Meadow -> EF02 -> Monster escape toward S05 -> reacquisition`.
+
+Recorded concrete layout:
+- 7 evidence anchors;
+- ~253 m intended clue-chain straight cumulative planning distance;
+- future actual route target ~260–340 m;
+- 10 EF02 tactical nodes with ~14.0–18.5 m selected links;
+- initial Hunter/Monster separation ~54 m;
+- two physical cover objects;
+- Charge/pivot/body-force clearance targets;
+- east escape/S05 reacquisition anchors;
+- six save/reload checkpoint applications.
 
 ## Gameplay authorities
 
@@ -120,15 +144,15 @@ Progression:
 Front door:
 `docs/30_content/monsters/MONSTER_01/README.md`.
 
-Mudcrest Raker prototype body:
+Mudcrest Raker prototype:
 ~6.6 m long / ~3.0 m shoulder-body height.
 
 ## Hunter reference
 
 `docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
 
-Locked prototype body height:
-`1.75 m`.
+Locked prototype height:
+1.75 m.
 
 ## Persistence
 
@@ -138,10 +162,7 @@ Front door:
 Authority:
 `docs/50_technical/persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
 
-Handoff:
-`docs/70_handoff/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_PASS_2026-09-03.md`.
-
-Persistence consumes shared spatial `space ID + local XYZ + heading`; it does not redefine coordinates.
+Persistence consumes shared spatial `space ID + local XYZ + heading` and the Hunt-01 stable IDs/positions; it does not redefine geometry.
 
 ## Saved concept image
 
@@ -153,23 +174,24 @@ Visual intent only.
 
 ## Current sequence
 
-Completed design sequence through:
-`Combat -> Monster 01 -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe -> Physical Smith -> Persistence -> World Coordinate/Dimension Framework`.
+Completed design/integration sequence through:
+`Combat -> Monster 01 -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe -> Physical Smith -> Persistence -> World Coordinates/Dimensions -> Region 01 Hunt-01 Tracking→Encounter Integration`.
 
 Current active non-phone action:
-`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION`.
 
-The next pass must consume the coordinate registry to define one real pursuit/engagement/escape chain before broader content expansion.
+That pass must turn the recorded Hunt-01 coordinates into build-ready primitive blockout geometry without expanding to final art/all seven sectors.
 
 ## Documentation placement law
 
 - root README — human front door;
 - `docs/README.md` — placement rules;
 - local package README — local map;
-- world/spatial files — geometry/coordinate ownership;
+- shared spatial files — common world axes/major geometry;
+- Region-specific registries — concrete local hunt/evidence/node coordinates;
 - gameplay files — reusable mechanics;
-- technical persistence files — save/reload ownership;
-- content package — species/hunter configuration;
+- technical persistence — save/reload ownership;
+- content packages — species/hunter configuration;
 - `docs/70_handoff/` — completed-pass continuity;
 - this index — cross-project discovery;
 - `EVOLVE_ALIGNMENT.md` — exact operating/next-action state.
