@@ -66,7 +66,10 @@ def main() -> int:
     check("test verifies exhausted RP rejection and free decline", "Block is rejected when Hunter RP is exhausted" in test and "decline costs 0 RP / 0 Stamina" in test)
     check("test verifies anatomy is unchanged", "reaction prerequisite does not alter Mudcrest anatomy" in test)
     check("runtime README records reaction ownership", "hunt01_reaction_window_runtime.gd" in readme and "out-of-turn" in readme)
-    check("runtime doc states no Monster damage is fabricated", "does not resolve Monster attack damage" in doc)
+    check(
+        "runtime doc keeps Monster damage outside reaction ownership",
+        all(token in doc for token in ("This layer does not resolve:", "- Monster attack damage.", "hostile-action resolver and subsequent Hunter-damage owner")),
+    )
 
     print()
     print(f"Checks: {checks} | Passed: {checks - len(failures)} | Failed: {len(failures)}")
