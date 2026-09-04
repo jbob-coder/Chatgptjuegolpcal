@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / HUNT-01 PHYSICAL INTEGRATION + GRAYBOX GEOMETRY SPECIFICATIONS RECORDED / BUILD MANIFEST + VALIDATION SPECIFICATION NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / HUNT-01 BUILD MANIFEST + VALIDATION CONTRACT RECORDED / STATIC VALIDATOR NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -15,25 +15,12 @@ Required answer:
 1. `EVOLVE_ALIGNMENT.md`
 2. `PROJECT_HANDOFF.md`
 3. `START_HERE_NEW_CHAT.md`
-4. `DOCUMENTATION_INDEX.md`
+4. this index
 5. root `README.md`
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
 8. newest relevant `docs/70_handoff/`
 9. exact owning package/README/source/tests.
-
-## Project governance / reports
-
-Project-governance front door:
-`docs/00_project/README.md`.
-
-Build readiness:
-`docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
-
-Saved requested status report:
-`docs/00_project/PROJECT_STATUS_REPORT_2026-09-03.md`.
-
-The status report is a dated snapshot, not a live operating contract. EVOLVE remains authoritative for exact current action.
 
 ## Stage-1 engine / Android
 
@@ -45,13 +32,17 @@ Authorities:
 Candidate:
 Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene target.
 
-`IMPLEMENTATION_AUTHORIZED = YES` for Stage-1 probe/bounded work.
-
-`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
-
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
+`FINAL_ENGINE_SELECTED = NO`
+`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
+
+## Project status snapshot
+
+User-requested dated report:
+`docs/00_project/PROJECT_STATUS_REPORT_2026-09-03.md`.
+
+Snapshot only; EVOLVE/current owners outrank it.
 
 ## World / shared spatial authorities
 
@@ -75,7 +66,7 @@ Major coordinate registry:
 Selected shared facts:
 - 1 unit = 1 meter;
 - +X East / +Y Up / -Z North / +Z South;
-- `space_settlement_01`, `space_frontier_01`, `space_region_01`;
+- local spaces for Settlement 01, Frontier and Region 01;
 - Settlement 01 200×260 m prototype envelope;
 - Frontier ~80 m;
 - seven Region 01 sector centers + eleven canonical route anchors;
@@ -105,62 +96,63 @@ Reusable Region owners:
 - `STREAMING_AND_PERFORMANCE.md`;
 - `ACCEPTANCE_CHECKLIST.md`.
 
-### Hunt-01 integrated proof
+### Hunt-01 spatial/integration authority
 
 Rules:
 `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`.
 
-Concrete spatial registry:
+Spatial registry:
 `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
 
-Handoff:
-`docs/70_handoff/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_PASS_2026-09-03.md`.
-
-Proof:
-`S00 -> S01 River Ford -> S03 Feeding Meadow -> EF02 -> Monster escape toward S05 -> reacquisition`.
-
-Recorded:
-- stable Hunt/Monster/encounter IDs;
-- seven evidence anchors;
-- 10 tactical nodes;
-- physical cover;
-- Monster clearance targets;
-- escape/reacquisition coordinates;
-- Persistence checkpoint application.
-
-### Hunt-01 graybox geometry
+### Hunt-01 geometry authority
 
 Rules:
 `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`.
 
-Concrete geometry registry:
+Primitive/volume registry:
 `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
 
-Handoff:
-`docs/70_handoff/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_PASS_2026-09-03.md`.
+### Hunt-01 build/validation authority
 
-Selected prototype build targets:
-- smoothed required route 285–315 m;
-- sustained grade <=15%, short <=18%, required step <=0.25 m;
-- S00->S01 player surface >=7 m / required Raker corridor >=9 m;
-- Monster-route overhead >=4.5 m;
-- S01 ford envelope 58×54 m;
-- shallow-water patch 34×18 m, required depth 0.15–0.55 m;
-- wallow mud 16×12 m;
+Human build manifest:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.md`.
+
+Machine build manifest:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
+
+Validation contract:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
+
+Latest pass handoff:
+`docs/70_handoff/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_VALIDATION_PASS_2026-09-03.md`.
+
+## Hunt-01 current construction facts
+
+Proof:
+`S00 -> S01 -> S03 -> R01_EF02 -> escape via S03->S05 -> reacquisition`.
+
+Selected build facts:
+- navigable route target 285–315 m;
+- Ford basin 58×54 m;
+- water 34×18 m, required depth 0.15–0.55 m;
+- wallow 16×12 m;
 - exit mud 20×12 m;
-- S01->S03 hunter corridor >=6 m / Raker corridor >=9 m;
-- EF02 working meadow 70×54 m;
-- observation shelf 16×12 m;
-- observation->N01 ramp 6–7 m / >=3.5 m wide;
-- tactical link corridors >=3.5 m;
+- S01→S03 Raker corridor >=9 m;
+- EF02 working floor 70×54 m;
+- 10 tactical nodes / 14 legal links;
 - boulder 5×4×3 m;
-- tree 1.4 m trunk diameter + 4×3 m root base;
-- Charge lane ~48 m / >=9 m clear;
-- pivot radius 8 m;
+- tree 1.4 m trunk + 4×3 m root base;
+- Charge lane ~48×>=9 m;
+- pivot clearance radius 8 m;
 - escape corridor >=9 m;
-- camera/streaming debug volumes.
+- camera + stream debug proxies.
 
-These remain design/build targets only.
+Build-only ramp control:
+`(-74.0,4.62,-237.5)`.
+
+Not a gameplay/persistence anchor.
+
+Machine manifest records 12 build groups and validation IDs `H01VAL001..030`.
 
 ## Gameplay authorities
 
@@ -205,7 +197,14 @@ Front door:
 Authority:
 `docs/50_technical/persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
 
-Persistence consumes shared spatial `space ID + local XYZ + heading` plus Hunt-01 stable IDs/positions; it does not redefine geometry.
+Persistence consumes spatial identity/position but does not redefine geometry/build-manifest controls.
+
+## Quality / validation
+
+Front door:
+`docs/60_quality/README.md`.
+
+Hunt-01 package validation rules live with the Region manifest. The future executable manifest validator belongs to the quality/test layer and may verify only the MANIFEST_STATIC subset until a scene exists.
 
 ## Saved concept image
 
@@ -217,13 +216,13 @@ Visual intent only.
 
 ## Current sequence
 
-Completed design/integration sequence through:
-`Combat -> Monster 01 -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe -> Physical Smith -> Persistence -> World Coordinates/Dimensions -> Region 01 Hunt-01 Tracking→Encounter Integration -> Hunt-01 Graybox Geometry Specification`.
+Completed design/build-spec sequence through:
+`Combat -> Monster 01 -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe -> Physical Smith -> Persistence -> World Coordinates -> Hunt-01 Integration -> Hunt-01 Geometry -> Hunt-01 Build Manifest + Validation Contract`.
 
 Current active non-phone action:
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.
 
-That pass must turn the dimensioned geometry into an engine-neutral build/scene manifest and explicit validation-data/test ownership without expanding to final art/all seven sectors.
+It must implement engine-independent manifest checks without claiming scene/runtime/device verification.
 
 ## Documentation placement law
 
@@ -231,11 +230,11 @@ That pass must turn the dimensioned geometry into an engine-neutral build/scene 
 - `docs/README.md` — placement rules;
 - local package README — local map;
 - shared spatial files — common world axes/major geometry;
-- Region-specific registries — local hunt/evidence/node/primitive geometry;
+- Region package — Hunt-specific coordinates/geometry/build manifest;
+- `docs/60_quality/` — executable validation/test ownership;
 - gameplay files — reusable mechanics;
 - technical persistence — save/reload ownership;
 - content packages — species/hunter configuration;
-- `docs/70_handoff/` — completed-pass continuity;
-- dated project reports — review snapshots only;
+- `docs/70_handoff/` — bounded-pass continuity;
 - this index — cross-project discovery;
 - `EVOLVE_ALIGNMENT.md` — exact operating/next-action state.

@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / HUNT-01 GRAYBOX GEOMETRY SPECIFIED / BUILD MANIFEST + VALIDATION SPECIFICATION NEXT
+Status: ACTIVE GOVERNANCE / STAGE 1 PHONE GATE DEFERRED / HUNT-01 BUILD MANIFEST + VALIDATION CONTRACT RECORDED / STATIC VALIDATOR NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -25,13 +25,14 @@ Readiness classes:
 | DOMAIN IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | production architecture waits for target-device gate |
 | COMBAT DESIGN | BASELINE RECORDED | nine reusable combat/outcome contracts + Monster 01 packets |
 | HARVEST / INVENTORY / CRAFT / SMITH | BASELINES RECORDED | design chain through physical upgrade service |
-| PERSISTENCE DESIGN | BASELINE RECORDED | schema-1 safe-point snapshot/anti-replay continuity |
+| PERSISTENCE DESIGN | BASELINE RECORDED | schema-1 safe-point/anti-replay continuity |
 | SPATIAL COORDINATE/DIMENSION DESIGN | BASELINE RECORDED | meter frame + Settlement/Frontier/Region coordinates |
-| REGION TRACKING→ENCOUNTER INTEGRATION | RECORDED | one complete S00→S01→S03→EF02→S05 physical proof mapped |
-| HUNT-01 GRAYBOX GEOMETRY | SPECIFICATION RECORDED | route/terrain/cover/Monster/camera/streaming dimensions are build-targeted |
-| HUNT-01 BUILD MANIFEST / VALIDATION | NEXT | map geometry IDs into build/scene groups + validation data/tests |
-| PRODUCTION IMPLEMENTATION | NOT STARTED | prerequisite phone/domain gate remains |
-| VERTICAL SLICE | PARTIAL | build manifest, engine graybox/runtime, and phone verification remain |
+| REGION TRACKING→ENCOUNTER INTEGRATION | RECORDED | complete S00→S01→S03→EF02→S05 proof mapped |
+| HUNT-01 GRAYBOX GEOMETRY SPEC | RECORDED | primitive dimensions/grades/volumes recorded |
+| HUNT-01 BUILD MANIFEST / VALIDATION CONTRACT | RECORDED | human + machine build data and 30 validation rules recorded |
+| HUNT-01 MANIFEST STATIC VALIDATION | NEXT | implement engine-independent validator and run static rule subset |
+| ENGINE GRAYBOX IMPLEMENTATION | BLOCKED BY ENGINE PHONE GATE | do not create production world scene before gate changes |
+| VERTICAL SLICE | PARTIAL | validator + graybox/runtime/phone verification remain |
 
 ## Engine/device truth
 
@@ -43,10 +44,6 @@ Workflow `33811355891`: SUCCESS for automated Stage-1 protocol lineage.
 Verified automated evidence:
 154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; Godot parse/smoke PASS; Android export/APK integrity/artifact upload PASS.
 
-`IMPLEMENTATION_AUTHORIZED = YES` for current Stage-1 probe/bounded work.
-
-`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
-
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
@@ -54,97 +51,74 @@ Verified automated evidence:
 Blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-## Recorded first-slice chain
+Important distinction:
+`IMPLEMENTATION_AUTHORIZED = YES` for bounded Stage-1 probe/design/specification/QA work.
 
-Recorded:
-- combat baseline through Defeat/Retreat;
-- Monster 01 anatomy/attacks/Berserk/behavior/escape/harvest;
-- Harvest/Inventory/one craft/equip proof;
-- Settlement 01 physical Smith service;
-- Persistence schema-1 safe-point/anti-replay design;
-- shared world coordinate/dimension framework;
-- first complete Region 01 tracking→encounter→escape/reacquisition integration;
-- Hunt-01 primitive graybox geometry specification/registry.
+`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
 
-## Spatial baseline
+## Hunt-01 build readiness chain
 
-Shared authorities:
-- `docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`;
-- `docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
+Current authorities:
+- spatial registry;
+- geometry specification;
+- geometry registry;
+- build manifest Markdown;
+- build manifest JSON;
+- validation specification.
 
-Selected:
-- `1 world unit = 1 meter`;
-- +X East / +Y Up / -Z North / +Z South;
-- local spaces for Settlement 01, Frontier and Region 01;
-- Settlement 01 200×260 m prototype plan;
-- Frontier ~80 m;
-- Region sector centers ~117–165 m apart;
-- deepest Region center ~402 m from entry.
+The machine manifest contains:
+- stable proof identities;
+- meter/axis/space metadata;
+- 12 build groups;
+- physical terrain/corridor/cover entries;
+- 7 evidence placements;
+- 10 tactical nodes;
+- 14 legal links;
+- Monster pivot/body-force/Charge clearances;
+- escape corridor;
+- camera clearances;
+- 3 stream proxies;
+- allowed terrain tags;
+- `H01VAL001..030` rule references.
 
-## Hunt-01 integration baseline
+New build-only controls:
+- observation ramp midpoint `(-74.0,4.62,-237.5)`;
+- nominal west-brush placement `(-74,4,-250)`.
 
-Rules:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`.
+Both are explicitly non-gameplay build controls.
 
-Spatial registry:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
+## Validation levels
 
-Proof:
-`S00 -> S01 -> S03 -> R01_EF02 -> escape via S03->S05 -> reacquisition`.
+`MANIFEST_STATIC`
+can run before any engine scene.
 
-`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`.
+`SCENE_STATIC_FUTURE`
+requires actual graybox scene measurements.
 
-## Hunt-01 geometry baseline
+`RUNTIME_FUTURE`
+requires traversal/encounter execution.
 
-Rules:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`.
+`PHONE_FUTURE`
+requires direct target-device evidence.
 
-Geometry registry:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
+No lower level can promote a higher-level PASS.
 
-Selected prototype build targets:
-- smoothed route 285–315 m;
-- sustained required-route grade <=15%; short <=18%; step <=0.25 m;
-- S00->S01 primary surface >=7 m / required Raker corridor >=9 m;
-- Monster-route overhead >=4.5 m;
-- S01 ford envelope 58×54 m;
-- shallow water 34×18 m at 0.15–0.55 m required depth;
-- wallow mud 16×12 m;
-- exit mud 20×12 m;
-- S01->S03 hunter corridor >=6 m / Raker corridor >=9 m;
-- two visibility-break geometry targets;
-- EF02 Meadow working floor 70×54 m;
-- observation shelf 16×12 m;
-- observation->N01 ramp 6–7 m / >=3.5 m wide;
-- tactical-node link corridors >=3.5 m;
-- boulder 5×4×3 m;
-- tree trunk 1.4 m + root base 4×3 m;
-- Charge lane ~48 m / >=9 m clear;
-- Monster pivot radius 8 m;
-- escape corridor >=9 m;
-- camera and streaming debug volumes.
+## Next validator minimum
 
-These values are design/build targets. They do not mean the world graybox exists.
+Exact next bounded piece:
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_REGISTRY_RECORDED = YES`
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
-`WORLD_SPATIAL_RUNTIME_VERIFIED = NO`.
+Minimum rules to implement/run:
+`H01VAL001,002,003,004,012,013,014,021,024,025,026,027,030`.
 
-## Exact next bounded piece
+Required informational calculations:
+- entry/group counts;
+- tactical-link recomputed distances;
+- ramp path length and segment grades;
+- route target metadata;
+- stable coordinate-copy comparisons.
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`
-
-It should define only the build/test handoff for the dimensioned proof:
-1. engine-neutral scene/build groups for S00->S01->S03 + EF02 + escape stub;
-2. stable primitive IDs/parent ownership;
-3. solid/non-solid/debug/camera/stream classifications;
-4. terrain-tag binding points;
-5. evidence/tactical-node/Monster/camera/proxy binding points;
-6. machine-readable validation-data fields;
-7. static validation/check ownership;
-8. build order and acceptance outputs;
-9. no final art, no all-seven-sector expansion, no production gameplay runtime, no phone PASS.
+The validator should fail non-zero on ERROR and must state that scene/runtime/phone rules were NOT EXECUTED.
 
 ## Current exact state
 
@@ -152,6 +126,7 @@ It should define only the build/test handoff for the dimensioned proof:
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
+`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
@@ -161,8 +136,11 @@ It should define only the build/test handoff for the dimensioned proof:
 `FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
 `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
 `FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
-`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_RECORDED = YES`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION_RECORDED = YES`
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VALIDATOR_IMPLEMENTED = NO`
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = NO`
+`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`.
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.

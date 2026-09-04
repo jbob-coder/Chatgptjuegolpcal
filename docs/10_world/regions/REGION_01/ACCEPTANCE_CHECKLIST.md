@@ -1,23 +1,17 @@
 # REGION_01 — Acceptance Checklist
 
-Status: DESIGN/PROTOTYPE GATES / HUNT-01 GEOMETRY SPECIFIED / NO ENGINE GRAYBOX IMPLEMENTATION
+Status: DESIGN/BUILD-SPEC GATES / HUNT-01 MANIFEST + VALIDATION CONTRACT RECORDED / ENGINE GRAYBOX NOT STARTED
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Prevent Region 01 from being called complete because documentation, coordinates or terrain art exists.
+Prevent Region 01 from being called complete because documents, coordinates or terrain art exist.
 
-The region advances through explicit gates.
-
-Important current distinction:
-- `IMPLEMENTATION_AUTHORIZED = YES` for current Stage-1 probe/bounded work;
-- `PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`;
-- `FINAL_ENGINE_SELECTED = NO`;
-- no Region runtime/phone/performance PASS exists.
+The Region advances through explicit evidence gates.
 
 ## Gate A — Documentation coherence
 
-Required before region design is called `DESIGNED`:
+Required before Region design is called `DESIGNED`:
 - [x] package README exists;
 - [x] sector topology exists;
 - [x] terrain/ecology/mutation application exists;
@@ -25,155 +19,169 @@ Required before region design is called `DESIGNED`:
 - [x] encounter-footprint requirements exist;
 - [x] streaming/performance plan exists;
 - [x] visual-reference plan exists;
-- [x] selected vs prototype vs open decisions are distinguished;
+- [x] selected/prototype/open decisions are distinguished;
 - [x] package states what it does not own;
-- [x] shared spatial coordinate/dimension framework recorded;
-- [x] Hunt-01 tracking->encounter integration recorded;
-- [x] Hunt-01 graybox geometry specification/registry recorded;
-- [x] root README/index/handoff/startup references reconciled and read back.
+- [x] root README/index/handoff/startup references reconciled.
 
-**Gate A status: PASS — Region 01 is DESIGNED at the documentation/geometry-specification level only.**
-
-This does not imply engine graybox, production implementation, phone runtime or performance verification.
+**Gate A: PASS — documentation-level Region design only.**
 
 ## Gate B0 — Hunt-01 build specification readiness
 
-Before an engine Hunt-01 graybox build begins:
-- [x] Hunt-01 route/evidence/Monster/tactical-node coordinates recorded;
-- [x] required route width/grade/step targets recorded;
+This gate can pass before engine scene construction.
+
+Required:
+- [x] first physical Hunt-01 route selected;
+- [x] stable evidence/Monster/node coordinates recorded;
+- [x] required route length target recorded;
+- [x] route width/grade/step targets recorded;
 - [x] River Ford water/mud/bank dimensions recorded;
-- [x] S01->S03 ascent/visibility-break dimensions recorded;
-- [x] EF02 meadow/observation dimensions recorded;
-- [x] tactical-node marker/link-clearance targets recorded;
-- [x] boulder/tree primitive dimensions recorded;
-- [x] Charge/pivot/body-force/escape clearance volumes recorded;
-- [x] camera/streaming debug volumes recorded;
-- [ ] engine-neutral build manifest/scene grouping recorded;
-- [ ] machine-readable/static validation ownership recorded.
+- [x] Meadow/observation dimensions recorded;
+- [x] physical cover primitives/tolerances recorded;
+- [x] Monster Charge/pivot/body-force/escape clearances recorded;
+- [x] camera clearance debug volumes recorded;
+- [x] streaming proxy volumes recorded;
+- [x] engine-neutral build hierarchy recorded;
+- [x] machine-readable build manifest recorded;
+- [x] explicit validation rules recorded;
+- [x] build-only coordinates distinguished from stable gameplay coordinates.
 
-Current B0 next dependency:
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.
+**Gate B0: PASS — build specification ready for manifest static validation.**
 
-## Gate B — Graybox topology / geometry implementation
+This does not imply a scene exists.
 
-Required after the implementation gate permits the relevant engine/world slice:
-- [ ] Hunt-01 S00->S01->S03 + EF02 primitive geometry actually built;
-- [ ] Hunt-01 required route measures within approved range or revision is recorded;
-- [ ] required-route grades/steps measured against geometry specification;
-- [ ] River Ford water/mud/dry-bank geometry measured;
-- [ ] S01->S03 route/visibility breaks physically built;
-- [ ] EF02 tactical nodes/links physically reachable;
-- [ ] boulder/tree cover lines physically validated;
-- [ ] large Monster proxy crosses required Hunt-01 routes;
-- [ ] Charge/pivot/escape clearances measured;
-- [ ] no Hunt-01 accidental dead-end/softlock;
-- [ ] camera transition clearance measured;
-- [ ] streaming debug proxies carry no gameplay collision.
+## Gate B1 — Manifest static validation
 
-Broader Region graybox later still requires:
-- [ ] all seven prototype sectors physically grayboxed;
-- [ ] every canonical adjacency exists;
-- [ ] every intended route traversable both directions;
-- [ ] field camp and gate arrival read clearly;
-- [ ] region never appears as one fully visible board from normal camera;
-- [ ] landmarks orient player without mandatory permanent waypoint;
-- [ ] sector boundaries do not create visible teleport/reset.
+Required before the manifest is called statically verified:
+- [ ] executable validator exists;
+- [ ] schema/identity passes;
+- [ ] build IDs unique;
+- [ ] group refs valid/no cycles;
+- [ ] stable coordinate copies match source owner;
+- [ ] evidence containment passes;
+- [ ] N01–N10 bounds pass;
+- [ ] 14 link distances recompute within tolerance;
+- [ ] stream proxies are classified non-colliding;
+- [ ] terrain tags are valid;
+- [ ] debug entries have no gameplay authority;
+- [ ] build-only controls remain non-authoritative;
+- [ ] required manifest families/counts present;
+- [ ] validator reports scene/runtime/phone checks NOT EXECUTED.
+
+**Gate B1: NEXT / NOT EXECUTED.**
+
+## Gate B — Graybox topology
+
+Required after production engine/world implementation gate permits a real scene:
+- [ ] Hunt-01 required S00→S01→S03 route physically grayboxed first;
+- [ ] route measured 285–315 m after smoothing or approved correction recorded;
+- [ ] required route slopes/steps pass;
+- [ ] S02 wrong-route mouth remains physically usable;
+- [ ] Ford water/mud/banks match build targets;
+- [ ] S01→S03 Raker corridor fits;
+- [ ] EF02 floor/observation ramp exists;
+- [ ] 10 tactical nodes physically reachable through recorded links;
+- [ ] boulder/tree relationships pass;
+- [ ] Charge/pivot/body-force/escape clearances pass;
+- [ ] camera-clearance checks pass;
+- [ ] stream debug proxies exist without gameplay collision;
+- [ ] no accidental dead-end/softlock;
+- [ ] no visible teleport/reset at sector boundaries.
+
+Full seven-sector graybox remains a later Region gate; first-slice Hunt-01 proof comes first.
 
 ## Gate C — Tracking/persistent hunt
 
-- [ ] evidence types can be placed/rendered in representative sectors;
-- [ ] evidence age/cleanup is bounded;
-- [ ] persistent Monster crosses at least two sector boundaries;
-- [ ] same instance ID/state survives crossing;
-- [ ] encounter escape returns same injured Monster to Region;
-- [ ] player can reacquire through valid evidence/knowledge path;
-- [ ] no duplicate Monster at old/new location;
-- [ ] severed/broken anatomy persists;
-- [ ] Crystal Energy/condition persists;
-- [ ] save/reload behavior runtime-tested.
+- [ ] evidence types can be rendered/inspected;
+- [ ] evidence age/cleanup bounded;
+- [ ] same persistent Monster crosses required sector boundaries;
+- [ ] encounter escape returns same injured Monster;
+- [ ] reacquisition through valid evidence/knowledge path;
+- [ ] no duplicate Monster;
+- [ ] anatomy/Core/Berserk state persists;
+- [ ] save/reload tested at defined checkpoints.
 
 ## Gate D — Terrain/effect interaction
 
 - [ ] mud/water uses shared terrain/effect pipeline;
 - [ ] root/cover geometry affects visibility/tactics through approved systems;
-- [ ] rocky elevation is readable and does not become platforming friction;
-- [ ] open meadow provides meaningfully different approach/combat behavior;
-- [ ] no sector requires a private one-off stat formula;
-- [ ] terrain effect calculations traceable in Admin/debug tools.
+- [ ] open meadow produces meaningfully different approach/combat;
+- [ ] no private one-off terrain formula;
+- [ ] terrain effects are traceable in debug tooling.
 
 ## Gate E — Encounter continuity
 
-At least three graybox footprints must eventually pass:
-- [ ] River Ford;
-- [ ] Meadow Edge;
-- [ ] Root/Boulder or Deep Nest.
-
-For each:
+For the first EF02 proof:
 - [ ] aerial engagement location matches first-person context;
-- [ ] camera descent avoids severe clipping;
-- [ ] target anatomy remains readable;
-- [ ] cover/elevation/terrain remain coherent;
-- [ ] player tactical nodes legal/reachable;
-- [ ] Monster proxy fits/moves without invalid clipping;
-- [ ] escape route maps back to correct Region route;
-- [ ] return to exploration reconstructs correct world location/state.
+- [ ] camera descent avoids clipping;
+- [ ] target anatomy readable;
+- [ ] cover/elevation/terrain coherent;
+- [ ] tactical nodes legal/reachable;
+- [ ] Monster proxy fits/moves;
+- [ ] escape maps to correct Region route;
+- [ ] return to exploration reconstructs correct location/state.
+
+Later expansion still requires additional footprint proofs.
 
 ## Gate F — Streaming robustness
 
-- [ ] normal S00↔S01↔S03 transitions produce no loading screen;
-- [ ] current/neighbor/logical fidelity state visible in debug overlay;
-- [ ] sector border hysteresis prevents load thrashing;
-- [ ] persistent Monster does not disappear when representation demotes;
-- [ ] active-hunt destination gets preload priority;
-- [ ] repeated loop traversal shows no unbounded memory growth;
-- [ ] artificial slow-stream mode does not duplicate/corrupt actors;
-- [ ] major hitches recorded/root-caused.
+- [ ] normal boundary crossing produces no loading screen where intended;
+- [ ] fidelity state visible in debug overlay;
+- [ ] hysteresis prevents thrashing;
+- [ ] persistent Monster never disappears due presentation demotion;
+- [ ] active-hunt destination preload priority works;
+- [ ] repeated traversal shows no unbounded memory growth;
+- [ ] slow-stream test does not duplicate/corrupt actors.
 
 ## Gate G — Android performance
 
-Do not mark until target-device evidence exists.
+Do not mark until direct selected-target-device evidence exists.
 
-- [ ] cold entry from settlement gate measured;
-- [ ] Region traversal frame pacing measured;
+- [ ] cold Region entry measured;
+- [ ] traversal frame pacing measured;
 - [ ] S01 water/mud stress measured;
-- [ ] S05 foliage/occlusion stress measured;
-- [ ] S04 long-sightline LOD stress measured;
+- [ ] S05 foliage stress measured later;
 - [ ] first-person promotion measured;
-- [ ] memory peak/residency measured;
-- [ ] thermal behavior sampled over representative hunt;
-- [ ] suspend/resume tested in Region/encounter;
-- [ ] no crash/ANR under representative loop.
+- [ ] memory/thermal/suspend-resume measured;
+- [ ] no crash/ANR over representative loop.
 
-Only then can Region 01 use `PERFORMANCE_VERIFIED`.
+Only then can `PERFORMANCE_VERIFIED` be used.
 
 ## Gate H — Visual quality
 
-- [ ] player silhouette readable from aerial camera;
-- [ ] first Monster silhouette/anatomy readable at intended distances;
-- [ ] tracks/signs visible without excessive glow;
-- [ ] sector identities visually distinct but ecologically coherent;
-- [ ] full Region not exposed during normal play;
-- [ ] first-person view holds up with representative assets;
-- [ ] LOD transitions preserve gameplay-relevant forms;
-- [ ] Settlement-to-Region visual handoff coherent.
+- [ ] Hunter silhouette readable aerially;
+- [ ] Monster silhouette/anatomy readable;
+- [ ] evidence visible without excessive glow;
+- [ ] sector identities coherent/distinct;
+- [ ] first-person representation holds up;
+- [ ] LOD preserves gameplay forms.
 
 ## Gate I — Content expansion permission
 
-Do not add many monsters/resources/side systems until:
-- [ ] one primary hunt works through camp -> track -> encounter -> escape/kill -> harvest/return;
-- [ ] Region 01 hosts the first Monster without special-case architecture;
-- [ ] second route/footprint works without rewriting Region architecture;
-- [ ] performance headroom exists on target Android.
+Do not add broad content until:
+- [ ] one primary hunt works camp→track→encounter→escape/kill→harvest/return;
+- [ ] Region hosts Monster 01 without special-case architecture;
+- [ ] second route/footprint works without rewriting foundations;
+- [ ] target Android performance headroom exists.
+
+## Current authorization distinction
+
+`IMPLEMENTATION_AUTHORIZED = YES`
+for bounded Stage-1 probe/design/specification/QA work.
+
+`PRODUCTION_REGION_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
+
+Do not collapse these into one ambiguous yes/no statement.
 
 ## Current status
 
 `DOCUMENTATION_PACKAGE = WRITTEN`
-`ROOT_CONTINUITY_RECONCILIATION = COMPLETE`
-`REGION_01_DESIGNED = YES / DOCUMENTATION_LEVEL`
-`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
-`HUNT01_BUILD_MANIFEST_VALIDATION_SPECIFICATION = NEXT`
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
-`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`
+`REGION_01_DESIGNED = YES / DOCUMENTATION+BUILD-SPEC LEVEL`
+`HUNT01_BUILD_SPEC_GATE_B0 = PASS`
+`HUNT01_MANIFEST_STATIC_GATE_B1 = NOT_EXECUTED`
+`HUNT01_GRAYBOX = NOT_STARTED`
+`REGION_01_RUNTIME_IMPLEMENTED = NO`
 `PHONE_RUNTIME_VERIFIED = NO`
 `PERFORMANCE_VERIFIED = NO`.
+
+Exact next:
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.

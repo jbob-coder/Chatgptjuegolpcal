@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: STAGE 1 PHONE GATE DEFERRED / HUNT-01 TRACKING→ENCOUNTER + GRAYBOX GEOMETRY SPECIFICATIONS RECORDED / BUILD MANIFEST + VALIDATION SPECIFICATION NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / HUNT-01 PHYSICAL GEOMETRY + BUILD MANIFEST + VALIDATION CONTRACT RECORDED / STATIC MANIFEST VALIDATOR NEXT
 Last reconciled: 2026-09-03
 
 New Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -10,7 +10,7 @@ New Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned an
 Playable layers:
 1. walkable Settlement 01;
 2. aerial Region 01 tracking/exploration;
-3. first-person turn-based tactical combat at the same physical encounter.
+3. first-person turn-based tactical combat at the same physical world location.
 
 Core loop:
 `PREPARE -> SETTLEMENT -> GATE -> REGION -> TRACK -> OBSERVE -> ENGAGE -> TARGET ANATOMY -> BREAK/SEVER -> ESCAPE/DEFEAT -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> PHYSICAL SMITH -> CRAFT/EQUIP -> SAVE/RELOAD -> NEXT HUNT`.
@@ -30,75 +30,50 @@ Primary law:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-Current repository/source/build/device evidence outranks old chat memory.
+Current repository/source/build/device evidence outranks chat memory.
 
 ## Where is what
 
 ```text
 docs/
 ├── 00_project/   governance/readiness/status snapshots
-├── 10_world/     spatial framework/settlements/regions/physical hunt geometry
+├── 10_world/     spatial framework/settlements/regions/graybox build data
 ├── 20_gameplay/  combat/harvest/inventory/crafting/progression
 ├── 30_content/   hunters/monsters/content packets
 ├── 40_art/       art/reference/model pipeline
 ├── 50_technical/ engine/Android/persistence
-├── 60_quality/   QA/performance/testing
+├── 60_quality/   QA/validation/performance/debug
 └── 70_handoff/   bounded-pass continuity
 ```
 
-Global map:
-`DOCUMENTATION_INDEX.md`.
+Global map: `DOCUMENTATION_INDEX.md`.
 
-Saved project status report:
-`docs/00_project/PROJECT_STATUS_REPORT_2026-09-03.md`.
-
-That report is a dated snapshot. `EVOLVE_ALIGNMENT.md` remains the live current-action authority.
-
-Shared spatial front door:
-`docs/10_world/spatial/README.md`.
-
-Major coordinate registry:
-`docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
-
-Region 01 front door:
-`docs/10_world/regions/REGION_01/README.md`.
-
-Current Hunt-01 authorities:
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`;
+Region 01 current build authorities:
 - `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`;
 - `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
-
-Settlement 01:
-`docs/10_world/settlements/SETTLEMENT_01/README.md`.
-
-Persistence:
-`docs/50_technical/persistence/README.md`.
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`;
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.md`;
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`;
+- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
 
 ## Engine / Android truth
 
 Candidate:
 Godot 4.7 family / CI 4.7.2 stable / GDScript / GL Compatibility/OpenGL3 / Galaxy A03s / stable 30 FPS representative-scene minimum.
 
-Workflow `33811355891`: SUCCESS for automated Stage-1 lineage.
-
-Verified automated evidence includes:
-154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; Godot parse/smoke PASS; Android export/APK integrity/artifact upload PASS.
+Automated Stage-1 lineage remains successful through workflow `33811355891`.
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
+`FINAL_ENGINE_SELECTED = NO`
+`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
 
 Phone blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-Implementation distinction:
-- bounded Stage-1 probe/design work is authorized;
-- production domain implementation remains blocked by the unresolved engine-phone gate.
+## Recorded game-design/build chain
 
-## Recorded game-design chain
-
-Recorded:
+Recorded at design/build-spec level:
 - combat/outcome baseline through Defeat/Retreat;
 - Mudcrest Raker anatomy/attacks/Berserk/behavior/escape/harvest;
 - Harvest -> Recovery Bundle -> Inventory;
@@ -106,90 +81,71 @@ Recorded:
 - physical Settlement 01 Smith service;
 - schema-1 Persistence safe-point/anti-replay design;
 - shared world dimensions/coordinates;
-- first complete physical Region 01 tracking→encounter→escape/reacquisition proof;
-- first Hunt-01 primitive graybox geometry specification.
+- first complete Region 01 tracking→encounter→escape/reacquisition proof;
+- first Hunt-01 geometry specification/registry;
+- engine-neutral Hunt-01 build manifest + JSON + validation contract.
 
-No production combat/harvest/Inventory/crafting/Smith/persistence/world runtime is claimed.
+No production combat/world runtime is claimed.
 
 ## Current dimensions and coordinates
 
 Measurement:
 `1 world unit = 1 meter`.
 
-World/map axes:
+Axes:
 +X East / +Y Up / -Z North-outbound / +Z South-inbound.
 
-Major spaces:
-`space_settlement_01`, `space_frontier_01`, `space_region_01`.
-
-Settlement 01 prototype:
-- `200 × 260 m` planning envelope;
-- Hunter Gate inner origin `(0,0,0)`;
+Settlement 01:
+- 200×260 m prototype envelope;
+- Hunter Gate inner `(0,0,0)`;
 - Smith workbench `(-22,3,40)`.
 
 Frontier:
 ~80 m centerline.
 
 Region 01:
-- seven sector centers preserving canonical topology;
-- connected center spacing ~117–165 m;
-- deepest center ~402 m from entry.
+seven sector centers, connected spacing ~117–165 m, deepest center ~402 m from entry.
 
-Hunter Base 01:
-1.75 m tall `LOCKED/CURRENT`.
+Hunt-01 required route:
+- geometry control polyline ~279 m before final ramp smoothing;
+- selected navigable target 285–315 m;
+- normal sustained grade <=15%; short <=18%; required step <=0.25 m.
 
-Monster 01:
-~6.6 m long / ~3.0 m shoulder-body height prototype.
+River Ford:
+- working envelope 58×54 m;
+- water 34×18 m at 0.15–0.55 m required depth;
+- wallow 16×12 m;
+- exit mud 20×12 m.
 
-## Hunt-01 physical proof
+EF02 Meadow:
+- 70×54 m working floor inside existing 76×60 m footprint;
+- open core ~48×34 m;
+- observation shelf 16×12 m;
+- 10 tactical nodes;
+- boulder 5×4×3 m;
+- tree trunk 1.4 m diameter / root base 4×3 m;
+- Charge clear corridor ~48 m × >=9 m;
+- Monster pivot clearance 8 m radius.
 
-Scenario:
-`R01_HUNT01_M01_TRACK_TO_MEADOW`.
+Build-only observation-ramp control:
+`(-74.0,4.62,-237.5)`.
 
-Path:
-`S00 -> S01 River Ford -> S03 Feeding Meadow -> R01_EF02 -> Monster escape toward S05 -> reacquisition`.
+It is explicitly not a gameplay/persistence anchor.
 
-Stable Monster:
-`monster_r01_m01_0001`.
+## Machine-readable build manifest
 
-Encounter:
-`enc_r01_ef02_m01_0001`.
+The first Hunt-01 machine manifest records:
+- stable proof identities;
+- 12 build groups;
+- physical build entries;
+- 7 evidence placements;
+- 10 tactical nodes;
+- 14 tactical links;
+- Monster/camera/streaming clearances;
+- allowed terrain tags;
+- validation IDs `H01VAL001..030`.
 
-Recorded spatial integration:
-- 7 evidence anchors;
-- 10 EF02 tactical nodes;
-- physical boulder/tree cover;
-- Monster Charge/pivot/body-force clearances;
-- east escape/S05 reacquisition anchors;
-- six Persistence checkpoint applications.
-
-## Hunt-01 graybox geometry now specified
-
-Selected build targets:
-- smoothed required S00->N01 route `285–315 m`;
-- normal sustained required-route grade `<=15%`;
-- short transition `<=18%`;
-- required step/ledge `<=0.25 m`;
-- primary S00->S01 route >=7 m / required Raker corridor >=9 m;
-- Monster-route overhead >=4.5 m;
-- S01 ford working envelope `58×54 m`;
-- shallow-water patch `34×18 m`, required depth `0.15–0.55 m`;
-- wallow mud `16×12 m`;
-- exit mud `20×12 m`;
-- S01->S03 hunter corridor >=6 m / Raker corridor >=9 m;
-- EF02 Meadow working floor `70×54 m`;
-- observation shelf `16×12 m`;
-- observation->N01 curved ramp `6–7 m` long / >=3.5 m wide;
-- tactical-node link corridors >=3.5 m;
-- boulder `5×4×3 m`;
-- scarred-tree trunk `1.4 m` diameter + `4×3 m` root base;
-- Charge lane ~48 m long / >=9 m solid-free width;
-- pivot clear radius 8 m;
-- escape/S05 staging corridor >=9 m;
-- camera descent/sight debug volumes;
-- three streaming/grace debug proxy volumes.
-
-These remain `PROTOTYPE BUILD TARGETS`, not runtime/phone verification or final collider/range laws.
+Manifest static validation is not yet implemented or PASS.
 
 ## Saved visual concept
 
@@ -197,13 +153,13 @@ Google Drive folder `Unnamed Hunt RPG`:
 `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`
 Drive file ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
 
-Visual intent only; repository mechanics/dimensions/coordinates/runtime evidence outrank the image.
+Visual intent only.
 
 ## Exact next bounded action
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`
 
-Next will translate the now-dimensioned Hunt-01 geometry IDs into an engine-neutral build/scene manifest and explicit validation-data/test ownership. It must not create final art or claim production runtime/phone verification while the engine-phone/domain gate remains unresolved.
+Next will implement the engine-independent MANIFEST_STATIC rule subset over the JSON manifest and source-coordinate invariants. It may produce manifest PASS/FAIL evidence only; it cannot claim scene/runtime/phone verification.
 
 Implementation action when phone becomes available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.

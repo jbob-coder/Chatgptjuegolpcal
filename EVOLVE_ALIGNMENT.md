@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / HUNT-01 TRACKING→ENCOUNTER + GRAYBOX GEOMETRY SPECIFICATIONS RECORDED / BUILD MANIFEST + VALIDATION SPECIFICATION NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / HUNT-01 BUILD MANIFEST + VALIDATION CONTRACT RECORDED / STATIC MANIFEST VALIDATOR NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
@@ -19,7 +19,9 @@ Current repository/source/build/device evidence outranks chat memory.
 
 The game is the objective.
 
-Documentation exists to preserve intent, ownership, dependencies, implementation readiness, verification evidence, continuity and exact next action. Do not create documentation with no game/design/implementation/QA/continuity consumer.
+Documentation/data/tests exist to preserve intent, ownership, dependencies, dimensions, coordinates, implementation readiness, verification evidence, continuity and exact next action.
+
+Do not create paperwork with no game/design/implementation/QA/continuity consumer.
 
 ## Authority order
 
@@ -67,7 +69,7 @@ Every substantial durable piece must answer:
 `WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 Use:
-- root README — game/human front door;
+- root README — human/game front door;
 - `docs/README.md` — placement rules;
 - local README — package map;
 - `DOCUMENTATION_INDEX.md` — global discovery;
@@ -76,14 +78,6 @@ Use:
 - this file — exact operating/next-action state.
 
 Dated status reports are snapshots only and never outrank this file or owning authorities.
-
-## Saved project report
-
-User-requested report:
-`docs/00_project/PROJECT_STATUS_REPORT_2026-09-03.md`.
-
-Classification:
-`DATED_REVIEW_SNAPSHOT / NOT_LIVE_OPERATING_AUTHORITY`.
 
 ## Stage-1 engine/device truth
 
@@ -122,228 +116,175 @@ Phone evidence remains deferred:
 Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
-Implementation action when phone is available:
+Implementation action when phone becomes available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Important distinction:
 `PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
 
-Stage-1 bounded probe/design/specification work remains authorized and continues independently.
+Bounded probe/design/specification/QA work remains authorized and continues independently.
 
-## Recorded first-slice game-design chain
+## Recorded first-slice game chain
 
-Combat:
-nine reusable first-slice combat/outcome authorities through Defeat/Retreat.
+Recorded at design/build-spec level:
+- nine reusable combat/outcome authorities through Defeat/Retreat;
+- Mudcrest Raker anatomy/attacks/Berserk/behavior/escape/harvest;
+- finite Harvest + Inventory/Recovery Bundle conservation;
+- one Raker-Tendon Grip craft/equip proof;
+- physical Settlement 01 Smith service;
+- Persistence schema-1 safe-point/anti-replay design;
+- shared world dimensions/coordinates;
+- one complete Region 01 Hunt-01 tracking→encounter→escape/reacquisition proof;
+- Hunt-01 graybox geometry specification + registry;
+- Hunt-01 build manifest Markdown + machine JSON + validation contract.
 
-Monster 01:
-Mudcrest Raker anatomy/attacks/Berserk/deterministic Region behavior/escape-reacquisition/harvest packet.
+No production gameplay/world runtime is claimed.
 
-Harvest:
-finite physical capacity/condition/quality/depletion.
-
-Inventory:
-Recovery Bundles + `PLAYER_FIELD_INVENTORY` + provenance/transaction conservation.
-
-Craft/equip:
-`recipe_field_poleblade_raker_tendon_grip`
-consumes 2 HIGH tail tendon + 2 STANDARD-or-better hide and applies one Field Poleblade refinement.
-
-Effect:
-Placed Hew Stamina 18 -> 16 through typed `COST_MODIFIER` only.
-
-Settlement Smith:
-physical Settlement 01 workbench on Hunter Service Loop; normal essential service independent of one NPC schedule.
-
-Persistence:
-`UHR_SAVE_SCHEMA_1`, version 1, `save_slot_01`, safe-point committed snapshots, active-combat exact scheduler state, transaction anti-replay, same Monster/material/refinement identity after reload.
-
-No production runtime implementation is claimed for these gameplay domains.
-
-## Shared world coordinate / dimension baseline — RECORDED
-
-Front door:
-`docs/10_world/spatial/README.md`.
-
-Framework:
-`docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
-
-Major registry:
-`docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
+## Shared spatial baseline
 
 Measurement:
 `1 world unit = 1 meter`.
 
-World/map axes:
-- +X East;
-- +Y Up;
-- -Z North / outbound wilderness;
-- +Z South / settlement-inbound.
-
-Heading:
-0° North / 90° East / 180° South / 270° West.
+Axes:
++X East / +Y Up / -Z North / +Z South.
 
 Major local spaces:
 - `space_settlement_01`;
 - `space_frontier_01`;
 - `space_region_01`.
 
-Persistence consumes `space ID + local XYZ + heading + stable anchor/sector refs`.
+Settlement 01:
+200×260 m prototype plan; Hunter Gate `(0,0,0)`; Smith workbench `(-22,3,40)`.
 
-### Settlement 01
+Frontier:
+~80 m centerline.
 
-Prototype planning bounds:
-- X `-100..+100 m`;
-- Z `-10..+250 m`;
-- primary walkable Y `~0..+14 m`;
-- plan `200 × 260 m`.
+Region sector centers:
+S00 `(0,0,-35)`; S01 `(-90,-3,-130)`; S02 `(75,2,-135)`; S03 `(-35,4,-245)`; S04 `(-45,22,-365)`; S05 `(80,-4,-265)`; S06 `(70,18,-395)`.
 
-Origin:
-`anchor_set01_hunter_gate_inner = (0,0,0)`.
+## Hunt-01 spatial/geometry baseline
 
-Smith workbench:
-`(-22,3,40)`.
+Scenario:
+`R01_HUNT01_M01_TRACK_TO_MEADOW`.
 
-### Frontier
+Hunt:
+`hunt_r01_m01_proof_01`.
 
-~80 m centerline; ~12 m normal clear width; ~8 m minimum choke; up to ~18 m watch/supply widening; ~4 m elevation drop.
+Monster:
+`monster_r01_m01_0001`.
 
-### Region 01
+Encounter:
+`enc_r01_ef02_m01_0001`.
 
-Sector centers:
-- S00 `(0,0,-35)`;
-- S01 `(-90,-3,-130)`;
-- S02 `(75,2,-135)`;
-- S03 `(-35,4,-245)`;
-- S04 `(-45,22,-365)`;
-- S05 `(80,-4,-265)`;
-- S06 `(70,18,-395)`.
+Physical chain:
+`S00 -> S01 River Ford -> S03 Feeding Meadow -> EF02 combat -> escape east -> S03→S05 -> reacquisition`.
 
-Canonical linked center distances ~117–165 m. Deepest center ~402 m from Region entry.
-
-Encounter footprints:
-- EF01 `(-92,-4,-145)`, 52×46 m;
-- EF02 `(-45,4,-250)`, 76×60 m;
-- EF03 `(43,0,-205)`, 58×52 m;
-- EF04 `(70,19,-405)`, 68×56 m.
-
-## Region 01 Hunt-01 tracking->encounter integration — RECORDED
-
-Rules:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`.
-
-Concrete spatial registry:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
-
-Stable proof identities:
-- scenario `R01_HUNT01_M01_TRACK_TO_MEADOW`;
-- Hunt `hunt_r01_m01_proof_01`;
-- Monster `monster_r01_m01_0001`;
-- encounter `enc_r01_ef02_m01_0001`;
-- footprint `R01_EF02`.
-
-Selected physical chain:
-`S00 departure -> S01 River Ford -> S03 Feeding Meadow -> observation -> EF02 combat -> Monster escape east -> canonical S03->S05 route -> reacquisition`.
-
-Recorded:
-- seven pre-engagement evidence anchors;
-- wrong S02 inference remains physically legal/recoverable;
-- 10 tactical nodes;
-- physical cover;
-- Monster clearance targets;
-- same-Monster escape/reacquisition;
-- six Persistence checkpoints.
-
-## Hunt-01 graybox geometry — RECORDED
-
-Rules:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`.
-
-Concrete registry:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
-
-Handoff:
-`docs/70_handoff/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_PASS_2026-09-03.md`.
-
-### Required route
-
-Current centerline through route controls is ~279 m before final observation-ramp smoothing.
-
-Selected navigable graybox target:
+Required navigable route target:
 `285–315 m`.
 
-Grade/step targets:
-- normal sustained <=15%;
+General route targets:
+- sustained <=15%;
 - short <=18%;
-- required step/ledge <=0.25 m;
+- required step <=0.25 m;
 - normal cross-slope <=8%.
 
-### S00 / S00->S01
+River Ford:
+- basin 58×54 m;
+- water 34×18 m;
+- required depth 0.15–0.55 m;
+- wallow 16×12 m;
+- exit mud 20×12 m.
 
-- departure pad 18×14 m;
-- route-choice clearing 24×20 m;
-- primary S01 route >=7 m;
-- required Raker corridor >=9 m;
-- Monster bends 10–12 m;
-- Monster-route overhead >=4.5 m;
-- S02 wrong-route mouth remains >=6 m clear for first 20–30 m.
+S01→S03:
+- ~58 m / ~7 m rise reference;
+- Hunter width >=6 m;
+- Raker width >=9 m;
+- overhead >=4.5 m.
 
-### S01 River Ford
+EF02:
+- 70×54 m working floor;
+- ~48×34 m open core;
+- 16×12 m observation shelf;
+- 10 nodes / 14 links;
+- boulder 5×4×3 m;
+- tree trunk 1.4 m diameter + 4×3 m root base;
+- Charge lane ~48 m × >=9 m;
+- pivot radius 8 m;
+- body-force reference 24×24 m.
 
-- working envelope 58×54 m;
-- shallow-water patch 34×18 m;
-- required crossing depth 0.15–0.55 m;
-- wallow mud 16×12 m, depression ~0.35–0.45 m;
-- exit mud 20×12 m;
-- required dry-bank shoulders >=8 m;
-- required bank sustained slope <=12° / short <=15°;
-- reeds/brush 3–6 m deep, non-solid by default.
+Escape stub:
+`(-8,4,-258) -> (23,0,-255) -> (35,0,-260) -> (58,-3,-268)` with Raker width >=9 m.
 
-### S01->S03
+## Hunt-01 build manifest — RECORDED
 
-- route controls span ~58 m / ~7 m rise;
-- hunter surface >=6 m;
-- required Raker corridor >=9 m;
-- bend width 10–11 m;
-- overhead >=4.5 m;
-- sustained grade <=14%; short <=16%;
-- two visibility-break geometry targets.
+Human owner:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.md`.
 
-### EF02 Meadow
+Machine projection:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
 
-- working floor 70×54 m within existing 76×60 m footprint;
-- primary Y band 3.5–5.5 m;
-- open core ~48×34 m;
-- observation shelf 16×12 m;
-- observation->N01 uses 6–7 m curved/ramped approach >=3.5 m wide;
-- tactical-node marker 2 m diameter / legal-link corridor >=3.5 m;
-- immediate Hunter head clearance >=3 m.
+Validation owner:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
 
-### Cover
+Handoff:
+`docs/70_handoff/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_VALIDATION_PASS_2026-09-03.md`.
 
-Boulder:
-5×4×3 m, ~15–25° yaw, placement tolerance ±0.75 m X/Z.
+Manifest structure:
+- 12 engine-neutral build groups;
+- physical terrain/corridor/cover entries;
+- 7 evidence placements;
+- 10 tactical nodes;
+- 14 tactical links;
+- Monster pivot/body-force/Charge clearance;
+- escape corridor;
+- camera clearance;
+- 3 stream proxies;
+- terrain allowlist;
+- validation rule IDs `H01VAL001..030`.
 
-Scarred tree:
-1.4 m trunk diameter, >=8 m graybox height, 4×3 m root base.
+### Build-only coordinates
 
-### Monster clearances
+Observation-ramp midpoint:
+`build_ctrl_h01_obs_ramp_mid = (-74.0,4.62,-237.5)`.
 
-- Charge lane ~48 m, >=9 m permanent-solid-free width, >=4.5 m height;
-- MA01 pivot cylinder radius 8 m / >=4.5 m height;
-- 24×24 m body-force reference area proving ~12 m relevant directional clearance;
-- escape/S05 staging corridor >=9 m, sustained grade <=15%, overhead >=4.5 m.
+Status:
+`PROTOTYPE_BUILD_CONTROL_NOT_GAMEPLAY_ANCHOR`.
 
-These are environment fit targets, not final Monster collider/attack-range laws.
+It creates approximately 6.6 m 3D observation→N01 ramp routing with segment grades around 15–16%, inside the <=18% short-transition target.
 
-### Camera / streaming debug
+Nominal west brush-belt center:
+`(-74,4,-250)` within current 10–14 m depth allowance.
 
-- N01 camera descent clear radius 4 m / Y ~4..16;
-- initial sight tube radius 1.5 m;
-- streaming debug proxies at S00/S01, S01/S03 and S03/S05 route anchors;
-- debug proxies have no gameplay collision and do not select final runtime grace meters.
+Status:
+`PROTOTYPE_NOMINAL_PLACEMENT`.
 
-## Current verification boundary
+Neither value is persistence/evidence/tactical/Monster authority.
 
+## Validation contract — RECORDED
+
+Levels:
+1. `MANIFEST_STATIC`;
+2. `SCENE_STATIC_FUTURE`;
+3. `RUNTIME_FUTURE`;
+4. `PHONE_FUTURE`.
+
+No lower-level PASS promotes a higher level.
+
+Thirty rule IDs exist.
+
+Minimum first executable subset:
+`H01VAL001,002,003,004,012,013,014,021,024,025,026,027,030`.
+
+The first validator must also report:
+- entry/group counts;
+- recomputed node-link distances;
+- ramp path/segment-grade calculations;
+- coordinate-copy consistency;
+- higher-level checks as NOT EXECUTED.
+
+## Verification boundary
+
+Recorded:
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
@@ -352,11 +293,13 @@ These are environment fit targets, not final Monster collider/attack-range laws.
 `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
 `FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
 `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_INTEGRATION_RECORDED = YES`
-`REGION01_HUNT01_TACTICAL_NODES_RECORDED = YES`
 `FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION_RECORDED = YES`
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_REGISTRY_RECORDED = YES`.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_RECORDED = YES`
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION_RECORDED = YES`.
 
-Not verified/implemented:
+Not implemented/verified:
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VALIDATOR_IMPLEMENTED = NO`
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = NO`
 `REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
 `REGION01_HUNT01_RUNTIME_VERIFIED = NO`
 `WORLD_SPATIAL_RUNTIME_VERIFIED = NO`
@@ -365,29 +308,30 @@ Not verified/implemented:
 
 ## Exact current active non-phone gate
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`
-
-Why this is next:
-- Hunt-01 coordinates and dimensions now exist;
-- the next build-enabling artifact is a stable scene/build manifest plus validation-data ownership;
-- production world implementation remains blocked by the engine-phone gate;
-- this keeps game construction moving without broad content expansion or false runtime claims.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.
 
 Bounded scope:
-1. reread Hunt-01 geometry specification/registry, integration/spatial authorities and engine gate;
-2. define engine-neutral parent/build groups for only S00->S01->S03 + EF02 + escape stub;
-3. map every graybox geometry ID to one stable build entry;
-4. classify each entry as terrain/solid/non-solid/debug/camera/stream/evidence/node/Monster-clearance;
-5. define terrain-tag binding and world-space fields;
-6. define collision/navigation intent without locking final collider dimensions;
-7. define machine-readable validation fields for coordinates/dimensions/grades/links/clearances;
-8. define static validation ownership/check list;
-9. define build order and expected validation output;
-10. do not create final art, broad Region content, production gameplay source or phone PASS claims.
+1. reread this file, latest handoff, `CODE_GUIDE.md`, `CONTENT_DATA_GUIDE.md`, `docs/60_quality/README.md`, build manifest JSON and validation spec;
+2. select/create the smallest test/quality source location consistent with current code guide;
+3. parse JSON with no third-party runtime dependency unless justified;
+4. implement MANIFEST_STATIC rules `001,002,003,004,012,013,014,021,024,025,026,027,030`;
+5. compute node-link distances from manifest coordinates;
+6. compute observation-ramp path length and segment grades;
+7. verify source coordinate copies against an explicit validator fixture/source table derived from current owning spatial registry;
+8. verify required counts/families/groups and terrain tags;
+9. emit deterministic human-readable PASS/FAIL + machine-readable result if practical;
+10. return non-zero on ERROR;
+11. test the validator with at least one intentional invalid fixture or mutation so failure detection is proven;
+12. update quality/Region/front doors and handoff;
+13. do not create engine scene, production gameplay code, final art or phone PASS claims.
 
-## After build manifest / validation specification
+## After static validator
 
-Reread the engine/domain gate. If production implementation is still blocked, choose the next smallest test/build-enabling artifact rather than expanding content. If new phone evidence clears the gate, begin only the smallest verified Hunt-01 graybox implementation slice.
+Reread engine/domain gate.
+
+If production world implementation remains blocked, choose the next smallest build/test-enabling artifact based on validated manifest evidence rather than broad content expansion.
+
+If new phone evidence clears the engine gate, begin only the smallest verified Hunt-01 graybox implementation slice.
 
 ## Saved visual concept
 
@@ -416,5 +360,5 @@ Visual intent only.
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.

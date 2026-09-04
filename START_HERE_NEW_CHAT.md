@@ -4,10 +4,9 @@ Last reconciled: 2026-09-03
 
 ## Active project
 
-New Android-targeted monster-hunting tactical RPG. WorldLife is abandoned.
+Android-targeted monster-hunting tactical RPG. WorldLife is abandoned.
 
-Working name:
-`Unnamed Hunt RPG`.
+Working name: `Unnamed Hunt RPG`.
 
 ## Mandatory first read
 
@@ -27,7 +26,7 @@ Current repository/source/build/device evidence outranks old chat memory.
 
 The game is the objective.
 
-Documentation must preserve:
+Documentation/data must preserve:
 `WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 ## Engine truth
@@ -35,71 +34,32 @@ Documentation must preserve:
 Candidate:
 Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene minimum.
 
-`IMPLEMENTATION_AUTHORIZED = YES` for current Stage-1 probe/bounded work.
-
-Production domain implementation remains blocked by the engine-phone gate.
-
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
+`FINAL_ENGINE_SELECTED = NO`
+`PRODUCTION_DOMAIN_IMPLEMENTATION = BLOCKED_BY_ENGINE_PHONE_GATE`.
 
 Phone blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
 
 ## Current owner map
 
-Project status snapshot:
-`docs/00_project/PROJECT_STATUS_REPORT_2026-09-03.md`.
-
-Use it for review only; EVOLVE remains the live current-action authority.
-
 Shared spatial:
 `docs/10_world/spatial/README.md`.
-
-Settlement 01:
-`docs/10_world/settlements/SETTLEMENT_01/README.md`.
 
 Region 01:
 `docs/10_world/regions/REGION_01/README.md`.
 
-Current Hunt-01 integration:
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`.
+Hunt-01 coordinate/geometry/build sequence:
+1. `FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`;
+2. `FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`;
+3. `FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`;
+4. `FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.md`;
+5. `FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`;
+6. `FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
 
-Current Hunt-01 geometry:
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`;
-- `docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`.
-
-Combat/Harvest/Inventory/Crafting:
-`docs/20_gameplay/` package front doors.
-
-Monster 01:
-`docs/30_content/monsters/MONSTER_01/README.md`.
-
-Persistence:
-`docs/50_technical/persistence/README.md`.
-
-## Shared spatial baseline
-
-`1 world unit = 1 meter`.
-
-Axes:
-+X East / +Y Up / -Z North-outbound / +Z South-inbound.
-
-Settlement:
-200×260 m prototype envelope; Hunter Gate origin `(0,0,0)`; Smith workbench `(-22,3,40)`.
-
-Frontier:
-~80 m.
-
-Region:
-seven sector centers; canonical linked spacing ~117–165 m; deepest center ~402 m from entry.
-
-Hunter:
-1.75 m `LOCKED/CURRENT`.
-
-Monster:
-~6.6 m long / ~3.0 m shoulder-body prototype.
+Quality front door:
+`docs/60_quality/README.md`.
 
 ## Hunt-01 physical proof
 
@@ -109,50 +69,50 @@ Scenario:
 Stable Monster:
 `monster_r01_m01_0001`.
 
-Encounter:
-`enc_r01_ef02_m01_0001`.
-
 Path:
-`S00 -> S01 -> S03 -> EF02 -> escape via S03->S05 -> reacquisition`.
+`S00 -> S01 -> S03 -> EF02 -> escape via S03→S05 -> reacquisition`.
 
-Recorded integration:
-- 7 evidence anchors;
-- 10 tactical nodes;
-- boulder/tree cover;
-- Charge/pivot/body-force clearances;
-- escape/reacquisition positions;
-- six Persistence checkpoints.
-
-## Hunt-01 geometry proof
-
-Current prototype build targets include:
-- smoothed required route 285–315 m;
-- sustained required-route grade <=15%; short <=18%; step <=0.25 m;
-- S00->S01 route >=7 m and required Raker corridor >=9 m;
-- S01 shallow-water patch 34×18 m at 0.15–0.55 m required depth;
-- wallow mud 16×12 m;
+Current blockout targets:
+- required route 285–315 m;
+- Ford basin 58×54 m;
+- water 34×18 m at 0.15–0.55 m required depth;
+- wallow 16×12 m;
 - exit mud 20×12 m;
-- S01->S03 Raker corridor >=9 m;
-- EF02 meadow working floor 70×54 m;
-- observation shelf 16×12 m;
-- observation->N01 ramp 6–7 m / >=3.5 m wide;
-- node-link corridors >=3.5 m;
+- EF02 floor 70×54 m;
+- 10 nodes / 14 links;
 - boulder 5×4×3 m;
-- tree trunk 1.4 m diameter + 4×3 m root base;
-- Charge lane ~48 m / >=9 m clear;
-- Monster pivot radius 8 m;
-- escape corridor >=9 m;
-- camera + streaming debug volumes.
+- scarred tree/root cover;
+- Charge corridor ~48×>=9 m;
+- pivot radius 8 m;
+- escape corridor >=9 m.
 
-These are prototype geometry targets only. No runtime/phone verification is implied.
+Build-only ramp midpoint:
+`(-74.0,4.62,-237.5)`.
+
+It is not a gameplay/persistence anchor.
+
+## Build manifest truth
+
+Manifest:
+`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
+
+It is machine-readable authoring/validation data, not save/runtime authority.
+
+Validation contract defines 30 rule IDs and four evidence levels:
+`MANIFEST_STATIC`, `SCENE_STATIC_FUTURE`, `RUNTIME_FUTURE`, `PHONE_FUTURE`.
+
+Current:
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VALIDATOR_IMPLEMENTED = NO`
+`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = NO`
+`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`.
 
 ## Exact continuation
 
-`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_BUILD_MANIFEST_AND_VALIDATION_SPECIFICATION`.
+`FIRST_SLICE_REGION01_HUNT01_GRAYBOX_STATIC_VALIDATOR_IMPLEMENTATION`.
 
-Read the geometry specification/registry first, then the current integration/spatial/Region/engine-gate authorities.
+Read `CONTENT_DATA_GUIDE.md`, `CODE_GUIDE.md`, `docs/60_quality/README.md`, the manifest JSON and validation specification first.
 
-The next pass must map only this Hunt-01 geometry into a build/scene manifest and validation-data/test ownership. Do not expand to final art/all seven sectors or claim production runtime verification.
+Implement only engine-independent manifest validation. Do not start production world/gameplay source or claim scene/runtime/phone PASS.
 
 ## Saved finished-game concept
 
