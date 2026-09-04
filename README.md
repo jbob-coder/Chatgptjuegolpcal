@@ -1,90 +1,93 @@
 # Unnamed Hunt RPG
 
-Status: STAGE-1 SHOOTER-STYLE CONTROLS PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED / FULL GAME RUNTIME NOT YET BUILT
+Status: PRODUCTION GAME ROOT EXISTS / HUNT-01 GRAYBOX BUILD VERIFIED / PHONE GRAYBOX RETEST NEXT
 Last reconciled: 2026-09-04
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
-## Main game goal
+## Main game loop
 
 `SETTLEMENT -> FRONTIER -> AERIAL REGION TRACKING -> SAME-LOCATION FIRST-PERSON TACTICAL COMBAT -> BREAK/SEVER -> ESCAPE/DEFEAT -> REACQUIRE/HARVEST -> INVENTORY -> RETURN -> SMITH -> CRAFT/EQUIP -> NEXT HUNT`.
 
-The game is the objective. Documentation exists to keep ownership, dimensions, coordinates, verification, and continuation coherent.
+The game is the objective. Documentation exists to preserve ownership, dimensions, coordinates, verification and continuation.
 
-## Current Stage-1 phone control state
+## Production runtime
 
-The adaptive/latching joystick is superseded. The current mobile-shooter architecture uses:
+Production Godot project:
+`game/`
+
+The Stage-1 probe remains under `probes/android_stage1/` as disposable evidence source only.
+
+The user reported the final Galaxy A03s shooter-style controls **PASS 100%**. Those controls are preserved in production:
 - left joystick = direct camera-relative movement;
-- fixed stick direction stays fixed and does not accumulate camera turn;
-- right-side drag = independent camera/view control;
-- movement and look can operate simultaneously;
-- first-person FOV = `115°`;
-- first-person pitch clamp = `±80°`;
-- no adaptive hold/alignment/latch/rebase variables remain in runtime steering.
+- fixed stick direction does not accumulate camera turn;
+- right-side drag = independent look;
+- simultaneous movement/look;
+- first-person FOV 115° / pitch ±80°.
 
-Runtime implementation commit:
-`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+## First production world slice
 
-Final tested source/UI head:
-`5af416f48a7542b964084f83301de0a5f826bb46`.
+Implemented Hunt-01 physical proof:
+`S00 -> S01 River Ford -> S03 Feeding Meadow -> EF02 -> S03→S05 escape corridor`.
 
-Dedicated shooter-style workflow:
-`33834916358` SUCCESS.
+Production scene includes the documented route, River Ford/water/mud, Feeding Meadow, observation shelf, 7 evidence markers, 10 tactical nodes, physical boulder/tree cover, solid Mudcrest Raker placeholder, Monster pivot/Charge clearances, escape corridor and camera/stream debug volumes.
 
-Full Android pipeline:
-`33834916327` SUCCESS.
+World/build authority remains:
+`docs/10_world/regions/REGION_01/`.
 
-Final APK:
-`UnnamedHuntRPG-Stage1-ShooterStyle-FinalRetest.apk`
-`57,574,457 bytes`
-SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
+Runtime manifest projection:
+`game/content/regions/region_01/hunt01_graybox_build_manifest.json`.
 
-Final artifact ZIP:
-`57,126,005 bytes`
-SHA-256 `a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
+## Verification
 
-Google Drive ID:
-`1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
+Tested production source head:
+`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
 
-## Hunt-01 world/build status
+Production workflow `33836865365`: SUCCESS.
 
-Shared units: `1 world unit = 1 meter`.
+- production source/projection: 29/29 PASS;
+- Hunt-01 headless integration: 23/23 PASS;
+- Godot parse/AppShell/Region smoke: PASS;
+- Android export/APK integrity/upload: PASS.
 
-Settlement 01 prototype: `200×260 m`.
-Frontier: `~80 m`.
-Region 01 first proof:
-`S00 -> S01 -> S03 -> EF02 -> S03→S05 escape/reacquisition`.
+Production APK:
+`UnnamedHuntRPG-Hunt01-Graybox-Retest.apk`
+`57,587,191 bytes`
+SHA-256 `7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
 
-Key graybox targets:
-- route `285–315 m`;
-- River Ford `58×54 m`;
-- water `34×18 m`, depth `0.15–0.55 m`;
-- wallow `16×12 m`;
-- exit mud `20×12 m`;
-- EF02 floor `70×54 m`;
-- 10 tactical nodes / 14 links;
-- boulder `5×4×3 m`;
-- Charge corridor `~48×>=9 m`;
-- pivot radius `8 m`.
+Drive ID:
+`150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
 
-Machine build manifest:
-`docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`.
+Artifact ID `9923580879`.
+Artifact ZIP SHA-256 `184d158058df55f1b02dd92801c4af87376bc8f867d2bd77d29e6223368420db`.
 
-Static validator workflow `33830978945`: SUCCESS.
+## Route evidence boundary
 
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
+Raw construction-anchor polyline: `282.926 m`.
+Future final/smoothed navigable route target: `285–315 m`.
 
-Scene/runtime graybox verification remains NO.
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
-## Full-game APK truth
+## Current implementation truth
 
-A full playable game APK does not yet exist. Combat, harvesting, inventory, crafting, Settlement services, Persistence, and Hunt-01 are largely recorded as design/build-spec authorities rather than full production runtime code.
+`STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
+`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
+`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = YES`
+`HUNT01_PRODUCTION_PROJECTION_STATIC_VERIFIED = YES / 29_OF_29`
+`HUNT01_PRODUCTION_GRAYBOX_HEADLESS_VERIFIED = YES / 23_OF_23`
+`HUNT01_PRODUCTION_ANDROID_BUILD_VERIFIED = YES`
+`REGION01_HUNT01_PHONE_VERIFIED = NO / RETEST_REQUIRED`
+`PERFORMANCE_VERIFIED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
-## Exact next action
+## What is not yet full runtime
 
-`STAGE1_FINAL_GALAXY_A03S_SHOOTER_STYLE_CONTROLS_RETEST`.
+The production root exists, but tracking interpretation, tactical combat, harvesting, inventory, crafting, Settlement services and persistence still require incremental implementation and verification. Colored evidence/tactical markers do not mean those systems are already implemented.
 
-If PASS:
-`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
+## Next
 
-Sustained `PERFORMANCE_VERIFIED` remains separate until actual target-device soak evidence exists.
+External phone gate:
+`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
+
+Next independent development piece:
+`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.

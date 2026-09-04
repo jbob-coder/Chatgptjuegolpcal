@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE-1 SHOOTER-STYLE CONTROLS PHONE RETEST NEXT / HUNT-01 MANIFEST STATIC VERIFIED
+Status: ACTIVE GLOBAL MAP / PRODUCTION GAME ROOT + HUNT-01 GRAYBOX BUILD VERIFIED
 Last reconciled: 2026-09-04
 
 ## Mandatory read order
@@ -15,99 +15,99 @@ Last reconciled: 2026-09-04
 8. newest relevant `docs/70_handoff/`
 9. exact owning package/source/tests.
 
-## Current Stage-1 Android authorities
+## Production runtime map
 
-- `probes/android_stage1/README.md`
-- `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`
-- `probes/android_stage1/docs/PROBE_TEST_PROTOCOL.md`
-- `probes/android_stage1/docs/SUSTAINED_PERFORMANCE_EVIDENCE_PROTOCOL.md`
-- `.github/workflows/stage1-android-probe-apk.yml`
-- `.github/workflows/stage1-control-camera-feedback.yml`
-- `ci/stage1/control_camera_phone_feedback_test.gd`
+Production root:
+- `game/README.md`
+- `game/project.godot`
+- `game/export_presets.cfg`
+- `game/scenes/app_shell.tscn`
+- `game/scenes/regions/region_01_hunt01_graybox.tscn`
+- `game/scripts/presentation/exploration/region_01_hunt01_graybox.gd`
+- `game/content/regions/region_01/README.md`
+- `game/content/regions/region_01/hunt01_graybox_build_manifest.json`
+- `game/tests/region01_hunt01_graybox_runtime_test.gd`
+- `.github/workflows/production-hunt01-graybox-android.yml`.
 
-Shooter-style runtime implementation:
-`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+Runtime projection/source QA:
+`tests/quality/hunt01/hunt01_production_projection_preflight.py`.
 
-Final tested source/UI head:
-`5af416f48a7542b964084f83301de0a5f826bb46`.
+Production tested source head:
+`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
 
-Dedicated regression:
-`33834916358` SUCCESS.
+Production workflow `33836865365`: SUCCESS.
+29/29 source/projection PASS; 23/23 headless integration PASS; Android export/integrity PASS.
 
-Full Android pipeline:
-`33834916327` SUCCESS.
+Production APK SHA-256:
+`7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
+Drive ID `150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
 
-Final APK SHA-256:
-`e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
+Latest production handoff:
+`docs/70_handoff/HUNT01_PRODUCTION_GRAYBOX_IMPLEMENTATION_PASS_2026-09-04.md`.
 
-Final artifact ZIP SHA-256:
-`a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
+## Stage-1 evidence map
 
-Drive file ID:
-`1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
+`probes/android_stage1/` is retained as disposable evidence source, not production architecture.
 
-Latest control handoff:
-`docs/70_handoff/STAGE1_GALAXY_A03S_SHOOTER_STYLE_CONTROLS_REPAIR_2026-09-04.md`.
+Primary control owner:
+`probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
+
+The user accepted the shooter-style Galaxy A03s controls 100%.
+
+`STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
+`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
+`PERFORMANCE_VERIFIED = NO`.
 
 ## Hunt-01 world/geometry authorities
 
 Shared spatial:
 - `docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`
-- `docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`
+- `docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
 
 Region 01:
 - `docs/10_world/regions/REGION_01/README.md`
 - `FIRST_SLICE_HUNT01_SPATIAL_LAYOUT_REGISTRY.md`
+- `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT.md`
 - `FIRST_SLICE_REGION01_HUNT01_GRAYBOX_GEOMETRY_SPECIFICATION.md`
 - `FIRST_SLICE_HUNT01_GRAYBOX_GEOMETRY_REGISTRY.md`
 - `FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.md`
 - `FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json`
-- `FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`
+- `FIRST_SLICE_HUNT01_GRAYBOX_VALIDATION_SPECIFICATION.md`.
 
-Executable static QA:
+Authoritative manifest static QA:
 - `tests/quality/hunt01/README.md`
 - `tests/quality/hunt01/hunt01_graybox_manifest_validator.py`
 - `tests/quality/hunt01/hunt01_stable_coordinate_fixture.json`
 - `.github/workflows/hunt01-graybox-manifest-static.yml`.
 
-Static validator workflow:
-`33830978945` SUCCESS.
+Manifest static workflow `33830978945`: SUCCESS / 13/13.
 
 ## Gameplay package map
 
 - `docs/20_gameplay/combat/` — reusable combat/outcome contracts.
-- `docs/20_gameplay/harvest/` — finite anatomy-linked harvesting.
-- `docs/20_gameplay/inventory/` — Inventory/Recovery Bundle material ownership.
-- `docs/20_gameplay/crafting/` — first recipe transaction.
-- `docs/20_gameplay/progression/` — Field Poleblade refinement linkage.
+- `docs/20_gameplay/harvest/` — anatomy-linked harvesting.
+- `docs/20_gameplay/inventory/` — Inventory/Recovery Bundle.
+- `docs/20_gameplay/crafting/` — crafting transaction contracts.
+- `docs/20_gameplay/progression/` — Field Poleblade refinement.
+- `docs/30_content/monsters/MONSTER_01/` — Monster 01 species/content.
+- `docs/50_technical/persistence/` — persistence contracts.
+- `docs/60_quality/` — quality ownership.
 
-Monster 01:
-`docs/30_content/monsters/MONSTER_01/`.
+## Verification boundary
 
-Persistence:
-`docs/50_technical/persistence/`.
-
-Quality:
-`docs/60_quality/`.
-
-## Current verification boundary
-
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`
-`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = NO`
-`REGION01_HUNT01_RUNTIME_VERIFIED = NO`
-`PHONE_GENERAL_RUNTIME_USER_REPORTED_PASS = YES`
-`STAGE1_SHOOTER_STYLE_CONTROLS_AUTOMATED_VERIFIED = YES`
-`STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = NO / RETEST REQUIRED`
-`ENGINE_PHONE_PROBE_VERIFIED = NO`
+`REGION01_HUNT01_GRAYBOX_IMPLEMENTED = YES`
+`HUNT01_PRODUCTION_PROJECTION_STATIC_VERIFIED = YES / 29_OF_29`
+`HUNT01_PRODUCTION_GRAYBOX_HEADLESS_VERIFIED = YES / 23_OF_23`
+`HUNT01_PRODUCTION_ANDROID_BUILD_VERIFIED = YES`
+`REGION01_HUNT01_PHONE_VERIFIED = NO / RETEST_REQUIRED`
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
 ## Exact continuation
 
-Current:
-`STAGE1_FINAL_GALAXY_A03S_SHOOTER_STYLE_CONTROLS_RETEST`.
+External:
+`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
 
-If PASS:
-`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
-
-The Stage-1 probe is not the full game.
+Independent development:
+`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.

@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / HUNT-01 MANIFEST STATIC VERIFIED / STAGE-1 SHOOTER-STYLE CONTROLS PHONE RETEST NEXT
+Status: ACTIVE GOVERNANCE / STAGE-1 FUNCTIONAL PHONE GATE CLOSED / HUNT-01 PRODUCTION GRAYBOX BUILD VERIFIED
 Last reconciled: 2026-09-04
 
 ## Primary law
@@ -11,82 +11,73 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 | Gate | Status | Meaning |
 |---|---|---|
-| ENGINE PROBE AUTOMATION | PASS | source/static/headless/APK pipeline green |
-| GALAXY A03s GENERAL PHONE FUNCTION | USER-REPORTED PASS | no clipping/general issue reported in prior phone build |
-| SHOOTER-STYLE CONTROL AUTOMATION | PASS | direct left-stick movement + independent right-side look regression green |
-| SHOOTER-STYLE PHONE FEEL | REQUIRED | Galaxy A03s user acceptance still required |
-| HUNT-01 MANIFEST STATIC VALIDATION | PASS | executable validator 13/13 |
-| ENGINE GRAYBOX IMPLEMENTATION | NOT STARTED | begin after Stage-1 functional phone-control closure |
-| FULL GAME RUNTIME | NOT BUILT | design/build-spec systems are not yet production runtime |
-| SUSTAINED PERFORMANCE | NOT VERIFIED | separate target-device soak evidence gate |
+| STAGE-1 ENGINE PROBE AUTOMATION | PASS | source/static/headless/APK pipeline green |
+| GALAXY A03s GENERAL FUNCTION | USER PASS | prior phone run reported no clipping/general problems |
+| SHOOTER-STYLE PHONE CONTROLS | USER PASS 100% | functional control gate closed |
+| HUNT-01 MANIFEST STATIC | PASS | 13/13 authoritative manifest rules |
+| PRODUCTION GAME ROOT | IMPLEMENTED | `game/` exists independently of probe |
+| HUNT-01 PRODUCTION SOURCE/PROJECTION | PASS | 29/29 |
+| HUNT-01 PRODUCTION HEADLESS INTEGRATION | PASS | 23/23 |
+| HUNT-01 ANDROID BUILD | PASS | export/integrity/artifact upload green |
+| HUNT-01 GALAXY A03s TRAVERSAL | REQUIRED | new production APK needs device traversal/visual test |
+| HUNT-01 FULL DIMENSIONAL SCENE GATE | NOT EXECUTED | final scene-space tolerances/smoothed path still pending |
+| TRACKING/EVIDENCE RUNTIME | NEXT | next independent game system |
+| FULL GAMEPLAY LOOP | PARTIAL | combat/harvest/inventory/crafting/etc. not runtime-complete |
+| SUSTAINED PERFORMANCE | NOT VERIFIED | separate Galaxy A03s soak evidence gate |
+| FINAL ENGINE SELECTION | NOT CLOSED | production candidate in use, formal gate remains open |
 
-## Stage-1 shooter-style control revision
+## Stage-1 closure
 
-Runtime implementation commit:
-`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+The final shooter-style Galaxy A03s controls were accepted by the user as 100% PASS.
 
-Final tested source/UI head:
-`5af416f48a7542b964084f83301de0a5f826bb46`.
+`STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
+`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
+`PERFORMANCE_VERIFIED = NO`.
 
-Architecture:
-- left fixed joystick = direct camera-relative movement vector;
-- fixed stick direction never accumulates camera yaw;
-- right-side drag independently controls view yaw;
-- first-person vertical look clamp ±80°;
-- first-person FOV 115°;
-- movement/look can operate simultaneously;
-- no adaptive timer/alignment/latch/rebase runtime state.
+The Stage-1 probe remains a separate evidence package and does not own production architecture.
 
-Dedicated workflow:
-`33834916358` SUCCESS.
-
-Full Android workflow:
-`33834916327` SUCCESS.
-
-Final APK:
-57,574,457 bytes
-SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
-
-Artifact ZIP:
-57,126,005 bytes
-SHA-256 `a9e61564d13d2be0ba84a052e990e9b9772a82d46a6070e0f9bdf551412ac873`.
-
-Drive ID:
-`1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
-
-## Hunt-01 static build gate
-
-Validator:
-`tests/quality/hunt01/hunt01_graybox_manifest_validator.py`.
-
-Workflow:
-`33830978945` SUCCESS.
-
-Result:
-- 13/13 static rules PASS;
-- 0 errors;
-- 0 warnings;
-- negative mutation correctly rejected;
-- observation ramp 6.607 m;
-- grades 15.2% and 15.38%.
+## Hunt-01 build gates
 
 `HUNT01_BUILD_SPEC_GATE_B0 = PASS`
-`HUNT01_MANIFEST_STATIC_GATE_B1 = PASS`
-`HUNT01_GRAYBOX_SCENE_STATIC_GATE = NOT_EXECUTED`
-`HUNT01_RUNTIME_GATE = NOT_EXECUTED`.
+`HUNT01_MANIFEST_STATIC_GATE_B1 = PASS / 13_OF_13`
+`HUNT01_PRODUCTION_IMPLEMENTATION_GATE_B2 = IMPLEMENTED`
+`HUNT01_PRODUCTION_SOURCE_STATIC_GATE = PASS / 29_OF_29`
+`HUNT01_PRODUCTION_HEADLESS_GATE = PASS / 23_OF_23`
+`HUNT01_PRODUCTION_ANDROID_BUILD_GATE = PASS`
+`HUNT01_PRODUCTION_PHONE_GATE = REQUIRED`
+`HUNT01_FULL_SCENE_DIMENSION_GATE = NOT_EXECUTED`.
 
-## Production permission boundary
+Production tested source:
+`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
 
-Current:
-`PRODUCTION_DOMAIN_IMPLEMENTATION = PENDING_FINAL_STAGE1_PHONE_CONTROL_FEEL_RETEST`.
+Workflow:
+`33836865365` SUCCESS.
 
-If the Galaxy A03s shooter-style control retest passes, Stage-1 functional phone-control may close and the smallest production Hunt-01 graybox implementation may begin.
+APK:
+`UnnamedHuntRPG-Hunt01-Graybox-Retest.apk`
+57,587,191 bytes
+SHA-256 `7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
 
-This does not convert sustained performance into PASS.
+Drive ID:
+`150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
 
-## Exact next
+## Dimensional evidence boundary
 
-`STAGE1_FINAL_GALAXY_A03S_SHOOTER_STYLE_CONTROLS_RETEST`.
+The raw construction-anchor polyline is `282.926 m`.
+The `285–315 m` value is the future finished/smoothed navigable-path target.
 
-After PASS:
-`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
+
+No gate may convert the raw polyline into a false final route-length PASS.
+
+## Current production authorization
+
+Production implementation is now active under `game/`.
+
+The Galaxy A03s graybox test remains required for phone-specific traversal/visual acceptance, but it does not block independent implementation work that does not consume missing phone evidence.
+
+External device gate:
+`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
+
+Next independent implementation:
+`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.

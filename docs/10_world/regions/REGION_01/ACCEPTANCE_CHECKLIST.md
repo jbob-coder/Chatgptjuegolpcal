@@ -1,108 +1,96 @@
 # REGION_01 — Acceptance Checklist
 
-Status: BUILD SPEC + MANIFEST STATIC VERIFIED / ENGINE GRAYBOX NOT STARTED
+Status: BUILD SPEC + MANIFEST STATIC + PRODUCTION GRAYBOX BUILD VERIFIED / PHONE TRAVERSAL REQUIRED
 Last reconciled: 2026-09-04
 
 ## Gate A — Documentation coherence
-
 PASS.
 
 ## Gate B0 — Hunt-01 build specification readiness
-
 PASS.
 
-Recorded:
-- route/topology;
-- stable evidence/Monster/node coordinates;
-- dimensions/grades/steps;
-- River Ford/meadow/cover/Monster clearance;
-- camera/stream proxies;
-- engine-neutral hierarchy;
-- machine manifest;
-- validation contract;
-- build-only controls separated from gameplay authority.
+Route/topology, stable coordinates, dimensions/grades, Ford/Meadow/cover/Monster clearances, camera/stream proxies, hierarchy, manifest and build-only controls are recorded.
 
 ## Gate B1 — Manifest static validation
-
 PASS.
 
-Executable validator exists and passed:
-- schema/identity;
-- build-ID uniqueness;
-- group refs/no cycles;
-- evidence containment;
-- N01–N10 EF02 bounds;
-- 14 tactical-link distance recomputation;
-- streaming proxy non-physical classification;
-- terrain tag allowlist;
-- debug non-authority;
-- source-coordinate copy consistency;
-- build-only control non-authority;
-- required manifest families/counts.
-
-Workflow:
-`33830978945` SUCCESS.
-
-Result:
+Workflow `33830978945`: SUCCESS.
 13/13 PASS / 0 errors / 0 warnings.
+Negative mutation self-test rejected bad data as required.
 
-Negative self-test:
-PASS — intentionally corrupted data generated expected validation failure.
+## Gate B2 — Production engine graybox implementation
+IMPLEMENTED / BUILD VERIFIED.
 
-`HUNT01_MANIFEST_STATIC_GATE_B1 = PASS`.
+Production root:
+`../../../../game/`.
 
-## Gate B2 — Engine graybox scene
+Tested source:
+`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
 
-NOT STARTED.
+Workflow `33836865365`: SUCCESS.
 
-Required after current Stage-1 phone functional gate closes:
-- build only the first validated Hunt-01 route/EF02 primitive scene slice;
-- measure route 285–315 m;
-- verify slopes/steps/widths;
-- build River Ford and Meadow targets;
-- verify tactical-node physical reachability;
-- verify boulder/tree placement;
-- verify Charge/pivot/escape clearances;
-- verify camera clearance;
-- ensure stream debug proxies have no gameplay collision;
-- no invisible arena wall/softlock.
+Production source/projection:
+29/29 PASS.
+
+Headless production integration:
+23/23 PASS.
+
+Android export/integrity/artifact upload:
+PASS.
+
+Implemented proof includes required route, Ford/water/mud, EF02 Meadow, observation shelf, 7 evidence markers, 10 tactical nodes, physical cover, solid Monster placeholder, Monster clearance geometry, escape corridor and camera/stream debug volumes.
+
+## Gate B3 — Full scene dimensional/traversal proof
+PARTIAL / NOT COMPLETE.
+
+Known:
+- raw construction-anchor route = 282.926 m;
+- future finished/smoothed path target = 285–315 m;
+- current headless collision/count/integration checks pass.
+
+Still required:
+- final smoothed-path route-length measurement (`H01VAL005`);
+- complete scene-space width/grade/step/clearance tolerance proof;
+- Galaxy A03s traversal and visual inspection.
+
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
 ## Gate C — Tracking/persistent hunt runtime
+NEXT / NOT YET IMPLEMENTED.
 
-NOT EXECUTED.
+Seven physical evidence anchors exist, but evidence investigation, confidence/freshness interpretation and route-choice semantics are not yet runtime-complete.
 
 ## Gate D — Terrain/effect runtime
-
 NOT EXECUTED.
 
-## Gate E — Encounter continuity runtime
-
+## Gate E — Encounter/combat continuity runtime
 NOT EXECUTED.
 
 ## Gate F — Streaming robustness
-
 NOT EXECUTED.
 
-## Gate G — Android performance
+Current stream proxies are debug/non-colliding evidence only.
 
+## Gate G — Android sustained performance
 NOT VERIFIED.
 
-Sustained device evidence remains required before `PERFORMANCE_VERIFIED` may be used.
+Galaxy A03s sustained soak evidence remains required before `PERFORMANCE_VERIFIED` may be used.
 
-## Current authorization
+## Current status
 
-User direction: after the corrected Stage-1 control/camera APK passes its final Galaxy A03s retest, the functional Stage-1 gate may close and the first production Hunt-01 graybox slice may begin.
-
-Current:
+`STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
+`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
 `HUNT01_BUILD_SPEC_GATE_B0 = PASS`
 `HUNT01_MANIFEST_STATIC_GATE_B1 = PASS`
-`HUNT01_GRAYBOX = NOT_STARTED`
-`REGION_01_RUNTIME_IMPLEMENTED = NO`
-`PHONE_RUNTIME_VERIFIED_FOR_REGION = NO`
+`HUNT01_PRODUCTION_IMPLEMENTATION_GATE_B2 = PASS`
+`HUNT01_PRODUCTION_SOURCE_STATIC = PASS / 29_OF_29`
+`HUNT01_PRODUCTION_HEADLESS = PASS / 23_OF_23`
+`HUNT01_PRODUCTION_ANDROID_BUILD = PASS`
+`REGION01_HUNT01_PHONE_VERIFIED = NO / RETEST_REQUIRED`
 `PERFORMANCE_VERIFIED = NO`.
 
-Exact next external gate:
-`STAGE1_FINAL_GALAXY_A03S_CONTROL_CAMERA_RETEST`.
+External next gate:
+`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
 
-Next Region implementation after PASS:
-`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
+Next independent implementation:
+`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.

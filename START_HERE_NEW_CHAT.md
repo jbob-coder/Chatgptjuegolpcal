@@ -2,8 +2,6 @@
 
 Last reconciled: 2026-09-04
 
-## Active project
-
 Android-targeted monster-hunting tactical RPG. WorldLife is abandoned.
 
 Mandatory read order:
@@ -19,58 +17,53 @@ Mandatory read order:
 
 Current repository/source/build/device evidence outranks old chat memory.
 
-## Current phone control state
+## Current implementation state
 
-The adaptive/latching joystick is superseded.
+Stage-1 shooter-style controls were accepted by the user on the Galaxy A03s: **PASS 100%**.
 
-Current control implementation:
-`6079c95f90a6329b2685f4c078527ae4a0dc1523`.
+Production runtime root now exists at:
+`game/`.
 
-Final tested source/UI head:
-`5af416f48a7542b964084f83301de0a5f826bb46`.
+First production piece:
+`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION` — IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
-Current controls:
-- left fixed joystick = direct camera-relative movement;
-- right-side drag = independent view yaw;
-- first-person vertical right-drag = pitch ±80°;
-- unchanged movement-stick direction does not accumulate camera turn;
-- no adaptive hold/alignment/latch/rebase state;
-- first-person FOV 115°.
+Tested production source head:
+`ef0db3b4dcbea32608228f99a8fffead5ad6c858`.
 
-Dedicated regression `33834916358`: SUCCESS.
-Full Android build `33834916327`: SUCCESS.
+Workflow `33836865365`: SUCCESS.
+Static/source: 29/29 PASS.
+Headless integration: 23/23 PASS.
 
-Final retest APK:
-`UnnamedHuntRPG-Stage1-ShooterStyle-FinalRetest.apk`
-SHA-256 `e45e854951ff8a3cca9c93a20575aa967f824d86981ce3ba268372a0b19f6a6f`.
+Production APK:
+`UnnamedHuntRPG-Hunt01-Graybox-Retest.apk`
+SHA-256 `7094b3046a6a35144b3d6c80bab8b6900a1fc33d9c04cbeca9d9a80e2361e36a`.
+Drive ID `150Wot1owtIGrFWUG_BmfWWlXmlMUT02F`.
 
-Drive file ID:
-`1r62HYqQkZGyAj8h7zPzFm68Au31dqxzy`.
+## What is playable in this APK
 
-Exact next action:
-`STAGE1_FINAL_GALAXY_A03S_SHOOTER_STYLE_CONTROLS_RETEST`.
+S00 -> River Ford -> Feeding Meadow -> N01 plus the S03→S05 escape corridor, using the accepted shooter-style controls.
 
-## Hunt-01 static geometry state
+Visible/physical proof content includes:
+- Ford/water/mud graybox;
+- 7 gold evidence markers;
+- 10 cyan tactical nodes;
+- physical boulder/tree cover;
+- solid magenta Monster placeholder;
+- Monster clearance debug geometry;
+- aerial/first-person cameras and Settings.
 
-Workflow `33830978945`: SUCCESS.
-`HUNT01_GRAYBOX_MANIFEST_STATIC_VERIFIED = YES / 13_OF_13`.
-No engine graybox exists yet.
+Tracking interpretation, combat, harvesting, inventory, crafting, Settlement services and persistence are not yet complete gameplay runtime.
 
-Hunt path:
-S00 -> S01 River Ford -> S03 Feeding Meadow -> EF02 -> Monster escape via S03→S05 -> same-Monster reacquisition.
+Raw construction route is `282.926 m`; final smoothed-path target remains `285–315 m`.
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
-Key targets:
-- route 285–315 m;
-- Ford 58×54 m;
-- water 34×18 m;
-- Meadow 70×54 m;
-- 10 tactical nodes / 14 links;
-- Charge corridor ~48×>=9 m;
-- pivot radius 8 m.
+## Current gates
 
-## After phone PASS
+Phone test now:
+`REGION01_HUNT01_PRODUCTION_GRAYBOX_GALAXY_A03S_RETEST`.
 
-Close the Stage-1 functional phone-control gate and begin:
-`FIRST_SLICE_REGION01_HUNT01_MINIMAL_ENGINE_GRAYBOX_IMPLEMENTATION`.
+Next independent development:
+`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION`.
 
-The current APK is still a Stage-1 probe. A full-game APK does not yet exist.
+`PERFORMANCE_VERIFIED = NO` until sustained Galaxy A03s soak evidence exists.
+`FINAL_ENGINE_SELECTED = NO`.
