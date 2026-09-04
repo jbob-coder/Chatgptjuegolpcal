@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / TRACKING + OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED / ANATOMY NEXT
+Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH MUDCREST ANATOMY INTEGRITY BUILD VERIFIED / REACTION WINDOW NEXT
 Last reconciled: 2026-09-04
 
 ## Mandatory read order
@@ -32,28 +32,35 @@ Production root:
 - `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`
 - `game/scripts/gameplay/combat/hunt01_tactical_movement_runtime.gd`
 - `game/scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd`
+- `game/scripts/gameplay/monsters/monster_01/README.md`
+- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd`
 - `game/content/regions/region_01/hunt01_graybox_build_manifest.json`
 - `game/content/regions/region_01/hunt01_tracking_evidence.json`
 - `game/tests/region01_hunt01_graybox_runtime_test.gd`
 - `game/tests/hunt01_combat_turn_shell_runtime_test.gd`
 - `game/tests/hunt01_hunter_attack_runtime_test.gd`
+- `game/tests/hunt01_mudcrest_anatomy_runtime_test.gd`
 - `.github/workflows/production-hunt01-graybox-android.yml`.
 
-Runtime/source QA lives under `tests/quality/hunt01/`.
+Runtime/source QA lives under `tests/quality/hunt01/`, including `hunt01_mudcrest_anatomy_preflight.py`.
 
 ## Current verified baseline
 
-Source head before this documentation reconciliation:
-`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
+Current verified source head:
+`a70b7680f3a7d552a08fc9080a04bc40617c916b`.
 
-Workflow `33851145446`: SUCCESS.
+Anatomy implementation commit:
+`da664deaa88a04cd2d2c5ca3ddd11953f897c7f2`.
 
-Godot parse/AppShell/Region smoke, production integration headless, combat turn shell + tactical movement headless, first Hunter attack headless, Android debug export and artifact upload all PASS.
+Production workflow `33853607287`: SUCCESS.
+Static manifest workflow `33853607294`: SUCCESS.
+
+Godot parse/AppShell/Region smoke, production integration headless, combat turn shell + tactical movement headless, Mudcrest anatomy integrity headless, first Hunter attack + anatomy integration headless, Android debug export and artifact upload all PASS.
 
 The older tracking-only head `0df278eba2d9265ed84483265957d9f8c2d7f415` remains historical evidence only and is not the current implementation state.
 
-Latest handoff after reconciliation:
-`docs/70_handoff/HUNT01_COMBAT_FOUNDATION_RECONCILIATION_2026-09-04.md`.
+Latest handoff:
+`docs/70_handoff/HUNT01_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_2026-09-04.md`.
 
 ## Layer ownership
 
@@ -72,17 +79,23 @@ Layer 3 — observation / same-location encounter entry:
 - consumes Layer-2 `OBSERVATION_READY`;
 - preserves physical Hunter/Monster encounter location and explicit ENGAGE authority.
 
-Combat foundation:
-- generic turn/action/contact runtime under `game/scripts/gameplay/combat/`;
+Generic combat foundation:
+- `game/scripts/gameplay/combat/`;
 - deterministic turn shell;
 - authored tactical-node movement;
-- first Hunter `POLEBLADE_MEASURED_CUT` through `PENDING_ANATOMY_DAMAGE_RUNTIME`.
+- first Hunter `POLEBLADE_MEASURED_CUT` through committed contact/protection resolution.
 
-Monster-01 anatomy design authority:
+Monster-01 anatomy runtime owner:
+- `game/scripts/gameplay/monsters/monster_01/`;
+- consumes committed generic combat handoff once;
+- owns species-specific per-part integrity state;
+- does not own generic attack contact or scheduler rules.
+
+Monster-01 design authority:
 - `docs/30_content/monsters/MONSTER_01/README.md`;
-- `docs/30_content/monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md`.
-
-Species-specific runtime consequences must live under a Monster-01 production owner rather than being embedded in the generic combat shell.
+- `docs/30_content/monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md`;
+- `docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`;
+- `docs/30_content/monsters/MONSTER_01/BEHAVIOR_AND_REGION.md`.
 
 ## Stage-1 evidence map
 
@@ -100,8 +113,9 @@ Primary control owner:
 `HUNT01_COMBAT_TURN_SHELL_IMPLEMENTED = YES`
 `HUNT01_TACTICAL_MOVEMENT_IMPLEMENTED = YES`
 `HUNT01_FIRST_HUNTER_ATTACK_IMPLEMENTED = YES`
-`CURRENT_COMBAT_FOUNDATION_HEADLESS_VERIFIED = YES`
-`CURRENT_COMBAT_FOUNDATION_ANDROID_BUILD_VERIFIED = YES`
+`HUNT01_MUDCREST_ANATOMY_INTEGRITY_IMPLEMENTED = YES`
+`HUNT01_MUDCREST_ANATOMY_INTEGRITY_HEADLESS_VERIFIED = YES`
+`HUNT01_MUDCREST_ANATOMY_INTEGRITY_ANDROID_BUILD_VERIFIED = YES`
 `CURRENT_POST_TRACKING_PHONE_ACCEPTANCE = DEFERRED`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 `PERFORMANCE_VERIFIED = NO`
@@ -109,6 +123,6 @@ Primary control owner:
 
 ## Exact continuation
 
-`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_REACTION_WINDOW_RUNTIME_IMPLEMENTATION`.
 
-Consume the existing committed attack `damage_handoff` once, preserve deterministic combat trace and stable anatomy IDs, prevent duplicate application, and keep unresolved final damage/break/sever/status tuning explicitly provisional or unimplemented.
+Generic combat must gain stable reaction-window state and an out-of-turn Hunter RP/Stamina commitment path before the Mudcrest attack packet can replace `WAIT_NO_ATTACK_RUNTIME`. The prerequisite must not fabricate unresolved final reaction tuning or Hunter damage.

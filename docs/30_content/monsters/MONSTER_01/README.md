@@ -1,7 +1,7 @@
 # MONSTER_01 — Mudcrest Raker
 
-Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / COMBAT + BERSERK + HARVEST PACKETS RECORDED / DISPLAY NAME PROVISIONAL / NO IMPLEMENTATION
-Last reconciled: 2026-09-03
+Status: SELECTED FIRST-MONSTER PROTOTYPE DESIGN / ANATOMY-INTEGRITY RUNTIME BUILD VERIFIED / ATTACK + BERSERK + HARVEST PACKETS RECORDED / DISPLAY NAME PROVISIONAL
+Last reconciled: 2026-09-04
 
 ## Identity
 
@@ -41,6 +41,21 @@ Head / Horn Crest / Foreleg L / Foreleg R / Hindleg L / Hindleg R / Dorsal Plate
 Anatomy authority:
 `ANATOMY_AND_DAMAGE.md`.
 
+Production anatomy runtime owner:
+`/game/scripts/gameplay/monsters/monster_01/`.
+
+Current runtime status:
+- per-target normalized integrity is implemented;
+- committed Hunter attack handoffs are consumed without rerolling contact/hit quality;
+- stable resolution IDs prevent duplicate integrity application;
+- mismatch/collision rejection is implemented;
+- the numeric integrity fixture is explicitly provisional;
+- crack/break thresholds, sever/detachment, statuses and global health/death are not implemented yet.
+
+Verified source head:
+`a70b7680f3a7d552a08fc9080a04bc40617c916b`.
+Production workflow `33853607287`: SUCCESS.
+
 ## Normal combat packet
 
 Authority:
@@ -59,7 +74,10 @@ Hard laws:
 - max one damaging attack per activation;
 - anatomy/range/bearing/terrain/cover remain authoritative;
 - no hidden multiattack/status RNG;
-- damaged anatomy disables or changes dependent attacks.
+- damaged anatomy disables or changes dependent attacks;
+- reactable attacks open the shared reaction-window owner rather than creating Monster-specific reaction logic.
+
+The normal Monster attack runtime is not implemented yet. The current combat scheduler still uses `WAIT_NO_ATTACK_RUNTIME` for the Monster activation until reaction-window infrastructure and the first attack slice are integrated.
 
 ## Berserk
 
@@ -138,12 +156,13 @@ Combat/escape/harvest consequences remain connected to the same physical Monster
 ## Package file map
 
 - `README.md` — local front door;
-- `ANATOMY_AND_DAMAGE.md` — target groups/break/sever/impairment;
+- `ANATOMY_AND_DAMAGE.md` — target groups/break/sever/impairment design authority;
 - `COMBAT_ATTACK_PACKET.md` — normal attacks;
 - `BERSERK_PROTOTYPE_CONTRACT.md` — Crystal desperation state;
 - `BEHAVIOR_AND_REGION.md` — deterministic activity/combat/retreat route selection;
 - `CRYSTAL_AND_MUTATION.md` — Crystal/mutation context;
-- `HARVEST_CAPACITY_PACKET.md` — first-slice concrete harvest materials/capacities/condition application.
+- `HARVEST_CAPACITY_PACKET.md` — first-slice concrete harvest materials/capacities/condition application;
+- `/game/scripts/gameplay/monsters/monster_01/` — current production species runtime owner.
 
 ## Current decision state
 
@@ -156,22 +175,32 @@ RECORDED:
 - defeat/escape continuity;
 - first-slice finite harvest packet.
 
+IMPLEMENTED + BUILD VERIFIED:
+- first species-owned normalized anatomy-integrity runtime slice.
+
 OPEN/LATER:
 - final display name/mass/absolute health/Stamina/Core capacity;
+- structural crack/break thresholds;
+- sever/detachment runtime;
+- status consequences;
+- Monster reaction/attack/behavior runtime;
 - broader materials/organs/meat;
 - final art/audio;
 - inventory/crafting linkage;
-- runtime implementation/tests.
+- remaining runtime implementation/tests.
 
+`MONSTER_01_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTED = YES`
+`MONSTER_01_ANATOMY_INTEGRITY_ANDROID_BUILD_VERIFIED = YES`
 `MONSTER_01_ATTACK_PACKET_RECORDED = YES`
 `MONSTER_01_BERSERK_PROTOTYPE_RECORDED = YES`
 `MONSTER_01_HARVEST_PACKET_RECORDED = YES`
-`MONSTER_01_COMBAT_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_NORMAL_ATTACK_RUNTIME_IMPLEMENTED = NO`
+`MONSTER_01_BEHAVIOR_RUNTIME_IMPLEMENTED = NO`
 `MONSTER_01_HARVEST_RUNTIME_IMPLEMENTED = NO`.
 
-## Exact next package dependency
+## Exact next runtime dependency
 
-Recovered Monster 01 materials now need the generic inventory owner:
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
+Before the recorded normal attack packet can replace the combat scheduler's Monster wait placeholder, generic combat needs:
+`FIRST_SLICE_HUNTER_REACTION_WINDOW_RUNTIME_IMPLEMENTATION`.
 
-Inventory must preserve quantity, quality and provenance without duplicating the physical harvest result.
+That owner must provide stable reaction-window identity and legal out-of-turn Hunter RP/Stamina commitment. It must not be implemented inside this species package.

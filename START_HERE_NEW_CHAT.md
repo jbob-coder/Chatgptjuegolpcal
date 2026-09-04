@@ -31,30 +31,39 @@ Implemented production stack:
 - Layer 3 observation + explicit same-location ENGAGE / aerial-to-first-person encounter transition;
 - deterministic combat turn shell;
 - adjacent tactical-node movement;
-- first Hunter `POLEBLADE_MEASURED_CUT` through target acquisition/body fallback, hit quality, and local protection routing.
+- first Hunter `POLEBLADE_MEASURED_CUT` through target acquisition/body fallback, hit quality and local protection;
+- species-owned Mudcrest anatomy-integrity runtime consuming that committed attack exactly once.
 
-The current attack result stops at `PENDING_ANATOMY_DAMAGE_RUNTIME`. Anatomy integrity loss, break/sever, status consequences, Monster reactions/attacks, defeat/escape and harvest are not yet implemented.
+The current anatomy slice tracks deterministic per-part normalized integrity with strict identity/protection validation and idempotent resolution replay. Its numeric integrity fixture is explicitly provisional. Break/sever, detached parts, status consequences, Monster reactions/attacks, defeat/escape and harvest remain later runtime layers.
 
 ## Current verified baseline
 
-Source head before documentation reconciliation:
-`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
+Current verified source head:
+`a70b7680f3a7d552a08fc9080a04bc40617c916b`.
+
+Anatomy implementation:
+`da664deaa88a04cd2d2c5ca3ddd11953f897c7f2`.
 
 Production workflow:
-`33851145446` — SUCCESS.
+`33853607287` — SUCCESS.
+
+Static manifest workflow:
+`33853607294` — SUCCESS.
 
 Passed:
 - manifest / production projection;
+- anatomy source preflight;
 - Godot 4.7.2 parse/import;
 - AppShell smoke;
 - Region-01 smoke;
 - Hunt-01 production integration headless;
 - combat turn shell + tactical movement headless;
-- first Hunter attack headless;
+- Mudcrest anatomy integrity headless;
+- first Hunter attack + anatomy integration headless;
 - Android debug APK export;
 - APK/evidence artifact upload.
 
-Therefore the implemented combat foundation is STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Therefore the implemented stack through anatomy integrity is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
 Post-tracking phone validation remains `DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
@@ -63,15 +72,15 @@ Post-tracking phone validation remains `DEFERRED_BATCH`.
 
 ## Exact next action
 
-`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_REACTION_WINDOW_RUNTIME_IMPLEMENTATION`.
 
 Read before implementing:
 - `game/scripts/gameplay/combat/README.md`;
-- `game/scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd`;
-- `game/tests/hunt01_hunter_attack_runtime_test.gd`;
+- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
+- `game/tests/hunt01_combat_turn_shell_runtime_test.gd`;
+- `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`;
 - `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
 - `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`;
-- `docs/30_content/monsters/MONSTER_01/README.md`;
-- `docs/30_content/monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md`.
+- `docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`.
 
-Species-specific integrity state belongs to the Monster-01 production owner. Preserve the committed combat action/contact trace; do not reroll it. Final damage arithmetic, break/sever thresholds and status tuning remain open, so any first-slice numeric fixture must be deterministic, reversible and explicitly provisional rather than presented as final design authority.
+The bounded prerequisite must create an authoritative reaction-window identity and an out-of-turn RP/Stamina commitment path without granting the Hunter another normal activation. One normal reaction maximum per window, no recursive windows, no double spend on replay/readback. Use only currently closed costs; the selected Monster packet records the Field Poleblade Block commitment as 6 Stamina. Do not invent final Dodge/Parry/Brace tuning or Hunter damage.

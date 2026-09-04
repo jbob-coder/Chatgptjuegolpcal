@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH MUDCREST ANATOMY INTEGRITY BUILD VERIFIED / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-04
 
 ## Operating law
@@ -41,36 +41,52 @@ Historical tracking-only tested head: `0df278eba2d9265ed84483265957d9f8c2d7f415`
 ### Layer 3 — observation / same-location encounter entry
 
 IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
-Tracking `OBSERVATION_READY` now leads to explicit ENGAGE at the existing Meadow encounter. Hunter/Monster world identity and encounter location are preserved; combat staging becomes first-person at that location rather than teleporting to a generic arena.
+Tracking `OBSERVATION_READY` leads to explicit ENGAGE at the existing Meadow encounter. Hunter/Monster world identity and encounter location are preserved; combat staging becomes first-person at that location rather than teleporting to a generic arena.
 
 ### Combat foundation
 
-IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED through first Hunter attack contact resolution:
+IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED:
 - deterministic combat turn shell;
 - adjacent tactical-node movement on the authored 10-node / 14-link Meadow graph;
-- Hunter `POLEBLADE_MEASURED_CUT` with range, line-of-effect, AP/Stamina commitment, target-group acquisition/body fallback, deterministic hit quality and local protection routing;
-- emitted handoff remains `PENDING_ANATOMY_DAMAGE_RUNTIME`.
+- Hunter `POLEBLADE_MEASURED_CUT` with range, line-of-effect, AP/Stamina commitment, target-group acquisition/body fallback, deterministic hit quality and local protection routing.
 
-Verified baseline source head before this documentation reconciliation:
-`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
+### Mudcrest anatomy integrity
+
+IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+
+Species owner:
+`game/scripts/gameplay/monsters/monster_01/`.
+
+The runtime consumes one committed `PENDING_ANATOMY_DAMAGE_RUNTIME` handoff, preserves stable encounter/action/target identity, tracks normalized per-target integrity, rejects mismatched handoffs, and makes replay/readback idempotent through a stable resolution ID.
+
+The current integrity arithmetic is explicitly `PROVISIONAL_FIRST_SLICE_ANATOMY_INTEGRITY_FIXTURE`; it is not final combat balance. Break/sever thresholds, detached-part state, statuses, global Monster health/death and Monster behavior remain outside this completed slice.
+
+Implementation commit:
+`da664deaa88a04cd2d2c5ca3ddd11953f897c7f2`.
+
+QA repair commit / current verified source head:
+`a70b7680f3a7d552a08fc9080a04bc40617c916b`.
 
 Production workflow:
-`33851145446` — SUCCESS.
+`33853607287` — SUCCESS.
+
+Static manifest workflow:
+`33853607294` — SUCCESS.
 
 Verified workflow gates:
 - authoritative manifest / production projection: PASS;
+- Mudcrest anatomy source preflight: PASS;
 - Godot 4.7.2 import/parse: PASS;
 - AppShell smoke: PASS;
 - Region-01 smoke: PASS;
 - Hunt-01 production integration headless: PASS;
 - combat turn shell + tactical movement headless: PASS;
-- first Hunter attack headless: PASS;
+- Mudcrest anatomy integrity headless: PASS;
+- first Hunter attack + anatomy integration headless: PASS;
 - Android debug export: PASS;
 - APK/evidence artifact upload: PASS.
 
-Two stale QA assumptions were repaired before this green baseline:
-- `31999ced0a961f8d56c7159bdb387d986f3c8375` — combat preflight no longer forbids the legitimate Hunter attack owner;
-- `6c6715a2fb4a945b953e1dc1fbc69f79731c31ab` — N09 attack test now distinguishes passing the range gate from failing the remaining-AP gate after a three-step approach.
+The anatomy QA repair changed only a stale semantic assertion: the preflight now checks the already-authoritative separate `crack/break thresholds` and `sever thresholds` deferrals instead of requiring an arbitrary combined phrase. Gameplay behavior did not change.
 
 ## Verification boundary
 
@@ -79,20 +95,20 @@ Two stale QA assumptions were repaired before this green baseline:
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Monster attacks/reactions, anatomy integrity loss, break/sever, status effects, defeat/escape outcome, harvesting, inventory, crafting and settlement services are not yet runtime-complete.
+Monster attack/reaction runtime, structural break/sever, status effects, defeat/escape outcome, harvesting, inventory, crafting, settlement services and persistence are not yet runtime-complete.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_HUNTER_REACTION_WINDOW_RUNTIME_IMPLEMENTATION`
 
 Owner/dependencies:
-1. species-specific anatomy behavior belongs to a Monster-01 production package under `game/`;
-2. generic combat remains owner of the existing action/contact trace;
-3. the anatomy runtime consumes the committed Hunter attack `damage_handoff` once and must not reroll contact/hit quality;
-4. stable target groups and Monster identity must be preserved;
-5. repeated resolution identity must not double-apply consequences;
-6. final damage arithmetic, break/sever thresholds and status tuning remain design-open and must not be fabricated as final authority;
-7. the first slice may use an explicitly provisional deterministic fixture only where required to exercise runtime integrity state;
-8. break/sever/status/Monster reactions remain outside this bounded piece unless a current authority closes their design gates;
-9. add source/static, Godot headless and Android-build verification;
-10. record phone validation as deferred and continue only after automated gates are green.
+1. generic reaction-window and reaction-resource authority belongs under `game/scripts/gameplay/combat/`;
+2. `ACTION_ECONOMY_CONTRACT.md` owns the one-normal-reaction / RP timing law;
+3. `COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md` owns Block/Dodge/Parry/Brace outcome semantics;
+4. `FIRST_WEAPON_FAMILY_CONTRACT.md` owns Field Poleblade Guard/Parry compatibility;
+5. Monster-01 `COMBAT_ATTACK_PACKET.md` requires attack telegraphs/reaction windows and records the normal Field Poleblade Block commitment cost as 6 Stamina, separate from attack-specific impact drain;
+6. add an out-of-turn shell resource-commit path that spends RP/Stamina without pretending the Hunter owns the Monster activation;
+7. first bounded runtime must provide stable reaction-window identity, exactly-one normal reaction commitment, deterministic replay/readback, explicit decline/close behavior and no recursive windows;
+8. do not invent final Dodge/Parry/Brace Stamina tuning where the current authorities leave it open; the first verified path may exercise the Field Poleblade Block commitment whose cost is already recorded;
+9. this prerequisite does not itself resolve a Monster attack or fabricate Hunter health damage;
+10. add source/static, Godot headless and Android-build verification, keep phone validation deferred, then continue to the first real Mudcrest attack runtime.

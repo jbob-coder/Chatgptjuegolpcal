@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / TRACKING + OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED
+Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH MUDCREST ANATOMY INTEGRITY BUILD VERIFIED
 Last reconciled: 2026-09-04
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -54,36 +54,47 @@ The Stage-1 probe under `probes/android_stage1/` is evidence only.
 - eight Mudcrest target groups;
 - deterministic contact/hit-quality resolution;
 - selected-part acquisition or declared body fallback;
-- local protection routing;
-- output currently stops at `PENDING_ANATOMY_DAMAGE_RUNTIME`.
+- local protection routing.
 
-Not yet runtime-complete: anatomy integrity loss, break/sever, status effects, Monster reactions/attacks, defeat/escape resolution, harvesting, inventory, crafting, settlement services and persistence.
+### Mudcrest anatomy integrity
+
+- species-owned under `game/scripts/gameplay/monsters/monster_01/`;
+- consumes the committed Hunter attack consequence without rerolling contact;
+- deterministic normalized integrity per target group;
+- stable resolution identity and idempotent replay/readback;
+- mismatch/collision rejection;
+- current arithmetic explicitly provisional rather than final balance.
+
+Not yet runtime-complete: reaction windows, Monster attacks/behavior, break/sever/detached parts, status effects, defeat/escape resolution, harvesting, inventory, crafting, settlement services and persistence.
 
 ## Current automated verification
 
-Verified source baseline before current documentation reconciliation:
-`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
+Current verified source head:
+`a70b7680f3a7d552a08fc9080a04bc40617c916b`.
 
-Workflow `33851145446`: SUCCESS.
+Production workflow `33853607287`: SUCCESS.
+Static manifest workflow `33853607294`: SUCCESS.
 
-Passed on that source:
+Passed:
 - manifest / production projection;
+- Mudcrest anatomy source preflight;
 - Godot 4.7.2 parse/import;
 - AppShell smoke;
 - Region-01 smoke;
 - Hunt-01 production integration headless;
 - combat turn shell + tactical movement headless;
-- first Hunter attack headless;
+- Mudcrest anatomy integrity headless;
+- first Hunter attack + anatomy integration headless;
 - Android debug APK export;
 - APK/evidence artifact upload.
 
-Therefore current combat foundation: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Therefore current runtime through Mudcrest anatomy integrity is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
 Phone acceptance for newer production gameplay is deferred/batched and is not a PASS.
 `PERFORMANCE_VERIFIED = NO`.
 
 ## Next
 
-`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_REACTION_WINDOW_RUNTIME_IMPLEMENTATION`.
 
-The next bounded piece must be Monster-01/species-owned and consume the existing committed attack `damage_handoff` without rerolling contact. Final damage arithmetic, break/sever thresholds and status tuning remain open; no provisional values may be presented as final authority.
+Before the selected Mudcrest attack packet can replace the current Monster `WAIT_NO_ATTACK_RUNTIME`, generic combat needs a real reaction-window owner and out-of-turn Hunter RP/Stamina commitment path. The first bounded prerequisite will exercise the already-recorded Field Poleblade Block commitment without inventing unresolved final Dodge/Parry/Brace tuning or Hunter damage.

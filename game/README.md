@@ -1,6 +1,6 @@
 # Production Game Root
 
-Status: HUNT-01 TRACKING + OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED / ANATOMY NEXT
+Status: HUNT-01 THROUGH MUDCREST ANATOMY INTEGRITY BUILD VERIFIED / REACTION WINDOW NEXT
 Last reconciled: 2026-09-04
 
 This folder is the production Godot project for Unnamed Hunt RPG. It is separate from `probes/android_stage1/`, which remains Stage-1 evidence/testing infrastructure only.
@@ -33,7 +33,7 @@ Owner:
 
 The runtime consumes observation readiness and requires explicit ENGAGE at the existing Meadow encounter. It preserves the same physical Hunter/Monster context and enters first-person combat staging without teleporting to an unrelated arena.
 
-### Combat foundation
+### Generic combat foundation
 
 Owner:
 `scripts/gameplay/combat/`.
@@ -45,10 +45,23 @@ Implemented:
 - target selection, hard range/line-of-effect/resource legality;
 - deterministic contact/hit quality;
 - selected-part acquisition/body fallback;
-- local Mudcrest protection routing;
-- `damage_handoff.status = PENDING_ANATOMY_DAMAGE_RUNTIME`.
+- local Mudcrest protection routing.
 
-Species integrity loss, break/sever, status effects and Monster behavior are deliberately not owned by the generic combat shell.
+### Monster-01 anatomy integrity
+
+Owner:
+`scripts/gameplay/monsters/monster_01/`.
+
+Implemented:
+- consumes the already-committed Hunter attack handoff without rerolling contact/hit quality;
+- stable encounter/Monster/target/resolution identities;
+- deterministic normalized per-target integrity;
+- strict identity/channel/protection validation;
+- duplicate replay/readback idempotence;
+- collision rejection;
+- returned anatomy result remains attached to the committed Hunter resolution.
+
+The integrity arithmetic is `PROVISIONAL_FIRST_SLICE_ANATOMY_INTEGRITY_FIXTURE`, not final balance. Species integrity loss is now runtime-owned; structural break/sever/detachment/status and Monster behavior remain later owners.
 
 ## Source ownership
 
@@ -58,33 +71,36 @@ Species integrity loss, break/sever, status effects and Monster behavior are del
 - `scripts/presentation/exploration/region_01_hunt01_graybox.gd`: world/presentation/input adapter.
 - `scripts/gameplay/tracking/`: tracking/evidence gameplay.
 - `scripts/gameplay/encounter/`: observation/ENGAGE/same-location encounter staging.
-- `scripts/gameplay/combat/`: generic combat turn, movement and Hunter attack/contact runtime.
-- future Monster-01 production package: species-specific anatomy consequences.
+- `scripts/gameplay/combat/`: generic combat turn, movement, reaction and Hunter attack/contact ownership.
+- `scripts/gameplay/monsters/monster_01/`: species-specific Monster-01 runtime consequences.
 - `assets/`: reusable production visual kit.
 - `content/regions/region_01/hunt01_graybox_build_manifest.json`: runtime projection of authoritative Region docs; do not edit independently.
 - `tests/`: Godot headless regression gates.
 
 Authoritative stable dimensions/coordinates remain under `docs/10_world/regions/REGION_01/`.
-Monster-01 anatomy design authority remains under `docs/30_content/monsters/MONSTER_01/`.
+Monster-01 design authority remains under `docs/30_content/monsters/MONSTER_01/`.
 
 ## Current verification status
 
-Verified source baseline before this documentation reconciliation:
-`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
+Current verified source head:
+`a70b7680f3a7d552a08fc9080a04bc40617c916b`.
 
-Production workflow `33851145446`: SUCCESS.
+Production workflow `33853607287`: SUCCESS.
+Static manifest workflow `33853607294`: SUCCESS.
 
 Passed:
 - production source/projection static gates;
+- Mudcrest anatomy source preflight;
 - Godot 4.7.2 parse/import;
 - AppShell and Region-01 smoke;
 - production integration headless;
 - combat turn shell + tactical movement headless;
-- first Hunter attack headless;
+- Mudcrest anatomy integrity headless;
+- first Hunter attack + anatomy integration headless;
 - Android debug APK export;
 - artifact upload.
 
-Current stack is STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Current stack through anatomy integrity is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
 Post-tracking production phone acceptance remains `DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
@@ -93,6 +109,6 @@ Post-tracking production phone acceptance remains `DEFERRED_BATCH`.
 
 ## Exact next production piece
 
-`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_REACTION_WINDOW_RUNTIME_IMPLEMENTATION`.
 
-Create a Monster-01/species-owned runtime that consumes the already-committed attack handoff exactly once, preserves target/action identity, produces deterministic integrity state/trace, and prevents replay/readback duplication. Final damage arithmetic and break/sever/status thresholds remain design-open; any bounded numeric fixture required for runtime exercise must be explicitly provisional and reversible.
+Add a generic reaction-window runtime plus shell-owned out-of-turn RP/Stamina commitment. Preserve one normal reaction maximum, stable window identity, replay idempotence and non-recursive windows. Exercise only closed costs in this first bounded piece: 1 RP baseline and the selected Field Poleblade Block 6-Stamina commitment. Do not invent final Dodge/Parry/Brace tuning or resolve Monster/Hunter damage in this prerequisite.
