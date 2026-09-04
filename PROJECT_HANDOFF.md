@@ -1,11 +1,11 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PERSISTENCE RECORDED / WORLD COORDINATES + DIMENSIONS NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN THROUGH PERSISTENCE + SPATIAL FRAMEWORK RECORDED / REGION TRACKING->ENCOUNTER GRAYBOX INTEGRATION NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
 
-Continue building the Android monster-hunting tactical RPG one bounded layer at a time while direct Galaxy A03s evidence remains deferred.
+Build the Android monster-hunting tactical RPG one bounded layer at a time while direct Galaxy A03s evidence remains deferred.
 
 The game is the primary objective. Documentation is the ownership/continuity/test-control system.
 
@@ -16,10 +16,7 @@ Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
-
-Operating contract:
-`EVOLVE_ALIGNMENT.md`.
+`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`.
 
 ## Mandatory read order
 
@@ -33,131 +30,111 @@ Operating contract:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-For current spatial work additionally read:
-- `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
-- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`;
-- `FIRST_SETTLEMENT_BLUEPRINT.md`;
-- `docs/10_world/README.md`;
-- Settlement 01 package/Smith contract;
-- Region 01 README/topology/encounter footprints/streaming acceptance;
-- Monster 01 anatomy/dimension authority;
-- Hunter scale/model authorities;
-- new persistence contract because saved positions must consume the same coordinate framework.
+For current Region graybox integration additionally read:
+- `docs/10_world/spatial/README.md`;
+- coordinate framework + registry;
+- Region 01 README / topology / tracking / encounter / streaming / acceptance;
+- Monster 01 behavior/anatomy/attacks;
+- current terrain/status/defeat-retreat owners;
+- Persistence because pursuit/encounter locations must survive save/reload.
 
 ## Project identity
 
 New Android-targeted monster-hunting tactical RPG. WorldLife is abandoned.
 
 Playable direction:
-- walkable settlement/hub;
-- aerial wilderness tracking/exploration;
-- first-person turn-based tactical combat from the same physical encounter;
-- anatomy damage changes capability and harvest;
-- deterministic authored behavior;
-- physical harvest -> Inventory -> physical Smith -> equipment refinement -> save/reload -> next hunt.
+walkable Settlement 01 -> frontier transition -> aerial Region 01 tracking -> first-person turn-based encounter at same terrain -> anatomy damage/escape/death -> harvest -> Inventory -> physical Smith -> refinement -> persistence -> next hunt.
 
 ## Stage-1 engine/device truth
 
 Candidate:
-Godot 4.7 family / CI Godot 4.7.2 stable / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene minimum.
+Godot 4.7 family / CI 4.7.2 stable / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene minimum.
 
-Automated protocol revision:
-`c02971996e35770bbaaaf9bf6c460af208db4f83`.
-Workflow `33811355891`: SUCCESS.
-
-Automated gates:
-154/154 static; 8/8 Monster collision; 12/12 boundary; 17/17 view continuity; 47/47 lifecycle; 20/20 performance telemetry; Godot parse/smoke PASS; Android export/APK integrity/artifact upload PASS.
-
-Inner APK:
-`57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
-
-Direct phone regression + sustained 24-minute run remain deferred.
+Automated lineage remains successful through workflow `33811355891`.
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## Recorded gameplay/world chain
+## Recorded first-slice design chain
 
-Completed design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip -> Settlement Smith Service -> Persistence`.
+Combat baseline through Defeat/Retreat: RECORDED.
 
-Key first recipe:
-`recipe_field_poleblade_raker_tendon_grip`
-= 2 HIGH tail tendon + 2 STANDARD-or-better hide -> Raker-Tendon Grip refinement -> Placed Hew Stamina 18 -> 16.
+Monster 01 Mudcrest Raker:
+~6.6 m long / ~3.0 m shoulder-body prototype; anatomy/attacks/Berserk/behavior/escape/harvest packet recorded.
+
+Harvest/Inventory/Craft:
+physical finite source -> Recovery Bundle -> player Inventory -> `recipe_field_poleblade_raker_tendon_grip` -> Field Poleblade refinement -> Placed Hew Stamina 18->16.
 
 Settlement Smith:
-physical workbench in Craft/Processing Quarter; normal essential service independent of one NPC schedule; future gate-return route target <=25 seconds normal walk.
+physical workbench on the Hunter Service Loop, normal essential service independent of one NPC schedule.
 
-## Persistence baseline — RECORDED
+Persistence:
+`UHR_SAVE_SCHEMA_1`, one first-slice slot, safe-point committed snapshots, active-combat scheduler continuity, transaction anti-replay and same Monster/material/equipment identity across reload.
+
+No production runtime implementation is claimed for these domains.
+
+## Spatial coordinate/dimension baseline — RECORDED
 
 Front door:
-`docs/50_technical/persistence/README.md`.
+`docs/10_world/spatial/README.md`.
 
-Authority:
-`docs/50_technical/persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
+Framework:
+`docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
+
+Registry:
+`docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
 
 Handoff:
-`docs/70_handoff/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_PASS_2026-09-03.md`.
+`docs/70_handoff/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_PASS_2026-09-03.md`.
 
 Selected:
-- `UHR_SAVE_SCHEMA_1`, schema version 1;
-- one prototype slot `save_slot_01`;
-- monotonically increasing committed generations;
-- state snapshot, not event sourcing;
-- safe-point-only snapshot commits;
-- active encounter saves at stable combat decision/reaction points;
-- exact Initiative/RoundRoster/current-actor/resource state persists;
-- same Monster/anatomy/Core/Strain/Berserk/route/evidence state persists;
-- harvest lineage/depletion, Recovery Bundles, Inventory/provenance, craft ledgers/refinement persist;
-- Smith overlay reloads closed while domain state remains authoritative;
-- transaction/ID sequences cannot replay or collide after reload;
-- incomplete new write cannot destroy last committed generation;
-- load validates invariants before state activation;
-- presentation rebuilds from domain truth.
+- 1 world unit = 1 meter;
+- +X East / +Y Up / -Z North / +Z South;
+- separate `space_settlement_01`, `space_frontier_01`, `space_region_01` coordinate spaces;
+- stable transition anchor mapping between spaces;
+- Settlement 01 200×260 m prototype envelope with major service anchors;
+- Hunter Gate origin `(0,0,0)`;
+- Smith workbench `(-22,3,40)`;
+- ~80 m Frontier corridor;
+- Region entry `(0,0,0)` in its own space;
+- seven Region sector centers preserving canonical adjacency;
+- connected center distances ~117–165 m;
+- S06 deepest center ~402 m from entry;
+- eleven canonical route anchors;
+- four encounter-footprint centers/envelopes within existing 30–90 m guidance.
 
-`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
-`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`
-`PERSISTENCE_RUNTIME_VERIFIED = NO`.
+All numeric world positions remain `PROTOTYPE TARGETS` until graybox/runtime/device validation unless explicitly labeled locked.
 
-## User-requested dimensions/coordinates direction
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
+`WORLD_SPATIAL_GRAYBOX_IMPLEMENTED = NO`
+`WORLD_SPATIAL_RUNTIME_VERIFIED = NO`
+`SPATIAL_COORDINATES_PHONE_VERIFIED = NO`.
 
-Current world authority already uses the preferred standard:
-`1 world unit = 1 meter`.
+## Exact next game-development piece
 
-Current prototype size evidence includes:
-- Hunter baseline around 1.75–1.80 m;
-- Mudcrest Raker ~6.6 m long / ~3.0 m shoulder-body height;
-- Settlement 01 specific blueprint roughly 220–280 m long axis × 160–230 m short axis;
-- Region 01 sectors roughly 100–180 m characteristic spans;
-- normal first-person encounter footprints tens of meters, with 30–90 m global starting guidance;
-- workshop/smith guide roughly 10–20 m × 12–28 m.
+`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`
 
-These are ranges, not yet one coordinate map.
+Purpose:
+use the new coordinate registry to define one representative physical first hunt chain rather than only isolated sector/footprint documents.
 
-Exact next pass:
-`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
-
-That pass must select axis/origin conventions and documented prototype coordinates/bounds/anchors for Settlement 01, Hunter Gate/transition, Region 01 sectors and encounter footprints, while preserving existing topology and labeling untested geometry as prototype graybox targets.
+Bounded expected content:
+- select one S00 departure route and evidence progression;
+- assign evidence anchors and player route choices;
+- assign same Monster instance's movement/position anchors;
+- define observation/engagement threshold and one footprint entry;
+- define first tactical-node/cover/escape-node planning set for that footprint;
+- define Monster escape route into reacquisition using canonical Region links;
+- preserve exact position/identity through Persistence;
+- define path-length/sightline/body-clearance/camera-transition graybox acceptance checks;
+- no production art/runtime implementation or phone PASS claim.
 
 ## Saved visual concept
 
-Google Drive folder:
-`Unnamed Hunt RPG`.
-
-File:
-`Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
-Drive file ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
-
-Visual intent only; repository mechanics/runtime/dimensions/coordinates remain authoritative.
-
-## Documentation/navigation discipline
-
-Repository must answer:
-`WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
-
-Navigation:
-root README / `docs/README.md` / package READMEs / `DOCUMENTATION_INDEX.md` / `docs/70_handoff/` / this + `START_HERE_NEW_CHAT.md` / `EVOLVE_ALIGNMENT.md`.
+Google Drive folder `Unnamed Hunt RPG`.
+File `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
+Drive ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+Visual intent only.
 
 ## Current exact state
 
@@ -170,12 +147,9 @@ root README / `docs/README.md` / package READMEs / `DOCUMENTATION_INDEX.md` / `d
 `FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
 `FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
 `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
-`COMBAT_RUNTIME_IMPLEMENTED = NO`
-`HARVEST_RUNTIME_IMPLEMENTED = NO`
-`INVENTORY_RUNTIME_IMPLEMENTED = NO`
-`CRAFTING_RUNTIME_IMPLEMENTED = NO`
-`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`
-`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`.
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
+`WORLD_SPATIAL_GRAYBOX_IMPLEMENTED = NO`
+`WORLD_SPATIAL_RUNTIME_VERIFIED = NO`.
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`.

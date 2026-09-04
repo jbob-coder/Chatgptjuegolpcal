@@ -1,34 +1,59 @@
-# 10_world — World, Settlements and Hunting Regions
+# 10_world — World, Settlements, Spatial Framework and Hunting Regions
 
-Status: ACTIVE WORLD MAP / REGION 01 + SETTLEMENT 01 SERVICE PACKAGES RECORDED / NO WORLD IMPLEMENTATION
+Status: ACTIVE WORLD PACKAGE MAP / FIRST-SLICE COORDINATE-DIMENSION FRAMEWORK RECORDED / NO WORLD GRAYBOX IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Own spatial/playable-world packages and world-specific application of reusable systems.
+Own spatial/playable-world packages and world-specific application of global systems.
 
 Belongs here:
 - world-atlas packages;
 - settlement packages;
+- shared coordinate/dimension framework;
 - frontier/gate packages;
 - hunting-region packages;
 - sector topology;
 - camps/safe anchors;
-- region discovery/map behavior;
-- local tracking/escape routes;
+- local tracking routes;
+- monster territory/escape routes;
 - encounter-footprint placement;
-- local ecology/mutation-pressure application;
-- settlement service anchors/availability;
 - local streaming adjacency/application.
 
-Does not own:
-- damage/stat formulas;
-- generic crafting/inventory math;
-- equipment effect math;
-- generic deterministic behavior rules;
-- save-system architecture.
+Does not own generic combat/stat formulas, behavior-engine semantics, Crystal definitions, persistence implementation or model-art standards.
 
-World packages reference those owners instead of redefining them.
+## Current front doors
+
+Shared spatial authority:
+`spatial/README.md`.
+
+Settlement packages:
+`settlements/README.md`.
+
+Settlement 01:
+`settlements/SETTLEMENT_01/README.md`.
+
+Region 01:
+`regions/REGION_01/README.md`.
+
+## Coordinate/dimension baseline
+
+Framework:
+`spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
+
+Registry:
+`spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
+
+Selected:
+- `1 world unit = 1 meter`;
+- +X East, +Y Up, -Z North/outbound, +Z South/inbound;
+- separate local spaces for Settlement 01, Frontier and Region 01;
+- stable anchor mappings connect major spaces;
+- concrete prototype Settlement/service, transition, sector, route and encounter coordinates are recorded;
+- all unbuilt numeric positions remain prototype graybox targets unless explicitly locked.
+
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
+`WORLD_SPATIAL_GRAYBOX_IMPLEMENTED = NO`.
 
 ## Root authorities
 
@@ -38,25 +63,10 @@ World packages reference those owners instead of redefining them.
 - `/CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`;
 - `/PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
-## Current child packages
+World packages reference generic owning authorities instead of redefining them.
 
-### Settlements
-Front door: `settlements/README.md`.
+## Exact next world dependency
 
-Current child:
-`settlements/SETTLEMENT_01/`.
+`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`
 
-First-slice service authority:
-`settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
-
-Selected proof:
-- physical Smith/workbench on Hunter Service Loop;
-- gate-return-to-workbench graybox target <=25 seconds normal walking;
-- normal essential service cannot depend on one Smith NPC schedule;
-- UI/Settlement interaction never owns material consumption or refinement mutation.
-
-### Hunting regions
-Current child:
-`regions/REGION_01/` — first continuous hunting region beyond Settlement 01.
-
-Region 01 already owns topology/tracking/terrain/encounter-footprint/streaming application for the first hunt.
+That pass should use the recorded spatial registry to define one representative physical tracking→engagement→escape/reacquisition graybox chain.

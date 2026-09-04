@@ -1,18 +1,17 @@
 # Unnamed Hunt RPG — EVOLVE Alignment
 
-Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PERSISTENCE RECORDED / WORLD COORDINATES + DIMENSIONS NEXT
+Status: ACTIVE OPERATING CONTRACT / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN THROUGH PERSISTENCE + WORLD COORDINATE/DIMENSION FRAMEWORK RECORDED / REGION TRACKING->ENCOUNTER GRAYBOX INTEGRATION NEXT
 Last reconciled: 2026-09-03
 
 ## Mandatory pre-work rule
 
-Read the current repository copy of this file before every bounded design, documentation, asset, implementation, debugging, build or verification pass.
-
-Then read:
-1. `PROJECT_HANDOFF.md`;
-2. `START_HERE_NEW_CHAT.md`;
-3. `DOCUMENTATION_INDEX.md`;
-4. newest relevant `docs/70_handoff/`;
-5. owning package/README/source/tests.
+Before every bounded pass read:
+1. this file;
+2. `PROJECT_HANDOFF.md`;
+3. `START_HERE_NEW_CHAT.md`;
+4. `DOCUMENTATION_INDEX.md`;
+5. newest relevant `docs/70_handoff/`;
+6. exact owning package/README/source/tests.
 
 Current repository/source/build/device evidence outranks chat memory.
 
@@ -29,7 +28,7 @@ For intended changes:
 2. current verified source/tests;
 3. current owning repository authorities;
 4. direct build/runtime/device evidence;
-5. external research/documentation;
+5. external documentation/research;
 6. chat summaries/memory.
 
 For runtime claims:
@@ -60,7 +59,7 @@ For runtime claims:
 -> `WRITE NEXT PIECE INTO EVOLVE`
 -> `STATE SAME NEXT ACTION TO USER`.
 
-Never begin an unrelated next piece before closing the current boundary.
+Never begin unrelated next work before closing the current boundary.
 
 ## Documentation/navigation law
 
@@ -68,48 +67,47 @@ Every substantial durable piece must answer:
 `WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 Use:
-- root `README.md` — human game/front door;
-- `docs/README.md` — placement/package rules;
-- local package README — local map;
-- `DOCUMENTATION_INDEX.md` — global map/read order;
-- `docs/70_handoff/` — bounded-pass continuity;
+- root README — game/human front door;
+- `docs/README.md` — placement rules;
+- local README — package map;
+- `DOCUMENTATION_INDEX.md` — global discovery;
+- `docs/70_handoff/` — completed-pass evidence;
 - `PROJECT_HANDOFF.md` + `START_HERE_NEW_CHAT.md` — current reconstruction;
-- this file — operating contract + exact next actions.
+- this file — exact operating/next-action state.
 
-## Build-readiness taxonomy
-
-Authority:
-`docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
-
-Classes:
-1. `MUST_EXIST_BEFORE_ENGINE_PROBE`;
-2. `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`;
-3. `MUST_EXIST_BEFORE_COMBAT`;
-4. `MUST_EXIST_BEFORE_VERTICAL_SLICE`;
-5. `CAN_WAIT_UNTIL_EXPANSION`.
+## Stage-1 engine/device truth
 
 `IMPLEMENTATION_AUTHORIZED = YES`
 `CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`.
 
-## Stage-1 engine/device candidate
-
+Candidate:
 - Godot 4.7 family;
 - CI/build Godot 4.7.2 stable;
 - GDScript;
 - GL Compatibility/OpenGL3;
 - Galaxy A03s baseline;
-- stable 30 FPS representative-scene minimum target.
+- stable 30 FPS representative-scene minimum.
 
-`probes/android_stage1/` remains disposable evidence-gathering source and must not silently become production architecture.
+`probes/android_stage1/` remains disposable evidence-gathering source, not production architecture.
 
-Protected control/camera authority:
-`probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
+Automated lineage:
+- protocol revision `c02971996e35770bbaaaf9bf6c460af208db4f83`;
+- workflow `33811355891`: SUCCESS;
+- protected static 154/154;
+- Monster collision 8/8;
+- world boundary 12/12;
+- state continuity 17/17;
+- lifecycle 47/47;
+- performance telemetry 20/20;
+- Godot parse/smoke + Android export/APK integrity/artifact upload PASS.
 
-## Phone-evidence rule
+Inner APK:
+57,570,361 bytes; SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-Development must not stop waiting for phone reports.
-
-Record phone-only tests for later, never infer phone PASS from CI/source, continue independent work, and do not close Stage 1 without direct Galaxy A03s evidence.
+Phone evidence remains deferred:
+`PERFORMANCE_VERIFIED = NO`
+`ENGINE_PHONE_PROBE_VERIFIED = NO`
+`FINAL_ENGINE_SELECTED = NO`.
 
 Implementation blocker:
 `GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
@@ -117,152 +115,195 @@ Implementation blocker:
 Implementation action when phone is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
-## Current automated Stage-1 lineage
-
-Protocol revision:
-`c02971996e35770bbaaaf9bf6c460af208db4f83`.
-Performance telemetry source:
-`89394067971120df43b184a8509934f5458185f2`.
-Workflow `33811355891`: SUCCESS.
-
-Verified automated gates:
-- protected static 154/154;
-- Monster collision 8/8;
-- world boundary 12/12;
-- Godot parse/smoke PASS;
-- aerial<->first-person 17/17;
-- lifecycle 47/47;
-- performance telemetry 20/20;
-- Android export/APK integrity/artifact upload PASS.
-
-Inner APK:
-`57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
-
-`SUSTAINED_PERFORMANCE_PHONE_EXECUTED = NO / DEFERRED`
-`PERFORMANCE_VERIFIED = NO`
-`ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
-
 ## Recorded first-slice game-design chain
 
-Combat baseline:
-nine reusable first-slice authorities through Defeat/Retreat.
+Combat:
+nine reusable first-slice contracts through Defeat/Retreat.
 
 Monster 01:
-Mudcrest Raker anatomy/attacks/Berserk/deterministic behavior/Region escape-reacquisition/harvest packet.
+Mudcrest Raker anatomy/attacks/Berserk/deterministic Region behavior/escape-reacquisition/harvest packet.
 
 Harvest:
-finite authored capacity; condition/quality; deterministic extraction; clean-sever lineage transfer; persistent depletion.
+finite physical capacity/condition/quality/depletion.
 
 Inventory:
-Recovery Bundles; `PLAYER_FIELD_INVENTORY`; quality/provenance stacks; conserved idempotent transfers.
+Recovery Bundles + `PLAYER_FIELD_INVENTORY` + provenance/transaction conservation.
 
 Craft/equip:
 `recipe_field_poleblade_raker_tendon_grip`
-consumes 2 HIGH `material_m01_tail_tendon` + 2 STANDARD-or-better `material_m01_hide` and applies `refinement_field_poleblade_raker_tendon_grip` to a compatible Field Poleblade.
+consumes 2 HIGH tail tendon + 2 STANDARD-or-better hide and applies one Field Poleblade refinement.
 
-Typed effect:
-Placed Hew Stamina 18 -> 16 through one `COST_MODIFIER` only.
+Effect:
+Placed Hew Stamina 18 -> 16 through typed `COST_MODIFIER` only.
 
 Settlement Smith:
-physical workbench in Settlement 01 Craft/Processing Quarter on Hunter Service Loop; normal essential service independent of one Smith NPC schedule; gate-return-to-workbench future graybox target <=25 seconds.
+physical Settlement 01 workbench on Hunter Service Loop; normal essential service independent of one NPC schedule.
 
-## Persistence baseline — RECORDED
+Persistence:
+`UHR_SAVE_SCHEMA_1`, version 1, `save_slot_01`, safe-point committed snapshots, active-combat exact scheduler state, transaction anti-replay, same Monster/material/refinement identity after reload.
+
+No production runtime implementation is claimed for these gameplay domains.
+
+## World coordinate / dimension baseline — RECORDED
 
 Front door:
-`docs/50_technical/persistence/README.md`.
+`docs/10_world/spatial/README.md`.
 
-Authority:
-`docs/50_technical/persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
+Framework:
+`docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
+
+Registry:
+`docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
 
 Handoff:
-`docs/70_handoff/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_PASS_2026-09-03.md`.
+`docs/70_handoff/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_PASS_2026-09-03.md`.
 
-Selected model:
-- `save_schema_id = UHR_SAVE_SCHEMA_1`;
-- `schema_version = 1`;
-- first-slice slot `save_slot_01`;
-- monotonically increasing committed save generations;
-- state snapshot, not event sourcing;
-- save request may happen anytime but new snapshot commits only at a persistence-safe domain boundary;
-- active encounter save is allowed at stable combat decision/reaction points;
-- exact round/InitiativeSnapshots/RoundRoster/current actor/resources/late-entry state persists;
-- same Monster ID/sector/route/anatomy/status/Core Energy/Core Strain/Berserk episode state persists;
-- encounter outcome/retreat state persists;
-- carcass/detached harvest lineages/capacity/depletion persists;
-- Recovery Bundles/Inventory stacks/provenance/transfer ledgers persist;
-- Craft ledger + Raker-Tendon Grip refinement persists exactly once;
-- Smith service state persists while transient Smith overlay reloads closed;
-- transaction/sequence counters survive reload and cannot collide/replay;
-- incomplete new write never invalidates previous committed generation;
-- load validates invariants before state activation;
-- presentation/UI/animation reconstruct from domain truth instead of replaying gameplay consequences.
+Selected measurement:
+`1 world unit = 1 meter`.
 
-Spatial persistence interface stores:
-- stable spatial-context ID;
-- sector/local-area ID;
-- position `[x,y,z]` in meters;
-- orientation;
-- stable transition/service/escape anchors as needed.
+Selected world/map axes:
+- +X East;
+- +Y Up;
+- -Z North / outbound wilderness;
+- +Z South / settlement-inbound.
 
-`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
-`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`
-`PERSISTENCE_RUNTIME_VERIFIED = NO`.
+Heading:
+0° North / 90° East / 180° South / 270° West.
 
-## User-directed world dimensions and coordinates
+Selected local spaces:
+- `space_settlement_01`;
+- `space_frontier_01`;
+- `space_region_01`.
 
-The user explicitly requested that development begin building and documenting dimensions and coordinates for game objects/areas.
+Persistence consumes `space ID + local XYZ + heading + stable anchor/sector refs`.
 
-Existing world authority already selects:
-`1 world unit = 1 meter` as the preferred measurement standard.
+### Settlement 01
 
-Current dimensional evidence includes:
-- Hunter baseline reference about 1.75–1.80 m;
-- Monster 01 about 6.6 m long / ~3.0 m shoulder-body height;
-- Settlement 01 blueprint about 220–280 m long axis × 160–230 m short axis;
-- Region 01 sectors about 100–180 m characteristic span;
-- standard large-monster combat footprint generally tens of meters, global starting range about 30–90 m;
-- Smith/workshop guide about 10–20 m × 12–28 m;
-- streets/doors/walls/gates already have prototype dimensional bands in `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`.
+Prototype planning bounds:
+- X `-100..+100 m`;
+- Z `-10..+250 m`;
+- primary walkable Y `~0..+14 m`;
+- plan `200 × 260 m`.
 
-These are ranges and are not yet one coherent coordinate map.
+Origin:
+`anchor_set01_hunter_gate_inner = (0,0,0)`.
+
+Key anchors:
+- Gate outer `(0,0,-10)`;
+- Processing Yard `(-34,1,22)`;
+- Smith center `(-22,3,42)`;
+- Smith entry `(-16,3,34)`;
+- Smith workbench `(-22,3,40)`;
+- Storage/Loadout `(24,4,38)`;
+- Hunter Lodge `(34,7,105)`;
+- Market/Civic `(-34,7,105)`;
+- Recovery/Inn `(20,12,175)`;
+- Residential center `(-22,12,185)`;
+- Arrival gate `(0,7,242)`.
+
+Gate->Smith workbench straight planning distance ~45.7 m. Existing <=25-second walking target remains `UNVERIFIED` until graybox movement/path measurement.
+
+Selected built-scale targets include:
+- Hunter 1.75 m `LOCKED/CURRENT`;
+- Monster 01 ~6.6 m long / ~3.0 m shoulder height `PROTOTYPE`;
+- Smith 16×22 m;
+- processing yard 28×24 m;
+- storage 16×20 m;
+- Hunter Lodge 28×32 m;
+- market plaza 28×24 m;
+- recovery/inn 18×24 m;
+- main route ~8 m;
+- secondary street ~5 m;
+- alley ~3 m;
+- Hunter Gate ~7 m clear width;
+- defensive wall ~7 m high.
+
+### Frontier
+
+`space_frontier_01`:
+- ~80 m centerline;
+- ~12 m normal clear width;
+- ~8 m minimum choke;
+- up to ~18 m watch/supply widening;
+- ~4 m total elevation drop.
+
+Anchors:
+- gate outer `(0,0,0)`;
+- pass exit `(0,-1,-14)`;
+- watch/supply `(6,-2,-42)`;
+- Region handoff `(0,-4,-80)`.
+
+### Region 01
+
+`space_region_01` origin:
+`anchor_r01_entry = (0,0,0)`.
+
+Sector centers:
+- S00 `(0,0,-35)`;
+- S01 `(-90,-3,-130)`;
+- S02 `(75,2,-135)`;
+- S03 `(-35,4,-245)`;
+- S04 `(-45,22,-365)`;
+- S05 `(80,-4,-265)`;
+- S06 `(70,18,-395)`.
+
+Canonical linked center distances are approximately 117–165 m and preserve all existing topology links. Deepest center is ~401.6 m from Region entry.
+
+All eleven canonical route-anchor coordinates are recorded in the registry. No extra adjacency was created.
+
+Encounter footprints:
+- EF01 Riverbank Ford `(-92,-4,-145)`, 52×46 m;
+- EF02 Meadow Edge `(-45,4,-250)`, 76×60 m;
+- EF03 Root/Boulder Hollow `(43,0,-205)`, 58×52 m;
+- EF04 Deep Nest Shelf `(70,19,-405)`, 68×56 m.
+
+Exact tactical nodes remain intentionally deferred.
+
+## Spatial verification boundary
+
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
+`WORLD_SPATIAL_GRAYBOX_IMPLEMENTED = NO`
+`WORLD_SPATIAL_RUNTIME_VERIFIED = NO`
+`SPATIAL_COORDINATES_PHONE_VERIFIED = NO`.
+
+All unbuilt coordinate values are prototype targets, not production-final facts.
 
 ## Exact current active non-phone gate
 
-`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`
+`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`
 
 Bounded scope:
-1. reread `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`, `MAP_WORLD_SETTLEMENT_STRUCTURE.md`, `FIRST_SETTLEMENT_BLUEPRINT.md`, world/Settlement/Region front doors, persistence package, Region 01 topology/encounter/streaming authorities, Hunter/Monster dimensional authorities;
-2. preserve `1 world unit = 1 meter`;
-3. select one engine-neutral right-handed axis convention and orientation vocabulary that can map cleanly to the eventual engine;
-4. select major-area origin policy so Settlement 01 and Region 01 can use stable local coordinates without huge-world precision problems;
-5. choose one prototype Settlement 01 outer bound/extent inside existing accepted ranges;
-6. assign documented prototype coordinates/bounds for Hunter Gate, Smith/workbench, processing yard, storage/loadout, Hunter Lodge, market/civic, recovery/residential and transition anchors;
-7. ensure the Hunter Gate -> Smith path geometry can plausibly satisfy the <=25-second target without asserting runtime PASS;
-8. define Hunter Gate/frontier transition corridor length/width/elevation targets and source/destination anchor coordinates;
-9. map Region 01's seven sectors into coordinates while preserving its existing topology and ecological identity; sector technical bounds may overlap visually/streaming-wise only by explicit rule and must not become visible boxed arenas;
-10. assign sector centers, approximate extents and connection/transition anchor coordinates;
-11. anchor selected first-slice encounter footprints to real Region 01 locations and size them within current combat-footprint guidance;
-12. create a dimension reference table for Hunter, Monster 01, doors, Smith/workshop, streets, gate/walls and combat footprint;
-13. classify every spatial value as `LOCKED/CURRENT`, `PROTOTYPE TARGET` or `OPEN`;
-14. define coordinate-documentation/ID format so later assets/scenes/tests can reference the same anchors;
-15. record future graybox/path-length/overlap/streaming tests;
-16. do not claim final art, final collision, final camera/FOV, target-phone performance or production coordinates.
+1. reread the spatial framework/registry, Region 01 topology/tracking/encounter/streaming/acceptance authorities, Monster 01 behavior/anatomy/attacks, terrain/combat/outcome owners and Persistence;
+2. choose one representative first-slice physical pursuit beginning at S00 after Frontier entry;
+3. place a small ordered set of evidence anchors using existing Region evidence classes and current coordinates;
+4. define player route-choice points without omniscient Monster GPS;
+5. define same Monster instance position/activity/route anchors and deterministic movement facts;
+6. choose an engagement approach and exact existing footprint for the first integrated proof;
+7. define a first tactical-node plan inside that footprint with node IDs, positions, terrain tags, cover, elevation, links and escape relation;
+8. ensure Monster 01 body/Charge/Tail/Ram clearance is physically plausible from its ~6.6×3.0 m prototype dimensions;
+9. map aerial engagement position/bearing/range into first-person entry without changing terrain context;
+10. define Monster escape route through canonical Region anchors and reacquisition evidence/position after combat;
+11. define save/reload checkpoints using `space_region_01` positions and same Monster/evidence/encounter IDs;
+12. record direct path-length, visibility, camera-obstruction, route-clearance and topology acceptance targets;
+13. record future graybox tests;
+14. do not create production art/runtime code, broad tracking catalog, second Monster or phone PASS claims.
 
-## After coordinate/dimension framework
+## After tracking-to-encounter integration
 
-Reread current vertical-slice readiness and select the smallest remaining playable integration dependency, likely Region 01 graybox/tracking-to-encounter integration using the new coordinates unless current evidence changes.
+Reread current vertical-slice readiness and choose the smallest remaining integration dependency. Do not expand broad content until one complete physical hunt path is coherent.
 
 ## Saved visual concept
 
-Google Drive folder `Unnamed Hunt RPG`.
-File `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
-Drive ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+Google Drive `Unnamed Hunt RPG`:
+`Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`
+ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
 
-Visual intent only; repository mechanics/runtime/dimensions/coordinates remain authoritative.
+Visual intent only.
 
 ## Current gate truth
 
+`IMPLEMENTATION_AUTHORIZED = YES`
+`CURRENT_STAGE = STAGE_1_ENGINE_ANDROID_PROBE`
 `STATIC_PREFLIGHT_VERIFIED = YES / 154_OF_154`
 `MONSTER_COLLISION_STATIC = YES / 8_OF_8`
 `WORLD_BOUNDARY_STATIC = YES / 12_OF_12`
@@ -273,22 +314,18 @@ Visual intent only; repository mechanics/runtime/dimensions/coordinates remain a
 `PHONE_RUNTIME_VERIFIED = PARTIAL / CURRENT_BUILD_REGRESSION_DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
-
+`FINAL_ENGINE_SELECTED = NO`
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
 `FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
 `FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_RECORDED = YES`
 `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
-`COMBAT_RUNTIME_IMPLEMENTED = NO`
-`HARVEST_RUNTIME_IMPLEMENTED = NO`
-`INVENTORY_RUNTIME_IMPLEMENTED = NO`
-`CRAFTING_RUNTIME_IMPLEMENTED = NO`
-`SETTLEMENT_SMITH_RUNTIME_IMPLEMENTED = NO`
+`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_RECORDED = YES`
+`WORLD_SPATIAL_GRAYBOX_IMPLEMENTED = NO`
 `PERSISTENCE_RUNTIME_IMPLEMENTED = NO`.
 
 `IMPLEMENTATION_BLOCKER = GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`
-`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`
+`NEXT_INDEPENDENT_DESIGN_ACTION = FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`.

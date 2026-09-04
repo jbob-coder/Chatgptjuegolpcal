@@ -1,16 +1,16 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN LOOP THROUGH PERSISTENCE RECORDED / WORLD COORDINATES + DIMENSIONS NEXT
+Status: ACTIVE GLOBAL MAP / STAGE 1 PHONE GATE DEFERRED / FIRST-SLICE DESIGN THROUGH SPATIAL COORDINATES RECORDED / REGION TRACKING->ENCOUNTER GRAYBOX INTEGRATION NEXT
 Last reconciled: 2026-09-03
 
 ## Purpose
 
-Map authority, ownership, readiness, verification lineage and read order so the project can be reconstructed from repository evidence instead of chat memory.
+Map authority, ownership, verification boundaries and continuation order so the project can be reconstructed from repository evidence instead of chat memory.
 
-Required repository answer:
+Required answer:
 `WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
-## 1. Mandatory read order
+## Mandatory read order
 
 1. `EVOLVE_ALIGNMENT.md`
 2. `PROJECT_HANDOFF.md`
@@ -22,61 +22,86 @@ Required repository answer:
 8. newest relevant `docs/70_handoff/`
 9. exact owning package/README/source/tests.
 
-Current repository/source/build/device evidence outranks old chat memory.
+## Stage-1 engine / Android
 
-## 2. Stage-1 engine/Android
-
-Authorities:
+Primary authorities:
 - `docs/50_technical/ENGINE_ANDROID_PROBE_DECISION.md`;
-- `probes/android_stage1/README.md`;
-- probe/control/performance protocols;
+- `probes/android_stage1/`;
 - `PERFORMANCE_BUDGETS_AND_CAPS.md`.
 
-Candidate:
-Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS representative-scene minimum.
+Current candidate:
+Godot 4.7 family / CI 4.7.2 / GDScript / GL Compatibility / Galaxy A03s / stable 30 FPS target.
 
-Workflow `33811355891`: SUCCESS on automated protocol revision `c02971996e35770bbaaaf9bf6c460af208db4f83`.
-
-Phone blocker:
-`GALAXY_A03S_DEVICE_EVIDENCE_REQUIRED_FOR_STAGE1_PHONE_GATE`.
-
-`PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
+`PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## 3. World / settlement / Region authorities
+## World / spatial authorities
 
-Root world authorities:
-- `GAME_EXPERIENCE_BIBLE.md`;
-- `VISUAL_WORLD_BEHAVIOR_BIBLE.md`;
-- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`;
+Root:
 - `WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md`;
+- `MAP_WORLD_SETTLEMENT_STRUCTURE.md`;
 - `FIRST_SETTLEMENT_BLUEPRINT.md`.
 
 World front door:
 `docs/10_world/README.md`.
 
-Settlement 01:
+Spatial front door:
+`docs/10_world/spatial/README.md`.
+
+Coordinate framework:
+`docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
+
+Coordinate registry:
+`docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
+
+Spatial handoff:
+`docs/70_handoff/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_PASS_2026-09-03.md`.
+
+Selected:
+- 1 unit = 1 meter;
+- +X East / +Y Up / -Z North / +Z South;
+- `space_settlement_01`, `space_frontier_01`, `space_region_01`;
+- Settlement 01 200×260 m prototype planning envelope;
+- concrete service/gate anchors;
+- ~80 m Frontier transition;
+- seven Region 01 sector centers + eleven canonical route anchors;
+- four encounter-footprint centers/envelopes;
+- all unbuilt values remain prototype targets.
+
+## Settlement 01
+
+Front door:
 `docs/10_world/settlements/SETTLEMENT_01/README.md`.
 
-Smith service authority:
+Smith service:
 `docs/10_world/settlements/SETTLEMENT_01/FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT.md`.
 
-Region 01:
-`docs/10_world/regions/REGION_01/README.md` plus topology/tracking/terrain/encounter/streaming authorities.
+Smith workbench prototype anchor:
+`space_settlement_01 (-22,3,40) m`.
 
-Current measurement authority already prefers `1 world unit = 1 meter`, but exact coordinate origins/bounds are not yet selected.
+## Region 01
 
-Next spatial authority to create:
-`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT` under the world package.
+Front door:
+`docs/10_world/regions/REGION_01/README.md`.
 
-## 4. Gameplay authorities
+Detailed owners:
+- `REGION_TOPOLOGY.md`;
+- `TRACKING_AND_ESCAPE.md`;
+- `TERRAIN_ECOLOGY_MUTATION.md`;
+- `ENCOUNTER_FOOTPRINTS.md`;
+- `STREAMING_AND_PERFORMANCE.md`;
+- `ACCEPTANCE_CHECKLIST.md`.
 
-Gameplay front door:
+Region coordinates now consume the shared spatial registry; canonical topology remains unchanged.
+
+## Gameplay authorities
+
+Front door:
 `docs/20_gameplay/README.md`.
 
 Combat:
-`docs/20_gameplay/combat/README.md` — nine reusable first-slice combat/outcome contracts.
+`docs/20_gameplay/combat/README.md`.
 
 Harvest:
 `docs/20_gameplay/harvest/README.md`.
@@ -90,95 +115,61 @@ Crafting:
 Progression:
 `docs/20_gameplay/progression/README.md`.
 
-First recipe:
-`recipe_field_poleblade_raker_tendon_grip`.
+## Monster 01
 
-Inputs:
-2 HIGH Monster 01 tail tendon + 2 STANDARD-or-better Monster 01 hide.
+Front door:
+`docs/30_content/monsters/MONSTER_01/README.md`.
 
-Output/effect:
-Raker-Tendon Grip refinement; Placed Hew Stamina 18 -> 16 through typed equipment `COST_MODIFIER` only.
+Mudcrest Raker prototype body:
+~6.6 m long / ~3.0 m shoulder-body height.
 
-## 5. Persistence authorities
+## Hunter reference
 
-Technical front door:
-`docs/50_technical/README.md`.
+`docs/30_content/hunters/HUNTER_BASE_01/PROPORTION_AND_ATTACHMENT_CONTRACT.md`.
 
-Persistence package front door:
+Locked prototype body height:
+`1.75 m`.
+
+## Persistence
+
+Front door:
 `docs/50_technical/persistence/README.md`.
 
-First-slice owner:
+Authority:
 `docs/50_technical/persistence/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md`.
 
 Handoff:
 `docs/70_handoff/FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_PASS_2026-09-03.md`.
 
-Selected baseline:
-- `UHR_SAVE_SCHEMA_1`, version 1;
-- one prototype slot `save_slot_01`;
-- committed generation snapshots;
-- persistence-safe domain boundaries;
-- active encounter saves at stable decision/reaction points;
-- exact scheduler/Monster/anatomy/Core/harvest/Inventory/craft/refinement state persists;
-- sequence/transaction IDs cannot replay after load;
-- incomplete new generation cannot invalidate the prior committed generation;
-- presentation/UI is reconstructed rather than replayed as gameplay authority.
+Persistence consumes shared spatial `space ID + local XYZ + heading`; it does not redefine coordinates.
 
-`FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_RECORDED = YES`
-`PERSISTENCE_RUNTIME_IMPLEMENTED = NO`.
+## Saved concept image
 
-## 6. Monster 01 content
-
-Front door:
-`docs/30_content/monsters/MONSTER_01/README.md`.
-
-Current authorities cover anatomy, normal attacks, Berserk, behavior/Region use, Crystal/mutation and harvest capacity.
-
-## 7. Architecture / data / quality
-
-Architecture/data:
-`SYSTEM_ARCHITECTURE_BLUEPRINT.md`, `CODE_GUIDE.md`, `CONTENT_DATA_GUIDE.md`, `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`, `BEHAVIOR_PATTERN_SYSTEM.md`, `CRYSTAL_MUTATION_ECOSYSTEM_SYSTEM.md`, `MECHANICAL_SYSTEMS_GUIDE.md`.
-
-Quality:
-`TESTING_VERIFICATION_PLAN.md`, `PERFORMANCE_BUDGETS_AND_CAPS.md`, `docs/60_quality/README.md`, Stage-1 probe/test protocols.
-
-## 8. Art and saved concept
-
-Art package:
-`docs/40_art/README.md` + asset-pipeline/review authorities.
-
-Saved finished-game visual concept:
-Google Drive folder `Unnamed Hunt RPG`;
-file `Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`;
+Google Drive folder `Unnamed Hunt RPG`:
+`Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`
 Drive ID `1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
 
-Generated concept imagery establishes visual intent only unless technically validated. It does not override mechanics, dimensions, coordinates, collision, stable IDs or performance evidence.
+Visual intent only.
 
-## 9. Current game-development sequence
+## Current sequence
 
-Implementation lane:
-`DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
-
-Completed bounded design sequence:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe/Craft-Equip -> Settlement Smith Service -> Persistence`.
+Completed design sequence through:
+`Combat -> Monster 01 -> Defeat/Retreat -> Harvest -> Inventory -> One Recipe -> Physical Smith -> Persistence -> World Coordinate/Dimension Framework`.
 
 Current active non-phone action:
-`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`.
+`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`.
 
-This next pass answers the user's new requirement to begin building/documenting dimensions and coordinates while preserving the existing world hierarchy/topology and explicitly labeling all untested values as prototype graybox targets.
+The next pass must consume the coordinate registry to define one real pursuit/engagement/escape chain before broader content expansion.
 
-## 10. Documentation placement law
+## Documentation placement law
 
-- root README — human game/front door;
-- `docs/README.md` — placement/package rules;
-- package README — local map;
-- generic mechanics — gameplay owner;
-- spatial/local service application — world package;
-- persistence/engine/platform — technical package;
-- species-specific values — species package;
-- `docs/70_handoff/` — bounded-pass records;
-- this index — global discovery/read order;
-- `PROJECT_HANDOFF.md` + `START_HERE_NEW_CHAT.md` — current reconstruction;
+- root README — human front door;
+- `docs/README.md` — placement rules;
+- local package README — local map;
+- world/spatial files — geometry/coordinate ownership;
+- gameplay files — reusable mechanics;
+- technical persistence files — save/reload ownership;
+- content package — species/hunter configuration;
+- `docs/70_handoff/` — completed-pass continuity;
+- this index — cross-project discovery;
 - `EVOLVE_ALIGNMENT.md` — exact operating/next-action state.
-
-An important authority that cannot be found from its local README or this index is incompletely integrated documentation.

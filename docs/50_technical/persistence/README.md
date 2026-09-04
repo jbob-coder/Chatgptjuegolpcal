@@ -1,6 +1,6 @@
 # 50_technical/persistence — First-Slice Persistence Authority
 
-Status: ACTIVE FIRST-SLICE DESIGN PACKAGE / NO PERSISTENCE IMPLEMENTATION
+Status: ACTIVE FIRST-SLICE DESIGN PACKAGE / PERSISTENCE BASELINE RECORDED / SPATIAL OWNER LINKED / NO IMPLEMENTATION
 Last reconciled: 2026-09-03
 
 ## Purpose
@@ -8,52 +8,47 @@ Last reconciled: 2026-09-03
 Own the smallest save/reload contract required to preserve one complete vertical-slice hunt loop without turning presentation state, transaction callbacks or re-created content into gameplay truth.
 
 Primary law:
-
 **A reload restores one previously committed authoritative snapshot. It never reruns already committed domain consequences to reconstruct that snapshot.**
 
 ## Local authorities
 
 - `README.md` — this package front door.
-- `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md` — first-slice save-slot, snapshot, active-encounter, transaction, validation and reconstruction contract.
+- `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md` — schema/snapshot/safe-point/active-encounter/transaction continuity authority.
 
-## Upstream authorities consumed
+## Selected first-slice model
 
-- `/SYSTEM_ARCHITECTURE_BLUEPRINT.md` — authoritative model/persistence separation and schema-1 direction.
-- `/docs/20_gameplay/combat/INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md` — scheduler continuity.
-- `/docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` — encounter/hunt terminal continuity.
-- `/docs/10_world/regions/REGION_01/TRACKING_AND_ESCAPE.md` — persistent Monster/evidence/route continuity.
-- `/docs/30_content/monsters/MONSTER_01/` — anatomy, Crystal, Berserk and behavior state.
-- `/docs/20_gameplay/harvest/` — source lineage/depletion transactions.
-- `/docs/20_gameplay/inventory/` — container/provenance/transfer ledgers.
-- `/docs/20_gameplay/crafting/` — craft transaction/refinement anti-replay.
-- `/docs/10_world/settlements/SETTLEMENT_01/` — Smith service/re-entry state.
-
-## First-slice selected model
-
-- one prototype player save slot;
-- schema marker `UHR_SAVE_SCHEMA_1` / version `1`;
+- `UHR_SAVE_SCHEMA_1`, version 1;
+- prototype slot `save_slot_01`;
 - monotonically increasing committed snapshot generation;
-- snapshot only at an authoritative persistence-safe boundary;
-- active combat may be saved at stable decision/reaction boundaries with exact scheduler state;
-- unresolved domain mutation/transaction is never serialized as an ambiguous half-result;
-- presentation/UI/animation state is disposable and reconstructed from domain truth;
-- stable transaction IDs and sequence counters survive reload;
+- state snapshot, not event sourcing;
+- persistence-safe boundary required for new commit;
+- active combat save allowed at stable decision/reaction points;
+- exact scheduler/transaction identity survives reload;
 - same Monster/carcass/source/bundle/item identities survive reload;
-- atomic write/replace semantics are required where the eventual platform supports them;
-- last fully committed snapshot remains authoritative if a newer write never commits.
+- presentation/UI/animation is reconstructed from domain truth;
+- incomplete new generation cannot invalidate last committed generation.
 
-## Spatial persistence interface
+## Spatial owner linkage
 
-World position is stored through:
-- stable spatial-context/area ID;
-- stable sector/anchor references where applicable;
-- position in meters;
+Shared world-coordinate owner:
+`/docs/10_world/spatial/FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT.md`.
+
+Concrete registry:
+`/docs/10_world/spatial/FIRST_SLICE_SPATIAL_COORDINATE_REGISTRY.md`.
+
+Persistence stores:
+- stable `spatial_context_id`;
+- sector/local-area ID;
+- local `(x,y,z)` in meters;
 - orientation/heading;
-- transition/source context where needed.
+- stable transition/service/escape anchor references where required.
 
-`WORLD_SCALE_STREAMING_TRANSITION_GUIDE.md` already establishes the preferred `1 world unit = 1 meter` convention.
+Selected spaces currently include:
+- `space_settlement_01`;
+- `space_frontier_01`;
+- `space_region_01`.
 
-Exact Settlement 01 and Region 01 coordinate origins/bounds/anchor coordinates belong to the next bounded world-coordinate/dimension pass, not this persistence package.
+Persistence consumes those spatial IDs/coordinates. It does not redefine them.
 
 ## Verification boundary
 
@@ -63,6 +58,7 @@ Exact Settlement 01 and Region 01 coordinate origins/bounds/anchor coordinates b
 
 ## Exact downstream dependency
 
-`FIRST_SLICE_WORLD_COORDINATE_DIMENSION_FRAMEWORK_CONTRACT`
+Current project next action:
+`FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`.
 
-That next pass should convert the existing meter-scale targets into one documented spatial coordinate framework for Settlement 01, the hunter-gate transition, Region 01 sectors and first encounter footprints without pretending prototype coordinates are final production measurements.
+That pass should consume the new spatial registry; Persistence remains a supporting owner for saved pursuit/encounter locations.
