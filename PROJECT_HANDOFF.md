@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY DESIGN BASELINES RECORDED / ONE-RECIPE LINKAGE NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY + ONE-RECIPE DESIGN BASELINES RECORDED / SETTLEMENT SMITH SERVICE NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
@@ -16,7 +16,7 @@ Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
 
 Operating contract:
 `EVOLVE_ALIGNMENT.md`.
@@ -33,12 +33,12 @@ Operating contract:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-For current crafting-link work additionally read:
-- `docs/20_gameplay/inventory/README.md`;
-- `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`;
-- Harvest authority + Monster 01 harvest packet;
-- `CONTENT_DATA_GUIDE.md` recipe/material schema;
-- progression/equipment authorities before selecting one recipe/output.
+For the next Smith-service pass additionally read:
+- `FIRST_SETTLEMENT_BLUEPRINT.md`;
+- `docs/20_gameplay/crafting/README.md`;
+- `docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`;
+- current settlement/world package front doors;
+- current interaction/UI/service authorities before adding any service state.
 
 ## Project identity
 
@@ -48,10 +48,9 @@ Playable direction:
 - walkable settlement/hub;
 - aerial wilderness tracking/exploration;
 - first-person turn-based tactical combat from the same physical encounter;
-- explicit movement/cover/defense/attack/body-part choices;
 - anatomy damage affects Monster capability and physical harvest;
 - deterministic authored creature/NPC/companion behavior;
-- physical harvest -> inventory -> crafting/equipment progression.
+- harvest -> inventory -> crafting/equipment progression.
 
 ## Stage-1 engine/device truth
 
@@ -68,67 +67,64 @@ Automated gates:
 Inner APK:
 `57,570,361 bytes`, SHA-256 `f9cc00019f31fc7942c309b7178db3967cc1ecc726e6cc2a07d6b3d5ec32af59`.
 
-Direct current-phone regression + sustained 24-minute run remain deferred.
+Direct phone regression + sustained 24-minute run remain deferred.
 
 `PERFORMANCE_VERIFIED = NO`
 `ENGINE_PHONE_PROBE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
-## Combat design baseline — RECORDED
+## Recorded gameplay design chain
 
-Nine reusable first-slice authorities are recorded through Defeat/Retreat.
+Combat:
+nine reusable first-slice contracts through Defeat/Retreat.
 
-`COMBAT_DESIGN_BASELINE_COMPLETE = YES`
-`COMBAT_RUNTIME_IMPLEMENTED = NO`.
-
-## Harvest baseline — RECORDED
-
-Authority:
+Harvest:
 `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-Monster 01 packet:
-`docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
-
-Selected:
-finite source capacity / condition preservation / deterministic extraction / source depletion / sever lineage transfer / no harvest RNG / save-load anti-duplication.
-
-Monster 01 pristine selected-source total = `45` prototype units.
-
-`FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
-`HARVEST_RUNTIME_IMPLEMENTED = NO`.
-
-## Inventory material ownership baseline — RECORDED
-
-Front door:
-`docs/20_gameplay/inventory/README.md`.
-
-Authority:
+Inventory:
 `docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
 
-Handoff:
-`docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
+Craft/equip:
+`docs/20_gameplay/crafting/FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT.md`.
 
-Selected:
-- primary first-slice destination `PLAYER_FIELD_INVENTORY`;
-- prototype 20 material stacks / max 99 units per stack;
-- merge compatibility = material ID + quality band;
-- provenance stays as internal conserved lots;
-- committed harvest output first belongs to `RECOVERY_BUNDLE`;
-- partial/full inventory rejection leaves exact remainder in bundle;
-- source loss equals destination gain;
-- stable transaction IDs prevent replay across save/load/UI callbacks.
+Selected first recipe:
+`recipe_field_poleblade_raker_tendon_grip`.
 
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
-`INVENTORY_RUNTIME_IMPLEMENTED = NO`
-`INVENTORY_RUNTIME_VERIFIED = NO`.
+Inputs:
+- 2 HIGH `material_m01_tail_tendon`;
+- 2 STANDARD-or-better `material_m01_hide`.
+
+Output:
+`refinement_field_poleblade_raker_tendon_grip` applied to one compatible Field Poleblade instance.
+
+Effect:
+`POLEBLADE_PLACED_HEW` Stamina 18 -> 16 through typed `COST_MODIFIER`.
+
+Crafting is deterministic/atomic/idempotent. Exact inventory provenance lots are reserved and consumed exactly once if and only if the refinement commits exactly once.
+
+No runtime implementation is claimed for combat/harvest/inventory/crafting.
+
+## Saved finished-game visual reference
+
+Google Drive project folder:
+`Unnamed Hunt RPG`.
+
+Saved image:
+`Unnamed Hunt RPG - Finished Game Visual Concept 2026-09-03.png`.
+
+Drive file ID:
+`1JSCDYW8A1JvW9Xht535uvcnRFbru44_U`.
+
+This is a visual-intent artifact, not technical/runtime authority.
 
 ## Current game-development sequence
 
 Completed:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership -> One Recipe/Craft-Equip Linkage`.
 
 Next:
-`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
+`FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`
+-> then select the next smallest vertical-slice prerequisite from repository evidence
 -> production implementation only after prerequisite engine/domain gates.
 
 ## Documentation/navigation discipline
@@ -147,9 +143,11 @@ root README / `docs/README.md` / package READMEs / `DOCUMENTATION_INDEX.md` / `d
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
 `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
 `INVENTORY_RUNTIME_IMPLEMENTED = NO`
+`CRAFTING_RUNTIME_IMPLEMENTED = NO`.
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_SETTLEMENT_SMITH_SERVICE_INTERACTION_CONTRACT`.
