@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/presentation/exploration/region_01_hunt01_graybox.gd" id="1_region"]
 [ext_resource type="PackedScene" path="res://assets/characters/hunter_visual.tscn" id="2_hunter"]
 [ext_resource type="Script" path="res://scripts/gameplay/tracking/hunt01_tracking_runtime.gd" id="3_tracking"]
+[ext_resource type="Script" path="res://scripts/gameplay/encounter/hunt01_encounter_trigger_runtime.gd" id="4_encounter"]
 
 [sub_resource type="CapsuleShape3D" id="HunterShape"]
 radius = 0.32
@@ -72,6 +73,9 @@ directional_shadow_max_distance = 120.0
 
 [node name="TrackingRuntime" type="Node" parent="."]
 script = ExtResource("3_tracking")
+
+[node name="EncounterRuntime" type="Node" parent="."]
+script = ExtResource("4_encounter")
 
 [node name="Hunter" type="CharacterBody3D" parent="."]
 position = Vector3(0, 0.875, -45)
@@ -199,6 +203,20 @@ theme_override_colors/font_color = Color(0.84, 0.82, 0.69, 1)
 text = "MOVE"
 horizontal_alignment = 1
 
+[node name="EngageEncounter" type="Button" parent="HUD/Touch"]
+visible = false
+disabled = true
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -295.0
+offset_right = -24.0
+offset_bottom = -220.0
+text = "ENGAGE"
+
 [node name="ToggleView" type="Button" parent="HUD/Touch"]
 layout_mode = 0
 anchor_left = 1.0
@@ -244,7 +262,7 @@ offset_top = -48.0
 offset_right = 430.0
 offset_bottom = -16.0
 theme_override_colors/font_color = Color(0.88, 0.86, 0.75, 1)
-text = "Left stick move • Right drag look • Investigate physical signs • Follow the strongest recent trail"
+text = "Left stick move • Right drag look • Investigate physical signs • ENGAGE only appears at a legal Meadow encounter position"
 horizontal_alignment = 1
 
 [node name="SettingsOverlay" type="PanelContainer" parent="HUD"]

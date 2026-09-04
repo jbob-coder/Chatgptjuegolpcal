@@ -39,9 +39,6 @@ func _ray_hit_name(world: Node3D, from: Vector3, to: Vector3, exclude: Array[RID
 	var collider: Object = result.get("collider")
 	return "" if collider == null else String(collider.get("name"))
 
-# Direct test teleportation can take more than one physics synchronization before
-# Area3D body_entered is emitted. Wait for the authoritative collection count
-# with a bounded frame budget instead of asserting on an arbitrary frame.
 func _move_hunter_to_and_wait(hunter: CharacterBody3D, position: Vector3, world: Node3D, expected_count: int) -> bool:
 	hunter.global_position = position
 	hunter.velocity = Vector3.ZERO
@@ -52,8 +49,29 @@ func _move_hunter_to_and_wait(hunter: CharacterBody3D, position: Vector3, world:
 			return true
 	return int(world.call("get_collected_evidence_count")) >= expected_count
 
+func _move_hunter_and_settle(hunter: CharacterBody3D, position: Vector3) -> void:
+	hunter.global_position = position
+	hunter.velocity = Vector3.ZERO
+	for _frame in range(8):
+		await physics_frame
+		await process_frame
+
+func _all_tactical_nodes_visible() -> bool:
+	for marker_variant in get_nodes_in_group("hunt01_tactical_nodes"):
+		var marker := marker_variant as Node3D
+		if marker != null and not marker.visible:
+			return false
+	return get_nodes_in_group("hunt01_tactical_nodes").size() == 10
+
+func _all_tactical_nodes_hidden() -> bool:
+	for marker_variant in get_nodes_in_group("hunt01_tactical_nodes"):
+		var marker := marker_variant as Node3D
+		if marker != null and marker.visible:
+			return false
+	return get_nodes_in_group("hunt01_tactical_nodes").size() == 10
+
 func _run() -> void:
-	print("Hunt-01 production integration + tracking/evidence layer")
+	print("Hunt-01 production integration + tracking + observation/encounter trigger layer")
 	var packed := load("res://scenes/regions/region_01_hunt01_graybox.tscn") as PackedScene
 	if packed == null:
 		_check("production Region-01 scene loads", false, "PackedScene load returned null")
@@ -89,16 +107,12 @@ func _run() -> void:
 			all_evidence_are_areas = false
 	_check("all evidence uses walk-over Area3D triggers", all_evidence_are_areas)
 	_check("10 tactical nodes exist", get_nodes_in_group("hunt01_tactical_nodes").size() == 10)
-	var tactical_hidden := true
-	for marker_variant in get_nodes_in_group("hunt01_tactical_nodes"):
-		var marker := marker_variant as Node3D
-		if marker != null and marker.visible:
-			tactical_hidden = false
-	_check("future tactical-node debug discs are hidden during exploration", tactical_hidden)
+	_check("future tactical nodes begin hidden", _all_tactical_nodes_hidden())
 	_check("3 streaming proxies exist", get_nodes_in_group("hunt01_stream_proxy").size() == 3)
 	_check("one Monster exists", get_nodes_in_group("hunt01_monster").size() == 1)
 	_check("two physical cover objects exist", get_nodes_in_group("hunt01_cover").size() == 2)
 	_check("environment uses reusable stylized asset instances", get_nodes_in_group("hunt01_environment_asset").size() >= 40)
+
 	var stream_collision_free := true
 	for proxy in get_nodes_in_group("hunt01_stream_proxy"):
 		if _has_collision_descendant(proxy):
@@ -117,12 +131,22 @@ func _run() -> void:
 	_check("Hunter themed visual exists", world.get_node_or_null("Hunter/Visual") != null)
 
 	var tracking := world.get_node_or_null("TrackingRuntime")
+	var encounter := world.get_node_or_null("EncounterRuntime")
+	var engage_button := world.get_node("HUD/Touch/EngageEncounter") as Button
 	_check("tracking runtime node exists", tracking != null)
+	_check("encounter trigger runtime node exists", encounter != null)
+	_check("physical observation zone exists", get_nodes_in_group("hunt01_observation_zone").size() == 1)
+	_check("physical engagement zone exists", get_nodes_in_group("hunt01_engagement_zone").size() == 1)
+	_check("ENGAGE begins hidden and disabled", not engage_button.visible and engage_button.disabled)
 	if tracking != null:
 		_check("tracking schema v1 loaded", String(tracking.call("get_schema")) == "uhr.hunt01.tracking_evidence.v1")
 		_check("tracking does not require audio", not bool(tracking.call("is_audio_required")))
 		_check("tracking enforces no-GPS presentation", bool(tracking.call("is_no_gps_enabled")))
 		_check("tracking begins unresolved", String((tracking.call("get_current_inference") as Dictionary).get("phase", "")) == "SEARCHING")
+	if encounter != null:
+		_check("encounter begins SEARCHING", String(encounter.call("get_state")) == "SEARCHING")
+		_check("combat does not auto-start before clues", not bool(encounter.call("has_encounter_started")))
+		_check("explicit engage is illegal before clues", not bool(encounter.call("engage_for_test")))
 
 	_check("EV01 synchronization completed", await _move_hunter_to_and_wait(hunter, Vector3(-24, 0.875, -68), world, 1))
 	_check("EV01 walk-over collected", int(world.call("get_collected_evidence_count")) == 1)
@@ -175,16 +199,51 @@ func _run() -> void:
 		_check("final visual clue explicitly works without audio", String(ev07_profile.get("summary", "")).contains("audio is optional"))
 
 	_check("same evidence cannot be collected twice", not bool(world.call("collect_evidence_for_test", "R01_H01_EV01_OUTER_PRINTS")))
+	if encounter != null:
+		_check("clue completion alone still does not auto-start combat", not bool(encounter.call("has_encounter_started")))
+		_check("EV07 position reaches observation but not engagement", String(encounter.call("get_state")) == "OBSERVATION_AVAILABLE", String(encounter.call("get_state")))
+		_check("ENGAGE stays hidden until physical engagement position", not engage_button.visible and engage_button.disabled)
+
 	var first_person_camera := world.get_node("Hunter/FirstPersonCamera") as Camera3D
 	var aerial_camera := world.get_node("AerialCamera") as Camera3D
 	_check("first-person FOV remains 115 degrees", is_equal_approx(first_person_camera.fov, 115.0))
 	world.call("_on_toggle_view_pressed")
-	_check("view toggle enters first person", first_person_camera.current and not aerial_camera.current)
+	_check("manual view toggle enters first person before combat", first_person_camera.current and not aerial_camera.current)
 	world.call("_on_toggle_view_pressed")
-	_check("view toggle returns to aerial", aerial_camera.current and not first_person_camera.current)
+	_check("manual view toggle returns to aerial before combat", aerial_camera.current and not first_person_camera.current)
+
 	world.call("_on_reset_to_start_pressed")
-	_check("reset returns Hunter to S00", hunter.global_position.distance_to(Vector3(0, 0.875, -45)) < 0.001)
+	_check("reset returns Hunter to S00 before encounter", hunter.global_position.distance_to(Vector3(0, 0.875, -45)) < 0.001)
 	_check("reset does not create a duplicate world", root.get_children().size() == 1)
+
+	await _move_hunter_and_settle(hunter, Vector3(-72, 0.875, -236))
+	if encounter != null:
+		_check("Hunter physically enters observation zone", bool(encounter.call("is_inside_observation_zone")))
+		_check("Hunter physically enters engagement zone near N01", bool(encounter.call("is_inside_engagement_zone")))
+		_check("engagement becomes explicitly available", String(encounter.call("get_state")) == "ENGAGEMENT_AVAILABLE", String(encounter.call("get_state")))
+		_check("ENGAGE becomes visible and enabled", engage_button.visible and not engage_button.disabled)
+
+	var hunter_before := hunter.global_transform
+	var monster_before := monster.global_transform
+	if encounter != null:
+		_check("explicit ENGAGE succeeds", bool(encounter.call("engage_for_test")))
+		_check("encounter starts exactly once", bool(encounter.call("has_encounter_started")))
+		_check("encounter state is first-person staged", String(encounter.call("get_state")) == "ENCOUNTER_STAGED_FIRST_PERSON")
+		var record: Dictionary = encounter.call("get_encounter_record")
+		_check("stable encounter ID preserved", record.get("encounter_id") == "enc_r01_ef02_m01_0001", str(record))
+		_check("stable footprint and entry node preserved", record.get("footprint_id") == "R01_EF02" and record.get("player_tactical_node") == "R01_EF02_N01", str(record))
+		_check("same Monster identity preserved", record.get("monster_id") == "monster_r01_m01_0001", str(record))
+		_check("source sector preserved", record.get("source_sector_id") == "R01_S03", str(record))
+		_check("duplicate ENGAGE rejected", not bool(encounter.call("engage_for_test")))
+
+	_check("engagement does not teleport Hunter", hunter.global_transform.is_equal_approx(hunter_before), str(hunter.global_position))
+	_check("engagement does not teleport Monster", monster.global_transform.is_equal_approx(monster_before), str(monster.global_position))
+	_check("engagement enters first-person at same world location", first_person_camera.current and not aerial_camera.current)
+	_check("tactical nodes become visible only after encounter entry", _all_tactical_nodes_visible())
+	_check("view toggle button locks during staged encounter", (world.get_node("HUD/Touch/ToggleView") as Button).disabled)
+	_check("escape corridor remains physically represented after encounter staging", get_nodes_in_group("hunt01_escape_route").size() == 3)
+	_check("no attack runtime was introduced by encounter staging", world.get_node_or_null("AttackRuntime") == null and world.get_node_or_null("CombatResolutionRuntime") == null)
+
 	_finish()
 
 func _finish() -> void:
@@ -193,9 +252,11 @@ func _finish() -> void:
 	if failures.is_empty():
 		print("Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_VERIFIED")
 		print("Gate: HUNT01_TRACKING_EVIDENCE_RUNTIME_VERIFIED")
+		print("Gate: HUNT01_OBSERVATION_ENCOUNTER_TRIGGER_RUNTIME_VERIFIED")
 	else:
 		print("Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_FAILED")
 		print("Gate: HUNT01_TRACKING_EVIDENCE_RUNTIME_FAILED")
+		print("Gate: HUNT01_OBSERVATION_ENCOUNTER_TRIGGER_RUNTIME_FAILED")
 	print("H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH=NOT_EXECUTED")
 	print("Phone/user acceptance is intentionally deferred and does not block independent layer development.")
 	quit(0 if failures.is_empty() else 1)

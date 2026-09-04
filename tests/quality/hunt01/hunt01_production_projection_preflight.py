@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 DOC_MANIFEST = ROOT / "docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json"
 RUNTIME_MANIFEST = ROOT / "game/content/regions/region_01/hunt01_graybox_build_manifest.json"
+TRACKING_DATA = ROOT / "game/content/regions/region_01/hunt01_tracking_evidence.json"
 
 REQUIRED = (
     "game/project.godot",
@@ -24,7 +25,12 @@ REQUIRED = (
     "game/scenes/regions/region_01_hunt01_graybox.tscn",
     "game/scripts/app_shell.gd",
     "game/scripts/presentation/exploration/region_01_hunt01_graybox.gd",
+    "game/scripts/gameplay/tracking/README.md",
+    "game/scripts/gameplay/tracking/hunt01_tracking_runtime.gd",
+    "game/scripts/gameplay/encounter/README.md",
+    "game/scripts/gameplay/encounter/hunt01_encounter_trigger_runtime.gd",
     "game/content/regions/region_01/hunt01_graybox_build_manifest.json",
+    "game/content/regions/region_01/hunt01_tracking_evidence.json",
     "game/content/regions/region_01/README.md",
     "game/tests/region01_hunt01_graybox_runtime_test.gd",
     "game/assets/README.md",
@@ -50,16 +56,17 @@ def main() -> int:
         if not condition:
             failures.append(label)
 
-    print("Hunt-01 production flat-foundation/visual/evidence source preflight")
+    print("Hunt-01 production foundation/tracking/encounter-trigger source preflight")
     for rel in REQUIRED:
         check(f"required:{rel}", (ROOT / rel).is_file())
 
-    if not DOC_MANIFEST.is_file() or not RUNTIME_MANIFEST.is_file():
+    if not DOC_MANIFEST.is_file() or not RUNTIME_MANIFEST.is_file() or not TRACKING_DATA.is_file():
         print("Gate: HUNT01_PRODUCTION_GRAYBOX_STATIC_FAILED")
         return 1
 
     docs = json.loads(DOC_MANIFEST.read_text(encoding="utf-8"))
     runtime = json.loads(RUNTIME_MANIFEST.read_text(encoding="utf-8"))
+    tracking_data = json.loads(TRACKING_DATA.read_text(encoding="utf-8"))
     check("runtime projection equals docs authority", runtime == docs)
     check("manifest schema", runtime.get("schema") == "uhr_hunt01_graybox_build_manifest@1", str(runtime.get("schema")))
     check("scenario identity", runtime.get("scenario") == "R01_HUNT01_M01_TRACK_TO_MEADOW")
@@ -81,6 +88,8 @@ def main() -> int:
     project_text = (ROOT / "game/project.godot").read_text(encoding="utf-8")
     export_text = (ROOT / "game/export_presets.cfg").read_text(encoding="utf-8")
     region_text = (ROOT / "game/scripts/presentation/exploration/region_01_hunt01_graybox.gd").read_text(encoding="utf-8")
+    tracking_text = (ROOT / "game/scripts/gameplay/tracking/hunt01_tracking_runtime.gd").read_text(encoding="utf-8")
+    encounter_text = (ROOT / "game/scripts/gameplay/encounter/hunt01_encounter_trigger_runtime.gd").read_text(encoding="utf-8")
     scene_text = (ROOT / "game/scenes/regions/region_01_hunt01_graybox.tscn").read_text(encoding="utf-8")
     hunter_asset = (ROOT / "game/assets/characters/hunter_visual.tscn").read_text(encoding="utf-8")
     monster_asset = (ROOT / "game/assets/creatures/mudcrest_raker_visual.tscn").read_text(encoding="utf-8")
@@ -113,9 +122,27 @@ def main() -> int:
     check("Monster visual has attack anatomy", all(token in monster_asset for token in ("HornL", "HornR", "ForeLegL", "ForeLegR", "TailTip", "Plate01")))
     check("normal scene does not use neon magenta debug color", "0.70, 0.18, 0.52" not in region_text and "0.95, 0.22, 0.72" not in region_text)
 
+    check("tracking schema is explicit", tracking_data.get("schema") == "uhr.hunt01.tracking_evidence.v1")
+    check("tracking is no-GPS and audio-optional", tracking_data.get("no_gps") is True and tracking_data.get("audio_required") is False)
+    check("seven tracking profiles exist", len(tracking_data.get("evidence", [])) == 7)
+    check("old Rootwood evidence is OLD / WEAK", any(e.get("id") == "R01_H01_EV05_OLD_ROOT_SCRAPE" and e.get("freshness") == "OLD" and e.get("confidence") == "WEAK" for e in tracking_data.get("evidence", [])))
+    check("tracking reaches observation-ready state", "OBSERVATION_READY" in tracking_text)
+    check("tactical nodes hidden by tracking before encounter", 'marker.visible = false' in tracking_text)
+
+    check("scene consumes encounter trigger runtime", 'res://scripts/gameplay/encounter/hunt01_encounter_trigger_runtime.gd' in scene_text and 'name="EncounterRuntime"' in scene_text)
+    check("explicit ENGAGE control exists hidden by default", 'name="EngageEncounter"' in scene_text and 'text = "ENGAGE"' in scene_text and 'visible = false' in scene_text)
+    check("encounter consumes observation-ready rather than clue count", '== "OBSERVATION_READY"' in encounter_text)
+    check("encounter requires physical engagement state", "ENGAGEMENT_AVAILABLE" in encounter_text and "_inside_engagement" in encounter_text)
+    check("stable encounter identity is preserved", all(token in encounter_text for token in ("enc_r01_ef02_m01_0001", "R01_EF02", "monster_r01_m01_0001", "R01_EF02_N01")))
+    check("encounter staging does not assign Hunter world position", "_hunter.global_position =" not in encounter_text)
+    check("encounter staging does not assign Monster world position", "_monster.global_position =" not in encounter_text)
+    check("tactical nodes activate only in encounter runtime", 'marker.visible = true' in encounter_text)
+    check("encounter layer contains no attack-resolution runtime", all(token not in encounter_text for token in ("apply_damage", "resolve_attack", "damage_roll", "critical_roll")))
+
     print()
     print(f"Checks: {checks} | Passed: {checks - len(failures)} | Failed: {len(failures)}")
     print("Gate: HUNT01_PRODUCTION_GRAYBOX_STATIC_VERIFIED" if not failures else "Gate: HUNT01_PRODUCTION_GRAYBOX_STATIC_FAILED")
+    print("Gate: HUNT01_TRACKING_ENCOUNTER_SOURCE_STATIC_VERIFIED" if not failures else "Gate: HUNT01_TRACKING_ENCOUNTER_SOURCE_STATIC_FAILED")
     print("H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH=NOT_EXECUTED")
     print("This result does NOT imply Godot runtime, APK, phone visual acceptance, or performance verification.")
     return 0 if not failures else 1
