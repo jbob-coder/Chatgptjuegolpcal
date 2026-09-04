@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Project Handoff
 
-Status: STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST DESIGN BASELINES RECORDED / INVENTORY MATERIAL OWNERSHIP NEXT
+Status: STAGE 1 PHONE GATE DEFERRED / COMBAT + HARVEST + INVENTORY DESIGN BASELINES RECORDED / ONE-RECIPE LINKAGE NEXT
 Last reconciled: 2026-09-03
 
 ## CURRENT_OBJECTIVE
@@ -16,7 +16,7 @@ Implementation action when phone evidence is available:
 `DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`.
 
 Current active non-phone action:
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
 
 Operating contract:
 `EVOLVE_ALIGNMENT.md`.
@@ -33,12 +33,12 @@ Operating contract:
 8. newest relevant `docs/70_handoff/`
 9. owning package/README/source/tests.
 
-For current material/inventory work additionally read:
-- `docs/20_gameplay/harvest/README.md`;
-- `FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`;
-- Monster 01 `HARVEST_CAPACITY_PACKET.md`;
-- `CONTENT_DATA_GUIDE.md` material schema;
-- existing inventory/crafting root authorities before creating a new owner.
+For current crafting-link work additionally read:
+- `docs/20_gameplay/inventory/README.md`;
+- `FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`;
+- Harvest authority + Monster 01 harvest packet;
+- `CONTENT_DATA_GUIDE.md` recipe/material schema;
+- progression/equipment authorities before selecting one recipe/output.
 
 ## Project identity
 
@@ -51,7 +51,7 @@ Playable direction:
 - explicit movement/cover/defense/attack/body-part choices;
 - anatomy damage affects Monster capability and physical harvest;
 - deterministic authored creature/NPC/companion behavior;
-- physical harvest -> material inventory -> crafting progression.
+- physical harvest -> inventory -> crafting/equipment progression.
 
 ## Stage-1 engine/device truth
 
@@ -76,90 +76,68 @@ Direct current-phone regression + sustained 24-minute run remain deferred.
 
 ## Combat design baseline — RECORDED
 
-Nine reusable first-slice authorities:
-1. Action Economy;
-2. Combat Resolution;
-3. Field Poleblade;
-4. Stamina;
-5. Initiative;
-6. Status;
-7. Terrain;
-8. Solo/Party;
-9. Defeat/Retreat.
+Nine reusable first-slice authorities are recorded through Defeat/Retreat.
 
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`.
 
-Monster 01 normal attacks/Berserk/behavior/outcome integration are recorded content, not runtime code.
-
 ## Harvest baseline — RECORDED
 
-Generic owner:
+Authority:
 `docs/20_gameplay/harvest/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_CONTRACT.md`.
 
-Package front door:
-`docs/20_gameplay/harvest/README.md`.
-
-Specialized handoff:
-`docs/70_handoff/FIRST_SLICE_HARVEST_CAPACITY_AND_CONDITION_PASS_2026-09-03.md`.
-
-Selected:
-- finite authored source capacity;
-- material-specific first-slice capacity units;
-- condition bands with preservation multipliers;
-- deterministic extraction efficiency;
-- clean sever transfers lineage without duplication;
-- carcass/detached-part containers;
-- partial extraction/depletion;
-- no harvest RNG;
-- save/load anti-duplication.
-
-## Monster 01 harvest packet — RECORDED
-
-Authority:
+Monster 01 packet:
 `docs/30_content/monsters/MONSTER_01/HARVEST_CAPACITY_PACKET.md`.
 
-Prototype pristine capacities:
-- horn L 4;
-- horn R 4;
-- dorsal plates 8;
-- hide 12;
-- distal-tail ridge 5;
-- distal-tail tendon 4;
-- dense bone 8;
-- total `45` selected source units.
+Selected:
+finite source capacity / condition preservation / deterministic extraction / source depletion / sever lineage transfer / no harvest RNG / save-load anti-duplication.
 
-Actual recovered quantity is lower when combat destroys material or extraction efficiency is below 1.00.
-
-The player's hunt method therefore changes material outcome directly.
+Monster 01 pristine selected-source total = `45` prototype units.
 
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
-`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`.
+
+## Inventory material ownership baseline — RECORDED
+
+Front door:
+`docs/20_gameplay/inventory/README.md`.
+
+Authority:
+`docs/20_gameplay/inventory/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT.md`.
+
+Handoff:
+`docs/70_handoff/FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_PASS_2026-09-03.md`.
+
+Selected:
+- primary first-slice destination `PLAYER_FIELD_INVENTORY`;
+- prototype 20 material stacks / max 99 units per stack;
+- merge compatibility = material ID + quality band;
+- provenance stays as internal conserved lots;
+- committed harvest output first belongs to `RECOVERY_BUNDLE`;
+- partial/full inventory rejection leaves exact remainder in bundle;
+- source loss equals destination gain;
+- stable transaction IDs prevent replay across save/load/UI callbacks.
+
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`
+`INVENTORY_RUNTIME_VERIFIED = NO`.
 
 ## Current game-development sequence
 
 Completed:
-`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition`.
+`Action Economy -> Resolution -> First Weapon -> Stamina -> Initiative -> Status -> Terrain -> Monster 01 Attacks -> Berserk -> Solo/Party -> Defeat/Retreat -> Harvest Capacity/Condition -> Inventory Material Ownership`.
 
 Next:
-`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`
--> one-recipe crafting/equipment linkage
+`FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`
 -> production implementation only after prerequisite engine/domain gates.
 
 ## Documentation/navigation discipline
 
-The repository must answer:
+Repository must answer:
 `WHAT EXISTS -> WHERE IT IS -> WHAT OWNS IT -> WHAT IS VERIFIED -> WHAT REMAINS UNVERIFIED -> WHAT HAPPENS NEXT`.
 
 Navigation:
-- root README — human front door;
-- `docs/README.md` — placement law;
-- package README — local map;
-- `DOCUMENTATION_INDEX.md` — global map;
-- `docs/70_handoff/` — bounded-pass records;
-- this + `START_HERE_NEW_CHAT.md` — current reconstruction;
-- `EVOLVE_ALIGNMENT.md` — operating/next-action state.
+root README / `docs/README.md` / package READMEs / `DOCUMENTATION_INDEX.md` / `docs/70_handoff/` / this + `START_HERE_NEW_CHAT.md` / `EVOLVE_ALIGNMENT.md`.
 
 ## Current exact state
 
@@ -168,9 +146,10 @@ Navigation:
 `FINAL_ENGINE_SELECTED = NO`
 `COMBAT_DESIGN_BASELINE_COMPLETE = YES`
 `FIRST_SLICE_HARVEST_BASELINE_RECORDED = YES`
-`MONSTER_01_HARVEST_PACKET_RECORDED = YES`
+`FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_RECORDED = YES`
 `COMBAT_RUNTIME_IMPLEMENTED = NO`
 `HARVEST_RUNTIME_IMPLEMENTED = NO`
+`INVENTORY_RUNTIME_IMPLEMENTED = NO`
 
 `NEXT_IMPLEMENTATION_ACTION = DEFERRED_GALAXY_A03S_PERFORMANCE_AND_REGRESSION_EXECUTION_WHEN_DEVICE_AVAILABLE`
-`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_INVENTORY_MATERIAL_OWNERSHIP_CONTRACT`.
+`NEXT_ACTIVE_NON_PHONE_ACTION = FIRST_SLICE_ONE_RECIPE_CRAFT_EQUIP_LINKAGE_CONTRACT`.
