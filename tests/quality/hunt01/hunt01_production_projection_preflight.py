@@ -2,7 +2,7 @@
 """Production Hunt-01 projection/source preflight.
 
 This gate verifies repository/source invariants only. It does not imply Godot
-runtime, Android APK, Galaxy A03s traversal, scene-static dimensional proof, or
+runtime, Android APK, Galaxy A03s traversal/visual acceptance, or sustained
 performance verification.
 """
 
@@ -27,14 +27,16 @@ REQUIRED = (
     "game/content/regions/region_01/hunt01_graybox_build_manifest.json",
     "game/content/regions/region_01/README.md",
     "game/tests/region01_hunt01_graybox_runtime_test.gd",
+    "game/assets/README.md",
+    "game/assets/environment/stylized_pine.tscn",
+    "game/assets/environment/stylized_rock_cluster.tscn",
+    "game/assets/characters/hunter_visual.tscn",
+    "game/assets/creatures/mudcrest_raker_visual.tscn",
 )
 
 
 def route_length(anchors: list[list[float]]) -> float:
-    total = 0.0
-    for a, b in zip(anchors, anchors[1:]):
-        total += math.dist(a, b)
-    return total
+    return sum(math.dist(a, b) for a, b in zip(anchors, anchors[1:]))
 
 
 def main() -> int:
@@ -48,7 +50,7 @@ def main() -> int:
         if not condition:
             failures.append(label)
 
-    print("Hunt-01 production projection/source preflight")
+    print("Hunt-01 production flat-foundation/visual/evidence source preflight")
     for rel in REQUIRED:
         check(f"required:{rel}", (ROOT / rel).is_file())
 
@@ -63,18 +65,11 @@ def main() -> int:
     check("scenario identity", runtime.get("scenario") == "R01_HUNT01_M01_TRACK_TO_MEADOW")
     check("space is meters", runtime.get("space", {}).get("units") == "m")
 
-    # The manifest anchors are construction/planning chords. They are not the
-    # final smoothed navigable path measured by H01VAL005. The authority records
-    # ~279 m before the observation-ramp construction controls and a future
-    # 285-315 m navigable target after smoothing/scene construction. Therefore
-    # this source-level gate only proves that the raw anchor polyline is
-    # consistent with the planning reference and does not exceed the final
-    # target ceiling; it deliberately does not claim the scene-static route gate.
     length = route_length(runtime["route"]["anchors"])
     planning_reference = float(runtime["route"]["planning_before_ramp_m"])
     target_lo, target_hi = runtime["route"]["target_m"]
     check(
-        "raw route polyline is consistent with pre-smoothing planning geometry",
+        "raw authority route remains consistent with planning geometry",
         planning_reference <= length <= float(target_hi),
         f"raw={length:.3f} m; planning_ref={planning_reference:.3f} m; future_smoothed_target={target_lo}-{target_hi} m",
     )
@@ -87,9 +82,12 @@ def main() -> int:
     export_text = (ROOT / "game/export_presets.cfg").read_text(encoding="utf-8")
     region_text = (ROOT / "game/scripts/presentation/exploration/region_01_hunt01_graybox.gd").read_text(encoding="utf-8")
     scene_text = (ROOT / "game/scenes/regions/region_01_hunt01_graybox.tscn").read_text(encoding="utf-8")
+    hunter_asset = (ROOT / "game/assets/characters/hunter_visual.tscn").read_text(encoding="utf-8")
+    monster_asset = (ROOT / "game/assets/creatures/mudcrest_raker_visual.tscn").read_text(encoding="utf-8")
 
     check("production GL Compatibility renderer", 'renderer/rendering_method="gl_compatibility"' in project_text)
     check("Android ETC2/ASTC import enabled", 'textures/vram_compression/import_etc2_astc=true' in project_text)
+    check("production daylight clear color defined", "environment/defaults/default_clear_color" in project_text)
     check("production package ID is not probe ID", 'package/unique_name="org.unnamedhuntrpg.game"' in export_text and "stage1probe" not in export_text)
     check("production source does not import probe tree", "probes/android_stage1" not in region_text and "probes/android_stage1" not in scene_text)
     check("accepted 115 degree first-person FOV", "FIRST_PERSON_FOV_DEG := 115.0" in region_text and "fov = 115.0" in scene_text)
@@ -97,13 +95,29 @@ def main() -> int:
     check("no adaptive steering variables returned", all(token not in region_text for token in ("JOYSTICK_ADAPT_HOLD_SECONDS", "JOYSTICK_ADAPT_ALIGNMENT_DOT", "_joystick_adaptive_latched", "_joystick_reference_forward")))
     check("production settings path is non-probe", 'SETTINGS_PATH := "user://unnamed_hunt_settings.cfg"' in region_text)
     check("no invisible Region boundary clamp", "PROBE_BOUNDS" not in region_text and "bounded_position.x" not in region_text)
-    check("stream proxies created visually only", '"hunt01_stream_proxy"' in region_text and "_create_visual_box(entry[0]" in region_text)
+
+    check("single flat map foundation configured", 'FULL_MAP_SIZE_M := Vector2(440.0, 440.0)' in region_text and 'H01_WORLD_FOUNDATION' in region_text)
+    check("Hunter speed increased from rejected 3.5 m/s", "MOVE_SPEED_MPS := 6.25" in region_text and "MOVE_SPEED_MPS := 3.5" not in region_text)
+    check("route is visual overlay rather than isolated collision slabs", "_create_flat_visual_lane" in region_text and "_create_route_segment" not in region_text)
+    check("walk-over evidence uses Area3D", "Area3D.new()" in region_text and "body_entered.connect" in region_text)
+    check("collected evidence disappears", "node.queue_free()" in region_text and "remove_from_group(\"hunt01_evidence\")" in region_text)
+    check("old floating evidence sphere helper removed", "func _create_marker" not in region_text and "SphereMesh.new()" not in region_text)
+    check("evidence interaction does not require audio", "AudioStreamPlayer" not in region_text and "AudioStreamPlayer" not in scene_text and "No audio required" in region_text)
+    check("stream proxies remain non-rendering/non-physical holders", 'holder.add_to_group("hunt01_stream_proxy")' in region_text and "holder.visible = false" in region_text)
+
+    check("stylized pine asset is consumed", 'preload("res://assets/environment/stylized_pine.tscn")' in region_text)
+    check("stylized rock asset is consumed", 'preload("res://assets/environment/stylized_rock_cluster.tscn")' in region_text)
+    check("Mudcrest Raker visual asset is consumed", 'preload("res://assets/creatures/mudcrest_raker_visual.tscn")' in region_text)
+    check("Hunter scene consumes themed Hunter visual", 'res://assets/characters/hunter_visual.tscn' in scene_text)
+    check("Hunter visual has poleblade silhouette", "PolebladeShaft" in hunter_asset and "PolebladeHead" in hunter_asset)
+    check("Monster visual has attack anatomy", all(token in monster_asset for token in ("HornL", "HornR", "ForeLegL", "ForeLegR", "TailTip", "Plate01")))
+    check("normal scene does not use neon magenta debug color", "0.70, 0.18, 0.52" not in region_text and "0.95, 0.22, 0.72" not in region_text)
 
     print()
     print(f"Checks: {checks} | Passed: {checks - len(failures)} | Failed: {len(failures)}")
     print("Gate: HUNT01_PRODUCTION_GRAYBOX_STATIC_VERIFIED" if not failures else "Gate: HUNT01_PRODUCTION_GRAYBOX_STATIC_FAILED")
     print("H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH=NOT_EXECUTED")
-    print("This result does NOT imply Godot runtime, APK, phone, scene-static dimensional, or performance verification.")
+    print("This result does NOT imply Godot runtime, APK, phone visual acceptance, or performance verification.")
     return 0 if not failures else 1
 
 

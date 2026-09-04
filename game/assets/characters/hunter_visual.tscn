@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3]
+
+[sub_resource type="StandardMaterial3D" id="ClothMat"]
+albedo_color = Color(0.12, 0.13, 0.12, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="LeatherMat"]
+albedo_color = Color(0.24, 0.15, 0.09, 1)
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="SteelMat"]
+albedo_color = Color(0.28, 0.30, 0.29, 1)
+metallic = 0.35
+roughness = 0.68
+
+[sub_resource type="StandardMaterial3D" id="SkinMat"]
+albedo_color = Color(0.52, 0.36, 0.25, 1)
+roughness = 0.9
+
+[sub_resource type="CapsuleMesh" id="TorsoMesh"]
+radius = 0.28
+height = 1.15
+radial_segments = 18
+rings = 8
+
+[sub_resource type="SphereMesh" id="HeadMesh"]
+radius = 0.17
+height = 0.34
+radial_segments = 18
+rings = 8
+
+[sub_resource type="BoxMesh" id="BoxMesh"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="LimbMesh"]
+top_radius = 0.075
+bottom_radius = 0.085
+height = 0.62
+radial_segments = 14
+
+[sub_resource type="CylinderMesh" id="PoleMesh"]
+top_radius = 0.025
+bottom_radius = 0.03
+height = 1.75
+radial_segments = 12
+
+[sub_resource type="BoxMesh" id="BladeMesh"]
+size = Vector3(0.10, 0.38, 0.035)
+
+[node name="HunterVisual" type="Node3D"]
+
+[node name="Torso" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.92, 0)
+scale = Vector3(1, 1, 0.78)
+mesh = SubResource("TorsoMesh")
+material_override = SubResource("ClothMat")
+
+[node name="Harness" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.94, -0.22)
+rotation_degrees = Vector3(0, 0, 18)
+scale = Vector3(0.52, 0.06, 0.34)
+mesh = SubResource("BoxMesh")
+material_override = SubResource("LeatherMat")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.62, 0)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("SkinMat")
+
+[node name="ShoulderL" type="MeshInstance3D" parent="."]
+position = Vector3(-0.31, 1.22, 0)
+scale = Vector3(0.28, 0.11, 0.30)
+mesh = SubResource("BoxMesh")
+material_override = SubResource("SteelMat")
+
+[node name="ShoulderR" type="MeshInstance3D" parent="."]
+position = Vector3(0.31, 1.22, 0)
+scale = Vector3(0.28, 0.11, 0.30)
+mesh = SubResource("BoxMesh")
+material_override = SubResource("SteelMat")
+
+[node name="LegL" type="MeshInstance3D" parent="."]
+position = Vector3(-0.13, 0.33, 0)
+mesh = SubResource("LimbMesh")
+material_override = SubResource("ClothMat")
+
+[node name="LegR" type="MeshInstance3D" parent="."]
+position = Vector3(0.13, 0.33, 0)
+mesh = SubResource("LimbMesh")
+material_override = SubResource("ClothMat")
+
+[node name="PolebladeShaft" type="MeshInstance3D" parent="."]
+position = Vector3(0.28, 1.05, 0.18)
+rotation_degrees = Vector3(0, 0, -34)
+mesh = SubResource("PoleMesh")
+material_override = SubResource("LeatherMat")
+
+[node name="PolebladeHead" type="MeshInstance3D" parent="."]
+position = Vector3(0.76, 1.75, 0.18)
+rotation_degrees = Vector3(0, 0, -34)
+mesh = SubResource("BladeMesh")
+material_override = SubResource("SteelMat")
