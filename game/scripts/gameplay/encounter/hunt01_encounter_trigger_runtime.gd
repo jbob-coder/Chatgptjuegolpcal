@@ -1,6 +1,7 @@
 extends Node
 
 const COMBAT_TURN_SHELL_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")
+const TACTICAL_MOVEMENT_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_tactical_movement_runtime.gd")
 const ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const FOOTPRINT_ID := "R01_EF02"
 const MONSTER_ID := "monster_r01_m01_0001"
@@ -24,6 +25,7 @@ var _encounter_started := false
 var _state := "SEARCHING"
 var _encounter_record: Dictionary = {}
 var _combat_turn_shell: Node = null
+var _tactical_movement_runtime: Node = null
 
 func _ready() -> void:
 	call_deferred("_bind_runtime")
@@ -179,7 +181,7 @@ func _engage() -> bool:
 	_state = "ENCOUNTER_STAGED_FIRST_PERSON"
 	_set_engage_button(false)
 	if _status_label != null:
-		_status_label.text = "Encounter staged • R01_EF02 • same Hunter + same Mudcrest Raker • deterministic turn shell active. Tactical movement and attacks are not implemented yet."
+		_status_label.text = "Encounter staged • R01_EF02 • same Hunter + same Mudcrest Raker • deterministic turn shell + adjacent tactical movement active. Attacks are not implemented yet."
 	return true
 
 func _start_combat_turn_shell() -> bool:
@@ -193,7 +195,20 @@ func _start_combat_turn_shell() -> bool:
 	if not bool(shell.call("initialize", _world, _encounter_record)):
 		shell.queue_free()
 		return false
+
+	var movement := TACTICAL_MOVEMENT_SCRIPT.new() as Node
+	if movement == null:
+		shell.queue_free()
+		return false
+	movement.name = "TacticalMovementRuntime"
+	shell.add_child(movement)
+	if not bool(movement.call("initialize", _world, shell, _encounter_record)):
+		movement.queue_free()
+		shell.queue_free()
+		return false
+
 	_combat_turn_shell = shell
+	_tactical_movement_runtime = movement
 	return true
 
 func get_state() -> String:
@@ -216,6 +231,12 @@ func has_combat_turn_shell_started() -> bool:
 
 func get_combat_turn_shell() -> Node:
 	return _combat_turn_shell
+
+func has_tactical_movement_started() -> bool:
+	return _tactical_movement_runtime != null and bool(_tactical_movement_runtime.call("is_initialized"))
+
+func get_tactical_movement_runtime() -> Node:
+	return _tactical_movement_runtime
 
 func engage_for_test() -> bool:
 	return _engage()
