@@ -1,6 +1,6 @@
 # PROJECT HANDOFF — Unnamed Hunt RPG
 
-Status: PRODUCTION LAYER 2 COMPLETE / LAYER 3 NEXT / PHONE QA DEFERRED-BATCH
+Status: PRODUCTION TRACKING + OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED / ANATOMY NEXT / PHONE QA DEFERRED-BATCH
 Last reconciled: 2026-09-04
 
 ## Live project
@@ -10,58 +10,101 @@ Branch: `worldlife-reference-docs`
 Production Godot root: `game/`
 Stage-1 probe: `probes/android_stage1/` — evidence only, not production architecture.
 
+WorldLife RPG is abandoned. Do not revive it as an implementation base.
+
 ## Current playable production stack
 
-Layer 1 foundation:
-- flat continuous 440×440 m Hunt-01 world foundation;
-- S00 / River Ford / Feeding Meadow / EF02 / S03→S05 route context;
-- 6.25 m/s Hunter;
-- accepted shooter-style mobile controls;
-- themed Hunter, Mudcrest Raker, trees and rocks;
-- physical cover and Monster collision;
-- physical evidence triggers; audio independent.
+### Layer 1 — world/exploration foundation
 
-Layer 2 tracking/evidence:
-- `game/content/regions/region_01/hunt01_tracking_evidence.json`;
-- `game/scripts/gameplay/tracking/hunt01_tracking_runtime.gd`;
-- seven authored evidence types;
-- deterministic freshness/confidence/activity inference;
-- old weak Rootwood clue remains a valid historical lead;
-- fresh S03 water-exit evidence correctly outweighs it;
-- final clue reaches `OBSERVATION_READY`;
-- no exact Monster GPS;
-- no required audio.
+- continuous 440×440 m Hunt-01 physical foundation;
+- 6.25 m/s Hunter exploration speed;
+- accepted shooter-style mobile control law retained;
+- grounded stylized Hunter/Mudcrest/environment kit;
+- River Ford, Feeding Meadow, physical cover and escape route;
+- rejected disconnected/debug presentation superseded.
 
-## Verification
+### Layer 2 — tracking/evidence
 
-Tested source head: `0df278eba2d9265ed84483265957d9f8c2d7f415`.
-Workflow `33845109063`: SUCCESS.
+- seven physical evidence types;
+- deterministic freshness/confidence/activity inference and clue history;
+- clue disappearance/no duplicate collection;
+- fresh evidence can outweigh old weak leads;
+- rough route reasoning without Monster GPS;
+- audio is optional;
+- terminal `OBSERVATION_READY` state.
 
-- source/projection: 49/49 PASS;
-- headless production + tracking integration: 66/66 PASS;
-- Godot parse/AppShell/Region smoke: PASS;
-- Android export/integrity/upload: PASS.
+### Layer 3 — observation / encounter entry
 
-APK:
-`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
-57,633,529 bytes
-SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`
-Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
+- consumes `OBSERVATION_READY`;
+- explicit same-location ENGAGE;
+- preserves Hunter and `monster_r01_m01_0001` encounter identity/location;
+- enters first-person combat staging without a disconnected generic arena;
+- activates the authored tactical combat context after engagement.
 
-## User/device policy
+### Combat foundation
 
-The user explicitly does not want development paused after every phone build.
+- deterministic initiative/round/activation shell;
+- Hunter 4 AP / 1 RP, normalized Stamina 100, +10 normal-activation recovery;
+- Monster activation currently waits rather than attacking;
+- authored adjacent tactical-node movement;
+- Hunter `POLEBLADE_MEASURED_CUT` costs 2 AP / 12 Stamina;
+- hard range, line-of-effect and resource legality;
+- eight authoritative Mudcrest target groups;
+- deterministic bounded contact variance and `MISS/GRAZE/SOLID/CLEAN` hit-quality classification;
+- selected-part contact or declared body fallback;
+- local protection profile routed into `PENDING_ANATOMY_DAMAGE_RUNTIME`.
 
-`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`
+Actual anatomy integrity loss, break/sever, status effects, Monster reactions/attacks and encounter outcomes are not implemented yet.
 
-Phone acceptance is accumulated and tested later. Missing phone evidence remains labeled missing; it does not block unrelated independently verifiable layers.
+## Verification baseline
 
-Stage-1 shooter-style controls were already accepted 100% on Galaxy A03s.
+Verified source head before this handoff reconciliation:
+`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
 
-The first production graybox visual presentation was rejected and is superseded by the flat-themed foundation.
+Workflow `33851145446`: SUCCESS.
+
+- manifest / production projection: PASS;
+- Godot 4.7.2 parse/import: PASS;
+- AppShell smoke: PASS;
+- Region-01 smoke: PASS;
+- Hunt-01 production integration headless: PASS;
+- combat turn shell + tactical movement headless: PASS;
+- first Hunter attack headless: PASS;
+- Android debug APK export: PASS;
+- artifact upload: PASS.
+
+Verification labels:
+- current combat stack: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
+- post-tracking phone acceptance: DEFERRED / NOT PHONE VERIFIED;
+- sustained performance: NOT VERIFIED.
+
+QA repairs immediately preceding the green build:
+- `31999ced0a961f8d56c7159bdb387d986f3c8375` — repaired stale combat preflight ownership assertion;
+- `6c6715a2fb4a945b953e1dc1fbc69f79731c31ab` — repaired stale N09 range-gate test expectation.
+
+## Deferred phone validation
+
+Batch later:
+- observation/explicit ENGAGE and same-location first-person transition;
+- tactical-node movement UX/readability;
+- Measured Cut target selection/contact feedback;
+- any anatomy slice added after this handoff;
+- final smoothed-route/dimensional validation where applicable;
+- sustained performance/thermal behavior.
+
+Stage-1 shooter-style controls remain previously user accepted 100%; that does not automatically phone-verify later production layers.
 
 ## Exact next action
 
-`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`
 
-Build observation/engagement authority on the same Meadow location, preserve transforms/Monster identity, make engagement explicit, enter first-person at the same physical encounter, activate tactical-node presentation only after encounter start, create authoritative encounter state, and test it. Do not implement attack resolution in the same layer.
+Species owner: Monster-01 production package under `game/`.
+Input: existing committed Hunter-attack `damage_handoff`.
+Required invariants:
+- preserve encounter/Monster/target IDs;
+- consume a committed action result without rerolling it;
+- deterministic trace/readback;
+- no duplicate consequence application on replay/readback;
+- final tuning remains explicitly open;
+- break/sever/status/Monster behavior stay out of this first bounded integrity piece unless a current authority closes those design questions;
+- production source changes require static, Godot headless and Android-build verification.

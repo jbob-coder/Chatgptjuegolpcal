@@ -1,72 +1,98 @@
 # Production Game Root
 
-Status: HUNT-01 PHONE FEEDBACK REPAIR IMPLEMENTED IN SOURCE / VERIFICATION PENDING
+Status: HUNT-01 TRACKING + OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED / ANATOMY NEXT
 Last reconciled: 2026-09-04
 
-This folder is the production Godot project for Unnamed Hunt RPG. It is separate from `probes/android_stage1/`, which remains disposable Stage-1 evidence source.
+This folder is the production Godot project for Unnamed Hunt RPG. It is separate from `probes/android_stage1/`, which remains Stage-1 evidence/testing infrastructure only.
 
-## Current corrective production piece
+## Current production stack
 
-`HUNT01_FLAT_FOUNDATION_VISUAL_AND_EVIDENCE_FEEDBACK_REPAIR`
+### World / exploration
 
-The first production graybox APK was functionally buildable but failed the user's phone visual/game-feel review. The corrective direction is now authoritative for this slice:
-- begin from one continuous flat physical surface for the whole playable map;
-- build route/biome/landmark presentation on top of that surface instead of disconnected elevated slabs;
-- use the established grounded-stylized visual direction rather than neon/debug-box presentation;
-- increase Hunter movement speed;
-- evidence must investigate/disappear when the Hunter walks across it;
-- audio is optional and must not be required to follow Hunt-01.
+- one continuous `440 x 440 m` Hunt-01 physical foundation;
+- source-authority X/Z positions preserved;
+- Hunter exploration speed `6.25 m/s`;
+- first-person FOV `115°`;
+- accepted shooter-style direct analog movement + independent right-side look preserved;
+- themed reusable Hunter/Mudcrest/environment kit;
+- physical cover, evidence and escape-route context;
+- the earlier disconnected/debug presentation is rejected and superseded.
 
-## Current source implementation
+### Tracking / evidence
 
-World:
-- one `440 x 440 m` `H01_WORLD_FOUNDATION` physical ground plane;
-- source-authority X/Z positions retained while first visual/traversal layer is flattened to the foundation;
-- required route, wrong-route stub, River Ford, water, mud, Meadow and escape route are presentation overlays on the same base;
-- normal debug clearance/stream volumes are hidden.
+Owner:
+- `scripts/gameplay/tracking/`;
+- `content/regions/region_01/hunt01_tracking_evidence.json`.
 
-Movement:
-- shooter-style control law remains unchanged;
-- Hunter movement target increased from rejected `3.5 m/s` to `6.25 m/s`;
-- first-person FOV remains `115°`;
-- right-side independent look and simultaneous movement/look remain protected.
+Seven physical evidence types feed deterministic history/freshness/confidence/activity interpretation through terminal `OBSERVATION_READY`. Evidence disappears after successful investigation and cannot duplicate. Essential progression is audio-independent.
 
-Evidence:
-- seven stable evidence IDs remain at their authoritative X/Z locations;
-- evidence is now `Area3D` walk-over interaction, not floating yellow spheres;
-- successful investigation removes the evidence node from the world immediately;
-- HUD shows `Trail Evidence n / 7` plus a concise visual-text interpretation;
-- no `AudioStreamPlayer` is required; `R01_H01_EV07_FLATTENED_GRASS_AUDIO` preserves its historical stable ID but the clue is fully usable without audio.
+### Observation / encounter
 
-Visual kit:
-- `assets/environment/stylized_pine.tscn`;
-- `assets/environment/stylized_rock_cluster.tscn`;
-- `assets/characters/hunter_visual.tscn`;
-- `assets/creatures/mudcrest_raker_visual.tscn`.
+Owner:
+`scripts/gameplay/encounter/`.
 
-These reusable scenes follow `MODEL_ART_DIRECTION_AND_ASSET_STANDARD.md` and the existing Drive concept/Hunter/Monster references. The Drive `04_Approved_Exports/3D_Game_Ready` folder was empty when this repair was authored, so the current kit uses smooth reusable Godot meshes/materials rather than pretending final external 3D hero exports exist.
+The runtime consumes observation readiness and requires explicit ENGAGE at the existing Meadow encounter. It preserves the same physical Hunter/Monster context and enters first-person combat staging without teleporting to an unrelated arena.
+
+### Combat foundation
+
+Owner:
+`scripts/gameplay/combat/`.
+
+Implemented:
+- deterministic turn shell / AP-RP-Stamina authority;
+- adjacent tactical-node movement;
+- first Hunter `POLEBLADE_MEASURED_CUT`;
+- target selection, hard range/line-of-effect/resource legality;
+- deterministic contact/hit quality;
+- selected-part acquisition/body fallback;
+- local Mudcrest protection routing;
+- `damage_handoff.status = PENDING_ANATOMY_DAMAGE_RUNTIME`.
+
+Species integrity loss, break/sever, status effects and Monster behavior are deliberately not owned by the generic combat shell.
 
 ## Source ownership
 
 - `project.godot` / `export_presets.cfg`: production shell/platform configuration.
 - `scenes/app_shell.tscn`: application entry scene.
-- `scenes/regions/region_01_hunt01_graybox.tscn`: first production Region presentation scene.
-- `scripts/presentation/exploration/region_01_hunt01_graybox.gd`: current world/presentation/input adapter.
+- `scenes/regions/region_01_hunt01_graybox.tscn`: current production Region-01 Hunt-01 scene.
+- `scripts/presentation/exploration/region_01_hunt01_graybox.gd`: world/presentation/input adapter.
+- `scripts/gameplay/tracking/`: tracking/evidence gameplay.
+- `scripts/gameplay/encounter/`: observation/ENGAGE/same-location encounter staging.
+- `scripts/gameplay/combat/`: generic combat turn, movement and Hunter attack/contact runtime.
+- future Monster-01 production package: species-specific anatomy consequences.
 - `assets/`: reusable production visual kit.
-- `content/regions/region_01/hunt01_graybox_build_manifest.json`: runtime projection of authoritative docs manifest; do not edit independently.
-- `tests/region01_hunt01_graybox_runtime_test.gd`: headless production-slice regression evidence.
+- `content/regions/region_01/hunt01_graybox_build_manifest.json`: runtime projection of authoritative Region docs; do not edit independently.
+- `tests/`: Godot headless regression gates.
 
-Authoritative stable dimensions/coordinates remain under `docs/10_world/regions/REGION_01/`. The current flat visual/traversal foundation is a user-directed production presentation correction, not a rewrite of the source coordinate registry.
+Authoritative stable dimensions/coordinates remain under `docs/10_world/regions/REGION_01/`.
+Monster-01 anatomy design authority remains under `docs/30_content/monsters/MONSTER_01/`.
 
-## Verification status
+## Current verification status
 
-The previous APK's visual/game-feel result is now:
-`REGION01_HUNT01_FIRST_GRAYBOX_PHONE_VISUAL_ACCEPTANCE = FAIL / SUPERSEDED_BY_REPAIR`.
+Verified source baseline before this documentation reconciliation:
+`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
 
-This repair is not accepted merely because source exists. Static/headless/Godot/Android gates must pass and a new Galaxy A03s APK must be retested.
+Production workflow `33851145446`: SUCCESS.
 
-`PERFORMANCE_VERIFIED = NO` until sustained target-device evidence exists.
+Passed:
+- production source/projection static gates;
+- Godot 4.7.2 parse/import;
+- AppShell and Region-01 smoke;
+- production integration headless;
+- combat turn shell + tactical movement headless;
+- first Hunter attack headless;
+- Android debug APK export;
+- artifact upload.
+
+Current stack is STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+
+Post-tracking production phone acceptance remains `DEFERRED_BATCH`.
+`PERFORMANCE_VERIFIED = NO`.
 `FINAL_ENGINE_SELECTED = NO`.
-
-Raw source-authority construction centerline remains `282.926 m`; final smoothed-route target `285–315 m` remains a later evidence gate.
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
+
+## Exact next production piece
+
+`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
+
+Create a Monster-01/species-owned runtime that consumes the already-committed attack handoff exactly once, preserves target/action identity, produces deterministic integrity state/trace, and prevents replay/readback duplication. Final damage arithmetic and break/sever/status thresholds remain design-open; any bounded numeric fixture required for runtime exercise must be explicitly provisional and reversible.

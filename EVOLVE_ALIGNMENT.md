@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / LAYER 2 TRACKING VERIFIED / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-04
 
 ## Operating law
@@ -9,99 +9,90 @@ The game is the objective. Documentation preserves ownership, evidence, dimensio
 
 `READ LIVE STATE → VERIFY → ONE BOUNDED LAYER → IMPLEMENT → STATIC/HEADLESS/BUILD QA → FIX SAME-LAYER FAILURES → RECORD → CONTINUE`.
 
-Current repository/build evidence outranks chat memory.
+Current repository/source/build evidence outranks chat memory and older handoffs.
 
 ## User validation policy
 
 `USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`
 `PHONE_ACCEPTANCE_DOES_NOT_BLOCK_INDEPENDENT_LAYER_DEVELOPMENT = YES`
 
-Do not stop after each APK waiting for phone feedback. Continue independent layers after automated QA. Still never convert missing device evidence into a false phone/performance PASS.
+Do not convert automated evidence into a phone/performance claim.
 
-## Accepted controls
+## Protected controls / world foundation
 
-`STAGE1_SHOOTER_STYLE_CONTROLS_PHONE_ACCEPTED = YES`
-`ENGINE_FUNCTIONAL_PHONE_PROBE_VERIFIED = YES`
+Stage-1 shooter-style controls remain user accepted 100% and must not regress: direct camera-relative analog movement, independent right-side look, simultaneous move/look, 115° first-person FOV and correct interruption reset behavior.
 
-Protected production behavior:
-- left joystick = direct camera-relative analog movement;
-- fixed stick direction does not accumulate turning;
-- right-side drag = independent look;
-- simultaneous movement/look;
-- first-person FOV 115°;
-- first-person pitch ±80°.
+Current production world remains the continuous 440×440 m Hunt-01 foundation with 6.25 m/s Hunter exploration speed and the grounded stylized Hunter/Mudcrest/environment presentation. The rejected disconnected graybox is superseded.
 
-## Production world Layer 1
+## Verified production stack
 
-Initial production graybox visual phone result: `FAIL / SUPERSEDED`.
+### Layer 1 — world/exploration foundation
 
-Current flat-themed foundation:
-- one continuous 440×440 m physical surface;
-- 6.25 m/s Hunter movement;
-- themed Hunter/Mudcrest/environment asset kit;
-- River Ford, mud/water, Feeding Meadow, cover and escape route layered over one collision foundation;
-- physical evidence triggers disappear on collection;
-- audio not required.
+IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Phone acceptance for this corrected production presentation remains deferred.
 
-`HUNT01_FLAT_THEMED_FOUNDATION_IMPLEMENTED = YES`
-`HUNT01_FLAT_THEMED_FOUNDATION_HEADLESS_VERIFIED = YES`
-`HUNT01_FLAT_THEMED_FOUNDATION_ANDROID_BUILD_VERIFIED = YES`
-`HUNT01_FLAT_THEMED_FOUNDATION_PHONE_ACCEPTANCE = DEFERRED`
+### Layer 2 — tracking/evidence
 
-## Production Layer 2 — tracking/evidence
+IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Seven physical clues, deterministic clue history/freshness/confidence/activity interpretation, no exact Monster GPS, audio-optional progression, and terminal `OBSERVATION_READY` are present.
 
-Tested source head:
-`0df278eba2d9265ed84483265957d9f8c2d7f415`
+Historical tracking-only tested head: `0df278eba2d9265ed84483265957d9f8c2d7f415`.
 
-Workflow:
-`33845109063` SUCCESS.
+### Layer 3 — observation / same-location encounter entry
 
-Automated evidence:
-- source/projection: `49/49 PASS`;
-- production tracking/headless integration: `66/66 PASS`;
-- Godot parse/AppShell/Region smoke: PASS;
-- Android export/APK integrity/artifact upload: PASS.
+IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Tracking `OBSERVATION_READY` now leads to explicit ENGAGE at the existing Meadow encounter. Hunter/Monster world identity and encounter location are preserved; combat staging becomes first-person at that location rather than teleporting to a generic arena.
 
-Tracking runtime:
-- 7 physical evidence types;
-- freshness/confidence/activity interpretation;
-- deterministic clue history;
-- fresh S03 water-exit evidence outweighs old/weak S02 Rootwood evidence;
-- rough route reasoning without Monster GPS;
-- final clue reaches `OBSERVATION_READY`;
-- evidence disappears after investigation and cannot duplicate;
-- audio is optional.
+### Combat foundation
 
-APK:
-`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
-57,633,529 bytes
-SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`
-Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
-Artifact ID `9926241504`.
+IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED through first Hunter attack contact resolution:
+- deterministic combat turn shell;
+- adjacent tactical-node movement on the authored 10-node / 14-link Meadow graph;
+- Hunter `POLEBLADE_MEASURED_CUT` with range, line-of-effect, AP/Stamina commitment, target-group acquisition/body fallback, deterministic hit quality and local protection routing;
+- emitted handoff remains `PENDING_ANATOMY_DAMAGE_RUNTIME`.
 
-`HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTED = YES`
-`HUNT01_TRACKING_EVIDENCE_HEADLESS_VERIFIED = YES / 66_OF_66`
-`HUNT01_TRACKING_EVIDENCE_ANDROID_BUILD_VERIFIED = YES`
-`HUNT01_TRACKING_EVIDENCE_PHONE_ACCEPTANCE = DEFERRED`
+Verified baseline source head before this documentation reconciliation:
+`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
 
-## Still unverified
+Production workflow:
+`33851145446` — SUCCESS.
 
+Verified workflow gates:
+- authoritative manifest / production projection: PASS;
+- Godot 4.7.2 import/parse: PASS;
+- AppShell smoke: PASS;
+- Region-01 smoke: PASS;
+- Hunt-01 production integration headless: PASS;
+- combat turn shell + tactical movement headless: PASS;
+- first Hunter attack headless: PASS;
+- Android debug export: PASS;
+- APK/evidence artifact upload: PASS.
+
+Two stale QA assumptions were repaired before this green baseline:
+- `31999ced0a961f8d56c7159bdb387d986f3c8375` — combat preflight no longer forbids the legitimate Hunter attack owner;
+- `6c6715a2fb4a945b953e1dc1fbc69f79731c31ab` — N09 attack test now distinguishes passing the range gate from failing the remaining-AP gate after a three-step approach.
+
+## Verification boundary
+
+`PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-## Exact next independent layer
+Monster attacks/reactions, anatomy integrity loss, break/sever, status effects, defeat/escape outcome, harvesting, inventory, crafting and settlement services are not yet runtime-complete.
 
-`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`
+## Exact next bounded piece
 
-Bounded scope:
-1. consume `OBSERVATION_READY` from tracking;
-2. establish a physical observation/engagement zone at the existing Meadow coordinates;
-3. preserve the same Hunter and `monster_r01_m01_0001` world transforms;
-4. require explicit engage/approach authority rather than auto-starting combat from clue pickup;
-5. transition aerial → first-person at the same physical encounter;
-6. reveal/activate the existing tactical-node graph only after encounter entry;
-7. create an encounter state/ID without implementing attacks yet;
-8. ensure retreat/escape corridor remains physically available;
-9. add static/headless/build verification;
-10. do not wait for phone acceptance before the next independent layer.
+`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`
+
+Owner/dependencies:
+1. species-specific anatomy behavior belongs to a Monster-01 production package under `game/`;
+2. generic combat remains owner of the existing action/contact trace;
+3. the anatomy runtime consumes the committed Hunter attack `damage_handoff` once and must not reroll contact/hit quality;
+4. stable target groups and Monster identity must be preserved;
+5. repeated resolution identity must not double-apply consequences;
+6. final damage arithmetic, break/sever thresholds and status tuning remain design-open and must not be fabricated as final authority;
+7. the first slice may use an explicitly provisional deterministic fixture only where required to exercise runtime integrity state;
+8. break/sever/status/Monster reactions remain outside this bounded piece unless a current authority closes their design gates;
+9. add source/static, Godot headless and Android-build verification;
+10. record phone validation as deferred and continue only after automated gates are green.

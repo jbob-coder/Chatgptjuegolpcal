@@ -2,7 +2,7 @@
 
 Last reconciled: 2026-09-04
 
-Android-targeted monster-hunting tactical RPG. WorldLife is abandoned.
+Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned.
 
 Mandatory read order:
 1. `EVOLVE_ALIGNMENT.md`
@@ -13,50 +13,65 @@ Mandatory read order:
 6. `docs/README.md`
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
 8. newest relevant `docs/70_handoff/`
-9. exact owning package/source/tests.
+9. `game/README.md`
+10. exact owning package/source/data/tests for the recorded next piece.
 
-Current repository/source/build/device evidence outranks old chat memory.
+Current repository/source/build/device evidence outranks old chat memory and stale snapshots.
 
 ## Current implementation state
 
-Stage-1 shooter-style controls were accepted on Galaxy A03s: PASS 100%.
+Production root: `game/`.
+The Stage-1 probe remains evidence/testing infrastructure only.
 
-Production runtime root: `game/`.
+Stage-1 shooter-style controls were previously accepted by the user: PASS 100%. Preserve that control architecture; do not infer later-layer phone acceptance from it.
 
-### Layer 1
+Implemented production stack:
+- Layer 1 continuous themed Hunt-01 world/exploration foundation;
+- Layer 2 physical tracking/evidence runtime through `OBSERVATION_READY`;
+- Layer 3 observation + explicit same-location ENGAGE / aerial-to-first-person encounter transition;
+- deterministic combat turn shell;
+- adjacent tactical-node movement;
+- first Hunter `POLEBLADE_MEASURED_CUT` through target acquisition/body fallback, hit quality, and local protection routing.
 
-Flat-themed Hunt-01 world foundation is implemented, headless verified and Android-build verified. The earlier disconnected/ugly production graybox presentation is rejected and superseded.
+The current attack result stops at `PENDING_ANATOMY_DAMAGE_RUNTIME`. Anatomy integrity loss, break/sever, status consequences, Monster reactions/attacks, defeat/escape and harvest are not yet implemented.
 
-### Layer 2
+## Current verified baseline
 
-`FIRST_SLICE_REGION01_HUNT01_TRACKING_EVIDENCE_RUNTIME_IMPLEMENTATION` — IMPLEMENTED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Source head before documentation reconciliation:
+`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
 
-Tested source head:
-`0df278eba2d9265ed84483265957d9f8c2d7f415`.
+Production workflow:
+`33851145446` — SUCCESS.
 
-Workflow `33845109063`: SUCCESS.
-Source/projection: 49/49 PASS.
-Headless production + tracking integration: 66/66 PASS.
-Android export/integrity/upload: PASS.
+Passed:
+- manifest / production projection;
+- Godot 4.7.2 parse/import;
+- AppShell smoke;
+- Region-01 smoke;
+- Hunt-01 production integration headless;
+- combat turn shell + tactical movement headless;
+- first Hunter attack headless;
+- Android debug APK export;
+- APK/evidence artifact upload.
 
-APK:
-`UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
-SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`.
-Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
+Therefore the implemented combat foundation is STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
-Layer 2 includes seven physical clue types, deterministic freshness/confidence/activity interpretation, old-S02-versus-fresh-S03 reasoning, clue history, no exact Monster GPS, no required audio, and final `OBSERVATION_READY` state.
-
-## Validation cadence
-
-`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`.
-
-Do not stop development after each APK. Missing phone evidence stays explicitly unverified but does not block independent layers.
+Post-tracking phone validation remains `DEFERRED_BATCH`.
+`PERFORMANCE_VERIFIED = NO`.
+`FINAL_ENGINE_SELECTED = NO`.
+`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
 ## Exact next action
 
-`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
 
-This will consume `OBSERVATION_READY`, create explicit same-location engagement authority, transition aerial to first-person without teleporting the encounter, and activate tactical-node presentation only after encounter entry. Attack resolution remains later.
+Read before implementing:
+- `game/scripts/gameplay/combat/README.md`;
+- `game/scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd`;
+- `game/tests/hunt01_hunter_attack_runtime_test.gd`;
+- `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
+- `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`;
+- `docs/30_content/monsters/MONSTER_01/README.md`;
+- `docs/30_content/monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md`.
 
-`PERFORMANCE_VERIFIED = NO`.
-`FINAL_ENGINE_SELECTED = NO`.
+Species-specific integrity state belongs to the Monster-01 production owner. Preserve the committed combat action/contact trace; do not reroll it. Final damage arithmetic, break/sever thresholds and status tuning remain open, so any first-slice numeric fixture must be deterministic, reversible and explicitly provisional rather than presented as final design authority.

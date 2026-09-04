@@ -1,6 +1,7 @@
 # Hunt-01 First Hunter Attack Runtime
 
-Status: IMPLEMENTATION INTEGRATION IN PROGRESS
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED / PHONE VALIDATION DEFERRED
+Last reconciled: 2026-09-04
 
 This runtime slice introduces exactly one real Hunter attack after the existing same-location encounter, deterministic turn shell and adjacent tactical movement:
 
@@ -16,14 +17,15 @@ Selected prototype contract:
 - no independent critical-hit roll;
 - one deterministic FNV-1a-derived bounded variance sample per committed attack;
 - hard range/line-of-effect/resource validation before commitment;
-- local target protection is recorded before the future anatomy-damage handoff.
+- local target protection is recorded before the anatomy-damage handoff.
 
 Working-melee prototype:
-- uses the existing `R01_EF02` tactical-node graph and authored Monster body-force envelope;
-- Measured Cut is legal only when the current tactical node is within 3.5 m of that body-force envelope;
-- on the current first-slice graph, this makes positioning toward `R01_EF02_N09` materially relevant instead of allowing attacks from any node.
+- uses existing `R01_EF02` tactical-node graph and authored Monster body-force envelope;
+- Measured Cut requires the current tactical node within 3.5 m of that body-force envelope;
+- `R01_EF02_N09` is the current practical Measured Cut contact node;
+- AP legality remains independent: reaching N09 via three 1-AP moves in Round 1 leaves only 1 AP, so the Hunter must wait for a later activation before a 2-AP Measured Cut can commit.
 
-Current target groups are the eight already-authoritative Mudcrest groups:
+Current target groups are the eight authoritative Mudcrest groups:
 `HEAD`, `HORN_CREST`, `FORELEG_L`, `FORELEG_R`, `HINDLEG_L`, `HINDLEG_R`, `DORSAL_PLATES`, `TAIL`.
 
 Current resolution fixture:
@@ -37,9 +39,12 @@ Current resolution fixture:
 
 These control numbers are `PROVISIONAL_FIRST_SLICE_CONTROL_FIXTURE`, not final Hunter/Mudcrest balance.
 
-Deliberately not in this slice:
-- health arithmetic;
-- tissue/structure integrity loss;
+A committed attack records requested/resolved target, hit quality, CUTTING channel and local protection profile, then emits:
+`damage_handoff.status = PENDING_ANATOMY_DAMAGE_RUNTIME`.
+
+Deliberately not owned by this attack slice:
+- final damage arithmetic;
+- tissue/structure integrity state;
 - horn/plate break;
 - tail sever;
 - bleeding/status application;
@@ -47,6 +52,30 @@ Deliberately not in this slice:
 - Monster attack runtime;
 - defeat/escape outcome.
 
-The next combat layer consumes the emitted `damage_handoff` and adds bounded anatomy-damage/integrity consequences without changing this action-economy/contact trace.
+## Verification
 
-Phone/user acceptance remains deferred-batch and does not block independent development. Automated static/headless/Android-build gates remain required.
+Verified source baseline:
+`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
+
+Workflow `33851145446`: SUCCESS.
+
+Passed:
+- source/static ownership/projection gates;
+- Godot 4.7.2 parse;
+- production integration headless;
+- combat turn shell + tactical movement headless;
+- first Hunter attack headless;
+- Android debug APK export;
+- artifact upload.
+
+Two QA drifts were repaired before the green baseline without changing attack gameplay behavior:
+- stale package-level no-attack preflight assertion;
+- stale N09 test expectation that confused range success with remaining-AP legality.
+
+Phone/user acceptance remains deferred-batch. Performance is not verified.
+
+## Next consumer
+
+`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
+
+The next species-owned runtime consumes the already-committed `damage_handoff`; it must not reroll contact/hit quality or double-apply a repeated resolution. Final damage arithmetic/break/sever/status tuning remains open, so any numeric first-slice integrity fixture must be clearly provisional, deterministic and reversible.

@@ -1,13 +1,13 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 LAYER 2 TRACKING BUILD VERIFIED
+Status: PRODUCTION GAME ACTIVE / TRACKING + OBSERVATION + COMBAT FOUNDATION BUILD VERIFIED
 Last reconciled: 2026-09-04
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
 ## Main loop
 
-`SETTLEMENT → FRONTIER → AERIAL TRACKING → SAME-LOCATION FIRST-PERSON TACTICAL COMBAT → BREAK/SEVER → ESCAPE/DEFEAT → REACQUIRE/HARVEST → INVENTORY → RETURN → SMITH → CRAFT/EQUIP → NEXT HUNT`.
+`SETTLEMENT → PREPARE → LEAVE SETTLEMENT → ENTER REGION → TRACK → OBSERVE → APPROACH → SAME-LOCATION FIRST-PERSON TACTICAL COMBAT → TARGET ANATOMY → BREAK/SEVER → ESCAPE/DEFEAT → REACQUIRE/HARVEST → INVENTORY → RETURN → PROCESS/CRAFT/EQUIP → NEXT HUNT`.
 
 The game is the objective. Documentation records ownership, dimensions, coordinates, verification and continuation.
 
@@ -17,53 +17,73 @@ The game is the objective. Documentation records ownership, dimensions, coordina
 
 The Stage-1 probe under `probes/android_stage1/` is evidence only.
 
-## Current production layers
+## Current production stack
 
-### Layer 1 — flat themed Hunt-01 world
+### Layer 1 — continuous Hunt-01 world / exploration
 
 - one continuous 440×440 m physical foundation;
-- 6.25 m/s Hunter movement;
-- shooter-style controls accepted 100% on Galaxy A03s;
-- stylized Hunter / Mudcrest Raker / forest asset kit;
-- River Ford, water/mud, Feeding Meadow, physical cover, escape corridor;
-- initial disconnected/ugly graybox presentation is rejected and superseded.
+- Hunter exploration speed 6.25 m/s;
+- accepted shooter-style control law retained;
+- grounded stylized Hunter / Mudcrest Raker / forest presentation;
+- River Ford, Feeding Meadow, physical cover and escape corridor;
+- rejected disconnected/debug graybox superseded.
 
 ### Layer 2 — tracking/evidence
 
-Implemented:
-- seven physical clue types;
-- walk-over investigation + disappearance;
-- no duplicate clue collection;
-- freshness/confidence/activity interpretation;
-- deterministic clue history;
-- old weak S02 Rootwood clue versus fresher S03 evidence;
-- rough directional reasoning without exact Monster GPS;
-- audio-independent completion;
-- final state `OBSERVATION_READY`.
+- seven physical clues;
+- clue investigation/disappearance and no duplicate collection;
+- deterministic freshness/confidence/activity history;
+- conflicting old/weak versus fresh evidence;
+- rough directional reasoning without Monster GPS;
+- audio-independent progression;
+- terminal `OBSERVATION_READY`.
 
-Tested source: `0df278eba2d9265ed84483265957d9f8c2d7f415`.
-Workflow `33845109063`: SUCCESS.
+### Layer 3 — observation / encounter entry
 
-`49/49` source/static PASS.
-`66/66` production/headless tracking integration PASS.
-Android export/APK integrity PASS.
+- explicit ENGAGE after observation readiness;
+- same physical Meadow encounter location;
+- existing Hunter and `monster_r01_m01_0001` identities/transforms remain the encounter basis;
+- aerial exploration transitions to first-person combat staging without a disconnected generic arena.
 
-APK: `UnnamedHuntRPG-Hunt01-Layer2-Tracking.apk`
-SHA-256 `8cecb327cba3e8a21ac7bb54b281d2e3e9b76616963985acf4512819b31204fe`
-Drive ID `13c3SGmTxlj8BldnRvIErWvQGizj7VYbt`.
+### Combat foundation
 
-## Development cadence
+- deterministic turn/initiative/action-economy shell;
+- adjacent tactical-node movement on the authored Meadow graph;
+- first Hunter `POLEBLADE_MEASURED_CUT` attack;
+- hard range/line-of-effect/AP/Stamina legality;
+- eight Mudcrest target groups;
+- deterministic contact/hit-quality resolution;
+- selected-part acquisition or declared body fallback;
+- local protection routing;
+- output currently stops at `PENDING_ANATOMY_DAMAGE_RUNTIME`.
 
-Phone/user acceptance is now **deferred and batched**. Independent layers continue after automated verification instead of waiting for a phone test after every APK.
+Not yet runtime-complete: anatomy integrity loss, break/sever, status effects, Monster reactions/attacks, defeat/escape resolution, harvesting, inventory, crafting, settlement services and persistence.
 
-This does not change evidence language:
-`PHONE ACCEPTANCE DEFERRED ≠ PHONE PASS`.
+## Current automated verification
+
+Verified source baseline before current documentation reconciliation:
+`6c6715a2fb4a945b953e1dc1fbc69f79731c31ab`.
+
+Workflow `33851145446`: SUCCESS.
+
+Passed on that source:
+- manifest / production projection;
+- Godot 4.7.2 parse/import;
+- AppShell smoke;
+- Region-01 smoke;
+- Hunt-01 production integration headless;
+- combat turn shell + tactical movement headless;
+- first Hunter attack headless;
+- Android debug APK export;
+- APK/evidence artifact upload.
+
+Therefore current combat foundation: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+
+Phone acceptance for newer production gameplay is deferred/batched and is not a PASS.
+`PERFORMANCE_VERIFIED = NO`.
 
 ## Next
 
-`FIRST_SLICE_REGION01_HUNT01_OBSERVATION_AND_ENCOUNTER_TRIGGER_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_MUDCREST_ANATOMY_INTEGRITY_RUNTIME_IMPLEMENTATION`.
 
-This next layer connects the completed trail to a physical observation/engagement state and same-location first-person encounter entry. Attack/combat resolution remains a later bounded layer.
-
-`PERFORMANCE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`.
+The next bounded piece must be Monster-01/species-owned and consume the existing committed attack `damage_handoff` without rerolling contact. Final damage arithmetic, break/sever thresholds and status tuning remain open; no provisional values may be presented as final authority.
