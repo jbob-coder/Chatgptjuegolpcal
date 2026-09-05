@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH HUNTER REACTION WINDOW BUILD VERIFIED / PHONE QA BATCHED
+Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH FIRST MUDCREST HEAD SWEEP ANDROID BUILD VERIFIED / PHONE QA BATCHED
 Last reconciled: 2026-09-04
 
 ## Primary law
@@ -13,84 +13,61 @@ An open question blocks only the earliest implementation gate that genuinely con
 |---|---|---|
 | STAGE-1 ENGINE PROBE AUTOMATION | PASS | source/static/headless/APK pipeline green |
 | SHOOTER-STYLE PHONE CONTROLS | USER PASS 100% | protected control architecture accepted |
-| HUNT-01 MANIFEST / PRODUCTION PROJECTION | PASS | current production source projection green |
+| HUNT-01 MANIFEST / PRODUCTION PROJECTION | PASS | production source projection green |
 | PRODUCTION GAME ROOT | IMPLEMENTED | `game/` owns production architecture |
-| HUNT-01 CONTINUOUS WORLD FOUNDATION | BUILD VERIFIED | continuous production world foundation present |
+| HUNT-01 CONTINUOUS WORLD FOUNDATION | BUILD VERIFIED | continuous production world foundation |
 | TRACKING/EVIDENCE RUNTIME | BUILD VERIFIED | physical clue runtime through `OBSERVATION_READY` |
-| OBSERVATION/ENCOUNTER RUNTIME | BUILD VERIFIED | explicit same-location ENGAGE / first-person encounter staging |
+| OBSERVATION/ENCOUNTER RUNTIME | BUILD VERIFIED | same-location ENGAGE / first-person staging |
 | COMBAT TURN SHELL | BUILD VERIFIED | deterministic turn/action/resource shell |
-| ADJACENT TACTICAL MOVEMENT | BUILD VERIFIED | authored node adjacency and terrain costs |
-| FIRST HUNTER MEASURED CUT | BUILD VERIFIED | deterministic contact/hit quality/local protection + anatomy handoff |
-| MUDCREST ANATOMY INTEGRITY | BUILD VERIFIED | species-owned deterministic per-part integrity state; provisional arithmetic |
-| HUNTER REACTION WINDOW | BUILD VERIFIED | stable hostile window identity + out-of-turn RP/Stamina commitment |
-| FIRST MUDCREST HEAD SWEEP ATTACK | NEXT | first real Monster attack consuming the verified reaction owner |
-| HUNT-01 PHONE ACCEPTANCE | DEFERRED BATCH | independent layers continue; not a phone PASS |
+| ADJACENT TACTICAL MOVEMENT | BUILD VERIFIED | authored adjacency/terrain costs |
+| FIRST HUNTER MEASURED CUT | BUILD VERIFIED | deterministic contact/protection + anatomy handoff |
+| MUDCREST ANATOMY INTEGRITY | BUILD VERIFIED | deterministic per-part integrity; provisional arithmetic |
+| HUNTER REACTION WINDOW | BUILD VERIFIED | stable window + out-of-turn resource commitment |
+| FIRST MUDCREST HEAD SWEEP ATTACK | BUILD VERIFIED | real hostile attack through pending Hunter-damage handoff |
+| HUNTER DEFENSE CONSEQUENCE | NEXT | consume pending hostile handoff; guard/no-contact + impact drain |
+| HUNT-01 PHONE ACCEPTANCE | DEFERRED BATCH | not a phone PASS |
 | HUNT-01 FULL DIMENSIONAL SCENE GATE | NOT EXECUTED | final scene-space tolerances/smoothed path pending |
-| SUSTAINED PERFORMANCE | NOT VERIFIED | separate target-device soak evidence gate |
-| FINAL ENGINE SELECTION | NOT CLOSED | Godot production candidate in use; formal gate open |
-| FULL GAMEPLAY LOOP | PARTIAL | Monster attack/damage/break-sever/outcome/harvest/inventory/crafting/etc. incomplete |
+| SUSTAINED PERFORMANCE | NOT VERIFIED | target-device soak evidence required |
+| FINAL ENGINE SELECTION | NOT CLOSED | Godot candidate in use; formal gate open |
+| FULL GAMEPLAY LOOP | PARTIAL | defense/HP/break-sever/outcome/harvest/inventory/crafting/etc. incomplete |
 
 ## Current automated baseline
 
-Verified reaction-layer source head:
-`be389c393f993c0cbab60c0e15688f827951f8f8`.
+Verified source head `f7fe9d347921289ca104824e61fd82a2efc73fed`.
+Head Sweep implementation `238f6bba98cb6dd7deb420bfe5196e08a3542279`.
+Final production workflow `33932945947`: SUCCESS.
+Job `101215138444`: SUCCESS.
 
-Reaction implementation commit:
-`f1e5e3ba80ae7e42943b6b82436426497bfd0c34`.
+The run passed manifest/projection, all current combat source preflights, Godot 4.7.2 import/parse, AppShell/Region smoke, production integration, combat/tactical movement, reaction regression, dedicated Head Sweep, anatomy, Hunter attack, Android export and artifact upload.
 
-Production workflow:
-`33884922855` — SUCCESS.
+Artifact `9959201882`: `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`, 57,322,699 bytes, SHA-256 `b56070a42a9abd5ef534443750c441385b1f5f8327a48f7ea1080e490abe0ca8`.
 
-The final production workflow passed:
-- authoritative manifest / production projection;
-- combat source preflight;
-- Hunter reaction source preflight;
-- Hunter attack source preflight;
-- Mudcrest anatomy source preflight;
-- Godot 4.7.2 import/parse;
-- production AppShell smoke;
-- production Region-01 smoke;
-- Hunt-01 production integration headless;
-- combat turn shell + tactical movement headless;
-- Hunter reaction window headless;
-- Mudcrest anatomy integrity headless;
-- first Hunter attack + anatomy integration headless;
-- Android debug APK export;
-- APK/evidence artifact upload.
-
-Therefore the current Hunt-01 stack through Hunter reactions is:
-`IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED`.
+Therefore the current Hunt-01 stack through Head Sweep is `IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED`.
 
 It is not automatically PHONE VERIFIED or PERFORMANCE VERIFIED.
 
-## Reaction-layer QA repair
+## QA repair boundary
 
-The initial reaction run `33854902520` exposed a pre-existing integration-test race: evidence collection could become visible to the test before the observation Area3D state consumer had settled. Commit `be389c393f993c0cbab60c0e15688f827951f8f8` adds deterministic physics/process settling to the test helper. It does not alter production gameplay source, coordinates or zone radii.
+The Head Sweep layer required documentation-gate alignment plus two test-only synchronization/isolation repairs. The final reaction regression explicitly removes the production deferred hostile driver before registering its mock; production still enforces exactly one Monster activation driver. No production gameplay values, coordinates or attack math changed in those QA repairs.
 
 ## User validation cadence
 
 `USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`.
 
-Stage-1 shooter-style controls remain user accepted. Observation/ENGAGE, tactical movement, Hunter attack/anatomy feedback, reaction UX and future Monster attack/defense UX require later batched phone validation. Missing phone/performance evidence remains explicitly missing.
-
-## Dimensional evidence boundary
-
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
-
-No gate may convert raw construction-route evidence into a false final smoothed-path PASS.
+Stage-1 shooter-style controls remain user accepted. Later production combat UX and sustained performance need batched device evidence.
 
 ## Current production authorization
 
-Production implementation remains active under `game/`.
-
 Exact next independent implementation:
-`FIRST_SLICE_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION`.
 
 Closed authority available now:
-- `M01_HEAD_SWEEP_GORE` exists in the selected Monster packet;
-- commitment `2 AP / 14 Stamina`;
-- normal Poleblade Block is legal for appropriate bearing/interposition;
-- Block commitment `1 RP / 6 Stamina` already verified;
-- standard successful Block impact drain is recorded as 10 Stamina, but final Block outcome and Hunter HP arithmetic belong to downstream resolution owners.
+- Block commitment is already spent as 1 RP / 6 Stamina;
+- guard-impact drain is a separate defense/contact-stage spend;
+- Head Sweep's selected standard Block impact drain is exactly 10 Stamina;
+- Stamina clamps at zero and cannot become debt;
+- insufficient guard Stamina/stability may degrade Block outcome;
+- Combat Resolution defines `BLOCK_STRONG / BLOCK_PARTIAL / BLOCK_BROKEN` semantics;
+- final Block balance thresholds and Hunter HP arithmetic remain open.
 
-The next attack slice must produce a real hostile transaction and stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff without fabricating final health/damage balance.
+The next slice may use an explicitly labeled reversible first-slice Block fixture to make this one transaction executable, but it must not silently promote candidate balance into final rules. Final health/injury remains downstream.

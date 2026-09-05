@@ -1,6 +1,6 @@
 # PROJECT HANDOFF — Unnamed Hunt RPG
 
-Status: PRODUCTION HUNT-01 THROUGH HUNTER REACTION WINDOW BUILD VERIFIED / FIRST MUDCREST ATTACK NEXT / PHONE QA DEFERRED-BATCH
+Status: PRODUCTION HUNT-01 THROUGH FIRST MUDCREST HEAD SWEEP ANDROID BUILD VERIFIED / HUNTER DEFENSE CONSEQUENCE NEXT / PHONE QA DEFERRED-BATCH
 Last reconciled: 2026-09-04
 
 ## Live project
@@ -16,7 +16,7 @@ WorldLife RPG is abandoned.
 World/exploration:
 - continuous 440×440 m Hunt-01 physical foundation;
 - 6.25 m/s Hunter exploration speed;
-- accepted shooter-style mobile control law retained;
+- accepted shooter-style mobile controls retained;
 - grounded stylized Hunter/Mudcrest/environment presentation.
 
 Tracking/encounter:
@@ -29,102 +29,79 @@ Tracking/encounter:
 
 Combat:
 - deterministic initiative/round/activation shell;
-- Hunter 4 AP / 1 RP / normalized Stamina 100;
+- Hunter 4 AP / 1 RP / normalized Stamina 100 first-slice profile;
 - Monster 4 AP internal activation budget / normalized reference Stamina 100;
 - adjacent tactical-node movement on the authored Meadow graph;
 - Hunter `POLEBLADE_MEASURED_CUT` through deterministic contact/hit quality/local protection;
-- species-owned Mudcrest per-target normalized anatomy integrity;
-- shared Hunter reaction-window runtime with stable transaction identity and out-of-turn RP/Stamina commitment.
+- Mudcrest per-target normalized anatomy integrity;
+- shared reaction window with `POLEBLADE_BLOCK = 1 RP + 6 Stamina` and free decline;
+- first real Monster attack `M01_HEAD_SWEEP_GORE` at `2 AP / 14 Stamina`;
+- physical attack legality, authoritative telegraph, shared reaction consumption and deterministic hostile contact trace;
+- stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff.
 
-First implemented reaction:
-`POLEBLADE_BLOCK` = `1 RP + 6 Stamina`.
-
-The reaction runtime preserves the hostile Monster as current normal actor, enforces one reaction decision per window, rejects recursive/overlapping windows, provides explicit decline/close semantics and prevents duplicate resource spend.
+Final Hunter health/damage is intentionally not fabricated yet.
 
 ## Current verified baseline
 
-Verified reaction-layer source head:
-`be389c393f993c0cbab60c0e15688f827951f8f8`.
+Verified source head:
+`f7fe9d347921289ca104824e61fd82a2efc73fed`.
 
-Reaction implementation commit:
-`f1e5e3ba80ae7e42943b6b82436426497bfd0c34`.
+Head Sweep implementation:
+`238f6bba98cb6dd7deb420bfe5196e08a3542279`.
 
-Integration synchronization repair:
-`be389c393f993c0cbab60c0e15688f827951f8f8`.
+QA-only repairs:
+- `6cc493f3a9ce00b84279ac00e1985fc08276c4e0` — reaction documentation boundary gate;
+- `0d843079bf6343cbb0b35d12264ce695ae5b5c5c` — anatomy structural-boundary gate;
+- `bd732960051c9850dbec7beeaf856e73b478f9ad` — dedicated Head Sweep test physics synchronization;
+- `f7fe9d347921289ca104824e61fd82a2efc73fed` — reaction regression isolates its mock from the production deferred hostile driver.
 
-Production workflow:
-`33884922855` — SUCCESS.
+Production workflow `33932945947`: SUCCESS.
+Job `101215138444`: SUCCESS.
 
 Passed:
 - manifest / production projection;
-- combat/reaction/Hunter-attack/anatomy source preflights;
+- combat/reaction/Head-Sweep/Hunter-attack/anatomy source preflights;
 - Godot 4.7.2 parse/import;
-- AppShell smoke;
-- Region-01 smoke;
-- Hunt-01 production integration headless;
-- combat turn shell + tactical movement headless;
-- Hunter reaction window headless;
-- Mudcrest anatomy integrity headless;
-- first Hunter attack + anatomy integration headless;
+- AppShell and Region smoke;
+- production integration;
+- combat shell + tactical movement;
+- reaction regression;
+- dedicated Mudcrest Head Sweep headless;
+- Mudcrest anatomy headless;
+- Hunter attack headless;
 - Android debug APK export;
 - artifact upload.
 
-The initial reaction run `33854902520` failed only because the existing integration helper returned immediately after EV07 evidence collection before the observation Area3D state consumer necessarily settled. The final repair adds physics/process settling to the test helper. No gameplay coordinates, zone radii, control behavior or encounter rules changed.
+Artifact `9959201882`:
+`UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`, 57,322,699 bytes, SHA-256 `b56070a42a9abd5ef534443750c441385b1f5f8327a48f7ea1080e490abe0ca8`.
 
 Verification labels:
-- world/tracking/encounter/combat/Hunter attack/Mudcrest anatomy/Hunter reaction: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
-- post-tracking phone acceptance: DEFERRED / NOT PHONE VERIFIED;
+- current world/tracking/encounter/combat/Hunter attack/anatomy/reaction/Head Sweep: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
+- phone acceptance: DEFERRED / NOT PHONE VERIFIED;
 - sustained performance: NOT VERIFIED.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_HUNTER_REACTION_WINDOW_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_2026-09-04.md`.
 
 ## Explicitly incomplete
 
-- final Hunter incoming-damage / HP arithmetic;
-- structural crack/break/sever and detached parts;
+- Hunter defense consequence after hostile contact;
+- final Hunter incoming HP/injury arithmetic;
+- structural crack/break/sever/detached parts;
 - status application/timing;
-- Monster normal attack packet beyond the upcoming first attack;
-- deterministic Monster behavior selection;
+- remaining four normal Mudcrest attacks and deterministic behavior selection;
 - Berserk;
 - defeat/escape/reacquisition;
-- harvest/inventory/crafting/settlement/persistence;
+- harvest/inventory/crafting/settlement/persistence runtime;
 - final phone/performance validation.
-
-## Deferred phone validation
-
-Batch later:
-- observation/ENGAGE and same-location first-person transition;
-- tactical movement UX/readability;
-- Measured Cut/anatomy feedback;
-- reaction-window UX;
-- future Monster attack/defense feedback;
-- final dimensional route validation where applicable;
-- sustained performance/thermal behavior.
-
-Stage-1 shooter-style controls remain previously user accepted 100%; that does not automatically phone-verify later production layers.
 
 ## Exact next action
 
-`FIRST_SLICE_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION`.
 
-Species owner:
-`game/scripts/gameplay/monsters/monster_01/`.
+Generic owner:
+`game/scripts/gameplay/combat/`.
 
-Required invariants:
-- attack ID `M01_HEAD_SWEEP_GORE`;
-- exact commitment `2 AP / 14 Stamina`;
-- register one real Monster activation driver through the verified shell handshake;
-- preserve one damaging attack maximum per Monster activation;
-- validate head capability, close front/front-flank relation, sweep clearance and full-cover legality before commitment;
-- produce an authoritative head-sweep telegraph;
-- open the shared reaction window before hostile resolution;
-- allow the currently implemented normal Poleblade Block path and explicit decline;
-- deterministic replay/readback; no hidden reroll or double resource spend;
-- use generic combat resolution for one contact/hit-quality/protection trace;
-- emit a stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff because final Hunter health/damage numbers remain open;
-- complete the Monster activation after that committed handoff;
-- static/headless/Android-build verification required;
-- phone remains deferred.
+The slice must consume the Head Sweep's stable pending Hunter-damage handoff, keep replay idempotent, resolve no-contact cleanly, resolve the first executable Poleblade Block consequence, and apply Head Sweep's selected 10-Stamina guard-impact drain through combat-shell resource authority separately from the 6-Stamina reaction commitment. Any unresolved final Block balance must be visibly marked as a reversible first-slice fixture.
 
-Do not add Horn Charge, Shoulder Ram, Stomp, Tail Sweep, Berserk, structural break/sever, defeat/escape or harvest in this bounded piece.
+It must not invent final Hunter Max Health/damage/wound values. Contact that survives defense must leave a stable downstream pending health/injury handoff. Static/headless/Android-build verification is required; phone remains deferred.

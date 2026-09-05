@@ -1,97 +1,76 @@
 # Hunt-01 Mudcrest Head Sweep Attack Runtime
 
-Status: IMPLEMENTED / AUTOMATED VERIFICATION PENDING
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED
 Last reconciled: 2026-09-04
 
 ## Bounded purpose
 
-Implement the first real Mudcrest Raker hostile attack without fabricating final Hunter HP arithmetic or broad Monster AI.
+First real Mudcrest Raker hostile attack without fabricating final Hunter HP arithmetic or broad Monster AI.
 
-Species owner:
-`game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`.
-
-Stable schema:
-`uhr.hunt01.mudcrest_attack.v1`.
-
-Attack:
-`M01_HEAD_SWEEP_GORE`.
-
-Exact selected commitment:
-`2 AP / 14 Stamina`.
+Species owner: `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`.
+Schema: `uhr.hunt01.mudcrest_attack.v1`.
+Attack: `M01_HEAD_SWEEP_GORE`.
+Commitment: `2 AP / 14 Stamina`.
 
 ## Runtime sequence
 
-1. the species runtime registers one Monster activation driver through the verified combat shell;
-2. the real Monster normal activation remains authoritative;
-3. the runtime validates baseline head capability, working-melee relation, front/front-flank bearing, sweep line/cover and Monster resources;
-4. it commits exactly 2 AP / 14 Stamina once;
-5. it emits the authoritative head-sweep telegraph and instantiates the non-colliding `mudcrest_head_sweep_telegraph.tscn` threat-band asset in the same physical world;
-6. it opens the verified generic Hunter reaction window;
-7. the first executable paid reaction is Field Poleblade Block at the already-verified 1 RP / 6 Stamina commitment; explicit decline remains free;
-8. after the reaction decision, one deterministic FNV-1a bounded sample resolves provisional AttackControl/DefenseControl into contact and MISS/GRAZE/SOLID/CLEAN hit quality;
-9. contact routes through either `FIELD_POLEBLADE_DIRECTIONAL_GUARD` or `HUNTER_BODY_PROTECTION_PENDING_RUNTIME`;
-10. the runtime emits a stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff and closes the reaction window;
-11. the telegraph visual disappears and the Monster activation completes through shell authority.
+1. species runtime registers one Monster activation driver through the combat shell;
+2. validates baseline head capability, working-melee relation, front/front-flank bearing, sweep line/cover and Monster resources;
+3. commits 2 AP / 14 Stamina once;
+4. emits authoritative text + non-colliding `mudcrest_head_sweep_telegraph.tscn` threat band;
+5. opens the generic Hunter reaction window;
+6. executable paid reaction is Field Poleblade Block at 1 RP / 6 Stamina; explicit decline is free;
+7. one deterministic FNV-1a bounded sample resolves provisional AttackControl/DefenseControl into MISS/GRAZE/SOLID/CLEAN;
+8. contact routes through `FIELD_POLEBLADE_DIRECTIONAL_GUARD` or `HUNTER_BODY_PROTECTION_PENDING_RUNTIME`;
+9. emits stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff;
+10. closes reaction window, removes telegraph and completes Monster activation.
 
-## Geometry / capability boundary
+## Provisional boundaries
 
-The selected packet requires close front/front-flank contact.
+Working-melee body-envelope maximum is 3.5 m for this first executable slice. Front/front-flank uses the authored Mudcrest charge-forward half-plane. Structural break state does not yet exist, so the runtime does not infer broken horns from normalized integrity.
 
-This first executable slice reuses the existing 3.5 m practical body-envelope working-melee fixture already used by the first Hunter contact prototype. It is explicitly provisional, not final animation reach.
+`PROVISIONAL_FIRST_SLICE_MUDCREST_HEAD_SWEEP_CONTROL_FIXTURE` supplies executable deterministic contact values only; it does not select final balance.
 
-Front/front-flank classification uses the forward half-plane of the already-authored Mudcrest charge lane from the Hunt-01 manifest. This is a stable geometry reference, not new damage balance.
-
-The current anatomy runtime has normalized integrity but no authoritative structural break state. Therefore this attack does not infer broken horns from integrity values. The first slice records:
-`PROVISIONAL_BASELINE_HEAD_HORNS_USABLE_NO_BREAK_STATE_RUNTIME`.
-
-Until structural break runtime exists, the executable first attack uses the baseline `GORE_SWEEP` profile with `PIERCING + IMPACT` channels.
-
-## Provisional hostile-resolution fixture
-
-`PROVISIONAL_FIRST_SLICE_MUDCREST_HEAD_SWEEP_CONTROL_FIXTURE` exists only to make the attack transaction executable and deterministic while final character/defense numbers remain design-open.
-
-It includes:
-- provisional Mudcrest AttackControl;
-- provisional Hunter DefenseControl;
-- a provisional Block DefenseControl contribution;
-- one bounded deterministic variance sample.
-
-This does not select final balance.
-
-## Block boundary
-
-The Monster packet records a standard successful Poleblade Block impact drain of 10 Stamina after the normal 6-Stamina Block commitment.
-
-This slice records that selected 10-Stamina profile in the pending Hunter-damage handoff but does not apply it yet because final `BLOCK_STRONG / BLOCK_PARTIAL / BLOCK_BROKEN` outcome classification is still open.
+Head Sweep records the selected standard Poleblade Block impact drain of 10 Stamina, separate from the 6-Stamina Block commitment, but this attack owner does not apply the drain or invent the final Block outcome.
 
 `guard_impact_drain_status = PENDING_FINAL_BLOCK_OUTCOME_RUNTIME`.
+
+## Automated verification
+
+Primary implementation commit:
+`238f6bba98cb6dd7deb420bfe5196e08a3542279`.
+
+QA chain:
+- `6cc493f3a9ce00b84279ac00e1985fc08276c4e0` — reaction documentation-gate repair;
+- `0d843079bf6343cbb0b35d12264ce695ae5b5c5c` — anatomy documentation-gate repair;
+- `bd732960051c9850dbec7beeaf856e73b478f9ad` — dedicated Head Sweep test physics synchronization;
+- `f7fe9d347921289ca104824e61fd82a2efc73fed` — reaction regression test isolates its mock from the production deferred hostile driver.
+
+Final production workflow `33932945947`: SUCCESS.
+Job `101215138444`: SUCCESS.
+
+The final run passed static/source gates, Godot 4.7.2 parse/import, AppShell/Region smoke, production integration, combat/tactical movement, reaction regression, dedicated Head Sweep, anatomy, Hunter attack, Android debug export and artifact upload.
+
+Artifact `9959201882`:
+- name `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`;
+- size 57,322,699 bytes;
+- SHA-256 `b56070a42a9abd5ef534443750c441385b1f5f8327a48f7ea1080e490abe0ca8`;
+- APK output `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug.apk`.
+
+Phone/user acceptance remains `DEFERRED_BATCH`; performance is not verified.
 
 ## Explicitly not implemented here
 
 - final Hunter HP/damage arithmetic;
-- final Block strong/partial/broken classification;
+- final Block balance/consequence;
 - forced movement/stagger/status consequences;
-- horn/head structural break runtime;
-- Horn Charge;
-- Shoulder Ram;
-- Foreleg Stomp;
-- Tail Sweep;
-- Berserk;
-- deterministic multi-attack Monster behavior selection;
+- structural break/sever;
+- other Mudcrest attacks/Berserk/behavior selection;
 - defeat/escape/reacquisition;
-- harvest/inventory/crafting/settlement/persistence.
+- harvest/inventory/crafting/settlement/persistence runtime.
 
-## Verification target
+## Next downstream owner
 
-Required gate:
-`HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_VERIFIED`.
+`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION` under generic combat.
 
-Required automated chain:
-- source/static preflight;
-- Godot 4.7.2 import/parse;
-- existing production integration regressions;
-- existing combat/reaction/anatomy/Hunter-attack regressions;
-- dedicated Head Sweep headless test;
-- Android debug export and artifact upload.
-
-Phone/user acceptance remains `DEFERRED_BATCH` and performance remains separately unverified.
+It must consume `PENDING_HUNTER_DAMAGE_RUNTIME` idempotently, resolve no-contact/guard consequence, apply the selected Head Sweep 10-Stamina guard-impact drain through shell resource authority, and preserve final HP/injury arithmetic as a separate pending downstream boundary.
