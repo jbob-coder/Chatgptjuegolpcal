@@ -1,6 +1,7 @@
 extends Node
 
 const SCHEMA := "uhr.hunt01.hunter_defense_consequence.v1"
+const HUNTER_HEALTH_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd")
 const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const HUNTER_COMBATANT_ID := "hunter_player_0001"
 const MONSTER_COMBATANT_ID := "monster_r01_m01_0001"
@@ -11,6 +12,7 @@ const IMPACT_TRANSACTION_ID := "POLEBLADE_BLOCK_IMPACT_DRAIN"
 const BLOCK_FIXTURE_STATUS := "PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE"
 
 var _shell: Node = null
+var _hunter_health: Node = null
 var _encounter_record: Dictionary = {}
 var _initialized := false
 var _resolutions: Dictionary = {}
@@ -27,14 +29,26 @@ func initialize(shell: Node, encounter_record: Dictionary) -> bool:
 		return false
 	_shell = shell
 	_encounter_record = encounter_record.duplicate(true)
+
+	var health := HUNTER_HEALTH_SCRIPT.new() as Node
+	if health == null:
+		return false
+	health.name = "HunterHealthInjuryRuntime"
+	add_child(health)
+	if not bool(health.call("initialize", _encounter_record)):
+		health.queue_free()
+		return false
+	_hunter_health = health
+
 	_initialized = true
 	_record_trace("HUNTER_DEFENSE_RUNTIME_READY", {
 		"fixture_status": BLOCK_FIXTURE_STATUS,
+		"hunter_health_schema": String(_hunter_health.call("get_schema")),
 	})
 	return true
 
 func resolve_hostile_handoff(handoff: Dictionary) -> Dictionary:
-	if not _initialized:
+	if not _initialized or _hunter_health == null:
 		return {"success": false, "reason": "DEFENSE_RUNTIME_NOT_INITIALIZED"}
 	var resolution_id := String(handoff.get("resolution_id", ""))
 	if resolution_id.is_empty():
@@ -68,6 +82,17 @@ func resolve_hostile_handoff(handoff: Dictionary) -> Dictionary:
 
 	if not bool(result.get("success", false)):
 		return result
+	var health_handoff: Dictionary = result.get("health_handoff", {}) as Dictionary
+	var health_result: Dictionary = _hunter_health.call("resolve_health_handoff", health_handoff)
+	if not bool(health_result.get("success", false)):
+		return {
+			"success": false,
+			"reason": "HUNTER_HEALTH_INJURY_TRANSACTION_REJECTED",
+			"resolution_id": resolution_id,
+			"health_result": health_result.duplicate(true),
+		}
+	result["health_injury_consequence"] = health_result.duplicate(true)
+	result["hunter_health_schema"] = String(_hunter_health.call("get_schema"))
 	_resolutions[resolution_id] = result.duplicate(true)
 	_last_resolution = result.duplicate(true)
 	return result.duplicate(true)
@@ -248,6 +273,9 @@ func is_initialized() -> bool:
 
 func get_fixture_status() -> String:
 	return BLOCK_FIXTURE_STATUS
+
+func get_hunter_health_runtime() -> Node:
+	return _hunter_health
 
 func get_last_resolution() -> Dictionary:
 	return _last_resolution.duplicate(true)
