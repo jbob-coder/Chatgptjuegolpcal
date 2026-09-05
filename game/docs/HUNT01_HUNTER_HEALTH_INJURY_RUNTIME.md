@@ -1,11 +1,11 @@
 # Hunt-01 Hunter Health / Injury Runtime
 
-Status: IMPLEMENTED / AUTOMATED VERIFICATION PENDING
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED
 Last reconciled: 2026-09-04
 
 ## Purpose
 
-Consume the first stable `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` transaction exactly once and make incoming Monster contact materially affect Hunter state without pretending prototype balance is final.
+Consume one stable `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` transaction exactly once and make incoming Monster contact materially affect Hunter state without pretending prototype balance is final.
 
 Generic owner:
 `game/scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd`.
@@ -17,8 +17,7 @@ Schema:
 
 `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`.
 
-Normalized prototype Max Health:
-`100`.
+Normalized prototype Max Health: `100`.
 
 Hit-quality base loads:
 - GRAZE `4`;
@@ -31,39 +30,43 @@ Residual-force percentages:
 - `BLOCK_BROKEN` `90%`;
 - `NO_ACTIVE_GUARD` `100%`.
 
-Applied load is ceiling-rounded, capped by remaining health and health clamps at zero. These are first-slice tuning values only, not final Max Health/damage balance.
+Applied load is ceiling-rounded, capped by remaining Health and clamps at zero. These are first-slice tuning values only, not final Max Health/damage balance.
 
 ## Protection boundary
 
-No authored Hunter gameplay armor profile currently exists. The Hunter visual packet describes clothing/limited plates as art intent but explicitly says gameplay effects come from equipment definitions.
+No authored Hunter gameplay armor profile currently exists. The Hunter visual packet is presentation intent; gameplay protection must come from equipment definitions.
 
-Therefore this slice records:
+This slice records:
 `PROVISIONAL_NO_AUTHORED_HUNTER_GAMEPLAY_ARMOR_PROFILE_RESIDUAL_FORCE_BASELINE`.
 
 It does not invent protection values from the model.
 
 ## Status boundary
 
-The Monster attack packet allows Bleeding only after horn-penetration wound conditions and Off-Balance only for CLEAN impact-dominant contact. The current hostile handoff preserves `PIERCING + IMPACT` channels but does not yet identify dominant channel/confirmed penetration.
+The Monster attack packet allows Bleeding only after horn-penetration wound conditions and Off-Balance only for CLEAN impact-dominant contact. The current hostile handoff preserves `PIERCING + IMPACT` channels but does not prove dominant channel or confirmed penetration.
 
-Therefore this runtime emits no actual status application request. It may record candidate-only metadata with the missing prerequisite. `status_requests` stays empty until a later layer supplies authoritative wound/channel classification.
+Therefore `status_requests` remains empty. Candidate-only metadata records missing prerequisites. A species/content-owned wound/contact classifier is the next owner.
 
 ## Zero-health boundary
 
-Reaching zero emits:
-`PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME`.
-
-This runtime does not end the encounter, respawn, retreat, drop loot or otherwise implement defeat.
+Reaching zero emits `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME`. This runtime does not end the encounter, respawn, retreat, drop loot or implement defeat.
 
 ## Integration
 
-The generic defense-consequence owner instantiates this health owner and resolves its health handoff before the defense transaction returns to the Mudcrest attack driver. This keeps the real Head Sweep transaction ordered as:
+The generic defense-consequence owner instantiates this health owner and resolves the health handoff before the defense transaction returns to the Mudcrest attack driver:
 
 `CONTACT → DEFENSE/IMPACT → HEALTH/INJURY → reaction close → Monster activation complete`.
 
-The original pending health handoff remains recorded for deterministic replay/readback, while `health_injury_consequence` stores the consumed result.
+Replay/readback cannot apply injury twice.
 
-## Verification target
+## Verification evidence
+
+Implementation commit:
+`057928b30ddef3eac83a316a62c48b5e3fa22632`.
+
+Same-layer QA/documentation compatibility repairs:
+- `da2ee5698a7b7c640b8d848fc0cde3d9f877921e`;
+- `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
 
 Static gate:
 `HUNT01_HUNTER_HEALTH_INJURY_SOURCE_STATIC_VERIFIED`.
@@ -71,4 +74,18 @@ Static gate:
 Headless gate:
 `HUNT01_HUNTER_HEALTH_INJURY_RUNTIME_VERIFIED`.
 
-The dedicated test must prove real blocked and declined Head Sweep paths, exact first-slice health mutation, replay idempotence, no-injury zero mutation, zero clamp and pending defeat handoff. Android export remains required. Phone/performance remain deferred.
+Production workflow `33934988066`: SUCCESS.
+Job `101221044355`: SUCCESS.
+
+Artifact:
+- ID `9959871663`;
+- name `UnnamedHuntRPG-Hunt01-HunterHealth-debug`;
+- size `57,365,013` bytes;
+- SHA-256 `ebb15c4b124e9b046e4194951414bc01cdcd5c28a8136d7ebb2f8b694fcf1f66`;
+- APK output `UnnamedHuntRPG-Hunt01-HunterHealth-debug.apk`.
+
+Phone/user acceptance remains deferred-batch. Performance remains unverified.
+
+## Next owner
+
+`FIRST_SLICE_MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_RUNTIME_IMPLEMENTATION` belongs to Monster-01 species/content. It consumes this already-resolved consequence without changing Health and establishes whether the packet's horn-penetration or impact-dominance prerequisites actually qualify for a status request.

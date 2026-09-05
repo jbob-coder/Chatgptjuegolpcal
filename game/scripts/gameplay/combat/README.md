@@ -1,6 +1,6 @@
 # Hunt-01 Combat Runtime
 
-Status: HUNTER HEALTH-INJURY IMPLEMENTED / AUTOMATED VERIFICATION PENDING
+Status: THROUGH HUNTER HEALTH-INJURY ANDROID BUILD VERIFIED / SPECIES WOUND-CONTACT CLASSIFICATION NEXT
 Last reconciled: 2026-09-04
 
 Purpose: own the generic production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy and Monster attack packets to the Monster package.
@@ -29,35 +29,23 @@ Hunter 4 AP / 1 RP, normalized first-slice Stamina 100, +10 passive Stamina once
 
 Initiative currently uses the explicit design-contract tie example under `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`; it is not final character-stat balance.
 
-Head Sweep's selected Block impact drain remains `10 Stamina`, applied separately through shell authority. The reversible Block fixture remains `PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
+Head Sweep Block impact drain remains `10 Stamina`, applied separately through shell authority. The reversible Block fixture remains `PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
 
-## Hunter health/injury first slice
+## Hunter health/injury
 
-Schema:
-`uhr.hunt01.hunter_health_injury.v1`.
+Schema `uhr.hunt01.hunter_health_injury.v1`.
+Fixture `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`.
 
-Fixture:
-`PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`.
+Normalized prototype Max Health 100; GRAZE/SOLID/CLEAN base injury loads 4/8/12; Strong/Partial/Broken/No-Guard residual percentages 25/60/90/100. Health mutation is idempotent and clamps at zero. These values are not final balance.
 
-Normalized prototype Max Health = `100`.
+No gameplay armor profile is authored for the Hunter. The health owner records that absence instead of inferring protection from visuals.
 
-Prototype base injury loads:
-GRAZE `4`, SOLID `8`, CLEAN `12`.
-
-Prototype residual percentages:
-Strong Block `25%`, Partial Block `60%`, Broken Block `90%`, no active guard `100%`.
-
-All health mutation is idempotent by hostile resolution ID and clamps at zero. These values are not final balance.
-
-No gameplay armor profile is authored for the Hunter yet. The health owner explicitly records the missing-armor baseline instead of inferring protection from visual clothing/plates.
-
-The current contact handoff does not distinguish horn penetration from impact-dominant contact, so this health slice emits no actual status request. It records candidate-only prerequisites where useful; status application remains downstream.
-
-Zero health emits only `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME`; defeat behavior is not implemented here.
+The current contact handoff does not distinguish horn penetration from impact-dominant contact, so health emits no actual status request. Zero Health emits only `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME`.
 
 ## Explicitly not implemented yet
 
 - final Hunter Max Health/damage/armor balance;
+- species-owned Head Sweep wound/contact qualification;
 - status application/stacking runtime;
 - forced movement;
 - final Block balance;
@@ -69,4 +57,11 @@ Zero health emits only `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME`; defeat behavior 
 - harvest/inventory/crafting/settlement/persistence;
 - Sprint/Dodge/forced-displacement movement.
 
-Phone/user acceptance remains deferred-batch. This new health layer must pass its source/headless/Android-build gates before promotion.
+## Current automated evidence
+
+Health implementation `057928b30ddef3eac83a316a62c48b5e3fa22632`.
+Verified source head `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
+Production workflow `33934988066`: SUCCESS.
+Artifact `9959871663`: `UnnamedHuntRPG-Hunt01-HunterHealth-debug`.
+
+Phone/user acceptance remains deferred-batch.

@@ -30,23 +30,24 @@ Protected Stage-1 controls:
 - approximately 115° first-person FOV;
 - approximately 6.25 m/s exploration speed.
 
-Automated-build verified production stack now includes continuous world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, the generic reaction window, real `M01_HEAD_SWEEP_GORE`, and the generic Hunter defense-consequence runtime.
+Automated-build verified production stack includes continuous world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction window, real `M01_HEAD_SWEEP_GORE`, Hunter defense consequence, and Hunter health/injury.
 
-Defense consequence:
-- consumes `PENDING_HUNTER_DAMAGE_RUNTIME` idempotently;
-- no-contact = zero consequence;
-- `POLEBLADE_BLOCK` commitment remains `1 RP + 6 Stamina`;
-- Head Sweep impact drain is separately `10 Stamina` through shell authority;
-- Stamina cannot become debt;
-- provisional Block outcome fixture exposes Strong/Partial/Broken;
-- residual contact becomes `PENDING_HUNTER_HEALTH_INJURY_RUNTIME`.
+Hunter health/injury:
+- schema `uhr.hunt01.hunter_health_injury.v1`;
+- fixture `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`;
+- normalized Health 100;
+- GRAZE/SOLID/CLEAN base loads 4/8/12;
+- Strong/Partial/Broken/No-Guard residuals 25/60/90/100%;
+- replay-idempotent and clamped at zero;
+- no inferred gameplay armor from Hunter visuals;
+- zero → `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` only;
+- status requests remain blocked until species content establishes horn penetration or impact dominance.
 
-Verified source head:
-`598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
-
-Production workflow `33933869555`: SUCCESS.
-Job `101217865434`: SUCCESS.
-Artifact `9959508072`: `UnnamedHuntRPG-Hunt01-HunterDefense-debug`.
+Health implementation `057928b30ddef3eac83a316a62c48b5e3fa22632`.
+Verified head `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
+Production workflow `33934988066`: SUCCESS.
+Job `101221044355`: SUCCESS.
+Artifact `9959871663`: `UnnamedHuntRPG-Hunt01-HunterHealth-debug`.
 
 `PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
@@ -54,23 +55,21 @@ Artifact `9959508072`: `UnnamedHuntRPG-Hunt01-HunterDefense-debug`.
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_HUNTER_HEALTH_INJURY_RUNTIME_2026-09-04.md`.
 
 ## Exact next action
 
-`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_RUNTIME_IMPLEMENTATION`.
 
 Read before implementation:
-- `game/scripts/gameplay/combat/README.md`;
-- `game/scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd`;
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
-- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
-- `game/docs/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME.md`;
-- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
+- `game/scripts/gameplay/monsters/monster_01/README.md`;
+- `game/scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd`;
+- `game/scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd`;
+- `game/docs/HUNT01_HUNTER_HEALTH_INJURY_RUNTIME.md`;
+- `docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`;
 - `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
 - `docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
-- `docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`;
-- `docs/30_content/hunters/HUNTER_BASE_01/README.md`;
 - relevant current tests/static preflights.
 
-Do not infer gameplay armor from the visual Hunter model. Do not silently freeze candidate Max Health/damage values. Do not bundle status application, structural break/sever, other Mudcrest attacks, defeat/escape or harvest.
+Do not make the generic status owner decide qualification. Do not infer penetration/dominance solely from having both PIERCING and IMPACT channels. Do not bundle status ticking/stacking, defeat, structural break/sever, other Mudcrest attacks or harvest.

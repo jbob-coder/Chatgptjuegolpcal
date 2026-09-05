@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH HUNTER DEFENSE CONSEQUENCE ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH HUNTER HEALTH-INJURY ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-04
 
 ## Operating law
@@ -22,13 +22,13 @@ Do not convert automated evidence into a phone/performance claim.
 
 Stage-1 shooter-style controls remain user accepted 100% and must not regress: direct continuous analog movement from the left joystick, independent right-side look, simultaneous move/look, no forced release/center/rebase logic, approximately 115° first-person FOV, and approximately 6.25 m/s exploration speed.
 
-Current production world remains the continuous 440×440 m Hunt-01 foundation with grounded stylized Hunter/Mudcrest/environment presentation. `probes/android_stage1/` remains evidence only.
+Current production world remains the continuous 440×440 m Hunt-01 foundation. `probes/android_stage1/` remains evidence only.
 
 ## Verified production stack
 
 IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED:
 - continuous Hunt-01 world foundation;
-- seven physical evidence clues through terminal `OBSERVATION_READY`;
+- seven physical tracking clues through terminal `OBSERVATION_READY`;
 - physical observation/engagement zones and explicit same-location ENGAGE;
 - deterministic initiative/round/activation shell;
 - authored 10-node / 14-link tactical movement graph;
@@ -37,46 +37,49 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - generic Hunter reaction window, including `POLEBLADE_BLOCK = 1 RP + 6 Stamina` and free decline;
 - species-owned `M01_HEAD_SWEEP_GORE` hostile transaction at exactly `2 AP / 14 Stamina`;
 - physical body-envelope/front-front-flank/full-cover legality;
-- authoritative Head Sweep telegraph and non-colliding threat-band asset;
+- authoritative Head Sweep telegraph;
 - deterministic hostile contact/hit-quality/protection trace;
-- generic Hunter defense-consequence owner consuming `PENDING_HUNTER_DAMAGE_RUNTIME` exactly once;
-- no-contact zero consequence;
-- Field Poleblade Block impact drain applied separately from the reaction commitment through combat-shell resource authority;
-- Head Sweep Block impact drain exactly `10 Stamina`, clamped to available Stamina with no debt;
-- reversible first-slice `BLOCK_STRONG / BLOCK_PARTIAL / BLOCK_BROKEN` classification;
-- stable downstream `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` handoff without invented final HP arithmetic.
+- generic Hunter defense-consequence owner, including separate 10-Stamina Head Sweep guard-impact drain;
+- reversible `BLOCK_STRONG / BLOCK_PARTIAL / BLOCK_BROKEN` first-slice fixture;
+- generic Hunter health/injury owner consuming residual hostile force exactly once;
+- normalized Health 100 first-slice fixture with GRAZE/SOLID/CLEAN base loads 4/8/12;
+- reversible defense residual percentages Strong 25%, Partial 60%, Broken 90%, No Guard 100%;
+- health clamp at zero and idempotent injury transactions;
+- explicit no-authored-gameplay-armor baseline instead of inferring protection from art;
+- zero Health emits only `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME`;
+- status possibilities are candidate-only until species/content-owned wound/contact qualification exists.
 
-Hunter defense owner:
-`game/scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd`.
+Hunter health owner:
+`game/scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd`.
 
 Schema:
-`uhr.hunt01.hunter_defense_consequence.v1`.
+`uhr.hunt01.hunter_health_injury.v1`.
 
-Verified defense implementation head:
-`598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
+Fixture:
+`PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`.
+
+Health implementation commit:
+`057928b30ddef3eac83a316a62c48b5e3fa22632`.
+
+QA/documentation compatibility repairs:
+- `da2ee5698a7b7c640b8d848fc0cde3d9f877921e`;
+- `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
+
+Verified production head:
+`06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
 
 Production workflow:
-`33933869555` — SUCCESS.
+`33934988066` — SUCCESS.
 
 Workflow job:
-`101217865434` — SUCCESS.
+`101221044355` — SUCCESS.
 
 Artifact:
-- ID `9959508072`;
-- name `UnnamedHuntRPG-Hunt01-HunterDefense-debug`;
-- size `57,342,853` bytes;
-- SHA-256 `8eacdaa455574046381c7f153f20dceef59a3d4a9071e091f9c9b2b0691fa51d`;
-- APK output `UnnamedHuntRPG-Hunt01-HunterDefense-debug.apk`.
-
-Defense balance fixture:
-`PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
-
-Current provisional mapping:
-- fully funded GRAZE/SOLID Block → `BLOCK_STRONG`;
-- fully funded CLEAN Block → `BLOCK_PARTIAL`;
-- insufficient impact Stamina → `BLOCK_BROKEN`.
-
-These values are executable prototype balance, not final rules.
+- ID `9959871663`;
+- name `UnnamedHuntRPG-Hunt01-HunterHealth-debug`;
+- size `57,365,013` bytes;
+- SHA-256 `ebb15c4b124e9b046e4194951414bc01cdcd5c28a8136d7ebb2f8b694fcf1f66`;
+- APK output `UnnamedHuntRPG-Hunt01-HunterHealth-debug.apk`.
 
 ## Verification boundary
 
@@ -85,28 +88,25 @@ These values are executable prototype balance, not final rules.
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Final Hunter health/injury arithmetic, final Block balance, authored Hunter armor/protection values, structural crack/break/sever/detachment, statuses, remaining Mudcrest attacks/behavior, defeat/escape/reacquisition, harvest, inventory, crafting, settlement services and persistence runtime remain incomplete.
+The numeric Health/load/residual values above are executable prototype balance, not final Max Health/damage/armor rules. The current Hunter has no authored gameplay armor profile. Status application, forced movement, structural crack/break/sever/detachment, remaining Mudcrest attacks/behavior, defeat/escape/reacquisition, harvest, inventory, crafting, settlement services and persistence runtime remain incomplete.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_HUNTER_HEALTH_INJURY_RUNTIME_2026-09-04.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_RUNTIME_IMPLEMENTATION`
 
 Required boundary:
-1. generic owner belongs under `game/scripts/gameplay/combat/`;
-2. consume one stable `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` handoff idempotently;
-3. keep `NO_HUNTER_HEALTH_INJURY_CONSEQUENCE` as a zero-mutation readback path;
-4. use an explicitly named reversible normalized first-slice health/injury fixture because final Max Health, armor and damage formulas remain balance-open;
-5. preserve Head Sweep hit quality, `PIERCING + IMPACT` channels and defense outcome in the calculation trace;
-6. no authored Hunter armor profile currently exists, so any executable baseline must state that absence explicitly instead of inferring protection from the visual model;
-7. clamp health at zero and never allow negative health;
-8. repeated resolution/readback cannot apply injury twice;
-9. emit stable wound/status-request data only where the Monster attack packet already authorizes a request; do not apply status effects in this layer;
-10. if health reaches zero, record a downstream pending defeat/outcome handoff but do not implement defeat/retreat here;
-11. integrate into the real Head Sweep transaction after defense consequence and before Monster activation completion;
-12. add source/static, dedicated headless, regression and Android-build verification;
-13. phone/performance remain deferred.
+1. species/content ownership belongs under `game/scripts/gameplay/monsters/monster_01/` because Monster attack content decides whether a successful consequence qualifies for a status request;
+2. consume the already-resolved Head Sweep contact + defense + health/injury result without re-rolling attack/contact or re-applying Health;
+3. produce one stable idempotent wound/contact classification keyed to the hostile resolution ID;
+4. use `COMBAT_ATTACK_PACKET.md` as authority: Bleeding requires a qualifying horn-penetration wound; Off-Balance requires qualifying CLEAN impact-dominant contact;
+5. the current `PIERCING + IMPACT` packet alone is insufficient to claim penetration or impact dominance, so any first executable classifier mapping must be explicitly named and reversible rather than silently assumed final;
+6. emit an explicit application-request record only when the classifier establishes all prerequisites; otherwise emit an explicit no-request/blocked-prerequisite result;
+7. do not mutate/apply/status-stack/tick/expire effects in this layer—the generic status owner consumes valid requests later;
+8. do not change Health, Stamina, AP/RP, anatomy, Monster capability or physical coordinates;
+9. add source/static, dedicated headless, regression and Android-build verification;
+10. phone/performance remain deferred.
 
-Do not bundle status runtime, structural break/sever, other Mudcrest attacks, behavior/Berserk, defeat/escape or harvest into this piece.
+Do not bundle the status scheduler, structural break/sever, other Mudcrest attacks, defeat/escape or harvest into this piece.

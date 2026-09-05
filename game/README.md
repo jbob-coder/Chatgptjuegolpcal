@@ -1,6 +1,6 @@
 # Production Game Root
 
-Status: HUNT-01 THROUGH HUNTER DEFENSE CONSEQUENCE ANDROID BUILD VERIFIED / HUNTER HEALTH-INJURY NEXT
+Status: HUNT-01 THROUGH HUNTER HEALTH-INJURY ANDROID BUILD VERIFIED / HEAD SWEEP WOUND-CONTACT CLASSIFICATION NEXT
 Last reconciled: 2026-09-04
 
 This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
@@ -15,7 +15,7 @@ World/exploration:
 
 Tracking/encounter:
 - seven physical evidence types through terminal `OBSERVATION_READY`;
-- audio-independent progression and no Monster GPS;
+- no Monster GPS;
 - explicit physical observation/engagement;
 - same-location first-person combat staging.
 
@@ -23,38 +23,31 @@ Generic combat owner `scripts/gameplay/combat/`:
 - deterministic turn/AP-RP-Stamina authority;
 - adjacent tactical-node movement;
 - Hunter `POLEBLADE_MEASURED_CUT`;
-- deterministic contact/local-protection routing;
-- Hunter reaction-window runtime;
-- `POLEBLADE_BLOCK = 1 RP + 6 Stamina` plus free decline;
-- `hunt01_hunter_defense_consequence_runtime.gd`;
-- stable replay-safe hostile-defense consequence;
-- Head Sweep's `10 Stamina` guard-impact drain as a separate shell-authoritative spend;
-- provisional `BLOCK_STRONG / BLOCK_PARTIAL / BLOCK_BROKEN` fixture;
-- stable `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` output.
+- Hunter reaction window;
+- Hunter defense consequence with separate guard-impact drain;
+- Hunter health/injury runtime `uhr.hunt01.hunter_health_injury.v1`;
+- normalized reversible Health fixture, no inferred gameplay armor, zero clamp and pending defeat boundary.
 
 Monster-01 owner `scripts/gameplay/monsters/monster_01/`:
 - normalized per-target anatomy integrity;
 - real `M01_HEAD_SWEEP_GORE` at exactly `2 AP / 14 Stamina`;
-- physical legality, telegraph asset and deterministic hostile contact trace.
-
-No final Hunter Max Health/damage/armor amount is currently claimed.
+- physical legality, telegraph and deterministic hostile contact;
+- next: wound/contact qualification for Head Sweep status-request prerequisites.
 
 ## Verification status
 
-Verified source head `598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
-Production workflow `33933869555`: SUCCESS.
-Job `101217865434`: SUCCESS.
-Artifact `9959508072`: `UnnamedHuntRPG-Hunt01-HunterDefense-debug`.
+Health implementation `057928b30ddef3eac83a316a62c48b5e3fa22632`.
+Verified source head `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
+Production workflow `33934988066`: SUCCESS.
+Job `101221044355`: SUCCESS.
+Artifact `9959871663`: `UnnamedHuntRPG-Hunt01-HunterHealth-debug`.
 
-The current stack through Hunter defense consequence is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+The current stack through Hunter health/injury is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
-Post-tracking phone acceptance remains `DEFERRED_BATCH`.
-`PERFORMANCE_VERIFIED = NO`.
-`FINAL_ENGINE_SELECTED = NO`.
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
+Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `FINAL_ENGINE_SELECTED = NO`.
 
 ## Current bounded production piece
 
-`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_RUNTIME_IMPLEMENTATION`.
 
-The generic combat layer must consume the stable pending health/injury handoff once, use a clearly labeled reversible normalized health/damage fixture, preserve channels/hit quality/defense trace, clamp health at zero and leave actual status application plus defeat/outcome to later owners.
+Species content must classify the already-resolved Head Sweep wound/contact once. It may emit valid status application-request records only after the Monster attack packet's prerequisites are established. It must not apply statuses, alter Health/resources/anatomy, or reroll contact.
