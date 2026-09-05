@@ -13,6 +13,7 @@ on:
       - "tests/quality/hunt01/hunt01_mudcrest_head_sweep_preflight.py"
       - "tests/quality/hunt01/hunt01_hunter_defense_consequence_preflight.py"
       - "tests/quality/hunt01/hunt01_hunter_health_injury_preflight.py"
+      - "tests/quality/hunt01/hunt01_mudcrest_wound_contact_preflight.py"
       - "tests/quality/hunt01/hunt01_hunter_attack_preflight.py"
       - "tests/quality/hunt01/hunt01_mudcrest_anatomy_preflight.py"
       - "docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json"
@@ -26,7 +27,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_NAME: UnnamedHuntRPG-Hunt01-HunterHealth-debug.apk
+  APK_NAME: UnnamedHuntRPG-Hunt01-WoundContact-debug.apk
 
 jobs:
   build-production-hunt01:
@@ -126,6 +127,8 @@ jobs:
           grep -q "Gate: HUNT01_HUNTER_DEFENSE_CONSEQUENCE_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-hunter-defense-consequence-static.log
           python3 tests/quality/hunt01/hunt01_hunter_health_injury_preflight.py | tee build-evidence/hunt01-hunter-health-injury-static.log
           grep -q "Gate: HUNT01_HUNTER_HEALTH_INJURY_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-hunter-health-injury-static.log
+          python3 tests/quality/hunt01/hunt01_mudcrest_wound_contact_preflight.py | tee build-evidence/hunt01-mudcrest-wound-contact-static.log
+          grep -q "Gate: HUNT01_MUDCREST_WOUND_CONTACT_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-mudcrest-wound-contact-static.log
           python3 tests/quality/hunt01/hunt01_hunter_attack_preflight.py | tee build-evidence/hunt01-hunter-attack-static.log
           grep -q "Gate: HUNT01_FIRST_HUNTER_ATTACK_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-hunter-attack-static.log
           python3 tests/quality/hunt01/hunt01_mudcrest_anatomy_preflight.py | tee build-evidence/hunt01-mudcrest-anatomy-static.log
@@ -205,6 +208,13 @@ jobs:
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/hunt01_hunter_health_injury_runtime_test.gd" 2>&1 | tee build-evidence/hunt01-hunter-health-injury-runtime.log
           grep -q "Gate: HUNT01_HUNTER_HEALTH_INJURY_RUNTIME_VERIFIED" build-evidence/hunt01-hunter-health-injury-runtime.log
 
+      - name: Headless Hunt-01 Mudcrest wound contact classification
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/hunt01_mudcrest_wound_contact_runtime_test.gd" 2>&1 | tee build-evidence/hunt01-mudcrest-wound-contact-runtime.log
+          grep -q "Gate: HUNT01_MUDCREST_WOUND_CONTACT_RUNTIME_VERIFIED" build-evidence/hunt01-mudcrest-wound-contact-runtime.log
+
       - name: Headless Hunt-01 Mudcrest anatomy integrity
         shell: bash
         run: |
@@ -237,9 +247,9 @@ jobs:
       - name: Upload production APK and evidence
         uses: actions/upload-artifact@v4
         with:
-          name: UnnamedHuntRPG-Hunt01-HunterHealth-debug
+          name: UnnamedHuntRPG-Hunt01-WoundContact-debug
           path: |
-            build/android/UnnamedHuntRPG-Hunt01-HunterHealth-debug.apk
+            build/android/UnnamedHuntRPG-Hunt01-WoundContact-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 2
