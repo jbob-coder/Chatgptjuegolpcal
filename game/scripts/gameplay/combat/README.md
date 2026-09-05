@@ -1,6 +1,6 @@
 # Hunt-01 Combat Runtime
 
-Status: GENERIC STATUS APPLICATION ANDROID BUILD VERIFIED / STATUS TIMING NEXT
+Status: STATUS TIMING IMPLEMENTED / AUTOMATED VERIFICATION PENDING
 Last reconciled: 2026-09-04
 
 Purpose: own the generic production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy and Monster attack packets to the Monster package.
@@ -14,6 +14,7 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 - `hunt01_hunter_defense_consequence_runtime.gd` — no-contact/Block consequence, guard impact Stamina and health/injury handoff.
 - `hunt01_hunter_health_injury_runtime.gd` — normalized first-slice Hunter health/injury state, stable injury transactions and pending defeat boundary.
 - `hunt01_status_application_runtime.gd` — generic valid-request consumption, actor-level Bleeding/Off-Balance state, stack/refresh policy, idempotency and persistence snapshot boundary.
+- `hunt01_status_timing_runtime.gd` — TURN_START_PRE_RECOVERY / TURN_END / ROUND_END lifecycle timing, Off-Balance natural recovery and pending Bleeding periodic-event cadence.
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
 - Monster normal attack runtime remains species-owned under `game/scripts/gameplay/monsters/monster_01/`.
 
@@ -29,17 +30,20 @@ Initiative currently uses the explicit design-contract tie example under `PROVIS
 
 Head Sweep Block impact drain remains `10 Stamina`, applied separately through shell authority. The reversible Block fixture remains `PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
 
-## Generic status application
+## Generic status application/timing
 
-Schema `uhr.hunt01.status_application.v1`.
+Application schema `uhr.hunt01.status_application.v1`; timing schema `uhr.hunt01.status_timing.v1`.
 
-Mudcrest wound/contact qualification remains species-owned. Generic status application consumes only valid requests and never re-decides penetration/impact dominance.
+Mudcrest Head Sweep qualification remains species-owned. Generic application consumes only valid requests. Generic timing processes already-applied state at standardized hooks.
 
-Verified first status scope supports actor-level `status_bleeding` with `STACK_INTENSITY_CAPPED`, max 3 and first-tick metadata, plus actor-level `status_off_balance` with `REFRESH_DURATION` and pending completed-activation expiry metadata. Request replay is idempotent and in-memory state rehydration does not replay ON_APPLY.
+Bleeding stays capped at intensity 3. Timing may emit a deterministic `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` at eligible ROUND_END but does not select/apply HP magnitude.
+
+Off-Balance is armed only when active at target TURN_START_PRE_RECOVERY and naturally removed at the matching completed activation TURN_END.
 
 ## Explicitly not implemented yet
 
-- status lifecycle/timing hook execution and Bleeding periodic Health consequence;
+- Bleeding periodic Health magnitude/application;
+- Staggered/Braced/Guarded producers and full action restrictions;
 - final Hunter Max Health/damage/armor balance;
 - forced movement/final Block balance;
 - structural crack/break/sever/tail detachment;
@@ -52,8 +56,6 @@ Verified first status scope supports actor-level `status_bleeding` with `STACK_I
 
 ## Current automated evidence
 
-Status application implementation `6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`.
-Production workflow `33936580266`: SUCCESS.
-Artifact `9960395435`: `UnnamedHuntRPG-Hunt01-StatusApplication-debug`.
+Verified baseline before timing: status application implementation `6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`, production workflow `33936580266`: SUCCESS, artifact `9960395435` `UnnamedHuntRPG-Hunt01-StatusApplication-debug`.
 
-Phone/user acceptance remains deferred-batch.
+The timing implementation must pass source/headless/Android-build gates before promotion. Phone/user acceptance remains deferred-batch.
