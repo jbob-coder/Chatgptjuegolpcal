@@ -19,7 +19,9 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
 - Monster normal attack runtime remains species-owned under `game/scripts/gameplay/monsters/monster_01/`.
 
-Species anatomy remains delegated. Final damage/health arithmetic, structural crack/break/sever, broader status consequences, and Monster normal attack runtime remain owned by their dedicated layers rather than being absorbed into the turn shell.
+Species anatomy remains delegated. final damage/health arithmetic, structural crack/break/sever, broader status consequences, and Monster normal attack runtime remain owned by their dedicated layers rather than being absorbed into the turn shell.
+
+The current deterministic initiative example remains the explicit reversible fixture `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`; it is not final character balance.
 
 Stable combatants: encounter `enc_r01_ef02_m01_0001`; Hunter `hunter_player_0001`; Monster `monster_r01_m01_0001`.
 
