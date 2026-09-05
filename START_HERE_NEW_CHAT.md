@@ -30,27 +30,23 @@ Protected Stage-1 controls:
 - approximately 115° first-person FOV;
 - approximately 6.25 m/s exploration speed.
 
-Implemented and automated-build verified production stack:
-- continuous themed Hunt-01 world/exploration foundation;
-- physical tracking/evidence runtime through `OBSERVATION_READY`;
-- physical observation + explicit same-location ENGAGE;
-- deterministic combat turn shell and adjacent tactical movement;
-- Hunter `POLEBLADE_MEASURED_CUT` through contact/protection/anatomy;
-- species-owned Mudcrest anatomy-integrity runtime;
-- generic Hunter reaction window with `POLEBLADE_BLOCK = 1 RP + 6 Stamina`;
-- Mudcrest `M01_HEAD_SWEEP_GORE` at `2 AP / 14 Stamina`;
-- Head Sweep legality/telegraph/reaction/contact trace and stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff.
+Automated-build verified production stack now includes continuous world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, the generic reaction window, real `M01_HEAD_SWEEP_GORE`, and the generic Hunter defense-consequence runtime.
+
+Defense consequence:
+- consumes `PENDING_HUNTER_DAMAGE_RUNTIME` idempotently;
+- no-contact = zero consequence;
+- `POLEBLADE_BLOCK` commitment remains `1 RP + 6 Stamina`;
+- Head Sweep impact drain is separately `10 Stamina` through shell authority;
+- Stamina cannot become debt;
+- provisional Block outcome fixture exposes Strong/Partial/Broken;
+- residual contact becomes `PENDING_HUNTER_HEALTH_INJURY_RUNTIME`.
 
 Verified source head:
-`f7fe9d347921289ca104824e61fd82a2efc73fed`.
+`598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
 
-Production workflow `33932945947`: SUCCESS.
-Job `101215138444`: SUCCESS.
-
-Artifact:
-`9959201882` — `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`, SHA-256 `b56070a42a9abd5ef534443750c441385b1f5f8327a48f7ea1080e490abe0ca8`.
-
-The stack through Head Sweep is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Production workflow `33933869555`: SUCCESS.
+Job `101217865434`: SUCCESS.
+Artifact `9959508072`: `UnnamedHuntRPG-Hunt01-HunterDefense-debug`.
 
 `PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
@@ -58,23 +54,23 @@ The stack through Head Sweep is IMPLEMENTED / STATIC VERIFIED where gated / HEAD
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_2026-09-04.md`.
 
 ## Exact next action
 
-`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`.
 
 Read before implementation:
 - `game/scripts/gameplay/combat/README.md`;
-- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
-- `game/scripts/gameplay/combat/hunt01_reaction_window_runtime.gd`;
+- `game/scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd`;
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
-- `game/scripts/gameplay/encounter/hunt01_encounter_trigger_runtime.gd`;
-- `game/docs/HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME.md`;
+- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
+- `game/docs/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME.md`;
+- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
 - `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
-- `docs/20_gameplay/combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`;
-- `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`;
+- `docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
 - `docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`;
+- `docs/30_content/hunters/HUNTER_BASE_01/README.md`;
 - relevant current tests/static preflights.
 
-Do not invent final Hunter HP or combine this pass with other Mudcrest attacks, Dodge/Parry/Brace implementation, structural break/sever, statuses, defeat/escape or harvest.
+Do not infer gameplay armor from the visual Hunter model. Do not silently freeze candidate Max Health/damage values. Do not bundle status application, structural break/sever, other Mudcrest attacks, defeat/escape or harvest.

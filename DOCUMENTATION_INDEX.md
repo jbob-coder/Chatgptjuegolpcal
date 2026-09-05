@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH FIRST MUDCREST HEAD SWEEP ANDROID BUILD VERIFIED / HUNTER DEFENSE CONSEQUENCE NEXT
+Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH HUNTER DEFENSE CONSEQUENCE ANDROID BUILD VERIFIED / HUNTER HEALTH-INJURY NEXT
 Last reconciled: 2026-09-04
 
 ## Mandatory read order
@@ -29,37 +29,32 @@ Core production:
 - `game/scripts/gameplay/combat/hunt01_tactical_movement_runtime.gd`;
 - `game/scripts/gameplay/combat/hunt01_reaction_window_runtime.gd`;
 - `game/scripts/gameplay/combat/hunt01_hunter_attack_runtime.gd`;
+- `game/scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd`;
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd`;
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
 - `game/assets/effects/mudcrest_head_sweep_telegraph.tscn`;
 - `.github/workflows/production-hunt01-graybox-android.yml`.
 
-Runtime QA:
-- `game/tests/region01_hunt01_graybox_runtime_test.gd`;
-- `game/tests/hunt01_combat_turn_shell_runtime_test.gd`;
-- `game/tests/hunt01_reaction_window_runtime_test.gd`;
-- `game/tests/hunt01_hunter_attack_runtime_test.gd`;
-- `game/tests/hunt01_mudcrest_anatomy_runtime_test.gd`;
-- `game/tests/hunt01_mudcrest_head_sweep_runtime_test.gd`;
-- `tests/quality/hunt01/`.
+Runtime QA includes dedicated tests for production integration, combat shell/tactical movement, reaction, Hunter attack, Mudcrest anatomy, Head Sweep and Hunter defense consequence under `game/tests/`, plus source gates under `tests/quality/hunt01/`.
 
 Runtime notes:
 - `game/docs/HUNT01_HUNTER_REACTION_WINDOW_RUNTIME.md`;
 - `game/docs/HUNT01_FIRST_HUNTER_ATTACK_RUNTIME.md`;
 - `game/docs/HUNT01_MUDCREST_ANATOMY_INTEGRITY_RUNTIME.md`;
-- `game/docs/HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME.md`.
+- `game/docs/HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME.md`;
+- `game/docs/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME.md`.
 
 ## Current verified baseline
 
-Source head `f7fe9d347921289ca104824e61fd82a2efc73fed`.
-Production workflow `33932945947`: SUCCESS.
-Job `101215138444`: SUCCESS.
-Artifact `9959201882`: `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`.
+Source head `598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
+Production workflow `33933869555`: SUCCESS.
+Job `101217865434`: SUCCESS.
+Artifact `9959508072`: `UnnamedHuntRPG-Hunt01-HunterDefense-debug`.
 
-Godot parse/AppShell/Region smoke, production integration, combat shell/tactical movement, reaction, dedicated Head Sweep, anatomy, Hunter attack, Android export and artifact upload all PASS.
+The full current automated pipeline through Hunter defense consequence passes Godot parse/smoke, production integration/regressions, dedicated defense headless, Android export and artifact upload.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_2026-09-04.md`.
 
 ## Layer ownership
 
@@ -69,28 +64,23 @@ Tracking/evidence: `game/scripts/gameplay/tracking/`.
 
 Observation/ENGAGE: `game/scripts/gameplay/encounter/`.
 
-Generic combat: `game/scripts/gameplay/combat/` — turn shell, tactical movement, reaction, Hunter attack/contact, and next the generic Hunter defense-consequence owner.
+Generic combat: `game/scripts/gameplay/combat/` — turn shell, tactical movement, reaction, Hunter attack/contact, defense consequence, and next the Hunter health/injury owner.
 
-Monster-01 runtime: `game/scripts/gameplay/monsters/monster_01/` — anatomy plus the first real species attack driver/transaction.
+Monster-01 runtime: `game/scripts/gameplay/monsters/monster_01/` — anatomy plus species attack driver/transactions.
 
-Monster-01 design authority:
-- `docs/30_content/monsters/MONSTER_01/README.md`;
-- `ANATOMY_AND_DAMAGE.md`;
-- `COMBAT_ATTACK_PACKET.md`;
-- `BEHAVIOR_AND_REGION.md`.
-
-Generic defense/resource authorities:
+Relevant next-layer authorities:
+- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
 - `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
-- `docs/20_gameplay/combat/STAMINA_PROTOTYPE_SCALE_AND_RECOVERY_CONTRACT.md`;
-- `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`;
-- `docs/20_gameplay/combat/FIRST_WEAPON_FAMILY_CONTRACT.md`.
+- `docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
+- `docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`;
+- `docs/30_content/hunters/HUNTER_BASE_01/README.md`.
 
 ## Verification boundary
 
-`HUNT01_MUDCREST_HEAD_SWEEP_IMPLEMENTED = YES`
-`HUNT01_MUDCREST_HEAD_SWEEP_HEADLESS_VERIFIED = YES`
-`HUNT01_MUDCREST_HEAD_SWEEP_ANDROID_BUILD_VERIFIED = YES`
-`HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTED = NO`
+`HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTED = YES`
+`HUNT01_HUNTER_DEFENSE_CONSEQUENCE_HEADLESS_VERIFIED = YES`
+`HUNT01_HUNTER_DEFENSE_CONSEQUENCE_ANDROID_BUILD_VERIFIED = YES`
+`HUNT01_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTED = NO`
 `CURRENT_POST_TRACKING_PHONE_ACCEPTANCE = DEFERRED`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 `PERFORMANCE_VERIFIED = NO`
@@ -98,6 +88,6 @@ Generic defense/resource authorities:
 
 ## Exact continuation
 
-`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`.
 
-Consume the stable `PENDING_HUNTER_DAMAGE_RUNTIME` transaction once, resolve no-contact/Field-Poleblade guard consequences and Head Sweep's selected 10-Stamina impact drain through generic combat resource authority, then preserve final HP/injury as a downstream pending boundary rather than fabricating balance.
+Consume the stable pending health/injury transaction once. Use a named reversible normalized fixture because final Max Health/armor/damage numbers remain balance-open, preserve the full hostile trace, clamp health at zero, emit only already-authorized status requests, and leave status application/defeat to downstream owners.

@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH FIRST MUDCREST HEAD SWEEP ANDROID BUILD VERIFIED / HUNTER DEFENSE CONSEQUENCE NEXT
+Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH HUNTER DEFENSE CONSEQUENCE ANDROID BUILD VERIFIED / HUNTER HEALTH-INJURY NEXT
 Last reconciled: 2026-09-04
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -19,35 +19,33 @@ World/exploration uses one continuous 440×440 m Hunt-01 physical foundation, 6.
 
 Tracking/encounter has seven physical clues, deterministic history/freshness/confidence/activity reasoning, no Monster GPS, audio-independent progression, terminal `OBSERVATION_READY`, and explicit same-location first-person ENGAGE.
 
-Combat currently includes:
-- deterministic turn/AP-RP-Stamina shell;
-- authored adjacent tactical-node movement;
-- Hunter `POLEBLADE_MEASURED_CUT` through deterministic contact/protection/anatomy;
-- species-owned Mudcrest anatomy integrity;
-- generic reaction window with `POLEBLADE_BLOCK = 1 RP + 6 Stamina`;
-- species-owned `M01_HEAD_SWEEP_GORE` at `2 AP / 14 Stamina`;
-- body-envelope/front-front-flank/full-cover legality;
-- authoritative Head Sweep telegraph plus non-colliding world threat-band asset;
-- deterministic hostile contact/hit-quality/protection trace;
-- stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff.
+Combat currently includes deterministic turn/AP-RP-Stamina authority, authored tactical movement, Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy integrity, the generic reaction window, real `M01_HEAD_SWEEP_GORE`, and the generic Hunter defense-consequence owner.
 
-Final Hunter HP/damage arithmetic is intentionally not invented yet.
+Current Block transaction:
+- reaction commitment `1 RP + 6 Stamina`;
+- Head Sweep guard-impact drain `10 Stamina` as a separate shell-authoritative transaction;
+- no negative Stamina;
+- replay idempotence;
+- reversible Strong/Partial/Broken first-slice fixture;
+- residual contact → `PENDING_HUNTER_HEALTH_INJURY_RUNTIME`.
+
+Final Hunter HP/damage/armor arithmetic is intentionally not presented as final balance.
 
 ## Current verified baseline
 
 Verified source head:
-`f7fe9d347921289ca104824e61fd82a2efc73fed`.
+`598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
 
-Production workflow `33932945947`: SUCCESS.
-Job `101215138444`: SUCCESS.
+Production workflow `33933869555`: SUCCESS.
+Job `101217865434`: SUCCESS.
 
 Artifact:
-- ID `9959201882`;
-- `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`;
-- 57,322,699 bytes;
-- SHA-256 `b56070a42a9abd5ef534443750c441385b1f5f8327a48f7ea1080e490abe0ca8`.
+- ID `9959508072`;
+- `UnnamedHuntRPG-Hunt01-HunterDefense-debug`;
+- 57,342,853 bytes;
+- SHA-256 `8eacdaa455574046381c7f153f20dceef59a3d4a9071e091f9c9b2b0691fa51d`.
 
-The stack through Head Sweep is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+The stack through defense consequence is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
 Phone acceptance for newer production gameplay remains deferred/batched.
 `PERFORMANCE_VERIFIED = NO`.
@@ -55,6 +53,6 @@ Phone acceptance for newer production gameplay remains deferred/batched.
 
 ## Current bounded piece
 
-`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`.
 
-This next layer consumes the committed Head Sweep hostile handoff, owns no-contact/guard consequence and impact-Stamina application, remains idempotent, and leaves final Hunter health/injury arithmetic downstream. Do not bundle other Mudcrest attacks, break/sever, statuses, defeat/escape or harvest.
+This next generic combat layer consumes residual hostile contact exactly once, owns a reversible normalized first-slice Hunter health/injury fixture and calculation trace, and leaves status application plus defeat/outcome downstream. Do not infer armor values from the Hunter visual model or bundle unrelated Mudcrest attacks/break-sever/harvest.

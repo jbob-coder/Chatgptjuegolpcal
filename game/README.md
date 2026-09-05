@@ -1,6 +1,6 @@
 # Production Game Root
 
-Status: HUNT-01 THROUGH FIRST MUDCREST HEAD SWEEP ANDROID BUILD VERIFIED / HUNTER DEFENSE CONSEQUENCE NEXT
+Status: HUNT-01 THROUGH HUNTER DEFENSE CONSEQUENCE ANDROID BUILD VERIFIED / HUNTER HEALTH-INJURY NEXT
 Last reconciled: 2026-09-04
 
 This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
@@ -25,29 +25,28 @@ Generic combat owner `scripts/gameplay/combat/`:
 - Hunter `POLEBLADE_MEASURED_CUT`;
 - deterministic contact/local-protection routing;
 - Hunter reaction-window runtime;
-- `POLEBLADE_BLOCK = 1 RP + 6 Stamina` plus free decline.
+- `POLEBLADE_BLOCK = 1 RP + 6 Stamina` plus free decline;
+- `hunt01_hunter_defense_consequence_runtime.gd`;
+- stable replay-safe hostile-defense consequence;
+- Head Sweep's `10 Stamina` guard-impact drain as a separate shell-authoritative spend;
+- provisional `BLOCK_STRONG / BLOCK_PARTIAL / BLOCK_BROKEN` fixture;
+- stable `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` output.
 
 Monster-01 owner `scripts/gameplay/monsters/monster_01/`:
-- normalized per-target anatomy integrity with idempotent resolution;
-- `hunt01_mudcrest_attack_runtime.gd`;
-- `M01_HEAD_SWEEP_GORE` at exactly `2 AP / 14 Stamina`;
-- real Monster activation-driver handshake;
-- physical body-envelope/front-front-flank/full-cover legality;
-- authoritative reaction telegraph;
-- non-colliding `assets/effects/mudcrest_head_sweep_telegraph.tscn` asset;
-- deterministic hostile contact/hit-quality/protection trace;
-- stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff.
+- normalized per-target anatomy integrity;
+- real `M01_HEAD_SWEEP_GORE` at exactly `2 AP / 14 Stamina`;
+- physical legality, telegraph asset and deterministic hostile contact trace.
 
-The hostile-control numbers remain an explicit reversible first-slice fixture. No final Hunter HP/damage amount is applied.
+No final Hunter Max Health/damage/armor amount is currently claimed.
 
 ## Verification status
 
-Verified source head `f7fe9d347921289ca104824e61fd82a2efc73fed`.
-Production workflow `33932945947`: SUCCESS.
-Job `101215138444`: SUCCESS.
-Artifact `9959201882`: `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`.
+Verified source head `598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
+Production workflow `33933869555`: SUCCESS.
+Job `101217865434`: SUCCESS.
+Artifact `9959508072`: `UnnamedHuntRPG-Hunt01-HunterDefense-debug`.
 
-The current stack through Head Sweep is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+The current stack through Hunter defense consequence is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
 Post-tracking phone acceptance remains `DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
@@ -56,6 +55,6 @@ Post-tracking phone acceptance remains `DEFERRED_BATCH`.
 
 ## Current bounded production piece
 
-`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`.
 
-The generic combat layer must consume the stable pending hostile handoff once, resolve no-contact/Field-Poleblade guard consequences, apply the selected 10-Stamina Head Sweep guard-impact drain through shell authority, and preserve final Hunter HP/injury as pending. Other reactions, Monster attacks, structural break/sever, statuses and outcome systems remain outside this piece.
+The generic combat layer must consume the stable pending health/injury handoff once, use a clearly labeled reversible normalized health/damage fixture, preserve channels/hit quality/defense trace, clamp health at zero and leave actual status application plus defeat/outcome to later owners.

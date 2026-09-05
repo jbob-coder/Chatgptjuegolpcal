@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH FIRST MUDCREST HEAD SWEEP ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH HUNTER DEFENSE CONSEQUENCE ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-04
 
 ## Operating law
@@ -39,38 +39,44 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - physical body-envelope/front-front-flank/full-cover legality;
 - authoritative Head Sweep telegraph and non-colliding threat-band asset;
 - deterministic hostile contact/hit-quality/protection trace;
-- stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff without invented HP arithmetic.
+- generic Hunter defense-consequence owner consuming `PENDING_HUNTER_DAMAGE_RUNTIME` exactly once;
+- no-contact zero consequence;
+- Field Poleblade Block impact drain applied separately from the reaction commitment through combat-shell resource authority;
+- Head Sweep Block impact drain exactly `10 Stamina`, clamped to available Stamina with no debt;
+- reversible first-slice `BLOCK_STRONG / BLOCK_PARTIAL / BLOCK_BROKEN` classification;
+- stable downstream `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` handoff without invented final HP arithmetic.
 
-Head Sweep runtime owner:
-`game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`.
+Hunter defense owner:
+`game/scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd`.
 
 Schema:
-`uhr.hunt01.mudcrest_attack.v1`.
+`uhr.hunt01.hunter_defense_consequence.v1`.
 
-Final verified source head for the Head Sweep layer and QA isolation repair:
-`f7fe9d347921289ca104824e61fd82a2efc73fed`.
+Verified defense implementation head:
+`598abcd66ba3333808fc2fe54c873c8cb5df01f9`.
 
 Production workflow:
-`33932945947` — SUCCESS.
+`33933869555` — SUCCESS.
 
 Workflow job:
-`101215138444` — SUCCESS.
+`101217865434` — SUCCESS.
 
 Artifact:
-- ID `9959201882`;
-- name `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug`;
-- size `57,322,699` bytes;
-- SHA-256 `b56070a42a9abd5ef534443750c441385b1f5f8327a48f7ea1080e490abe0ca8`;
-- APK output `UnnamedHuntRPG-Hunt01-MudcrestHeadSweep-debug.apk`.
+- ID `9959508072`;
+- name `UnnamedHuntRPG-Hunt01-HunterDefense-debug`;
+- size `57,342,853` bytes;
+- SHA-256 `8eacdaa455574046381c7f153f20dceef59a3d4a9071e091f9c9b2b0691fa51d`;
+- APK output `UnnamedHuntRPG-Hunt01-HunterDefense-debug.apk`.
 
-QA history for this layer:
-- implementation `238f6bba98cb6dd7deb420bfe5196e08a3542279`;
-- reaction documentation-gate repair `6cc493f3a9ce00b84279ac00e1985fc08276c4e0`;
-- anatomy documentation-gate repair `0d843079bf6343cbb0b35d12264ce695ae5b5c5c`;
-- dedicated Head Sweep physics-sync test repair `bd732960051c9850dbec7beeaf856e73b478f9ad`;
-- reaction regression hostile-driver isolation `f7fe9d347921289ca104824e61fd82a2efc73fed`.
+Defense balance fixture:
+`PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
 
-The last two repairs are test-only. They do not alter production coordinates, attack legality, control math, resource costs or runtime ownership. The reaction regression now removes the production deferred hostile driver before installing its mock rather than weakening the shell's one-driver invariant.
+Current provisional mapping:
+- fully funded GRAZE/SOLID Block → `BLOCK_STRONG`;
+- fully funded CLEAN Block → `BLOCK_PARTIAL`;
+- insufficient impact Stamina → `BLOCK_BROKEN`.
+
+These values are executable prototype balance, not final rules.
 
 ## Verification boundary
 
@@ -79,27 +85,28 @@ The last two repairs are test-only. They do not alter production coordinates, at
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Final Hunter HP/injury arithmetic, final Block balance, structural crack/break/sever/detachment, statuses, remaining Mudcrest attacks/behavior, defeat/escape/reacquisition, harvest, inventory, crafting, settlement services and persistence runtime remain incomplete.
+Final Hunter health/injury arithmetic, final Block balance, authored Hunter armor/protection values, structural crack/break/sever/detachment, statuses, remaining Mudcrest attacks/behavior, defeat/escape/reacquisition, harvest, inventory, crafting, settlement services and persistence runtime remain incomplete.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_2026-09-04.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_HUNTER_HEALTH_INJURY_RUNTIME_IMPLEMENTATION`
 
 Required boundary:
 1. generic owner belongs under `game/scripts/gameplay/combat/`;
-2. consume a stable `PENDING_HUNTER_DAMAGE_RUNTIME` hostile handoff exactly once;
-3. preserve no-contact as a zero-consequence deterministic result;
-4. for `FIELD_POLEBLADE_DIRECTIONAL_GUARD`, resolve the first-slice Block consequence using the existing Combat Resolution + Stamina contracts and an explicitly reversible fixture where final balance remains open;
-5. apply guard-impact Stamina through combat-shell resource authority, separately from the already-spent 1 RP / 6 Stamina Block commitment, clamp at zero, and make replay idempotent;
-6. Head Sweep's selected standard impact-drain profile is exactly 10 Stamina;
-7. expose the resulting Block/no-guard consequence in a stable trace/readback;
-8. do not invent final Hunter Max Health, health damage, wound amount, forced movement or status application;
-9. emit a downstream pending health/injury handoff when contact still reaches the Hunter;
-10. integrate into the real Head Sweep transaction before Monster activation completion;
-11. add source/static, dedicated headless, regression and Android-build verification;
-12. phone/performance remain deferred.
+2. consume one stable `PENDING_HUNTER_HEALTH_INJURY_RUNTIME` handoff idempotently;
+3. keep `NO_HUNTER_HEALTH_INJURY_CONSEQUENCE` as a zero-mutation readback path;
+4. use an explicitly named reversible normalized first-slice health/injury fixture because final Max Health, armor and damage formulas remain balance-open;
+5. preserve Head Sweep hit quality, `PIERCING + IMPACT` channels and defense outcome in the calculation trace;
+6. no authored Hunter armor profile currently exists, so any executable baseline must state that absence explicitly instead of inferring protection from the visual model;
+7. clamp health at zero and never allow negative health;
+8. repeated resolution/readback cannot apply injury twice;
+9. emit stable wound/status-request data only where the Monster attack packet already authorizes a request; do not apply status effects in this layer;
+10. if health reaches zero, record a downstream pending defeat/outcome handoff but do not implement defeat/retreat here;
+11. integrate into the real Head Sweep transaction after defense consequence and before Monster activation completion;
+12. add source/static, dedicated headless, regression and Android-build verification;
+13. phone/performance remain deferred.
 
-Do not bundle Dodge/Parry/Brace, other Mudcrest attacks, structural break/sever, defeat/escape or harvest into this piece.
+Do not bundle status runtime, structural break/sever, other Mudcrest attacks, behavior/Berserk, defeat/escape or harvest into this piece.
