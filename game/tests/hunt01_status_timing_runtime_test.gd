@@ -92,7 +92,6 @@ func _run() -> void:
 	await process_frame; await process_frame
 	var bleeding: Dictionary = status_application.call("get_status_instance", HUNTER_ID, "status_bleeding")
 	_check("real Bleeding exists with first tick Round 4", int(bleeding.get("first_tick_round", 0)) == 4, str(bleeding))
-	var health_before_timing := health.call("get_health_state") as Dictionary
 
 	# Apply Off-Balance during already-started Round-4 Hunter activation. It must not expire at this turn end.
 	var off_apply: Dictionary = status_application.call("consume_application_request", _off_balance_request(), 4)
@@ -106,6 +105,9 @@ func _run() -> void:
 	window = reaction.call("get_active_window")
 	_check("Round-4 Block commits", bool((reaction.call("commit_reaction", String(window.get("window_id", "")), REACTION_BLOCK) as Dictionary).get("success", false)))
 	await process_frame; await process_frame
+	var round4_attack: Dictionary = attack.call("get_last_resolution") as Dictionary
+	var round4_defense: Dictionary = round4_attack.get("defense_consequence", {}) as Dictionary
+	var round4_health_consequence: Dictionary = round4_defense.get("health_injury_consequence", {}) as Dictionary
 	var state: Dictionary = shell.call("get_current_state")
 	_check("Round 5 Hunter activation starts", int(state.get("round_id", 0)) == 5 and String(state.get("current_actor_id", "")) == HUNTER_ID, str(state))
 	off_balance = status_application.call("get_status_instance", HUNTER_ID, "status_off_balance")
@@ -114,13 +116,15 @@ func _run() -> void:
 	var events: Array = timing.call("get_periodic_events") as Array
 	_check("Round-4 emits exactly one pending Bleeding periodic consequence", events.size() == 1 and String((events[0] as Dictionary).get("status", "")) == "PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE" and int((events[0] as Dictionary).get("round_id", 0)) == 4, str(events))
 	_check("pending Bleeding event carries no selected Health magnitude", String((events[0] as Dictionary).get("health_magnitude_status", "")) == "NOT_SELECTED_PENDING_AUTHORITY" and not (events[0] as Dictionary).has("damage_amount"), str(events[0]))
-	_check("timing event does not mutate Hunter Health", health.call("get_health_state") == health_before_timing)
+	var health_after_round4 := health.call("get_health_state") as Dictionary
+	_check("timing event does not mutate Hunter Health", bool(round4_health_consequence.get("success", false)) and int(health_after_round4.get("health", -1)) == int(round4_health_consequence.get("health_after", -2)), str(round4_health_consequence))
 	var event_count_before := int(timing.call("get_periodic_event_count"))
 	var hunter_resources_before := shell.call("get_resource_state", HUNTER_ID) as Dictionary
+	var health_before_duplicate := health.call("get_health_state") as Dictionary
 	var duplicate_round_end: Dictionary = timing.call("on_round_end", 4)
 	_check("duplicate Round-4 hook is idempotent", bool(duplicate_round_end.get("duplicate", false)) and int(timing.call("get_periodic_event_count")) == event_count_before)
 	_check("duplicate timing hook spends no resources", shell.call("get_resource_state", HUNTER_ID) == hunter_resources_before)
-	_check("duplicate timing hook still cannot mutate Health", health.call("get_health_state") == health_before_timing)
+	_check("duplicate timing hook still cannot mutate Health", health.call("get_health_state") == health_before_duplicate)
 
 	# Off-Balance now expires only after the next completed Hunter activation.
 	_check("Round-5 Hunter end succeeds", bool(shell.call("end_player_turn")))
