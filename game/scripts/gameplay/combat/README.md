@@ -8,12 +8,15 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 ## Runtime ownership
 
 - `hunt01_combat_turn_shell_runtime.gd` — deterministic initiative, round/slot state, AP/RP/Stamina and Monster activation handshake.
-- `hunt01_tactical_movement_runtime.gd` — adjacent authored tactical-node movement and terrain Stamina surcharge.
+- `hunt01_tactical_movement_runtime.gd` — adjacent tactical-node movement over authored links with terrain Stamina surcharge.
 - `hunt01_reaction_window_runtime.gd` — hostile-action reaction lifecycle and Field Poleblade Block commitment.
 - `hunt01_hunter_attack_runtime.gd` — Field Poleblade `POLEBLADE_MEASURED_CUT` legality/contact/protection/anatomy handoff.
 - `hunt01_hunter_defense_consequence_runtime.gd` — no-contact/Block consequence, guard impact Stamina and health/injury handoff.
 - `hunt01_hunter_health_injury_runtime.gd` — normalized first-slice Hunter health/injury state, stable injury transactions and pending defeat boundary.
-- Monster-01 anatomy/attack owners remain under `game/scripts/gameplay/monsters/monster_01/`.
+- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
+- Monster normal attack runtime remains species-owned under `game/scripts/gameplay/monsters/monster_01/`.
+
+Structural `crack/break/sever`, status consequences, and final damage/health arithmetic remain outside the turn shell/tactical movement owners and are resolved only by their dedicated downstream layers.
 
 Stable combatants:
 - encounter `enc_r01_ef02_m01_0001`;
@@ -23,6 +26,8 @@ Stable combatants:
 ## Existing verified combat laws
 
 Hunter 4 AP / 1 RP, normalized first-slice Stamina 100, +10 passive Stamina once at Hunter activation start, authored 10-node/14-link tactical movement, `POLEBLADE_BLOCK = 1 RP + 6 Stamina`, Measured Cut `2 AP / 12 Stamina`, and Head Sweep `2 AP / 14 Stamina` remain unchanged.
+
+Initiative currently uses the explicit design-contract tie example under `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`; it is not final character-stat balance.
 
 Head Sweep's selected Block impact drain remains `10 Stamina`, applied separately through shell authority. The reversible Block fixture remains `PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
 
