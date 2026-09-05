@@ -1,0 +1,285 @@
+extends Node
+
+const SCHEMA := "uhr.hunt01.status_application.v1"
+const REQUEST_SCHEMA := "uhr.status_application_request.v1"
+const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
+const CONSUMER_STATUS := "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME"
+const TRIGGER_HOOK := "ON_HIT_OR_DAMAGE_CONSEQUENCE"
+const STATUS_BLEEDING := "status_bleeding"
+const STATUS_OFF_BALANCE := "status_off_balance"
+const BLEEDING_MAX_INTENSITY := 3
+const AUTHORITY_STATUS := "NO_AUTHORED_FIRST_SLICE_STATUS_IMMUNITY_DATA"
+
+const STATUS_DEFINITIONS := {
+	STATUS_BLEEDING: {
+		"status_id": STATUS_BLEEDING,
+		"category": "PERSISTENT_PHYSICAL_CONDITION",
+		"stack_rule": "STACK_INTENSITY_CAPPED",
+		"max_intensity": BLEEDING_MAX_INTENSITY,
+		"periodic_hook": "ROUND_END",
+		"persistence_policy": "PERSISTS_UNTIL_EXPLICIT_REMOVAL_OR_TERMINAL_STATE",
+	},
+	STATUS_OFF_BALANCE: {
+		"status_id": STATUS_OFF_BALANCE,
+		"category": "TEMPORARY_STABILITY_CONDITION",
+		"stack_rule": "REFRESH_DURATION",
+		"max_intensity": 1,
+		"natural_expiry_hook": "TURN_END",
+		"persistence_policy": "UNTIL_COMPLETED_NORMAL_ACTIVATION_OR_EXPLICIT_STABILIZATION",
+	},
+}
+
+var _shell: Node = null
+var _encounter_record: Dictionary = {}
+var _initialized := false
+var _instances: Dictionary = {}
+var _applications: Dictionary = {}
+var _trace_sequence := 0
+var _trace: Array[Dictionary] = []
+
+func initialize(shell: Node, encounter_record: Dictionary) -> bool:
+	if _initialized or shell == null:
+		return false
+	if String(encounter_record.get("encounter_id", "")) != EXPECTED_ENCOUNTER_ID:
+		return false
+	if not bool(shell.call("is_initialized")):
+		return false
+	_shell = shell
+	_encounter_record = encounter_record.duplicate(true)
+	_initialized = true
+	_record_trace("STATUS_APPLICATION_RUNTIME_READY", {
+		"schema": SCHEMA,
+		"supported_status_ids": STATUS_DEFINITIONS.keys(),
+		"authority_status": AUTHORITY_STATUS,
+	})
+	return true
+
+func consume_application_request(request: Dictionary, application_round: int) -> Dictionary:
+	if not _initialized:
+		return {"success": false, "reason": "STATUS_APPLICATION_RUNTIME_NOT_INITIALIZED"}
+	var validation := _validate_request(request, application_round)
+	if not bool(validation.get("valid", false)):
+		return {
+			"success": false,
+			"reason": String(validation.get("reason", "INVALID_STATUS_APPLICATION_REQUEST")),
+		}
+
+	var request_id := String(request.get("application_request_id", ""))
+	if _applications.has(request_id):
+		var replay := (_applications[request_id] as Dictionary).duplicate(true)
+		replay["duplicate"] = true
+		replay["status"] = "STATUS_APPLICATION_READBACK_IDEMPOTENT"
+		return replay
+
+	var status_id := String(request.get("status_id", ""))
+	var target_actor_id := String(request.get("target_actor_id", ""))
+	var instance_key := _instance_key(target_actor_id, status_id)
+	var before: Dictionary = {}
+	if _instances.has(instance_key):
+		before = (_instances[instance_key] as Dictionary).duplicate(true)
+
+	var instance: Dictionary = {}
+	if status_id == STATUS_BLEEDING:
+		instance = _apply_bleeding(request, application_round, before)
+	elif status_id == STATUS_OFF_BALANCE:
+		instance = _apply_off_balance(request, application_round, before)
+	else:
+		return {"success": false, "reason": "UNSUPPORTED_STATUS_ID"}
+
+	_instances[instance_key] = instance.duplicate(true)
+	var result := {
+		"success": true,
+		"status": "STATUS_APPLICATION_COMMITTED",
+		"schema": SCHEMA,
+		"application_request_id": request_id,
+		"source_resolution_id": String(request.get("source_resolution_id", "")),
+		"source_actor_id": String(request.get("source_actor_id", "")),
+		"source_action_id": String(request.get("source_action_id", "")),
+		"target_actor_id": target_actor_id,
+		"status_id": status_id,
+		"application_round": application_round,
+		"trigger_hook": String(request.get("trigger_hook", "")),
+		"stack_rule": String((STATUS_DEFINITIONS[status_id] as Dictionary).get("stack_rule", "")),
+		"instance_before": before.duplicate(true),
+		"instance_after": instance.duplicate(true),
+		"on_apply_committed": true,
+		"duplicate": false,
+		"authority_status": AUTHORITY_STATUS,
+	}
+	_applications[request_id] = result.duplicate(true)
+	_record_trace("STATUS_ON_APPLY_COMMITTED", result)
+	return result.duplicate(true)
+
+func _validate_request(request: Dictionary, application_round: int) -> Dictionary:
+	if application_round <= 0:
+		return {"valid": false, "reason": "INVALID_APPLICATION_ROUND"}
+	if String(request.get("status", "")) != "VALID_STATUS_APPLICATION_REQUEST":
+		return {"valid": false, "reason": "REQUEST_NOT_MARKED_VALID"}
+	if String(request.get("request_schema", "")) != REQUEST_SCHEMA:
+		return {"valid": false, "reason": "UNSUPPORTED_REQUEST_SCHEMA"}
+	if String(request.get("consumer_status", "")) != CONSUMER_STATUS:
+		return {"valid": false, "reason": "REQUEST_NOT_ROUTED_TO_GENERIC_STATUS_RUNTIME"}
+	if String(request.get("trigger_hook", "")) != TRIGGER_HOOK:
+		return {"valid": false, "reason": "UNSUPPORTED_APPLICATION_TRIGGER"}
+	var request_id := String(request.get("application_request_id", ""))
+	var status_id := String(request.get("status_id", ""))
+	var target_actor_id := String(request.get("target_actor_id", ""))
+	if request_id.is_empty() or status_id.is_empty() or target_actor_id.is_empty():
+		return {"valid": false, "reason": "MISSING_STABLE_APPLICATION_IDENTITY"}
+	if String(request.get("source_resolution_id", "")).is_empty() or String(request.get("source_actor_id", "")).is_empty() or String(request.get("source_action_id", "")).is_empty():
+		return {"valid": false, "reason": "MISSING_SOURCE_IDENTITY"}
+	if not STATUS_DEFINITIONS.has(status_id):
+		return {"valid": false, "reason": "UNSUPPORTED_STATUS_ID"}
+	if status_id == STATUS_BLEEDING:
+		if String(request.get("application_mode", "")) != "STACK_INTENSITY_CAPPED":
+			return {"valid": false, "reason": "BLEEDING_STACK_MODE_MISMATCH"}
+		if int(request.get("intensity_delta", 0)) <= 0:
+			return {"valid": false, "reason": "BLEEDING_INTENSITY_DELTA_INVALID"}
+	elif status_id == STATUS_OFF_BALANCE:
+		if String(request.get("application_mode", "")) != "APPLY_OR_REFRESH":
+			return {"valid": false, "reason": "OFF_BALANCE_APPLICATION_MODE_MISMATCH"}
+	return {"valid": true, "reason": "VALID_GENERIC_STATUS_APPLICATION_REQUEST"}
+
+func _apply_bleeding(request: Dictionary, application_round: int, before: Dictionary) -> Dictionary:
+	var request_id := String(request.get("application_request_id", ""))
+	var target_actor_id := String(request.get("target_actor_id", ""))
+	var previous_intensity := int(before.get("intensity", 0))
+	var next_intensity := mini(previous_intensity + int(request.get("intensity_delta", 0)), BLEEDING_MAX_INTENSITY)
+	var first_application_round := int(before.get("first_application_round", application_round))
+	var first_tick_round := int(before.get("first_tick_round", application_round + 1))
+	var source_requests: Array = (before.get("source_application_request_ids", []) as Array).duplicate(true)
+	if not source_requests.has(request_id):
+		source_requests.append(request_id)
+	return {
+		"instance_id": _instance_key(target_actor_id, STATUS_BLEEDING),
+		"status_id": STATUS_BLEEDING,
+		"target_actor_id": target_actor_id,
+		"category": "PERSISTENT_PHYSICAL_CONDITION",
+		"stack_rule": "STACK_INTENSITY_CAPPED",
+		"intensity": next_intensity,
+		"max_intensity": BLEEDING_MAX_INTENSITY,
+		"first_application_round": first_application_round,
+		"last_application_round": application_round,
+		"first_tick_round": first_tick_round,
+		"periodic_hook": "ROUND_END",
+		"periodic_status": "PENDING_STATUS_TIMING_RUNTIME",
+		"source_application_request_ids": source_requests,
+		"source_resolution_id": String(request.get("source_resolution_id", "")),
+		"source_actor_id": String(request.get("source_actor_id", "")),
+		"source_action_id": String(request.get("source_action_id", "")),
+		"source_metadata": _source_metadata(request),
+		"persistence_status": "ACTIVE_PERSISTENT_CONDITION",
+	}
+
+func _apply_off_balance(request: Dictionary, application_round: int, before: Dictionary) -> Dictionary:
+	var request_id := String(request.get("application_request_id", ""))
+	var target_actor_id := String(request.get("target_actor_id", ""))
+	var source_requests: Array = (before.get("source_application_request_ids", []) as Array).duplicate(true)
+	if not source_requests.has(request_id):
+		source_requests.append(request_id)
+	var application_count := int(before.get("application_count", 0)) + 1
+	return {
+		"instance_id": _instance_key(target_actor_id, STATUS_OFF_BALANCE),
+		"status_id": STATUS_OFF_BALANCE,
+		"target_actor_id": target_actor_id,
+		"category": "TEMPORARY_STABILITY_CONDITION",
+		"stack_rule": "REFRESH_DURATION",
+		"intensity": 1,
+		"max_intensity": 1,
+		"first_application_round": int(before.get("first_application_round", application_round)),
+		"last_application_round": application_round,
+		"application_count": application_count,
+		"pending_expiry_hook": "TURN_END",
+		"expiry_condition": "AFTER_TARGET_COMPLETES_NEXT_NORMAL_ACTIVATION",
+		"expiry_status": "PENDING_STATUS_TIMING_RUNTIME",
+		"deliberate_stabilization_status": "PENDING_BRACE_ACTION_INTEGRATION",
+		"source_application_request_ids": source_requests,
+		"source_resolution_id": String(request.get("source_resolution_id", "")),
+		"source_actor_id": String(request.get("source_actor_id", "")),
+		"source_action_id": String(request.get("source_action_id", "")),
+		"source_metadata": _source_metadata(request),
+		"persistence_status": "ACTIVE_TEMPORARY_CONDITION",
+	}
+
+func _source_metadata(request: Dictionary) -> Dictionary:
+	var metadata := {}
+	for key in ["qualification", "hit_quality", "applied_injury_load", "block_outcome"]:
+		if request.has(key):
+			metadata[key] = request[key]
+	return metadata
+
+func _instance_key(target_actor_id: String, status_id: String) -> String:
+	return "%s|%s" % [target_actor_id, status_id]
+
+func get_definition(status_id: String) -> Dictionary:
+	if not STATUS_DEFINITIONS.has(status_id):
+		return {}
+	return (STATUS_DEFINITIONS[status_id] as Dictionary).duplicate(true)
+
+func get_status_instance(target_actor_id: String, status_id: String) -> Dictionary:
+	var key := _instance_key(target_actor_id, status_id)
+	if not _instances.has(key):
+		return {}
+	return (_instances[key] as Dictionary).duplicate(true)
+
+func has_status(target_actor_id: String, status_id: String) -> bool:
+	return _instances.has(_instance_key(target_actor_id, status_id))
+
+func get_active_status_count() -> int:
+	return _instances.size()
+
+func get_application_result(application_request_id: String) -> Dictionary:
+	if not _applications.has(application_request_id):
+		return {}
+	return (_applications[application_request_id] as Dictionary).duplicate(true)
+
+func get_application_count() -> int:
+	return _applications.size()
+
+func get_persistence_snapshot() -> Dictionary:
+	return {
+		"schema": SCHEMA,
+		"encounter_id": EXPECTED_ENCOUNTER_ID,
+		"instances": _instances.duplicate(true),
+		"applications": _applications.duplicate(true),
+	}
+
+func restore_persistence_snapshot(snapshot: Dictionary) -> bool:
+	if not _initialized or not _instances.is_empty() or not _applications.is_empty():
+		return false
+	if String(snapshot.get("schema", "")) != SCHEMA or String(snapshot.get("encounter_id", "")) != EXPECTED_ENCOUNTER_ID:
+		return false
+	var instances_variant: Variant = snapshot.get("instances", {})
+	var applications_variant: Variant = snapshot.get("applications", {})
+	if typeof(instances_variant) != TYPE_DICTIONARY or typeof(applications_variant) != TYPE_DICTIONARY:
+		return false
+	_instances = (instances_variant as Dictionary).duplicate(true)
+	_applications = (applications_variant as Dictionary).duplicate(true)
+	_record_trace("STATUS_STATE_REHYDRATED_WITHOUT_ON_APPLY_REPLAY", {
+		"instance_count": _instances.size(),
+		"application_count": _applications.size(),
+	})
+	return true
+
+func _record_trace(event_name: String, details: Dictionary = {}) -> void:
+	_trace_sequence += 1
+	var entry: Dictionary = {
+		"sequence": _trace_sequence,
+		"event": event_name,
+		"encounter_id": EXPECTED_ENCOUNTER_ID,
+	}
+	for key in details.keys():
+		entry[key] = details[key]
+	_trace.append(entry)
+
+func get_trace() -> Array[Dictionary]:
+	return _trace.duplicate(true)
+
+func get_schema() -> String:
+	return SCHEMA
+
+func get_authority_status() -> String:
+	return AUTHORITY_STATUS
+
+func is_initialized() -> bool:
+	return _initialized

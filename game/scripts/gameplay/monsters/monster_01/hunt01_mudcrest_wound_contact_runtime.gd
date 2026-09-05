@@ -2,6 +2,7 @@ extends Node
 
 const SCHEMA := "uhr.hunt01.mudcrest_wound_contact.v1"
 const REQUEST_SCHEMA := "uhr.status_application_request.v1"
+const STATUS_APPLICATION_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_status_application_runtime.gd")
 const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const MONSTER_COMBATANT_ID := "monster_r01_m01_0001"
 const HUNTER_COMBATANT_ID := "hunter_player_0001"
@@ -13,6 +14,7 @@ const TRIGGER_HOOK := "ON_HIT_OR_DAMAGE_CONSEQUENCE"
 const FIXTURE_STATUS := "PROVISIONAL_FIRST_SLICE_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_FIXTURE"
 
 var _encounter_record: Dictionary = {}
+var _status_application: Node = null
 var _initialized := false
 var _resolutions: Dictionary = {}
 var _last_resolution: Dictionary = {}
@@ -25,11 +27,39 @@ func initialize(encounter_record: Dictionary) -> bool:
 	if String(encounter_record.get("encounter_id", "")) != EXPECTED_ENCOUNTER_ID:
 		return false
 	_encounter_record = encounter_record.duplicate(true)
+	if not _bind_status_application_runtime():
+		return false
 	_initialized = true
 	_record_trace("MUDCREST_WOUND_CONTACT_RUNTIME_READY", {
 		"fixture_status": FIXTURE_STATUS,
 		"request_schema": REQUEST_SCHEMA,
+		"status_application_schema": String(_status_application.call("get_schema")),
 	})
+	return true
+
+func _bind_status_application_runtime() -> bool:
+	var attack_owner := get_parent()
+	if attack_owner == null:
+		return false
+	var shell := attack_owner.get_parent()
+	if shell == null:
+		return false
+	var status_runtime := shell.get_node_or_null("StatusApplicationRuntime")
+	if status_runtime == null:
+		status_runtime = STATUS_APPLICATION_SCRIPT.new() as Node
+		if status_runtime == null:
+			return false
+		status_runtime.name = "StatusApplicationRuntime"
+		shell.add_child(status_runtime)
+		if not bool(status_runtime.call("initialize", shell, _encounter_record)):
+			status_runtime.queue_free()
+			return false
+	elif not bool(status_runtime.call("is_initialized")):
+		if not bool(status_runtime.call("initialize", shell, _encounter_record)):
+			return false
+	if String(status_runtime.call("get_schema")) != "uhr.hunt01.status_application.v1":
+		return false
+	_status_application = status_runtime
 	return true
 
 func resolve_head_sweep_consequence(damage_handoff: Dictionary, defense_consequence: Dictionary) -> Dictionary:
@@ -87,6 +117,21 @@ func resolve_head_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 	elif hit_quality == "GRAZE":
 		classification_reason = "GRAZE_DOES_NOT_MEET_HEAD_SWEEP_STATUS_REQUEST_THRESHOLD"
 
+	var application_results: Array[Dictionary] = []
+	var application_dispatch_status := "NO_APPLICATION_REQUESTS"
+	if not requests.is_empty():
+		var application_round := int(damage_handoff.get("round_id", 0))
+		if application_round > 0:
+			application_dispatch_status = "DISPATCHED_TO_GENERIC_STATUS_APPLICATION_RUNTIME"
+			for request in requests:
+				application_results.append(_status_application.call("consume_application_request", request, application_round) as Dictionary)
+			for application_result in application_results:
+				if not bool(application_result.get("success", false)):
+					application_dispatch_status = "GENERIC_STATUS_APPLICATION_REJECTED"
+					break
+		else:
+			application_dispatch_status = "NOT_DISPATCHED_MISSING_AUTHORITATIVE_ROUND"
+
 	var result := {
 		"success": true,
 		"status": "MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFIED",
@@ -110,6 +155,8 @@ func resolve_head_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 		"impact_dominant_established": impact_dominant,
 		"status_application_requests": requests.duplicate(true),
 		"status_request_count": requests.size(),
+		"status_application_results": application_results.duplicate(true),
+		"status_application_dispatch_status": application_dispatch_status,
 		"fixture_status": FIXTURE_STATUS,
 		"final_classification_balance_status": "PROVISIONAL_REPLACEABLE_WITH_AUTHORED_CONTACT_WOUND_DATA",
 	}
@@ -193,6 +240,9 @@ func is_initialized() -> bool:
 
 func get_fixture_status() -> String:
 	return FIXTURE_STATUS
+
+func get_status_application_runtime() -> Node:
+	return _status_application
 
 func get_last_resolution() -> Dictionary:
 	return _last_resolution.duplicate(true)

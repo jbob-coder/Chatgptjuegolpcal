@@ -1,6 +1,6 @@
 # Hunt-01 Combat Runtime
 
-Status: THROUGH HUNTER HEALTH-INJURY ANDROID BUILD VERIFIED / SPECIES WOUND-CONTACT CLASSIFICATION NEXT
+Status: GENERIC STATUS APPLICATION IMPLEMENTED / AUTOMATED VERIFICATION PENDING
 Last reconciled: 2026-09-04
 
 Purpose: own the generic production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy and Monster attack packets to the Monster package.
@@ -13,10 +13,11 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 - `hunt01_hunter_attack_runtime.gd` — Field Poleblade `POLEBLADE_MEASURED_CUT` legality/contact/protection/anatomy handoff.
 - `hunt01_hunter_defense_consequence_runtime.gd` — no-contact/Block consequence, guard impact Stamina and health/injury handoff.
 - `hunt01_hunter_health_injury_runtime.gd` — normalized first-slice Hunter health/injury state, stable injury transactions and pending defeat boundary.
+- `hunt01_status_application_runtime.gd` — generic valid-request consumption, actor-level Bleeding/Off-Balance state, stack/refresh policy, idempotency and persistence snapshot boundary.
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
 - Monster normal attack runtime remains species-owned under `game/scripts/gameplay/monsters/monster_01/`.
 
-Structural `crack/break/sever`, status consequences, and final damage/health arithmetic remain outside the turn shell/tactical movement owners and are resolved only by their dedicated downstream layers.
+Structural `crack/break/sever`, status consequences beyond application-state ownership/timing, and final damage/health arithmetic remain outside the turn shell/tactical movement owners and are resolved only by their dedicated downstream layers.
 
 Stable combatants:
 - encounter `enc_r01_ef02_m01_0001`;
@@ -33,20 +34,22 @@ Head Sweep Block impact drain remains `10 Stamina`, applied separately through s
 
 ## Hunter health/injury
 
-Schema `uhr.hunt01.hunter_health_injury.v1`.
-Fixture `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`.
+Schema `uhr.hunt01.hunter_health_injury.v1`. Fixture `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`.
 
 Normalized prototype Max Health 100; GRAZE/SOLID/CLEAN base injury loads 4/8/12; Strong/Partial/Broken/No-Guard residual percentages 25/60/90/100. Health mutation is idempotent and clamps at zero. These values are not final balance.
 
 No gameplay armor profile is authored for the Hunter. The health owner records that absence instead of inferring protection from visuals.
 
-The current contact handoff does not distinguish horn penetration from impact-dominant contact, so health emits no actual status request. Zero Health emits only `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME`.
+## Species qualification and generic status application
+
+Mudcrest Head Sweep wound/contact qualification remains species-owned. Generic status application consumes only a valid `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME` request and never re-decides penetration/impact dominance.
+
+First status-application scope supports `status_bleeding` with capped intensity 3 and `status_off_balance` with refresh-duration semantics. Timing hooks are recorded but not executed in this layer.
 
 ## Explicitly not implemented yet
 
 - final Hunter Max Health/damage/armor balance;
-- species-owned Head Sweep wound/contact qualification;
-- status application/stacking runtime;
+- status timing/periodic consequence runtime;
 - forced movement;
 - final Block balance;
 - structural crack/break/sever/tail detachment;
@@ -59,9 +62,6 @@ The current contact handoff does not distinguish horn penetration from impact-do
 
 ## Current automated evidence
 
-Health implementation `057928b30ddef3eac83a316a62c48b5e3fa22632`.
-Verified source head `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
-Production workflow `33934988066`: SUCCESS.
-Artifact `9959871663`: `UnnamedHuntRPG-Hunt01-HunterHealth-debug`.
+Verified baseline before this new status slice: wound/contact implementation `6012235a958c0d4a73ff7c36201e2eff20715b70`, production workflow `33935813877`: SUCCESS, artifact `9960134957` `UnnamedHuntRPG-Hunt01-WoundContact-debug`.
 
-Phone/user acceptance remains deferred-batch.
+The generic status-application implementation must pass its source/headless/Android-build gates before promotion. Phone/user acceptance remains deferred-batch.
