@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH HUNTER HEALTH-INJURY ANDROID BUILD VERIFIED / PHONE QA BATCHED
+Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH HEAD SWEEP WOUND-CONTACT CLASSIFICATION ANDROID BUILD VERIFIED / PHONE QA BATCHED
 Last reconciled: 2026-09-04
 
 ## Primary law
@@ -26,8 +26,9 @@ An open question blocks only the earliest implementation gate that genuinely con
 | FIRST MUDCREST HEAD SWEEP ATTACK | BUILD VERIFIED | real hostile attack transaction |
 | HUNTER DEFENSE CONSEQUENCE | BUILD VERIFIED | Block/no-contact consequence + impact drain |
 | HUNTER HEALTH / INJURY | BUILD VERIFIED | idempotent residual injury, zero clamp, pending defeat boundary |
-| HEAD SWEEP WOUND/CONTACT CLASSIFICATION | NEXT | establish penetration/impact-dominance prerequisites and emit valid status request data |
-| STATUS APPLICATION / TIMING | BLOCKED DOWNSTREAM | waits for valid content-owned application request |
+| HEAD SWEEP WOUND/CONTACT CLASSIFICATION | BUILD VERIFIED | deterministic penetration/impact-dominance qualification + valid request emission |
+| GENERIC STATUS APPLICATION | NEXT | consume valid request and apply/refresh/stack actor status state idempotently |
+| STATUS TIMING / PERIODIC CONSEQUENCES | BLOCKED DOWNSTREAM | follows application owner; owns ROUND_END/TURN_START/TURN_END hooks |
 | HUNT-01 PHONE ACCEPTANCE | DEFERRED BATCH | not a phone PASS |
 | HUNT-01 FULL DIMENSIONAL SCENE GATE | NOT EXECUTED | final scene-space tolerances/smoothed path pending |
 | SUSTAINED PERFORMANCE | NOT VERIFIED | target-device soak evidence required |
@@ -36,31 +37,29 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Health implementation `057928b30ddef3eac83a316a62c48b5e3fa22632`.
-Verified source head `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
-Production workflow `33934988066`: SUCCESS.
-Job `101221044355`: SUCCESS.
+Wound/contact implementation `6012235a958c0d4a73ff7c36201e2eff20715b70`.
+Production workflow `33935813877`: SUCCESS.
+Job `101223419039`: SUCCESS.
 
-The run passed manifest/projection, all current source preflights, Godot 4.7.2 import/parse, AppShell/Region smoke, production integration, combat/tactical movement, reaction, Head Sweep, defense consequence, dedicated Hunter health/injury, anatomy, Hunter attack, Android export and artifact upload.
+The run passed manifest/projection, all current source preflights, Godot 4.7.2 import/parse, AppShell/Region smoke, production integration, combat/tactical movement, reaction, Head Sweep, defense consequence, Hunter health/injury, dedicated Mudcrest wound/contact classification, anatomy, Hunter attack, Android export and artifact upload.
 
-Artifact `9959871663`: `UnnamedHuntRPG-Hunt01-HunterHealth-debug`, 57,365,013 bytes, SHA-256 `ebb15c4b124e9b046e4194951414bc01cdcd5c28a8136d7ebb2f8b694fcf1f66`.
+Artifact `9960134957`: `UnnamedHuntRPG-Hunt01-WoundContact-debug`, 57,384,899 bytes, SHA-256 `54f942ec0d891a27c9ee702db58db8edf68cb905e2468b07f3097797976820b1`.
 
-Therefore the current Hunt-01 stack through Hunter health/injury is `IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED`.
+Therefore the current Hunt-01 stack through wound/contact classification is `IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED`.
 
 It is not automatically PHONE VERIFIED or PERFORMANCE VERIFIED.
 
 ## Current production authorization
 
 Exact next independent implementation:
-`FIRST_SLICE_MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_GENERIC_STATUS_APPLICATION_RUNTIME_IMPLEMENTATION`.
 
 Closed authority available now:
-- the complete real Head Sweep transaction exposes stable attack/contact/defense/health consequence data;
-- status owner does not decide whether an action consequence qualifies;
-- Monster-01 attack content owns the conditions for its requested statuses;
-- Bleeding requires a qualifying horn-penetration wound;
-- Off-Balance requires qualifying CLEAN impact-dominant contact;
-- no random status proc is authorized;
-- having both `PIERCING + IMPACT` channels does not by itself establish penetration or dominance.
+- species/content classification already emits stable valid application requests;
+- generic status owner consumes but never re-decides qualification;
+- Bleeding uses `STACK_INTENSITY_CAPPED`, maximum intensity 3, one authoritative actor-level instance, first eligible tick round = application round + 1;
+- Off-Balance uses `REFRESH_DURATION`, one instance, natural recovery only after a completed normal activation unless cleared sooner by a deliberate Brace;
+- first-slice status application has no random proc;
+- status code does not own AP/RP/Stamina refresh/spend or Initiative order.
 
-The next species/content slice may introduce an explicitly named reversible first-slice classification fixture if necessary to close the missing penetration/dominance distinction. It must not apply statuses or mutate health/resources/anatomy.
+The application slice may record pending timing/expiry metadata but must not execute Bleeding periodic damage or TURN_START/TURN_END transitions. Those belong to the subsequent status-timing layer.

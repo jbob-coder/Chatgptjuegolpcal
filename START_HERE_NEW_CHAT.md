@@ -20,34 +20,19 @@ Current repository/source/build/device evidence outranks old chat memory and sta
 
 ## Current implementation state
 
-Production root: `game/`.
-Stage-1 probe: evidence/testing infrastructure only.
+Production root: `game/`. Stage-1 probe is evidence/testing infrastructure only.
 
-Protected Stage-1 controls:
-- left joystick direct continuous analog movement;
-- right side independent camera/look;
-- no forced release/center/rebase logic;
-- approximately 115° first-person FOV;
-- approximately 6.25 m/s exploration speed.
+Protected controls: left joystick direct continuous analog movement; right-side independent look; no forced release/center/rebase; approximately 115° first-person FOV; approximately 6.25 m/s exploration speed.
 
-Automated-build verified production stack includes continuous world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction window, real `M01_HEAD_SWEEP_GORE`, Hunter defense consequence, and Hunter health/injury.
+Automated-build verified stack now includes continuous Hunt-01 world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction window, real Head Sweep, Hunter defense consequence, Hunter health/injury and species-owned Head Sweep wound/contact classification.
 
-Hunter health/injury:
-- schema `uhr.hunt01.hunter_health_injury.v1`;
-- fixture `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`;
-- normalized Health 100;
-- GRAZE/SOLID/CLEAN base loads 4/8/12;
-- Strong/Partial/Broken/No-Guard residuals 25/60/90/100%;
-- replay-idempotent and clamped at zero;
-- no inferred gameplay armor from Hunter visuals;
-- zero → `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` only;
-- status requests remain blocked until species content establishes horn penetration or impact dominance.
-
-Health implementation `057928b30ddef3eac83a316a62c48b5e3fa22632`.
-Verified head `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
-Production workflow `33934988066`: SUCCESS.
-Job `101221044355`: SUCCESS.
-Artifact `9959871663`: `UnnamedHuntRPG-Hunt01-HunterHealth-debug`.
+Wound/contact classifier:
+- schema `uhr.hunt01.mudcrest_wound_contact.v1`;
+- fixture `PROVISIONAL_FIRST_SLICE_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_FIXTURE`;
+- implementation `6012235a958c0d4a73ff7c36201e2eff20715b70`;
+- workflow `33935813877`: SUCCESS;
+- job `101223419039`: SUCCESS;
+- artifact `9960134957`: `UnnamedHuntRPG-Hunt01-WoundContact-debug`.
 
 `PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
@@ -55,21 +40,20 @@ Artifact `9959871663`: `UnnamedHuntRPG-Hunt01-HunterHealth-debug`.
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_HUNTER_HEALTH_INJURY_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_MUDCREST_WOUND_CONTACT_RUNTIME_2026-09-04.md`.
 
 ## Exact next action
 
-`FIRST_SLICE_MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_GENERIC_STATUS_APPLICATION_RUNTIME_IMPLEMENTATION`.
 
 Read before implementation:
+- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_wound_contact_runtime.gd`;
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
-- `game/scripts/gameplay/monsters/monster_01/README.md`;
-- `game/scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd`;
-- `game/scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd`;
-- `game/docs/HUNT01_HUNTER_HEALTH_INJURY_RUNTIME.md`;
-- `docs/30_content/monsters/MONSTER_01/COMBAT_ATTACK_PACKET.md`;
-- `docs/20_gameplay/combat/COMBAT_RESOLUTION_HIT_QUALITY_DEFENSE_CONTRACT.md`;
+- `game/scripts/gameplay/combat/README.md`;
 - `docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
-- relevant current tests/static preflights.
+- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
+- `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`;
+- `docs/20_gameplay/combat/INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`;
+- current combat shell and regression/static gates.
 
-Do not make the generic status owner decide qualification. Do not infer penetration/dominance solely from having both PIERCING and IMPACT channels. Do not bundle status ticking/stacking, defeat, structural break/sever, other Mudcrest attacks or harvest.
+Generic status application consumes a valid request; it does not decide whether the Head Sweep qualified. Implement Bleeding cap/first-tick metadata and Off-Balance refresh/expiry metadata, but do not bundle round-end damage or turn-hook scheduling into the application slice.

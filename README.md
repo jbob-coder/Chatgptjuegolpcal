@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH HUNTER HEALTH-INJURY ANDROID BUILD VERIFIED / HEAD SWEEP WOUND-CONTACT CLASSIFICATION NEXT
+Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH HEAD SWEEP WOUND-CONTACT CLASSIFICATION ANDROID BUILD VERIFIED / GENERIC STATUS APPLICATION NEXT
 Last reconciled: 2026-09-04
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -19,31 +19,23 @@ World/exploration uses one continuous 440×440 m Hunt-01 physical foundation, 6.
 
 Tracking/encounter has seven physical clues, deterministic reasoning, no Monster GPS, terminal `OBSERVATION_READY`, and explicit same-location first-person ENGAGE.
 
-Combat now includes deterministic turn/AP-RP-Stamina authority, authored tactical movement, Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy integrity, reaction window, real `M01_HEAD_SWEEP_GORE`, Hunter defense consequence, and Hunter health/injury.
+Combat includes deterministic turn/AP-RP-Stamina authority, authored tactical movement, Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy integrity, reaction window, real `M01_HEAD_SWEEP_GORE`, Hunter defense consequence, Hunter health/injury, and species-owned Head Sweep wound/contact classification.
 
-Hunter health/injury uses `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`: normalized Health 100; GRAZE/SOLID/CLEAN loads 4/8/12; Strong/Partial/Broken/No-Guard residuals 25/60/90/100%; clamp at zero; replay idempotence; no inferred armor from art. These values are executable prototype balance, not final rules.
-
-Zero Health emits a pending defeat handoff only. Actual status requests remain blocked until Head Sweep species content establishes wound/contact qualification.
+The classifier can emit valid Bleeding or Off-Balance application requests only after explicit provisional wound/contact prerequisites are established. It performs no status mutation itself.
 
 ## Current verified baseline
 
-Health implementation `057928b30ddef3eac83a316a62c48b5e3fa22632`.
-Verified source head `06bd3e6ee039bc0f975918d6cf5fef232bf36cdc`.
-Production workflow `33934988066`: SUCCESS.
-Job `101221044355`: SUCCESS.
+Implementation `6012235a958c0d4a73ff7c36201e2eff20715b70`.
+Production workflow `33935813877`: SUCCESS.
+Job `101223419039`: SUCCESS.
+Artifact `9960134957`: `UnnamedHuntRPG-Hunt01-WoundContact-debug`, 57,384,899 bytes, SHA-256 `54f942ec0d891a27c9ee702db58db8edf68cb905e2468b07f3097797976820b1`.
 
-Artifact:
-- ID `9959871663`;
-- `UnnamedHuntRPG-Hunt01-HunterHealth-debug`;
-- 57,365,013 bytes;
-- SHA-256 `ebb15c4b124e9b046e4194951414bc01cdcd5c28a8136d7ebb2f8b694fcf1f66`.
-
-The stack through Hunter health/injury is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+The stack through Head Sweep wound/contact classification is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 
 Phone acceptance for newer production gameplay remains deferred/batched. `PERFORMANCE_VERIFIED = NO`.
 
 ## Current bounded piece
 
-`FIRST_SLICE_MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_GENERIC_STATUS_APPLICATION_RUNTIME_IMPLEMENTATION`.
 
-This species/content layer must classify the already-resolved Head Sweep wound/contact without rerolling, determine whether Bleeding or Off-Balance prerequisites are actually satisfied, and emit only valid application-request records. Generic status application/timing remains downstream.
+The generic combat owner consumes valid `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME` requests. First scope applies/refreshes Bleeding and Off-Balance idempotently and records timing metadata. Periodic Bleeding damage and turn-hook scheduling remain downstream.
