@@ -1,13 +1,13 @@
 # Hunt-01 Combat Runtime
 
-Status: STATUS TIMING ANDROID BUILD VERIFIED / HUNTER DOWNED OUTCOME NEXT
+Status: HUNTER DOWNED OUTCOME IMPLEMENTED / AUTOMATED VERIFICATION PENDING
 Last reconciled: 2026-09-05
 
 Purpose: own the generic production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy and Monster attack packets to the Monster package.
 
 ## Runtime ownership
 
-- `hunt01_combat_turn_shell_runtime.gd` — deterministic initiative, round/slot state, AP/RP/Stamina and Monster activation handshake.
+- `hunt01_combat_turn_shell_runtime.gd` — deterministic initiative, round/slot state, AP/RP/Stamina, Monster activation handshake and terminal-scheduler commit authority.
 - `hunt01_tactical_movement_runtime.gd` — adjacent tactical-node movement over authored links with terrain Stamina surcharge.
 - `hunt01_reaction_window_runtime.gd` — hostile-action reaction lifecycle, including out-of-turn Field Poleblade Block commitment and explicit decline.
 - `hunt01_hunter_attack_runtime.gd` — Field Poleblade `POLEBLADE_MEASURED_CUT` legality/contact/protection/anatomy handoff.
@@ -15,10 +15,22 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 - `hunt01_hunter_health_injury_runtime.gd` — normalized first-slice Hunter health/injury state, stable injury transactions and pending defeat boundary.
 - `hunt01_status_application_runtime.gd` — generic valid-request consumption, actor-level Bleeding/Off-Balance state, stack/refresh policy, idempotency and persistence snapshot boundary.
 - `hunt01_status_timing_runtime.gd` — TURN_START_PRE_RECOVERY / TURN_END / ROUND_END lifecycle timing, Off-Balance natural recovery and pending Bleeding periodic-event cadence.
+- `hunt01_encounter_outcome_runtime.gd` — exactly-once Hunter zero-Health defeat consumption, `DOWNED`, `HUNTERS_DEFEATED`, and terminal handoff to the existing scheduler.
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
 - Monster normal attack runtime remains species-owned under `game/scripts/gameplay/monsters/monster_01/`.
 
+Species anatomy remains delegated. Final damage/health arithmetic, structural crack/break/sever, broader status consequences, and Monster normal attack runtime remain owned by their dedicated layers rather than being absorbed into the turn shell.
+
 Stable combatants: encounter `enc_r01_ef02_m01_0001`; Hunter `hunter_player_0001`; Monster `monster_r01_m01_0001`.
+
+## Current first-slice outcome boundary
+
+The verified health owner already emits `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` at zero Health. The new generic outcome owner consumes only that stable handoff after the current attack/reaction/status resolution boundary has completed.
+
+Selected path:
+`hunter_health <= 0 → DOWNED → HUNTERS_DEFEATED`.
+
+The shell remains the only scheduler. Terminal commitment ends the current activation, removes any still-pending slots, stops round advancement and blocks new gameplay commitments. The living Mudcrest remains persistent and is not reset by Hunter defeat.
 
 ## Generic status timing evidence
 
@@ -31,6 +43,9 @@ Bleeding stays capped at intensity 3. Timing may emit `PENDING_BLEEDING_PERIODIC
 
 ## Explicitly not implemented yet
 
+- forced recovery/respawn destination, costs or penalties;
+- voluntary Hunter withdrawal;
+- Monster escape/death and mutual-terminal execution;
 - Bleeding periodic Health magnitude/application;
 - Staggered/Braced/Guarded producers and full action restrictions;
 - final Hunter Max Health/damage/armor balance;
@@ -39,13 +54,9 @@ Bleeding stays capped at intensity 3. Timing may emit `PENDING_BLEEDING_PERIODIC
 - Dodge/Parry/Brace resolution;
 - Horn Charge / Shoulder Ram / Foreleg Stomp / Tail Sweep;
 - deterministic multi-attack Monster behavior and Berserk;
-- Hunter Downed encounter-terminal execution;
-- voluntary withdrawal / Monster escape/death outcome execution;
 - harvest/inventory/crafting/settlement/persistence;
 - Sprint/Dodge/forced-displacement movement.
 
-## Current bounded piece
+## Verification boundary
 
-`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`.
-
-Authority: `docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` plus the existing health owner's `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` boundary. Add one generic outcome owner, terminate the current scheduler through its owner, and preserve the living Monster state. Keep recovery/respawn and other outcome paths outside this slice.
+Outcome source/headless/Android-build gates must pass before this layer is promoted to the verified baseline. Phone/user acceptance remains deferred-batch; sustained performance remains unverified.

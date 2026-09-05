@@ -33,6 +33,8 @@ var _current_index := -1
 var _current_actor_id := ""
 var _monster_activation_driver: Node = null
 var _status_timing_driver: Node = null
+var _encounter_terminal := false
+var _terminal_state: Dictionary = {}
 var _trace: Array[Dictionary] = []
 var _trace_sequence := 0
 
@@ -83,6 +85,8 @@ func _initiative_before(a: String, b: String) -> bool:
 	return a < b
 
 func _begin_round() -> void:
+	if _encounter_terminal:
+		return
 	_round_id += 1
 	_round_roster = [HUNTER_COMBATANT_ID, MONSTER_COMBATANT_ID]
 	_round_roster.sort_custom(Callable(self, "_initiative_before"))
@@ -95,6 +99,8 @@ func _begin_round() -> void:
 	_advance_scheduler()
 
 func _advance_scheduler() -> void:
+	if _encounter_terminal:
+		return
 	while true:
 		_current_index += 1
 		if _current_index >= _round_roster.size():
@@ -128,6 +134,8 @@ func _advance_scheduler() -> void:
 		return
 
 func _start_activation(combatant_id: String) -> bool:
+	if _encounter_terminal:
+		return false
 	var activation_key := "%d|%s" % [_round_id, combatant_id]
 	if _activation_started.has(activation_key):
 		_record_trace("INVARIANT_REJECTED_DUPLICATE_ACTIVATION", {"combatant_id": combatant_id})
@@ -151,7 +159,7 @@ func _start_activation(combatant_id: String) -> bool:
 	return true
 
 func register_monster_activation_driver(driver: Node) -> bool:
-	if not _initialized or driver == null or _monster_activation_driver != null:
+	if not _initialized or _encounter_terminal or driver == null or _monster_activation_driver != null:
 		return false
 	if not driver.has_method("begin_monster_activation"):
 		return false
@@ -160,7 +168,7 @@ func register_monster_activation_driver(driver: Node) -> bool:
 	return true
 
 func register_status_timing_driver(driver: Node) -> bool:
-	if not _initialized or driver == null or _status_timing_driver != null:
+	if not _initialized or _encounter_terminal or driver == null or _status_timing_driver != null:
 		return false
 	if not driver.has_method("on_turn_start_pre_recovery") or not driver.has_method("on_turn_end") or not driver.has_method("on_round_end"):
 		return false
@@ -169,7 +177,7 @@ func register_status_timing_driver(driver: Node) -> bool:
 	return true
 
 func complete_external_activation(combatant_id: String, reason: String) -> bool:
-	if not _initialized or _monster_activation_driver == null:
+	if not _initialized or _encounter_terminal or _monster_activation_driver == null:
 		return false
 	if combatant_id != MONSTER_COMBATANT_ID or _current_actor_id != combatant_id or reason.is_empty():
 		return false
@@ -178,7 +186,7 @@ func complete_external_activation(combatant_id: String, reason: String) -> bool:
 	return true
 
 func try_commit_cost(combatant_id: String, action_id: String, ap_cost: int, stamina_cost: int) -> bool:
-	if not _initialized or combatant_id != _current_actor_id or ap_cost < 0 or stamina_cost < 0:
+	if not _initialized or _encounter_terminal or combatant_id != _current_actor_id or ap_cost < 0 or stamina_cost < 0:
 		return false
 	var state: Dictionary = (_resources[combatant_id] as Dictionary).duplicate(true)
 	if int(state["ap"]) < ap_cost or int(state["stamina"]) < stamina_cost:
@@ -194,6 +202,8 @@ func try_commit_cost(combatant_id: String, action_id: String, ap_cost: int, stam
 func try_commit_reaction_cost(combatant_id: String, source_actor_id: String, reaction_id: String, window_id: String, rp_cost: int, stamina_cost: int) -> Dictionary:
 	if not _initialized:
 		return {"success": false, "reason": "SHELL_NOT_INITIALIZED"}
+	if _encounter_terminal:
+		return {"success": false, "reason": "ENCOUNTER_TERMINATED"}
 	if combatant_id.is_empty() or source_actor_id.is_empty() or reaction_id.is_empty() or window_id.is_empty():
 		return {"success": false, "reason": "INVALID_REACTION_IDENTITY"}
 	if _current_actor_id != source_actor_id or combatant_id == source_actor_id:
@@ -221,7 +231,7 @@ func try_commit_reaction_cost(combatant_id: String, source_actor_id: String, rea
 	return committed
 
 func end_player_turn() -> bool:
-	if not _initialized or _current_actor_id != HUNTER_COMBATANT_ID:
+	if not _initialized or _encounter_terminal or _current_actor_id != HUNTER_COMBATANT_ID:
 		return false
 	var state: Dictionary = (_resources[HUNTER_COMBATANT_ID] as Dictionary).duplicate(true)
 	state["ap"] = 0
@@ -244,6 +254,44 @@ func _end_current_activation(reason: String) -> void:
 	_record_trace("ACTIVATION_END", {"combatant_id": ending_actor, "reason": reason})
 	_current_actor_id = ""
 	_refresh_hud()
+
+func commit_terminal_outcome(outcome: String, source_resolution_id: String, downed_actor_id: String) -> Dictionary:
+	if not _initialized:
+		return {"success": false, "reason": "SHELL_NOT_INITIALIZED"}
+	if not _terminal_state.is_empty():
+		if String(_terminal_state.get("outcome", "")) == outcome and String(_terminal_state.get("source_resolution_id", "")) == source_resolution_id and String(_terminal_state.get("downed_actor_id", "")) == downed_actor_id:
+			return _terminal_state.duplicate(true)
+		return {"success": false, "reason": "ENCOUNTER_TERMINAL_OUTCOME_ALREADY_COMMITTED", "terminal_state": _terminal_state.duplicate(true)}
+	if outcome != "HUNTERS_DEFEATED" or downed_actor_id != HUNTER_COMBATANT_ID or source_resolution_id.is_empty():
+		return {"success": false, "reason": "UNSUPPORTED_TERMINAL_OUTCOME"}
+	if _current_actor_id.is_empty():
+		return {"success": false, "reason": "NO_AUTHORITATIVE_RESOLUTION_ACTIVATION"}
+
+	# Finish the current authoritative activation/status boundary first. Only
+	# after that boundary is terminal state committed and scheduler advancement
+	# is frozen.
+	_end_current_activation("ENCOUNTER_TERMINATED_HUNTERS_DEFEATED")
+	_encounter_terminal = true
+	for combatant_id in _round_roster:
+		if String(_slot_states.get(combatant_id, "")) == "PENDING":
+			_slot_states[combatant_id] = "REMOVED"
+			_record_trace("ROUND_SLOT_REMOVED", {"combatant_id": combatant_id, "reason": "ENCOUNTER_TERMINATED"})
+	_current_index = _round_roster.size()
+	_current_actor_id = ""
+	_terminal_state = {
+		"success": true,
+		"status": "ENCOUNTER_TERMINAL_COMMITTED",
+		"encounter_id": EXPECTED_ENCOUNTER_ID,
+		"encounter_terminal": true,
+		"outcome": outcome,
+		"source_resolution_id": source_resolution_id,
+		"downed_actor_id": downed_actor_id,
+		"round_id": _round_id,
+		"slot_states": _slot_states.duplicate(true),
+	}
+	_record_trace("ENCOUNTER_TERMINAL_COMMITTED", _terminal_state)
+	_refresh_hud()
+	return _terminal_state.duplicate(true)
 
 func _record_trace(event_name: String, details: Dictionary = {}) -> void:
 	_trace_sequence += 1
@@ -294,7 +342,7 @@ func _build_hud() -> void:
 	layout.add_child(_resource_label)
 	var note := Label.new()
 	note.name = "BoundaryNote"
-	note.text = "Turn shell active • free roaming locked • reactions share RP/Stamina authority • Monster attacks remain a later layer."
+	note.text = "Turn shell active • free roaming locked • reactions share RP/Stamina authority • terminal outcomes freeze this scheduler."
 	layout.add_child(note)
 	_end_turn_button = Button.new()
 	_end_turn_button.name = "EndTurn"
@@ -308,6 +356,11 @@ func _on_end_turn_pressed() -> void:
 
 func _refresh_hud() -> void:
 	if _state_label == null or _resource_label == null or _end_turn_button == null:
+		return
+	if _encounter_terminal:
+		_state_label.text = "Encounter terminal • %s" % String(_terminal_state.get("outcome", "RESOLVED"))
+		_resource_label.text = ""
+		_end_turn_button.disabled = true
 		return
 	if _current_actor_id.is_empty():
 		_state_label.text = "Round %d • resolving scheduler" % _round_id
@@ -327,7 +380,13 @@ func is_initialized() -> bool:
 	return _initialized
 
 func get_current_state() -> Dictionary:
-	return {"round_id": _round_id, "current_actor_id": _current_actor_id, "round_roster": _round_roster.duplicate(), "slot_states": _slot_states.duplicate(true), "monster_activation_driver_registered": _monster_activation_driver != null}
+	return {"round_id": _round_id, "current_actor_id": _current_actor_id, "round_roster": _round_roster.duplicate(), "slot_states": _slot_states.duplicate(true), "monster_activation_driver_registered": _monster_activation_driver != null, "encounter_terminal": _encounter_terminal, "terminal_outcome": String(_terminal_state.get("outcome", ""))}
+
+func get_terminal_state() -> Dictionary:
+	return _terminal_state.duplicate(true)
+
+func is_encounter_terminal() -> bool:
+	return _encounter_terminal
 
 func get_initiative_snapshot(combatant_id: String) -> Dictionary:
 	if not _initiative_snapshots.has(combatant_id):
