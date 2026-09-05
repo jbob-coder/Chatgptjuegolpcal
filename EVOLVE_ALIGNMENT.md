@@ -1,7 +1,7 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH GENERIC STATUS APPLICATION ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
-Last reconciled: 2026-09-04
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH GENERIC STATUS TIMING ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
+Last reconciled: 2026-09-05
 
 ## Operating law
 
@@ -32,35 +32,35 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy, reaction window and real `M01_HEAD_SWEEP_GORE`;
 - Head Sweep legality/telegraph/contact, Hunter defense consequence and normalized Hunter health/injury;
 - species-owned wound/contact classification and stable valid status-request emission;
-- generic status application owner `uhr.hunt01.status_application.v1` under the combat shell;
-- request validation against `uhr.status_application_request.v1` + `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME`;
-- exact request idempotency: one accepted request commits one `STATUS_ON_APPLY_COMMITTED`; replay cannot restack/refresh or rerun ON_APPLY;
-- actor-level `status_bleeding` with `STACK_INTENSITY_CAPPED`, max intensity 3, and `first_tick_round = application_round + 1` metadata;
-- actor-level `status_off_balance` with `REFRESH_DURATION` and pending completed-activation `TURN_END` expiry metadata;
-- deterministic in-memory persistence snapshot/rehydration that does not replay ON_APPLY;
-- no status RNG, AP/RP/Stamina ownership, Initiative edits, Health/anatomy mutation or presentation authority in the application layer.
+- generic status application owner `uhr.hunt01.status_application.v1`;
+- generic status timing owner `uhr.hunt01.status_timing.v1`;
+- deterministic `TURN_START_PRE_RECOVERY`, `TURN_END`, and `ROUND_END` lifecycle hooks;
+- Off-Balance natural recovery only after the affected actor completes the next normal activation;
+- skipped/ineligible slots do not grant free Off-Balance expiry;
+- Bleeding periodic cadence emits at most one `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` per actor/status/eligible round and carries no invented HP magnitude;
+- hook/event idempotency prevents duplicate expiry or periodic emission;
+- timing remains separate from Health mutation, AP/RP/Stamina ownership, Initiative ordering, anatomy mutation and presentation.
 
-Generic status application owner:
-`game/scripts/gameplay/combat/hunt01_status_application_runtime.gd`.
+Generic status timing owner:
+`game/scripts/gameplay/combat/hunt01_status_timing_runtime.gd`.
 
 Schema:
-`uhr.hunt01.status_application.v1`.
+`uhr.hunt01.status_timing.v1`.
 
-Implementation commit:
-`6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`.
+Verified source head:
+`57c205e1b2fb1fc69219f44033ef527ea756a353`.
 
 Production workflow:
-`33936580266` — SUCCESS.
+`33937504389` — SUCCESS.
 
 Workflow job:
-`101225581109` — SUCCESS.
+`101228175010` — SUCCESS.
 
 Artifact:
-- ID `9960395435`;
-- name `UnnamedHuntRPG-Hunt01-StatusApplication-debug`;
-- size `57,410,444` bytes;
-- SHA-256 `4606069697c5ae9128acf27ddad65724613ad8e83d53e8791a292339c8b0b15f`;
-- APK output `UnnamedHuntRPG-Hunt01-StatusApplication-debug.apk`.
+- ID `9960678247`;
+- name `UnnamedHuntRPG-Hunt01-StatusTiming-debug`;
+- size `57,428,913` bytes;
+- SHA-256 `f275b27c4f0f08a9ba0a45a6dd6c8bbb91a6410a564f947cee4efaed4fc88520`.
 
 ## Verification boundary
 
@@ -69,26 +69,27 @@ Artifact:
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Bleeding periodic Health magnitude is still not selected by authoritative content/balance data. Status lifecycle timing, structural crack/break/sever/detachment, remaining Mudcrest attacks/behavior, defeat/escape/reacquisition, harvest, inventory, crafting, settlement services and persistence runtime remain incomplete.
+Bleeding periodic Health magnitude is still not selected by authoritative content/balance data. Mudcrest structural crack/break/sever thresholds are also explicitly open and must not be invented. Remaining Mudcrest attacks/behavior, encounter outcomes/retreat, structural detachment, harvest, inventory, crafting, settlement services and persistence runtime remain incomplete.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_GENERIC_STATUS_TIMING_RUNTIME_2026-09-05.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_GENERIC_STATUS_TIMING_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`
+
+Why this is executable now:
+- the verified Hunter health owner already emits `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` at zero Health;
+- `docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` already selects `hunter_health <= 0 -> DOWNED` and `PLAYER_HUNTER_DOWNED -> HUNTERS_DEFEATED`;
+- this outcome slice does not require final Health/damage balance or the still-open anatomy break/sever thresholds.
 
 Required boundary:
-1. create a generic timing/lifecycle owner under `game/scripts/gameplay/combat/`, separate from status qualification and status application;
-2. integrate only standardized combat-domain hooks needed now: `TURN_START_PRE_RECOVERY`, `TURN_END`, and `ROUND_END`;
-3. hook order must follow the contracts: TURN_START status processing before passive Stamina recovery/AP-RP refresh; TURN_END before the scheduler advances; ROUND_END after every current roster slot is terminal and before the next `round_id`/roster begins;
-4. Off-Balance natural recovery: remove exactly once at the end of the target's next completed normal activation; a skipped/ineligible slot must not grant free expiry;
-5. Bleeding: when `round_id >= first_tick_round`, emit at most one deterministic pending periodic-consequence event per affected actor per round, ordered by stable target/status identity;
-6. because authoritative periodic Bleeding Health magnitude is still open, this slice must not invent or apply HP loss; emit `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` with intensity/source/round context for the future consequence owner;
-7. update status-instance timing metadata idempotently so repeated hook delivery cannot duplicate an expiry or periodic event;
-8. no Staggered producer exists yet, so do not invent Staggered applications merely to exercise TURN_START; the timing interface may remain extensible for that later transition;
-9. do not refresh/spend AP/RP/Stamina, alter Initiative ordering, reroll status qualification, re-run ON_APPLY, mutate anatomy, move actors or let presentation drive timing;
-10. add source/static, dedicated headless, regression and Android-build verification;
-11. phone/performance remain deferred.
-
-Do not bundle Bleeding damage magnitude, structural damage, new Mudcrest attacks, defeat/escape, harvest or full save persistence into this piece.
+1. create one generic encounter-outcome owner under `game/scripts/gameplay/combat/`;
+2. consume the stable pending Hunter-defeat handoff exactly once;
+3. transition the player Hunter to `DOWNED` and commit `HUNTERS_DEFEATED` only after the authoritative resolution boundary completes;
+4. terminate/freeze the existing combat scheduler through its owner rather than creating a second scheduler;
+5. prevent new normal activations/reactions after terminal commitment and mark remaining pending roster slots removed with the contract reason where the shell owns that state;
+6. preserve the living Mudcrest instance/anatomy/status/world state; defeat must not reset the Monster;
+7. do not implement respawn/recovery penalties, voluntary withdrawal, Monster escape/death, harvest rewards, structural thresholds or Bleeding HP magnitude in this bounded slice;
+8. add static, dedicated headless, regression and Android-build verification;
+9. document and promote only after green evidence.

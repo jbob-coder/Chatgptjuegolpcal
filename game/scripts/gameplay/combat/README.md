@@ -1,7 +1,7 @@
 # Hunt-01 Combat Runtime
 
-Status: STATUS TIMING IMPLEMENTED / AUTOMATED VERIFICATION PENDING
-Last reconciled: 2026-09-04
+Status: STATUS TIMING ANDROID BUILD VERIFIED / HUNTER DOWNED OUTCOME NEXT
+Last reconciled: 2026-09-05
 
 Purpose: own the generic production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy and Monster attack packets to the Monster package.
 
@@ -18,27 +18,16 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
 - Monster normal attack runtime remains species-owned under `game/scripts/gameplay/monsters/monster_01/`.
 
-Structural `crack/break/sever`, status consequences beyond application-state ownership/timing, and final damage/health arithmetic remain outside the turn shell/tactical movement owners and are resolved only by their dedicated downstream layers.
-
 Stable combatants: encounter `enc_r01_ef02_m01_0001`; Hunter `hunter_player_0001`; Monster `monster_r01_m01_0001`.
 
-## Existing verified combat laws
+## Generic status timing evidence
 
-Hunter 4 AP / 1 RP, normalized first-slice Stamina 100, +10 passive Stamina once at Hunter activation start, authored 10-node/14-link tactical movement, `POLEBLADE_BLOCK = 1 RP + 6 Stamina`, Measured Cut `2 AP / 12 Stamina`, and Head Sweep `2 AP / 14 Stamina` remain unchanged.
+Schema `uhr.hunt01.status_timing.v1`.
+Verified source head `57c205e1b2fb1fc69219f44033ef527ea756a353`.
+Production workflow `33937504389`: SUCCESS; job `101228175010`: SUCCESS.
+Artifact `9960678247`: `UnnamedHuntRPG-Hunt01-StatusTiming-debug`, SHA-256 `f275b27c4f0f08a9ba0a45a6dd6c8bbb91a6410a564f947cee4efaed4fc88520`.
 
-Initiative currently uses the explicit design-contract tie example under `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`; it is not final character-stat balance.
-
-Head Sweep Block impact drain remains `10 Stamina`, applied separately through shell authority. The reversible Block fixture remains `PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
-
-## Generic status application/timing
-
-Application schema `uhr.hunt01.status_application.v1`; timing schema `uhr.hunt01.status_timing.v1`.
-
-Mudcrest Head Sweep qualification remains species-owned. Generic application consumes only valid requests. Generic timing processes already-applied state at standardized hooks.
-
-Bleeding stays capped at intensity 3. Timing may emit a deterministic `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` at eligible ROUND_END but does not select/apply HP magnitude.
-
-Off-Balance is armed only when active at target TURN_START_PRE_RECOVERY and naturally removed at the matching completed activation TURN_END.
+Bleeding stays capped at intensity 3. Timing may emit `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` at eligible ROUND_END but does not select/apply HP magnitude. Off-Balance is armed only when active at target TURN_START_PRE_RECOVERY and naturally removed at the matching completed activation TURN_END. Duplicate hooks/events are idempotent.
 
 ## Explicitly not implemented yet
 
@@ -46,16 +35,17 @@ Off-Balance is armed only when active at target TURN_START_PRE_RECOVERY and natu
 - Staggered/Braced/Guarded producers and full action restrictions;
 - final Hunter Max Health/damage/armor balance;
 - forced movement/final Block balance;
-- structural crack/break/sever/tail detachment;
+- structural crack/break/sever/tail detachment; thresholds remain open;
 - Dodge/Parry/Brace resolution;
 - Horn Charge / Shoulder Ram / Foreleg Stomp / Tail Sweep;
 - deterministic multi-attack Monster behavior and Berserk;
-- defeat/escape/reacquisition;
+- Hunter Downed encounter-terminal execution;
+- voluntary withdrawal / Monster escape/death outcome execution;
 - harvest/inventory/crafting/settlement/persistence;
 - Sprint/Dodge/forced-displacement movement.
 
-## Current automated evidence
+## Current bounded piece
 
-Verified baseline before timing: status application implementation `6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`, production workflow `33936580266`: SUCCESS, artifact `9960395435` `UnnamedHuntRPG-Hunt01-StatusApplication-debug`.
+`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`.
 
-The timing implementation must pass source/headless/Android-build gates before promotion. Phone/user acceptance remains deferred-batch.
+Authority: `docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` plus the existing health owner's `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` boundary. Add one generic outcome owner, terminate the current scheduler through its owner, and preserve the living Monster state. Keep recovery/respawn and other outcome paths outside this slice.

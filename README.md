@@ -1,7 +1,7 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH GENERIC STATUS APPLICATION ANDROID BUILD VERIFIED / GENERIC STATUS TIMING NEXT
-Last reconciled: 2026-09-04
+Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH GENERIC STATUS TIMING ANDROID BUILD VERIFIED / HUNTER DOWNED OUTCOME NEXT
+Last reconciled: 2026-09-05
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
@@ -15,22 +15,22 @@ Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is
 
 ## Current production stack
 
-Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat now includes Hunter Measured Cut, Mudcrest anatomy, reaction/Head Sweep, defense, Hunter health/injury, species wound/contact qualification and generic status application.
+Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat now includes Hunter Measured Cut, Mudcrest anatomy, reaction/Head Sweep, defense, Hunter health/injury, species wound/contact qualification, generic status application and generic status timing.
 
-Generic status application provides exactly-once valid-request consumption, Bleeding capped intensity 3 + first-eligible-tick metadata, Off-Balance refresh state + pending natural-expiry metadata, and deterministic in-memory rehydration without replaying ON_APPLY.
+Timing executes deterministic lifecycle hooks, removes Off-Balance only after the affected actor completes the next normal activation, and emits idempotent pending Bleeding periodic consequences without inventing HP magnitude.
 
 ## Current verified baseline
 
-Implementation `6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`.
-Production workflow `33936580266`: SUCCESS.
-Job `101225581109`: SUCCESS.
-Artifact `9960395435`: `UnnamedHuntRPG-Hunt01-StatusApplication-debug`, 57,410,444 bytes, SHA-256 `4606069697c5ae9128acf27ddad65724613ad8e83d53e8791a292339c8b0b15f`.
+Verified source head `57c205e1b2fb1fc69219f44033ef527ea756a353`.
+Production workflow `33937504389`: SUCCESS.
+Job `101228175010`: SUCCESS.
+Artifact `9960678247`: `UnnamedHuntRPG-Hunt01-StatusTiming-debug`, 57,428,913 bytes, SHA-256 `f275b27c4f0f08a9ba0a45a6dd6c8bbb91a6410a564f947cee4efaed4fc88520`.
 
-The stack through generic status application is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+The stack through generic status timing is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Phone acceptance remains deferred/batched. `PERFORMANCE_VERIFIED = NO`.
 
 ## Current bounded piece
 
-`FIRST_SLICE_GENERIC_STATUS_TIMING_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`.
 
-Implement contract-ordered lifecycle hooks, Off-Balance natural removal and idempotent pending Bleeding periodic-consequence emission. Exact Bleeding periodic HP magnitude remains downstream and must not be invented in this timing slice.
+The health owner already emits a stable pending defeat handoff at zero Health and the defeat contract already selects `DOWNED` + `HUNTERS_DEFEATED`. Implement that terminal path without adding respawn/recovery, Monster escape/death, structural thresholds, harvest, or unresolved Bleeding periodic HP damage.

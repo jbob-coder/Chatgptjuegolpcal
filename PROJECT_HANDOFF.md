@@ -1,7 +1,7 @@
 # PROJECT HANDOFF — Unnamed Hunt RPG
 
-Status: PRODUCTION HUNT-01 THROUGH GENERIC STATUS APPLICATION ANDROID BUILD VERIFIED / GENERIC STATUS TIMING NEXT / PHONE QA DEFERRED-BATCH
-Last reconciled: 2026-09-04
+Status: PRODUCTION HUNT-01 THROUGH GENERIC STATUS TIMING ANDROID BUILD VERIFIED / HUNTER DOWNED OUTCOME NEXT / PHONE QA DEFERRED-BATCH
+Last reconciled: 2026-09-05
 
 ## Live project
 
@@ -17,53 +17,48 @@ World/exploration: continuous 440×440 m Hunt-01 foundation, protected mobile sh
 
 Tracking/encounter: seven physical clues, deterministic reasoning, no Monster GPS, terminal `OBSERVATION_READY`, physical observation/engagement and same-location ENGAGE.
 
-Combat: deterministic turns/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction window, real Head Sweep, defense consequence, Hunter health/injury, species wound/contact classification and generic status application.
+Combat: deterministic turns/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction window, real Head Sweep, defense consequence, Hunter health/injury, species wound/contact classification, generic status application and generic status timing.
 
-The status owner consumes already-valid content requests. Bleeding is one actor-level capped-intensity instance (max 3) with first eligible tick metadata; Off-Balance is one refresh-duration instance with pending completed-activation expiry metadata. Duplicate request IDs are idempotent. Status-state snapshot/rehydration does not replay ON_APPLY.
+Status timing now executes deterministic `TURN_START_PRE_RECOVERY`, `TURN_END`, and `ROUND_END` lifecycle hooks. Off-Balance naturally clears only after the target's next completed normal activation. Bleeding emits a stable pending periodic Health consequence no earlier than its recorded first tick and at most once per eligible actor/status/round; it still does not invent periodic HP magnitude.
 
 ## Current verified baseline
 
-Implementation commit:
-`6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`.
+Verified source head:
+`57c205e1b2fb1fc69219f44033ef527ea756a353`.
 
-Production workflow `33936580266`: SUCCESS.
-Job `101225581109`: SUCCESS.
+Production workflow `33937504389`: SUCCESS.
+Job `101228175010`: SUCCESS.
 
-Passed:
-- manifest / production projection and all current source preflights;
-- Godot 4.7.2 parse/import;
-- AppShell and Region smoke;
-- production integration;
-- combat shell/tactical movement, reaction, Head Sweep, defense, health/injury and wound/contact regressions;
-- dedicated generic status-application headless test;
-- anatomy and Hunter attack regressions;
-- Android debug APK export and artifact upload.
-
-Artifact `9960395435`:
-`UnnamedHuntRPG-Hunt01-StatusApplication-debug`, 57,410,444 bytes, SHA-256 `4606069697c5ae9128acf27ddad65724613ad8e83d53e8791a292339c8b0b15f`.
+Artifact `9960678247`:
+`UnnamedHuntRPG-Hunt01-StatusTiming-debug`, 57,428,913 bytes, SHA-256 `f275b27c4f0f08a9ba0a45a6dd6c8bbb91a6410a564f947cee4efaed4fc88520`.
 
 Verification labels:
-- stack through generic status application: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
+- stack through generic status timing: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
 - phone acceptance: DEFERRED / NOT PHONE VERIFIED;
 - sustained performance: NOT VERIFIED.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_GENERIC_STATUS_TIMING_RUNTIME_2026-09-05.md`.
 
 ## Explicitly incomplete
 
-- status timing/lifecycle hook execution;
-- Bleeding periodic Health magnitude/consequence;
-- Off-Balance natural expiry execution and Brace integration;
-- Staggered/Braced/Guarded producers/lifecycle;
-- structural crack/break/sever/detached parts;
+- Bleeding periodic Health magnitude/application;
+- Staggered/Braced/Guarded producers and full action restrictions;
+- structural crack/break/sever/detachment; numeric thresholds are still open;
 - remaining Mudcrest attacks/behavior/Berserk;
-- defeat/escape/reacquisition;
+- Hunter Downed encounter-terminal execution;
+- voluntary withdrawal, Monster escape/death and reacquisition outcome execution;
 - harvest/inventory/crafting/settlement/persistence;
 - final phone/performance validation.
 
 ## Exact next action
 
-`FIRST_SLICE_GENERIC_STATUS_TIMING_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`.
 
-Add generic lifecycle timing for TURN_START_PRE_RECOVERY, TURN_END and ROUND_END. First executable effects: Off-Balance natural removal after the target's next completed normal activation and deterministic Bleeding periodic-event emission no earlier than `first_tick_round`, max once per actor/round. Bleeding event must remain a pending Health consequence because authoritative periodic HP magnitude is still open.
+Consume the already-verified zero-Health pending defeat boundary. Implement `DOWNED` + `HUNTERS_DEFEATED` terminal execution through one generic outcome owner and the existing scheduler. Preserve the living Monster's persistent state. Do not bundle respawn, recovery costs, voluntary withdrawal, Monster escape/death, structural thresholds, harvest or Bleeding periodic damage.
+
+Read before implementation:
+- `docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md`;
+- `game/scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd`;
+- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
+- current reaction/status timing owners and their regression tests.
