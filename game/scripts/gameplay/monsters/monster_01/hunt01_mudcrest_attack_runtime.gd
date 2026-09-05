@@ -3,6 +3,7 @@ extends Node
 const SCHEMA := "uhr.hunt01.mudcrest_attack.v1"
 const MANIFEST_PATH := "res://content/regions/region_01/hunt01_graybox_build_manifest.json"
 const HEAD_SWEEP_TELEGRAPH_SCENE: PackedScene = preload("res://assets/effects/mudcrest_head_sweep_telegraph.tscn")
+const HUNTER_DEFENSE_SCRIPT: Script = preload("res://scripts/gameplay/combat/hunt01_hunter_defense_consequence_runtime.gd")
 
 const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const MONSTER_COMBATANT_ID := "monster_r01_m01_0001"
@@ -27,6 +28,7 @@ var _world: Node3D = null
 var _shell: Node = null
 var _reaction: Node = null
 var _anatomy: Node = null
+var _hunter_defense: Node = null
 var _hunter: CharacterBody3D = null
 var _monster: Node3D = null
 var _encounter_record: Dictionary = {}
@@ -63,6 +65,16 @@ func initialize(world: Node3D, shell: Node, reaction: Node, anatomy: Node, encou
 	if _hunter == null or _monster == null:
 		return false
 
+	var defense := HUNTER_DEFENSE_SCRIPT.new() as Node
+	if defense == null:
+		return false
+	defense.name = "HunterDefenseConsequenceRuntime"
+	_shell.add_child(defense)
+	if not bool(defense.call("initialize", _shell, _encounter_record)):
+		defense.queue_free()
+		return false
+	_hunter_defense = defense
+
 	_initialized = true
 	_record_trace("MUDCREST_ATTACK_RUNTIME_READY", {
 		"attack_id": ATTACK_ID,
@@ -70,6 +82,7 @@ func initialize(world: Node3D, shell: Node, reaction: Node, anatomy: Node, encou
 		"stamina_cost": STAMINA_COST,
 		"fixture_status": FIXTURE_STATUS,
 		"structural_capability_status": STRUCTURAL_CAPABILITY_STATUS,
+		"hunter_defense_schema": String(_hunter_defense.call("get_schema")),
 	})
 	# Registration is deferred so the whole combat stack is fully wired before
 	# the shell can delegate a Monster activation on a later input frame.
@@ -77,7 +90,7 @@ func initialize(world: Node3D, shell: Node, reaction: Node, anatomy: Node, encou
 	return true
 
 func _register_activation_driver() -> void:
-	if not _initialized or _driver_registered or _shell == null:
+	if not _initialized or _driver_registered or _shell == null or _hunter_defense == null:
 		return
 	_driver_registered = bool(_shell.call("register_monster_activation_driver", self))
 	_record_trace("MUDCREST_ACTIVATION_DRIVER_REGISTRATION", {
@@ -363,6 +376,9 @@ func _resolve_active_head_sweep(reaction_window: Dictionary) -> void:
 		"guard_impact_drain_status": "PENDING_FINAL_BLOCK_OUTCOME_RUNTIME" if block_committed else "NOT_APPLICABLE",
 		"final_damage_amount_status": "NOT_SELECTED_PENDING_HUNTER_DAMAGE_RUNTIME",
 	}
+	var defense_consequence: Dictionary = _hunter_defense.call("resolve_hostile_handoff", damage_handoff)
+	if not bool(defense_consequence.get("success", false)):
+		push_error("Mudcrest Head Sweep could not resolve the Hunter defense consequence.")
 	var resolution := {
 		"success": true,
 		"status": "HOSTILE_CONTACT_RESOLVED_DAMAGE_PENDING",
@@ -394,17 +410,20 @@ func _resolve_active_head_sweep(reaction_window: Dictionary) -> void:
 		"structural_capability_status": STRUCTURAL_CAPABILITY_STATUS,
 		"legality_snapshot": (_active_attack.get("legality_snapshot", {}) as Dictionary).duplicate(true),
 		"damage_handoff": damage_handoff.duplicate(true),
+		"defense_consequence": defense_consequence.duplicate(true),
 	}
 	_resolutions[resolution_id] = resolution.duplicate(true)
 	_last_resolution = resolution.duplicate(true)
 	var window_id := String(_active_attack.get("reaction_window_id", ""))
-	var close_result: Dictionary = _reaction.call("close_window", window_id, "PENDING_HUNTER_DAMAGE_RUNTIME")
+	var health_handoff: Dictionary = defense_consequence.get("health_handoff", {}) as Dictionary
+	var close_status := String(health_handoff.get("status", "PENDING_HUNTER_HEALTH_INJURY_RUNTIME"))
+	var close_result: Dictionary = _reaction.call("close_window", window_id, close_status)
 	_last_resolution["reaction_close_result"] = close_result.duplicate(true)
 	_resolutions[resolution_id] = _last_resolution.duplicate(true)
 	_hide_telegraph_visual()
 	_record_trace("MUDCREST_HEAD_SWEEP_RESOLUTION_HANDOFF_COMMITTED", _last_resolution)
 	_active_attack.clear()
-	if not bool(_shell.call("complete_external_activation", MONSTER_COMBATANT_ID, "HEAD_SWEEP_RESOLUTION_HANDOFF_COMMITTED")):
+	if not bool(_shell.call("complete_external_activation", MONSTER_COMBATANT_ID, "HEAD_SWEEP_DEFENSE_CONSEQUENCE_COMMITTED")):
 		push_error("Mudcrest Head Sweep resolved but the shell could not complete the Monster activation.")
 
 func _stable_variance(seed_key: String) -> int:
@@ -484,6 +503,9 @@ func get_resolution(resolution_id: String) -> Dictionary:
 	if not _resolutions.has(resolution_id):
 		return {}
 	return (_resolutions[resolution_id] as Dictionary).duplicate(true)
+
+func get_hunter_defense_runtime() -> Node:
+	return _hunter_defense
 
 func get_trace() -> Array:
 	return _trace.duplicate(true)
