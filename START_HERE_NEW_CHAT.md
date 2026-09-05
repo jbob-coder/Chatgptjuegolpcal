@@ -22,38 +22,39 @@ Current repository/source/build/device evidence outranks old chat memory and sta
 
 Production root: `game/`. Stage-1 probe is evidence/testing infrastructure only.
 
-Protected controls: left joystick direct continuous analog movement; right-side independent look; no forced release/center/rebase; approximately 115° first-person FOV; approximately 6.25 m/s exploration speed.
+Protected controls: direct continuous analog left-stick movement, independent right-side look, no forced release/center/rebase, approximately 115° FOV, approximately 6.25 m/s exploration speed.
 
-Automated-build verified stack now includes continuous Hunt-01 world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction window, real Head Sweep, Hunter defense consequence, Hunter health/injury and species-owned Head Sweep wound/contact classification.
+Automated-build verified stack includes world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction, real Head Sweep, defense, Hunter health/injury, wound/contact classification and generic status application.
 
-Wound/contact classifier:
-- schema `uhr.hunt01.mudcrest_wound_contact.v1`;
-- fixture `PROVISIONAL_FIRST_SLICE_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_FIXTURE`;
-- implementation `6012235a958c0d4a73ff7c36201e2eff20715b70`;
-- workflow `33935813877`: SUCCESS;
-- job `101223419039`: SUCCESS;
-- artifact `9960134957`: `UnnamedHuntRPG-Hunt01-WoundContact-debug`.
+Generic status application:
+- schema `uhr.hunt01.status_application.v1`;
+- Bleeding capped intensity 3 and `first_tick_round = application_round + 1` metadata;
+- Off-Balance refresh-duration state and pending completed-activation expiry metadata;
+- stable request idempotency and no duplicate ON_APPLY;
+- in-memory state rehydration without ON_APPLY replay;
+- implementation `6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`;
+- workflow `33936580266`: SUCCESS;
+- job `101225581109`: SUCCESS;
+- artifact `9960395435`: `UnnamedHuntRPG-Hunt01-StatusApplication-debug`.
 
 `PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
 `FINAL_ENGINE_SELECTED = NO`.
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_MUDCREST_WOUND_CONTACT_RUNTIME_2026-09-04.md`.
+`docs/70_handoff/HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_2026-09-04.md`.
 
 ## Exact next action
 
-`FIRST_SLICE_GENERIC_STATUS_APPLICATION_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_GENERIC_STATUS_TIMING_RUNTIME_IMPLEMENTATION`.
 
 Read before implementation:
-- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_wound_contact_runtime.gd`;
-- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
-- `game/scripts/gameplay/combat/README.md`;
+- `game/scripts/gameplay/combat/hunt01_status_application_runtime.gd`;
+- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
 - `docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
-- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
 - `docs/20_gameplay/combat/ACTION_ECONOMY_CONTRACT.md`;
 - `docs/20_gameplay/combat/INITIATIVE_AND_TURN_ORDER_PROTOTYPE_CONTRACT.md`;
-- current combat shell and regression/static gates.
+- `STATS_ATTRIBUTES_EFFECTS_SYSTEM.md`;
+- current status/wound/contact tests and static gates.
 
-Generic status application consumes a valid request; it does not decide whether the Head Sweep qualified. Implement Bleeding cap/first-tick metadata and Off-Balance refresh/expiry metadata, but do not bundle round-end damage or turn-hook scheduling into the application slice.
+Do not invent Bleeding HP magnitude. Implement deterministic hook ordering, Off-Balance expiry and pending Bleeding periodic-consequence emission only.

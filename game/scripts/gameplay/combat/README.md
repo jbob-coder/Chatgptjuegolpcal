@@ -1,6 +1,6 @@
 # Hunt-01 Combat Runtime
 
-Status: GENERIC STATUS APPLICATION IMPLEMENTED / AUTOMATED VERIFICATION PENDING
+Status: GENERIC STATUS APPLICATION ANDROID BUILD VERIFIED / STATUS TIMING NEXT
 Last reconciled: 2026-09-04
 
 Purpose: own the generic production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy and Monster attack packets to the Monster package.
@@ -19,10 +19,7 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 
 Structural `crack/break/sever`, status consequences beyond application-state ownership/timing, and final damage/health arithmetic remain outside the turn shell/tactical movement owners and are resolved only by their dedicated downstream layers.
 
-Stable combatants:
-- encounter `enc_r01_ef02_m01_0001`;
-- Hunter `hunter_player_0001`;
-- Monster `monster_r01_m01_0001`.
+Stable combatants: encounter `enc_r01_ef02_m01_0001`; Hunter `hunter_player_0001`; Monster `monster_r01_m01_0001`.
 
 ## Existing verified combat laws
 
@@ -32,26 +29,19 @@ Initiative currently uses the explicit design-contract tie example under `PROVIS
 
 Head Sweep Block impact drain remains `10 Stamina`, applied separately through shell authority. The reversible Block fixture remains `PROVISIONAL_FIRST_SLICE_POLEBLADE_BLOCK_OUTCOME_FIXTURE`.
 
-## Hunter health/injury
+## Generic status application
 
-Schema `uhr.hunt01.hunter_health_injury.v1`. Fixture `PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE`.
+Schema `uhr.hunt01.status_application.v1`.
 
-Normalized prototype Max Health 100; GRAZE/SOLID/CLEAN base injury loads 4/8/12; Strong/Partial/Broken/No-Guard residual percentages 25/60/90/100. Health mutation is idempotent and clamps at zero. These values are not final balance.
+Mudcrest wound/contact qualification remains species-owned. Generic status application consumes only valid requests and never re-decides penetration/impact dominance.
 
-No gameplay armor profile is authored for the Hunter. The health owner records that absence instead of inferring protection from visuals.
-
-## Species qualification and generic status application
-
-Mudcrest Head Sweep wound/contact qualification remains species-owned. Generic status application consumes only a valid `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME` request and never re-decides penetration/impact dominance.
-
-First status-application scope supports `status_bleeding` with capped intensity 3 and `status_off_balance` with refresh-duration semantics. Timing hooks are recorded but not executed in this layer.
+Verified first status scope supports actor-level `status_bleeding` with `STACK_INTENSITY_CAPPED`, max 3 and first-tick metadata, plus actor-level `status_off_balance` with `REFRESH_DURATION` and pending completed-activation expiry metadata. Request replay is idempotent and in-memory state rehydration does not replay ON_APPLY.
 
 ## Explicitly not implemented yet
 
+- status lifecycle/timing hook execution and Bleeding periodic Health consequence;
 - final Hunter Max Health/damage/armor balance;
-- status timing/periodic consequence runtime;
-- forced movement;
-- final Block balance;
+- forced movement/final Block balance;
 - structural crack/break/sever/tail detachment;
 - Dodge/Parry/Brace resolution;
 - Horn Charge / Shoulder Ram / Foreleg Stomp / Tail Sweep;
@@ -62,6 +52,8 @@ First status-application scope supports `status_bleeding` with capped intensity 
 
 ## Current automated evidence
 
-Verified baseline before this new status slice: wound/contact implementation `6012235a958c0d4a73ff7c36201e2eff20715b70`, production workflow `33935813877`: SUCCESS, artifact `9960134957` `UnnamedHuntRPG-Hunt01-WoundContact-debug`.
+Status application implementation `6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`.
+Production workflow `33936580266`: SUCCESS.
+Artifact `9960395435`: `UnnamedHuntRPG-Hunt01-StatusApplication-debug`.
 
-The generic status-application implementation must pass its source/headless/Android-build gates before promotion. Phone/user acceptance remains deferred-batch.
+Phone/user acceptance remains deferred-batch.

@@ -1,82 +1,45 @@
 # Hunt-01 Generic Status Application Runtime
 
-Status: IMPLEMENTED / AUTOMATED VERIFICATION PENDING
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED
 Last reconciled: 2026-09-04
 
 ## Purpose
 
-Consume an already-valid content-owned status application request and mutate one authoritative generic combat status instance exactly once. This layer never decides whether a hit/wound qualified for a status.
+Consume already-valid content-owned status application requests and mutate authoritative generic combat status instances exactly once. This layer never decides whether a hit/wound qualified.
 
-Owner:
-`game/scripts/gameplay/combat/hunt01_status_application_runtime.gd`.
+Owner: `game/scripts/gameplay/combat/hunt01_status_application_runtime.gd`.
+Schema: `uhr.hunt01.status_application.v1`.
+Input: `uhr.status_application_request.v1`, consumer `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME`.
 
-Schema:
-`uhr.hunt01.status_application.v1`.
+## Verified behavior
 
-Input schema:
-`uhr.status_application_request.v1` with consumer `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME`.
+`status_bleeding`: actor-level `STACK_INTENSITY_CAPPED`, max 3, first application records `first_tick_round = R + 1`, later applications cannot move that original first eligible tick. Periodic hook metadata is `ROUND_END` / `PENDING_STATUS_TIMING_RUNTIME`.
 
-## Current supported definitions
+`status_off_balance`: actor-level `REFRESH_DURATION`, one instance, reapplication updates last-application state without intensity stacking. Natural expiry metadata is `TURN_END` after the target completes its next normal activation, still pending the timing owner.
 
-### `status_bleeding`
+Each stable application request ID commits ON_APPLY once. Re-read returns `STATUS_APPLICATION_READBACK_IDEMPOTENT` without another stack/refresh/trace event.
 
-- category `PERSISTENT_PHYSICAL_CONDITION`;
-- stack rule `STACK_INTENSITY_CAPPED`;
-- maximum intensity `3`;
-- one actor-level instance;
-- first application at round `R` records `first_tick_round = R + 1`;
-- reapplications increase intensity only up to 3 and do not move the original first eligible tick;
-- periodic hook is recorded as `ROUND_END`, but execution remains `PENDING_STATUS_TIMING_RUNTIME`.
+In-memory persistence snapshot/rehydration preserves instances and consumed request identity without replaying ON_APPLY. This is a continuity contract, not the final game save system.
 
-### `status_off_balance`
-
-- category `TEMPORARY_STABILITY_CONDITION`;
-- stack rule `REFRESH_DURATION`;
-- one actor-level instance;
-- reapplication refreshes `last_application_round` without intensity stacking;
-- natural expiry metadata records `TURN_END` after the target completes its next normal activation;
-- actual expiry/Brace interaction remains `PENDING_STATUS_TIMING_RUNTIME` / later action integration.
-
-## Deterministic transaction law
-
-A request must already be marked `VALID_STATUS_APPLICATION_REQUEST`, carry the selected request schema, stable request/source/target identity, trigger `ON_HIT_OR_DAMAGE_CONSEQUENCE`, and route to the generic status consumer.
-
-The first accepted request ID commits one `STATUS_ON_APPLY_COMMITTED` transaction. Re-reading the same request ID returns `STATUS_APPLICATION_READBACK_IDEMPOTENT` and cannot increase intensity, refresh duration twice or emit another ON_APPLY trace.
-
-No independent random status proc exists.
+The owner has no status proc RNG and does not spend/refresh AP/RP/Stamina, reorder Initiative, mutate Hunter Health/anatomy, move actors or give presentation gameplay authority.
 
 ## Integration
 
-The Mudcrest Head Sweep wound/contact classifier remains the content qualification owner. It creates/reuses one `StatusApplicationRuntime` node under the authoritative combat shell and synchronously dispatches only qualified requests. The generic owner does not inspect hit quality, penetration or impact dominance to invent its own requests.
+Mudcrest wound/contact classification remains species/content-owned. It creates/reuses one generic status application node under the combat shell and dispatches only qualified requests. Strong Block/no-contact/no-wound paths produce no status state.
 
-Strong Block/no-contact/no-wound paths emit no request and therefore create no status state.
+## Verification evidence
 
-## Persistence continuity boundary
+Implementation `6c9fc8592ce0de769f213790cc0e3e0a8ff95fdc`.
+Workflow `33936580266`: SUCCESS.
+Job `101225581109`: SUCCESS.
+Static gate `HUNT01_GENERIC_STATUS_APPLICATION_SOURCE_STATIC_VERIFIED`.
+Headless gate `HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_VERIFIED`.
+Artifact `9960395435`: `UnnamedHuntRPG-Hunt01-StatusApplication-debug`, 57,410,444 bytes, SHA-256 `4606069697c5ae9128acf27ddad65724613ad8e83d53e8791a292339c8b0b15f`.
 
-`get_persistence_snapshot()` exports current generic status instances plus consumed request transactions. `restore_persistence_snapshot()` rehydrates that state into an empty initialized owner without replaying ON_APPLY.
+The same run passed all preceding production regressions plus Android export/upload.
 
-This is an in-memory deterministic continuity contract for future save integration. It is not the game's persistence/save-file system.
+## Deferred boundary
 
-## Explicitly deferred
+This layer does not execute Bleeding periodic Health consequences, ROUND_END scheduling, TURN_START_PRE_RECOVERY transitions, Off-Balance natural removal, deliberate Brace integration, Guarded/Braced/Staggered producers, structural damage, defeat or harvest.
 
-This layer does not execute:
-- Bleeding periodic Health consequences;
-- `ROUND_END` scheduling;
-- `TURN_START_PRE_RECOVERY` Staggered transitions;
-- Off-Balance `TURN_END` natural removal;
-- deliberate Brace removal/application integration;
-- Guarded/Braced/Staggered producers;
-- final status resistance/immunity values;
-- AP/RP/Stamina refresh/spend;
-- Initiative edits;
-- structural break/sever, defeat or harvest.
-
-## Verification target
-
-Static gate:
-`HUNT01_GENERIC_STATUS_APPLICATION_SOURCE_STATIC_VERIFIED`.
-
-Headless gate:
-`HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_VERIFIED`.
-
-The dedicated production test must prove real Head Sweep → Bleeding integration, zero status on Strong Block, stable ID lookup, capped intensity, Off-Balance refresh metadata, duplicate request idempotence, no Health/resource/anatomy mutation from synthetic status applications, persistence rehydrate without ON_APPLY replay and unchanged prior combat regressions. Android export remains required. Phone/performance remain deferred.
+Phone acceptance and sustained performance remain deferred/not verified.
