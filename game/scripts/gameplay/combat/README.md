@@ -13,7 +13,7 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 - `hunt01_hunter_attack_runtime.gd` — Field Poleblade `POLEBLADE_MEASURED_CUT` legality/contact/protection/anatomy handoff.
 - `hunt01_hunter_defense_consequence_runtime.gd` — no-contact/Block consequence, guard impact Stamina and health/injury handoff.
 - `hunt01_hunter_health_injury_runtime.gd` — normalized first-slice Hunter health/injury state, stable injury transactions and pending defeat boundary.
-- `hunt01_status_application_runtime.gd` — generic valid-request consumption, actor-level Bleeding/Off-Balance state, stack/refresh policy, idempotency and persistence snapshot boundary.
+- `hunt01_status_application_runtime.gd` — generic status application owner for valid-request consumption, actor-level Bleeding/Off-Balance state, stack/refresh policy, idempotency and persistence snapshot boundary.
 - `hunt01_status_timing_runtime.gd` — TURN_START_PRE_RECOVERY / TURN_END / ROUND_END lifecycle timing, Off-Balance natural recovery and pending Bleeding periodic-event cadence.
 - `hunt01_encounter_outcome_runtime.gd` — exactly-once Hunter zero-Health defeat consumption, `DOWNED`, `HUNTERS_DEFEATED`, and terminal handoff to the existing scheduler.
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
