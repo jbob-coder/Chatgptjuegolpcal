@@ -94,6 +94,16 @@ func _run() -> void:
 		_finish()
 		return
 
+	# This regression owns the reaction-window contract with a controlled hostile
+	# source. The production Head Sweep runtime has a deferred driver registration,
+	# so remove that sibling before installing the mock instead of weakening the
+	# shell's one-driver production invariant.
+	var production_attack := encounter.call("get_mudcrest_attack_runtime") as Node
+	_check("production Mudcrest attack runtime exists before reaction isolation", production_attack != null)
+	if production_attack != null:
+		production_attack.free()
+	_check("reaction test isolates the production hostile driver", not is_instance_valid(production_attack))
+
 	_check("reaction schema v1", String(reaction.call("get_schema")) == "uhr.hunt01.reaction_window.v1")
 	_check("reaction runtime starts idle", String(reaction.call("get_state")) == "IDLE")
 	var panel := world.get_node_or_null("HUD/ReactionWindowPanel") as Control
