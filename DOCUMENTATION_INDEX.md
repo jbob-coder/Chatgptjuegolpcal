@@ -1,7 +1,7 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH GENERIC STATUS TIMING ANDROID BUILD VERIFIED / HUNTER DOWNED OUTCOME NEXT
-Last reconciled: 2026-09-05
+Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH HUNTER DOWNED OUTCOME ANDROID BUILD VERIFIED / TAIL SWEEP NEXT
+Last reconciled: 2026-09-06
 
 ## Mandatory read order
 
@@ -20,19 +20,20 @@ Last reconciled: 2026-09-05
 
 Core production includes Region-01 world/presentation, tracking/encounter owners, generic combat owners under `game/scripts/gameplay/combat/`, Monster-01 species/content under `game/scripts/gameplay/monsters/monster_01/`, and the production Android workflow.
 
-Current combat runtime notes include `HUNT01_HUNTER_REACTION_WINDOW_RUNTIME.md`, `HUNT01_FIRST_HUNTER_ATTACK_RUNTIME.md`, `HUNT01_MUDCREST_ANATOMY_INTEGRITY_RUNTIME.md`, `HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME.md`, `HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME.md`, `HUNT01_HUNTER_HEALTH_INJURY_RUNTIME.md`, `HUNT01_MUDCREST_WOUND_CONTACT_RUNTIME.md`, `HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME.md`, and `HUNT01_GENERIC_STATUS_TIMING_RUNTIME.md`.
+Current combat runtime notes include `HUNT01_HUNTER_REACTION_WINDOW_RUNTIME.md`, `HUNT01_FIRST_HUNTER_ATTACK_RUNTIME.md`, `HUNT01_MUDCREST_ANATOMY_INTEGRITY_RUNTIME.md`, `HUNT01_MUDCREST_HEAD_SWEEP_ATTACK_RUNTIME.md`, `HUNT01_HUNTER_DEFENSE_CONSEQUENCE_RUNTIME.md`, `HUNT01_HUNTER_HEALTH_INJURY_RUNTIME.md`, `HUNT01_MUDCREST_WOUND_CONTACT_RUNTIME.md`, `HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME.md`, `HUNT01_GENERIC_STATUS_TIMING_RUNTIME.md`, and `HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME.md`.
 
 ## Current verified baseline
 
-Status timing verified source head `57c205e1b2fb1fc69219f44033ef527ea756a353`.
-Production workflow `33937504389`: SUCCESS.
-Job `101228175010`: SUCCESS.
-Artifact `9960678247`: `UnnamedHuntRPG-Hunt01-StatusTiming-debug`, 57,428,913 bytes, SHA-256 `f275b27c4f0f08a9ba0a45a6dd6c8bbb91a6410a564f947cee4efaed4fc88520`.
+Hunter Downed verified source head `f363998334bb752b037ed524cb909ad12634b71f`.
+Implementation commit `a6476483c7f187f5e4904d7901c28e1abe0f9996`.
+Production workflow `33985410020`: SUCCESS.
+Job `101357889357`: SUCCESS.
+Artifact `9975014310`: `UnnamedHuntRPG-Hunt01-HunterDownedOutcome-debug`, 57,446,932 bytes, SHA-256 `ab431361b3be3b325300d7d2242cd622afdb376f6426d8d2228fab0388cae196`.
 
-The full automated pipeline through generic status timing passes current source gates, Godot parse/smoke, production integration/regressions, dedicated timing headless verification, Android export and artifact upload.
+The automated pipeline through Hunter Downed passes current source gates, Godot parse/smoke, production integration/regressions, dedicated outcome headless verification, Android export and artifact upload.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_GENERIC_STATUS_TIMING_RUNTIME_2026-09-05.md`.
+`docs/70_handoff/HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_2026-09-06.md`.
 
 ## Layer ownership
 
@@ -46,15 +47,16 @@ Monster-01 content qualification/anatomy/attacks: `game/scripts/gameplay/monster
 
 `FIRST_SLICE_GENERIC_STATUS_APPLICATION_RUNTIME_IMPLEMENTED = YES`
 `FIRST_SLICE_GENERIC_STATUS_TIMING_RUNTIME_IMPLEMENTED = YES`
-`FIRST_SLICE_GENERIC_STATUS_TIMING_HEADLESS_VERIFIED = YES`
-`FIRST_SLICE_GENERIC_STATUS_TIMING_ANDROID_BUILD_VERIFIED = YES`
-`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTED = NO`
+`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTED = YES`
+`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_HEADLESS_VERIFIED = YES`
+`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_ANDROID_BUILD_VERIFIED = YES`
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTED = NO`
 `CURRENT_POST_TRACKING_PHONE_ACCEPTANCE = DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
 ## Exact continuation
 
-`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`.
 
-Implement only the selected player-Hunter zero-Health path from `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` through `DOWNED` to terminal `HUNTERS_DEFEATED`, using the existing combat scheduler and preserving the living Monster instance. Structural thresholds and Bleeding periodic HP magnitude remain open and are not part of this slice.
+Extend the existing Monster-01 attack owner with the authored intact-tail rear/flank Tail Sweep, reusing the current reaction/Block/status/scheduler owners. Structural sever thresholds, Staggered runtime, Bleeding periodic HP magnitude and Hunter withdrawal geometry remain outside this slice.

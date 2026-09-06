@@ -1,7 +1,7 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH GENERIC STATUS TIMING ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
-Last reconciled: 2026-09-05
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH HUNTER DOWNED OUTCOME ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
+Last reconciled: 2026-09-06
 
 ## Operating law
 
@@ -34,33 +34,39 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - species-owned wound/contact classification and stable valid status-request emission;
 - generic status application owner `uhr.hunt01.status_application.v1`;
 - generic status timing owner `uhr.hunt01.status_timing.v1`;
-- deterministic `TURN_START_PRE_RECOVERY`, `TURN_END`, and `ROUND_END` lifecycle hooks;
-- Off-Balance natural recovery only after the affected actor completes the next normal activation;
-- skipped/ineligible slots do not grant free Off-Balance expiry;
-- Bleeding periodic cadence emits at most one `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` per actor/status/eligible round and carries no invented HP magnitude;
-- hook/event idempotency prevents duplicate expiry or periodic emission;
-- timing remains separate from Health mutation, AP/RP/Stamina ownership, Initiative ordering, anatomy mutation and presentation.
+- deterministic status lifecycle hooks, Off-Balance recovery and pending Bleeding periodic-event cadence without invented HP magnitude;
+- generic encounter-outcome owner `uhr.hunt01.encounter_outcome.v1`;
+- zero-Health player Hunter transition `ACTIVE → DOWNED → HUNTERS_DEFEATED`;
+- terminal scheduler commitment through the existing combat shell, with remaining pending slots removed and future gameplay commitments rejected;
+- living Mudcrest identity/anatomy/status/world state preserved through Hunter defeat;
+- exact defeat-handoff replay idempotency.
 
-Generic status timing owner:
-`game/scripts/gameplay/combat/hunt01_status_timing_runtime.gd`.
+Hunter Downed outcome owner:
+`game/scripts/gameplay/combat/hunt01_encounter_outcome_runtime.gd`.
 
 Schema:
-`uhr.hunt01.status_timing.v1`.
+`uhr.hunt01.encounter_outcome.v1`.
 
 Verified source head:
-`57c205e1b2fb1fc69219f44033ef527ea756a353`.
+`f363998334bb752b037ed524cb909ad12634b71f`.
+
+Implementation commit:
+`a6476483c7f187f5e4904d7901c28e1abe0f9996`.
+
+Static-contract repair commits:
+`31d046b19a984c8234af788a09b3d0b6f8f8716b`, `f363998334bb752b037ed524cb909ad12634b71f`.
 
 Production workflow:
-`33937504389` — SUCCESS.
+`33985410020` — SUCCESS.
 
 Workflow job:
-`101228175010` — SUCCESS.
+`101357889357` — SUCCESS.
 
 Artifact:
-- ID `9960678247`;
-- name `UnnamedHuntRPG-Hunt01-StatusTiming-debug`;
-- size `57,428,913` bytes;
-- SHA-256 `f275b27c4f0f08a9ba0a45a6dd6c8bbb91a6410a564f947cee4efaed4fc88520`.
+- ID `9975014310`;
+- name `UnnamedHuntRPG-Hunt01-HunterDownedOutcome-debug`;
+- size `57,446,932` bytes;
+- SHA-256 `ab431361b3be3b325300d7d2242cd622afdb376f6426d8d2228fab0388cae196`.
 
 ## Verification boundary
 
@@ -69,27 +75,30 @@ Artifact:
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Bleeding periodic Health magnitude is still not selected by authoritative content/balance data. Mudcrest structural crack/break/sever thresholds are also explicitly open and must not be invented. Remaining Mudcrest attacks/behavior, encounter outcomes/retreat, structural detachment, harvest, inventory, crafting, settlement services and persistence runtime remain incomplete.
+Forced-recovery destination/timing/costs remain intentionally unselected. Bleeding periodic Health magnitude remains open. Mudcrest structural crack/break/sever thresholds remain explicitly open and must not be invented. Voluntary withdrawal needs an authored Hunter escape-node/equivalent boundary before runtime commitment. Monster retreat/escape needs behavior-route execution. Harvest, inventory, crafting, settlement services and persistence remain incomplete.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_GENERIC_STATUS_TIMING_RUNTIME_2026-09-05.md`.
+`docs/70_handoff/HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_2026-09-06.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`
 
 Why this is executable now:
-- the verified Hunter health owner already emits `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` at zero Health;
-- `docs/20_gameplay/combat/DEFEAT_RETREAT_BASELINE_CONTRACT.md` already selects `hunter_health <= 0 -> DOWNED` and `PLAYER_HUNTER_DOWNED -> HUNTERS_DEFEATED`;
-- this outcome slice does not require final Health/damage balance or the still-open anatomy break/sever thresholds.
+- `COMBAT_ATTACK_PACKET.md` already selects `M01_TAIL_SWEEP`, 3 AP, 18 Stamina, Impact channel, 14-Stamina successful Block impact drain, rear/flank relation, pivot/arc-clearance requirements and anatomy capability `CAP_M01_TAIL_SWEEP`;
+- deterministic behavior gives legal rear/flank Tail Sweep priority over other normal attacks;
+- existing runtime already owns Block commitment/impact drain and generic Off-Balance application/timing;
+- the baseline tail is attached and no structural threshold is required merely to execute the intact-tail attack;
+- the slice can remain independent from still-open sever thresholds and Staggered implementation.
 
 Required boundary:
-1. create one generic encounter-outcome owner under `game/scripts/gameplay/combat/`;
-2. consume the stable pending Hunter-defeat handoff exactly once;
-3. transition the player Hunter to `DOWNED` and commit `HUNTERS_DEFEATED` only after the authoritative resolution boundary completes;
-4. terminate/freeze the existing combat scheduler through its owner rather than creating a second scheduler;
-5. prevent new normal activations/reactions after terminal commitment and mark remaining pending roster slots removed with the contract reason where the shell owns that state;
-6. preserve the living Mudcrest instance/anatomy/status/world state; defeat must not reset the Monster;
-7. do not implement respawn/recovery penalties, voluntary withdrawal, Monster escape/death, harvest rewards, structural thresholds or Bleeding HP magnitude in this bounded slice;
-8. add static, dedicated headless, regression and Android-build verification;
-9. document and promote only after green evidence.
+1. extend the existing Monster-01 attack owner rather than create a second Monster scheduler/driver;
+2. add deterministic Tail Sweep legality using real tactical position, rear/flank bearing, body/pivot clearance and line-of-effect/arc blockers;
+3. commit exactly 3 AP / 18 Stamina and open one reaction window with only currently executable legal reactions plus decline;
+4. route valid Poleblade Block through the existing reaction/defense resource authority with 14 impact Stamina drain;
+5. resolve pure `IMPACT` contact with one stable seeded-variance boundary and no extra random proc;
+6. emit/apply Off-Balance only where the existing status contract already authorizes it; leave Staggered pending until its generic owner exists;
+7. preserve `TAIL_DISTAL attached` as an explicit current capability fact without inventing sever thresholds;
+8. add a presentation telegraph asset that is non-colliding and cannot decide legality;
+9. add static, dedicated headless, regression and Android-build verification;
+10. document and promote only after green evidence.
