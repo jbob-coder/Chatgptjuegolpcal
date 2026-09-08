@@ -8,11 +8,14 @@ const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const MONSTER_COMBATANT_ID := "monster_r01_m01_0001"
 const HUNTER_COMBATANT_ID := "hunter_player_0001"
 const HEAD_SWEEP_ATTACK_ID := "M01_HEAD_SWEEP_GORE"
+const TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"
 const GORE_SWEEP_PROFILE := "GORE_SWEEP"
+const TAIL_SWEEP_PROFILE := "TAIL_SWEEP_IMPACT"
 const STATUS_BLEEDING := "status_bleeding"
 const STATUS_OFF_BALANCE := "status_off_balance"
 const TRIGGER_HOOK := "ON_HIT_OR_DAMAGE_CONSEQUENCE"
 const FIXTURE_STATUS := "PROVISIONAL_FIRST_SLICE_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_FIXTURE"
+const TAIL_FIXTURE_STATUS := "USER_AUTHORIZED_CREATIVE_CANON_PROVISIONAL_TAIL_SWEEP_IMPACT_CLASSIFICATION"
 
 var _encounter_record: Dictionary = {}
 var _status_application: Node = null
@@ -30,7 +33,13 @@ func initialize(encounter_record: Dictionary) -> bool:
 	if not _bind_status_runtimes():
 		return false
 	_initialized = true
-	_record_trace("MUDCREST_WOUND_CONTACT_RUNTIME_READY", {"fixture_status": FIXTURE_STATUS, "request_schema": REQUEST_SCHEMA, "status_application_schema": String(_status_application.call("get_schema")), "status_timing_schema": String(_status_timing.call("get_schema"))})
+	_record_trace("MUDCREST_WOUND_CONTACT_RUNTIME_READY", {
+		"fixture_status": FIXTURE_STATUS,
+		"tail_fixture_status": TAIL_FIXTURE_STATUS,
+		"request_schema": REQUEST_SCHEMA,
+		"status_application_schema": String(_status_application.call("get_schema")),
+		"status_timing_schema": String(_status_timing.call("get_schema")),
+	})
 	return true
 
 func _bind_status_runtimes() -> bool:
@@ -81,7 +90,7 @@ func resolve_head_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 		return {"success": false, "reason": "MISSING_RESOLUTION_ID"}
 	if _resolutions.has(resolution_id):
 		return (_resolutions[resolution_id] as Dictionary).duplicate(true)
-	var validation := _validate_input(damage_handoff, defense_consequence)
+	var validation := _validate_input(damage_handoff, defense_consequence, HEAD_SWEEP_ATTACK_ID)
 	if not bool(validation.get("valid", false)):
 		return {"success": false, "reason": String(validation.get("reason", "INVALID_WOUND_CONTACT_INPUT")), "resolution_id": resolution_id}
 	var health: Dictionary = defense_consequence.get("health_injury_consequence", {}) as Dictionary
@@ -100,10 +109,6 @@ func resolve_head_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 	if contact_class == "NO_CONTACT" or hit_quality == "MISS" or applied_injury <= 0:
 		classification_reason = "NO_RESOLVED_WOUND_OR_CONTACT"
 	elif attack_profile == GORE_SWEEP_PROFILE and damage_channels.has("PIERCING") and defense_outcome == "NO_ACTIVE_GUARD" and (hit_quality == "SOLID" or hit_quality == "CLEAN"):
-		# Reversible first-slice content fixture: unguarded solid/clean GORE_SWEEP
-		# with resolved injury is treated as horn penetration. CLEAN no-guard is
-		# deliberately assigned to penetration rather than also claiming impact
-		# dominance so mixed channels cannot silently request two statuses.
 		contact_mode = "HORN_PENETRATION_PROVISIONAL"
 		classification_reason = "UNGUARDED_GORE_SWEEP_SOLID_OR_CLEAN_WITH_RESOLVED_INJURY"
 		horn_penetration = true
@@ -112,74 +117,227 @@ func resolve_head_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 		contact_mode = "IMPACT_DOMINANT_GUARD_FAILURE_PROVISIONAL"
 		classification_reason = "CLEAN_CONTACT_WITH_PARTIAL_OR_BROKEN_GUARD_AND_RESOLVED_INJURY"
 		impact_dominant = true
-		requests.append(_build_off_balance_request(resolution_id, block_outcome, applied_injury))
+		requests.append(_build_off_balance_request(resolution_id, HEAD_SWEEP_ATTACK_ID, "HEAD_SWEEP_CLEAN_IMPACT_DOMINANT_CONTACT_ESTABLISHED", block_outcome, applied_injury))
 	elif block_outcome == "BLOCK_STRONG":
 		contact_mode = "GUARD_ABSORBED_NO_QUALIFYING_STATUS_CONTACT"
 		classification_reason = "STRONG_BLOCK_PREVENTS_FIRST_SLICE_PENETRATION_OR_IMPACT_DOMINANCE_CLAIM"
 	elif hit_quality == "GRAZE":
 		classification_reason = "GRAZE_DOES_NOT_MEET_HEAD_SWEEP_STATUS_REQUEST_THRESHOLD"
-	var application_results: Array[Dictionary] = []
-	var application_dispatch_status := "NO_APPLICATION_REQUESTS"
-	if not requests.is_empty():
-		var application_round := int(damage_handoff.get("round_id", 0))
-		if application_round > 0:
-			application_dispatch_status = "DISPATCHED_TO_GENERIC_STATUS_APPLICATION_RUNTIME"
-			for request in requests:
-				application_results.append(_status_application.call("consume_application_request", request, application_round) as Dictionary)
-			for application_result in application_results:
-				if not bool(application_result.get("success", false)):
-					application_dispatch_status = "GENERIC_STATUS_APPLICATION_REJECTED"
-					break
-		else:
-			application_dispatch_status = "NOT_DISPATCHED_MISSING_AUTHORITATIVE_ROUND"
+	var dispatch := _dispatch_status_requests(requests, damage_handoff)
 	var result := {
-		"success": true, "status": "MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFIED", "schema": SCHEMA,
-		"resolution_id": resolution_id, "classification_id": "%s:WOUND_CONTACT" % resolution_id,
-		"encounter_id": EXPECTED_ENCOUNTER_ID, "attacker_id": MONSTER_COMBATANT_ID, "defender_id": HUNTER_COMBATANT_ID,
-		"attack_id": HEAD_SWEEP_ATTACK_ID, "attack_profile": attack_profile, "damage_channels": damage_channels,
-		"contact_class": contact_class, "hit_quality": hit_quality, "block_outcome": block_outcome, "defense_outcome": defense_outcome,
-		"applied_injury_load": applied_injury, "contact_mode": contact_mode, "classification_reason": classification_reason,
-		"horn_penetration_established": horn_penetration, "impact_dominant_established": impact_dominant,
-		"status_application_requests": requests.duplicate(true), "status_request_count": requests.size(),
-		"status_application_results": application_results.duplicate(true), "status_application_dispatch_status": application_dispatch_status,
-		"fixture_status": FIXTURE_STATUS, "final_classification_balance_status": "PROVISIONAL_REPLACEABLE_WITH_AUTHORED_CONTACT_WOUND_DATA",
+		"success": true,
+		"status": "MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFIED",
+		"schema": SCHEMA,
+		"resolution_id": resolution_id,
+		"classification_id": "%s:WOUND_CONTACT" % resolution_id,
+		"encounter_id": EXPECTED_ENCOUNTER_ID,
+		"attacker_id": MONSTER_COMBATANT_ID,
+		"defender_id": HUNTER_COMBATANT_ID,
+		"attack_id": HEAD_SWEEP_ATTACK_ID,
+		"attack_profile": attack_profile,
+		"damage_channels": damage_channels,
+		"contact_class": contact_class,
+		"hit_quality": hit_quality,
+		"block_outcome": block_outcome,
+		"defense_outcome": defense_outcome,
+		"applied_injury_load": applied_injury,
+		"contact_mode": contact_mode,
+		"classification_reason": classification_reason,
+		"horn_penetration_established": horn_penetration,
+		"impact_dominant_established": impact_dominant,
+		"status_application_requests": requests.duplicate(true),
+		"status_request_count": requests.size(),
+		"status_application_results": (dispatch.get("results", []) as Array).duplicate(true),
+		"status_application_dispatch_status": String(dispatch.get("status", "NO_APPLICATION_REQUESTS")),
+		"fixture_status": FIXTURE_STATUS,
+		"final_classification_balance_status": "PROVISIONAL_REPLACEABLE_WITH_AUTHORED_CONTACT_WOUND_DATA",
 	}
-	_resolutions[resolution_id] = result.duplicate(true)
-	_last_resolution = result.duplicate(true)
-	_record_trace("MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFIED", result)
+	_store_resolution(result, "MUDCREST_HEAD_SWEEP_WOUND_CONTACT_CLASSIFIED")
 	return result.duplicate(true)
 
-func _validate_input(damage_handoff: Dictionary, defense_consequence: Dictionary) -> Dictionary:
-	if String(damage_handoff.get("status", "")) != "PENDING_HUNTER_DAMAGE_RUNTIME": return {"valid": false, "reason": "UNEXPECTED_DAMAGE_HANDOFF_STATUS"}
-	if String(damage_handoff.get("encounter_id", "")) != EXPECTED_ENCOUNTER_ID: return {"valid": false, "reason": "UNEXPECTED_ENCOUNTER_ID"}
-	if String(damage_handoff.get("attacker_id", "")) != MONSTER_COMBATANT_ID or String(damage_handoff.get("defender_id", "")) != HUNTER_COMBATANT_ID: return {"valid": false, "reason": "UNEXPECTED_COMBATANT_ID"}
-	if String(damage_handoff.get("attack_id", "")) != HEAD_SWEEP_ATTACK_ID: return {"valid": false, "reason": "UNSUPPORTED_ATTACK_ID"}
-	if not bool(defense_consequence.get("success", false)): return {"valid": false, "reason": "DEFENSE_CONSEQUENCE_NOT_RESOLVED"}
+func resolve_tail_sweep_consequence(damage_handoff: Dictionary, defense_consequence: Dictionary) -> Dictionary:
+	if not _initialized:
+		return {"success": false, "reason": "WOUND_CONTACT_RUNTIME_NOT_INITIALIZED"}
+	var resolution_id := String(damage_handoff.get("resolution_id", ""))
+	if resolution_id.is_empty():
+		return {"success": false, "reason": "MISSING_RESOLUTION_ID"}
+	if _resolutions.has(resolution_id):
+		return (_resolutions[resolution_id] as Dictionary).duplicate(true)
+	var validation := _validate_input(damage_handoff, defense_consequence, TAIL_SWEEP_ATTACK_ID)
+	if not bool(validation.get("valid", false)):
+		return {"success": false, "reason": String(validation.get("reason", "INVALID_TAIL_SWEEP_CONTACT_INPUT")), "resolution_id": resolution_id}
 	var health: Dictionary = defense_consequence.get("health_injury_consequence", {}) as Dictionary
-	if not bool(health.get("success", false)): return {"valid": false, "reason": "HEALTH_INJURY_CONSEQUENCE_NOT_RESOLVED"}
-	if String(health.get("resolution_id", "")) != String(damage_handoff.get("resolution_id", "")): return {"valid": false, "reason": "RESOLUTION_ID_MISMATCH"}
-	return {"valid": true, "reason": "VALID_HEAD_SWEEP_WOUND_CONTACT_INPUT"}
+	var hit_quality := String(damage_handoff.get("hit_quality", ""))
+	var block_outcome := String(defense_consequence.get("block_outcome", "NOT_APPLICABLE"))
+	var defense_outcome := String(health.get("defense_outcome", ""))
+	var applied_injury := int(health.get("applied_injury_load", 0))
+	var damage_channels: Array = (damage_handoff.get("damage_channels", []) as Array).duplicate(true)
+	var attack_profile := String(damage_handoff.get("attack_profile", ""))
+	var contact_class := String(damage_handoff.get("contact_class", ""))
+	var contact_mode := "NO_QUALIFYING_STATUS_CONTACT"
+	var classification_reason := "NO_STATUS_PREREQUISITE_ESTABLISHED"
+	var impact_dominant := false
+	var requests: Array[Dictionary] = []
+	if contact_class == "NO_CONTACT" or hit_quality == "MISS" or applied_injury <= 0:
+		classification_reason = "NO_RESOLVED_WOUND_OR_CONTACT"
+	elif not damage_channels.has("IMPACT") or attack_profile != TAIL_SWEEP_PROFILE:
+		classification_reason = "TAIL_SWEEP_PURE_IMPACT_PROFILE_NOT_ESTABLISHED"
+	elif block_outcome == "BLOCK_STRONG":
+		contact_mode = "GUARD_ABSORBED_NO_QUALIFYING_STATUS_CONTACT"
+		classification_reason = "STRONG_BLOCK_PREVENTS_TAIL_SWEEP_OFF_BALANCE_REQUEST"
+	elif hit_quality == "SOLID" or hit_quality == "CLEAN":
+		contact_mode = "TAIL_SWEEP_IMPACT_CONTACT_PROVISIONAL"
+		classification_reason = "TAIL_SWEEP_SOLID_OR_CLEAN_IMPACT_WITH_RESOLVED_INJURY"
+		impact_dominant = true
+		requests.append(_build_off_balance_request(resolution_id, TAIL_SWEEP_ATTACK_ID, "TAIL_SWEEP_SOLID_OR_CLEAN_IMPACT_CONTACT_ESTABLISHED", block_outcome, applied_injury))
+	elif hit_quality == "GRAZE":
+		classification_reason = "GRAZE_DOES_NOT_MEET_TAIL_SWEEP_OFF_BALANCE_THRESHOLD"
+	var dispatch := _dispatch_status_requests(requests, damage_handoff)
+	var result := {
+		"success": true,
+		"status": "MUDCREST_TAIL_SWEEP_WOUND_CONTACT_CLASSIFIED",
+		"schema": SCHEMA,
+		"resolution_id": resolution_id,
+		"classification_id": "%s:WOUND_CONTACT" % resolution_id,
+		"encounter_id": EXPECTED_ENCOUNTER_ID,
+		"attacker_id": MONSTER_COMBATANT_ID,
+		"defender_id": HUNTER_COMBATANT_ID,
+		"attack_id": TAIL_SWEEP_ATTACK_ID,
+		"attack_profile": attack_profile,
+		"damage_channels": damage_channels,
+		"contact_class": contact_class,
+		"hit_quality": hit_quality,
+		"block_outcome": block_outcome,
+		"defense_outcome": defense_outcome,
+		"applied_injury_load": applied_injury,
+		"contact_mode": contact_mode,
+		"classification_reason": classification_reason,
+		"horn_penetration_established": false,
+		"impact_dominant_established": impact_dominant,
+		"staggered_request_status": "DEFERRED_NOT_EMITTED_BY_THIS_SLICE",
+		"bleeding_request_status": "NOT_APPLICABLE_PURE_IMPACT_TAIL_SWEEP",
+		"status_application_requests": requests.duplicate(true),
+		"status_request_count": requests.size(),
+		"status_application_results": (dispatch.get("results", []) as Array).duplicate(true),
+		"status_application_dispatch_status": String(dispatch.get("status", "NO_APPLICATION_REQUESTS")),
+		"fixture_status": TAIL_FIXTURE_STATUS,
+		"final_classification_balance_status": "USER_AUTHORIZED_CREATIVE_CANON_REVISABLE",
+	}
+	_store_resolution(result, "MUDCREST_TAIL_SWEEP_WOUND_CONTACT_CLASSIFIED")
+	return result.duplicate(true)
+
+func _validate_input(damage_handoff: Dictionary, defense_consequence: Dictionary, expected_attack_id: String) -> Dictionary:
+	if String(damage_handoff.get("status", "")) != "PENDING_HUNTER_DAMAGE_RUNTIME":
+		return {"valid": false, "reason": "UNEXPECTED_DAMAGE_HANDOFF_STATUS"}
+	if String(damage_handoff.get("encounter_id", "")) != EXPECTED_ENCOUNTER_ID:
+		return {"valid": false, "reason": "UNEXPECTED_ENCOUNTER_ID"}
+	if String(damage_handoff.get("attacker_id", "")) != MONSTER_COMBATANT_ID or String(damage_handoff.get("defender_id", "")) != HUNTER_COMBATANT_ID:
+		return {"valid": false, "reason": "UNEXPECTED_COMBATANT_ID"}
+	if String(damage_handoff.get("attack_id", "")) != expected_attack_id:
+		return {"valid": false, "reason": "UNSUPPORTED_ATTACK_ID"}
+	if not bool(defense_consequence.get("success", false)):
+		return {"valid": false, "reason": "DEFENSE_CONSEQUENCE_NOT_RESOLVED"}
+	var health: Dictionary = defense_consequence.get("health_injury_consequence", {}) as Dictionary
+	if not bool(health.get("success", false)):
+		return {"valid": false, "reason": "HEALTH_INJURY_CONSEQUENCE_NOT_RESOLVED"}
+	if String(health.get("resolution_id", "")) != String(damage_handoff.get("resolution_id", "")):
+		return {"valid": false, "reason": "RESOLUTION_ID_MISMATCH"}
+	return {"valid": true, "reason": "VALID_WOUND_CONTACT_INPUT"}
+
+func _dispatch_status_requests(requests: Array[Dictionary], damage_handoff: Dictionary) -> Dictionary:
+	var results: Array[Dictionary] = []
+	if requests.is_empty():
+		return {"status": "NO_APPLICATION_REQUESTS", "results": results}
+	var application_round := int(damage_handoff.get("round_id", 0))
+	if application_round <= 0:
+		return {"status": "NOT_DISPATCHED_MISSING_AUTHORITATIVE_ROUND", "results": results}
+	var dispatch_status := "DISPATCHED_TO_GENERIC_STATUS_APPLICATION_RUNTIME"
+	for request in requests:
+		results.append(_status_application.call("consume_application_request", request, application_round) as Dictionary)
+	for result in results:
+		if not bool(result.get("success", false)):
+			dispatch_status = "GENERIC_STATUS_APPLICATION_REJECTED"
+			break
+	return {"status": dispatch_status, "results": results}
 
 func _build_bleeding_request(resolution_id: String, hit_quality: String, applied_injury: int) -> Dictionary:
-	return {"status": "VALID_STATUS_APPLICATION_REQUEST", "request_schema": REQUEST_SCHEMA, "application_request_id": "%s:STATUS:%s" % [resolution_id, STATUS_BLEEDING], "status_id": STATUS_BLEEDING, "target_actor_id": HUNTER_COMBATANT_ID, "source_actor_id": MONSTER_COMBATANT_ID, "source_action_id": HEAD_SWEEP_ATTACK_ID, "source_resolution_id": resolution_id, "trigger_hook": TRIGGER_HOOK, "application_mode": "STACK_INTENSITY_CAPPED", "intensity_delta": 1, "qualification": "HEAD_SWEEP_HORN_PENETRATION_WOUND_ESTABLISHED", "hit_quality": hit_quality, "applied_injury_load": applied_injury, "consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME"}
+	return {
+		"status": "VALID_STATUS_APPLICATION_REQUEST",
+		"request_schema": REQUEST_SCHEMA,
+		"application_request_id": "%s:STATUS:%s" % [resolution_id, STATUS_BLEEDING],
+		"status_id": STATUS_BLEEDING,
+		"target_actor_id": HUNTER_COMBATANT_ID,
+		"source_actor_id": MONSTER_COMBATANT_ID,
+		"source_action_id": HEAD_SWEEP_ATTACK_ID,
+		"source_resolution_id": resolution_id,
+		"trigger_hook": TRIGGER_HOOK,
+		"application_mode": "STACK_INTENSITY_CAPPED",
+		"intensity_delta": 1,
+		"qualification": "HEAD_SWEEP_HORN_PENETRATION_WOUND_ESTABLISHED",
+		"hit_quality": hit_quality,
+		"applied_injury_load": applied_injury,
+		"consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME",
+	}
 
-func _build_off_balance_request(resolution_id: String, block_outcome: String, applied_injury: int) -> Dictionary:
-	return {"status": "VALID_STATUS_APPLICATION_REQUEST", "request_schema": REQUEST_SCHEMA, "application_request_id": "%s:STATUS:%s" % [resolution_id, STATUS_OFF_BALANCE], "status_id": STATUS_OFF_BALANCE, "target_actor_id": HUNTER_COMBATANT_ID, "source_actor_id": MONSTER_COMBATANT_ID, "source_action_id": HEAD_SWEEP_ATTACK_ID, "source_resolution_id": resolution_id, "trigger_hook": TRIGGER_HOOK, "application_mode": "APPLY_OR_REFRESH", "qualification": "HEAD_SWEEP_CLEAN_IMPACT_DOMINANT_CONTACT_ESTABLISHED", "block_outcome": block_outcome, "applied_injury_load": applied_injury, "consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME"}
+func _build_off_balance_request(resolution_id: String, source_action_id: String, qualification: String, block_outcome: String, applied_injury: int) -> Dictionary:
+	return {
+		"status": "VALID_STATUS_APPLICATION_REQUEST",
+		"request_schema": REQUEST_SCHEMA,
+		"application_request_id": "%s:STATUS:%s" % [resolution_id, STATUS_OFF_BALANCE],
+		"status_id": STATUS_OFF_BALANCE,
+		"target_actor_id": HUNTER_COMBATANT_ID,
+		"source_actor_id": MONSTER_COMBATANT_ID,
+		"source_action_id": source_action_id,
+		"source_resolution_id": resolution_id,
+		"trigger_hook": TRIGGER_HOOK,
+		"application_mode": "APPLY_OR_REFRESH",
+		"qualification": qualification,
+		"block_outcome": block_outcome,
+		"applied_injury_load": applied_injury,
+		"consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME",
+	}
+
+func _store_resolution(result: Dictionary, event_name: String) -> void:
+	var resolution_id := String(result.get("resolution_id", ""))
+	_resolutions[resolution_id] = result.duplicate(true)
+	_last_resolution = result.duplicate(true)
+	_record_trace(event_name, result)
 
 func _record_trace(event_name: String, details: Dictionary = {}) -> void:
 	_trace_sequence += 1
 	var entry: Dictionary = {"sequence": _trace_sequence, "event": event_name, "encounter_id": EXPECTED_ENCOUNTER_ID, "monster_id": MONSTER_COMBATANT_ID}
-	for key in details.keys(): entry[key] = details[key]
+	for key in details.keys():
+		entry[key] = details[key]
 	_trace.append(entry)
 
-func get_schema() -> String: return SCHEMA
-func is_initialized() -> bool: return _initialized
-func get_fixture_status() -> String: return FIXTURE_STATUS
-func get_status_application_runtime() -> Node: return _status_application
-func get_status_timing_runtime() -> Node: return _status_timing
-func get_last_resolution() -> Dictionary: return _last_resolution.duplicate(true)
+func get_schema() -> String:
+	return SCHEMA
+
+func is_initialized() -> bool:
+	return _initialized
+
+func get_fixture_status() -> String:
+	return FIXTURE_STATUS
+
+func get_tail_fixture_status() -> String:
+	return TAIL_FIXTURE_STATUS
+
+func get_status_application_runtime() -> Node:
+	return _status_application
+
+func get_status_timing_runtime() -> Node:
+	return _status_timing
+
+func get_last_resolution() -> Dictionary:
+	return _last_resolution.duplicate(true)
+
 func get_resolution(resolution_id: String) -> Dictionary:
-	if not _resolutions.has(resolution_id): return {}
+	if not _resolutions.has(resolution_id):
+		return {}
 	return (_resolutions[resolution_id] as Dictionary).duplicate(true)
-func get_applied_resolution_count() -> int: return _resolutions.size()
-func get_trace() -> Array[Dictionary]: return _trace.duplicate(true)
+
+func get_applied_resolution_count() -> int:
+	return _resolutions.size()
+
+func get_trace() -> Array[Dictionary]:
+	return _trace.duplicate(true)
