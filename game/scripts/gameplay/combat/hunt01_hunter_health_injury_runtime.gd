@@ -5,6 +5,8 @@ const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const HUNTER_COMBATANT_ID := "hunter_player_0001"
 const MONSTER_COMBATANT_ID := "monster_r01_m01_0001"
 const HEAD_SWEEP_ATTACK_ID := "M01_HEAD_SWEEP_GORE"
+const TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"
+const SUPPORTED_HOSTILE_ATTACK_IDS := [HEAD_SWEEP_ATTACK_ID, TAIL_SWEEP_ATTACK_ID]
 
 const NORMALIZED_MAX_HEALTH := 100
 const HEALTH_FIXTURE_STATUS := "PROVISIONAL_FIRST_SLICE_HUNTER_HEALTH_INJURY_FIXTURE"
@@ -38,6 +40,7 @@ func initialize(encounter_record: Dictionary) -> bool:
 		"max_health": NORMALIZED_MAX_HEALTH,
 		"fixture_status": HEALTH_FIXTURE_STATUS,
 		"protection_fixture_status": PROTECTION_FIXTURE_STATUS,
+		"supported_hostile_attack_ids": SUPPORTED_HOSTILE_ATTACK_IDS.duplicate(),
 	})
 	return true
 
@@ -79,7 +82,8 @@ func _validate_pending_handoff(handoff: Dictionary) -> Dictionary:
 		return {"valid": false, "reason": "UNEXPECTED_ATTACKER_ID"}
 	if String(handoff.get("defender_id", "")) != HUNTER_COMBATANT_ID:
 		return {"valid": false, "reason": "UNEXPECTED_DEFENDER_ID"}
-	if String(handoff.get("attack_id", "")) != HEAD_SWEEP_ATTACK_ID:
+	var attack_id := String(handoff.get("attack_id", ""))
+	if not SUPPORTED_HOSTILE_ATTACK_IDS.has(attack_id):
 		return {"valid": false, "reason": "UNSUPPORTED_ATTACK_ID"}
 	var hit_quality := String(handoff.get("hit_quality", ""))
 	if hit_quality != "GRAZE" and hit_quality != "SOLID" and hit_quality != "CLEAN":
@@ -239,6 +243,9 @@ func get_fixture_status() -> String:
 
 func get_protection_fixture_status() -> String:
 	return PROTECTION_FIXTURE_STATUS
+
+func get_supported_hostile_attack_ids() -> Array:
+	return SUPPORTED_HOSTILE_ATTACK_IDS.duplicate()
 
 func get_health_state() -> Dictionary:
 	return {
