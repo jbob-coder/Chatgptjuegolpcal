@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static/source gate for Mudcrest Head Sweep wound/contact classification."""
+"""Static/source gate for Mudcrest wound/contact classification."""
 
 from pathlib import Path
 
@@ -36,20 +36,37 @@ def main() -> int:
     doc = DOC.read_text(encoding="utf-8")
     workflow = WORKFLOW.read_text(encoding="utf-8")
 
+    head_start = classifier.index("func resolve_head_sweep_consequence")
+    tail_start = classifier.index("func resolve_tail_sweep_consequence")
+    head_slice = classifier[head_start:tail_start]
+
     check("schema explicit", 'SCHEMA := "uhr.hunt01.mudcrest_wound_contact.v1"' in classifier)
     check("classification fixture explicitly provisional", "PROVISIONAL_FIRST_SLICE_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_FIXTURE" in classifier)
     check("stable resolution replay map exists", "_resolutions" in classifier and "if _resolutions.has(resolution_id)" in classifier)
-    check("only Head Sweep is accepted", 'HEAD_SWEEP_ATTACK_ID := "M01_HEAD_SWEEP_GORE"' in classifier and "UNSUPPORTED_ATTACK_ID" in classifier)
-    check("mixed channels alone do not automatically request both statuses", "HORN_PENETRATION_PROVISIONAL" in classifier and "IMPACT_DOMINANT_GUARD_FAILURE_PROVISIONAL" in classifier and "deliberately assigned to penetration rather than also claiming impact" in classifier)
-    check("Bleeding request requires unguarded SOLID/CLEAN wound fixture", 'defense_outcome == "NO_ACTIVE_GUARD"' in classifier and '(hit_quality == "SOLID" or hit_quality == "CLEAN")' in classifier and "_build_bleeding_request" in classifier)
-    check("Off-Balance request requires CLEAN partial/broken guard fixture", 'hit_quality == "CLEAN"' in classifier and 'block_outcome == "BLOCK_PARTIAL" or block_outcome == "BLOCK_BROKEN"' in classifier and "_build_off_balance_request" in classifier)
+    check(
+        "selected Head and Tail attacks are accepted while unsupported IDs remain rejected",
+        'HEAD_SWEEP_ATTACK_ID := "M01_HEAD_SWEEP_GORE"' in classifier
+        and 'TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"' in classifier
+        and "_validate_input(damage_handoff, defense_consequence, HEAD_SWEEP_ATTACK_ID)" in classifier
+        and "_validate_input(damage_handoff, defense_consequence, TAIL_SWEEP_ATTACK_ID)" in classifier
+        and "UNSUPPORTED_ATTACK_ID" in classifier,
+    )
+    check(
+        "Head mixed channels remain mutually classified instead of automatically requesting both statuses",
+        "HORN_PENETRATION_PROVISIONAL" in head_slice
+        and "IMPACT_DOMINANT_GUARD_FAILURE_PROVISIONAL" in head_slice
+        and head_slice.index("_build_bleeding_request") < head_slice.index('elif damage_channels.has("IMPACT")'),
+    )
+    check("Bleeding request requires unguarded SOLID/CLEAN wound fixture", 'defense_outcome == "NO_ACTIVE_GUARD"' in head_slice and '(hit_quality == "SOLID" or hit_quality == "CLEAN")' in head_slice and "_build_bleeding_request" in head_slice)
+    check("Head Off-Balance request requires CLEAN partial/broken guard fixture", 'hit_quality == "CLEAN"' in head_slice and 'block_outcome == "BLOCK_PARTIAL" or block_outcome == "BLOCK_BROKEN"' in head_slice and "_build_off_balance_request" in head_slice)
     check("Bleeding request is exactly +1", '"status_id": STATUS_BLEEDING' in classifier and '"intensity_delta": 1' in classifier)
     check("request consumer remains pending generic status runtime", "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME" in classifier)
-    check("classifier applies no status", all(token not in classifier for token in ("apply_status(", "StatusInstance", "ROUND_END", "TURN_START_PRE_RECOVERY")))
+    check("classifier applies no status directly", all(token not in classifier for token in ("apply_status(", "StatusInstance", "ROUND_END", "TURN_START_PRE_RECOVERY")))
     check("classifier mutates no health/resources/anatomy/position", all(token not in classifier for token in ("health -=", "_current_health", "try_commit_cost", "try_commit_reaction_cost", "apply_damage_handoff", "global_position =")))
     check("classifier uses no RNG", all(token not in classifier for token in ("randf(", "randi(", "RandomNumberGenerator", "randomize(")))
     check("attack preloads species classifier", 'preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_wound_contact_runtime.gd")' in attack)
-    check("attack resolves classifier after defense", 'resolve_head_sweep_consequence", damage_handoff, defense_consequence' in attack and attack.index('resolve_hostile_handoff", damage_handoff') < attack.index('resolve_head_sweep_consequence", damage_handoff, defense_consequence'))
+    check("attack resolves Head classifier after defense", 'resolve_head_sweep_consequence", damage_handoff, defense_consequence' in attack and attack.index('resolve_hostile_handoff", damage_handoff') < attack.index('resolve_head_sweep_consequence", damage_handoff, defense_consequence'))
+    check("attack resolves Tail classifier after defense", 'resolve_tail_sweep_consequence", damage_handoff, defense_consequence' in attack and attack.index('resolve_hostile_handoff", damage_handoff') < attack.index('resolve_tail_sweep_consequence", damage_handoff, defense_consequence'))
     check("attack attaches classification to stable resolution", '"wound_contact_classification": wound_contact.duplicate(true)' in attack)
     check("attack exposes classifier getter", "get_wound_contact_runtime" in attack)
     check("real production test verifies strong Block no-request", "SOLID strong Block makes no status request" in test)
@@ -66,7 +83,7 @@ def main() -> int:
         print("Gate: HUNT01_MUDCREST_WOUND_CONTACT_SOURCE_STATIC_FAILED")
     else:
         print("Gate: HUNT01_MUDCREST_WOUND_CONTACT_SOURCE_STATIC_VERIFIED")
-    print("This gate does not claim final contact/wound balance, status application/timing, defeat, structural break/sever, other Mudcrest attacks, phone acceptance or performance verification.")
+    print("This gate preserves Head Sweep regression semantics while permitting explicitly selected additional Mudcrest attacks. It does not claim final contact/wound balance, status timing, structural break/sever, phone acceptance or performance verification.")
     return 0 if not failures else 1
 
 
