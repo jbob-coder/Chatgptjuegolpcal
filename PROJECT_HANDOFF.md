@@ -17,15 +17,16 @@ World/tracking/encounter remain the continuous 440×440 m Hunt-01 foundation thr
 
 Combat is deterministic and includes tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, Tail Sweep, Hunter health/injury, generic Bleeding/Staggered/Off-Balance status ownership/timing, Hunter Downed/defeat terminal execution, and CLEAN Tail Sweep→generic Staggered producer integration.
 
-The CI/development autorun now boots the real Region-01 scene twice in one Godot process and reproduces a longer integrated basic loop: tracking→ENGAGE, initial idle scheduler cycle, authored movement to N10, real Tail Sweep/Block consequence, authored reposition to N09 through normal AP costs, real Head Sweep/Block scheduler bridge, and a real Round-4 Dorsal Measured Cut/anatomy transaction. Both fresh instances match and teardown rejects Hunt-01 state leakage. This remains verification automation, not player-facing autoplay.
+The CI/development autorun boots the real Region-01 scene twice in one Godot process and reproduces a longer integrated basic loop: tracking→ENGAGE, initial idle scheduler cycle, authored movement to N10, real Tail Sweep/Block consequence, authored reposition to N09 through normal AP costs, real Head Sweep/Block scheduler bridge, and a real Round-4 Dorsal Measured Cut/anatomy transaction. Both fresh instances match and teardown rejects Hunt-01 state leakage. This remains verification automation, not player-facing autoplay.
 
 ## Current verified baseline
 
-Latest full production-verified revision: `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
-Hunter-attack autorun implementation / tested source: `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
-Production workflow `34772015152`: SUCCESS.
-Job `103763209477`: SUCCESS.
-Artifact `10322585732`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,440 bytes, SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
+Latest full production-verified revision: `578f598e92719949ade1f669aa94ca319a41d94c`.
+Hunter-attack autorun implementation: `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
+Promotion / latest tested source: `578f598e92719949ade1f669aa94ca319a41d94c`.
+Production workflow `34772248966`: SUCCESS.
+Job `103763843357`: SUCCESS.
+Artifact `10322267457`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,438 bytes, SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
 
 Verification labels:
 - stack through integrated Hunter attack autorun exchange: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
@@ -37,19 +38,19 @@ Latest specialized handoff:
 
 ## Completed work
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION` is complete at source revision `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION` is complete.
 
-The integrated autorun now preserves the previously verified Tail Sweep/Block exchange and then:
+The integrated autorun preserves the Tail Sweep/Block exchange and then:
 - proves Measured Cut is out of range at N10;
 - uses authored N10→N08→N05→N07→N09 movement through the real movement owner;
 - proves that four-step reposition consumes the Round-3 4 AP rather than bypassing economy;
-- uses the existing Head Sweep + Poleblade Block as the real Monster activation bridge;
+- uses existing Head Sweep + Poleblade Block as the real Monster activation bridge;
 - returns to Round-4 Hunter at N09;
 - commits existing `POLEBLADE_MEASURED_CUT` into `DORSAL_PLATES`;
 - preserves existing 2 AP / 12 Stamina cost, CLEAN selected-part contact, `MINERALIZED_DORSAL_PLATE`, anatomy 100→95 and idempotent handoff readback;
 - repeats the same signature on a second fresh instance.
 
-No production gameplay runtime or balance file changed in this implementation.
+No production gameplay runtime or balance file changed in this implementation. Run 79 verified the implementation source; run 80 re-verified the promoted package/front-door state at exact revision `578f598e92719949ade1f669aa94ca319a41d94c`.
 
 ## Explicitly incomplete
 

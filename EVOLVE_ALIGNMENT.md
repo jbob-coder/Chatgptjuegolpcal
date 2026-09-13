@@ -43,24 +43,27 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 ## Current verified automated baseline
 
 Latest full production-verified revision:
+`578f598e92719949ade1f669aa94ca319a41d94c`.
+
+Hunter-attack autorun implementation commit:
 `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
 
-Hunter-attack autorun implementation / latest tested source:
-`72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
+Promotion commit / latest tested source:
+`578f598e92719949ade1f669aa94ca319a41d94c`.
 
 Production verification workflow:
-`34772015152` — SUCCESS.
+`34772248966` — SUCCESS.
 
 Workflow job:
-`103763209477` — SUCCESS.
+`103763843357` — SUCCESS.
 
 Artifact:
-- ID `10322585732`;
+- ID `10322267457`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,515,440` bytes;
-- SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
+- size `57,515,438` bytes;
+- SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
 
-Run 79 passed static governance, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, the extended two-cycle autorun through both Monster and Hunter combat exchanges, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
+Run 79 verified the Hunter-attack autorun implementation at `72109e2d56205da85f6ce898d22bb9f8f0558b0b`. Promotion commit `578f598e92719949ade1f669aa94ca319a41d94c` reconciled the package/front doors, including the previously stale `game/README.md` baseline. Run 80 then re-passed static governance, Godot 4.7.2 import/parse, production smokes, the two-cycle autorun through both combat exchanges, every current combat/anatomy/status/outcome regression, Android debug export and artifact upload on that exact promoted revision.
 
 ## Verification boundary
 

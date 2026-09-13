@@ -41,12 +41,12 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Latest full production-verified revision `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
-Production workflow `34772015152`: SUCCESS.
-Job `103763209477`: SUCCESS.
-Artifact `10322585732`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,440 bytes, SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
+Latest full production-verified revision `578f598e92719949ade1f669aa94ca319a41d94c`.
+Production workflow `34772248966`: SUCCESS.
+Job `103763843357`: SUCCESS.
+Artifact `10322267457`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,438 bytes, SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
 
-Run 79 passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun through both real combat exchanges, all current combat/anatomy/status/outcome regressions, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
+Run 80 passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun through both real combat exchanges, all current combat/anatomy/status/outcome regressions, Android export and artifact upload on exact promoted revision `578f598e92719949ade1f669aa94ca319a41d94c`. It does not establish phone acceptance or sustained performance.
 
 ## Current production authorization
 

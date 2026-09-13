@@ -41,18 +41,18 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 ## Current verified snapshot — discovery aid only
 
-The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, Tail Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun that now reproduces both a real Monster Tail Sweep/Block exchange and a real Hunter Dorsal Measured Cut/anatomy exchange.
+The automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, Tail Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun that reproduces both a real Monster Tail Sweep/Block exchange and a real Hunter Dorsal Measured Cut/anatomy exchange.
 
 Latest full production-verified revision:
-`72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
+`578f598e92719949ade1f669aa94ca319a41d94c`.
 
 Latest production verification:
-- workflow `34772015152`: SUCCESS;
-- job `103763209477`: SUCCESS;
-- artifact `10322585732`;
+- workflow `34772248966`: SUCCESS;
+- job `103763843357`: SUCCESS;
+- artifact `10322267457`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,515,440` bytes;
-- SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
+- size `57,515,438` bytes;
+- SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 
