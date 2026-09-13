@@ -24,7 +24,7 @@ Stable combatants: encounter `enc_r01_ef02_m01_0001`; Hunter `hunter_player_0001
 
 Species anatomy remains delegated to `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd`.
 
-The generic turn shell does not own final damage/health arithmetic, species crack/break/sever transitions, status qualification, or Monster attack selection/resolution. Tactical-node movement remains explicitly owned by `hunt01_tactical_movement_runtime.gd` and spends resources through the shell.
+The generic turn shell does not own final damage/health arithmetic, species crack/break/sever transitions, status consequences, or the Monster normal attack runtime. Species/content owners remain responsible for those layers. Adjacent tactical-node movement remains explicitly owned by `hunt01_tactical_movement_runtime.gd` and spends resources through the shell.
 
 Current initiative attributes remain the reversible `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`; they are executable deterministic fixtures, not final character/Monster balance.
 
