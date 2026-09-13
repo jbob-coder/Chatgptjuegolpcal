@@ -1,6 +1,6 @@
 # PROJECT HANDOFF — Unnamed Hunt RPG
 
-Status: PRODUCTION HUNT-01 BASIC RUNTIME AUTORUN ANDROID BUILD VERIFIED / BASIC AUTORUN COMBAT EXCHANGE NEXT / PHONE QA DEFERRED-BATCH
+Status: PRODUCTION HUNT-01 BASIC AUTORUN COMBAT EXCHANGE ANDROID BUILD VERIFIED / HUNTER ATTACK AUTORUN INTEGRATION NEXT / PHONE QA DEFERRED-BATCH
 Last reconciled: 2026-09-13
 
 ## Live project
@@ -17,19 +17,19 @@ World/tracking/encounter remain the continuous 440×440 m Hunt-01 foundation thr
 
 Combat is deterministic and includes tactical movement, Hunter Measured Cut, Mudcrest anatomy, shared reaction/Block flow, Head Sweep, Hunter health/injury, generic Bleeding/Staggered/Off-Balance status ownership/timing, Hunter Downed/defeat terminal execution, and Mudcrest Tail Sweep with CLEAN→generic Staggered producer integration.
 
-A dedicated CI/development autorun now boots the real Region-01 scene, proves stable identities and protected 6.25 m/s exploration speed, drives the existing seven-clue tracking runtime to `OBSERVATION_READY`, enters the physical engagement zone, stages same-location ENGAGE, verifies the current combat owners, advances one real scheduler cycle, tears the scene down, and repeats from a second fresh instance. The two deterministic signatures match and Hunt-01 groups are clean between cycles. This is verification automation, not player-facing autoplay.
+The CI/development autorun boots the real Region-01 scene twice in one Godot process. Each cycle starts from fresh tracking/encounter state, drives all seven clues to `OBSERVATION_READY`, reaches the physical engagement zone, stages same-location ENGAGE, verifies current combat owners, advances the initial out-of-range Monster idle to Round 2, follows authored tactical movement N01→N02→N05→N08→N10, resolves a real `M01_TAIL_SWEEP` through the existing Field Poleblade Block reaction, verifies deterministic SOLID / `BLOCK_STRONG`, Hunter Health 100→98, no strong-Block status request, and returns the scheduler to Round 3 Hunter. It then tears the world down and proves the second fresh instance produces the same signature with no Hunt-01 group leakage. This remains verification automation, not player-facing autoplay.
 
 ## Current verified baseline
 
-Latest full production-verified revision: `3c6a792851e5dec9756f6e99bd09de291fe266b2`.
-Basic autorun implementation: `07ad99f71fd0da45ff458fe8d5e770d02ab07783`.
-Fresh-instance documentation repair: `3c6a792851e5dec9756f6e99bd09de291fe266b2`.
-Production workflow `34763505121`: SUCCESS.
-Job `103740308986`: SUCCESS.
-Artifact `10319379031`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,495,532 bytes, SHA-256 `488a3f31bf589a194332402b8c8cf1ee8c9a9f57edb0d5d7a77adf5693b68b7f`.
+Latest full production-verified revision: `b270ef14787043252648c18ff02df31936e2f9a2`.
+Combat-exchange autorun implementation: `c85db3c152dc798ed1a03508a77f5066c50f0e2c`.
+Documentation contract repair / verified source: `b270ef14787043252648c18ff02df31936e2f9a2`.
+Production workflow `34771120281`: SUCCESS.
+Job `103760780223`: SUCCESS.
+Artifact `10321349678`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,703 bytes, SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
 
 Verification labels:
-- stack through basic runtime autorun: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
+- stack through basic autorun combat exchange: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
 - phone acceptance: DEFERRED / NOT PHONE VERIFIED;
 - sustained performance: NOT VERIFIED.
 
@@ -38,7 +38,7 @@ Latest specialized handoff:
 
 ## Completed work
 
-`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION` is complete. Run 73 exposed only a documentation/static contract mismatch (`fresh-instance` wording), which was repaired without changing runtime behavior or weakening the gate. Run 74 passed the new autorun and every pre-existing production regression plus Android export.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION` is complete. Run 76 exposed only a documentation/static contract mismatch (`combat exchange` wording), which was repaired without changing runtime behavior or weakening the gate. Run 77 passed the extended two-cycle autorun, every pre-existing production regression and Android export.
 
 ## Explicitly incomplete
 
@@ -46,20 +46,20 @@ Forced recovery/respawn; Hunter withdrawal geometry; Monster escape/death; Bleed
 
 ## Exact next action
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION`.
 
-Extend the existing test-only autorun so it performs one already-implemented deterministic combat exchange after tracking/ENGAGE using the current tactical movement/reaction/attack/consequence/status owners. Preserve the two fresh-instance repeatability proof. Do not add normal-game autoplay, automatic player locomotion or new gameplay semantics.
+Extend the existing verification-only fresh-instance autorun so it also performs one already-implemented Hunter `POLEBLADE_MEASURED_CUT` transaction through the current tactical movement, Hunter attack and Mudcrest anatomy owners. Preserve the verified Tail Sweep/Block exchange and two-cycle repeatability proof. Do not add normal-game autoplay, automatic player locomotion, new RNG, balance values, break/sever thresholds or Monster terminal semantics.
 
 Read first:
 - `game/tests/hunt01_basic_runtime_autorun_test.gd`;
-- `game/tests/hunt01_mudcrest_tail_sweep_runtime_test.gd`;
-- existing combat shell/tactical movement/reaction/Mudcrest attack APIs used by those tests;
+- `game/tests/hunt01_hunter_attack_runtime_test.gd`;
+- existing combat shell/tactical movement/Hunter attack/Mudcrest anatomy APIs used by those tests;
 - `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py`;
 - `.github/workflows/production-hunt01-graybox-android.yml`.
 
 ## Blockers / open questions
 
-No blocker for the verification-only combat-exchange extension. It must not resolve currently blocked gameplay design decisions as side effects.
+No blocker for the verification-only Hunter-attack integration. It must not resolve currently blocked gameplay design decisions as side effects.
 
 ## Phone / performance state
 

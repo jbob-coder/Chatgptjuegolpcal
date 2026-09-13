@@ -1,6 +1,6 @@
 # START HERE — Unnamed Hunt RPG — New Chat Bootstrap
 
-Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 BASIC RUNTIME AUTORUN ANDROID BUILD VERIFIED / BASIC AUTORUN COMBAT EXCHANGE NEXT
+Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 BASIC AUTORUN COMBAT EXCHANGE ANDROID BUILD VERIFIED / HUNTER ATTACK AUTORUN INTEGRATION NEXT
 Last reconciled: 2026-09-13
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and must not be used as the implementation base.
@@ -41,18 +41,18 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 ## Current verified snapshot — discovery aid only
 
-The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, Mudcrest Tail Sweep, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun regression.
+The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, Mudcrest Tail Sweep, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun that now includes one real deterministic Tail Sweep/Block combat exchange.
 
 Latest full production-verified revision:
-`3c6a792851e5dec9756f6e99bd09de291fe266b2`.
+`b270ef14787043252648c18ff02df31936e2f9a2`.
 
 Latest production verification:
-- workflow `34763505121`: SUCCESS;
-- job `103740308986`: SUCCESS;
-- artifact `10319379031`;
+- workflow `34771120281`: SUCCESS;
+- job `103760780223`: SUCCESS;
+- artifact `10321349678`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,495,532` bytes;
-- SHA-256 `488a3f31bf589a194332402b8c8cf1ee8c9a9f57edb0d5d7a77adf5693b68b7f`.
+- size `57,504,703` bytes;
+- SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 
@@ -65,15 +65,16 @@ Latest specialized handoff at this reconciliation:
 
 ## Current recorded next bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION`.
 
 Current authority for this piece:
 - verification automation only; no player-facing autoplay;
-- start from the real production Region-01 scene and existing fresh-instance autorun;
-- drive one already-implemented deterministic combat exchange through current owners after tracking/ENGAGE;
-- prove scheduler/resources/reaction/consequence/status readback and retain fresh-instance repeatability;
+- start from the real production Region-01 scene and existing two-cycle autorun;
+- drive one already-implemented Hunter `POLEBLADE_MEASURED_CUT` transaction through current tactical movement/Hunter attack/anatomy owners;
+- prove existing legality/resources/contact/protection/anatomy/idempotent readback using already-selected values only;
+- retain the verified Tail Sweep/Block exchange and fresh-instance repeatability;
 - protected movement/look controls remain unchanged;
-- do not invent Bleeding HP magnitude, structural thresholds, withdrawal geometry, recovery costs or Monster terminal rules;
+- do not invent Bleeding HP magnitude, structural thresholds, withdrawal geometry, recovery costs, Monster terminal rules, new RNG or balance values;
 - keep the full Android workflow green.
 
 ## New-chat completion standard

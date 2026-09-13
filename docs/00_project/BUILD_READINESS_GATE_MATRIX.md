@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / HUNT-01 BASIC RUNTIME AUTORUN ANDROID BUILD VERIFIED / PHONE QA BATCHED
+Status: ACTIVE GOVERNANCE / HUNT-01 BASIC AUTORUN COMBAT EXCHANGE ANDROID BUILD VERIFIED / PHONE QA BATCHED
 Last reconciled: 2026-09-13
 
 ## Primary law
@@ -28,7 +28,8 @@ An open question blocks only the earliest implementation gate that genuinely con
 | MUDCREST TAIL SWEEP | BUILD VERIFIED | intact-tail rear/flank attack using existing Block/status owners |
 | TAIL SWEEP CLEAN → STAGGERED PRODUCER | BUILD VERIFIED | CLEAN consequence emits exactly one generic Staggered request; replay idempotent |
 | BASIC RUNTIME AUTORUN REPEATABILITY | BUILD VERIFIED | real Region-01 basic path repeats across two fresh instances with clean teardown |
-| BASIC AUTORUN COMBAT EXCHANGE | NEXT | extend integration smoke through one existing deterministic combat exchange |
+| BASIC AUTORUN COMBAT EXCHANGE | BUILD VERIFIED | two fresh instances reproduce authored N10 Tail Sweep→Poleblade Block consequence/status/scheduler signature |
+| BASIC AUTORUN HUNTER ATTACK EXCHANGE | NEXT | integrate one already-verified Hunter Measured Cut/anatomy transaction into the same repeatability smoke |
 | BLEEDING PERIODIC HEALTH CONSEQUENCE | BLOCKED DOWNSTREAM | exact periodic HP magnitude not yet authoritative |
 | MUDCREST STRUCTURAL BREAK / SEVER | BLOCKED FOR THRESHOLDS | anatomy states selected; numeric break/sever thresholds explicitly open |
 | HUNTER VOLUNTARY WITHDRAWAL | BLOCKED FOR HUNTER ESCAPE NODE | authored Hunter escape-node/equivalent boundary not explicit |
@@ -39,23 +40,23 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Latest full production-verified revision `3c6a792851e5dec9756f6e99bd09de291fe266b2`.
-Production workflow `34763505121`: SUCCESS.
-Job `103740308986`: SUCCESS.
-Artifact `10319379031`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,495,532 bytes, SHA-256 `488a3f31bf589a194332402b8c8cf1ee8c9a9f57edb0d5d7a77adf5693b68b7f`.
+Latest full production-verified revision `b270ef14787043252648c18ff02df31936e2f9a2`.
+Production workflow `34771120281`: SUCCESS.
+Job `103760780223`: SUCCESS.
+Artifact `10321349678`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,703 bytes, SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
 
-The run passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun, all current combat/anatomy/status/outcome regressions, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
+The run passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun including its real Tail Sweep/Block combat exchange, all current combat/anatomy/status/outcome regressions, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
 
 ## Current production authorization
 
 Exact next independent implementation:
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION`.
 
 Closed authority for this next piece:
 - verification automation only, not player-facing autoplay;
-- use the real production Region-01 scene and current autorun rather than mocks;
-- drive one already-implemented deterministic combat exchange after existing tracking/ENGAGE;
-- verify existing scheduler/resources/reaction/consequence/status readback;
-- preserve two fresh-instance repeatability and protected player controls;
+- use the real production Region-01 scene and current two-cycle autorun rather than mocks;
+- drive one already-implemented Hunter `POLEBLADE_MEASURED_CUT` transaction through current tactical movement/Hunter attack/anatomy owners;
+- verify existing legality/resources/contact/protection/anatomy/idempotent readback;
+- preserve the verified Tail Sweep/Block exchange, two fresh-instance repeatability and protected player controls;
 - add no new combat rule, value, RNG, structural threshold, Bleeding HP magnitude, withdrawal/recovery geometry or Monster terminal semantics;
 - keep the existing full production Android workflow green.

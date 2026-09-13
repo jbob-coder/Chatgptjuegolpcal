@@ -1,6 +1,6 @@
 # Hunt-01 Basic Runtime Autorun Regression
 
-Status: IMPLEMENTED / COMBAT-EXCHANGE EXTENSION PENDING STATIC+HEADLESS+ANDROID BUILD VERIFICATION
+Status: IMPLEMENTED / COMBAT-EXCHANGE EXTENSION STATIC+HEADLESS+ANDROID BUILD VERIFIED
 Last reconciled: 2026-09-13
 
 ## Purpose
@@ -24,13 +24,13 @@ Each autorun cycle uses the real production `region_01_hunt01_graybox.tscn` and 
 - the scheduler returns to Round 3 Hunter after the exchange;
 - teardown removes the world and Hunt-01 groups before the next cycle.
 
-The test executes two fresh-instance scene lifecycles in one Godot process and compares a stable runtime signature that now includes the combat exchange result. The second cycle starts from zero tracking/encounter state and must reproduce the first cycle after the same deterministic path.
+The test executes two fresh-instance scene lifecycles in one Godot process and compares a stable runtime signature that includes the combat exchange result. The second cycle starts from zero tracking/encounter state and reproduces the first cycle after the same deterministic path.
 
 ## Safety boundary
 
 Test-only helpers may record evidence and position the Hunter to exercise existing runtime boundaries. Existing test APIs drive authored tactical movement and the already-implemented reaction decision. Normal production input is not synthesized, protected analog left-stick/right-look controls are unchanged, and no automatic player locomotion or combat-choice system is introduced.
 
-The extension does not select new Bleeding HP magnitude, structural thresholds, withdrawal geometry, recovery costs, Monster death/escape semantics, combat RNG or final combat balance.
+The verified extension selects no new Bleeding HP magnitude, structural thresholds, withdrawal geometry, recovery costs, Monster death/escape semantics, combat RNG or final combat balance.
 
 ## Verification gates
 
@@ -38,15 +38,21 @@ Static gate: `HUNT01_BASIC_RUNTIME_AUTORUN_SOURCE_STATIC_VERIFIED`.
 Headless base gate: `HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED`.
 Headless combat-exchange gate: `HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_VERIFIED`.
 
-The production Android workflow already executes this autorun test and its static preflight. The combat exchange assertions therefore remain inside the same mandatory production verification step rather than creating a parallel gameplay runtime.
+The production Android workflow executes this autorun test and its static preflight. The combat exchange assertions remain inside the same mandatory production verification step rather than creating a parallel gameplay runtime.
 
-## Previous verified evidence
+## Verified evidence
 
 Basic autorun implementation commit: `07ad99f71fd0da45ff458fe8d5e770d02ab07783`.
-Fresh-instance verification/contract-repair commit: `3c6a792851e5dec9756f6e99bd09de291fe266b2`.
-Promoted verified baseline: `65b99b9119c0454bd116c2916b494b8577d00666`.
-Production workflow `34763692168`: SUCCESS.
-Job `103740804098`: SUCCESS.
-Artifact `10319768031`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,495,537 bytes, SHA-256 `1309c74b6e08174591eddcc3b85797aba89817b83fd0b47b2e8aef860714a857`.
+Combat-exchange implementation commit: `c85db3c152dc798ed1a03508a77f5066c50f0e2c`.
+Combat-exchange contract-repair / verified source commit: `b270ef14787043252648c18ff02df31936e2f9a2`.
+Production workflow `34771120281`: SUCCESS.
+Job `103760780223`: SUCCESS.
+Artifact `10321349678`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,703 bytes, SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
 
-The combat exchange extension described above requires a new full production workflow before it can be promoted from pending to verified.
+Run 76 failed before Godot only because this documentation lacked the exact space-separated `combat exchange` governance phrase required by its static preflight. Commit `b270ef14787043252648c18ff02df31936e2f9a2` corrected documentation wording only. Run 77 then passed static/manifest checks, Godot 4.7.2 parse/import, production smokes, both fresh-instance combat exchange cycles, all current regressions, Android debug export and artifact upload.
+
+## Next bounded verification extension
+
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION`.
+
+The next extension may add one already-implemented Hunter `POLEBLADE_MEASURED_CUT`/Mudcrest anatomy transaction to this same two-cycle smoke using current owners and already-selected values. It must preserve the verified Tail Sweep/Block exchange and must not create player-facing autoplay, new RNG, balance values, structural thresholds or Monster terminal semantics.
