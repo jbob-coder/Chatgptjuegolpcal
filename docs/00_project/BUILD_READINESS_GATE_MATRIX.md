@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE ANDROID BUILD VERIFIED / PHONE QA BATCHED
+Status: ACTIVE GOVERNANCE / HUNT-01 BASIC AUTORUN REAL STATUS LIFECYCLE ANDROID BUILD VERIFIED / PHONE QA BATCHED
 Last reconciled: 2026-09-13
 
 ## Primary law
@@ -30,10 +30,12 @@ An open question blocks only the earliest implementation gate that genuinely con
 | BASIC RUNTIME AUTORUN REPEATABILITY | BUILD VERIFIED | real Region-01 basic path repeats across two fresh instances with clean teardown |
 | BASIC AUTORUN MONSTER COMBAT EXCHANGE | BUILD VERIFIED | two fresh instances reproduce authored N10 Tail Sweep→Poleblade Block consequence/status/scheduler signature |
 | BASIC AUTORUN HUNTER ATTACK EXCHANGE | BUILD VERIFIED | two fresh instances reproduce authored N09 Measured Cut→Dorsal anatomy transaction after real scheduler bridge |
-| BASIC AUTORUN REAL STATUS LIFECYCLE | NEXT | integrate one existing real hostile status producer/lifecycle into the same repeatability smoke |
+| BASIC AUTORUN REAL STATUS LIFECYCLE | BUILD VERIFIED | two fresh instances reproduce a real Head Sweep→Bleeding application and Round-5 pending periodic timing event without selecting HP magnitude |
+| BASIC AUTORUN HUNTER DEFEAT TERMINAL | NEXT | integrate already-verified Hunter Downed/HUNTERS_DEFEATED terminal chain into the same repeatability smoke |
 | BLEEDING PERIODIC HEALTH CONSEQUENCE | BLOCKED DOWNSTREAM | exact periodic HP magnitude not yet authoritative |
 | MUDCREST STRUCTURAL BREAK / SEVER | BLOCKED FOR THRESHOLDS | anatomy states selected; numeric break/sever thresholds explicitly open |
 | HUNTER VOLUNTARY WITHDRAWAL | BLOCKED FOR HUNTER ESCAPE NODE | authored Hunter escape-node/equivalent boundary not explicit |
+| FORCED RECOVERY / RESPAWN | BLOCKED DOWNSTREAM | destination/timing/cost authority remains open |
 | HUNT-01 PHONE ACCEPTANCE | DEFERRED BATCH | not a phone PASS |
 | SUSTAINED PERFORMANCE | NOT VERIFIED | target-device soak evidence required |
 | FINAL ENGINE SELECTION | NOT CLOSED | Godot candidate in use; formal gate open |
@@ -41,24 +43,24 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Latest full production-verified revision `578f598e92719949ade1f669aa94ca319a41d94c`.
-Production workflow `34772248966`: SUCCESS.
-Job `103763843357`: SUCCESS.
-Artifact `10322267457`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,438 bytes, SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
+Latest full production-verified source revision `9e854599780301e3e9c045b1bac73de9e27b5238`.
+Production workflow `34779190819`: SUCCESS.
+Job `103782938270`: SUCCESS.
+Artifact `10324690130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,526,652 bytes, SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
 
-Run 80 passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun through both real combat exchanges, all current combat/anatomy/status/outcome regressions, Android export and artifact upload on exact promoted revision `578f598e92719949ade1f669aa94ca319a41d94c`. It does not establish phone acceptance or sustained performance.
+Run 81 passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun through both combat exchanges and one real Bleeding lifecycle, all current combat/anatomy/status/outcome regressions, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
 
 ## Current production authorization
 
 Exact next independent implementation:
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION`.
 
 Closed authority for this next piece:
 - verification automation only, not player-facing autoplay;
 - use the real production Region-01 scene and current two-cycle autorun rather than mocks;
-- preserve both existing integrated combat exchanges;
-- drive one already-implemented real hostile status producer into the existing generic status application/timing owners;
-- verify existing lifecycle hooks without inventing status state, damage values or scheduling rules;
-- preserve scheduler/resources/health ownership, fresh-instance repeatability and protected controls;
-- add no Bleeding HP magnitude, Braced/Guarded semantics, structural threshold, withdrawal/recovery geometry, Monster terminal semantics, RNG or balance value;
+- preserve the integrated Monster exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
+- consume the existing health, encounter-outcome and scheduler owners;
+- test-only health preparation may shorten setup to the existing zero-Health boundary, but the final terminal transition must be produced by a real hostile production attack;
+- verify Hunter `ACTIVE → DOWNED`, `HUNTERS_DEFEATED`, terminal current-actor freeze, no further scheduler advancement and idempotent outcome replay;
+- add no recovery/respawn destination/costs, voluntary withdrawal, Monster terminal rules, Bleeding HP magnitude, structural thresholds, RNG or balance values;
 - keep the existing full production Android workflow green.

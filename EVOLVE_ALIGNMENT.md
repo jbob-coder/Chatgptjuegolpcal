@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE ANDROID BUILD VERIFIED / REAL STATUS LIFECYCLE AUTORUN NEXT / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 BASIC AUTORUN REAL STATUS LIFECYCLE ANDROID BUILD VERIFIED / HUNTER DEFEAT TERMINAL AUTORUN NEXT / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-13
 
 ## Operating law
@@ -34,36 +34,34 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - species-owned wound/contact classification;
 - generic Bleeding/Off-Balance/Staggered application and lifecycle timing;
 - exact-once Staggered→Off-Balance next-turn conversion without skipped activation;
-- Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment;
+- Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment in its dedicated production regression;
 - CLEAN Tail Sweep→generic Staggered producer integration;
 - deterministic basic-runtime autorun across two fresh boot/run/teardown cycles with no detected Hunt-01 group/state leakage;
-- integrated Monster combat exchange: authored movement to N10, real Tail Sweep, Poleblade Block, deterministic SOLID / `BLOCK_STRONG`, Hunter Health 100→98, no strong-Block status request, and Round-3 Hunter return;
-- integrated Hunter attack exchange: authored N10→N08→N05→N07→N09 movement, existing Head Sweep/Block scheduler bridge, Round-4 Dorsal `POLEBLADE_MEASURED_CUT`, selected-part CLEAN contact, mineralized protection, existing 2 AP / 12 Stamina cost, anatomy integrity 100→95, and idempotent readback across both fresh instances.
+- integrated Monster exchange: authored movement to N10, real Tail Sweep, Poleblade Block, SOLID / `BLOCK_STRONG`, Hunter Health 100→98 and Round-3 return;
+- integrated Hunter attack exchange: authored N10→N08→N05→N07→N09 movement, real Head Sweep/Block bridge, Round-4 Dorsal Measured Cut, CLEAN selected-part contact, mineralized protection and anatomy 100→95;
+- integrated real status lifecycle: Round-4 unguarded CLEAN Head Sweep produces real Bleeding through wound/contact→generic application, Round-5 `ROUND_END` emits exactly one pending Bleeding periodic consequence with no selected HP magnitude, Health remains owned by the health runtime, and Round-6 Hunter starts normally.
 
 ## Current verified automated baseline
 
 Latest full production-verified revision:
-`578f598e92719949ade1f669aa94ca319a41d94c`.
+`9e854599780301e3e9c045b1bac73de9e27b5238`.
 
-Hunter-attack autorun implementation commit:
-`72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
-
-Promotion commit / latest tested source:
-`578f598e92719949ade1f669aa94ca319a41d94c`.
+Real-status autorun implementation / latest tested source:
+`9e854599780301e3e9c045b1bac73de9e27b5238`.
 
 Production verification workflow:
-`34772248966` — SUCCESS.
+`34779190819` — SUCCESS.
 
 Workflow job:
-`103763843357` — SUCCESS.
+`103782938270` — SUCCESS.
 
 Artifact:
-- ID `10322267457`;
+- ID `10324690130`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,515,438` bytes;
-- SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
+- size `57,526,652` bytes;
+- SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
 
-Run 79 verified the Hunter-attack autorun implementation at `72109e2d56205da85f6ce898d22bb9f8f0558b0b`. Promotion commit `578f598e92719949ade1f669aa94ca319a41d94c` reconciled the package/front doors, including the previously stale `game/README.md` baseline. Run 80 then re-passed static governance, Godot 4.7.2 import/parse, production smokes, the two-cycle autorun through both combat exchanges, every current combat/anatomy/status/outcome regression, Android debug export and artifact upload on that exact promoted revision.
+Run 81 passed static governance, Godot 4.7.2 import/parse, production smokes, the two-cycle autorun through both combat exchanges plus the real Bleeding lifecycle, every current combat/anatomy/status/outcome regression, Android debug export and artifact upload.
 
 ## Verification boundary
 
@@ -79,15 +77,15 @@ Latest specialized handoff:
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION`
 
 Required boundary:
 1. extend verification automation only; do not create player-facing autoplay;
-2. preserve the verified tracking→ENGAGE, Tail Sweep/Block and Hunter Measured Cut/anatomy exchanges;
-3. use the existing real hostile wound/contact producer plus existing generic status application/timing owners rather than synthetic parallel status state;
-4. prove at least one already-implemented status is produced and progresses through its existing lifecycle hooks in the integrated fresh-instance path;
-5. preserve scheduler/resources/health ownership and two-cycle repeatability;
-6. do not select Bleeding periodic Health magnitude, Braced/Guarded semantics, structural thresholds, new RNG, withdrawal/recovery values or Monster terminal rules;
+2. preserve tracking→ENGAGE, Monster exchange, Hunter Measured Cut/anatomy exchange and real Bleeding lifecycle;
+3. use existing Hunter health, encounter-outcome and scheduler owners;
+4. test-only health preparation may bring the Hunter near the existing zero-Health boundary, but the final terminal transition must come from a real hostile production attack transaction;
+5. prove `ACTIVE → DOWNED`, `HUNTERS_DEFEATED`, terminal current-actor freeze, no scheduler advancement and idempotent outcome readback;
+6. do not invent forced recovery/respawn, voluntary withdrawal, Monster escape/death, Bleeding HP magnitude, structural thresholds, new RNG or balance values;
 7. keep the full production Android workflow green.
 
-NEXT THING I WILL DO: FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION — connect one already-implemented real status producer/lifecycle into the integrated automatic basic-loop smoke without changing player-facing gameplay.
+NEXT THING I WILL DO: FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION — integrate the already-implemented Hunter loss/terminal boundary into the repeatable basic hunt smoke without adding recovery or new terminal rules.

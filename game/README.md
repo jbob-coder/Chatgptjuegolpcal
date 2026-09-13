@@ -1,6 +1,6 @@
 # Production Game Root
 
-Status: HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE STATIC/HEADLESS/ANDROID BUILD VERIFIED / REAL STATUS LIFECYCLE AUTORUN NEXT
+Status: HUNT-01 BASIC AUTORUN REAL STATUS LIFECYCLE STATIC/HEADLESS/ANDROID BUILD VERIFIED / HUNTER DEFEAT TERMINAL AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
@@ -15,22 +15,22 @@ Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical
 
 Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sweep, species wound/contact qualification and Tail Sweep CLEAN→generic Staggered producer integration.
 
-Verification automation: `tests/hunt01_basic_runtime_autorun_test.gd` boots the real production Region-01 scene twice, drives tracking/ENGAGE, follows authored movement to the real Tail Sweep/Poleblade Block exchange, repositions through authored nodes and normal AP economy, uses an existing Head Sweep/Block activation bridge, then commits the real Dorsal Measured Cut/anatomy transaction. It tears each instance down, rejects state leakage and does not alter normal gameplay input or create autoplay.
+Verification automation: `tests/hunt01_basic_runtime_autorun_test.gd` boots the real production Region-01 scene twice, drives tracking/ENGAGE, resolves the real Tail Sweep/Poleblade Block exchange, repositions through authored nodes and normal AP economy, resolves the real Dorsal Measured Cut/anatomy exchange, then drives a real unguarded Head Sweep into the generic Bleeding application/timing lifecycle. Round-5 `ROUND_END` emits the existing pending Bleeding periodic handoff without selecting HP magnitude or mutating Health. The test tears each instance down, rejects state leakage and does not alter normal gameplay input or create autoplay.
 
 ## Verification status
 
-Verified gameplay/source head `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
-Workflow `34772015152`: SUCCESS.
-Job `103763209477`: SUCCESS.
-Artifact `10322585732`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,440 bytes, SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
+Verified gameplay/source head `9e854599780301e3e9c045b1bac73de9e27b5238`.
+Workflow `34779190819`: SUCCESS.
+Job `103782938270`: SUCCESS.
+Artifact `10324690130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,526,652 bytes, SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
 
-Stack through the integrated Hunter attack autorun exchange is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Stack through the integrated real-status lifecycle autorun is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `FINAL_ENGINE_SELECTED = NO`.
 
 New chats must use root `START_HERE_NEW_CHAT.md` and reconstruct the live branch before changing this production tree.
 
 ## Current bounded production piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION`.
 
-Extend the current test-only fresh-instance autorun through one already-implemented real hostile status producer and the existing generic status lifecycle. Preserve both current combat exchanges. Do not alter normal player movement/look controls, add player-facing autoplay, select Bleeding HP magnitude, or invent new status/combat semantics.
+Extend the current test-only fresh-instance autorun through the already-implemented Hunter Downed/`HUNTERS_DEFEATED` terminal chain using existing health/outcome/scheduler owners and a real hostile final contact. Test-only health preparation is allowed only to reach the already-verified boundary efficiently. Preserve the existing Monster exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle. Do not alter normal player controls, add player-facing autoplay, invent recovery/respawn, resolve voluntary withdrawal, select Bleeding HP magnitude or add new combat/terminal semantics.

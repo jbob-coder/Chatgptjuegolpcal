@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE ANDROID BUILD VERIFIED / REAL STATUS LIFECYCLE AUTORUN NEXT
+Status: PRODUCTION GAME ACTIVE / HUNT-01 BASIC AUTORUN REAL STATUS LIFECYCLE ANDROID BUILD VERIFIED / HUNTER DEFEAT TERMINAL AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -15,24 +15,24 @@ Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is
 
 ## Current production stack
 
-Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat includes Hunter Measured Cut, Mudcrest anatomy, shared reaction/Block flow, Head Sweep, Tail Sweep, Hunter defense/health/injury, species wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed encounter-terminal execution and CLEAN Tail Sweep→generic Staggered producer integration.
+Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat includes Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, Tail Sweep, Hunter defense/health/injury, species wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, CLEAN Tail Sweep→generic Staggered producer integration and Hunter Downed/defeat terminal execution.
 
-The verification-only basic autorun boots the real production Region-01 scene twice and reproduces tracking→ENGAGE, an initial scheduler cycle, authored movement into a real Tail Sweep/Poleblade Block exchange, authored reposition through normal AP economy, an existing Head Sweep/Block scheduler bridge, and a real Round-4 Dorsal Measured Cut/anatomy transaction. Both fresh cycles match and teardown rejects state leakage. It does not alter normal player movement/look or add gameplay autoplay.
+The verification-only basic autorun boots the real production Region-01 scene twice in one Godot process and now reproduces tracking/ENGAGE, the real Tail Sweep/Poleblade Block exchange, authored reposition, the real Dorsal Measured Cut/anatomy exchange, and a real unguarded Head Sweep→Bleeding→Round-5 pending periodic status lifecycle. It proves the pending Bleeding event has no selected HP magnitude and does not mutate Health. It does not alter normal player movement/look or add gameplay autoplay.
 
 ## Current verified baseline
 
-Latest full production-verified revision `578f598e92719949ade1f669aa94ca319a41d94c`.
-Production workflow `34772248966`: SUCCESS.
-Job `103763843357`: SUCCESS.
-Artifact `10322267457`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,438 bytes, SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
+Latest full production-verified source revision `9e854599780301e3e9c045b1bac73de9e27b5238`.
+Production workflow `34779190819`: SUCCESS.
+Job `103782938270`: SUCCESS.
+Artifact `10324690130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,526,652 bytes, SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
 
-Stack through the integrated Hunter attack autorun exchange is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Stack through the real-status lifecycle autorun is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Phone acceptance remains deferred/batched. `PERFORMANCE_VERIFIED = NO`.
 
 For a new development chat, begin with `START_HERE_NEW_CHAT.md`; it defines the mandatory live-state reconstruction procedure before implementation.
 
 ## Current bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION`.
 
-Extend the verification-only autorun through one already-implemented real hostile status producer and its generic lifecycle. Preserve both current combat exchanges and normal controls; introduce no player-facing autoplay, Bleeding HP magnitude, structural thresholds or new combat/status semantics.
+Extend the verification-only autorun through the already-implemented Hunter Downed/`HUNTERS_DEFEATED` terminal path. Preserve all existing integrated basics. Use existing health/outcome/scheduler owners and require a real hostile final contact. Do not add recovery/respawn, Monster terminal rules, Bleeding HP magnitude, structural thresholds, withdrawal rules, new RNG or new balance.

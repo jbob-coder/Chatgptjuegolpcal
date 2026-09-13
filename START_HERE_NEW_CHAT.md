@@ -1,6 +1,6 @@
 # START HERE — Unnamed Hunt RPG — New Chat Bootstrap
 
-Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE ANDROID BUILD VERIFIED / REAL STATUS LIFECYCLE AUTORUN NEXT
+Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 BASIC AUTORUN REAL STATUS LIFECYCLE ANDROID BUILD VERIFIED / HUNTER DEFEAT TERMINAL AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and must not be used as the implementation base.
@@ -41,18 +41,18 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 ## Current verified snapshot — discovery aid only
 
-The automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, Tail Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun that reproduces both a real Monster Tail Sweep/Block exchange and a real Hunter Dorsal Measured Cut/anatomy exchange.
+The automated-build verified stack includes the continuous Hunt-01 world/tracking/ENGAGE foundation, deterministic combat/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block, Head Sweep, Tail Sweep, defense/health/injury, generic Bleeding/Staggered/Off-Balance application/timing, Hunter Downed/defeat terminal execution in its dedicated regression, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic autorun through a real Monster exchange, a real Hunter Measured Cut/anatomy exchange and a real Bleeding application/timing lifecycle.
 
-Latest full production-verified revision:
-`578f598e92719949ade1f669aa94ca319a41d94c`.
+Latest full production-verified source revision before package promotion:
+`9e854599780301e3e9c045b1bac73de9e27b5238`.
 
 Latest production verification:
-- workflow `34772248966`: SUCCESS;
-- job `103763843357`: SUCCESS;
-- artifact `10322267457`;
+- workflow `34779190819`: SUCCESS;
+- job `103782938270`: SUCCESS;
+- artifact `10324690130`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,515,438` bytes;
-- SHA-256 `638cecf15c678a6f06f36ee4e91139b24623b572b3b16353378878eb90d5fec9`.
+- size `57,526,652` bytes;
+- SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 
@@ -65,18 +65,17 @@ Latest specialized handoff at this reconciliation:
 
 ## Current recorded next bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION`.
 
 Current authority for this piece:
 - verification automation only; no player-facing autoplay;
-- start from the real production Region-01 scene and existing two-cycle autorun;
-- preserve the verified Monster Tail Sweep/Block and Hunter Measured Cut/anatomy exchanges;
-- drive one already-implemented real hostile status producer through current wound/contact + generic status application/timing owners;
-- prove existing lifecycle hooks and scheduler/resource/health ownership without synthetic parallel status state;
-- protected movement/look controls remain unchanged;
-- do not invent Bleeding HP magnitude, Braced/Guarded semantics, structural thresholds, withdrawal geometry, recovery costs, Monster terminal rules, new RNG or balance values;
+- preserve the current two-cycle tracking/ENGAGE, Monster exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
+- consume existing Hunter health, encounter-outcome and scheduler owners;
+- test-only health preparation may shorten setup, but the final zero-Health/terminal transition must be caused by a real hostile production attack transaction;
+- verify `ACTIVE → DOWNED`, `HUNTERS_DEFEATED`, terminal scheduler freeze and idempotent outcome readback;
+- do not invent recovery/respawn costs or destination, voluntary withdrawal, Monster escape/death, Bleeding HP magnitude, structural thresholds, RNG or balance values;
 - keep the full Android workflow green.
 
 ## New-chat completion standard
 
-A new chat is bootstrapped only after it has fetched live HEAD, read the current authority chain, inspected exact owning source/tests, reconciled contradictions, distinguished live documentation HEAD from the last build-proven source SHA, and stated the bounded change plus protected behavior.
+A new chat is bootstrapped only after it has fetched live HEAD, read the current authority chain, inspected exact owning source/tests, reconciled contradictions, distinguished live documentation HEAD from the last source SHA actually proven by build evidence, and stated the bounded change plus protected behavior.
