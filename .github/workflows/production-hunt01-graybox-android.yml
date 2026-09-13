@@ -20,6 +20,7 @@ on:
       - "tests/quality/hunt01/hunt01_hunter_downed_encounter_outcome_preflight.py"
       - "tests/quality/hunt01/hunt01_hunter_attack_preflight.py"
       - "tests/quality/hunt01/hunt01_mudcrest_anatomy_preflight.py"
+      - "tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py"
       - "docs/10_world/regions/REGION_01/FIRST_SLICE_HUNT01_GRAYBOX_BUILD_MANIFEST.json"
 
 permissions:
@@ -117,6 +118,8 @@ jobs:
           grep -q "Gate: HUNT01_FIRST_HUNTER_ATTACK_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-hunter-attack-static.log
           python3 tests/quality/hunt01/hunt01_mudcrest_anatomy_preflight.py | tee build-evidence/hunt01-mudcrest-anatomy-static.log
           grep -q "Gate: HUNT01_MUDCREST_ANATOMY_INTEGRITY_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-mudcrest-anatomy-static.log
+          python3 tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py | tee build-evidence/hunt01-basic-runtime-autorun-static.log
+          grep -q "Gate: HUNT01_BASIC_RUNTIME_AUTORUN_SOURCE_STATIC_VERIFIED" build-evidence/hunt01-basic-runtime-autorun-static.log
       - name: Godot import and parse gate
         shell: bash
         run: |
@@ -143,6 +146,12 @@ jobs:
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/region01_hunt01_graybox_runtime_test.gd" 2>&1 | tee build-evidence/hunt01-production-integration.log
           grep -q "Gate: HUNT01_PRODUCTION_GRAYBOX_HEADLESS_INTEGRATION_VERIFIED" build-evidence/hunt01-production-integration.log
+      - name: Headless Hunt-01 basic runtime autorun
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/hunt01_basic_runtime_autorun_test.gd" 2>&1 | tee build-evidence/hunt01-basic-runtime-autorun.log
+          grep -q "Gate: HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED" build-evidence/hunt01-basic-runtime-autorun.log
       - name: Headless Hunt-01 combat turn shell
         shell: bash
         run: |
