@@ -1,7 +1,7 @@
 # Monster-01 Gameplay Runtime — Mudcrest Raker
 
-Status: ANATOMY BUILD VERIFIED / FIRST HEAD SWEEP ATTACK IMPLEMENTED / AUTOMATED ATTACK VERIFICATION PENDING
-Last reconciled: 2026-09-04
+Status: ANATOMY + HEAD SWEEP BUILD VERIFIED / TAIL SWEEP IMPLEMENTED / AUTOMATED TAIL VERIFICATION PENDING
+Last reconciled: 2026-09-13
 
 Purpose: own species-specific runtime state and hostile actions for `monster_r01_m01_0001` without moving those rules into the generic combat shell.
 
@@ -26,75 +26,117 @@ The current integrity fixture remains `PROVISIONAL_FIRST_SLICE_ANATOMY_INTEGRITY
 
 ### `hunt01_mudcrest_attack_runtime.gd`
 
-Species-owned first hostile-action driver.
+Species-owned hostile-action driver. It is still the single external Monster activation driver registered with the generic combat shell.
 
-First implemented attack:
-`M01_HEAD_SWEEP_GORE`.
+Implemented attacks:
 
-Selected contract:
+`M01_HEAD_SWEEP_GORE`
 - capability `CAP_M01_HEAD_ATTACK`;
-- exact cost `2 AP / 14 Stamina`;
+- `2 AP / 14 Stamina`;
 - close front/front-flank pressure;
-- baseline `GORE_SWEEP` profile;
-- `PIERCING + IMPACT` channels;
-- authoritative telegraph before resolution;
-- shared generic Hunter reaction window;
-- first executable paid reaction: `POLEBLADE_BLOCK`;
-- explicit free decline;
-- one deterministic contact/hit-quality trace;
-- stable `PENDING_HUNTER_DAMAGE_RUNTIME` handoff.
+- `GORE_SWEEP`;
+- `PIERCING + IMPACT`;
+- successful Poleblade Block impact profile `10 Stamina`.
+
+`M01_TAIL_SWEEP`
+- capability `CAP_M01_TAIL_SWEEP`;
+- `3 AP / 18 Stamina`;
+- rear/flank defensive arc;
+- `TAIL_SWEEP_IMPACT`;
+- pure `IMPACT`;
+- successful Poleblade Block impact profile `14 Stamina`;
+- intact `TAIL_DISTAL` required by the authored capability contract.
 
 The attack runtime registers through the turn shell's external Monster-activation handshake. The shell remains authoritative for normal actor ownership, AP/Stamina commitment and activation completion. The generic reaction owner remains `game/scripts/gameplay/combat/hunt01_reaction_window_runtime.gd`.
+
+Deterministic normal-action priority in the current slice is:
+1. legal rear/flank Tail Sweep;
+2. established Head Sweep fallback;
+3. wait/no-attack when neither implemented attack is legal.
+
+This extends the existing owner; it does not create another scheduler or Monster activation driver.
 
 ## Head/horn capability boundary
 
 The anatomy runtime does not yet own crack/break/sever structural states. Therefore normalized HEAD/HORN_CREST integrity is not interpreted as an invented broken-horn capability transition.
 
-The first Head Sweep slice records:
+The Head Sweep slice records:
 `PROVISIONAL_BASELINE_HEAD_HORNS_USABLE_NO_BREAK_STATE_RUNTIME`.
 
-Until structural break runtime exists, the executable first attack uses the baseline horned `GORE_SWEEP` packet. The future both-horns-broken IMPACT profile remains deferred.
+Until structural break runtime exists, the executable Head Sweep uses the baseline horned `GORE_SWEEP` packet. The future both-horns-broken IMPACT profile remains deferred.
 
-## Head Sweep geometry boundary
+## Tail capability boundary
 
-The attack consumes the existing Hunt-01 manifest rather than creating a separate arena geometry model:
+The anatomy contract defines `TAIL_BASE` and `TAIL_DISTAL`, but numeric sever thresholds remain open. Current production anatomy exposes the `TAIL` target group and no structural detachment owner.
+
+The Tail Sweep slice therefore records:
+`PROVISIONAL_BASELINE_TAIL_DISTAL_ATTACHED_NO_SEVER_STATE_RUNTIME`.
+
+The current `TAIL` integrity value is trace/readback data only. It is not converted into a sever state.
+
+## Geometry boundaries
+
+Head Sweep consumes:
 - existing Monster `body_force` envelope;
-- provisional 3.5 m practical body-envelope contact boundary;
-- existing authored Mudcrest charge lane as stable forward-facing reference;
+- provisional `3.5 m` practical body-envelope contact boundary;
+- existing authored charge lane as stable forward-facing reference;
 - front/front-flank forward-half-plane check;
-- physics ray to the Hunter so full solid cover blocks the sweep.
+- physics line-of-effect.
 
-The 3.5 m boundary is a reversible first-slice geometry fixture until final animation/reach evidence closes exact distance.
+Tail Sweep consumes:
+- the same authoritative body-force envelope;
+- authored pivot center/radius;
+- authored forward reference;
+- reversible `6.0 m` body-envelope reach derived from real tactical node `R01_EF02_N10`;
+- reversible rear/flank threshold `forward_dot <= 0.25`;
+- four real physics pivot-clearance probes across the authored `8 m` pivot radius;
+- physics line-of-effect/arc blocker validation.
 
-## Presentation asset
+The Tail Sweep geometry values are first-slice fixtures pending final animation/reach evidence.
 
-`game/assets/effects/mudcrest_head_sweep_telegraph.tscn` is a non-colliding stylized threat-band asset. It appears only while a legal committed Head Sweep waits for the Hunter reaction and disappears after hostile resolution.
+## Presentation assets
 
-It communicates the real attack at the Monster's physical world location but does not own legality/collision/damage.
+`game/assets/effects/mudcrest_head_sweep_telegraph.tscn`
+and
+`game/assets/effects/mudcrest_tail_sweep_telegraph.tscn`
 
-## Provisional hostile-resolution fixture
+Both are non-colliding presentation assets. They appear only during the corresponding committed attack's reaction window and own no legality, collision or damage.
 
-`PROVISIONAL_FIRST_SLICE_MUDCREST_HEAD_SWEEP_CONTROL_FIXTURE` exists to exercise deterministic hostile contact while final Hunter defense/damage values remain open.
+## Wound/contact owner
 
-It does not select final balance. No engine/global RNG is used.
+`hunt01_mudcrest_wound_contact_runtime.gd` remains the Monster-01 species/content qualifier.
 
-The selected Monster packet records 10 Stamina standard successful Poleblade Block impact drain after the normal 6-Stamina Block commitment. This first attack records that 10-Stamina profile in the pending handoff but does not apply it until final Block outcome classification exists.
+Head Sweep retains its established horn-penetration/Bleeding and impact-dominance rules.
+
+Tail Sweep adds:
+- SOLID pure Impact with resolved injury and no Strong Block → one Off-Balance request;
+- CLEAN pure Impact → Staggered is explicitly pending because no generic Staggered owner exists;
+- no Tail Sweep Bleeding path.
+
+## Provisional hostile-resolution fixtures
+
+Head Sweep:
+`PROVISIONAL_FIRST_SLICE_MUDCREST_HEAD_SWEEP_CONTROL_FIXTURE`.
+
+Tail Sweep:
+`PROVISIONAL_FIRST_SLICE_MUDCREST_TAIL_SWEEP_CONTROL_FIXTURE`.
+
+Both use one deterministic FNV-1a bounded variance sample. No engine/global RNG is used.
 
 ## Explicitly not implemented here
 
-- final Hunter health/damage arithmetic;
-- final Block strong/partial/broken outcome;
-- crack/break/sever structural state transitions;
+- final Hunter health/damage/armor balance;
+- structural crack/break/sever thresholds;
 - both-horns-broken Head Sweep profile switching;
 - tail detachment;
-- bleeding or other status effects;
+- Staggered runtime;
+- Tail Sweep forced displacement/knockdown;
 - Horn Charge;
 - Shoulder Ram;
 - Foreleg Stomp;
-- Tail Sweep;
 - Berserk;
-- deterministic multi-attack Monster behavior selection;
-- defeat/escape/reacquisition;
+- full deterministic multi-attack behavior tree;
+- Monster defeat/escape/reacquisition;
 - harvest/inventory/crafting/settlement/persistence.
 
 Design authorities:
@@ -105,4 +147,7 @@ Design authorities:
 Generic combat owner:
 `game/scripts/gameplay/combat/README.md`.
 
-Phone/user acceptance remains deferred-batch. Static/headless/Android build verification must pass before the Head Sweep slice is promoted from implemented to verified.
+Tail Sweep implementation note:
+`game/docs/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME.md`.
+
+Phone/user acceptance remains deferred-batch. Static/headless/Android build verification must pass before the Tail Sweep slice is promoted from implemented to verified.
