@@ -5,7 +5,7 @@ Last reconciled: 2026-09-13
 
 ## Purpose
 
-Provide a deterministic development/CI fresh-instance repeatability gate around the already-implemented Hunt-01 basics. This is not player-facing autoplay and does not alter normal player movement, camera control, combat decisions or runtime ownership.
+Provide a deterministic development/CI fresh-instance repeatability gate around the already-implemented Hunt-01 basics. This is not player-facing autoplay and does not alter normal player movement, camera control, combat decisions or runtime ownership. The regression preserves the verified Monster combat exchange, Hunter attack/anatomy exchange and real status lifecycle as one integrated test-only path.
 
 ## Covered path
 
@@ -28,7 +28,7 @@ Each autorun cycle uses the real production `region_01_hunt01_graybox.tscn` and 
 - that pending periodic event does not mutate Health; Bleeding remains persistent and Round 6 starts normally on Hunter with 4 AP / 1 RP;
 - teardown removes the world and Hunt-01 groups before the next cycle.
 
-The test executes two fresh scene lifecycles in one Godot process and compares one stable signature containing the Monster exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle. Both cycles reproduce the same result without detected Hunt-01 state leakage.
+The test executes two fresh scene lifecycles in one Godot process and compares one stable signature containing the Monster combat exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle. Both cycles reproduce the same result without detected Hunt-01 state leakage.
 
 ## Safety boundary
 
