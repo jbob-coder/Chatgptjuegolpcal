@@ -47,7 +47,7 @@ def main() -> int:
 
     check("Tail Sweep identity exact", 'TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"' in attack and 'TAIL_SWEEP_CAPABILITY_ID := "CAP_M01_TAIL_SWEEP"' in attack)
     check("Tail Sweep exact economy is 3 AP / 18 Stamina", "TAIL_SWEEP_AP_COST := 3" in attack and "TAIL_SWEEP_STAMINA_COST := 18" in attack)
-    check("Tail Sweep successful Block impact profile is 14 Stamina", "TAIL_SWEEP_STANDARD_BLOCK_IMACT_DRAIN_STAMINA := 14" in attack or "TAIL_SWEEP_STANDARD_BLOCK_IMPACT_DRAIN_STAMINA := 14" in attack)
+    check("Tail Sweep successful Block impact profile is 14 Stamina", "TAIL_SWEEP_STANDARD_BLOCK_IMPACT_DRAIN_STAMINA := 14" in attack)
     check("Tail Sweep is pure Impact", '"damage_channels": ["IMPACT"]' in attack and '"attack_profile": "TAIL_SWEEP_IMPACT"' in attack)
     check("Tail capability reads current anatomy without inventing sever threshold", 'get_target_state", "TAIL"' in attack and "PROVISIONAL_BASELINE_TAIL_DISTAL_ATTACHED_NO_SEVER_STATE_RUNTIME" in attack and "structural_threshold" not in attack)
     check("authored body/pivot/charge context is consumed", 'clearance["body_force"]' in attack and 'clearance["pivot"]' in attack and 'clearance["charge"]' in attack)
