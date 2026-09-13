@@ -7,7 +7,7 @@ Purpose: own species-specific runtime state and hostile actions for `monster_r01
 
 ## Current owners
 
-`hunt01_mudcrest_anatomy_runtime.gd` owns deterministic per-target integrity and rejects invalid/replayed handoffs. It does not own global Monster HP, defeat or structural detachment.
+`hunt01_mudcrest_anatomy_runtime.gd` owns deterministic per-target integrity and rejects invalid/replayed handoffs. It does not own global Monster HP or defeat and does not yet own crack/break/sever structural states.
 
 `hunt01_mudcrest_attack_runtime.gd` remains the single external Monster activation driver registered with the generic combat shell.
 
@@ -19,7 +19,7 @@ Deterministic normal-action priority is legal rear/flank Tail Sweep, otherwise e
 
 ## Structural boundaries
 
-Head and Tail capability reads do not invent crack/break/sever thresholds. Current runtime records `PROVISIONAL_BASELINE_HEAD_HORNS_USABLE_NO_BREAK_STATE_RUNTIME` and `PROVISIONAL_BASELINE_TAIL_DISTAL_ATTACHED_NO_SEVER_STATE_RUNTIME` until a future structural owner supplies authoritative transitions.
+Head and Tail capability reads do not invent structural crack/break/sever thresholds. Current runtime records `PROVISIONAL_BASELINE_HEAD_HORNS_USABLE_NO_BREAK_STATE_RUNTIME` and `PROVISIONAL_BASELINE_TAIL_DISTAL_ATTACHED_NO_SEVER_STATE_RUNTIME` until a future structural owner supplies authoritative transitions. Numeric sever thresholds remain open; normalized anatomy integrity must not be interpreted as an implicit detach threshold.
 
 ## Tail Sweep geometry/status boundary
 
