@@ -3,6 +3,7 @@ extends Node
 const SCHEMA := "uhr.hunt01.status_timing.v1"
 const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const STATUS_BLEEDING := "status_bleeding"
+const STATUS_STAGGERED := "status_staggered"
 const STATUS_OFF_BALANCE := "status_off_balance"
 const PENDING_BLEEDING_CONSEQUENCE := "PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE"
 
@@ -43,16 +44,26 @@ func on_turn_start_pre_recovery(combatant_id: String, round_id: int) -> Dictiona
 		duplicate["duplicate"] = true
 		return duplicate
 
+	var staggered_transition: Dictionary = {}
+	if bool(_status_application.call("has_status", combatant_id, STATUS_STAGGERED)):
+		staggered_transition = _status_application.call("transition_staggered_to_off_balance_for_timing", combatant_id, round_id)
+		if not bool(staggered_transition.get("success", false)):
+			return {"success": false, "reason": "STAGGERED_TIMING_TRANSITION_REJECTED", "transition_result": staggered_transition}
+
 	var armed_result: Dictionary = {}
 	if bool(_status_application.call("has_status", combatant_id, STATUS_OFF_BALANCE)):
 		armed_result = _status_application.call("arm_off_balance_expiry", combatant_id, round_id)
+		if not bool(armed_result.get("success", false)):
+			return {"success": false, "reason": "OFF_BALANCE_EXPIRY_ARM_REJECTED", "arm_result": armed_result}
 	var result := {
 		"success": true,
 		"status": "TURN_START_PRE_RECOVERY_STATUS_TIMING_PROCESSED",
 		"hook_id": hook_id,
 		"round_id": round_id,
 		"combatant_id": combatant_id,
+		"staggered_transition": staggered_transition.duplicate(true),
 		"off_balance_expiry_arm": armed_result.duplicate(true),
+		"activation_policy": "CONTINUE_SAME_NORMAL_ACTIVATION",
 		"duplicate": false,
 	}
 	_turn_start_hooks[hook_id] = result.duplicate(true)

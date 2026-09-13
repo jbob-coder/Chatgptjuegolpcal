@@ -6,6 +6,7 @@ const EXPECTED_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const CONSUMER_STATUS := "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME"
 const TRIGGER_HOOK := "ON_HIT_OR_DAMAGE_CONSEQUENCE"
 const STATUS_BLEEDING := "status_bleeding"
+const STATUS_STAGGERED := "status_staggered"
 const STATUS_OFF_BALANCE := "status_off_balance"
 const BLEEDING_MAX_INTENSITY := 3
 const AUTHORITY_STATUS := "NO_AUTHORED_FIRST_SLICE_STATUS_IMMUNITY_DATA"
@@ -18,6 +19,16 @@ const STATUS_DEFINITIONS := {
 		"max_intensity": BLEEDING_MAX_INTENSITY,
 		"periodic_hook": "ROUND_END",
 		"persistence_policy": "PERSISTS_UNTIL_EXPLICIT_REMOVAL_OR_TERMINAL_STATE",
+	},
+	STATUS_STAGGERED: {
+		"status_id": STATUS_STAGGERED,
+		"category": "TRANSIENT_PHYSICAL_DISRUPTION",
+		"stack_rule": "REFRESH_DURATION",
+		"max_intensity": 1,
+		"transition_hook": "TURN_START_PRE_RECOVERY",
+		"transition_status_id": STATUS_OFF_BALANCE,
+		"activation_policy": "CONTINUE_SAME_NORMAL_ACTIVATION",
+		"persistence_policy": "UNTIL_NEXT_TARGET_TURN_START_TRANSITION",
 	},
 	STATUS_OFF_BALANCE: {
 		"status_id": STATUS_OFF_BALANCE,
@@ -34,6 +45,7 @@ var _encounter_record: Dictionary = {}
 var _initialized := false
 var _instances: Dictionary = {}
 var _applications: Dictionary = {}
+var _timing_transitions: Dictionary = {}
 var _trace_sequence := 0
 var _trace: Array[Dictionary] = []
 
@@ -75,6 +87,8 @@ func consume_application_request(request: Dictionary, application_round: int) ->
 	var instance: Dictionary = {}
 	if status_id == STATUS_BLEEDING:
 		instance = _apply_bleeding(request, application_round, before)
+	elif status_id == STATUS_STAGGERED:
+		instance = _apply_staggered(request, application_round, before)
 	elif status_id == STATUS_OFF_BALANCE:
 		instance = _apply_off_balance(request, application_round, before)
 	else:
@@ -128,6 +142,11 @@ func _validate_request(request: Dictionary, application_round: int) -> Dictionar
 			return {"valid": false, "reason": "BLEEDING_STACK_MODE_MISMATCH"}
 		if int(request.get("intensity_delta", 0)) <= 0:
 			return {"valid": false, "reason": "BLEEDING_INTENSITY_DELTA_INVALID"}
+	elif status_id == STATUS_STAGGERED:
+		if String(request.get("application_mode", "")) != "APPLY_OR_REFRESH":
+			return {"valid": false, "reason": "STAGGERED_APPLICATION_MODE_MISMATCH"}
+		if int(request.get("intensity_delta", 0)) != 0:
+			return {"valid": false, "reason": "STAGGERED_INTENSITY_STACKING_NOT_SUPPORTED"}
 	elif status_id == STATUS_OFF_BALANCE and String(request.get("application_mode", "")) != "APPLY_OR_REFRESH":
 		return {"valid": false, "reason": "OFF_BALANCE_APPLICATION_MODE_MISMATCH"}
 	return {"valid": true, "reason": "VALID_GENERIC_STATUS_APPLICATION_REQUEST"}
@@ -161,6 +180,38 @@ func _apply_bleeding(request: Dictionary, application_round: int, before: Dictio
 		"source_action_id": String(request.get("source_action_id", "")),
 		"source_metadata": _source_metadata(request),
 		"persistence_status": "ACTIVE_PERSISTENT_CONDITION",
+	}
+
+func _apply_staggered(request: Dictionary, application_round: int, before: Dictionary) -> Dictionary:
+	var request_id := String(request.get("application_request_id", ""))
+	var target_actor_id := String(request.get("target_actor_id", ""))
+	var source_requests: Array = (before.get("source_application_request_ids", []) as Array).duplicate(true)
+	if not source_requests.has(request_id):
+		source_requests.append(request_id)
+	return {
+		"instance_id": _instance_key(target_actor_id, STATUS_STAGGERED),
+		"status_id": STATUS_STAGGERED,
+		"target_actor_id": target_actor_id,
+		"category": "TRANSIENT_PHYSICAL_DISRUPTION",
+		"stack_rule": "REFRESH_DURATION",
+		"intensity": 1,
+		"max_intensity": 1,
+		"first_application_round": int(before.get("first_application_round", application_round)),
+		"last_application_round": application_round,
+		"application_count": int(before.get("application_count", 0)) + 1,
+		"pending_transition_hook": "TURN_START_PRE_RECOVERY",
+		"transition_status_id": STATUS_OFF_BALANCE,
+		"transition_status": "PENDING_STATUS_TIMING_RUNTIME",
+		"activation_policy": "CONTINUE_SAME_NORMAL_ACTIVATION",
+		"normal_parry_legal": false,
+		"normal_dodge_legal": false,
+		"block_reactive_brace_policy": "MAY_REMAIN_LEGAL_IF_OTHER_OWNERS_ALLOW",
+		"source_application_request_ids": source_requests,
+		"source_resolution_id": String(request.get("source_resolution_id", "")),
+		"source_actor_id": String(request.get("source_actor_id", "")),
+		"source_action_id": String(request.get("source_action_id", "")),
+		"source_metadata": _source_metadata(request),
+		"persistence_status": "ACTIVE_TRANSIENT_DISRUPTION",
 	}
 
 func _apply_off_balance(request: Dictionary, application_round: int, before: Dictionary) -> Dictionary:
@@ -218,6 +269,49 @@ func get_active_instances_snapshot() -> Dictionary:
 
 func has_status(target_actor_id: String, status_id: String) -> bool:
 	return _instances.has(_instance_key(target_actor_id, status_id))
+
+func transition_staggered_to_off_balance_for_timing(target_actor_id: String, round_id: int) -> Dictionary:
+	if not _initialized or target_actor_id.is_empty() or round_id <= 0:
+		return {"success": false, "reason": "INVALID_STAGGERED_TIMING_TRANSITION"}
+	var transition_id := "%s|R%d|%s|STAGGERED_TO_OFF_BALANCE" % [EXPECTED_ENCOUNTER_ID, round_id, target_actor_id]
+	if _timing_transitions.has(transition_id):
+		var replay := (_timing_transitions[transition_id] as Dictionary).duplicate(true)
+		replay["duplicate"] = true
+		return replay
+	var staggered_key := _instance_key(target_actor_id, STATUS_STAGGERED)
+	if not _instances.has(staggered_key):
+		return {"success": false, "reason": "STAGGERED_INSTANCE_NOT_AVAILABLE", "transition_id": transition_id}
+	var staggered := (_instances[staggered_key] as Dictionary).duplicate(true)
+	_instances.erase(staggered_key)
+	var off_balance_key := _instance_key(target_actor_id, STATUS_OFF_BALANCE)
+	var off_balance_before: Dictionary = {}
+	if _instances.has(off_balance_key):
+		off_balance_before = (_instances[off_balance_key] as Dictionary).duplicate(true)
+	var transition_request := {
+		"application_request_id": transition_id,
+		"target_actor_id": target_actor_id,
+		"source_actor_id": String(staggered.get("source_actor_id", "")),
+		"source_action_id": String(staggered.get("source_action_id", "")),
+		"source_resolution_id": String(staggered.get("source_resolution_id", "")),
+		"qualification": "STAGGERED_NATURAL_RECOVERY_TO_OFF_BALANCE",
+	}
+	var off_balance_after := _apply_off_balance(transition_request, round_id, off_balance_before)
+	_instances[off_balance_key] = off_balance_after.duplicate(true)
+	var result := {
+		"success": true,
+		"status": "STAGGERED_TRANSITIONED_TO_OFF_BALANCE",
+		"transition_id": transition_id,
+		"round_id": round_id,
+		"target_actor_id": target_actor_id,
+		"removed_staggered_instance": staggered.duplicate(true),
+		"off_balance_before": off_balance_before.duplicate(true),
+		"off_balance_after": off_balance_after.duplicate(true),
+		"activation_policy": "CONTINUE_SAME_NORMAL_ACTIVATION",
+		"duplicate": false,
+	}
+	_timing_transitions[transition_id] = result.duplicate(true)
+	_record_trace("STAGGERED_TO_OFF_BALANCE_TIMING_TRANSITION_COMMITTED", result)
+	return result.duplicate(true)
 
 func arm_off_balance_expiry(target_actor_id: String, round_id: int) -> Dictionary:
 	var key := _instance_key(target_actor_id, STATUS_OFF_BALANCE)
@@ -280,21 +374,26 @@ func get_application_result(application_request_id: String) -> Dictionary:
 func get_application_count() -> int:
 	return _applications.size()
 
+func get_timing_transition_count() -> int:
+	return _timing_transitions.size()
+
 func get_persistence_snapshot() -> Dictionary:
-	return {"schema": SCHEMA, "encounter_id": EXPECTED_ENCOUNTER_ID, "instances": _instances.duplicate(true), "applications": _applications.duplicate(true)}
+	return {"schema": SCHEMA, "encounter_id": EXPECTED_ENCOUNTER_ID, "instances": _instances.duplicate(true), "applications": _applications.duplicate(true), "timing_transitions": _timing_transitions.duplicate(true)}
 
 func restore_persistence_snapshot(snapshot: Dictionary) -> bool:
-	if not _initialized or not _instances.is_empty() or not _applications.is_empty():
+	if not _initialized or not _instances.is_empty() or not _applications.is_empty() or not _timing_transitions.is_empty():
 		return false
 	if String(snapshot.get("schema", "")) != SCHEMA or String(snapshot.get("encounter_id", "")) != EXPECTED_ENCOUNTER_ID:
 		return false
 	var instances_variant: Variant = snapshot.get("instances", {})
 	var applications_variant: Variant = snapshot.get("applications", {})
-	if typeof(instances_variant) != TYPE_DICTIONARY or typeof(applications_variant) != TYPE_DICTIONARY:
+	var transitions_variant: Variant = snapshot.get("timing_transitions", {})
+	if typeof(instances_variant) != TYPE_DICTIONARY or typeof(applications_variant) != TYPE_DICTIONARY or typeof(transitions_variant) != TYPE_DICTIONARY:
 		return false
 	_instances = (instances_variant as Dictionary).duplicate(true)
 	_applications = (applications_variant as Dictionary).duplicate(true)
-	_record_trace("STATUS_STATE_REHYDRATED_WITHOUT_ON_APPLY_REPLAY", {"instance_count": _instances.size(), "application_count": _applications.size()})
+	_timing_transitions = (transitions_variant as Dictionary).duplicate(true)
+	_record_trace("STATUS_STATE_REHYDRATED_WITHOUT_ON_APPLY_REPLAY", {"instance_count": _instances.size(), "application_count": _applications.size(), "timing_transition_count": _timing_transitions.size()})
 	return true
 
 func _record_trace(event_name: String, details: Dictionary = {}) -> void:

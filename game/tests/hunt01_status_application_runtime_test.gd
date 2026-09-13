@@ -77,6 +77,23 @@ func _off_balance_request(suffix: String) -> Dictionary:
 		"consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME",
 	}
 
+func _staggered_request(suffix: String) -> Dictionary:
+	var resolution_id := "enc_r01_ef02_m01_0001:STATUS_TEST:%s" % suffix
+	return {
+		"status": "VALID_STATUS_APPLICATION_REQUEST",
+		"request_schema": "uhr.status_application_request.v1",
+		"application_request_id": "%s:STATUS:status_staggered" % resolution_id,
+		"status_id": "status_staggered",
+		"target_actor_id": HUNTER_ID,
+		"source_actor_id": MONSTER_ID,
+		"source_action_id": ATTACK_ID,
+		"source_resolution_id": resolution_id,
+		"trigger_hook": "ON_HIT_OR_DAMAGE_CONSEQUENCE",
+		"application_mode": "APPLY_OR_REFRESH",
+		"qualification": "TEST_VALID_TRANSIENT_DISRUPTION",
+		"consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME",
+	}
+
 func _count_trace_event(trace: Array, event_name: String) -> int:
 	var count := 0
 	for entry_variant in trace:
@@ -126,6 +143,7 @@ func _run() -> void:
 	_check("generic status owner is integrated once under combat shell", status_runtime != null and status_runtime.get_parent() == shell and status_runtime.name == "StatusApplicationRuntime")
 	_check("generic status schema v1", status_runtime != null and String(status_runtime.call("get_schema")) == "uhr.hunt01.status_application.v1")
 	_check("Bleeding definition lookup stable", status_runtime != null and String((status_runtime.call("get_definition", "status_bleeding") as Dictionary).get("stack_rule", "")) == "STACK_INTENSITY_CAPPED")
+	_check("Staggered definition is refreshable transient disruption", status_runtime != null and String((status_runtime.call("get_definition", "status_staggered") as Dictionary).get("category", "")) == "TRANSIENT_PHYSICAL_DISRUPTION" and String((status_runtime.call("get_definition", "status_staggered") as Dictionary).get("stack_rule", "")) == "REFRESH_DURATION")
 	_check("Off-Balance definition lookup stable", status_runtime != null and String((status_runtime.call("get_definition", "status_off_balance") as Dictionary).get("stack_rule", "")) == "REFRESH_DURATION")
 	if status_runtime == null or health == null:
 		_finish()
@@ -195,7 +213,21 @@ func _run() -> void:
 	var off_balance: Dictionary = status_runtime.call("get_status_instance", HUNTER_ID, "status_off_balance")
 	_check("Off-Balance remains one refreshed instance", int(off_balance.get("application_count", 0)) == 2 and int(off_balance.get("first_application_round", 0)) == 4 and int(off_balance.get("last_application_round", 0)) == 5, str(off_balance))
 	_check("Off-Balance records pending completed-activation expiry", String(off_balance.get("pending_expiry_hook", "")) == "TURN_END" and String(off_balance.get("expiry_condition", "")) == "AFTER_TARGET_COMPLETES_NEXT_NORMAL_ACTIVATION" and String(off_balance.get("expiry_status", "")) == "PENDING_STATUS_TIMING_RUNTIME", str(off_balance))
-	_check("only Bleeding + Off-Balance instances exist", int(status_runtime.call("get_active_status_count")) == 2)
+
+	var staggered_request := _staggered_request("ST1")
+	var staggered_first: Dictionary = status_runtime.call("consume_application_request", staggered_request, 4)
+	var staggered_second: Dictionary = status_runtime.call("consume_application_request", _staggered_request("ST2"), 5)
+	_check("Staggered apply and refresh succeed", bool(staggered_first.get("success", false)) and bool(staggered_second.get("success", false)))
+	var staggered: Dictionary = status_runtime.call("get_status_instance", HUNTER_ID, "status_staggered")
+	_check("Staggered remains one refreshed non-stacking instance", int(staggered.get("intensity", 0)) == 1 and int(staggered.get("max_intensity", 0)) == 1 and int(staggered.get("application_count", 0)) == 2 and int(staggered.get("first_application_round", 0)) == 4 and int(staggered.get("last_application_round", 0)) == 5, str(staggered))
+	_check("Staggered records next-turn conversion without hidden skip", String(staggered.get("pending_transition_hook", "")) == "TURN_START_PRE_RECOVERY" and String(staggered.get("transition_status_id", "")) == "status_off_balance" and String(staggered.get("activation_policy", "")) == "CONTINUE_SAME_NORMAL_ACTIVATION", str(staggered))
+	var staggered_replay: Dictionary = status_runtime.call("consume_application_request", staggered_request, 4)
+	_check("Staggered replay is idempotent without extra refresh", bool(staggered_replay.get("duplicate", false)) and int((status_runtime.call("get_status_instance", HUNTER_ID, "status_staggered") as Dictionary).get("application_count", 0)) == 2)
+	var invalid_staggered := _staggered_request("ST_INVALID_INTENSITY")
+	invalid_staggered["intensity_delta"] = 1
+	var invalid_staggered_result: Dictionary = status_runtime.call("consume_application_request", invalid_staggered, 5)
+	_check("Staggered rejects intensity stacking", not bool(invalid_staggered_result.get("success", true)) and String(invalid_staggered_result.get("reason", "")) == "STAGGERED_INTENSITY_STACKING_NOT_SUPPORTED", str(invalid_staggered_result))
+	_check("only Bleeding + Staggered + Off-Balance instances exist", int(status_runtime.call("get_active_status_count")) == 3)
 
 	var invalid := _bleeding_request("INVALID")
 	invalid["consumer_status"] = "WRONG_OWNER"
@@ -214,6 +246,7 @@ func _run() -> void:
 	_check("fresh restore probe initializes", bool(restored.call("initialize", shell, encounter.call("get_encounter_record") as Dictionary)))
 	_check("status snapshot restores", bool(restored.call("restore_persistence_snapshot", snapshot)))
 	_check("restored Bleeding intensity matches", int((restored.call("get_status_instance", HUNTER_ID, "status_bleeding") as Dictionary).get("intensity", 0)) == 3)
+	_check("restored Staggered refresh state matches", int((restored.call("get_status_instance", HUNTER_ID, "status_staggered") as Dictionary).get("application_count", 0)) == 2 and String((restored.call("get_status_instance", HUNTER_ID, "status_staggered") as Dictionary).get("transition_status_id", "")) == "status_off_balance")
 	_check("rehydration runs no ON_APPLY trace", _count_trace_event(restored.call("get_trace") as Array, "STATUS_ON_APPLY_COMMITTED") == 0)
 	var restored_replay: Dictionary = restored.call("consume_application_request", real_request, 3)
 	_check("restored consumed request remains idempotent", bool(restored_replay.get("duplicate", false)) and int(restored.call("get_application_count")) == int(status_runtime.call("get_application_count")))
@@ -228,5 +261,5 @@ func _finish() -> void:
 		print("Gate: HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_VERIFIED")
 	else:
 		print("Gate: HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_FAILED")
-	print("This gate does not execute Bleeding periodic damage, TURN_START/TURN_END scheduling, resource refresh/spend, Initiative edits, structural damage, defeat, phone acceptance or performance verification.")
+	print("This gate verifies Bleeding/Off-Balance/Staggered application state but does not execute Bleeding periodic damage, Tail Sweep Staggered producer wiring, resource refresh/spend, Initiative edits, structural damage, defeat, phone acceptance or performance verification.")
 	quit(0 if failures.is_empty() else 1)

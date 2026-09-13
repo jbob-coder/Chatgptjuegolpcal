@@ -33,6 +33,10 @@ func _off_balance_request() -> Dictionary:
 	var resolution_id := "enc_r01_ef02_m01_0001:TIMING_TEST:OFF_BALANCE"
 	return {"status": "VALID_STATUS_APPLICATION_REQUEST", "request_schema": "uhr.status_application_request.v1", "application_request_id": "%s:STATUS:status_off_balance" % resolution_id, "status_id": "status_off_balance", "target_actor_id": HUNTER_ID, "source_actor_id": MONSTER_ID, "source_action_id": ATTACK_ID, "source_resolution_id": resolution_id, "trigger_hook": "ON_HIT_OR_DAMAGE_CONSEQUENCE", "application_mode": "APPLY_OR_REFRESH", "qualification": "TIMING_TEST_VALID_IMPACT_DOMINANT_CONTACT", "consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME"}
 
+func _staggered_request() -> Dictionary:
+	var resolution_id := "enc_r01_ef02_m01_0001:TIMING_TEST:STAGGERED"
+	return {"status": "VALID_STATUS_APPLICATION_REQUEST", "request_schema": "uhr.status_application_request.v1", "application_request_id": "%s:STATUS:status_staggered" % resolution_id, "status_id": "status_staggered", "target_actor_id": HUNTER_ID, "source_actor_id": MONSTER_ID, "source_action_id": ATTACK_ID, "source_resolution_id": resolution_id, "trigger_hook": "ON_HIT_OR_DAMAGE_CONSEQUENCE", "application_mode": "APPLY_OR_REFRESH", "qualification": "TIMING_TEST_VALID_TRANSIENT_DISRUPTION", "consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME"}
+
 func _shell_sequence(trace: Array, event_name: String, round_id: int, actor_id: String = "") -> int:
 	for entry_variant in trace:
 		var entry := entry_variant as Dictionary
@@ -93,13 +97,18 @@ func _run() -> void:
 	var bleeding: Dictionary = status_application.call("get_status_instance", HUNTER_ID, "status_bleeding")
 	_check("real Bleeding exists with first tick Round 4", int(bleeding.get("first_tick_round", 0)) == 4, str(bleeding))
 
-	# Apply Off-Balance during already-started Round-4 Hunter activation. It must not expire at this turn end.
+	# Apply Off-Balance and Staggered during the already-started Round-4 Hunter activation.
+	# Neither may retroactively consume this activation's TURN_START hook.
 	var off_apply: Dictionary = status_application.call("consume_application_request", _off_balance_request(), 4)
 	_check("synthetic valid Off-Balance applies during Round 4 Hunter activation", bool(off_apply.get("success", false)))
+	var staggered_apply: Dictionary = status_application.call("consume_application_request", _staggered_request(), 4)
+	_check("synthetic valid Staggered applies during Round 4 Hunter activation", bool(staggered_apply.get("success", false)))
 	var off_balance: Dictionary = status_application.call("get_status_instance", HUNTER_ID, "status_off_balance")
 	_check("mid-activation Off-Balance is not retroactively armed", int(off_balance.get("expiry_armed_round", 0)) == 0, str(off_balance))
+	_check("mid-activation Staggered waits for next target TURN_START", bool(status_application.call("has_status", HUNTER_ID, "status_staggered")) and int(status_application.call("get_timing_transition_count")) == 0)
 	_check("Round-4 Hunter end succeeds", bool(shell.call("end_player_turn")))
 	_check("Off-Balance survives same activation end", bool(status_application.call("has_status", HUNTER_ID, "status_off_balance")))
+	_check("Staggered survives same activation end", bool(status_application.call("has_status", HUNTER_ID, "status_staggered")))
 
 	# Finish Round 4 Monster activation with Strong Block, triggering Round 4 ROUND_END and Round 5 start.
 	window = reaction.call("get_active_window")
@@ -109,9 +118,13 @@ func _run() -> void:
 	var round4_defense: Dictionary = round4_attack.get("defense_consequence", {}) as Dictionary
 	var round4_health_consequence: Dictionary = round4_defense.get("health_injury_consequence", {}) as Dictionary
 	var state: Dictionary = shell.call("get_current_state")
-	_check("Round 5 Hunter activation starts", int(state.get("round_id", 0)) == 5 and String(state.get("current_actor_id", "")) == HUNTER_ID, str(state))
+	_check("Round 5 Hunter activation starts instead of being skipped", int(state.get("round_id", 0)) == 5 and String(state.get("current_actor_id", "")) == HUNTER_ID, str(state))
+	var round5_resources: Dictionary = shell.call("get_resource_state", HUNTER_ID)
+	_check("normal Round-5 AP/RP refresh still occurs after Staggered transition", int(round5_resources.get("ap", -1)) == 4 and int(round5_resources.get("rp", -1)) == 1, str(round5_resources))
+	_check("Round-5 TURN_START removes Staggered exactly once", not bool(status_application.call("has_status", HUNTER_ID, "status_staggered")) and int(status_application.call("get_timing_transition_count")) == 1)
 	off_balance = status_application.call("get_status_instance", HUNTER_ID, "status_off_balance")
-	_check("Round-5 TURN_START arms Off-Balance expiry", int(off_balance.get("expiry_armed_round", 0)) == 5 and String(off_balance.get("expiry_status", "")) == "ARMED_FOR_TARGET_TURN_END", str(off_balance))
+	_check("Staggered transition refreshes the one Off-Balance instance", int(off_balance.get("application_count", 0)) == 2 and int(off_balance.get("last_application_round", 0)) == 5 and int(off_balance.get("intensity", 0)) == 1, str(off_balance))
+	_check("converted Off-Balance is armed for this same activation TURN_END", int(off_balance.get("expiry_armed_round", 0)) == 5 and String(off_balance.get("expiry_status", "")) == "ARMED_FOR_TARGET_TURN_END", str(off_balance))
 
 	var events: Array = timing.call("get_periodic_events") as Array
 	_check("Round-4 emits exactly one pending Bleeding periodic consequence", events.size() == 1 and String((events[0] as Dictionary).get("status", "")) == "PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE" and int((events[0] as Dictionary).get("round_id", 0)) == 4, str(events))
@@ -126,7 +139,12 @@ func _run() -> void:
 	_check("duplicate timing hook spends no resources", shell.call("get_resource_state", HUNTER_ID) == hunter_resources_before)
 	_check("duplicate timing hook still cannot mutate Health", health.call("get_health_state") == health_before_duplicate)
 
-	# Off-Balance now expires only after the next completed Hunter activation.
+	var off_count_before_duplicate_start := int((status_application.call("get_status_instance", HUNTER_ID, "status_off_balance") as Dictionary).get("application_count", 0))
+	var duplicate_turn_start: Dictionary = timing.call("on_turn_start_pre_recovery", HUNTER_ID, 5)
+	_check("duplicate Round-5 TURN_START is idempotent", bool(duplicate_turn_start.get("duplicate", false)) and int(status_application.call("get_timing_transition_count")) == 1)
+	_check("duplicate TURN_START does not refresh Off-Balance twice", int((status_application.call("get_status_instance", HUNTER_ID, "status_off_balance") as Dictionary).get("application_count", 0)) == off_count_before_duplicate_start)
+
+	# Converted/refreshed Off-Balance expires after this same normal Hunter activation.
 	_check("Round-5 Hunter end succeeds", bool(shell.call("end_player_turn")))
 	_check("Off-Balance removed at armed TURN_END", not bool(status_application.call("has_status", HUNTER_ID, "status_off_balance")) and int(timing.call("get_removal_event_count")) == 1)
 
@@ -147,5 +165,5 @@ func _finish() -> void:
 	print()
 	print("Checks: %d | Passed: %d | Failed: %d" % [checks, checks - failures.size(), failures.size()])
 	print("Gate: %s" % ["HUNT01_GENERIC_STATUS_TIMING_RUNTIME_VERIFIED" if failures.is_empty() else "HUNT01_GENERIC_STATUS_TIMING_RUNTIME_FAILED"])
-	print("This gate emits pending Bleeding periodic consequences but does not select/apply periodic HP magnitude, create Staggered/Brace, change Initiative/resources/anatomy, verify phone acceptance or verify performance.")
+	print("This gate verifies generic Staggered next-turn conversion to Off-Balance plus existing Bleeding/Off-Balance timing; it does not wire Tail Sweep CLEAN as a Staggered producer, select Bleeding HP magnitude, implement Braced/Guarded, verify phone acceptance or verify performance.")
 	quit(0 if failures.is_empty() else 1)
