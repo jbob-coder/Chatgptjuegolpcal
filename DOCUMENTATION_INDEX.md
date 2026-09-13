@@ -3,6 +3,11 @@
 Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / GENERIC STAGGERED STATUS NEXT
 Last reconciled: 2026-09-13
 
+## New-chat entry points
+
+- `START_HERE_NEW_CHAT.md` — mandatory live-state reconstruction/bootstrap protocol. Read this before any implementation in a fresh chat.
+- `NEW_CHAT_CONTINUATION_PROMPT.md` — reusable copy-paste launcher for starting the fresh chat. The launcher points back to live authorities and is not itself implementation authority.
+
 ## Mandatory read order
 
 1. `EVOLVE_ALIGNMENT.md`
@@ -14,7 +19,9 @@ Last reconciled: 2026-09-13
 7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
 8. newest relevant `docs/70_handoff/`
 9. `game/README.md`
-10. exact owning package/source/data/tests.
+10. exact owning package/source/data/tests/static gates/workflow for the current bounded piece.
+
+A fresh chat must also fetch live branch HEAD before this read, re-check HEAD afterward, distinguish current branch HEAD from the last source SHA actually proven by build evidence, inspect relevant workflow/artifact evidence, and report contradictions rather than allowing a stale lower-priority front door to override current verified evidence.
 
 ## Production runtime map
 
@@ -34,7 +41,7 @@ Production workflow `34760296459`: SUCCESS.
 Job `103731848690`: SUCCESS.
 Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
 
-Latest handoff:
+Latest gameplay handoff:
 `docs/70_handoff/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_2026-09-13.md`.
 
 ## Verification boundary

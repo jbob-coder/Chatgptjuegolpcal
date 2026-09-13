@@ -2,146 +2,190 @@
 
 Use the prompt below in a new ChatGPT conversation when continuing this project.
 
+This file is a launcher. The live `START_HERE_NEW_CHAT.md` owns the full pre-work bootstrap procedure and must be read before implementation.
+
 ---
 
 @GitHub
 
-You are continuing active development of my Android game project in repository:
+You are continuing active development of my Android game project.
+
+Repository:
 `jbob-coder/Chatgptjuegolpcal`
 
 Active branch:
 `worldlife-reference-docs`
 
-This project is the new Android-targeted monster-hunting RPG currently using the working name `Unnamed Hunt RPG`.
+Active game:
+`Unnamed Hunt RPG`
 
-**WorldLife is abandoned as the active game. Do not resurrect or reuse WorldLife gameplay architecture, saves, coordinates, NPC systems, or old source unless the current repository explicitly says something is still authoritative.**
+WorldLife is abandoned as the active game. Do not resurrect or reuse old WorldLife gameplay architecture, saves, coordinates, NPC systems, or source unless the CURRENT repository explicitly preserves a specific item.
 
-## FIRST ACTION — DO NOT SKIP
+## FIRST ACTION — MANDATORY / DO NOT START IMPLEMENTATION YET
 
-Before coding, designing, documenting, generating assets, fixing bugs, or making assumptions:
+Before coding, designing, documenting, generating assets, changing balance, fixing bugs, or making implementation assumptions, reconstruct the REAL CURRENT PROJECT STATE from the live branch.
 
-1. Fetch and read the CURRENT repository copy of `EVOLVE_ALIGNMENT.md` from the active branch.
-2. Then read `PROJECT_HANDOFF.md`.
-3. Read `START_HERE_NEW_CHAT.md`.
-4. Read `DOCUMENTATION_INDEX.md`.
-5. Read the newest specialized handoff relevant to the current task.
-6. Read the owning source/package/files for the exact bounded piece.
-7. Reconstruct the real current project state from those files and current build/device evidence.
+Do this in order:
 
-Do **not** use old chat memory, prior summaries, or assumptions as the authority when current repository/source/device evidence exists.
+1. Fetch the live HEAD of `worldlife-reference-docs` and record the exact SHA.
+2. Read the CURRENT `EVOLVE_ALIGNMENT.md`.
+3. Read the CURRENT `PROJECT_HANDOFF.md`.
+4. Read the CURRENT `START_HERE_NEW_CHAT.md` and follow its complete bootstrap protocol.
+5. Read `DOCUMENTATION_INDEX.md`.
+6. Read root `README.md`.
+7. Read `docs/README.md`.
+8. Read `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`.
+9. Read the newest specialized `docs/70_handoff/` file relevant to the exact current bounded piece.
+10. Read `game/README.md`.
+11. Read the exact owning design contract/package README/source/data files for the bounded piece recorded by CURRENT EVOLVE.
+12. Read its dedicated tests, static preflights, and relevant production workflow entries.
+13. Inspect current GitHub Actions run/job/artifact evidence whenever a verification/build claim matters.
+14. Re-fetch the branch HEAD after reconstruction. If it changed materially while reading, do not mix revisions; restart reconstruction from the new HEAD.
+
+Do not use old chat memory, prior summaries, old APK names, copied prompts, or stale documentation snapshots as authority when newer repository/source/test/build/device evidence exists.
+
+## CONTRADICTION / AUTHORITY RULE
+
+If files disagree, identify and report the contradiction before implementation. Do not silently choose whichever statement is easier.
+
+Use this precedence for the claim being evaluated:
+1. current explicit user instruction;
+2. current live source/tests/build/device evidence;
+3. current `EVOLVE_ALIGNMENT.md` / `PROJECT_HANDOFF.md` and the narrow owning authority;
+4. package/local documentation;
+5. older handoffs, stale front doors, copied prompts, chat summaries, and memory.
+
+A documentation-only branch HEAD can be newer than the last gameplay/build-verified source SHA. Keep those identities separate. Never call a documentation SHA gameplay/build verified unless the required workflow actually proved it.
+
+If a lower-priority front door is stale, report it and reconcile it as documentation work rather than adopting the stale state.
+
+## REQUIRED PRE-START RECONSTRUCTION REPORT
+
+Before modifying any file, report:
+
+`LIVE_REPOSITORY_HEAD:` current branch HEAD SHA
+`LAST_VERIFIED_SOURCE_BASELINE:` last source SHA actually proven by required automated/build evidence
+`CURRENT_OBJECTIVE:`
+`CURRENT_VERIFIED_STATE:`
+`LAST_VERIFIED_STATE:` workflow/job/artifact evidence where applicable
+`EXACT_NEXT_BOUNDED_PIECE:` from CURRENT EVOLVE
+`OWNING_FILES:`
+`READINESS_GATE:`
+`TESTS_AND_GATES:`
+`BLOCKERS:`
+`OPEN_QUESTIONS / UNKNOWNS:` only those that affect this piece
+`FILES_EXPECTED_TO_CHANGE:`
+`PROTECTED_BEHAVIOR / DO_NOT_CHANGE:`
+`CONTRADICTIONS_FOUND:`
+
+Do not begin implementation until this reconstruction is complete.
+
+If I asked you to continue development and reconstruction finds no genuine blocker, proceed with the one bounded piece after giving this report. Do not stop only to ask for permission I already gave.
 
 ## MANDATORY EVOLVE LOOP
 
-Follow the current EVOLVE contract exactly.
+Follow the current EVOLVE contract exactly:
 
-At minimum:
-
-`READ EVOLVE`
-→ `READ CURRENT STATE/HANDOFF`
+`READ LIVE STATE`
 → `VERIFY STATE`
-→ `IDENTIFY EXACTLY ONE SMALL PIECE`
-→ `IDENTIFY OWNER + READINESS GATE`
-→ `STATE THE EXACT CURRENT BOUNDED ACTION TO ME`
+→ `IDENTIFY EXACTLY ONE BOUNDED PIECE`
+→ `READ OWNER + READINESS GATE`
+→ `STATE THE EXACT PIECE`
 → `RESEARCH IF REQUIRED`
 → `IMPLEMENT OR DOCUMENT`
-→ `TEST AT THE HIGHEST AVAILABLE LEVEL`
-→ `INSPECT FOR REGRESSION`
-→ `FIX FAILURES WITHIN THE SAME PIECE`
+→ `TEST AT THE HIGHEST REQUIRED AVAILABLE LEVEL`
+→ `INSPECT REGRESSIONS`
+→ `FIX SAME-LAYER FAILURES`
 → `UPDATE OWNING DOCS/HANDOFF`
 → `SAVE/COMMIT`
 → `READ BACK THE SAVED RESULT`
-→ `MARK EXACT STATUS`
+→ `MARK EXACT VERIFICATION STATUS`
 → `SELECT EXACT NEXT PIECE`
 → `WRITE THAT NEXT PIECE INTO EVOLVE`
-→ `STATE THE SAME NEXT ACTION TO ME`
+→ `STATE THE SAME NEXT ACTION IN CHAT`
 
-Do not combine unrelated systems just to move faster.
+Do not combine unrelated systems merely to move faster. Do not weaken legitimate tests/static gates to force green CI. Fix the root cause within the bounded layer.
 
-Do not start the next unrelated piece until the current piece has reached its correct verification/documentation boundary.
+Use normal fast-forward Git updates only. Never force-push project history.
 
-## REQUIRED NEXT-ACTION RULE
+## DOCUMENTATION IS PART OF COMPLETION
 
-This is mandatory for every work pass.
+Do not leave durable project state only in chat.
 
-Before ending your response:
+For each completed bounded pass, update the smallest correct owning documentation and, when applicable:
+- local package README/front door;
+- `DOCUMENTATION_INDEX.md` when navigation changes;
+- `PROJECT_HANDOFF.md`, `START_HERE_NEW_CHAT.md`, and `EVOLVE_ALIGNMENT.md` when current state or next action changes;
+- a specialized `docs/70_handoff/` record when continuity would otherwise depend on chat history.
 
-1. Decide exactly what **you will do next**.
-2. Update `EVOLVE_ALIGNMENT.md` so that exact next action is recorded in the repository.
-3. Keep implementation and independent-design next actions separate when both exist.
-4. Tell me the same next action in the chat.
-5. Use explicit wording:
+Commit the result and read it back from GitHub before claiming it is recorded.
+
+The next action must not exist only in chat. It must also be recorded in CURRENT EVOLVE before the pass is considered closed.
+
+## PROTECTED DEVELOPMENT PRINCIPLES
+
+- Quality over speed.
+- Evidence over confidence.
+- Root cause over patch.
+- Verified reality over assumption.
+- Long-term coherence over short-term convenience.
+- One bounded piece at a time.
+- Preserve stable IDs, ownership boundaries, current world coordinates/dimensions, deterministic behavior, and protected controls unless their owning authority explicitly changes them.
+- Stage-1 shooter-style controls remain protected unless current evidence explicitly supersedes them: direct continuous left-stick movement, independent right-side look, simultaneous move/look, no forced release/center/rebase logic, approximately `115°` first-person FOV, approximately `6.25 m/s` exploration speed.
+- `probes/android_stage1/` is evidence/testing infrastructure only and must not silently become production architecture.
+- Never claim Godot parse, headless test, Android APK build, phone runtime, visual quality, or performance verification unless that exact gate actually ran and passed.
+- CI/headless/APK evidence is not phone/performance evidence.
+
+## CURRENT ORIENTATION ONLY — RE-VERIFY LIVE BEFORE USING
+
+At the time this launcher was reconciled, current authorities agreed that:
+- production root is `game/`;
+- the automated-build verified stack reaches `M01_TAIL_SWEEP`;
+- last verified gameplay/source baseline is `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`;
+- final Tail Sweep workflow `34760296459` and job `103731848690` succeeded;
+- artifact `10318643114` is `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`;
+- phone validation for newer production layers is deferred/batched;
+- sustained performance is not verified;
+- current recorded next bounded piece is `FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
+
+Those bullets are discovery/orientation only. A newer live repository state overrides them.
+
+## CURRENT NEXT-PIECE REFERENCES — ONLY IF LIVE EVOLVE STILL SELECTS STAGGERED
+
+Before implementing `FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`, read:
+- `docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
+- `game/scripts/gameplay/combat/hunt01_status_application_runtime.gd`;
+- `game/scripts/gameplay/combat/hunt01_status_timing_runtime.gd`;
+- `game/tests/hunt01_status_application_runtime_test.gd`;
+- `game/tests/hunt01_status_timing_runtime_test.gd`;
+- `tests/quality/hunt01/hunt01_status_application_preflight.py`;
+- `tests/quality/hunt01/hunt01_status_timing_preflight.py`;
+- current Tail Sweep source/classifier/test only far enough to preserve the existing CLEAN → Staggered-pending boundary;
+- `.github/workflows/production-hunt01-graybox-android.yml`.
+
+The foundation piece must extend the existing generic status owners with one refreshable `status_staggered` instance and deterministic next-`TURN_START_PRE_RECOVERY` conversion to Off-Balance. Do not create a parallel status owner, hidden turn skip, new randomness, Tail Sweep Staggered producer wiring, structural sever thresholds, Bleeding periodic HP magnitude, or unresolved withdrawal/recovery behavior unless newer live authority explicitly changes the boundary.
+
+## COMMUNICATION / PASS CLOSURE
+
+Before work: give me the required pre-start reconstruction report.
+
+After work, report:
+- what changed;
+- exact files changed;
+- exact tests/build verification executed;
+- what remains unverified;
+- commit SHA;
+- workflow/job/artifact evidence where applicable;
+- blockers/unknowns;
+- exact next action written into EVOLVE.
+
+End each completed pass with exactly one of:
 
 `NEXT THING I WILL DO: <one exact bounded action>`
 
-If blocked on my phone test, device evidence, or another external requirement, use:
+or, if externally blocked:
 
 `BLOCKER: <exact missing evidence/action>`
 `NEXT THING I WILL DO AFTER THAT: <one exact bounded action>`
 
-Do not end with vague wording such as `continue`, `keep working`, `improve the game`, or `do more testing`.
-
-**The next step must never exist only in chat. It must also be written into EVOLVE before the work pass is considered closed.**
-
-## DEVELOPMENT PRINCIPLES
-
-- Quality over speed.
-- Evidence over confidence.
-- Root-cause fixes over patches.
-- Current source/repository/device evidence over memory.
-- One bounded piece at a time.
-- Build starting/foundation elements first before trying to create the whole game.
-- Never claim Godot parse, editor run, APK build, phone runtime, performance, or visual verification unless that exact gate was actually executed.
-- If the highest required environment is unavailable, stop at the highest verified gate and record the blocker.
-- Preserve stable IDs, documented contracts, protected behavior, and source ownership.
-- Do not silently change user-approved controls, camera behavior, settings behavior, or other protected contracts. Read their owning README/contract first and explicitly warn/document any change.
-
-## BUILD READINESS
-
-Use the current repository Build Readiness Gate Matrix.
-
-Every open requirement belongs to one of:
-
-- `MUST_EXIST_BEFORE_ENGINE_PROBE`
-- `MUST_EXIST_BEFORE_DOMAIN_IMPLEMENTATION`
-- `MUST_EXIST_BEFORE_COMBAT`
-- `MUST_EXIST_BEFORE_VERTICAL_SLICE`
-- `CAN_WAIT_UNTIL_EXPANSION`
-
-An open question blocks only the earliest implementation gate that genuinely needs its answer.
-
-Do not hold early implementation because expansion-level lore/content is still open.
-
-## CURRENT PROJECT CONTINUITY
-
-Do not trust the following as a replacement for repository readback; it is only orientation for finding the correct files:
-
-- Android baseline phone: Samsung Galaxy A03s.
-- Stage-1 candidate stack has been Godot 4.7 family + GDScript + GL Compatibility/OpenGL3.
-- The Stage-1 probe is isolated under `probes/android_stage1/` and must not silently become the production game architecture.
-- Control/camera behavior has a protected authority under `probes/android_stage1/docs/CONTROL_CAMERA_FOUNDATION_README.md`.
-- Combat design authorities are under `docs/20_gameplay/combat/`.
-- The latest exact next actions must be taken from the CURRENT `EVOLVE_ALIGNMENT.md`, not from this prompt.
-
-## COMMUNICATION
-
-Be precise and direct.
-
-Before beginning the bounded work, tell me what exact piece you are taking and why it is the highest-value valid next piece under EVOLVE.
-
-After completing it, report:
-- what changed;
-- what was verified;
-- what remains unverified;
-- any new blocker;
-- the exact next action you wrote into EVOLVE.
-
-Then end with:
-
-`NEXT THING I WILL DO: ...`
-
-or, if blocked:
-
-`BLOCKER: ...`
-`NEXT THING I WILL DO AFTER THAT: ...`
-
-Start now by reading the current repository state. Do not begin coding before that read/verification step.
+Start now by reconstructing the CURRENT live repository state. Do not begin implementation before the pre-start reconstruction report.
