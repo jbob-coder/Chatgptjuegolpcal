@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH TAIL SWEEP CLEAN→STAGGERED ANDROID BUILD VERIFIED / BASIC RUNTIME AUTORUN NEXT / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 BASIC RUNTIME AUTORUN ANDROID BUILD VERIFIED / BASIC AUTORUN COMBAT EXCHANGE NEXT / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-13
 
 ## Operating law
@@ -36,30 +36,33 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - generic `status_staggered` application/refresh with exact-once next-`TURN_START_PRE_RECOVERY` conversion to existing Off-Balance without skipped activation;
 - Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment;
 - living Mudcrest identity/anatomy/status/world preservation through Hunter defeat;
-- `M01_TAIL_SWEEP` with exact 3 AP / 18 Stamina economy, pure Impact, rear/flank/pivot/arc legality, shared reaction/Block flow, 14-Stamina successful Block impact drain, seeded contact boundary, SOLID Off-Balance and presentation-only telegraph;
-- Tail Sweep CLEAN consequence now emits exactly one valid generic `status_staggered` request; replay is idempotent and Strong Block/SOLID routes remain unchanged.
+- `M01_TAIL_SWEEP` including SOLID→Off-Balance and CLEAN→generic Staggered producer integration;
+- deterministic basic-runtime autorun regression using the real Region-01 scene across two fresh boot/run/teardown cycles with no detected Hunt-01 group/state leakage.
 
 ## Current verified automated baseline
 
 Latest full production-verified revision:
-`fbfd30fde0ad74bdb73d384533287b884341cd93`.
+`3c6a792851e5dec9756f6e99bd09de291fe266b2`.
 
-Tail Sweep CLEAN→Staggered producer implementation commit:
-`fbfd30fde0ad74bdb73d384533287b884341cd93`.
+Basic autorun implementation commit:
+`07ad99f71fd0da45ff458fe8d5e770d02ab07783`.
+
+Fresh-instance contract repair commit:
+`3c6a792851e5dec9756f6e99bd09de291fe266b2`.
 
 Production verification workflow:
-`34762775881` — SUCCESS.
+`34763505121` — SUCCESS.
 
 Workflow job:
-`103738398857` — SUCCESS.
+`103740308986` — SUCCESS.
 
 Artifact:
-- ID `10319377979`;
+- ID `10319379031`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,485,460` bytes;
-- SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
+- size `57,495,532` bytes;
+- SHA-256 `488a3f31bf589a194332402b8c8cf1ee8c9a9f57edb0d5d7a77adf5693b68b7f`.
 
-The successful run executed current static/manifest gates, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, all current headless combat/anatomy/status/outcome regressions including Tail Sweep plus Generic Status Application/Timing, Android debug APK export and artifact upload. The separate manifest-static run `34762775845` also passed.
+Run 73 (`34763317831`) failed before Godot because the new autorun documentation did not contain the explicit `fresh-instance` governance phrase required by its own static preflight. Runtime/gameplay code was not implicated. The repair strengthened the documentation wording without weakening the gate. Run 74 then passed the full static layer, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, the new two-cycle autorun, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
 
 ## Verification boundary
 
@@ -70,28 +73,20 @@ The successful run executed current static/manifest gates, Godot 4.7.2 import/pa
 
 Still intentionally open: forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Braced/Guarded runtime; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final Tail Sweep tuning.
 
-Tail Sweep CLEAN is no longer a pending Staggered producer boundary. The species classifier emits one stable `status_staggered` request into the existing generic status owner, and replay does not duplicate application/refresh.
-
 Latest specialized handoff:
-`docs/70_handoff/HUNT01_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_2026-09-13.md`.
+`docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`
-
-Why this is executable now:
-- the currently implemented basics already have production owners and dedicated regressions;
-- user direction is to get the basics working under an automatic run loop;
-- a fresh-instance repeatability gate can verify the real production Region-01 path without inventing blocked gameplay balance or topology decisions;
-- it can be contained to a dedicated headless autorun regression, a static gate/documentation owner, and the existing production workflow.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION`
 
 Required boundary:
-1. use the real production Region-01 scene and existing runtime owners;
-2. automatically drive only already-implemented world/tracking/observation/ENGAGE/combat behavior;
-3. prove at least two fresh boot/run/teardown cycles in one headless execution so stale singleton/runtime state cannot hide between runs;
-4. verify stable actor/encounter identities, tracking terminal state, same-location ENGAGE and basic combat ownership on each cycle;
-5. do not create AI autoplay as player-facing gameplay, auto-move the real player, bypass protected controls or add hidden combat decisions;
-6. do not select unresolved Bleeding HP, structural thresholds, withdrawal geometry, forced recovery costs or Monster death semantics;
-7. add the gate to the full production Android workflow and keep all existing regressions green.
+1. extend verification automation only; do not create player-facing autoplay;
+2. use the real production Region-01 scene and existing runtime owners;
+3. drive the already-verified tracking→ENGAGE path and one already-implemented deterministic combat exchange through existing APIs;
+4. verify scheduler/resources/reaction/consequence/status readback without adding new gameplay rules;
+5. preserve two fresh-instance repeatability and protected manual controls;
+6. do not select unresolved Bleeding HP, structural thresholds, withdrawal/recovery values or Monster terminal semantics;
+7. keep the full production Android workflow green.
 
-NEXT THING I WILL DO: FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION — add a deterministic repeatability gate around the already-implemented basic Hunt-01 runtime, not a new gameplay automation system.
+NEXT THING I WILL DO: FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION — deepen the automatic basic-loop smoke from combat ownership/idle scheduling into one real already-implemented combat exchange, without changing player-facing gameplay.

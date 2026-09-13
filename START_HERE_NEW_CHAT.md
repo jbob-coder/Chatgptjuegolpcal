@@ -1,6 +1,6 @@
 # START HERE — Unnamed Hunt RPG — New Chat Bootstrap
 
-Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 THROUGH TAIL SWEEP CLEAN→STAGGERED ANDROID BUILD VERIFIED / BASIC RUNTIME AUTORUN NEXT
+Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 BASIC RUNTIME AUTORUN ANDROID BUILD VERIFIED / BASIC AUTORUN COMBAT EXCHANGE NEXT
 Last reconciled: 2026-09-13
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and must not be used as the implementation base.
@@ -23,7 +23,7 @@ This file is the mandatory bootstrap procedure for any new ChatGPT/AI developmen
    7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
    8. newest relevant `docs/70_handoff/`
    9. `game/README.md`
-   10. exact owning design/source/data/tests/static gates/workflow for the current bounded piece.
+   10. exact owning package/source/data/tests/static gates/workflow for the current bounded piece.
 4. Re-check branch HEAD after reading. If it changed materially, restart the relevant state read from the new HEAD rather than mixing revisions.
 5. Reconstruct real state from live source/tests/build evidence; Markdown labels alone are not proof.
 6. Resolve conflicts by: current explicit user instruction → current source/tests/build/device evidence → EVOLVE/PROJECT_HANDOFF → narrow owning authority → package docs → older handoffs/chat/memory.
@@ -41,18 +41,18 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 ## Current verified snapshot — discovery aid only
 
-The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, Mudcrest Tail Sweep, and CLEAN Tail Sweep→generic Staggered producer integration.
+The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, Mudcrest Tail Sweep, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun regression.
 
 Latest full production-verified revision:
-`fbfd30fde0ad74bdb73d384533287b884341cd93`.
+`3c6a792851e5dec9756f6e99bd09de291fe266b2`.
 
 Latest production verification:
-- workflow `34762775881`: SUCCESS;
-- job `103738398857`: SUCCESS;
-- artifact `10319377979`;
+- workflow `34763505121`: SUCCESS;
+- job `103740308986`: SUCCESS;
+- artifact `10319379031`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,485,460` bytes;
-- SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
+- size `57,495,532` bytes;
+- SHA-256 `488a3f31bf589a194332402b8c8cf1ee8c9a9f57edb0d5d7a77adf5693b68b7f`.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 
@@ -61,23 +61,20 @@ These are historical evidence only; a new chat must still fetch current live HEA
 `FINAL_ENGINE_SELECTED = NO`.
 
 Latest specialized handoff at this reconciliation:
-`docs/70_handoff/HUNT01_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_2026-09-13.md`.
+`docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.
 
 ## Current recorded next bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION`.
 
 Current authority for this piece:
-- this is deterministic CI/development verification, not player-facing autoplay;
-- boot the real production Region-01 scene and drive only already-implemented runtime APIs;
-- cover the existing tracking terminal state, observation/ENGAGE boundary and basic combat owner availability;
-- run at least two fresh scene lifecycles in one headless test and reject state leakage between them;
-- keep protected manual analog movement/right-look behavior unchanged;
-- do not auto-move the production player in normal gameplay or add hidden combat choices;
+- verification automation only; no player-facing autoplay;
+- start from the real production Region-01 scene and existing fresh-instance autorun;
+- drive one already-implemented deterministic combat exchange through current owners after tracking/ENGAGE;
+- prove scheduler/resources/reaction/consequence/status readback and retain fresh-instance repeatability;
+- protected movement/look controls remain unchanged;
 - do not invent Bleeding HP magnitude, structural thresholds, withdrawal geometry, recovery costs or Monster terminal rules;
-- add static/headless workflow coverage and keep the full Android pipeline green.
-
-Read exact current owners before changing anything: production integration test, Region-01 scene/runtime owners, tracking/encounter/combat APIs used by the current integration path, headless/static test conventions, and the production workflow.
+- keep the full Android workflow green.
 
 ## New-chat completion standard
 
