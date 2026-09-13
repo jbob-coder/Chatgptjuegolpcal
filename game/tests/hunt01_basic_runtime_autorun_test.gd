@@ -6,9 +6,13 @@ const ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const EXPECTED_SCENARIO := "R01_HUNT01_M01_TRACK_TO_MEADOW"
 const EXPECTED_HUNT := "hunt_r01_m01_proof_01"
 const TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"
+const HEAD_SWEEP_ATTACK_ID := "M01_HEAD_SWEEP_GORE"
+const MEASURED_CUT_TECHNIQUE_ID := "POLEBLADE_MEASURED_CUT"
+const DORSAL_TARGET_GROUP := "DORSAL_PLATES"
 const REACTION_BLOCK := "POLEBLADE_BLOCK"
 const ENGAGEMENT_POSITION := Vector3(-72.0, 0.875, -236.0)
 const TAIL_SWEEP_NODE_POSITION := Vector3(-22.0, 0.875, -270.0)
+const HUNTER_ATTACK_NODE_POSITION := Vector3(-22.0, 0.875, -238.0)
 const EVIDENCE_IDS := [
 	"R01_H01_EV01_OUTER_PRINTS",
 	"R01_H01_EV02_BANK_REEDS",
@@ -139,6 +143,93 @@ func _drive_tail_sweep_block_exchange(
 		"post_exchange_actor": String(state.get("current_actor_id", "")),
 	}
 
+func _drive_hunter_attack_exchange(
+	cycle_index: int,
+	hunter: CharacterBody3D,
+	shell: Node,
+	movement: Node,
+	reaction: Node,
+	anatomy: Node,
+	mudcrest_attack: Node,
+	hunter_attack: Node
+) -> Dictionary:
+	var state: Dictionary = shell.call("get_current_state")
+	_cycle_check(cycle_index, "Hunter attack extension starts on Round-3 Hunter", int(state.get("round_id", 0)) == 3 and String(state.get("current_actor_id", "")) == HUNTER_ID, str(state))
+	_cycle_check(cycle_index, "Hunter attack extension starts from preserved N10", String(movement.call("get_current_node_id")) == "R01_EF02_N10")
+	var n10_legality: Dictionary = hunter_attack.call("get_measured_cut_legality", DORSAL_TARGET_GROUP)
+	_cycle_check(cycle_index, "Measured Cut remains out of working melee at N10", not bool(n10_legality.get("legal", false)) and String(n10_legality.get("reason", "")) == "OUT_OF_WORKING_MELEE", str(n10_legality))
+
+	_cycle_check(cycle_index, "Round-3 N10 -> N08 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N08")))
+	_cycle_check(cycle_index, "Round-3 N08 -> N05 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N05")))
+	_cycle_check(cycle_index, "Round-3 N05 -> N07 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N07")))
+	_cycle_check(cycle_index, "Round-3 N07 -> N09 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N09")))
+	_cycle_check(cycle_index, "Hunter reaches authored N09 Measured Cut node", String(movement.call("get_current_node_id")) == "R01_EF02_N09" and hunter.global_position.distance_to(HUNTER_ATTACK_NODE_POSITION) < 0.001, str(hunter.global_position))
+	var n09_no_ap: Dictionary = hunter_attack.call("get_measured_cut_legality", DORSAL_TARGET_GROUP)
+	_cycle_check(cycle_index, "N09 passes melee geometry but four-step approach consumes attack AP", not bool(n09_no_ap.get("legal", true)) and String(n09_no_ap.get("reason", "")) == "INSUFFICIENT_AP", str(n09_no_ap))
+	var after_reposition_resources: Dictionary = shell.call("get_resource_state", HUNTER_ID)
+	_cycle_check(cycle_index, "Round-3 authored reposition consumes all 4 AP", int(after_reposition_resources.get("ap", -1)) == 0, str(after_reposition_resources))
+	await physics_frame
+	await process_frame
+
+	_cycle_check(cycle_index, "Round-3 Hunter end-turn delegates the real close-front Monster activation", bool(shell.call("end_player_turn")))
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "Monster stays current while Head Sweep bridge reaction is open", int(state.get("round_id", 0)) == 3 and String(state.get("current_actor_id", "")) == MONSTER_ID, str(state))
+	var active_attack: Dictionary = mudcrest_attack.call("get_active_attack")
+	_cycle_check(cycle_index, "authored N09 relation selects existing Head Sweep bridge", String(active_attack.get("attack_id", "")) == HEAD_SWEEP_ATTACK_ID and String(active_attack.get("state", "")) == "WAITING_REACTION_DECISION" and int(active_attack.get("action_sequence", -1)) == 2, str(active_attack))
+	var window: Dictionary = reaction.call("get_active_window")
+	var window_id := String(window.get("window_id", ""))
+	_cycle_check(cycle_index, "Head Sweep bridge opens the existing reaction window", String(window.get("source_action_id", "")) == HEAD_SWEEP_ATTACK_ID and not window_id.is_empty(), str(window))
+	var bridge_block: Dictionary = reaction.call("commit_reaction", window_id, REACTION_BLOCK)
+	_cycle_check(cycle_index, "Head Sweep bridge uses the existing Poleblade Block reaction", bool(bridge_block.get("success", false)), str(bridge_block))
+	await process_frame
+	await process_frame
+
+	var bridge_resolution: Dictionary = mudcrest_attack.call("get_last_resolution")
+	var bridge_defense: Dictionary = bridge_resolution.get("defense_consequence", {}) as Dictionary
+	_cycle_check(cycle_index, "Head Sweep bridge resolves through existing hostile consequence owners", bool(bridge_resolution.get("success", false)) and String(bridge_resolution.get("attack_id", "")) == HEAD_SWEEP_ATTACK_ID and bool(bridge_resolution.get("block_commitment_applied", false)), str(bridge_resolution))
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "Head Sweep bridge returns scheduler to Round-4 Hunter at N09", int(state.get("round_id", 0)) == 4 and String(state.get("current_actor_id", "")) == HUNTER_ID and String(movement.call("get_current_node_id")) == "R01_EF02_N09", str(state))
+
+	var attack_resources_before: Dictionary = shell.call("get_resource_state", HUNTER_ID)
+	_cycle_check(cycle_index, "Round-4 Hunter has a fresh 4-AP activation for Measured Cut", int(attack_resources_before.get("ap", -1)) == 4 and int(attack_resources_before.get("stamina", -1)) >= 12, str(attack_resources_before))
+	var ready: Dictionary = hunter_attack.call("get_measured_cut_legality", DORSAL_TARGET_GROUP)
+	_cycle_check(cycle_index, "Dorsal-plate Measured Cut is legal at authored N09", bool(ready.get("legal", false)) and String(ready.get("current_node_id", "")) == "R01_EF02_N09" and String((ready.get("line_of_effect", {}) as Dictionary).get("reason", "")) == "CLEAR_TO_MONSTER_BODY", str(ready))
+	var resolution: Dictionary = hunter_attack.call("commit_measured_cut_for_test", DORSAL_TARGET_GROUP)
+	_cycle_check(cycle_index, "real Hunter Measured Cut commits through the existing attack owner", bool(resolution.get("success", false)), str(resolution))
+	var attack_resources_after: Dictionary = shell.call("get_resource_state", HUNTER_ID)
+	_cycle_check(cycle_index, "Measured Cut spends exactly existing 2 AP / 12 Stamina", int(attack_resources_after.get("ap", -1)) == int(attack_resources_before.get("ap", -1)) - 2 and int(attack_resources_after.get("stamina", -1)) == int(attack_resources_before.get("stamina", -1)) - 12, str(attack_resources_after))
+	_cycle_check(cycle_index, "Measured Cut keeps stable technique and Round-4 action identity", String(resolution.get("technique_id", "")) == MEASURED_CUT_TECHNIQUE_ID and int(resolution.get("round_id", -1)) == 4 and int(resolution.get("action_sequence", -1)) == 1, str(resolution))
+	_cycle_check(cycle_index, "Dorsal target acquires selected-part contact", String(resolution.get("contact_class", "")) == "SELECTED_PART_CONTACT" and String(resolution.get("resolved_target_group", "")) == DORSAL_TARGET_GROUP, str(resolution))
+	_cycle_check(cycle_index, "Round-4 deterministic Dorsal hit remains CLEAN", String(resolution.get("hit_quality", "")) == "CLEAN" and String(resolution.get("hit_quality_ceiling", "")) == "CLEAN" and int(resolution.get("variance_sample", 99)) == 0, str(resolution))
+	_cycle_check(cycle_index, "Dorsal protection routes through existing mineralized profile", String(resolution.get("protection_profile", "")) == "MINERALIZED_DORSAL_PLATE", str(resolution))
+	var handoff: Dictionary = resolution.get("damage_handoff", {}) as Dictionary
+	var anatomy_result: Dictionary = resolution.get("anatomy_result", {}) as Dictionary
+	_cycle_check(cycle_index, "Measured Cut handoff is consumed by existing anatomy owner", String(handoff.get("status", "")) == "ANATOMY_INTEGRITY_APPLIED" and bool(anatomy_result.get("success", false)), str(anatomy_result))
+	_cycle_check(cycle_index, "Dorsal provisional integrity remains existing 100 -> 95", int(anatomy_result.get("integrity_before", -1)) == 100 and int(anatomy_result.get("integrity_loss", -1)) == 5 and int(anatomy_result.get("integrity_after", -1)) == 95, str(anatomy_result))
+	_cycle_check(cycle_index, "Mudcrest anatomy readback matches committed Dorsal result", int((anatomy.call("get_target_state", DORSAL_TARGET_GROUP) as Dictionary).get("integrity", -1)) == 95, str(anatomy.call("get_target_state", DORSAL_TARGET_GROUP)))
+	_cycle_check(cycle_index, "Hunter attack readback does not reroll the committed transaction", hunter_attack.call("get_last_resolution") == resolution)
+	var duplicate: Dictionary = anatomy.call("apply_damage_handoff_for_test", handoff)
+	_cycle_check(cycle_index, "replaying Measured Cut anatomy handoff remains idempotent", bool(duplicate.get("duplicate", false)) and not bool(duplicate.get("applied", true)) and int((anatomy.call("get_target_state", DORSAL_TARGET_GROUP) as Dictionary).get("integrity", -1)) == 95, str(duplicate))
+	_cycle_check(cycle_index, "Hunter attack sequence increments exactly once", int(hunter_attack.call("get_attack_sequence")) == 1)
+
+	return {
+		"bridge_attack_id": String(bridge_resolution.get("attack_id", "")),
+		"bridge_block_outcome": String(bridge_defense.get("block_outcome", "")),
+		"technique_id": String(resolution.get("technique_id", "")),
+		"round_id": int(resolution.get("round_id", -1)),
+		"selected_target_group": String(resolution.get("selected_target_group", "")),
+		"resolved_target_group": String(resolution.get("resolved_target_group", "")),
+		"contact_class": String(resolution.get("contact_class", "")),
+		"hit_quality": String(resolution.get("hit_quality", "")),
+		"variance_sample": int(resolution.get("variance_sample", 99)),
+		"protection_profile": String(resolution.get("protection_profile", "")),
+		"integrity_before": int(anatomy_result.get("integrity_before", -1)),
+		"integrity_after": int(anatomy_result.get("integrity_after", -1)),
+		"post_attack_ap": int(attack_resources_after.get("ap", -1)),
+		"post_attack_stamina": int(attack_resources_after.get("stamina", -1)),
+		"current_node_id": String(movement.call("get_current_node_id")),
+	}
+
 func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	var world := packed.instantiate() as Node3D
 	_cycle_check(cycle_index, "production Region-01 instance created", world != null)
@@ -190,8 +281,9 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	var reaction := encounter.call("get_reaction_window_runtime") as Node
 	var anatomy := encounter.call("get_mudcrest_anatomy_runtime") as Node
 	var mudcrest_attack := encounter.call("get_mudcrest_attack_runtime") as Node
-	_cycle_check(cycle_index, "basic combat owners are all attached", shell != null and movement != null and reaction != null and anatomy != null and mudcrest_attack != null)
-	if shell == null or movement == null or reaction == null or anatomy == null or mudcrest_attack == null:
+	var hunter_attack := shell.get_node_or_null("HunterAttackRuntime") as Node if shell != null else null
+	_cycle_check(cycle_index, "basic combat owners including Hunter attack are all attached", shell != null and movement != null and reaction != null and anatomy != null and mudcrest_attack != null and hunter_attack != null)
+	if shell == null or movement == null or reaction == null or anatomy == null or mudcrest_attack == null or hunter_attack == null:
 		await _teardown_world(world, cycle_index)
 		return {}
 
@@ -204,6 +296,8 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 
 	var exchange_signature: Dictionary = await _drive_tail_sweep_block_exchange(cycle_index, hunter, shell, movement, reaction, mudcrest_attack)
 	_cycle_check(cycle_index, "one real deterministic combat exchange completes", not exchange_signature.is_empty(), str(exchange_signature))
+	var hunter_attack_signature: Dictionary = await _drive_hunter_attack_exchange(cycle_index, hunter, shell, movement, reaction, anatomy, mudcrest_attack, hunter_attack)
+	_cycle_check(cycle_index, "one real deterministic Hunter attack/anatomy exchange completes", not hunter_attack_signature.is_empty(), str(hunter_attack_signature))
 
 	var signature := {
 		"scenario": String(identity.get("scenario", "")),
@@ -215,16 +309,18 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 		"movement_schema": String(movement.call("get_schema")),
 		"reaction_schema": String(reaction.call("get_schema")),
 		"anatomy_schema": String(anatomy.call("get_schema")),
-		"attack_schema": String(mudcrest_attack.call("get_schema")),
+		"monster_attack_schema": String(mudcrest_attack.call("get_schema")),
+		"hunter_attack_schema": String(hunter_attack.call("get_schema")),
 		"post_idle_round": int(post_idle_state.get("round_id", 0)),
 		"post_idle_actor": String(post_idle_state.get("current_actor_id", "")),
 		"combat_exchange": exchange_signature,
+		"hunter_attack_exchange": hunter_attack_signature,
 	}
 	await _teardown_world(world, cycle_index)
 	return signature
 
 func _run() -> void:
-	print("Hunt-01 basic runtime autorun repeatability + combat exchange regression")
+	print("Hunt-01 basic runtime autorun repeatability + combat exchange + Hunter attack/anatomy regression")
 	var packed := load("res://scenes/regions/region_01_hunt01_graybox.tscn") as PackedScene
 	_check("production Region-01 scene loads", packed != null)
 	if packed == null:
@@ -243,8 +339,10 @@ func _finish() -> void:
 	if failures.is_empty():
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_VERIFIED")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_VERIFIED")
 	else:
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_FAILED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_FAILED")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_FAILED")
 	print("This gate verifies development/CI repeatability only. It does not implement player-facing autoplay, phone acceptance or sustained performance.")
 	quit(0 if failures.is_empty() else 1)
