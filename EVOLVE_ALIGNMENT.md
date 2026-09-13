@@ -40,22 +40,25 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 
 ## Current verified automated baseline
 
-Verified source head / Generic Staggered implementation commit:
+Latest full production-verified revision:
+`a3fdbe6f42475f86785ed63e0786c56221a1d025`.
+
+Generic Staggered implementation commit:
 `29623181bfb758b322e47d83a1c2f652b225561a`.
 
 Production verification workflow:
-`34761564734` — SUCCESS.
+`34762031809` — SUCCESS.
 
 Workflow job:
-`103735203468` — SUCCESS.
+`103736439931` — SUCCESS.
 
 Artifact:
-- ID `10318917250`;
+- ID `10319347130`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,484,077` bytes;
-- SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+- size `57,484,070` bytes;
+- SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
 
-The successful run executed current static/manifest gates, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, all current headless combat/anatomy/status/outcome regressions including Tail Sweep plus the updated Generic Status Application/Timing gates, Android debug APK export and artifact upload.
+The successful run executed current static/manifest gates, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, all current headless combat/anatomy/status/outcome regressions including Tail Sweep plus Generic Status Application/Timing, Android debug APK export and artifact upload.
 
 ## Verification boundary
 
@@ -66,7 +69,7 @@ The successful run executed current static/manifest gates, Godot 4.7.2 import/pa
 
 Still intentionally open: Tail Sweep CLEAN→Staggered producer wiring; forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Braced/Guarded runtime; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final Tail Sweep tuning.
 
-Current source contradiction intentionally preserved for the next bounded piece: the Tail Sweep CLEAN classifier/test still use `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING` / `staggered_request_pending_unimplemented`. The generic Staggered owner now exists, but producer wiring was explicitly out of scope for the completed slice.
+Current source boundary intentionally preserved for the next bounded piece: the Tail Sweep CLEAN classifier/test still use `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING` / `staggered_request_pending_unimplemented`. The generic Staggered owner exists and is verified, but producer wiring was explicitly out of scope for the completed slice.
 
 Latest specialized handoff:
 `docs/70_handoff/HUNT01_GENERIC_STAGGERED_STATUS_RUNTIME_2026-09-13.md`.
@@ -76,7 +79,7 @@ Latest specialized handoff:
 `FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`
 
 Why this is executable now:
-- Generic Staggered storage, refresh, persistence/idempotency and timing conversion are now verified owners;
+- Generic Staggered storage, refresh, persistence/idempotency and timing conversion are verified owners;
 - Tail Sweep CLEAN already has a deterministic species-owned consequence boundary that explicitly identifies Staggered as pending;
 - the change can be contained to the existing species classifier plus dedicated Tail Sweep/status integration tests/static gates;
 - no new RNG, status subsystem, structural threshold, Bleeding HP magnitude, withdrawal geometry or final attack balance is required.
@@ -86,7 +89,7 @@ Required boundary:
 2. on the already-selected CLEAN Tail Sweep consequence only, build exactly one valid `status_staggered` request for the existing generic status application owner;
 3. preserve SOLID Tail Sweep → Off-Balance and Strong Block/no-status behavior exactly;
 4. preserve Tail Sweep deterministic contact, attack economy, geometry, defense/health and idempotency behavior;
-5. remove/replace only the now-stale pending-unimplemented CLEAN marker that the new producer makes obsolete;
+5. replace only the now-stale pending-unimplemented CLEAN marker that the new producer makes obsolete;
 6. add/update dedicated static/headless integration coverage and run the complete production Android workflow;
 7. do not add Braced/Guarded runtime, hidden stun, structural sever thresholds, Bleeding HP magnitude, forced displacement or unrelated Mudcrest attacks.
 

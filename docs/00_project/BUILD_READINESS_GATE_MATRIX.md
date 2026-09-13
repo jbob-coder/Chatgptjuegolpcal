@@ -38,10 +38,10 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Verified source head `29623181bfb758b322e47d83a1c2f652b225561a`.
-Production workflow `34761564734`: SUCCESS.
-Job `103735203468`: SUCCESS.
-Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+Latest full production-verified revision `a3fdbe6f42475f86785ed63e0786c56221a1d025`.
+Production workflow `34762031809`: SUCCESS.
+Job `103736439931`: SUCCESS.
+Artifact `10319347130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,070 bytes, SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
 
 The run passed current static gates, Godot 4.7.2 parse/import, production smokes, all current headless combat/anatomy/status/outcome regressions including Tail Sweep and Generic Staggered, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
 

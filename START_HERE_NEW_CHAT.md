@@ -43,16 +43,16 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution and Mudcrest Tail Sweep.
 
-Last verified gameplay/source baseline:
-`29623181bfb758b322e47d83a1c2f652b225561a`.
+Latest full production-verified revision:
+`a3fdbe6f42475f86785ed63e0786c56221a1d025`.
 
 Generic Staggered production verification:
-- workflow `34761564734`: SUCCESS;
-- job `103735203468`: SUCCESS;
-- artifact `10318917250`;
+- workflow `34762031809`: SUCCESS;
+- job `103736439931`: SUCCESS;
+- artifact `10319347130`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,484,077` bytes;
-- SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+- size `57,484,070` bytes;
+- SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 

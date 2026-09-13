@@ -17,16 +17,17 @@ World/tracking/encounter remain the continuous 440×440 m Hunt-01 foundation thr
 
 Combat is deterministic and includes tactical movement, Hunter Measured Cut, Mudcrest anatomy, shared reaction/Block flow, Head Sweep, Hunter health/injury, generic Bleeding/Staggered/Off-Balance status ownership/timing, Hunter Downed/defeat terminal execution, and Mudcrest Tail Sweep.
 
-Generic Staggered is now one `TRANSIENT_PHYSICAL_DISRUPTION` / `REFRESH_DURATION` actor instance with no intensity stacking. Reapplication refreshes that instance. At the target's next `TURN_START_PRE_RECOVERY`, it is removed once, existing Off-Balance is applied/refreshed once and armed for that same activation's `TURN_END`; the normal activation continues and shell Stamina/AP/RP ownership proceeds normally.
+Generic Staggered is one `TRANSIENT_PHYSICAL_DISRUPTION` / `REFRESH_DURATION` actor instance with no intensity stacking. Reapplication refreshes that instance. At the target's next `TURN_START_PRE_RECOVERY`, it is removed once, existing Off-Balance is applied/refreshed once and armed for that same activation's `TURN_END`; the normal activation continues and shell Stamina/AP/RP ownership proceeds normally.
 
 Tail Sweep remains species-owned in the existing Monster-01 attack driver. Its SOLID route still requests Off-Balance and its CLEAN route still intentionally records a pending Staggered capability rather than emitting a producer request. That pending marker is now the exact next integration boundary.
 
 ## Current verified baseline
 
-Verified source head: `29623181bfb758b322e47d83a1c2f652b225561a`.
-Production workflow `34761564734`: SUCCESS.
-Job `103735203468`: SUCCESS.
-Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+Latest full production-verified revision: `a3fdbe6f42475f86785ed63e0786c56221a1d025`.
+Generic Staggered implementation commit: `29623181bfb758b322e47d83a1c2f652b225561a`.
+Production workflow `34762031809`: SUCCESS.
+Job `103736439931`: SUCCESS.
+Artifact `10319347130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,070 bytes, SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
 
 Verification labels:
 - stack through Generic Staggered: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
@@ -35,6 +36,10 @@ Verification labels:
 
 Latest specialized handoff:
 `docs/70_handoff/HUNT01_GENERIC_STAGGERED_STATUS_RUNTIME_2026-09-13.md`.
+
+## Reconciliation note
+
+Promotion run `34761795095` failed at the static combat ownership projection because the promotion rewrite dropped required README ownership wording. Repair run `34761927841` restored species delegation but still lacked explicit tactical-movement governance tokens. Commit `a3fdbe6f42475f86785ed63e0786c56221a1d025` restored the missing `1 AP` / terrain surcharge / footing ownership statement without changing gameplay logic, and run `34762031809` then passed the complete static, headless and Android export pipeline.
 
 ## Explicitly incomplete
 

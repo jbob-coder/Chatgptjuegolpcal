@@ -42,11 +42,14 @@ No Tail Sweep attack/classifier file, scheduler file or workflow file was change
 
 ## Verification evidence
 
-Implementation / verified source commit:
+Implementation commit:
 `29623181bfb758b322e47d83a1c2f652b225561a`.
 
-Production workflow `34761564734`: SUCCESS.
-Job `103735203468`: SUCCESS.
+Latest full production-verified revision after promotion/reconciliation repair:
+`a3fdbe6f42475f86785ed63e0786c56221a1d025`.
+
+Production workflow `34762031809`: SUCCESS.
+Job `103736439931`: SUCCESS.
 
 The job passed:
 - current static/manifest verification chain;
@@ -55,16 +58,22 @@ The job passed:
 - production Region-01 smoke;
 - production Hunt-01 integration;
 - combat turn shell/reaction/Head Sweep/Tail Sweep/defense/health/wound-contact regressions;
-- updated Generic Status Application headless gate;
-- updated Generic Status Timing headless gate;
+- Generic Status Application headless gate;
+- Generic Status Timing headless gate;
 - Hunter Downed, Mudcrest anatomy and Hunter attack regressions;
 - Android debug APK export and artifact upload.
 
 Artifact:
-- ID `10318917250`;
+- ID `10319347130`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,484,077` bytes;
-- SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+- size `57,484,070` bytes;
+- SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
+
+## Promotion reconciliation history
+
+Run `34761795095` failed before Godot because the promotion rewrite of `game/scripts/gameplay/combat/README.md` dropped two static-governance ownership statements. Run `34761927841` verified the restored species delegation but still failed the tactical-movement wording requirement. Commit `a3fdbe6f42475f86785ed63e0786c56221a1d025` restored only the missing explicit tactical-movement authority (`1 AP`, terrain surcharge, footing/POOR) and changed no gameplay logic. Run `34762031809` then passed the complete production pipeline.
+
+The failed interim runs are retained as evidence of the promotion/documentation defect; they do not supersede the successful implementation run or final successful promoted run.
 
 ## Evidence limits
 
@@ -74,7 +83,7 @@ Android export/build success is not phone acceptance or sustained-performance ev
 
 ## Intentionally preserved boundary / known stale source marker
 
-Tail Sweep CLEAN remains source-coded as `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING` with `staggered_request_pending_unimplemented`. That wording is now stale with respect to generic owner existence, but it was intentionally protected by this bounded slice: Generic Staggered implementation did **not** wire a content producer.
+Tail Sweep CLEAN remains source-coded as `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING` with `staggered_request_pending_unimplemented`. That wording is stale with respect to generic owner existence, but it was intentionally protected by this bounded slice: Generic Staggered implementation did **not** wire a content producer.
 
 This is not silently reinterpreted as implemented. It becomes the next bounded integration.
 
