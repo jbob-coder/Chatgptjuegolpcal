@@ -49,7 +49,7 @@ def main() -> int:
     check("test proves reaction closes and scheduler freezes", 'reaction window is closed before terminal freeze' in test and 'scheduler cannot advance to Round 3 after defeat' in test)
     check("test proves living Mudcrest anatomy preserved", 'living Mudcrest anatomy is not reset by Hunter defeat' in test)
     check("test proves replay idempotency", 'defeat replay cannot commit twice' in test)
-    check("runtime doc records pending verification and exclusions", 'AUTOMATED VERIFICATION PENDING' in doc and 'structural' in doc.lower() and 'Bleeding periodic HP' in doc)
+    check("runtime doc records verified evidence and exclusions", 'Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED' in doc and 'HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_SOURCE_STATIC_VERIFIED' in doc and 'HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_VERIFIED' in doc and 'structural' in doc.lower() and 'Bleeding periodic HP' in doc)
     check("combat README records outcome owner", 'hunt01_encounter_outcome_runtime.gd' in readme)
     check("workflow runs outcome source/headless gates", 'hunt01_hunter_downed_encounter_outcome_preflight.py' in workflow and 'HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_SOURCE_STATIC_VERIFIED' in workflow and 'hunt01_hunter_downed_encounter_outcome_runtime_test.gd' in workflow and 'HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_VERIFIED' in workflow)
 
