@@ -5,7 +5,10 @@ const MONSTER_ID := "monster_r01_m01_0001"
 const ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
 const EXPECTED_SCENARIO := "R01_HUNT01_M01_TRACK_TO_MEADOW"
 const EXPECTED_HUNT := "hunt_r01_m01_proof_01"
+const TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"
+const REACTION_BLOCK := "POLEBLADE_BLOCK"
 const ENGAGEMENT_POSITION := Vector3(-72.0, 0.875, -236.0)
+const TAIL_SWEEP_NODE_POSITION := Vector3(-22.0, 0.875, -270.0)
 const EVIDENCE_IDS := [
 	"R01_H01_EV01_OUTER_PRINTS",
 	"R01_H01_EV02_BANK_REEDS",
@@ -59,6 +62,82 @@ func _teardown_world(world: Node3D, cycle_index: int) -> void:
 	_cycle_check(cycle_index, "tactical-node group is clean after teardown", get_nodes_in_group("hunt01_tactical_nodes").is_empty())
 	_cycle_check(cycle_index, "evidence group is clean after teardown", get_nodes_in_group("hunt01_evidence").is_empty())
 	_cycle_check(cycle_index, "monster group is clean after teardown", get_nodes_in_group("hunt01_monster").is_empty())
+	_cycle_check(cycle_index, "attack-telegraph group is clean after teardown", get_nodes_in_group("hunt01_monster_attack_telegraph").is_empty())
+
+func _drive_tail_sweep_block_exchange(
+	cycle_index: int,
+	hunter: CharacterBody3D,
+	shell: Node,
+	movement: Node,
+	reaction: Node,
+	mudcrest_attack: Node
+) -> Dictionary:
+	var wound_contact := mudcrest_attack.call("get_wound_contact_runtime") as Node
+	var defense := mudcrest_attack.call("get_hunter_defense_runtime") as Node
+	var status_application: Node = null
+	if wound_contact != null:
+		status_application = wound_contact.call("get_status_application_runtime") as Node
+	_cycle_check(cycle_index, "combat exchange consequence/status owners exist", wound_contact != null and defense != null and status_application != null)
+	if wound_contact == null or defense == null or status_application == null:
+		return {}
+
+	_cycle_check(cycle_index, "Round-2 N01 -> N02 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N02")))
+	_cycle_check(cycle_index, "Round-2 N02 -> N05 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N05")))
+	_cycle_check(cycle_index, "Round-2 N05 -> N08 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N08")))
+	_cycle_check(cycle_index, "Round-2 N08 -> N10 move succeeds", bool(movement.call("move_for_test", "R01_EF02_N10")))
+	_cycle_check(cycle_index, "Hunter reaches authored N10 Tail Sweep flank", String(movement.call("get_current_node_id")) == "R01_EF02_N10" and hunter.global_position.distance_to(TAIL_SWEEP_NODE_POSITION) < 0.001, str(hunter.global_position))
+	await physics_frame
+	await process_frame
+
+	_cycle_check(cycle_index, "Round-2 Hunter end-turn delegates close-flank Monster activation", bool(shell.call("end_player_turn")))
+	var state: Dictionary = shell.call("get_current_state")
+	_cycle_check(cycle_index, "Monster stays current while Tail Sweep reaction is open", int(state.get("round_id", 0)) == 2 and String(state.get("current_actor_id", "")) == MONSTER_ID, str(state))
+
+	var active_attack: Dictionary = mudcrest_attack.call("get_active_attack")
+	_cycle_check(cycle_index, "real Tail Sweep is selected for the exchange", String(active_attack.get("attack_id", "")) == TAIL_SWEEP_ATTACK_ID and String(active_attack.get("state", "")) == "WAITING_REACTION_DECISION", str(active_attack))
+	var monster_resources: Dictionary = shell.call("get_resource_state", MONSTER_ID)
+	_cycle_check(cycle_index, "Tail Sweep spends existing 3 AP / 18 Stamina cost", int(monster_resources.get("ap", -1)) == 1 and int(monster_resources.get("stamina", -1)) == 82, str(monster_resources))
+
+	var window: Dictionary = reaction.call("get_active_window")
+	var window_id := String(window.get("window_id", ""))
+	_cycle_check(cycle_index, "Tail Sweep opens the existing reaction window", String(window.get("source_action_id", "")) == TAIL_SWEEP_ATTACK_ID and not window_id.is_empty(), str(window))
+	var hunter_before_block: Dictionary = shell.call("get_resource_state", HUNTER_ID)
+	var committed: Dictionary = reaction.call("commit_reaction", window_id, REACTION_BLOCK)
+	_cycle_check(cycle_index, "Field Poleblade Block commits through the real reaction owner", bool(committed.get("success", false)), str(committed))
+	var hunter_after_commit: Dictionary = shell.call("get_resource_state", HUNTER_ID)
+	_cycle_check(cycle_index, "Block commitment spends existing 1 RP + 6 Stamina", int(hunter_after_commit.get("rp", -1)) == int(hunter_before_block.get("rp", -1)) - 1 and int(hunter_after_commit.get("stamina", -1)) == int(hunter_before_block.get("stamina", -1)) - 6, str(hunter_after_commit))
+	await process_frame
+	await process_frame
+
+	var resolution: Dictionary = mudcrest_attack.call("get_last_resolution")
+	var defense_consequence: Dictionary = resolution.get("defense_consequence", {}) as Dictionary
+	var health_consequence: Dictionary = defense_consequence.get("health_injury_consequence", {}) as Dictionary
+	var classification: Dictionary = resolution.get("wound_contact_classification", {}) as Dictionary
+	_cycle_check(cycle_index, "Tail Sweep resolves one deterministic hostile transaction", bool(resolution.get("success", false)) and String(resolution.get("attack_id", "")) == TAIL_SWEEP_ATTACK_ID and int(mudcrest_attack.call("get_attack_sequence")) == 1, str(resolution))
+	_cycle_check(cycle_index, "blocked Tail Sweep keeps deterministic SOLID quality", String(resolution.get("hit_quality", "")) == "SOLID" and int(resolution.get("variance_sample", 99)) == -1, str(resolution))
+	_cycle_check(cycle_index, "existing defense consequence remains BLOCK_STRONG", String(defense_consequence.get("block_outcome", "")) == "BLOCK_STRONG" and int(defense_consequence.get("guard_impact_applied_stamina", -1)) == 14, str(defense_consequence))
+	_cycle_check(cycle_index, "existing health consequence remains 100 -> 98", int(health_consequence.get("health_before", -1)) == 100 and int(health_consequence.get("health_after", -1)) == 98 and int(health_consequence.get("applied_injury_load", -1)) == 2, str(health_consequence))
+	_cycle_check(cycle_index, "strong Block emits no status request", int(classification.get("status_request_count", -1)) == 0 and String(classification.get("classification_reason", "")) == "STRONG_BLOCK_PREVENTS_FIRST_SLICE_OFF_BALANCE_REQUEST", str(classification))
+	_cycle_check(cycle_index, "generic status owner confirms no Off-Balance or Staggered after strong Block", not bool(status_application.call("has_status", HUNTER_ID, "status_off_balance")) and not bool(status_application.call("has_status", HUNTER_ID, "status_staggered")))
+	_cycle_check(cycle_index, "reaction closes after the combat exchange", String(reaction.call("get_state")) == "IDLE" and not bool(mudcrest_attack.call("is_telegraph_visible")))
+	_cycle_check(cycle_index, "combat exchange resolution readback is idempotent", mudcrest_attack.call("get_resolution", String(resolution.get("resolution_id", ""))) == resolution)
+
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "combat exchange returns scheduler to Round-3 Hunter", int(state.get("round_id", 0)) == 3 and String(state.get("current_actor_id", "")) == HUNTER_ID, str(state))
+
+	return {
+		"attack_id": String(resolution.get("attack_id", "")),
+		"hit_quality": String(resolution.get("hit_quality", "")),
+		"variance_sample": int(resolution.get("variance_sample", 99)),
+		"block_outcome": String(defense_consequence.get("block_outcome", "")),
+		"hunter_health_after": int(health_consequence.get("health_after", -1)),
+		"monster_ap_after_attack": int(monster_resources.get("ap", -1)),
+		"monster_stamina_after_attack": int(monster_resources.get("stamina", -1)),
+		"off_balance_present": bool(status_application.call("has_status", HUNTER_ID, "status_off_balance")),
+		"staggered_present": bool(status_application.call("has_status", HUNTER_ID, "status_staggered")),
+		"post_exchange_round": int(state.get("round_id", 0)),
+		"post_exchange_actor": String(state.get("current_actor_id", "")),
+	}
 
 func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	var world := packed.instantiate() as Node3D
@@ -123,6 +202,9 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	_cycle_check(cycle_index, "out-of-range Monster idle completes and Round 2 returns to Hunter", int(post_idle_state.get("round_id", 0)) == 2 and String(post_idle_state.get("current_actor_id", "")) == HUNTER_ID, str(post_idle_state))
 	_cycle_check(cycle_index, "idle N01 Monster activation does not fabricate an attack", int(mudcrest_attack.call("get_attack_sequence")) == 0)
 
+	var exchange_signature: Dictionary = await _drive_tail_sweep_block_exchange(cycle_index, hunter, shell, movement, reaction, mudcrest_attack)
+	_cycle_check(cycle_index, "one real deterministic combat exchange completes", not exchange_signature.is_empty(), str(exchange_signature))
+
 	var signature := {
 		"scenario": String(identity.get("scenario", "")),
 		"hunt": String(identity.get("hunt", "")),
@@ -136,12 +218,13 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 		"attack_schema": String(mudcrest_attack.call("get_schema")),
 		"post_idle_round": int(post_idle_state.get("round_id", 0)),
 		"post_idle_actor": String(post_idle_state.get("current_actor_id", "")),
+		"combat_exchange": exchange_signature,
 	}
 	await _teardown_world(world, cycle_index)
 	return signature
 
 func _run() -> void:
-	print("Hunt-01 basic runtime autorun repeatability regression")
+	print("Hunt-01 basic runtime autorun repeatability + combat exchange regression")
 	var packed := load("res://scenes/regions/region_01_hunt01_graybox.tscn") as PackedScene
 	_check("production Region-01 scene loads", packed != null)
 	if packed == null:
@@ -159,7 +242,9 @@ func _finish() -> void:
 	print("Checks: %d | Passed: %d | Failed: %d" % [checks, checks - failures.size(), failures.size()])
 	if failures.is_empty():
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_VERIFIED")
 	else:
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_FAILED")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_FAILED")
 	print("This gate verifies development/CI repeatability only. It does not implement player-facing autoplay, phone acceptance or sustained performance.")
 	quit(0 if failures.is_empty() else 1)
