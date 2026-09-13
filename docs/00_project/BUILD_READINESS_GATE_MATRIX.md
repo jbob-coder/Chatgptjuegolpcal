@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / PHONE QA BATCHED
+Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH TAIL SWEEP CLEAN→STAGGERED ANDROID BUILD VERIFIED / PHONE QA BATCHED
 Last reconciled: 2026-09-13
 
 ## Primary law
@@ -27,7 +27,8 @@ An open question blocks only the earliest implementation gate that genuinely con
 | GENERIC STAGGERED STATUS | BUILD VERIFIED | refresh-duration non-stacking disruption; exact-once next-turn-start conversion; no hidden skipped activation |
 | HUNTER DOWNED / DEFEAT OUTCOME | BUILD VERIFIED | zero-Health Downed + HUNTERS_DEFEATED + terminal scheduler freeze |
 | MUDCREST TAIL SWEEP | BUILD VERIFIED | intact-tail rear/flank attack using existing Block/Off-Balance owners |
-| TAIL SWEEP CLEAN → STAGGERED PRODUCER | NEXT | generic Staggered owner now exists; species producer wiring is the next bounded integration |
+| TAIL SWEEP CLEAN → STAGGERED PRODUCER | BUILD VERIFIED | CLEAN consequence emits exactly one generic Staggered request; replay idempotent |
+| BASIC RUNTIME AUTORUN REPEATABILITY | NEXT | fresh-instance headless repeatability gate around implemented basics |
 | BLEEDING PERIODIC HEALTH CONSEQUENCE | BLOCKED DOWNSTREAM | exact periodic HP magnitude not yet authoritative |
 | MUDCREST STRUCTURAL BREAK / SEVER | BLOCKED FOR THRESHOLDS | anatomy states selected; numeric break/sever thresholds explicitly open |
 | HUNTER VOLUNTARY WITHDRAWAL | BLOCKED FOR HUNTER ESCAPE NODE | authored Hunter escape-node/equivalent boundary not explicit |
@@ -38,24 +39,25 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Latest full production-verified revision `a3fdbe6f42475f86785ed63e0786c56221a1d025`.
-Production workflow `34762031809`: SUCCESS.
-Job `103736439931`: SUCCESS.
-Artifact `10319347130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,070 bytes, SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
+Latest full production-verified revision `fbfd30fde0ad74bdb73d384533287b884341cd93`.
+Production workflow `34762775881`: SUCCESS.
+Job `103738398857`: SUCCESS.
+Artifact `10319377979`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,485,460 bytes, SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
 
-The run passed current static gates, Godot 4.7.2 parse/import, production smokes, all current headless combat/anatomy/status/outcome regressions including Tail Sweep and Generic Staggered, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
+The run passed current static gates, Godot 4.7.2 parse/import, production smokes, all current headless combat/anatomy/status/outcome regressions including Tail Sweep CLEAN→Staggered integration, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
 
 ## Current production authorization
 
 Exact next independent implementation:
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
+`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
 
 Closed authority for this next piece:
-- existing Generic Staggered owner is verified and accepts `APPLY_OR_REFRESH` with no intensity delta;
-- only already-selected CLEAN Tail Sweep consequence emits Staggered;
-- emit one stable valid request to `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME`;
-- SOLID Tail Sweep continues to emit Off-Balance exactly as before;
-- Strong Block/no qualifying CLEAN consequence emits no Staggered;
-- preserve deterministic contact/economy/geometry/health/defense and request idempotency.
+- use the real production Region-01 scene and existing owners rather than mocks/reimplementations;
+- automatically exercise only behavior already implemented and verified;
+- repeat from at least two fresh scene instances in one test process;
+- verify no state from the first cycle leaks into the second;
+- verify tracking terminal state, observation/ENGAGE continuity and basic combat owner availability;
+- preserve protected player controls and do not introduce normal-game autoplay;
+- add static/headless coverage to the existing production Android workflow.
 
-Do not add Braced/Guarded clearing integration, exact attack thresholds, structural thresholds, Bleeding HP magnitude, withdrawal geometry, forced displacement or unrelated Monster attacks in this bounded producer piece.
+Do not use this regression slice to add Braced/Guarded mechanics, exact attack thresholds, structural thresholds, Bleeding HP magnitude, withdrawal geometry, forced recovery values, Monster terminal behavior or unrelated attacks.

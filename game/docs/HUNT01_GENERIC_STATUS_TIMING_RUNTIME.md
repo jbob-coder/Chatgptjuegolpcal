@@ -1,6 +1,6 @@
 # Hunt-01 Generic Status Timing Runtime
 
-Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED THROUGH GENERIC STAGGERED
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED THROUGH TAIL SWEEP CLEAN→STAGGERED PRODUCER
 Last reconciled: 2026-09-13
 
 Owner: `game/scripts/gameplay/combat/hunt01_status_timing_runtime.gd`.
@@ -46,18 +46,18 @@ This timing layer does not select or apply periodic HP loss. Exact Bleeding magn
 
 ## Safety boundary
 
-Timing contains no RNG, resource commitment/refresh, Initiative reordering, anatomy mutation, movement, content qualification reroll or presentation-owned gameplay. Generic Staggered changes status state only; Tail Sweep CLEAN producer wiring remains outside this verified piece.
+Timing contains no RNG, resource commitment/refresh, Initiative reordering, anatomy mutation, movement, content qualification reroll or presentation-owned gameplay. Generic Staggered changes status state only; Tail Sweep CLEAN producer wiring is now verified outside this owner and does not change timing ownership.
 
 ## Verification evidence
 
-Verified source head / implementation commit:
-`29623181bfb758b322e47d83a1c2f652b225561a`.
+Verified source head / producer integration baseline:
+`fbfd30fde0ad74bdb73d384533287b884341cd93`.
 
 Static target: `HUNT01_GENERIC_STATUS_TIMING_SOURCE_STATIC_VERIFIED`.
 Headless target: `HUNT01_GENERIC_STATUS_TIMING_RUNTIME_VERIFIED`.
-Production workflow `34761564734`: SUCCESS.
-Job `103735203468`: SUCCESS.
-Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+Production workflow `34762775881`: SUCCESS.
+Job `103738398857`: SUCCESS.
+Artifact `10319377979`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,485,460 bytes, SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
 
 The run also kept Tail Sweep and all preceding production regressions green and exported/uploaded the Android debug APK.
 
@@ -65,6 +65,6 @@ Phone/user acceptance remains deferred-batch. Performance remains unverified.
 
 ## Next owner
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
+`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
 
-That next piece may change the species-owned Tail Sweep CLEAN consequence from pending capability to one valid `status_staggered` application request consumed by the now-verified generic owner. It must preserve the existing SOLID Off-Balance route, Strong Block no-status route, deterministic contact boundary and all structural/balance deferrals.
+That next piece verifies repeatable boot/run/teardown of already-implemented production basics. It must not become a second scheduler, normal-game autoplay or a source of new gameplay semantics.

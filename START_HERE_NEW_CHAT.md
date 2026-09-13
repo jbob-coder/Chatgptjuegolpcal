@@ -1,6 +1,6 @@
 # START HERE — Unnamed Hunt RPG — New Chat Bootstrap
 
-Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT
+Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 THROUGH TAIL SWEEP CLEAN→STAGGERED ANDROID BUILD VERIFIED / BASIC RUNTIME AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and must not be used as the implementation base.
@@ -41,18 +41,18 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 ## Current verified snapshot — discovery aid only
 
-The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution and Mudcrest Tail Sweep.
+The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, Mudcrest Tail Sweep, and CLEAN Tail Sweep→generic Staggered producer integration.
 
 Latest full production-verified revision:
-`a3fdbe6f42475f86785ed63e0786c56221a1d025`.
+`fbfd30fde0ad74bdb73d384533287b884341cd93`.
 
-Generic Staggered production verification:
-- workflow `34762031809`: SUCCESS;
-- job `103736439931`: SUCCESS;
-- artifact `10319347130`;
+Latest production verification:
+- workflow `34762775881`: SUCCESS;
+- job `103738398857`: SUCCESS;
+- artifact `10319377979`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,484,070` bytes;
-- SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
+- size `57,485,460` bytes;
+- SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 
@@ -61,22 +61,23 @@ These are historical evidence only; a new chat must still fetch current live HEA
 `FINAL_ENGINE_SELECTED = NO`.
 
 Latest specialized handoff at this reconciliation:
-`docs/70_handoff/HUNT01_GENERIC_STAGGERED_STATUS_RUNTIME_2026-09-13.md`.
+`docs/70_handoff/HUNT01_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_2026-09-13.md`.
 
 ## Current recorded next bounded piece
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
+`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
 
 Current authority for this piece:
-- use the existing Mudcrest species wound/contact classifier; do not create another status/content owner;
-- only the already-selected CLEAN Tail Sweep consequence may emit the new Staggered request;
-- emit exactly one valid `status_staggered` request to `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME`;
-- preserve SOLID Tail Sweep→Off-Balance and Strong Block/no-status behavior;
-- preserve deterministic Tail Sweep economy/contact/geometry/defense/health/idempotency;
-- the old `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING` / `staggered_request_pending_unimplemented` marker is now intentionally stale and must be replaced only as part of this producer integration;
-- do not add hidden stun, Braced/Guarded implementation, new randomness, sever thresholds, Bleeding HP magnitude, forced displacement or unrelated Mudcrest attacks.
+- this is deterministic CI/development verification, not player-facing autoplay;
+- boot the real production Region-01 scene and drive only already-implemented runtime APIs;
+- cover the existing tracking terminal state, observation/ENGAGE boundary and basic combat owner availability;
+- run at least two fresh scene lifecycles in one headless test and reject state leakage between them;
+- keep protected manual analog movement/right-look behavior unchanged;
+- do not auto-move the production player in normal gameplay or add hidden combat choices;
+- do not invent Bleeding HP magnitude, structural thresholds, withdrawal geometry, recovery costs or Monster terminal rules;
+- add static/headless workflow coverage and keep the full Android pipeline green.
 
-Read exact current owners before changing anything: status prototype contract, Mudcrest wound-contact runtime, Mudcrest attack runtime, Tail Sweep test/preflight, Generic Status Application/Timing owners/tests as protected consumers, and the production workflow.
+Read exact current owners before changing anything: production integration test, Region-01 scene/runtime owners, tracking/encounter/combat APIs used by the current integration path, headless/static test conventions, and the production workflow.
 
 ## New-chat completion standard
 

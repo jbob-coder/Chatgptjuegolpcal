@@ -1,6 +1,6 @@
 # PROJECT HANDOFF — Unnamed Hunt RPG
 
-Status: PRODUCTION HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT / PHONE QA DEFERRED-BATCH
+Status: PRODUCTION HUNT-01 THROUGH TAIL SWEEP CLEAN→STAGGERED ANDROID BUILD VERIFIED / BASIC RUNTIME AUTORUN NEXT / PHONE QA DEFERRED-BATCH
 Last reconciled: 2026-09-13
 
 ## Live project
@@ -19,43 +19,52 @@ Combat is deterministic and includes tactical movement, Hunter Measured Cut, Mud
 
 Generic Staggered is one `TRANSIENT_PHYSICAL_DISRUPTION` / `REFRESH_DURATION` actor instance with no intensity stacking. Reapplication refreshes that instance. At the target's next `TURN_START_PRE_RECOVERY`, it is removed once, existing Off-Balance is applied/refreshed once and armed for that same activation's `TURN_END`; the normal activation continues and shell Stamina/AP/RP ownership proceeds normally.
 
-Tail Sweep remains species-owned in the existing Monster-01 attack driver. Its SOLID route still requests Off-Balance and its CLEAN route still intentionally records a pending Staggered capability rather than emitting a producer request. That pending marker is now the exact next integration boundary.
+Tail Sweep remains species-owned in the existing Monster-01 attack driver. SOLID contact requests Off-Balance. CLEAN contact now emits exactly one valid `status_staggered` application request through the existing generic status owner. Strong Block still emits no Tail Sweep status, and replay is idempotent.
 
 ## Current verified baseline
 
-Latest full production-verified revision: `a3fdbe6f42475f86785ed63e0786c56221a1d025`.
-Generic Staggered implementation commit: `29623181bfb758b322e47d83a1c2f652b225561a`.
-Production workflow `34762031809`: SUCCESS.
-Job `103736439931`: SUCCESS.
-Artifact `10319347130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,070 bytes, SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
+Latest full production-verified revision: `fbfd30fde0ad74bdb73d384533287b884341cd93`.
+Tail Sweep CLEAN→Staggered implementation commit: `fbfd30fde0ad74bdb73d384533287b884341cd93`.
+Production workflow `34762775881`: SUCCESS.
+Job `103738398857`: SUCCESS.
+Artifact `10319377979`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,485,460 bytes, SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
+Manifest-static run `34762775845`: SUCCESS.
 
 Verification labels:
-- stack through Generic Staggered: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
+- stack through Tail Sweep CLEAN→Staggered producer: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
 - phone acceptance: DEFERRED / NOT PHONE VERIFIED;
 - sustained performance: NOT VERIFIED.
 
 Latest specialized handoff:
-`docs/70_handoff/HUNT01_GENERIC_STAGGERED_STATUS_RUNTIME_2026-09-13.md`.
+`docs/70_handoff/HUNT01_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_2026-09-13.md`.
 
-## Reconciliation note
+## Completed work
 
-Promotion run `34761795095` failed at the static combat ownership projection because the promotion rewrite dropped required README ownership wording. Repair run `34761927841` restored species delegation but still lacked explicit tactical-movement governance tokens. Commit `a3fdbe6f42475f86785ed63e0786c56221a1d025` restored the missing `1 AP` / terrain surcharge / footing ownership statement without changing gameplay logic, and run `34762031809` then passed the complete static, headless and Android export pipeline.
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION` is complete. The existing Mudcrest wound/contact classifier now constructs one Staggered request only for already-qualified CLEAN Tail Sweep contact. SOLID remains Off-Balance, Strong Block remains no-status, and no second status system, RNG, displacement, structural threshold or Bleeding HP rule was introduced.
 
 ## Explicitly incomplete
 
-Tail Sweep CLEAN→Staggered producer integration; forced recovery/respawn; Hunter withdrawal geometry; Monster escape/death; Bleeding periodic Health magnitude; Braced/Guarded implementation; Mudcrest structural crack/break/sever/detachment thresholds; remaining Mudcrest attacks/behavior/Berserk; harvest/inventory/crafting/settlement/persistence; phone acceptance; sustained performance.
+Forced recovery/respawn; Hunter withdrawal geometry; Monster escape/death; Bleeding periodic Health magnitude; Braced/Guarded implementation; Mudcrest structural crack/break/sever/detachment thresholds; remaining Mudcrest attacks/behavior/Berserk; harvest/inventory/crafting/settlement/persistence; phone acceptance; sustained performance.
 
 ## Exact next action
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
+`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
 
-Change only the existing Mudcrest species classifier/integration so the already-selected CLEAN Tail Sweep consequence emits one valid `status_staggered` request to the verified generic status owner. Preserve SOLID→Off-Balance, Strong Block→no status, deterministic contact/economy/geometry and all current deferrals. Do not add a second status system, new randomness, structural thresholds, Braced/Guarded behavior, Bleeding HP magnitude or forced displacement.
+Create a deterministic development/CI autorun around the already-implemented production basics. It must boot the real Region-01 scene, drive the current tracking→observation→ENGAGE→basic combat ownership path, tear the instance down, repeat from a fresh instance, and fail on state leakage or missing owners. This is verification automation, not player-facing autoplay and not automatic player locomotion.
 
 Read first:
-- `docs/20_gameplay/combat/FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md`;
-- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_wound_contact_runtime.gd`;
-- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
-- `game/tests/hunt01_mudcrest_tail_sweep_runtime_test.gd`;
-- `tests/quality/hunt01/hunt01_mudcrest_tail_sweep_preflight.py`;
-- Generic Status Application/Timing owners and tests as protected consumer regressions;
+- `game/tests/region01_hunt01_graybox_runtime_test.gd`;
+- `game/scenes/regions/region_01_hunt01_graybox.tscn` and its owning runtime script(s);
+- current tracking/encounter/combat shell APIs used by the production integration test;
+- existing headless test conventions under `game/tests/`;
+- static quality conventions under `tests/quality/hunt01/`;
 - `.github/workflows/production-hunt01-graybox-android.yml`.
+
+## Blockers / open questions
+
+No blocker for the autorun regression. It must not resolve currently blocked design decisions as side effects.
+
+## Phone / performance state
+
+`PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`.
+`PERFORMANCE_VERIFIED = NO`.

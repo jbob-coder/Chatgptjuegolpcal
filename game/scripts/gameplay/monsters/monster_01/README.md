@@ -1,6 +1,6 @@
 # Monster-01 Gameplay Runtime — Mudcrest Raker
 
-Status: ANATOMY + HEAD SWEEP + TAIL SWEEP STATIC/HEADLESS/ANDROID BUILD VERIFIED
+Status: ANATOMY + HEAD SWEEP + TAIL SWEEP STATIC/HEADLESS/ANDROID BUILD VERIFIED / CLEAN→STAGGERED PRODUCER VERIFIED
 Last reconciled: 2026-09-13
 
 Purpose: own species-specific runtime state and hostile actions for `monster_r01_m01_0001` without moving those rules into the generic combat shell.
@@ -25,19 +25,19 @@ Head and Tail capability reads do not invent structural crack/break/sever thresh
 
 Tail Sweep consumes the body-force envelope, authored pivot/forward reference, reversible N10-derived 6.0 m reach, reversible `forward_dot <= 0.25`, four physics pivot-clearance probes and physics line-of-effect. These are first-slice fixtures.
 
-Species wound/contact qualification keeps SOLID pure Impact → one Off-Balance request when selected conditions are met; CLEAN pure Impact → Staggered pending because no generic Staggered owner exists at this baseline; no Tail Sweep Bleeding path.
+Species wound/contact qualification keeps SOLID pure Impact → one Off-Balance request when selected conditions are met; CLEAN pure Impact → exactly one generic Staggered request; Strong Block → no Tail Sweep status; no Tail Sweep Bleeding path. CLEAN replay is idempotent and does not refresh Staggered twice.
 
 ## Verification
 
-Tail Sweep verified source head `91f554d5ad53b69436f5ee4eb84aad2caa409a23`.
-Workflow `34759688551`: SUCCESS; job `103730201523`: SUCCESS.
-Artifact `10317819786`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, SHA-256 `5c02fe4b8e1a45a75f1068a68a8081a6e8847818a2763172aa1753f49acb2948`.
+Tail Sweep CLEAN→Staggered verified source head `fbfd30fde0ad74bdb73d384533287b884341cd93`.
+Workflow `34762775881`: SUCCESS; job `103738398857`: SUCCESS.
+Artifact `10319377979`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
 
 Phone/user acceptance remains deferred-batch; sustained performance is not verified.
 
 ## Explicitly not implemented here
 
-Final damage/armor balance; structural thresholds/detachment; Staggered runtime; forced displacement/knockdown; Horn Charge; Shoulder Ram; Foreleg Stomp; Berserk; Monster defeat/escape/reacquisition; harvest/inventory/crafting/settlement/persistence.
+Final damage/armor balance; structural thresholds/detachment; forced displacement/knockdown; Horn Charge; Shoulder Ram; Foreleg Stomp; Berserk; Monster defeat/escape/reacquisition; harvest/inventory/crafting/settlement/persistence.
 
 Design authorities: `docs/30_content/monsters/MONSTER_01/ANATOMY_AND_DAMAGE.md`, `COMBAT_ATTACK_PACKET.md`, and `BEHAVIOR_AND_REGION.md`.
 Tail Sweep runtime note: `game/docs/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME.md`.

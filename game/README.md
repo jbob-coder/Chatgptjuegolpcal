@@ -1,6 +1,6 @@
 # Production Game Root
 
-Status: HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT
+Status: HUNT-01 THROUGH TAIL SWEEP CLEAN→STAGGERED ANDROID BUILD VERIFIED / BASIC RUNTIME AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
@@ -13,22 +13,22 @@ Tracking/encounter: physical evidence through terminal `OBSERVATION_READY`, phys
 
 Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical movement, Hunter attack/reaction/defense/health, generic Bleeding/Staggered/Off-Balance status application/timing and generic encounter-outcome ownership.
 
-Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sweep and species wound/contact qualification.
+Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sweep, species wound/contact qualification and Tail Sweep CLEAN→generic Staggered producer integration.
 
 ## Verification status
 
-Verified gameplay/source head `29623181bfb758b322e47d83a1c2f652b225561a`.
-Workflow `34761564734`: SUCCESS.
-Job `103735203468`: SUCCESS.
-Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+Verified gameplay/source head `fbfd30fde0ad74bdb73d384533287b884341cd93`.
+Workflow `34762775881`: SUCCESS.
+Job `103738398857`: SUCCESS.
+Artifact `10319377979`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,485,460 bytes, SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
 
-Stack through Generic Staggered is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Stack through Tail Sweep CLEAN→Staggered producer integration is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `FINAL_ENGINE_SELECTED = NO`.
 
 New chats must use root `START_HERE_NEW_CHAT.md` and reconstruct the live branch before changing this production tree.
 
 ## Current bounded production piece
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
+`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
 
-Wire only the existing Tail Sweep CLEAN species consequence to one valid generic Staggered application request. Preserve SOLID Off-Balance, Strong Block no-status, attack economy/contact/geometry, Generic Status Application/Timing idempotency and all current deferrals.
+Add a deterministic fresh-instance headless repeatability gate around the already-implemented production basics. It may call test-only helpers but must not alter normal player movement/look controls or add player-facing autoplay.

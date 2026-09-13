@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT
+Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH TAIL SWEEP CLEAN→STAGGERED ANDROID BUILD VERIFIED / BASIC RUNTIME AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 ## New-chat entry points
@@ -25,17 +25,17 @@ A fresh chat must fetch live branch HEAD before this read, re-check HEAD afterwa
 
 ## Production runtime map
 
-Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monster-01 anatomy/content/attacks remain under `game/scripts/gameplay/monsters/monster_01/`. Current runtime documentation includes Generic Status Application/Timing through Staggered and Mudcrest Tail Sweep.
+Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monster-01 anatomy/content/attacks remain under `game/scripts/gameplay/monsters/monster_01/`. Current runtime documentation includes Generic Status Application/Timing through Staggered and Mudcrest Tail Sweep including CLEAN→Staggered producer integration.
 
 ## Current verified baseline
 
-Latest full production-verified revision `a3fdbe6f42475f86785ed63e0786c56221a1d025`.
-Production workflow `34762031809`: SUCCESS.
-Job `103736439931`: SUCCESS.
-Artifact `10319347130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,070 bytes, SHA-256 `2408c9853794e32e9db0ed7c3766a2c5ac98ef77ac686e9a012ab41bd1e01fcb`.
+Latest full production-verified revision `fbfd30fde0ad74bdb73d384533287b884341cd93`.
+Production workflow `34762775881`: SUCCESS.
+Job `103738398857`: SUCCESS.
+Artifact `10319377979`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,485,460 bytes, SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
 
 Latest gameplay handoff:
-`docs/70_handoff/HUNT01_GENERIC_STAGGERED_STATUS_RUNTIME_2026-09-13.md`.
+`docs/70_handoff/HUNT01_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_2026-09-13.md`.
 
 ## Verification boundary
 
@@ -45,13 +45,14 @@ Latest gameplay handoff:
 `FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_ANDROID_BUILD_VERIFIED = YES`
 `FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTED = YES`
 `FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_ANDROID_BUILD_VERIFIED = YES`
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_IMPLEMENTED = NO`
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_IMPLEMENTED = YES`
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_ANDROID_BUILD_VERIFIED = YES`
 `CURRENT_POST_TRACKING_PHONE_ACCEPTANCE = DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
 ## Exact continuation
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
+`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
 
-Wire only the existing Tail Sweep CLEAN species consequence to one valid generic Staggered request. Preserve SOLID Off-Balance, Strong Block no-status and all current deterministic attack/status regressions.
+Add a deterministic fresh-instance autorun regression around the already-implemented basics. It must verify repeatable production boot/tracking/observation/ENGAGE/basic-combat ownership without creating player-facing autoplay or inventing unresolved gameplay values.

@@ -1,6 +1,6 @@
 # Hunt-01 Combat Runtime
 
-Status: STACK THROUGH GENERIC STAGGERED STATIC/HEADLESS/ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT
+Status: STACK THROUGH TAIL SWEEP CLEAN→GENERIC STAGGERED STATIC/HEADLESS/ANDROID BUILD VERIFIED / BASIC RUNTIME AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 Purpose: own the generic production combat-domain runtime after same-location ENGAGE while delegating species anatomy and Monster attack packets to the Monster package.
@@ -30,20 +30,20 @@ The generic turn shell does not own final damage/health arithmetic, species crac
 
 Current initiative attributes remain the reversible `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`; they are executable deterministic fixtures, not final character/Monster balance.
 
-## Verified Generic Staggered boundary
+## Verified Generic Staggered + Tail Sweep producer boundary
 
-`status_staggered` is now implemented in the existing generic status application/timing owners as one `TRANSIENT_PHYSICAL_DISRUPTION` instance with `REFRESH_DURATION`, intensity fixed to 1 and no hidden skipped activation. At the target's next `TURN_START_PRE_RECOVERY`, Staggered is removed exactly once, existing Off-Balance is applied/refreshed exactly once, Off-Balance is armed for that same activation's `TURN_END`, and normal shell Stamina/AP/RP refresh continues.
+`status_staggered` is implemented in the existing generic status application/timing owners as one `TRANSIENT_PHYSICAL_DISRUPTION` instance with `REFRESH_DURATION`, intensity fixed to 1 and no hidden skipped activation. At the target's next `TURN_START_PRE_RECOVERY`, Staggered is removed exactly once, existing Off-Balance is applied/refreshed exactly once, Off-Balance is armed for that same activation's `TURN_END`, and normal shell Stamina/AP/RP refresh continues.
 
-Verified source head `29623181bfb758b322e47d83a1c2f652b225561a`; workflow `34761564734` SUCCESS; job `103735203468` SUCCESS; artifact `10318917250` `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`.
+The species-owned Tail Sweep CLEAN consequence now builds exactly one valid generic Staggered request. The request dispatches synchronously through `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME`; repeat resolution readback is idempotent and does not refresh Staggered twice. SOLID Tail Sweep still emits Off-Balance and Strong Block still emits no Tail Sweep status.
 
-The Tail Sweep CLEAN path still intentionally remains `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING`; the species classifier has not yet been wired as a Staggered producer.
+Verified source head `fbfd30fde0ad74bdb73d384533287b884341cd93`; workflow `34762775881` SUCCESS; job `103738398857` SUCCESS; artifact `10319377979` `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`.
 
 ## Explicitly not implemented yet
 
-Tail Sweep CLEAN→Staggered producer wiring; forced recovery/respawn; voluntary Hunter withdrawal; Monster escape/death; Bleeding periodic Health magnitude; Braced/Guarded runtime coverage; final health/damage/armor balance; forced movement/final Block balance; structural crack/break/sever/tail detachment; Dodge/Parry/Brace resolution; remaining Mudcrest attacks; Berserk; harvest/inventory/crafting/settlement/persistence; sustained performance.
+Forced recovery/respawn; voluntary Hunter withdrawal; Monster escape/death; Bleeding periodic Health magnitude; Braced/Guarded runtime coverage; final health/damage/armor balance; forced movement/final Block balance; structural crack/break/sever/tail detachment; Dodge/Parry/Brace resolution; remaining Mudcrest attacks; Berserk; harvest/inventory/crafting/settlement/persistence; sustained performance.
 
 ## Current production slice
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
+`FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION`.
 
-The next piece changes only the species-owned Tail Sweep CLEAN consequence from an explicit pending boundary into one valid generic Staggered application request. It must preserve SOLID→Off-Balance, Strong Block→no status, existing deterministic contact/attack behavior, and all unresolved structural/balance boundaries.
+This next piece adds repeatable headless verification around the already-implemented basics. It does not change player-facing movement, combat automation or domain ownership.

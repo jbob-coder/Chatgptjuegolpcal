@@ -1,6 +1,6 @@
 # Hunt-01 Generic Status Application Runtime
 
-Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED THROUGH GENERIC STAGGERED
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED THROUGH TAIL SWEEP CLEAN→STAGGERED PRODUCER
 Last reconciled: 2026-09-13
 
 ## Purpose
@@ -31,21 +31,21 @@ The owner has no status proc RNG and does not spend/refresh AP/RP/Stamina, reord
 
 Mudcrest wound/contact classification remains species/content-owned. It creates/reuses one generic status application node under the combat shell and dispatches qualified requests.
 
-Tail Sweep CLEAN is intentionally **not** wired as a Staggered producer in this verified slice. Its current classifier/test boundary still records `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING` and `staggered_request_pending_unimplemented`; that producer integration is the next bounded piece.
+Tail Sweep CLEAN is now a verified Staggered producer: the species classifier emits exactly one `status_staggered` request for the already-qualified CLEAN consequence, the generic owner applies it synchronously, and stable resolution replay does not duplicate ON_APPLY or refresh it twice. SOLID Tail Sweep remains Off-Balance and Strong Block remains no-status.
 
 ## Verification evidence
 
-Verified source head / implementation commit:
-`29623181bfb758b322e47d83a1c2f652b225561a`.
+Verified source head / producer integration commit:
+`fbfd30fde0ad74bdb73d384533287b884341cd93`.
 
-Production workflow `34761564734`: SUCCESS.
-Job `103735203468`: SUCCESS.
+Production workflow `34762775881`: SUCCESS.
+Job `103738398857`: SUCCESS.
 Static gate `HUNT01_GENERIC_STATUS_APPLICATION_SOURCE_STATIC_VERIFIED`.
 Headless gate `HUNT01_GENERIC_STATUS_APPLICATION_RUNTIME_VERIFIED`.
-Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
+Artifact `10319377979`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,485,460 bytes, SHA-256 `1760956f76d2d908d64f6efc7da3fc7e409d23a26cb4ccd65402c83739d82273`.
 
 The same run passed Godot 4.7.2 import/parse, all current production smokes/integration and combat regressions, Android debug export and artifact upload.
 
 ## Deferred boundary
 
-This layer does not execute Bleeding periodic Health consequences or select their HP magnitude; does not wire Tail Sweep CLEAN as a Staggered producer; does not implement Braced/Guarded state owners, structural damage, withdrawal/recovery, defeat/harvest extensions, phone acceptance or sustained performance verification.
+This layer does not execute Bleeding periodic Health consequences or select their HP magnitude; does not implement Braced/Guarded state owners, structural damage, withdrawal/recovery, defeat/harvest extensions, phone acceptance or sustained performance verification.
