@@ -54,7 +54,8 @@ def main() -> int:
         "structural thresholds remain explicitly deferred",
         "NOT_EVALUATED_BREAK_SEVER_DEFERRED" in anatomy
         and "does not yet own crack/break/sever structural states" in package_readme
-        and "crack/break/sever structural state transitions" in package_readme,
+        and "numeric sever thresholds remain open" in package_readme
+        and "structural crack/break/sever thresholds" in package_readme,
     )
     check("encounter preloads species anatomy runtime", 'preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd")' in encounter)
     check("encounter initializes anatomy before Hunter attack", 'anatomy.call("initialize", _world, _encounter_record)' in encounter and 'attack.call("initialize", _world, shell, movement, anatomy, _encounter_record)' in encounter)
