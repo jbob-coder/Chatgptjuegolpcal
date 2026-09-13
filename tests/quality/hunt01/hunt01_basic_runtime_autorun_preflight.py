@@ -58,13 +58,24 @@ def main() -> int:
     check("Hunter attack extension verifies anatomy idempotency", "apply_damage_handoff_for_test" in test and "replaying Measured Cut anatomy handoff remains idempotent" in test)
     check("autorun folds Hunter attack result into fresh-instance signature", '"hunter_attack_exchange": hunter_attack_signature' in test and "first_signature == second_signature" in test)
 
+    check("real-status extension uses existing wound/status/timing/health owners", all(token in test for token in ("get_wound_contact_runtime", "get_hunter_health_runtime", "get_status_application_runtime", "get_status_timing_runtime")))
+    check("real-status extension uses a real declined Head Sweep producer", "real status producer is Head Sweep action sequence 3" in test and "decline_reaction" in test and "HORN_PENETRATION_PROVISIONAL" in test)
+    check("real-status extension verifies generic Bleeding application", all(token in test for token in ("status_bleeding", "DISPATCHED_TO_GENERIC_STATUS_APPLICATION_RUNTIME", "first_tick_round", "Round 5")))
+    check("real-status extension reaches real ROUND_END timing", "real Round-5 ROUND_END emits exactly one pending Bleeding periodic consequence" in test and "PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE" in test)
+    check("Bleeding periodic magnitude remains unselected", "NOT_SELECTED_PENDING_AUTHORITY" in test and 'not periodic_event.has("damage_amount")' in test)
+    check("real-status extension proves pending periodic event cannot mutate Health", "pending Bleeding event does not mutate Health without its downstream magnitude owner" in test)
+    check("real-status extension preserves normal scheduler/resource return", "lifecycle returns a normal Round-6 Hunter activation" in test and 'round6_resources.get("ap"' in test and 'round6_resources.get("rp"' in test)
+    check("autorun does not synthesize a parallel status application or timing hook", "consume_application_request" not in test and "on_round_end" not in test and "on_turn_start_pre_recovery" not in test)
+    check("autorun folds real status lifecycle into fresh-instance signature", '"real_status_lifecycle": status_lifecycle_signature' in test and "first_signature == second_signature" in test)
+
     check("autorun tears down world between cycles", "world.queue_free()" in test and "world root is released after teardown" in test)
     check("autorun rejects group-state leakage", all(token in test for token in ("tactical-node group is clean after teardown", "evidence group is clean after teardown", "monster group is clean after teardown", "attack-telegraph group is clean after teardown")))
     check("autorun does not simulate normal gameplay input or add RNG", all(token not in test for token in ("Input.action_press", "Input.parse_input_event", "randf(", "randi(", "RandomNumberGenerator")))
     check("base autorun verification gate remains explicit", "Gate: HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED" in test)
     check("combat-exchange verification gate remains explicit", "Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_VERIFIED" in test)
-    check("Hunter-attack verification gate is explicit", "Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_VERIFIED" in test)
-    check("documentation marks this as CI verification rather than autoplay", "not player-facing autoplay" in doc.lower() and "fresh-instance" in doc.lower() and "combat exchange" in doc.lower() and "hunter attack" in doc.lower())
+    check("Hunter-attack verification gate remains explicit", "Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_VERIFIED" in test)
+    check("real-status lifecycle verification gate is explicit", "Gate: HUNT01_BASIC_RUNTIME_AUTORUN_REAL_STATUS_LIFECYCLE_VERIFIED" in test)
+    check("documentation marks this as CI verification rather than autoplay", "not player-facing autoplay" in doc.lower() and "fresh-instance" in doc.lower() and "combat exchange" in doc.lower() and "hunter attack" in doc.lower() and "real status lifecycle" in doc.lower())
     check("workflow watches autorun static gate", "hunt01_basic_runtime_autorun_preflight.py" in workflow)
     check("workflow runs autorun static gate", "HUNT01_BASIC_RUNTIME_AUTORUN_SOURCE_STATIC_VERIFIED" in workflow)
     check("workflow runs autorun headless gate", "hunt01_basic_runtime_autorun_test.gd" in workflow and "HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED" in workflow)
@@ -72,7 +83,7 @@ def main() -> int:
     print()
     print(f"Checks: {checks} | Passed: {checks - len(failures)} | Failed: {len(failures)}")
     print("Gate: " + ("HUNT01_BASIC_RUNTIME_AUTORUN_SOURCE_STATIC_VERIFIED" if not failures else "HUNT01_BASIC_RUNTIME_AUTORUN_SOURCE_STATIC_FAILED"))
-    print("This gate verifies deterministic fresh-instance repeatability through existing Monster and Hunter combat exchanges; it does not claim player-facing autoplay, phone acceptance or sustained performance.")
+    print("This gate verifies deterministic fresh-instance repeatability through existing Monster/Hunter combat exchanges and one real hostile status lifecycle; it does not select Bleeding periodic Health magnitude, claim player-facing autoplay, phone acceptance or sustained performance.")
     return 0 if not failures else 1
 
 

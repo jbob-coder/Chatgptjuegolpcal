@@ -9,6 +9,8 @@ const TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"
 const HEAD_SWEEP_ATTACK_ID := "M01_HEAD_SWEEP_GORE"
 const MEASURED_CUT_TECHNIQUE_ID := "POLEBLADE_MEASURED_CUT"
 const DORSAL_TARGET_GROUP := "DORSAL_PLATES"
+const STATUS_BLEEDING := "status_bleeding"
+const PENDING_BLEEDING_CONSEQUENCE := "PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE"
 const REACTION_BLOCK := "POLEBLADE_BLOCK"
 const ENGAGEMENT_POSITION := Vector3(-72.0, 0.875, -236.0)
 const TAIL_SWEEP_NODE_POSITION := Vector3(-22.0, 0.875, -270.0)
@@ -230,6 +232,116 @@ func _drive_hunter_attack_exchange(
 		"current_node_id": String(movement.call("get_current_node_id")),
 	}
 
+func _drive_real_status_lifecycle(
+	cycle_index: int,
+	shell: Node,
+	reaction: Node,
+	mudcrest_attack: Node
+) -> Dictionary:
+	var wound_contact := mudcrest_attack.call("get_wound_contact_runtime") as Node
+	var defense := mudcrest_attack.call("get_hunter_defense_runtime") as Node
+	var health: Node = null
+	var status_application: Node = null
+	var status_timing: Node = null
+	if defense != null:
+		health = defense.call("get_hunter_health_runtime") as Node
+	if wound_contact != null:
+		status_application = wound_contact.call("get_status_application_runtime") as Node
+		status_timing = wound_contact.call("get_status_timing_runtime") as Node
+	_cycle_check(cycle_index, "real-status lifecycle owners exist", wound_contact != null and defense != null and health != null and status_application != null and status_timing != null)
+	if wound_contact == null or defense == null or health == null or status_application == null or status_timing == null:
+		return {}
+
+	var state: Dictionary = shell.call("get_current_state")
+	_cycle_check(cycle_index, "real-status extension starts in Round-4 Hunter activation", int(state.get("round_id", 0)) == 4 and String(state.get("current_actor_id", "")) == HUNTER_ID, str(state))
+	_cycle_check(cycle_index, "Bleeding is absent before the real producer", not bool(status_application.call("has_status", HUNTER_ID, STATUS_BLEEDING)))
+	var health_before_producer: Dictionary = health.call("get_health_state") as Dictionary
+	_cycle_check(cycle_index, "preserved prior exchanges leave Hunter Health at 96 before status producer", int(health_before_producer.get("health", -1)) == 96, str(health_before_producer))
+	_cycle_check(cycle_index, "no periodic status event exists before Bleeding is produced", int(status_timing.call("get_periodic_event_count")) == 0)
+
+	_cycle_check(cycle_index, "Round-4 Hunter end-turn delegates the next real Head Sweep", bool(shell.call("end_player_turn")))
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "Round-4 Monster remains current while status-producing reaction is open", int(state.get("round_id", 0)) == 4 and String(state.get("current_actor_id", "")) == MONSTER_ID, str(state))
+	var active_attack: Dictionary = mudcrest_attack.call("get_active_attack")
+	_cycle_check(cycle_index, "real status producer is Head Sweep action sequence 3", String(active_attack.get("attack_id", "")) == HEAD_SWEEP_ATTACK_ID and int(active_attack.get("action_sequence", -1)) == 3 and String(active_attack.get("state", "")) == "WAITING_REACTION_DECISION", str(active_attack))
+	var window: Dictionary = reaction.call("get_active_window")
+	var window_id := String(window.get("window_id", ""))
+	_cycle_check(cycle_index, "status-producing Head Sweep opens the existing reaction window", String(window.get("source_action_id", "")) == HEAD_SWEEP_ATTACK_ID and not window_id.is_empty(), str(window))
+	var declined: Dictionary = reaction.call("decline_reaction", window_id)
+	_cycle_check(cycle_index, "explicit decline uses the real unguarded hostile path", bool(declined.get("success", false)), str(declined))
+	await process_frame
+	await process_frame
+
+	var producer_resolution: Dictionary = mudcrest_attack.call("get_last_resolution")
+	var producer_defense: Dictionary = producer_resolution.get("defense_consequence", {}) as Dictionary
+	var producer_health: Dictionary = producer_defense.get("health_injury_consequence", {}) as Dictionary
+	var producer_classification: Dictionary = producer_resolution.get("wound_contact_classification", {}) as Dictionary
+	_cycle_check(cycle_index, "Round-4 real Head Sweep is deterministic CLEAN with no active guard", String(producer_resolution.get("hit_quality", "")) == "CLEAN" and int(producer_resolution.get("variance_sample", 99)) == -1 and String(producer_health.get("defense_outcome", "")) == "NO_ACTIVE_GUARD", str(producer_resolution))
+	_cycle_check(cycle_index, "real CLEAN unguarded Head Sweep preserves existing 96 -> 84 Health consequence", int(producer_health.get("health_before", -1)) == 96 and int(producer_health.get("applied_injury_load", -1)) == 12 and int(producer_health.get("health_after", -1)) == 84, str(producer_health))
+	_cycle_check(cycle_index, "real wound classifier establishes horn penetration", String(producer_classification.get("contact_mode", "")) == "HORN_PENETRATION_PROVISIONAL" and bool(producer_classification.get("horn_penetration_established", false)), str(producer_classification))
+	var requests: Array = producer_classification.get("status_application_requests", []) as Array
+	var application_results: Array = producer_classification.get("status_application_results", []) as Array
+	_cycle_check(cycle_index, "real wound emits exactly one Bleeding request", requests.size() == 1 and String((requests[0] as Dictionary).get("status_id", "")) == STATUS_BLEEDING and int((requests[0] as Dictionary).get("intensity_delta", 0)) == 1, str(requests))
+	_cycle_check(cycle_index, "wound request dispatches through the existing generic status owner", String(producer_classification.get("status_application_dispatch_status", "")) == "DISPATCHED_TO_GENERIC_STATUS_APPLICATION_RUNTIME" and application_results.size() == 1 and bool((application_results[0] as Dictionary).get("success", false)), str(application_results))
+	var bleeding: Dictionary = status_application.call("get_status_instance", HUNTER_ID, STATUS_BLEEDING) as Dictionary
+	_cycle_check(cycle_index, "generic status owner stores one real Bleeding instance", int(bleeding.get("intensity", 0)) == 1 and int(bleeding.get("first_application_round", 0)) == 4 and int(bleeding.get("last_application_round", 0)) == 4, str(bleeding))
+	_cycle_check(cycle_index, "real Bleeding schedules first periodic hook for Round 5", int(bleeding.get("first_tick_round", 0)) == 5 and String(bleeding.get("periodic_hook", "")) == "ROUND_END", str(bleeding))
+	_cycle_check(cycle_index, "Bleeding source identity points to the real Round-4 Head Sweep", String(bleeding.get("source_action_id", "")) == HEAD_SWEEP_ATTACK_ID and String(bleeding.get("source_resolution_id", "")) == String(producer_resolution.get("resolution_id", "")), str(bleeding))
+	_cycle_check(cycle_index, "Round-4 end does not tick newly applied Bleeding early", int(status_timing.call("get_periodic_event_count")) == 0)
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "status producer returns scheduler to Round-5 Hunter", int(state.get("round_id", 0)) == 5 and String(state.get("current_actor_id", "")) == HUNTER_ID, str(state))
+
+	_cycle_check(cycle_index, "Round-5 Hunter end-turn reaches the real Monster activation", bool(shell.call("end_player_turn")))
+	window = reaction.call("get_active_window")
+	window_id = String(window.get("window_id", ""))
+	active_attack = mudcrest_attack.call("get_active_attack") as Dictionary
+	_cycle_check(cycle_index, "Round-5 real Head Sweep action sequence 4 opens for lifecycle close", String(active_attack.get("attack_id", "")) == HEAD_SWEEP_ATTACK_ID and int(active_attack.get("action_sequence", -1)) == 4 and not window_id.is_empty(), str(active_attack))
+	var round5_block: Dictionary = reaction.call("commit_reaction", window_id, REACTION_BLOCK)
+	_cycle_check(cycle_index, "Round-5 strong Block closes the round without stacking Bleeding", bool(round5_block.get("success", false)), str(round5_block))
+	await process_frame
+	await process_frame
+
+	var round5_resolution: Dictionary = mudcrest_attack.call("get_last_resolution")
+	var round5_defense: Dictionary = round5_resolution.get("defense_consequence", {}) as Dictionary
+	var round5_health: Dictionary = round5_defense.get("health_injury_consequence", {}) as Dictionary
+	var round5_classification: Dictionary = round5_resolution.get("wound_contact_classification", {}) as Dictionary
+	_cycle_check(cycle_index, "Round-5 closing Head Sweep remains deterministic SOLID / BLOCK_STRONG", String(round5_resolution.get("hit_quality", "")) == "SOLID" and int(round5_resolution.get("variance_sample", 99)) == -1 and String(round5_defense.get("block_outcome", "")) == "BLOCK_STRONG", str(round5_resolution))
+	_cycle_check(cycle_index, "Round-5 strong Block preserves one Bleeding stack", int(round5_classification.get("status_request_count", -1)) == 0 and int((status_application.call("get_status_instance", HUNTER_ID, STATUS_BLEEDING) as Dictionary).get("intensity", 0)) == 1, str(round5_classification))
+	_cycle_check(cycle_index, "Round-5 real Block consequence leaves Hunter Health at 82", int(round5_health.get("health_before", -1)) == 84 and int(round5_health.get("applied_injury_load", -1)) == 2 and int(round5_health.get("health_after", -1)) == 82, str(round5_health))
+
+	var events: Array = status_timing.call("get_periodic_events") as Array
+	_cycle_check(cycle_index, "real Round-5 ROUND_END emits exactly one pending Bleeding periodic consequence", events.size() == 1 and String((events[0] as Dictionary).get("status", "")) == PENDING_BLEEDING_CONSEQUENCE and int((events[0] as Dictionary).get("round_id", 0)) == 5, str(events))
+	var periodic_event: Dictionary = events[0] as Dictionary if not events.is_empty() else {}
+	_cycle_check(cycle_index, "periodic event keeps Bleeding Health magnitude explicitly unselected", String(periodic_event.get("health_magnitude_status", "")) == "NOT_SELECTED_PENDING_AUTHORITY" and not periodic_event.has("damage_amount"), str(periodic_event))
+	_cycle_check(cycle_index, "periodic event retains the real hostile producer identity", String(periodic_event.get("status_id", "")) == STATUS_BLEEDING and String(periodic_event.get("source_resolution_id", "")) == String(producer_resolution.get("resolution_id", "")), str(periodic_event))
+	var bleeding_after_tick: Dictionary = status_application.call("get_status_instance", HUNTER_ID, STATUS_BLEEDING) as Dictionary
+	_cycle_check(cycle_index, "Bleeding persists after pending periodic event and records Round 5", int(bleeding_after_tick.get("intensity", 0)) == 1 and int(bleeding_after_tick.get("last_periodic_event_round", 0)) == 5 and String(bleeding_after_tick.get("last_periodic_event_id", "")) == String(periodic_event.get("event_id", "")), str(bleeding_after_tick))
+	var health_after_periodic: Dictionary = health.call("get_health_state") as Dictionary
+	_cycle_check(cycle_index, "pending Bleeding event does not mutate Health without its downstream magnitude owner", int(health_after_periodic.get("health", -1)) == int(round5_health.get("health_after", -2)), str(health_after_periodic))
+	state = shell.call("get_current_state")
+	var round6_resources: Dictionary = shell.call("get_resource_state", HUNTER_ID)
+	_cycle_check(cycle_index, "lifecycle returns a normal Round-6 Hunter activation", int(state.get("round_id", 0)) == 6 and String(state.get("current_actor_id", "")) == HUNTER_ID and int(round6_resources.get("ap", -1)) == 4 and int(round6_resources.get("rp", -1)) == 1, "%s resources=%s" % [str(state), str(round6_resources)])
+
+	return {
+		"producer_attack_id": String(producer_resolution.get("attack_id", "")),
+		"producer_round": int(producer_resolution.get("round_id", -1)),
+		"producer_action_sequence": int(producer_resolution.get("action_sequence", -1)),
+		"producer_hit_quality": String(producer_resolution.get("hit_quality", "")),
+		"producer_variance_sample": int(producer_resolution.get("variance_sample", 99)),
+		"bleeding_intensity": int(bleeding_after_tick.get("intensity", 0)),
+		"bleeding_first_tick_round": int(bleeding_after_tick.get("first_tick_round", 0)),
+		"periodic_event_round": int(periodic_event.get("round_id", 0)),
+		"periodic_event_status": String(periodic_event.get("status", "")),
+		"periodic_health_magnitude_status": String(periodic_event.get("health_magnitude_status", "")),
+		"hunter_health_after_producer": int(producer_health.get("health_after", -1)),
+		"hunter_health_after_round5_attack": int(round5_health.get("health_after", -1)),
+		"hunter_health_after_pending_periodic": int(health_after_periodic.get("health", -1)),
+		"post_lifecycle_round": int(state.get("round_id", 0)),
+		"post_lifecycle_actor": String(state.get("current_actor_id", "")),
+		"post_lifecycle_ap": int(round6_resources.get("ap", -1)),
+		"post_lifecycle_rp": int(round6_resources.get("rp", -1)),
+	}
+
 func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	var world := packed.instantiate() as Node3D
 	_cycle_check(cycle_index, "production Region-01 instance created", world != null)
@@ -298,6 +410,8 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	_cycle_check(cycle_index, "one real deterministic combat exchange completes", not exchange_signature.is_empty(), str(exchange_signature))
 	var hunter_attack_signature: Dictionary = await _drive_hunter_attack_exchange(cycle_index, hunter, shell, movement, reaction, anatomy, mudcrest_attack, hunter_attack)
 	_cycle_check(cycle_index, "one real deterministic Hunter attack/anatomy exchange completes", not hunter_attack_signature.is_empty(), str(hunter_attack_signature))
+	var status_lifecycle_signature: Dictionary = await _drive_real_status_lifecycle(cycle_index, shell, reaction, mudcrest_attack)
+	_cycle_check(cycle_index, "one real hostile status lifecycle completes", not status_lifecycle_signature.is_empty(), str(status_lifecycle_signature))
 
 	var signature := {
 		"scenario": String(identity.get("scenario", "")),
@@ -315,12 +429,13 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 		"post_idle_actor": String(post_idle_state.get("current_actor_id", "")),
 		"combat_exchange": exchange_signature,
 		"hunter_attack_exchange": hunter_attack_signature,
+		"real_status_lifecycle": status_lifecycle_signature,
 	}
 	await _teardown_world(world, cycle_index)
 	return signature
 
 func _run() -> void:
-	print("Hunt-01 basic runtime autorun repeatability + combat exchange + Hunter attack/anatomy regression")
+	print("Hunt-01 basic runtime autorun repeatability + Monster/Hunter combat exchanges + real status lifecycle regression")
 	var packed := load("res://scenes/regions/region_01_hunt01_graybox.tscn") as PackedScene
 	_check("production Region-01 scene loads", packed != null)
 	if packed == null:
@@ -340,9 +455,11 @@ func _finish() -> void:
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_VERIFIED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_VERIFIED")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_REAL_STATUS_LIFECYCLE_VERIFIED")
 	else:
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_FAILED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_FAILED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_FAILED")
-	print("This gate verifies development/CI repeatability only. It does not implement player-facing autoplay, phone acceptance or sustained performance.")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_REAL_STATUS_LIFECYCLE_FAILED")
+	print("This gate verifies development/CI repeatability only. It does not select Bleeding periodic Health magnitude, implement player-facing autoplay, establish phone acceptance or verify sustained performance.")
 	quit(0 if failures.is_empty() else 1)
