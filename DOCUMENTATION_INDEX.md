@@ -1,12 +1,12 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / GENERIC STAGGERED STATUS NEXT
+Status: ACTIVE GLOBAL MAP / HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT
 Last reconciled: 2026-09-13
 
 ## New-chat entry points
 
-- `START_HERE_NEW_CHAT.md` — mandatory live-state reconstruction/bootstrap protocol. Read this before any implementation in a fresh chat.
-- `NEW_CHAT_CONTINUATION_PROMPT.md` — reusable copy-paste launcher for starting the fresh chat. The launcher points back to live authorities and is not itself implementation authority.
+- `START_HERE_NEW_CHAT.md` — mandatory live-state reconstruction/bootstrap protocol.
+- `NEW_CHAT_CONTINUATION_PROMPT.md` — reusable launcher; not implementation authority.
 
 ## Mandatory read order
 
@@ -21,44 +21,37 @@ Last reconciled: 2026-09-13
 9. `game/README.md`
 10. exact owning package/source/data/tests/static gates/workflow for the current bounded piece.
 
-A fresh chat must also fetch live branch HEAD before this read, re-check HEAD afterward, distinguish current branch HEAD from the last source SHA actually proven by build evidence, inspect relevant workflow/artifact evidence, and report contradictions rather than allowing a stale lower-priority front door to override current verified evidence.
+A fresh chat must fetch live branch HEAD before this read, re-check HEAD afterward, distinguish live documentation HEAD from the last source SHA actually proven by build evidence, inspect relevant workflow/artifact evidence and report contradictions.
 
 ## Production runtime map
 
-Current combat runtime notes include Hunter reaction, first Hunter attack, Mudcrest anatomy, Head Sweep, defense consequence, Hunter health/injury, Mudcrest wound/contact, generic status application/timing, Hunter Downed encounter outcome, and `game/docs/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME.md`.
-
-Layer ownership remains:
-- world/presentation: Region-01 authorities;
-- tracking/evidence: `game/scripts/gameplay/tracking/`;
-- observation/ENGAGE: `game/scripts/gameplay/encounter/`;
-- generic combat/status/outcome: `game/scripts/gameplay/combat/`;
-- Monster-01 anatomy/content/attacks: `game/scripts/gameplay/monsters/monster_01/`.
+Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monster-01 anatomy/content/attacks remain under `game/scripts/gameplay/monsters/monster_01/`. Current runtime documentation includes Generic Status Application/Timing through Staggered and Mudcrest Tail Sweep.
 
 ## Current verified baseline
 
-Verified source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
-Production workflow `34760296459`: SUCCESS.
-Job `103731848690`: SUCCESS.
-Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
+Verified source head `29623181bfb758b322e47d83a1c2f652b225561a`.
+Production workflow `34761564734`: SUCCESS.
+Job `103735203468`: SUCCESS.
+Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
 
 Latest gameplay handoff:
-`docs/70_handoff/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_2026-09-13.md`.
+`docs/70_handoff/HUNT01_GENERIC_STAGGERED_STATUS_RUNTIME_2026-09-13.md`.
 
 ## Verification boundary
 
 `FIRST_SLICE_GENERIC_STATUS_APPLICATION_RUNTIME_IMPLEMENTED = YES`
 `FIRST_SLICE_GENERIC_STATUS_TIMING_RUNTIME_IMPLEMENTED = YES`
-`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_ANDROID_BUILD_VERIFIED = YES`
+`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTED = YES`
+`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_ANDROID_BUILD_VERIFIED = YES`
 `FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTED = YES`
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_HEADLESS_VERIFIED = YES`
 `FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_ANDROID_BUILD_VERIFIED = YES`
-`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTED = NO`
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_IMPLEMENTED = NO`
 `CURRENT_POST_TRACKING_PHONE_ACCEPTANCE = DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
 ## Exact continuation
 
-`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
 
-Extend only the existing generic status application/timing owners with the selected Staggered storage/refresh/next-turn-start transition. Tail Sweep CLEAN remains a pending producer boundary until a separate integration piece.
+Wire only the existing Tail Sweep CLEAN species consequence to one valid generic Staggered request. Preserve SOLID Off-Balance, Strong Block no-status and all current deterministic attack/status regressions.

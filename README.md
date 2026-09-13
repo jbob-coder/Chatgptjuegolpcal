@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / GENERIC STAGGERED STATUS NEXT
+Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT
 Last reconciled: 2026-09-13
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
@@ -15,24 +15,26 @@ Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is
 
 ## Current production stack
 
-Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat now includes Hunter Measured Cut, Mudcrest anatomy, shared reaction/Block flow, Head Sweep, Hunter defense/health/injury, species wound/contact qualification, generic Bleeding/Off-Balance status application/timing, Hunter Downed encounter-terminal execution, and Mudcrest Tail Sweep.
+Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat includes Hunter Measured Cut, Mudcrest anatomy, shared reaction/Block flow, Head Sweep, Hunter defense/health/injury, species wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed encounter-terminal execution and Mudcrest Tail Sweep.
 
-Tail Sweep is species-owned in the existing Monster-01 attack driver at 3 AP / 18 Stamina, pure Impact, with rear/flank/pivot/arc legality, current attached-tail capability, shared Block handling, 14-Stamina successful Block impact drain, SOLID Off-Balance, and CLEAN Staggered still pending generic Staggered ownership.
+Generic Staggered is verified as one refreshable non-stacking transient disruption. At the target's next `TURN_START_PRE_RECOVERY` it converts exactly once to existing Off-Balance without skipping the activation; normal shell recovery/AP/RP ownership continues.
+
+Tail Sweep CLEAN remains intentionally pending at the species producer boundary. The generic owner now exists, so that pending marker is the next integration piece rather than an unresolved generic-status prerequisite.
 
 ## Current verified baseline
 
-Verified gameplay/source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
-Production workflow `34760296459`: SUCCESS.
-Job `103731848690`: SUCCESS.
-Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
+Verified gameplay/source head `29623181bfb758b322e47d83a1c2f652b225561a`.
+Production workflow `34761564734`: SUCCESS.
+Job `103735203468`: SUCCESS.
+Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
 
-The stack through Mudcrest Tail Sweep is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Stack through Generic Staggered is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Phone acceptance remains deferred/batched. `PERFORMANCE_VERIFIED = NO`.
 
 For a new development chat, begin with `START_HERE_NEW_CHAT.md`; it defines the mandatory live-state reconstruction procedure before implementation.
 
 ## Current bounded piece
 
-`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
 
-Extend the existing generic status application/timing owners with one refreshable Staggered instance and deterministic next-`TURN_START_PRE_RECOVERY` conversion to existing Off-Balance. Preserve existing Bleeding/Off-Balance behavior. Do not create a second status system, hidden turn skip, new randomness, Tail Sweep producer wiring, structural sever thresholds, Bleeding periodic HP magnitude, or unresolved withdrawal/recovery behavior in this piece.
+Use the existing species classifier to emit exactly one valid `status_staggered` request on the already-selected CLEAN Tail Sweep consequence. Preserve SOLID→Off-Balance, Strong Block→no-status, deterministic attack/contact behavior and all structural/balance deferrals. Do not create a second status system or add unrelated mechanics.

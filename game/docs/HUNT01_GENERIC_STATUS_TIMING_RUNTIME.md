@@ -1,14 +1,14 @@
 # Hunt-01 Generic Status Timing Runtime
 
-Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED
-Last reconciled: 2026-09-05
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED THROUGH GENERIC STAGGERED
+Last reconciled: 2026-09-13
 
 Owner: `game/scripts/gameplay/combat/hunt01_status_timing_runtime.gd`.
 Schema: `uhr.hunt01.status_timing.v1`.
 
 ## Purpose
 
-Execute deterministic lifecycle timing for already-applied status state without owning status qualification, ON_APPLY, AP/RP/Stamina, Initiative order, presentation or unresolved Bleeding damage magnitude.
+Execute deterministic lifecycle timing for already-applied generic status state without owning content qualification, external ON_APPLY, AP/RP/Stamina, Initiative order, presentation or unresolved Bleeding damage magnitude.
 
 ## Hook ordering
 
@@ -19,14 +19,22 @@ The combat shell exposes one registered status-timing driver. It calls:
 
 Hook IDs are deterministic and idempotent.
 
+## Staggered lifecycle
+
+If `status_staggered` is active when its target reaches the next `TURN_START_PRE_RECOVERY`, timing invokes the existing application owner exactly once to:
+1. remove Staggered;
+2. apply or refresh the single existing `status_off_balance` instance;
+3. preserve `CONTINUE_SAME_NORMAL_ACTIVATION` — no hidden stun and no skipped activation.
+
+After conversion, timing immediately arms the resulting Off-Balance for that same activation's `TURN_END`. Normal passive Stamina recovery and AP/RP refresh then proceed in the combat shell under their existing authority.
+
+Duplicate delivery of the same `TURN_START_PRE_RECOVERY` hook returns the cached hook result, does not perform a second Staggered transition and does not refresh Off-Balance twice.
+
 ## Off-Balance lifecycle
 
-If `status_off_balance` is active when its target reaches `TURN_START_PRE_RECOVERY`, the status application owner records `expiry_armed_round` for that activation. At the matching `TURN_END`, the timing owner requests one natural removal through the status owner.
+If `status_off_balance` is active after Staggered conversion/current-state processing at `TURN_START_PRE_RECOVERY`, the application owner records `expiry_armed_round` for that activation. At the matching `TURN_END`, the timing owner requests one natural removal through the status owner.
 
-Therefore:
-- a status applied after TURN_START during an already-running activation cannot expire at that same turn end;
-- a skipped/ineligible slot never receives TURN_START and therefore cannot gain free natural recovery;
-- duplicate hook delivery cannot remove twice.
+A status applied after TURN_START during an already-running activation cannot expire at that same turn end. A skipped/ineligible slot never receives TURN_START and therefore cannot gain free natural recovery. Duplicate hook delivery cannot remove twice.
 
 ## Bleeding cadence boundary
 
@@ -38,35 +46,25 @@ This timing layer does not select or apply periodic HP loss. Exact Bleeding magn
 
 ## Safety boundary
 
-Timing contains no RNG, resource commitment/refresh, Initiative reordering, anatomy mutation, movement, status qualification reroll or presentation-owned gameplay. The final timing regression also verifies that periodic timing does not mutate Hunter Health while ordinary Head Sweep health resolution continues independently.
+Timing contains no RNG, resource commitment/refresh, Initiative reordering, anatomy mutation, movement, content qualification reroll or presentation-owned gameplay. Generic Staggered changes status state only; Tail Sweep CLEAN producer wiring remains outside this verified piece.
 
 ## Verification evidence
 
-Implementation commit:
-`d981b664ae603cfeacde0892f2891eae10ae612d`.
+Verified source head / implementation commit:
+`29623181bfb758b322e47d83a1c2f652b225561a`.
 
-Same-layer QA repair / verified source head:
-`57c205e1b2fb1fc69219f44033ef527ea756a353`.
+Static target: `HUNT01_GENERIC_STATUS_TIMING_SOURCE_STATIC_VERIFIED`.
+Headless target: `HUNT01_GENERIC_STATUS_TIMING_RUNTIME_VERIFIED`.
+Production workflow `34761564734`: SUCCESS.
+Job `103735203468`: SUCCESS.
+Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
 
-Static target:
-`HUNT01_GENERIC_STATUS_TIMING_SOURCE_STATIC_VERIFIED`.
-
-Headless target:
-`HUNT01_GENERIC_STATUS_TIMING_RUNTIME_VERIFIED`.
-
-Production workflow `33937504389`: SUCCESS.
-Job `101228175010`: SUCCESS.
-
-Artifact:
-- ID `9960678247`;
-- name `UnnamedHuntRPG-Hunt01-StatusTiming-debug`;
-- size `57,428,913` bytes;
-- SHA-256 `f275b27c4f0f08a9ba0a45a6dd6c8bbb91a6410a564f947cee4efaed4fc88520`.
+The run also kept Tail Sweep and all preceding production regressions green and exported/uploaded the Android debug APK.
 
 Phone/user acceptance remains deferred-batch. Performance remains unverified.
 
 ## Next owner
 
-`FIRST_SLICE_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
 
-The existing health runtime already emits `PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME` at zero Health and the selected defeat contract defines the player-Hunter `DOWNED` / `HUNTERS_DEFEATED` path. That owner must not invent structural thresholds or unresolved Bleeding periodic HP magnitude.
+That next piece may change the species-owned Tail Sweep CLEAN consequence from pending capability to one valid `status_staggered` application request consumed by the now-verified generic owner. It must preserve the existing SOLID Off-Balance route, Strong Block no-status route, deterministic contact boundary and all structural/balance deferrals.

@@ -1,6 +1,6 @@
 # Build Readiness Gate Matrix
 
-Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / PHONE QA BATCHED
+Status: ACTIVE GOVERNANCE / HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / PHONE QA BATCHED
 Last reconciled: 2026-09-13
 
 ## Primary law
@@ -22,12 +22,12 @@ An open question blocks only the earliest implementation gate that genuinely con
 | HUNTER DEFENSE CONSEQUENCE | BUILD VERIFIED | Block/no-contact consequence + impact drain |
 | HUNTER HEALTH / INJURY | BUILD VERIFIED | idempotent residual injury + pending defeat |
 | HEAD SWEEP WOUND/CONTACT CLASSIFICATION | BUILD VERIFIED | content qualification + valid status request emission |
-| GENERIC STATUS APPLICATION | BUILD VERIFIED | idempotent Bleeding/Off-Balance actor status state |
-| GENERIC STATUS TIMING / LIFECYCLE | BUILD VERIFIED | ordered lifecycle hooks, Off-Balance expiry, pending Bleeding periodic event |
+| GENERIC STATUS APPLICATION | BUILD VERIFIED | idempotent Bleeding/Staggered/Off-Balance actor status state |
+| GENERIC STATUS TIMING / LIFECYCLE | BUILD VERIFIED | Staggered→Off-Balance next-turn conversion, Off-Balance expiry, pending Bleeding periodic event |
+| GENERIC STAGGERED STATUS | BUILD VERIFIED | refresh-duration non-stacking disruption; exact-once next-turn-start conversion; no hidden skipped activation |
 | HUNTER DOWNED / DEFEAT OUTCOME | BUILD VERIFIED | zero-Health Downed + HUNTERS_DEFEATED + terminal scheduler freeze |
 | MUDCREST TAIL SWEEP | BUILD VERIFIED | intact-tail rear/flank attack using existing Block/Off-Balance owners |
-| GENERIC STAGGERED STATUS | NEXT | selected refreshable disruption + next-turn-start conversion to Off-Balance |
-| TAIL SWEEP CLEAN → STAGGERED PRODUCER | WAIT FOR GENERIC STAGGERED OWNER | content consequence selected; producer wiring deferred to later bounded integration |
+| TAIL SWEEP CLEAN → STAGGERED PRODUCER | NEXT | generic Staggered owner now exists; species producer wiring is the next bounded integration |
 | BLEEDING PERIODIC HEALTH CONSEQUENCE | BLOCKED DOWNSTREAM | exact periodic HP magnitude not yet authoritative |
 | MUDCREST STRUCTURAL BREAK / SEVER | BLOCKED FOR THRESHOLDS | anatomy states selected; numeric break/sever thresholds explicitly open |
 | HUNTER VOLUNTARY WITHDRAWAL | BLOCKED FOR HUNTER ESCAPE NODE | authored Hunter escape-node/equivalent boundary not explicit |
@@ -38,24 +38,24 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Verified source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
-Production workflow `34760296459`: SUCCESS.
-Job `103731848690`: SUCCESS.
-Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
+Verified source head `29623181bfb758b322e47d83a1c2f652b225561a`.
+Production workflow `34761564734`: SUCCESS.
+Job `103735203468`: SUCCESS.
+Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
 
-The run passed current static gates, Godot 4.7.2 parse/import, production smokes, current headless combat/anatomy/status/outcome regressions including Tail Sweep, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
+The run passed current static gates, Godot 4.7.2 parse/import, production smokes, all current headless combat/anatomy/status/outcome regressions including Tail Sweep and Generic Staggered, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
 
 ## Current production authorization
 
 Exact next independent implementation:
-`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
 
-Closed authority:
-- status ID `status_staggered`;
-- category `TRANSIENT_PHYSICAL_DISRUPTION`;
-- stack rule `REFRESH_DURATION`, no intensity stacking;
-- normal Parry/Dodge illegal while active; Block/reactive Brace may remain legal when otherwise valid;
-- no hidden stun or skipped normal activation;
-- at next target `TURN_START_PRE_RECOVERY`: remove Staggered once, apply/refresh Off-Balance once, continue that activation, then normal recovery/AP/RP owners proceed.
+Closed authority for this next piece:
+- existing Generic Staggered owner is verified and accepts `APPLY_OR_REFRESH` with no intensity delta;
+- only already-selected CLEAN Tail Sweep consequence emits Staggered;
+- emit one stable valid request to `PENDING_GENERIC_STATUS_APPLICATION_RUNTIME`;
+- SOLID Tail Sweep continues to emit Off-Balance exactly as before;
+- Strong Block/no qualifying CLEAN consequence emits no Staggered;
+- preserve deterministic contact/economy/geometry/health/defense and request idempotency.
 
-This next bounded piece owns only generic Staggered application/timing. Tail Sweep CLEAN producer wiring, Braced/Guarded clearing integration, exact attack thresholds, structural thresholds, Bleeding HP magnitude and withdrawal geometry are not added here unless an existing generic owner contract requires a minimal compatibility hook for correctness.
+Do not add Braced/Guarded clearing integration, exact attack thresholds, structural thresholds, Bleeding HP magnitude, withdrawal geometry, forced displacement or unrelated Monster attacks in this bounded producer piece.

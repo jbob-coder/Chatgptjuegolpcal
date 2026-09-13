@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-13
 
 ## Operating law
@@ -33,37 +33,29 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - Hunter defense consequence and normalized Hunter health/injury;
 - species-owned wound/contact classification;
 - generic Bleeding/Off-Balance application and lifecycle timing;
+- generic `status_staggered` application/refresh with exact-once next-`TURN_START_PRE_RECOVERY` conversion to existing Off-Balance without skipped activation;
 - Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment;
 - living Mudcrest identity/anatomy/status/world preservation through Hunter defeat;
-- `M01_TAIL_SWEEP` in the existing Monster-01 driver with exact 3 AP / 18 Stamina economy, pure Impact, rear/flank/pivot/arc legality, shared reaction/Block flow, 14-Stamina successful Block impact drain, one seeded contact boundary, SOLID Off-Balance, CLEAN Staggered-pending boundary and presentation-only telegraph.
+- `M01_TAIL_SWEEP` with exact 3 AP / 18 Stamina economy, pure Impact, rear/flank/pivot/arc legality, shared reaction/Block flow, 14-Stamina successful Block impact drain, seeded contact boundary, SOLID Off-Balance and presentation-only telegraph.
 
 ## Current verified automated baseline
 
-Verified source head:
-`80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
+Verified source head / Generic Staggered implementation commit:
+`29623181bfb758b322e47d83a1c2f652b225561a`.
 
-Tail Sweep implementation commit:
-`539a50a893b8c683de4095ddd2689a253c95253f`.
-
-Verification/promotion repair sequence:
-- `71aa836f0d5ecb3de6f1292b5e75d81c87a4d4a6` — stale Hunter Downed preflight evidence assertion repaired;
-- `91f554d5ad53b69436f5ee4eb84aad2caa409a23` — stale Mudcrest anatomy preflight structural wording assertion repaired;
-- `056063ff0d6b304d08114975fdd5aeb5af9f8df7` — Tail Sweep promotion/continuity reconciliation;
-- `080a301ec19f3b17b9c2a0e6fe70be5f57903ce8`, `cd0b1a01a262d51720bf774e5abb186a53edec97`, `850713c08872fa522a1e9b92e853d83b60627b24`, `80df7e0aef1b505ea3085f42af8c8710aa79c2a7` — restored exact pre-existing combat/Mudcrest ownership and structural-deferral literals required by static gates after the promotion rewrite.
-
-Final production verification workflow:
-`34760296459` — SUCCESS.
+Production verification workflow:
+`34761564734` — SUCCESS.
 
 Workflow job:
-`103731848690` — SUCCESS.
+`103735203468` — SUCCESS.
 
 Artifact:
-- ID `10318643114`;
+- ID `10318917250`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,477,142` bytes;
-- SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
+- size `57,484,077` bytes;
+- SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
 
-The successful run executed the current static/manifest chain, Godot 4.7.2 import/parse, production AppShell and Region-01 smokes, production integration, all current headless combat/anatomy/status/outcome regressions including the dedicated Tail Sweep runtime, Android debug APK export, artifact validation and artifact upload.
+The successful run executed current static/manifest gates, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, all current headless combat/anatomy/status/outcome regressions including Tail Sweep plus the updated Generic Status Application/Timing gates, Android debug APK export and artifact upload.
 
 ## Verification boundary
 
@@ -72,29 +64,30 @@ The successful run executed the current static/manifest chain, Godot 4.7.2 impor
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Still intentionally open: forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final Tail Sweep tuning; Staggered/Braced/Guarded runtime coverage beyond currently implemented Off-Balance behavior.
+Still intentionally open: Tail Sweep CLEAN→Staggered producer wiring; forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Braced/Guarded runtime; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final Tail Sweep tuning.
+
+Current source contradiction intentionally preserved for the next bounded piece: the Tail Sweep CLEAN classifier/test still use `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING` / `staggered_request_pending_unimplemented`. The generic Staggered owner now exists, but producer wiring was explicitly out of scope for the completed slice.
 
 Latest specialized handoff:
-`docs/70_handoff/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_2026-09-13.md`.
+`docs/70_handoff/HUNT01_GENERIC_STAGGERED_STATUS_RUNTIME_2026-09-13.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`
 
 Why this is executable now:
-- `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md` already selects `status_staggered`, category `TRANSIENT_PHYSICAL_DISRUPTION`, `REFRESH_DURATION`, no intensity stacking, no hidden turn skip, and next `TURN_START_PRE_RECOVERY` conversion to Off-Balance;
-- current generic status application/timing owners already provide the reusable deterministic status storage and lifecycle boundary but currently support only Bleeding and Off-Balance;
-- Tail Sweep CLEAN already records `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING`, proving a real current consumer exists without requiring that producer to be changed in this piece;
-- no structural threshold, Bleeding HP magnitude, withdrawal geometry, final attack balance or new randomness is required.
+- Generic Staggered storage, refresh, persistence/idempotency and timing conversion are now verified owners;
+- Tail Sweep CLEAN already has a deterministic species-owned consequence boundary that explicitly identifies Staggered as pending;
+- the change can be contained to the existing species classifier plus dedicated Tail Sweep/status integration tests/static gates;
+- no new RNG, status subsystem, structural threshold, Bleeding HP magnitude, withdrawal geometry or final attack balance is required.
 
 Required boundary:
-1. extend `game/scripts/gameplay/combat/hunt01_status_application_runtime.gd`; do not create a parallel status owner;
-2. add `status_staggered` definition and valid-request handling with `REFRESH_DURATION`, one instance and no intensity stacking;
-3. extend `game/scripts/gameplay/combat/hunt01_status_timing_runtime.gd` so the target's next `TURN_START_PRE_RECOVERY` removes Staggered once, applies/refreshes Off-Balance once, and does not skip or duplicate the activation;
-4. preserve existing Bleeding and Off-Balance behavior and idempotency;
-5. do not yet wire a new Tail Sweep Staggered producer in this bounded piece;
-6. add/update static and dedicated headless coverage plus regressions;
-7. update the production workflow only as required to execute those gates;
-8. promote only after green source/headless/Android-build evidence.
+1. keep `hunt01_mudcrest_wound_contact_runtime.gd` as the species/content qualification owner;
+2. on the already-selected CLEAN Tail Sweep consequence only, build exactly one valid `status_staggered` request for the existing generic status application owner;
+3. preserve SOLID Tail Sweep → Off-Balance and Strong Block/no-status behavior exactly;
+4. preserve Tail Sweep deterministic contact, attack economy, geometry, defense/health and idempotency behavior;
+5. remove/replace only the now-stale pending-unimplemented CLEAN marker that the new producer makes obsolete;
+6. add/update dedicated static/headless integration coverage and run the complete production Android workflow;
+7. do not add Braced/Guarded runtime, hidden stun, structural sever thresholds, Bleeding HP magnitude, forced displacement or unrelated Mudcrest attacks.
 
-NEXT THING I WILL DO: FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION — extend the existing generic status application/timing owners with deterministic Staggered storage, refresh and next-turn-start conversion to Off-Balance, with dedicated static/headless/build verification and no Tail Sweep producer wiring yet.
+NEXT THING I WILL DO: FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION — wire the existing Tail Sweep CLEAN consequence to exactly one valid generic Staggered application request while preserving all current SOLID/Block/contact/status boundaries.

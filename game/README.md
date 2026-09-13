@@ -1,6 +1,6 @@
 # Production Game Root
 
-Status: HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / GENERIC STAGGERED STATUS NEXT
+Status: HUNT-01 THROUGH GENERIC STAGGERED ANDROID BUILD VERIFIED / TAIL SWEEP CLEAN STAGGERED PRODUCER NEXT
 Last reconciled: 2026-09-13
 
 This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
@@ -11,24 +11,24 @@ World/exploration: continuous `440 x 440 m` Hunt-01 foundation; Hunter speed `6.
 
 Tracking/encounter: physical evidence through terminal `OBSERVATION_READY`, physical observation/engagement and same-location combat staging.
 
-Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical movement, Hunter attack/reaction/defense/health, generic Bleeding/Off-Balance status application/timing and generic encounter-outcome ownership.
+Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical movement, Hunter attack/reaction/defense/health, generic Bleeding/Staggered/Off-Balance status application/timing and generic encounter-outcome ownership.
 
 Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sweep and species wound/contact qualification.
 
 ## Verification status
 
-Verified gameplay/source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
-Workflow `34760296459`: SUCCESS.
-Job `103731848690`: SUCCESS.
-Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
+Verified gameplay/source head `29623181bfb758b322e47d83a1c2f652b225561a`.
+Workflow `34761564734`: SUCCESS.
+Job `103735203468`: SUCCESS.
+Artifact `10318917250`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,484,077 bytes, SHA-256 `9a881d020858aea018da82f4af40f650f374fb6291a6281c19b5419fdfc4b9d1`.
 
-Stack through Tail Sweep is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Stack through Generic Staggered is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `FINAL_ENGINE_SELECTED = NO`.
 
 New chats must use root `START_HERE_NEW_CHAT.md` and reconstruct the live branch before changing this production tree.
 
 ## Current bounded production piece
 
-`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_MUDCREST_TAIL_SWEEP_CLEAN_STAGGERED_PRODUCER_INTEGRATION`.
 
-Extend the existing generic status application/timing owners with deterministic Staggered storage, `REFRESH_DURATION`, no intensity stacking, and one next-`TURN_START_PRE_RECOVERY` transition into existing Off-Balance without skipping the activation. Preserve current status regressions and do not wire Tail Sweep CLEAN as a producer in this piece.
+Wire only the existing Tail Sweep CLEAN species consequence to one valid generic Staggered application request. Preserve SOLID Off-Balance, Strong Block no-status, attack economy/contact/geometry, Generic Status Application/Timing idempotency and all current deferrals.
