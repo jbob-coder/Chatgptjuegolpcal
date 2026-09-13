@@ -42,7 +42,7 @@ def main() -> int:
     check("timing owns no resources/initiative/RNG", all(token not in timing for token in ("try_commit_cost", "try_commit_reaction_cost", "state[\"ap\"]", "state[\"rp\"]", "initiative_rating", "randf(", "randi(", "RandomNumberGenerator")))
     check("classifier boots one timing owner under shell", "STATUS_TIMING_SCRIPT" in classifier and 'timing_runtime.name = "StatusTimingRuntime"' in classifier and "shell.add_child(timing_runtime)" in classifier)
     check("classifier still contains no timing hook execution", all(token not in classifier for token in ("ROUND_END", "TURN_START_PRE_RECOVERY", 'call("on_turn_end"')))
-    check("Tail Sweep CLEAN remains a pending producer boundary", "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING" in classifier and "staggered_request_pending_unimplemented" in classifier and "status_staggered" not in classifier)
+    check("Tail Sweep CLEAN producer targets Staggered while timing remains generic", 'STATUS_STAGGERED := "status_staggered"' in classifier and "_build_tail_staggered_request" in classifier and "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PROVISIONAL" in classifier and "staggered_request_pending_unimplemented" not in classifier)
     check("test proves real pending Bleeding event", "Round-4 emits exactly one pending Bleeding periodic consequence" in test)
     check("test proves no periodic Health mutation", "timing event does not mutate Hunter Health" in test)
     check("test proves Staggered exact-once conversion without turn skip", "Round 5 Hunter activation starts instead of being skipped" in test and "Round-5 TURN_START removes Staggered exactly once" in test and "duplicate Round-5 TURN_START is idempotent" in test)
@@ -54,7 +54,7 @@ def main() -> int:
     check("workflow runs timing source/headless gates", "hunt01_status_timing_preflight.py" in workflow and "HUNT01_GENERIC_STATUS_TIMING_SOURCE_STATIC_VERIFIED" in workflow and "hunt01_status_timing_runtime_test.gd" in workflow and "HUNT01_GENERIC_STATUS_TIMING_RUNTIME_VERIFIED" in workflow)
     print(); print(f"Checks: {checks} | Passed: {checks-len(failures)} | Failed: {len(failures)}")
     print("Gate: " + ("HUNT01_GENERIC_STATUS_TIMING_SOURCE_STATIC_VERIFIED" if not failures else "HUNT01_GENERIC_STATUS_TIMING_SOURCE_STATIC_FAILED"))
-    print("This gate covers generic Staggered conversion plus existing Bleeding/Off-Balance timing; it does not claim Tail Sweep Staggered producer wiring, Bleeding HP magnitude, Braced/Guarded runtime, structural damage, phone acceptance or performance verification.")
+    print("This gate covers generic Staggered conversion plus existing Bleeding/Off-Balance timing and accepts the Tail Sweep CLEAN producer route; it does not claim Bleeding HP magnitude, Braced/Guarded runtime, structural damage, phone acceptance or performance verification.")
     return 0 if not failures else 1
 
 if __name__ == "__main__": raise SystemExit(main())

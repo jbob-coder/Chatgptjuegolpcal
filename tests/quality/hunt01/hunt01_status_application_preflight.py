@@ -61,7 +61,7 @@ def main() -> int:
     check("generic status node is attached to combat shell", 'status_runtime.name = "StatusApplicationRuntime"' in classifier and "shell.add_child(status_runtime)" in classifier)
     check("classifier dispatches only after producing requests", 'consume_application_request", request, application_round' in classifier and classifier.index("status_application_requests") > classifier.index("_build_bleeding_request"))
     check("classifier still contains no timing scheduler implementation", all(token not in classifier for token in ("ROUND_END", "TURN_START_PRE_RECOVERY", "process_status_timing")))
-    check("Tail Sweep CLEAN producer remains deliberately unwired", "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING" in classifier and "staggered_request_pending_unimplemented" in classifier and "status_staggered" not in classifier)
+    check("Tail Sweep CLEAN producer routes to existing generic Staggered owner", 'STATUS_STAGGERED := "status_staggered"' in classifier and "_build_tail_staggered_request" in classifier and "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PROVISIONAL" in classifier and '"consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME"' in classifier and "staggered_request_pending_unimplemented" not in classifier)
     check("production test proves real Bleeding integration", "real Head Sweep dispatches one status request to generic owner" in test and "Bleeding actor-level instance is active at intensity 1" in test)
     check("production test proves idempotent replay", "replay does not rerun ON_APPLY trace" in test)
     check("production test proves Bleeding cap", "Bleeding intensity caps at 3" in test)
@@ -80,7 +80,7 @@ def main() -> int:
         print("Gate: HUNT01_GENERIC_STATUS_APPLICATION_SOURCE_STATIC_FAILED")
     else:
         print("Gate: HUNT01_GENERIC_STATUS_APPLICATION_SOURCE_STATIC_VERIFIED")
-    print("This gate covers Bleeding/Off-Balance/Staggered application state but does not claim Tail Sweep Staggered producer wiring, Bleeding HP magnitude, Braced/Guarded runtime, structural damage, phone acceptance or performance verification.")
+    print("This gate covers Bleeding/Off-Balance/Staggered application state and the Tail Sweep CLEAN producer route; it does not claim Bleeding HP magnitude, Braced/Guarded runtime, structural damage, phone acceptance or performance verification.")
     return 0 if not failures else 1
 
 

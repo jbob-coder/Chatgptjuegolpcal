@@ -182,11 +182,10 @@ func _run() -> void:
 		off_balance_request = requests[0] as Dictionary
 	_check("Tail Sweep request targets generic Off-Balance owner", String(off_balance_request.get("status_id", "")) == "status_off_balance" and String(off_balance_request.get("source_action_id", "")) == TAIL_SWEEP_ATTACK_ID and String(off_balance_request.get("consumer_status", "")) == "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME", str(off_balance_request))
 	_check("generic status application commits Off-Balance synchronously", bool(status_application.call("has_status", HUNTER_ID, "status_off_balance")), str(status_application.call("get_status_instance", HUNTER_ID, "status_off_balance")))
-	_check("SOLID Tail Sweep does not fabricate Staggered", not bool(second_classification.get("staggered_request_pending_unimplemented", false)) and not str(second_classification).contains("status_staggered"), str(second_classification))
+	_check("SOLID Tail Sweep does not fabricate Staggered", not second_classification.has("staggered_request_pending_unimplemented") and not str(second_classification).contains("status_staggered"), str(second_classification))
 
-	# Synthetic content-boundary probe: CLEAN is authored to request Staggered,
-	# whose generic owner does not exist yet. The classifier must record pending
-	# capability without converting it into Off-Balance or applying a status.
+	# Synthetic content-boundary probe: CLEAN is already qualified by the species
+	# classifier and must emit exactly one request to the verified generic Staggered owner.
 	var clean_damage := {
 		"status": "PENDING_HUNTER_DAMAGE_RUNTIME",
 		"resolution_id": "enc_r01_ef02_m01_0001:TAIL_SWEEP_CLEAN_STAGGERED_BOUNDARY",
@@ -215,8 +214,19 @@ func _run() -> void:
 	}
 	var status_count_before_clean := int(status_application.call("get_application_count"))
 	var clean_classification: Dictionary = wound_contact.call("resolve_tail_sweep_consequence", clean_damage, clean_defense)
-	_check("CLEAN Tail Sweep leaves Staggered explicitly pending", bool(clean_classification.get("staggered_request_pending_unimplemented", false)) and String(clean_classification.get("contact_mode", "")) == "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING", str(clean_classification))
-	_check("CLEAN Tail Sweep creates no unsupported status request", int(clean_classification.get("status_request_count", -1)) == 0 and int(status_application.call("get_application_count")) == status_count_before_clean, str(clean_classification))
+	var clean_requests: Array = clean_classification.get("status_application_requests", []) as Array
+	var clean_results: Array = clean_classification.get("status_application_results", []) as Array
+	var staggered_request: Dictionary = {}
+	if clean_requests.size() == 1:
+		staggered_request = clean_requests[0] as Dictionary
+	_check("CLEAN Tail Sweep emits one Staggered producer request", int(clean_classification.get("status_request_count", -1)) == 1 and String(clean_classification.get("contact_mode", "")) == "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PROVISIONAL", str(clean_classification))
+	_check("CLEAN Tail Sweep request targets verified generic Staggered owner", String(staggered_request.get("status_id", "")) == "status_staggered" and String(staggered_request.get("source_action_id", "")) == TAIL_SWEEP_ATTACK_ID and String(staggered_request.get("application_mode", "")) == "APPLY_OR_REFRESH" and int(staggered_request.get("intensity_delta", -1)) == 0 and String(staggered_request.get("consumer_status", "")) == "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME", str(staggered_request))
+	_check("CLEAN Tail Sweep dispatches exactly one successful generic application", clean_results.size() == 1 and bool((clean_results[0] as Dictionary).get("success", false)) and String(clean_classification.get("status_application_dispatch_status", "")) == "DISPATCHED_TO_GENERIC_STATUS_APPLICATION_RUNTIME" and int(status_application.call("get_application_count")) == status_count_before_clean + 1, str(clean_classification))
+	_check("generic status application commits Staggered synchronously", bool(status_application.call("has_status", HUNTER_ID, "status_staggered")), str(status_application.call("get_status_instance", HUNTER_ID, "status_staggered")))
+	var staggered_before_replay: Dictionary = status_application.call("get_status_instance", HUNTER_ID, "status_staggered") as Dictionary
+	var clean_replay: Dictionary = wound_contact.call("resolve_tail_sweep_consequence", clean_damage, clean_defense)
+	_check("CLEAN Tail Sweep classification replay is exact/idempotent", clean_replay == clean_classification and int(status_application.call("get_application_count")) == status_count_before_clean + 1, str(clean_replay))
+	_check("CLEAN replay does not refresh Staggered twice", status_application.call("get_status_instance", HUNTER_ID, "status_staggered") == staggered_before_replay, str(status_application.call("get_status_instance", HUNTER_ID, "status_staggered")))
 
 	# Tail anatomy remains intact/current-state-only; the Monster attack cannot
 	# mutate its own anatomy or infer a sever transition from normalized integrity.
@@ -240,5 +250,5 @@ func _finish() -> void:
 		print("Gate: HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_VERIFIED")
 	else:
 		print("Gate: HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_FAILED")
-	print("Final Tail Sweep range/control balance, structural sever thresholds, Staggered runtime, forced displacement, phone acceptance and performance are not claimed by this gate.")
+	print("Final Tail Sweep range/control balance, structural sever thresholds, forced displacement, phone acceptance and performance are not claimed by this gate.")
 	quit(0 if failures.is_empty() else 1)

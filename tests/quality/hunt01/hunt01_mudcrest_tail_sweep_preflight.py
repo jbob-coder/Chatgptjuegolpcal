@@ -64,14 +64,14 @@ def main() -> int:
     check("Hunter health accepts both current Monster attacks without new balance constants", 'TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"' in health and "attack_id != HEAD_SWEEP_ATTACK_ID and attack_id != TAIL_SWEEP_ATTACK_ID" in health and "SOLID_BASE_LOAD := 8" in health)
     check("species classifier owns Tail Sweep status qualification", "resolve_tail_sweep_consequence" in classifier and "TAIL_SWEEP_SOLID_IMPACT_PROVISIONAL" in classifier)
     check("SOLID Tail Sweep may request only existing Off-Balance", "TAIL_SWEEP_SOLID_IMPACT_WITH_RESOLVED_INJURY" in classifier and '"status_id": STATUS_OFF_BALANCE' in classifier)
-    check("CLEAN Tail Sweep leaves Staggered pending without application", "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING" in classifier and "staggered_request_pending_unimplemented" in classifier and "status_staggered" not in classifier)
+    check("CLEAN Tail Sweep emits exactly one generic Staggered request boundary", 'STATUS_STAGGERED := "status_staggered"' in classifier and "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PROVISIONAL" in classifier and "_build_tail_staggered_request" in classifier and '"status_id": STATUS_STAGGERED' in classifier and '"application_mode": "APPLY_OR_REFRESH"' in classifier and '"intensity_delta": 0' in classifier and "staggered_request_pending_unimplemented" not in classifier)
     check("Tail Sweep emits no Bleeding path", '"source_action_id": TAIL_SWEEP_ATTACK_ID' in classifier and "TAIL_SWEEP_PROFILE" in classifier)
     check("classifier and attack contain no structural mutation", all(token not in attack + classifier for token in ("sever_part(", "break_part(", "detach_tail(", "apply_status(")))
     check("Tail telegraph is presentation-only/non-colliding", "QuadMesh" in telegraph and "CollisionShape3D" not in telegraph and "StaticBody3D" not in telegraph and "Area3D" not in telegraph)
     check("dedicated test reaches N10 through authored links", all(label in test for label in ("N01 -> N02 move succeeds", "N02 -> N05 move succeeds", "N05 -> N08 move succeeds", "N08 -> N10 move succeeds")))
     check("dedicated test verifies exact Tail economy and geometry", "Tail Sweep spends exactly 3 AP / 18 Stamina" in test and "Tail Sweep passes rear/flank bearing gate" in test and "real authored 8 m pivot clearance" in test)
     check("dedicated test verifies 14-Stamina impact drain", "Tail Sweep records and applies 14-Stamina Block impact drain" in test)
-    check("dedicated test verifies Off-Balance and Staggered boundary", "SOLID Tail Sweep emits exactly one Off-Balance request" in test and "CLEAN Tail Sweep leaves Staggered explicitly pending" in test)
+    check("dedicated test verifies Off-Balance and Staggered producer integration", "SOLID Tail Sweep emits exactly one Off-Balance request" in test and "CLEAN Tail Sweep emits one Staggered producer request" in test and "CLEAN replay does not refresh Staggered twice" in test)
     check("runtime doc records verified evidence and preserves provisional/sever/Staggered boundaries", "Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED" in doc and "HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_SOURCE_STATIC_VERIFIED" in doc and "HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_VERIFIED" in doc and "TAIL_DISTAL" in doc and "Staggered" in doc and "provisional" in doc.lower())
     check("Monster README records Tail Sweep verified ownership", "M01_TAIL_SWEEP" in monster_readme and "3 AP / 18 Stamina" in monster_readme and "TAIL SWEEP STATIC/HEADLESS/ANDROID BUILD VERIFIED" in monster_readme)
     check("workflow runs Tail Sweep static gate", "hunt01_mudcrest_tail_sweep_preflight.py" in workflow and "HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_SOURCE_STATIC_VERIFIED" in workflow)
@@ -84,7 +84,7 @@ def main() -> int:
         print("Gate: HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_SOURCE_STATIC_FAILED")
     else:
         print("Gate: HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_SOURCE_STATIC_VERIFIED")
-    print("This gate does not claim final Tail range/control balance, sever thresholds, Staggered runtime, forced displacement, phone acceptance or performance.")
+    print("This gate does not claim final Tail range/control balance, sever thresholds, forced displacement, phone acceptance or performance.")
     return 0 if not failures else 1
 
 

@@ -12,6 +12,7 @@ const TAIL_SWEEP_ATTACK_ID := "M01_TAIL_SWEEP"
 const GORE_SWEEP_PROFILE := "GORE_SWEEP"
 const TAIL_SWEEP_PROFILE := "TAIL_SWEEP_IMPACT"
 const STATUS_BLEEDING := "status_bleeding"
+const STATUS_STAGGERED := "status_staggered"
 const STATUS_OFF_BALANCE := "status_off_balance"
 const TRIGGER_HOOK := "ON_HIT_OR_DAMAGE_CONSEQUENCE"
 const FIXTURE_STATUS := "PROVISIONAL_FIRST_SLICE_HEAD_SWEEP_WOUND_CONTACT_CLASSIFICATION_FIXTURE"
@@ -159,7 +160,6 @@ func resolve_tail_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 	var requests: Array[Dictionary] = []
 	var contact_mode := "NO_QUALIFYING_STATUS_CONTACT"
 	var classification_reason := "NO_STATUS_PREREQUISITE_ESTABLISHED"
-	var staggered_pending := false
 
 	if contact_class == "NO_CONTACT" or hit_quality == "MISS" or applied_injury <= 0:
 		classification_reason = "NO_RESOLVED_IMPACT_CONTACT"
@@ -171,9 +171,9 @@ func resolve_tail_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 		classification_reason = "SOLID_IMPACT_WITH_RESOLVED_INJURY_AND_NO_STRONG_BLOCK"
 		requests.append(_build_tail_off_balance_request(resolution_id, block_outcome, applied_injury))
 	elif hit_quality == "CLEAN":
-		contact_mode = "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING"
-		classification_reason = "CLEAN_TAIL_SWEEP_STAGGERED_AUTHORIZED_BUT_GENERIC_OWNER_NOT_IMPLEMENTED"
-		staggered_pending = true
+		contact_mode = "TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PROVISIONAL"
+		classification_reason = "CLEAN_IMPACT_WITH_RESOLVED_INJURY_AND_NO_STRONG_BLOCK"
+		requests.append(_build_tail_staggered_request(resolution_id, block_outcome, applied_injury))
 	elif hit_quality == "GRAZE":
 		classification_reason = "GRAZE_DOES_NOT_MEET_TAIL_SWEEP_STATUS_REQUEST_THRESHOLD"
 
@@ -199,7 +199,6 @@ func resolve_tail_sweep_consequence(damage_handoff: Dictionary, defense_conseque
 		"applied_injury_load": applied_injury,
 		"contact_mode": contact_mode,
 		"classification_reason": classification_reason,
-		"staggered_request_pending_unimplemented": staggered_pending,
 		"status_application_requests": requests.duplicate(true),
 		"status_request_count": requests.size(),
 		"status_application_results": application_results.duplicate(true),
@@ -277,6 +276,25 @@ func _build_tail_off_balance_request(resolution_id: String, block_outcome: Strin
 		"trigger_hook": TRIGGER_HOOK,
 		"application_mode": "APPLY_OR_REFRESH",
 		"qualification": "TAIL_SWEEP_SOLID_IMPACT_WITH_RESOLVED_INJURY",
+		"block_outcome": block_outcome,
+		"applied_injury_load": applied_injury,
+		"consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME",
+	}
+
+func _build_tail_staggered_request(resolution_id: String, block_outcome: String, applied_injury: int) -> Dictionary:
+	return {
+		"status": "VALID_STATUS_APPLICATION_REQUEST",
+		"request_schema": REQUEST_SCHEMA,
+		"application_request_id": "%s:STATUS:%s" % [resolution_id, STATUS_STAGGERED],
+		"status_id": STATUS_STAGGERED,
+		"target_actor_id": HUNTER_COMBATANT_ID,
+		"source_actor_id": MONSTER_COMBATANT_ID,
+		"source_action_id": TAIL_SWEEP_ATTACK_ID,
+		"source_resolution_id": resolution_id,
+		"trigger_hook": TRIGGER_HOOK,
+		"application_mode": "APPLY_OR_REFRESH",
+		"intensity_delta": 0,
+		"qualification": "TAIL_SWEEP_CLEAN_IMPACT_WITH_RESOLVED_INJURY",
 		"block_outcome": block_outcome,
 		"applied_injury_load": applied_injury,
 		"consumer_status": "PENDING_GENERIC_STATUS_APPLICATION_RUNTIME",
