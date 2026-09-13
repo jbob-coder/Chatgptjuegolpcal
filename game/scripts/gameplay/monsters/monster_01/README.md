@@ -19,7 +19,7 @@ Deterministic normal-action priority is legal rear/flank Tail Sweep, otherwise e
 
 ## Structural boundaries
 
-Head and Tail capability reads do not invent structural crack/break/sever thresholds. Current runtime records `PROVISIONAL_BASELINE_HEAD_HORNS_USABLE_NO_BREAK_STATE_RUNTIME` and `PROVISIONAL_BASELINE_TAIL_DISTAL_ATTACHED_NO_SEVER_STATE_RUNTIME` until a future structural owner supplies authoritative transitions. Numeric sever thresholds remain open; normalized anatomy integrity must not be interpreted as an implicit detach threshold.
+Head and Tail capability reads do not invent structural crack/break/sever thresholds. Current runtime records `PROVISIONAL_BASELINE_HEAD_HORNS_USABLE_NO_BREAK_STATE_RUNTIME` and `PROVISIONAL_BASELINE_TAIL_DISTAL_ATTACHED_NO_SEVER_STATE_RUNTIME` until a future structural owner supplies authoritative transitions. Current constraints: numeric sever thresholds remain open; normalized anatomy integrity must not be interpreted as an implicit detach threshold.
 
 ## Tail Sweep geometry/status boundary
 
