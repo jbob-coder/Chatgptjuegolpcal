@@ -37,31 +37,42 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment in its dedicated production regression;
 - CLEAN Tail Sweep→generic Staggered producer integration;
 - deterministic basic-runtime autorun across two fresh boot/run/teardown cycles with no detected Hunt-01 group/state leakage;
-- integrated Monster exchange: authored movement to N10, real Tail Sweep, Poleblade Block, SOLID / `BLOCK_STRONG`, Hunter Health 100→98 and Round-3 return;
+- integrated Monster combat exchange: authored movement to N10, real Tail Sweep, Poleblade Block, SOLID / `BLOCK_STRONG`, Hunter Health 100→98 and Round-3 return;
 - integrated Hunter attack exchange: authored N10→N08→N05→N07→N09 movement, real Head Sweep/Block bridge, Round-4 Dorsal Measured Cut, CLEAN selected-part contact, mineralized protection and anatomy 100→95;
 - integrated real status lifecycle: Round-4 unguarded CLEAN Head Sweep produces real Bleeding through wound/contact→generic application, Round-5 `ROUND_END` emits exactly one pending Bleeding periodic consequence with no selected HP magnitude, Health remains owned by the health runtime, and Round-6 Hunter starts normally.
 
 ## Current verified automated baseline
 
 Latest full production-verified revision:
+`83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+
+Real-status autorun implementation commit:
 `9e854599780301e3e9c045b1bac73de9e27b5238`.
 
-Real-status autorun implementation / latest tested source:
-`9e854599780301e3e9c045b1bac73de9e27b5238`.
+Package promotion commit:
+`0f38ac3c18667e53efa89d6eeaebf0f2dcb41745`.
+
+Governance wording repair / latest tested source:
+`83dc865064980eaa3d29c5928b0f59e9a4132c79`.
 
 Production verification workflow:
-`34779190819` — SUCCESS.
+`34779563368` — SUCCESS.
 
 Workflow job:
-`103782938270` — SUCCESS.
+`103783955039` — SUCCESS.
 
 Artifact:
-- ID `10324690130`;
+- ID `10324451154`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,526,652` bytes;
-- SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
+- size `57,526,677` bytes;
+- SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
 
-Run 81 passed static governance, Godot 4.7.2 import/parse, production smokes, the two-cycle autorun through both combat exchanges plus the real Bleeding lifecycle, every current combat/anatomy/status/outcome regression, Android debug export and artifact upload.
+Verification history for this slice:
+- run 81 verified the real-status implementation at `9e854599780301e3e9c045b1bac73de9e27b5238`;
+- promotion commit `0f38ac3c18667e53efa89d6eeaebf0f2dcb41745` reconciled package/front-door state;
+- run 82 stopped before Godot on one documentation-governance phrase check only: the promoted autorun contract no longer contained the exact `combat exchange` wording required by its unchanged static preflight;
+- repair commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored that wording only, without changing runtime or test logic;
+- run 83 then passed static governance, Godot 4.7.2 import/parse, production smokes, the integrated two-cycle autorun, every current combat/anatomy/status/outcome regression, Android debug export and artifact upload on that exact repair revision.
 
 ## Verification boundary
 
@@ -81,7 +92,7 @@ Latest specialized handoff:
 
 Required boundary:
 1. extend verification automation only; do not create player-facing autoplay;
-2. preserve tracking→ENGAGE, Monster exchange, Hunter Measured Cut/anatomy exchange and real Bleeding lifecycle;
+2. preserve tracking→ENGAGE, Monster combat exchange, Hunter Measured Cut/anatomy exchange and real Bleeding lifecycle;
 3. use existing Hunter health, encounter-outcome and scheduler owners;
 4. test-only health preparation may bring the Hunter near the existing zero-Health boundary, but the final terminal transition must come from a real hostile production attack transaction;
 5. prove `ACTIVE → DOWNED`, `HUNTERS_DEFEATED`, terminal current-actor freeze, no scheduler advancement and idempotent outcome readback;

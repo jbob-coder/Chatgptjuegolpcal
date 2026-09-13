@@ -6,14 +6,14 @@ CURRENT_OBJECTIVE: make the already-implemented basic Hunt-01 runtime automatica
 
 CURRENT_STATE: complete through one deterministic Monster combat exchange, one deterministic Hunter attack/anatomy exchange and one real hostile Bleeding application/timing lifecycle. The real production Region-01 scene executes two fresh-instance boot/run/teardown cycles in one Godot process and reproduces the same integrated runtime signature.
 
-LAST_VERIFIED_STATE: source revision `9e854599780301e3e9c045b1bac73de9e27b5238` passed full production workflow `34779190819`, job `103782938270`.
+LAST_VERIFIED_STATE: revision `83dc865064980eaa3d29c5928b0f59e9a4132c79` passed full production workflow `34779563368`, job `103783955039`.
 
 COMPLETED_WORK:
 - retained `game/tests/hunt01_basic_runtime_autorun_test.gd` as the test-only integration owner;
 - retained static preflight `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py` and the existing production workflow gate;
 - preserved fresh world identity, zeroed tracking/encounter state, seven-clue `OBSERVATION_READY`, physical ENGAGE and combat-owner attachment;
 - preserved initial deterministic out-of-range Monster idle proof;
-- preserved authored N01→N02→N05→N08→N10 movement and real `M01_TAIL_SWEEP`→Poleblade Block exchange;
+- preserved authored N01→N02→N05→N08→N10 movement and real `M01_TAIL_SWEEP`→Poleblade Block combat exchange;
 - preserved Tail Sweep deterministic SOLID / `BLOCK_STRONG`, Hunter Health 100→98 and no strong-Block status request;
 - preserved authored N10→N08→N05→N07→N09 reposition through normal AP economy;
 - preserved real Head Sweep/Block scheduler bridge and Round-4 Dorsal `POLEBLADE_MEASURED_CUT`, CLEAN selected-part contact and anatomy 100→95;
@@ -29,7 +29,11 @@ COMPLETED_WORK:
 - Bleeding persists at intensity 1 and Round 6 starts normally on Hunter with 4 AP / 1 RP;
 - teardown rejects tactical/evidence/Monster/telegraph group leakage and the second fresh instance matches the first;
 - protected player movement/look behavior is untouched;
-- run 81 passed all current production gates and Android export.
+- run 81 verified the implementation and Android export;
+- promotion commit `0f38ac3c18667e53efa89d6eeaebf0f2dcb41745` reconciled package/front doors;
+- run 82 failed before Godot only because the promoted regression contract lost the exact `combat exchange` phrase required by the unchanged static preflight;
+- repair commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored that documentation wording only;
+- run 83 passed all current production gates and Android export on the exact repaired promoted revision.
 
 IN_PROGRESS: none for the real-status lifecycle autorun slice.
 
@@ -51,18 +55,20 @@ IMPORTANT_DECISIONS:
 
 KNOWN_RISKS: full hunt loop remains partial; automated Android export is not phone acceptance; no sustained-performance evidence exists; structural/withdrawal/harvest/inventory/crafting remain incomplete.
 
-FILES_CHANGED for real-status lifecycle extension:
+FILES_CHANGED for real-status lifecycle implementation:
 - `game/tests/hunt01_basic_runtime_autorun_test.gd`;
 - `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py`;
 - `game/docs/HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION.md`.
 
 IMPLEMENTATION_SOURCE: `9e854599780301e3e9c045b1bac73de9e27b5238`.
+PROMOTION_COMMIT: `0f38ac3c18667e53efa89d6eeaebf0f2dcb41745`.
+GOVERNANCE_REPAIR_AND_LATEST_TESTED_SOURCE: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
 
-TESTS_RUN / TEST_RESULTS: run 81 `34779190819` SUCCESS verified static/manifest gates, Godot 4.7.2 parse/import, production smokes, production integration, both fresh-instance integrated cycles through Monster exchange + Hunter attack/anatomy + real Bleeding lifecycle, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
+TESTS_RUN / TEST_RESULTS: run 81 `34779190819` SUCCESS verified the implementation. Run 82 `34779452988` stopped before Godot on one documentation-governance phrase check. Run 83 `34779563368` SUCCESS verified the repaired promoted state: static/manifest gates, Godot 4.7.2 parse/import, production smokes/integration, both fresh-instance integrated cycles, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
 
-REPOSITORY_HEAD_AT_VERIFICATION: `9e854599780301e3e9c045b1bac73de9e27b5238`.
+REPOSITORY_HEAD_AT_VERIFICATION: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
 
-ARTIFACT: ID `10324690130`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,526,652 bytes; SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
+ARTIFACT: ID `10324451154`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,526,677 bytes; SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
 
 EXTERNAL_REFERENCES: none required for this verification-only slice.
 

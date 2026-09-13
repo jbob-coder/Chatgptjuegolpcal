@@ -43,12 +43,12 @@ An open question blocks only the earliest implementation gate that genuinely con
 
 ## Current automated baseline
 
-Latest full production-verified source revision `9e854599780301e3e9c045b1bac73de9e27b5238`.
-Production workflow `34779190819`: SUCCESS.
-Job `103782938270`: SUCCESS.
-Artifact `10324690130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,526,652 bytes, SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
+Latest full production-verified source revision `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+Production workflow `34779563368`: SUCCESS.
+Job `103783955039`: SUCCESS.
+Artifact `10324451154`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,526,677 bytes, SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
 
-Run 81 passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun through both combat exchanges and one real Bleeding lifecycle, all current combat/anatomy/status/outcome regressions, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
+Run 82 stopped before Godot on one promoted documentation phrase check only. Commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored that unchanged static contract's required `combat exchange` wording. Run 83 then passed current static gates, Godot 4.7.2 parse/import, production smokes, the two-cycle basic runtime autorun through both combat exchanges and one real Bleeding lifecycle, all current combat/anatomy/status/outcome regressions, Android export and artifact upload. It does not establish phone acceptance or sustained performance.
 
 ## Current production authorization
 
@@ -58,7 +58,7 @@ Exact next independent implementation:
 Closed authority for this next piece:
 - verification automation only, not player-facing autoplay;
 - use the real production Region-01 scene and current two-cycle autorun rather than mocks;
-- preserve the integrated Monster exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
+- preserve the integrated Monster combat exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
 - consume the existing health, encounter-outcome and scheduler owners;
 - test-only health preparation may shorten setup to the existing zero-Health boundary, but the final terminal transition must be produced by a real hostile production attack;
 - verify Hunter `ACTIVE → DOWNED`, `HUNTERS_DEFEATED`, terminal current-actor freeze, no further scheduler advancement and idempotent outcome replay;

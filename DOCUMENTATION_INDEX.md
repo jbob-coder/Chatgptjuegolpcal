@@ -25,14 +25,16 @@ A fresh chat must fetch live branch HEAD before this read, re-check HEAD afterwa
 
 ## Production runtime map
 
-Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monster-01 anatomy/content/attacks remain under `game/scripts/gameplay/monsters/monster_01/`. The production workflow owns a fresh-instance basic runtime autorun under `game/tests/` that exercises the real Region-01 tracking/ENGAGE/scheduler path, a deterministic Tail Sweep/Block exchange, a deterministic Hunter Measured Cut/anatomy exchange and a real hostile Bleeding application/timing lifecycle without altering normal gameplay controls.
+Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monster-01 anatomy/content/attacks remain under `game/scripts/gameplay/monsters/monster_01/`. The production workflow owns a fresh-instance basic runtime autorun under `game/tests/` that exercises the real Region-01 tracking/ENGAGE/scheduler path, a deterministic Tail Sweep/Block combat exchange, a deterministic Hunter Measured Cut/anatomy exchange and a real hostile Bleeding application/timing lifecycle without altering normal gameplay controls.
 
 ## Current verified baseline
 
-Latest full production-verified source revision `9e854599780301e3e9c045b1bac73de9e27b5238`.
-Production workflow `34779190819`: SUCCESS.
-Job `103782938270`: SUCCESS.
-Artifact `10324690130`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,526,652 bytes, SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
+Latest full production-verified source revision `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+Production workflow `34779563368`: SUCCESS.
+Job `103783955039`: SUCCESS.
+Artifact `10324451154`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,526,677 bytes, SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
+
+Run 82 was a pre-Godot documentation-governance failure only. Commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored the required `combat exchange` wording, and run 83 fully verified that repaired promoted state.
 
 Latest gameplay handoff:
 `docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.

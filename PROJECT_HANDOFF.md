@@ -5,9 +5,9 @@ Last reconciled: 2026-09-13
 
 CURRENT_OBJECTIVE: build the smallest reliable playable Hunt-01 foundation and continuously fold already-implemented basics into one deterministic fresh-instance production smoke without creating player-facing autoplay.
 
-CURRENT_STATE: the real production Region-01 scene now repeats tracking→ENGAGE, the real Tail Sweep/Poleblade Block exchange, authored reposition, the real Dorsal Measured Cut/anatomy exchange, and a real hostile Bleeding application/timing lifecycle across two independent fresh instances. Dedicated regressions also verify Hunter Downed/`HUNTERS_DEFEATED` terminal execution.
+CURRENT_STATE: the real production Region-01 scene now repeats tracking→ENGAGE, the real Tail Sweep/Poleblade Block combat exchange, authored reposition, the real Dorsal Measured Cut/anatomy exchange, and a real hostile Bleeding application/timing lifecycle across two independent fresh instances. Dedicated regressions also verify Hunter Downed/`HUNTERS_DEFEATED` terminal execution.
 
-LAST_VERIFIED_STATE: source revision `9e854599780301e3e9c045b1bac73de9e27b5238` passed full production workflow `34779190819`, job `103782938270`.
+LAST_VERIFIED_STATE: revision `83dc865064980eaa3d29c5928b0f59e9a4132c79` passed full production workflow `34779563368`, job `103783955039`.
 
 COMPLETED_WORK:
 - continuous 440×440 m Hunt-01 world/tracking/physical ENGAGE foundation;
@@ -21,12 +21,15 @@ COMPLETED_WORK:
 - CLEAN Tail Sweep→generic Staggered producer integration;
 - Hunter Downed/defeat terminal chain in its dedicated production regression;
 - two-cycle basic autorun with tracking/ENGAGE and clean teardown;
-- integrated Tail Sweep/Block exchange: SOLID / `BLOCK_STRONG`, Hunter Health 100→98;
+- integrated Tail Sweep/Block combat exchange: SOLID / `BLOCK_STRONG`, Hunter Health 100→98;
 - integrated Hunter attack/anatomy exchange: real Dorsal Measured Cut, CLEAN selected contact, anatomy 100→95;
-- integrated real status lifecycle: Round-4 CLEAN/no-guard Head Sweep changes Health 96→84, establishes provisional horn penetration, emits one real Bleeding +1 request, dispatches through the generic status owner, schedules first tick Round 5, and Round-5 `ROUND_END` emits exactly one pending Bleeding periodic consequence;
-- pending Bleeding event retains `NOT_SELECTED_PENDING_AUTHORITY`, contains no damage amount and does not mutate Health; after the real Round-5 strong Block Health is 82 and Round 6 returns normally with 4 AP / 1 RP;
+- integrated real status lifecycle: real Round-4 CLEAN/no-guard Head Sweep changes Health 96→84, establishes provisional horn penetration, emits one real Bleeding +1 request, dispatches through the generic status owner, and schedules first tick Round 5;
+- real Round-5 `ROUND_END` timing emits exactly one `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` with `NOT_SELECTED_PENDING_AUTHORITY`, no damage amount and no direct Health mutation; after the real Round-5 strong Block Health is 82 and Round 6 returns normally with 4 AP / 1 RP;
 - both fresh instances reproduce the same integrated signature;
-- run 81 re-passed all current regressions and Android export.
+- run 81 verified the implementation;
+- run 82 exposed one promotion-only documentation phrase regression before Godot;
+- repair commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored the required `combat exchange` governance wording only;
+- run 83 re-passed the complete production pipeline and Android export on that exact repair revision.
 
 IN_PROGRESS: none for the real-status lifecycle slice.
 
@@ -41,10 +44,10 @@ IMPORTANT_DECISIONS:
 - normal movement/look controls remain protected and unchanged;
 - no new gameplay RNG or balance values;
 - two fresh scene instances must remain independent;
-- status application/timing in the integrated smoke must come through real producers and scheduler hooks, not direct synthetic status calls;
+- status application/timing in the integrated smoke comes through real producers and scheduler hooks, not direct synthetic status calls;
 - Bleeding periodic event remains pending only while HP magnitude is unresolved;
 - next terminal integration must use existing health/outcome/scheduler owners and a real final hostile contact; test-only health preparation may only shorten setup to the already-verified zero-Health boundary;
-- recovery/respawn is not part of the next terminal verification slice.
+- recovery/respawn is not part of that next slice.
 
 KNOWN_RISKS: full hunt loop remains partial; automated Android export is not phone acceptance; no sustained-performance evidence exists; Monster structural defeat/escape and downstream harvest/inventory/crafting are not implemented end-to-end.
 
@@ -54,13 +57,14 @@ FILES_CHANGED for real-status autorun implementation:
 - `game/docs/HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION.md`.
 
 IMPLEMENTATION_SOURCE: `9e854599780301e3e9c045b1bac73de9e27b5238`.
-LATEST_TESTED_SOURCE: `9e854599780301e3e9c045b1bac73de9e27b5238`.
+PROMOTION_COMMIT: `0f38ac3c18667e53efa89d6eeaebf0f2dcb41745`.
+GOVERNANCE_REPAIR_AND_LATEST_TESTED_SOURCE: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
 
-TESTS_RUN / TEST_RESULTS: production run 81 `34779190819` SUCCESS. Static/manifest gates, Godot 4.7.2 parse/import, AppShell/Region-01 smokes, production integration, extended two-cycle basic autorun through both combat exchanges and real Bleeding lifecycle, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload passed.
+TESTS_RUN / TEST_RESULTS: run 81 `34779190819` SUCCESS verified the implementation. Run 82 `34779452988` failed before Godot only on one autorun-documentation phrase check. Run 83 `34779563368` SUCCESS verified the repaired promoted state: static/manifest gates, Godot 4.7.2 parse/import, production smokes/integration, both fresh-instance integrated cycles, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
 
-REPOSITORY_HEAD_AT_VERIFICATION: `9e854599780301e3e9c045b1bac73de9e27b5238`.
+REPOSITORY_HEAD_AT_VERIFICATION: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
 
-ARTIFACT: ID `10324690130`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,526,652 bytes; SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
+ARTIFACT: ID `10324451154`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,526,677 bytes; SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
 
 EXTERNAL_REFERENCES: none required for this verification-only slice.
 

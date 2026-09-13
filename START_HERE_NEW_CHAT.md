@@ -41,18 +41,20 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 ## Current verified snapshot — discovery aid only
 
-The automated-build verified stack includes the continuous Hunt-01 world/tracking/ENGAGE foundation, deterministic combat/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block, Head Sweep, Tail Sweep, defense/health/injury, generic Bleeding/Staggered/Off-Balance application/timing, Hunter Downed/defeat terminal execution in its dedicated regression, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic autorun through a real Monster exchange, a real Hunter Measured Cut/anatomy exchange and a real Bleeding application/timing lifecycle.
+The automated-build verified stack includes the continuous Hunt-01 world/tracking/ENGAGE foundation, deterministic combat/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block, Head Sweep, Tail Sweep, defense/health/injury, generic Bleeding/Staggered/Off-Balance application/timing, Hunter Downed/defeat terminal execution in its dedicated regression, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic autorun through a real Monster combat exchange, a real Hunter Measured Cut/anatomy exchange and a real Bleeding application/timing lifecycle.
 
-Latest full production-verified source revision before package promotion:
-`9e854599780301e3e9c045b1bac73de9e27b5238`.
+Latest full production-verified source revision:
+`83dc865064980eaa3d29c5928b0f59e9a4132c79`.
 
 Latest production verification:
-- workflow `34779190819`: SUCCESS;
-- job `103782938270`: SUCCESS;
-- artifact `10324690130`;
+- workflow `34779563368`: SUCCESS;
+- job `103783955039`: SUCCESS;
+- artifact `10324451154`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,526,652` bytes;
-- SHA-256 `5eda52a2aa21afb6777880a6c62bfd8205fe0b2116b945b7cf13b724737b4aa9`.
+- size `57,526,677` bytes;
+- SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
+
+Run 82 failed before Godot on one promoted documentation wording check only. Commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored the exact `combat exchange` governance wording without runtime/test changes, and run 83 then passed the full pipeline.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 
@@ -69,7 +71,7 @@ Latest specialized handoff at this reconciliation:
 
 Current authority for this piece:
 - verification automation only; no player-facing autoplay;
-- preserve the current two-cycle tracking/ENGAGE, Monster exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
+- preserve the current two-cycle tracking/ENGAGE, Monster combat exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
 - consume existing Hunter health, encounter-outcome and scheduler owners;
 - test-only health preparation may shorten setup, but the final zero-Health/terminal transition must be caused by a real hostile production attack transaction;
 - verify `ACTIVE → DOWNED`, `HUNTERS_DEFEATED`, terminal scheduler freeze and idempotent outcome readback;
