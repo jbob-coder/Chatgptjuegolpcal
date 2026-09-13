@@ -24,7 +24,7 @@ Each autorun cycle uses the real production `region_01_hunt01_graybox.tscn` and 
 - the scheduler returns to Round 3 Hunter after the exchange;
 - teardown removes the world and Hunt-01 groups before the next cycle.
 
-The test executes two fresh-instance scene lifecycles in one Godot process and compares a stable runtime signature that now includes the combat-exchange result. The second cycle starts from zero tracking/encounter state and must reproduce the first cycle after the same deterministic path.
+The test executes two fresh-instance scene lifecycles in one Godot process and compares a stable runtime signature that now includes the combat exchange result. The second cycle starts from zero tracking/encounter state and must reproduce the first cycle after the same deterministic path.
 
 ## Safety boundary
 
@@ -38,7 +38,7 @@ Static gate: `HUNT01_BASIC_RUNTIME_AUTORUN_SOURCE_STATIC_VERIFIED`.
 Headless base gate: `HUNT01_BASIC_RUNTIME_AUTORUN_VERIFIED`.
 Headless combat-exchange gate: `HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_VERIFIED`.
 
-The production Android workflow already executes this autorun test and its static preflight. The combat-exchange assertions therefore remain inside the same mandatory production verification step rather than creating a parallel gameplay runtime.
+The production Android workflow already executes this autorun test and its static preflight. The combat exchange assertions therefore remain inside the same mandatory production verification step rather than creating a parallel gameplay runtime.
 
 ## Previous verified evidence
 
@@ -49,4 +49,4 @@ Production workflow `34763692168`: SUCCESS.
 Job `103740804098`: SUCCESS.
 Artifact `10319768031`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,495,537 bytes, SHA-256 `1309c74b6e08174591eddcc3b85797aba89817b83fd0b47b2e8aef860714a857`.
 
-The combat-exchange extension described above requires a new full production workflow before it can be promoted from pending to verified.
+The combat exchange extension described above requires a new full production workflow before it can be promoted from pending to verified.
