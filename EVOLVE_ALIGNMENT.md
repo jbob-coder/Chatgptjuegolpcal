@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 BASIC AUTORUN COMBAT EXCHANGE ANDROID BUILD VERIFIED / HUNTER ATTACK AUTORUN INTEGRATION NEXT / PHONE VALIDATION BATCHED
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE ANDROID BUILD VERIFIED / REAL STATUS LIFECYCLE AUTORUN NEXT / PHONE VALIDATION BATCHED
 Last reconciled: 2026-09-13
 
 ## Operating law
@@ -29,44 +29,38 @@ Current production world remains the continuous 440×440 m Hunt-01 foundation. `
 IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED:
 - continuous Hunt-01 world, physical tracking through `OBSERVATION_READY`, and same-location ENGAGE;
 - deterministic initiative/round/activation shell and authored tactical movement;
-- Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy, reaction window and real `M01_HEAD_SWEEP_GORE`;
+- Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy, reaction window, `M01_HEAD_SWEEP_GORE` and `M01_TAIL_SWEEP`;
 - Hunter defense consequence and normalized Hunter health/injury;
 - species-owned wound/contact classification;
-- generic Bleeding/Off-Balance application and lifecycle timing;
-- generic `status_staggered` application/refresh with exact-once next-`TURN_START_PRE_RECOVERY` conversion to existing Off-Balance without skipped activation;
+- generic Bleeding/Off-Balance/Staggered application and lifecycle timing;
+- exact-once Staggered→Off-Balance next-turn conversion without skipped activation;
 - Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment;
-- living Mudcrest identity/anatomy/status/world preservation through Hunter defeat;
-- `M01_TAIL_SWEEP` including SOLID→Off-Balance and CLEAN→generic Staggered producer integration;
+- CLEAN Tail Sweep→generic Staggered producer integration;
 - deterministic basic-runtime autorun across two fresh boot/run/teardown cycles with no detected Hunt-01 group/state leakage;
-- deterministic autorun combat exchange: authored N01→N02→N05→N08→N10 movement, real `M01_TAIL_SWEEP`, existing `POLEBLADE_BLOCK`, deterministic SOLID / `BLOCK_STRONG` consequence, Hunter Health 100→98, no strong-Block status request, and scheduler return to Round 3 Hunter across two fresh instances.
+- integrated Monster combat exchange: authored movement to N10, real Tail Sweep, Poleblade Block, deterministic SOLID / `BLOCK_STRONG`, Hunter Health 100→98, no strong-Block status request, and Round-3 Hunter return;
+- integrated Hunter attack exchange: authored N10→N08→N05→N07→N09 movement, existing Head Sweep/Block scheduler bridge, Round-4 Dorsal `POLEBLADE_MEASURED_CUT`, selected-part CLEAN contact, mineralized protection, existing 2 AP / 12 Stamina cost, anatomy integrity 100→95, and idempotent readback across both fresh instances.
 
 ## Current verified automated baseline
 
 Latest full production-verified revision:
-`c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
+`72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
 
-Combat-exchange autorun implementation commit:
-`c85db3c152dc798ed1a03508a77f5066c50f0e2c`.
-
-Contract wording repair:
-`b270ef14787043252648c18ff02df31936e2f9a2`.
-
-Promotion commit / latest tested source:
-`c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
+Hunter-attack autorun implementation / latest tested source:
+`72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
 
 Production verification workflow:
-`34771386938` — SUCCESS.
+`34772015152` — SUCCESS.
 
 Workflow job:
-`103761502217` — SUCCESS.
+`103763209477` — SUCCESS.
 
 Artifact:
-- ID `10322166858`;
+- ID `10322585732`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,504,706` bytes;
-- SHA-256 `a092e435471bd7411fd63902e67cb44608c7c1c1e8ff98e4401bbf969b6db6ff`.
+- size `57,515,440` bytes;
+- SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
 
-Run 76 (`34771015107`) failed before Godot because the extended autorun documentation used hyphenated `combat-exchange` wording while its own static preflight required the explicit `combat exchange` governance phrase. Runtime/gameplay code was not implicated. Commit `b270ef14787043252648c18ff02df31936e2f9a2` repaired only that documentation wording without weakening the gate. Run 77 then passed the combat-exchange implementation and Android export. Promotion commit `c541c735fe93b049cc25d8c29a2c048ceb6139fe` reconciled the front doors/package documentation, and run 78 (`34771386938`) re-passed static governance, Godot 4.7.2 import/parse, production smokes, the two-cycle combat-exchange autorun, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload on that exact promoted revision.
+Run 79 passed static governance, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, the extended two-cycle autorun through both Monster and Hunter combat exchanges, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
 
 ## Verification boundary
 
@@ -75,22 +69,22 @@ Run 76 (`34771015107`) failed before Godot because the extended autorun document
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Still intentionally open: forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Braced/Guarded runtime; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final Tail Sweep tuning.
+Still intentionally open: forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Braced/Guarded runtime; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final combat tuning.
 
 Latest specialized handoff:
 `docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION`
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`
 
 Required boundary:
 1. extend verification automation only; do not create player-facing autoplay;
-2. use the real production Region-01 scene, existing two-cycle autorun, and current Hunter attack/anatomy owners;
-3. drive the already-implemented `POLEBLADE_MEASURED_CUT` transaction through authored tactical movement and existing test APIs;
-4. verify legality/resources/contact/protection/anatomy/idempotent readback using already-selected values only;
-5. preserve current Monster Tail Sweep/Block exchange coverage, fresh-instance repeatability, and protected manual controls;
-6. do not add break/sever thresholds, Bleeding HP magnitude, Monster terminal semantics, new RNG or new balance values;
+2. preserve the verified tracking→ENGAGE, Tail Sweep/Block and Hunter Measured Cut/anatomy exchanges;
+3. use the existing real hostile wound/contact producer plus existing generic status application/timing owners rather than synthetic parallel status state;
+4. prove at least one already-implemented status is produced and progresses through its existing lifecycle hooks in the integrated fresh-instance path;
+5. preserve scheduler/resources/health ownership and two-cycle repeatability;
+6. do not select Bleeding periodic Health magnitude, Braced/Guarded semantics, structural thresholds, new RNG, withdrawal/recovery values or Monster terminal rules;
 7. keep the full production Android workflow green.
 
-NEXT THING I WILL DO: FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION — add the already-verified Hunter Measured Cut/anatomy transaction to the integrated automatic basic-loop smoke without changing player-facing gameplay.
+NEXT THING I WILL DO: FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION — connect one already-implemented real status producer/lifecycle into the integrated automatic basic-loop smoke without changing player-facing gameplay.

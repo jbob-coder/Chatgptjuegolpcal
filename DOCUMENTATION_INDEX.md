@@ -1,6 +1,6 @@
 # Unnamed Hunt RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / HUNT-01 BASIC AUTORUN COMBAT EXCHANGE ANDROID BUILD VERIFIED / HUNTER ATTACK AUTORUN INTEGRATION NEXT
+Status: ACTIVE GLOBAL MAP / HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE ANDROID BUILD VERIFIED / REAL STATUS LIFECYCLE AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 ## New-chat entry points
@@ -25,14 +25,14 @@ A fresh chat must fetch live branch HEAD before this read, re-check HEAD afterwa
 
 ## Production runtime map
 
-Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monster-01 anatomy/content/attacks remain under `game/scripts/gameplay/monsters/monster_01/`. The production workflow also owns a fresh-instance basic runtime autorun regression under `game/tests/` that exercises the real Region-01 tracking/ENGAGE/scheduler path and a deterministic Tail Sweep/Block combat exchange without altering normal gameplay controls.
+Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monster-01 anatomy/content/attacks remain under `game/scripts/gameplay/monsters/monster_01/`. The production workflow also owns a fresh-instance basic runtime autorun regression under `game/tests/` that exercises real Region-01 tracking/ENGAGE/scheduler behavior, a real Tail Sweep/Block exchange and a real Hunter Measured Cut/anatomy transaction without altering normal gameplay controls.
 
 ## Current verified baseline
 
-Latest full production-verified revision `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
-Production workflow `34771386938`: SUCCESS.
-Job `103761502217`: SUCCESS.
-Artifact `10322166858`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,706 bytes, SHA-256 `a092e435471bd7411fd63902e67cb44608c7c1c1e8ff98e4401bbf969b6db6ff`.
+Latest full production-verified revision `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
+Production workflow `34772015152`: SUCCESS.
+Job `103763209477`: SUCCESS.
+Artifact `10322585732`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,440 bytes, SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
 
 Latest gameplay handoff:
 `docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.
@@ -47,12 +47,14 @@ Latest gameplay handoff:
 `FIRST_SLICE_HUNT01_BASIC_RUNTIME_AUTORUN_ANDROID_BUILD_VERIFIED = YES`
 `FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_IMPLEMENTED = YES`
 `FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_ANDROID_BUILD_VERIFIED = YES`
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_IMPLEMENTED = YES`
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_ANDROID_BUILD_VERIFIED = YES`
 `CURRENT_POST_TRACKING_PHONE_ACCEPTANCE = DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_ENGINE_SELECTED = NO`.
 
 ## Exact continuation
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`.
 
-Extend the current verification-only autorun through one already-implemented Hunter Measured Cut/anatomy transaction while preserving the verified Tail Sweep/Block exchange, two-cycle fresh-instance repeatability and the full production Android gate.
+Extend the current verification-only autorun through one already-implemented real hostile status producer/lifecycle while preserving both verified combat exchanges, two-cycle fresh-instance repeatability and the full production Android gate.

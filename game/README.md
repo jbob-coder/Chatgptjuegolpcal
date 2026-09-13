@@ -1,6 +1,6 @@
 # Production Game Root
 
-Status: HUNT-01 BASIC AUTORUN COMBAT EXCHANGE STATIC/HEADLESS/ANDROID BUILD VERIFIED / HUNTER ATTACK AUTORUN INTEGRATION NEXT
+Status: HUNT-01 BASIC AUTORUN HUNTER ATTACK EXCHANGE STATIC/HEADLESS/ANDROID BUILD VERIFIED / REAL STATUS LIFECYCLE AUTORUN NEXT
 Last reconciled: 2026-09-13
 
 This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
@@ -15,22 +15,22 @@ Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical
 
 Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sweep, species wound/contact qualification and Tail Sweep CLEAN→generic Staggered producer integration.
 
-Verification automation: `tests/hunt01_basic_runtime_autorun_test.gd` boots the real production Region-01 scene twice, drives the existing tracking/ENGAGE/basic scheduler path, follows authored movement to N10, resolves the real Tail Sweep through the existing Poleblade Block reaction, verifies deterministic consequence/status/scheduler readback, tears each instance down and rejects state leakage. It does not alter normal gameplay input or create autoplay.
+Verification automation: `tests/hunt01_basic_runtime_autorun_test.gd` boots the real production Region-01 scene twice, drives tracking/ENGAGE, follows authored movement to the real Tail Sweep/Poleblade Block exchange, repositions through authored nodes and normal AP economy, uses an existing Head Sweep/Block activation bridge, then commits the real Dorsal Measured Cut/anatomy transaction. It tears each instance down, rejects state leakage and does not alter normal gameplay input or create autoplay.
 
 ## Verification status
 
-Verified gameplay/source head `b270ef14787043252648c18ff02df31936e2f9a2`.
-Workflow `34771120281`: SUCCESS.
-Job `103760780223`: SUCCESS.
-Artifact `10321349678`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,703 bytes, SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
+Verified gameplay/source head `72109e2d56205da85f6ce898d22bb9f8f0558b0b`.
+Workflow `34772015152`: SUCCESS.
+Job `103763209477`: SUCCESS.
+Artifact `10322585732`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,515,440 bytes, SHA-256 `b5ff76fe19528a5c88de3018e0e1366fd00432ea6ceaeaba09a42f497331f3b6`.
 
-Stack through the basic autorun combat exchange is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Stack through the integrated Hunter attack autorun exchange is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `FINAL_ENGINE_SELECTED = NO`.
 
 New chats must use root `START_HERE_NEW_CHAT.md` and reconstruct the live branch before changing this production tree.
 
 ## Current bounded production piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_ATTACK_EXCHANGE_REGRESSION`.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_REAL_STATUS_LIFECYCLE_REGRESSION`.
 
-Extend the current test-only fresh-instance autorun through one already-implemented Hunter `POLEBLADE_MEASURED_CUT`/Mudcrest anatomy transaction using existing owners. Preserve the verified Tail Sweep/Block exchange. Do not alter normal player movement/look controls, add player-facing autoplay, select new structural thresholds or invent new combat semantics.
+Extend the current test-only fresh-instance autorun through one already-implemented real hostile status producer and the existing generic status lifecycle. Preserve both current combat exchanges. Do not alter normal player movement/look controls, add player-facing autoplay, select Bleeding HP magnitude, or invent new status/combat semantics.
