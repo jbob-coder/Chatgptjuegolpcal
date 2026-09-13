@@ -1,7 +1,7 @@
 # EVOLVE ALIGNMENT — Unnamed Hunt RPG
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH HUNTER DOWNED OUTCOME ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
-Last reconciled: 2026-09-06
+Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / PHONE VALIDATION BATCHED
+Last reconciled: 2026-09-13
 
 ## Operating law
 
@@ -28,45 +28,40 @@ Current production world remains the continuous 440×440 m Hunt-01 foundation. `
 
 IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED:
 - continuous Hunt-01 world, physical tracking through `OBSERVATION_READY`, and same-location ENGAGE;
-- deterministic initiative/round/activation shell and authored 10-node / 14-link tactical movement;
+- deterministic initiative/round/activation shell and authored tactical movement;
 - Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy, reaction window and real `M01_HEAD_SWEEP_GORE`;
-- Head Sweep legality/telegraph/contact, Hunter defense consequence and normalized Hunter health/injury;
-- species-owned wound/contact classification and stable valid status-request emission;
-- generic status application owner `uhr.hunt01.status_application.v1`;
-- generic status timing owner `uhr.hunt01.status_timing.v1`;
-- deterministic status lifecycle hooks, Off-Balance recovery and pending Bleeding periodic-event cadence without invented HP magnitude;
-- generic encounter-outcome owner `uhr.hunt01.encounter_outcome.v1`;
-- zero-Health player Hunter transition `ACTIVE → DOWNED → HUNTERS_DEFEATED`;
-- terminal scheduler commitment through the existing combat shell, with remaining pending slots removed and future gameplay commitments rejected;
-- living Mudcrest identity/anatomy/status/world state preserved through Hunter defeat;
-- exact defeat-handoff replay idempotency.
+- Hunter defense consequence and normalized Hunter health/injury;
+- species-owned wound/contact classification;
+- generic Bleeding/Off-Balance application and lifecycle timing;
+- Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment;
+- living Mudcrest identity/anatomy/status/world preservation through Hunter defeat;
+- `M01_TAIL_SWEEP` in the existing Monster-01 driver with exact 3 AP / 18 Stamina economy, pure Impact, rear/flank/pivot/arc legality, shared reaction/Block flow, 14-Stamina successful Block impact drain, one seeded contact boundary, SOLID Off-Balance, CLEAN Staggered-pending boundary and presentation-only telegraph.
 
-Hunter Downed outcome owner:
-`game/scripts/gameplay/combat/hunt01_encounter_outcome_runtime.gd`.
-
-Schema:
-`uhr.hunt01.encounter_outcome.v1`.
+## Current automated baseline
 
 Verified source head:
-`f363998334bb752b037ed524cb909ad12634b71f`.
+`91f554d5ad53b69436f5ee4eb84aad2caa409a23`.
 
-Implementation commit:
-`a6476483c7f187f5e4904d7901c28e1abe0f9996`.
+Tail Sweep implementation commit:
+`539a50a893b8c683de4095ddd2689a253c95253f`.
 
-Static-contract repair commits:
-`31d046b19a984c8234af788a09b3d0b6f8f8716b`, `f363998334bb752b037ed524cb909ad12634b71f`.
+Verification-contract repair commits:
+- `71aa836f0d5ecb3de6f1292b5e75d81c87a4d4a6` — Hunter Downed preflight stale evidence assertion;
+- `91f554d5ad53b69436f5ee4eb84aad2caa409a23` — Mudcrest anatomy preflight stale structural wording assertion.
 
 Production workflow:
-`33985410020` — SUCCESS.
+`34759688551` — SUCCESS.
 
 Workflow job:
-`101357889357` — SUCCESS.
+`103730201523` — SUCCESS.
 
 Artifact:
-- ID `9975014310`;
-- name `UnnamedHuntRPG-Hunt01-HunterDownedOutcome-debug`;
-- size `57,446,932` bytes;
-- SHA-256 `ab431361b3be3b325300d7d2242cd622afdb376f6426d8d2228fab0388cae196`.
+- ID `10317819786`;
+- name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
+- size `57,477,122` bytes;
+- SHA-256 `5c02fe4b8e1a45a75f1068a68a8081a6e8847818a2763172aa1753f49acb2948`.
+
+The successful run executed the current static chain, Godot 4.7.2 import/parse, production scene smokes, dedicated/current headless combat regressions including Tail Sweep, Android APK export, artifact validation and artifact upload.
 
 ## Verification boundary
 
@@ -75,30 +70,29 @@ Artifact:
 `FINAL_ENGINE_SELECTED = NO`
 `H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
 
-Forced-recovery destination/timing/costs remain intentionally unselected. Bleeding periodic Health magnitude remains open. Mudcrest structural crack/break/sever thresholds remain explicitly open and must not be invented. Voluntary withdrawal needs an authored Hunter escape-node/equivalent boundary before runtime commitment. Monster retreat/escape needs behavior-route execution. Harvest, inventory, crafting, settlement services and persistence remain incomplete.
+Still intentionally open: forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final Tail Sweep tuning; Staggered/Braced/Guarded runtime coverage beyond currently implemented Off-Balance behavior.
 
 Latest handoff:
-`docs/70_handoff/HUNT01_HUNTER_DOWNED_ENCOUNTER_OUTCOME_RUNTIME_2026-09-06.md`.
+`docs/70_handoff/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_2026-09-13.md`.
 
 ## Exact next bounded piece
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`
+`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`
 
 Why this is executable now:
-- `COMBAT_ATTACK_PACKET.md` already selects `M01_TAIL_SWEEP`, 3 AP, 18 Stamina, Impact channel, 14-Stamina successful Block impact drain, rear/flank relation, pivot/arc-clearance requirements and anatomy capability `CAP_M01_TAIL_SWEEP`;
-- deterministic behavior gives legal rear/flank Tail Sweep priority over other normal attacks;
-- existing runtime already owns Block commitment/impact drain and generic Off-Balance application/timing;
-- the baseline tail is attached and no structural threshold is required merely to execute the intact-tail attack;
-- the slice can remain independent from still-open sever thresholds and Staggered implementation.
+- `FIRST_SLICE_STATUS_SET_PROTOTYPE_CONTRACT.md` already selects `status_staggered`, category `TRANSIENT_PHYSICAL_DISRUPTION`, `REFRESH_DURATION`, no intensity stacking, no hidden turn skip, and next `TURN_START_PRE_RECOVERY` conversion to Off-Balance;
+- current generic status application/timing owners already provide the reusable deterministic status storage and lifecycle boundary but currently support only Bleeding and Off-Balance;
+- Tail Sweep CLEAN already records `TAIL_SWEEP_CLEAN_IMPACT_STAGGERED_PENDING`, proving a real current consumer exists without requiring that producer to be changed in this piece;
+- no structural threshold, Bleeding HP magnitude, withdrawal geometry, final attack balance or new randomness is required.
 
 Required boundary:
-1. extend the existing Monster-01 attack owner rather than create a second Monster scheduler/driver;
-2. add deterministic Tail Sweep legality using real tactical position, rear/flank bearing, body/pivot clearance and line-of-effect/arc blockers;
-3. commit exactly 3 AP / 18 Stamina and open one reaction window with only currently executable legal reactions plus decline;
-4. route valid Poleblade Block through the existing reaction/defense resource authority with 14 impact Stamina drain;
-5. resolve pure `IMPACT` contact with one stable seeded-variance boundary and no extra random proc;
-6. emit/apply Off-Balance only where the existing status contract already authorizes it; leave Staggered pending until its generic owner exists;
-7. preserve `TAIL_DISTAL attached` as an explicit current capability fact without inventing sever thresholds;
-8. add a presentation telegraph asset that is non-colliding and cannot decide legality;
-9. add static, dedicated headless, regression and Android-build verification;
-10. document and promote only after green evidence.
+1. extend `game/scripts/gameplay/combat/hunt01_status_application_runtime.gd`; do not create a parallel status owner;
+2. add `status_staggered` definition and valid-request handling with `REFRESH_DURATION`, one instance and no intensity stacking;
+3. extend `game/scripts/gameplay/combat/hunt01_status_timing_runtime.gd` so the target's next `TURN_START_PRE_RECOVERY` removes Staggered once, applies/refreshes Off-Balance once, and does not skip or duplicate the activation;
+4. preserve existing Bleeding and Off-Balance behavior and idempotency;
+5. do not yet wire a new Tail Sweep Staggered producer in this bounded piece;
+6. add/update static and dedicated headless coverage plus regressions;
+7. update the production workflow only as required to execute those gates;
+8. promote only after green source/headless/Android-build evidence.
+
+NEXT THING I WILL DO: FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION — extend the existing generic status application/timing owners with deterministic Staggered storage, refresh and next-turn-start conversion to Off-Balance, with dedicated static/headless/build verification and no Tail Sweep producer wiring yet.

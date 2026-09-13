@@ -1,7 +1,7 @@
 # Production Game Root
 
-Status: HUNT-01 THROUGH HUNTER DOWNED OUTCOME ANDROID BUILD VERIFIED / TAIL SWEEP NEXT
-Last reconciled: 2026-09-06
+Status: HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / GENERIC STAGGERED STATUS NEXT
+Last reconciled: 2026-09-13
 
 This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
 
@@ -9,26 +9,24 @@ This folder is the production Godot project for Unnamed Hunt RPG. `probes/androi
 
 World/exploration: continuous `440 x 440 m` Hunt-01 foundation; Hunter speed `6.25 m/s`; first-person FOV `115°`; protected analog movement + independent look.
 
-Tracking/encounter: seven physical evidence types through terminal `OBSERVATION_READY`, no Monster GPS, physical observation/engagement and same-location combat staging.
+Tracking/encounter: physical evidence through terminal `OBSERVATION_READY`, physical observation/engagement and same-location combat staging.
 
-Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical movement, Hunter attack/reaction/defense/health, generic status application/timing and generic encounter-outcome ownership.
+Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical movement, Hunter attack/reaction/defense/health, generic Bleeding/Off-Balance status application/timing and generic encounter-outcome ownership.
 
-Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, real Head Sweep and species wound/contact qualification.
-
-The generic outcome owner consumes the verified zero-Health Hunter-defeat handoff and commits `DOWNED → HUNTERS_DEFEATED` through the existing combat shell. The shell closes the active resolution boundary, freezes the scheduler and rejects new gameplay commitments without resetting the living Monster.
+Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sweep and species wound/contact qualification.
 
 ## Verification status
 
-Verified source head `f363998334bb752b037ed524cb909ad12634b71f`.
-Workflow `33985410020`: SUCCESS.
-Job `101357889357`: SUCCESS.
-Artifact `9975014310`: `UnnamedHuntRPG-Hunt01-HunterDownedOutcome-debug`.
+Verified source head `91f554d5ad53b69436f5ee4eb84aad2caa409a23`.
+Workflow `34759688551`: SUCCESS.
+Job `103730201523`: SUCCESS.
+Artifact `10317819786`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`.
 
-Stack through Hunter Downed encounter outcome is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+Stack through Tail Sweep is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `FINAL_ENGINE_SELECTED = NO`.
 
 ## Current bounded production piece
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
 
-Extend the existing Monster-01 attack runtime with the intact-tail rear/flank Tail Sweep using the current scheduler/reaction/Block/status owners. Structural sever thresholds, Staggered behavior, Bleeding periodic HP magnitude, recovery/withdrawal and harvest remain separate layers.
+Extend the existing generic status application/timing owners with deterministic Staggered storage, refresh and next-turn-start conversion to Off-Balance. Preserve current status regressions and do not wire Tail Sweep CLEAN as a producer in this piece.
