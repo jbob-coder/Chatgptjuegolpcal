@@ -5,7 +5,7 @@ Last reconciled: 2026-09-13
 
 ## Purpose
 
-Provide a deterministic development/CI repeatability gate around the already-implemented Hunt-01 basics. This is not player-facing autoplay and does not alter normal player movement, camera control, combat decisions or runtime ownership.
+Provide a deterministic development/CI fresh-instance repeatability gate around the already-implemented Hunt-01 basics. This is not player-facing autoplay and does not alter normal player movement, camera control, combat decisions or runtime ownership.
 
 ## Covered path
 
@@ -19,7 +19,7 @@ Each autorun cycle uses the real production `region_01_hunt01_graybox.tscn` and 
 - one Hunter end-turn plus out-of-range Monster idle advances deterministically to Round 2 Hunter without fabricating an attack;
 - teardown removes the world and Hunt-01 groups before the next cycle.
 
-The test executes two fresh scene lifecycles in one Godot process and compares a stable runtime signature. The second cycle must start from zero tracking/encounter state and match the first cycle after the same deterministic path.
+The test executes two fresh-instance scene lifecycles in one Godot process and compares a stable runtime signature. The second cycle must start from zero tracking/encounter state and match the first cycle after the same deterministic path.
 
 ## Safety boundary
 
