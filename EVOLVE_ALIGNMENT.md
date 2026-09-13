@@ -37,31 +37,33 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - living Mudcrest identity/anatomy/status/world preservation through Hunter defeat;
 - `M01_TAIL_SWEEP` in the existing Monster-01 driver with exact 3 AP / 18 Stamina economy, pure Impact, rear/flank/pivot/arc legality, shared reaction/Block flow, 14-Stamina successful Block impact drain, one seeded contact boundary, SOLID Off-Balance, CLEAN Staggered-pending boundary and presentation-only telegraph.
 
-## Current automated baseline
+## Current verified automated baseline
 
 Verified source head:
-`91f554d5ad53b69436f5ee4eb84aad2caa409a23`.
+`80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
 
 Tail Sweep implementation commit:
 `539a50a893b8c683de4095ddd2689a253c95253f`.
 
-Verification-contract repair commits:
-- `71aa836f0d5ecb3de6f1292b5e75d81c87a4d4a6` — Hunter Downed preflight stale evidence assertion;
-- `91f554d5ad53b69436f5ee4eb84aad2caa409a23` — Mudcrest anatomy preflight stale structural wording assertion.
+Verification/promotion repair sequence:
+- `71aa836f0d5ecb3de6f1292b5e75d81c87a4d4a6` — stale Hunter Downed preflight evidence assertion repaired;
+- `91f554d5ad53b69436f5ee4eb84aad2caa409a23` — stale Mudcrest anatomy preflight structural wording assertion repaired;
+- `056063ff0d6b304d08114975fdd5aeb5af9f8df7` — Tail Sweep promotion/continuity reconciliation;
+- `080a301ec19f3b17b9c2a0e6fe70be5f57903ce8`, `cd0b1a01a262d51720bf774e5abb186a53edec97`, `850713c08872fa522a1e9b92e853d83b60627b24`, `80df7e0aef1b505ea3085f42af8c8710aa79c2a7` — restored exact pre-existing combat/Mudcrest ownership and structural-deferral literals required by static gates after the promotion rewrite.
 
-Production workflow:
-`34759688551` — SUCCESS.
+Final production verification workflow:
+`34760296459` — SUCCESS.
 
 Workflow job:
-`103730201523` — SUCCESS.
+`103731848690` — SUCCESS.
 
 Artifact:
-- ID `10317819786`;
+- ID `10318643114`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,477,122` bytes;
-- SHA-256 `5c02fe4b8e1a45a75f1068a68a8081a6e8847818a2763172aa1753f49acb2948`.
+- size `57,477,142` bytes;
+- SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
 
-The successful run executed the current static chain, Godot 4.7.2 import/parse, production scene smokes, dedicated/current headless combat regressions including Tail Sweep, Android APK export, artifact validation and artifact upload.
+The successful run executed the current static/manifest chain, Godot 4.7.2 import/parse, production AppShell and Region-01 smokes, production integration, all current headless combat/anatomy/status/outcome regressions including the dedicated Tail Sweep runtime, Android debug APK export, artifact validation and artifact upload.
 
 ## Verification boundary
 
@@ -72,7 +74,7 @@ The successful run executed the current static chain, Godot 4.7.2 import/parse, 
 
 Still intentionally open: forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final Tail Sweep tuning; Staggered/Braced/Guarded runtime coverage beyond currently implemented Off-Balance behavior.
 
-Latest handoff:
+Latest specialized handoff:
 `docs/70_handoff/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_2026-09-13.md`.
 
 ## Exact next bounded piece

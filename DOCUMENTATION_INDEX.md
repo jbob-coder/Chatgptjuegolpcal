@@ -29,10 +29,10 @@ Layer ownership remains:
 
 ## Current verified baseline
 
-Verified source head `91f554d5ad53b69436f5ee4eb84aad2caa409a23`.
-Production workflow `34759688551`: SUCCESS.
-Job `103730201523`: SUCCESS.
-Artifact `10317819786`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,122 bytes, SHA-256 `5c02fe4b8e1a45a75f1068a68a8081a6e8847818a2763172aa1753f49acb2948`.
+Verified source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
+Production workflow `34760296459`: SUCCESS.
+Job `103731848690`: SUCCESS.
+Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
 
 Latest handoff:
 `docs/70_handoff/HUNT01_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_2026-09-13.md`.

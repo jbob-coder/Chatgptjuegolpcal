@@ -26,12 +26,12 @@ Protected controls remain the accepted direct continuous analog left-stick movem
 
 Automated-build verified production now includes world/tracking/ENGAGE, deterministic combat/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block, Head Sweep, defense, Hunter health/injury, wound/contact classification, generic Bleeding/Off-Balance status application/timing, Hunter Downed terminal outcome, and Mudcrest Tail Sweep.
 
-Tail Sweep verified baseline:
-- verified source head `91f554d5ad53b69436f5ee4eb84aad2caa409a23`;
-- workflow `34759688551`: SUCCESS;
-- job `103730201523`: SUCCESS;
-- artifact `10317819786`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- SHA-256 `5c02fe4b8e1a45a75f1068a68a8081a6e8847818a2763172aa1753f49acb2948`.
+Final Tail Sweep closure baseline:
+- verified source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`;
+- workflow `34760296459`: SUCCESS;
+- job `103731848690`: SUCCESS;
+- artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
+- SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
 
 `PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
