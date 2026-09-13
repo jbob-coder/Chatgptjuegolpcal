@@ -17,16 +17,18 @@ Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sw
 
 ## Verification status
 
-Verified source head `91f554d5ad53b69436f5ee4eb84aad2caa409a23`.
-Workflow `34759688551`: SUCCESS.
-Job `103730201523`: SUCCESS.
-Artifact `10317819786`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`.
+Verified gameplay/source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
+Workflow `34760296459`: SUCCESS.
+Job `103731848690`: SUCCESS.
+Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
 
 Stack through Tail Sweep is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `FINAL_ENGINE_SELECTED = NO`.
+
+New chats must use root `START_HERE_NEW_CHAT.md` and reconstruct the live branch before changing this production tree.
 
 ## Current bounded production piece
 
 `FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
 
-Extend the existing generic status application/timing owners with deterministic Staggered storage, refresh and next-turn-start conversion to Off-Balance. Preserve current status regressions and do not wire Tail Sweep CLEAN as a producer in this piece.
+Extend the existing generic status application/timing owners with deterministic Staggered storage, `REFRESH_DURATION`, no intensity stacking, and one next-`TURN_START_PRE_RECOVERY` transition into existing Off-Balance without skipping the activation. Preserve current status regressions and do not wire Tail Sweep CLEAN as a producer in this piece.

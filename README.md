@@ -1,7 +1,7 @@
 # Unnamed Hunt RPG
 
-Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH HUNTER DOWNED OUTCOME ANDROID BUILD VERIFIED / TAIL SWEEP NEXT
-Last reconciled: 2026-09-06
+Status: PRODUCTION GAME ACTIVE / HUNT-01 THROUGH MUDCREST TAIL SWEEP ANDROID BUILD VERIFIED / GENERIC STAGGERED STATUS NEXT
+Last reconciled: 2026-09-13
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is not the implementation base.
 
@@ -15,22 +15,24 @@ Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and is
 
 ## Current production stack
 
-Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat now includes Hunter Measured Cut, Mudcrest anatomy, reaction/Head Sweep, defense, Hunter health/injury, species wound/contact qualification, generic status application/timing and Hunter Downed encounter-terminal execution.
+Continuous Hunt-01 world/tracking/ENGAGE plus deterministic first-person tactical combat now includes Hunter Measured Cut, Mudcrest anatomy, shared reaction/Block flow, Head Sweep, Hunter defense/health/injury, species wound/contact qualification, generic Bleeding/Off-Balance status application/timing, Hunter Downed encounter-terminal execution, and Mudcrest Tail Sweep.
 
-At zero Health the player Hunter now becomes `DOWNED` and commits `HUNTERS_DEFEATED` through one generic encounter-outcome owner and the existing combat scheduler. The terminal path prevents later activations/reactions while preserving the living Mudcrest instance and its current state.
+Tail Sweep is species-owned in the existing Monster-01 attack driver at 3 AP / 18 Stamina, pure Impact, with rear/flank/pivot/arc legality, current attached-tail capability, shared Block handling, 14-Stamina successful Block impact drain, SOLID Off-Balance, and CLEAN Staggered still pending generic Staggered ownership.
 
 ## Current verified baseline
 
-Verified source head `f363998334bb752b037ed524cb909ad12634b71f`.
-Production workflow `33985410020`: SUCCESS.
-Job `101357889357`: SUCCESS.
-Artifact `9975014310`: `UnnamedHuntRPG-Hunt01-HunterDownedOutcome-debug`, 57,446,932 bytes, SHA-256 `ab431361b3be3b325300d7d2242cd622afdb376f6426d8d2228fab0388cae196`.
+Verified gameplay/source head `80df7e0aef1b505ea3085f42af8c8710aa79c2a7`.
+Production workflow `34760296459`: SUCCESS.
+Job `103731848690`: SUCCESS.
+Artifact `10318643114`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,477,142 bytes, SHA-256 `98ddaecdb732a2af49c91d702fddce931ed40c9901b86f9f3c717988cfdf0542`.
 
-The stack through Hunter Downed encounter outcome is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
+The stack through Mudcrest Tail Sweep is IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
 Phone acceptance remains deferred/batched. `PERFORMANCE_VERIFIED = NO`.
+
+For a new development chat, begin with `START_HERE_NEW_CHAT.md`; it defines the mandatory live-state reconstruction procedure before implementation.
 
 ## Current bounded piece
 
-`FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`.
+`FIRST_SLICE_GENERIC_STAGGERED_STATUS_RUNTIME_IMPLEMENTATION`.
 
-Add the authored intact-tail rear/flank `M01_TAIL_SWEEP` to the existing Monster attack owner using the current reaction/Block/status/scheduler stack. Do not add structural sever thresholds, Staggered runtime, Bleeding periodic HP magnitude or unresolved withdrawal/recovery behavior in this slice.
+Extend the existing generic status application/timing owners with one refreshable Staggered instance and deterministic next-`TURN_START_PRE_RECOVERY` conversion to existing Off-Balance. Preserve existing Bleeding/Off-Balance behavior. Do not create a second status system, hidden turn skip, new randomness, Tail Sweep producer wiring, structural sever thresholds, Bleeding periodic HP magnitude, or unresolved withdrawal/recovery behavior in this piece.
