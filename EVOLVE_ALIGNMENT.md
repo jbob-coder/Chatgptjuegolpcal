@@ -37,33 +37,36 @@ IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VE
 - Hunter zero-Health `ACTIVE → DOWNED → HUNTERS_DEFEATED` and terminal scheduler commitment;
 - living Mudcrest identity/anatomy/status/world preservation through Hunter defeat;
 - `M01_TAIL_SWEEP` including SOLID→Off-Balance and CLEAN→generic Staggered producer integration;
-- deterministic basic-runtime autorun regression using the real Region-01 scene across two fresh boot/run/teardown cycles with no detected Hunt-01 group/state leakage;
+- deterministic basic-runtime autorun across two fresh boot/run/teardown cycles with no detected Hunt-01 group/state leakage;
 - deterministic autorun combat exchange: authored N01→N02→N05→N08→N10 movement, real `M01_TAIL_SWEEP`, existing `POLEBLADE_BLOCK`, deterministic SOLID / `BLOCK_STRONG` consequence, Hunter Health 100→98, no strong-Block status request, and scheduler return to Round 3 Hunter across two fresh instances.
 
 ## Current verified automated baseline
 
 Latest full production-verified revision:
-`b270ef14787043252648c18ff02df31936e2f9a2`.
+`c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
 
 Combat-exchange autorun implementation commit:
 `c85db3c152dc798ed1a03508a77f5066c50f0e2c`.
 
-Contract wording repair / verified source commit:
+Contract wording repair:
 `b270ef14787043252648c18ff02df31936e2f9a2`.
 
+Promotion commit / latest tested source:
+`c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
+
 Production verification workflow:
-`34771120281` — SUCCESS.
+`34771386938` — SUCCESS.
 
 Workflow job:
-`103760780223` — SUCCESS.
+`103761502217` — SUCCESS.
 
 Artifact:
-- ID `10321349678`;
+- ID `10322166858`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,504,703` bytes;
-- SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
+- size `57,504,706` bytes;
+- SHA-256 `a092e435471bd7411fd63902e67cb44608c7c1c1e8ff98e4401bbf969b6db6ff`.
 
-Run 76 (`34771015107`) failed before Godot because the extended autorun documentation used hyphenated `combat-exchange` wording while its own static preflight required the explicit `combat exchange` governance phrase. Runtime/gameplay code was not implicated. Commit `b270ef14787043252648c18ff02df31936e2f9a2` repaired only that documentation wording without weakening the gate. Run 77 then passed the full static layer, Godot 4.7.2 import/parse, AppShell and Region-01 smokes, production integration, the two-cycle combat-exchange autorun, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
+Run 76 (`34771015107`) failed before Godot because the extended autorun documentation used hyphenated `combat-exchange` wording while its own static preflight required the explicit `combat exchange` governance phrase. Runtime/gameplay code was not implicated. Commit `b270ef14787043252648c18ff02df31936e2f9a2` repaired only that documentation wording without weakening the gate. Run 77 then passed the combat-exchange implementation and Android export. Promotion commit `c541c735fe93b049cc25d8c29a2c048ceb6139fe` reconciled the front doors/package documentation, and run 78 (`34771386938`) re-passed static governance, Godot 4.7.2 import/parse, production smokes, the two-cycle combat-exchange autorun, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload on that exact promoted revision.
 
 ## Verification boundary
 

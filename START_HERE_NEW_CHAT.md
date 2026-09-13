@@ -41,18 +41,18 @@ Protected Android controls remain continuous direct analog left-stick movement, 
 
 ## Current verified snapshot — discovery aid only
 
-The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, Mudcrest Tail Sweep, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun that now includes one real deterministic Tail Sweep/Block combat exchange.
+The current automated-build verified stack includes the continuous 440×440 m Hunt-01 world/tracking/ENGAGE foundation, deterministic combat turn/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block flow, Head Sweep, defense/health/injury, wound/contact qualification, generic Bleeding/Staggered/Off-Balance status application/timing, Hunter Downed/defeat terminal execution, Mudcrest Tail Sweep, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic-runtime autorun that includes one real deterministic Tail Sweep/Block combat exchange.
 
 Latest full production-verified revision:
-`b270ef14787043252648c18ff02df31936e2f9a2`.
+`c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
 
 Latest production verification:
-- workflow `34771120281`: SUCCESS;
-- job `103760780223`: SUCCESS;
-- artifact `10321349678`;
+- workflow `34771386938`: SUCCESS;
+- job `103761502217`: SUCCESS;
+- artifact `10322166858`;
 - name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,504,703` bytes;
-- SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
+- size `57,504,706` bytes;
+- SHA-256 `a092e435471bd7411fd63902e67cb44608c7c1c1e8ff98e4401bbf969b6db6ff`.
 
 These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
 

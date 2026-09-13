@@ -29,10 +29,10 @@ Generic combat/status/outcome lives under `game/scripts/gameplay/combat/`; Monst
 
 ## Current verified baseline
 
-Latest full production-verified revision `b270ef14787043252648c18ff02df31936e2f9a2`.
-Production workflow `34771120281`: SUCCESS.
-Job `103760780223`: SUCCESS.
-Artifact `10321349678`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,703 bytes, SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
+Latest full production-verified revision `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
+Production workflow `34771386938`: SUCCESS.
+Job `103761502217`: SUCCESS.
+Artifact `10322166858`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,706 bytes, SHA-256 `a092e435471bd7411fd63902e67cb44608c7c1c1e8ff98e4401bbf969b6db6ff`.
 
 Latest gameplay handoff:
 `docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.

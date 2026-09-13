@@ -6,7 +6,7 @@ CURRENT_OBJECTIVE: make the already-implemented basic Hunt-01 runtime automatica
 
 CURRENT_STATE: complete through one deterministic Monster combat exchange. The real production Region-01 scene executes two fresh-instance boot/run/teardown cycles in one Godot process and reproduces the same integrated runtime signature.
 
-LAST_VERIFIED_STATE: source revision `b270ef14787043252648c18ff02df31936e2f9a2` passed full production workflow `34771120281`, job `103760780223`.
+LAST_VERIFIED_STATE: promoted source revision `c541c735fe93b049cc25d8c29a2c048ceb6139fe` passed full production workflow `34771386938`, job `103761502217`.
 
 COMPLETED_WORK:
 - retained `game/tests/hunt01_basic_runtime_autorun_test.gd` as the test-only integration owner;
@@ -19,7 +19,8 @@ COMPLETED_WORK:
 - resolution readback remains idempotent;
 - teardown rejects tactical/evidence/Monster/telegraph group leakage and the second fresh instance matches the first;
 - protected player movement/look behavior is untouched;
-- run 76 static failure was repaired at documentation wording only without weakening a gate.
+- run 76 static failure was repaired at documentation wording only without weakening a gate;
+- run 78 re-verified the promoted package/front-door state on exact revision `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
 
 IN_PROGRESS: none for the combat-exchange autorun slice.
 
@@ -45,15 +46,14 @@ FILES_CHANGED for combat-exchange extension:
 - `game/docs/HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION.md`.
 
 IMPLEMENTATION_COMMIT: `c85db3c152dc798ed1a03508a77f5066c50f0e2c`.
+CONTRACT_REPAIR_COMMIT: `b270ef14787043252648c18ff02df31936e2f9a2`.
+PROMOTION_AND_LATEST_TESTED_SOURCE: `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
 
-REPAIR_FILE:
-- `game/docs/HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION.md` wording only in commit `b270ef14787043252648c18ff02df31936e2f9a2`.
+TESTS_RUN / TEST_RESULTS: run 76 `34771015107` stopped before Godot on one static documentation phrase mismatch. Run 77 `34771120281` SUCCESS verified the implementation. Run 78 `34771386938` SUCCESS verified the promoted state: static/manifest gates, Godot 4.7.2 parse/import, AppShell/Region-01 smokes, production integration, extended basic autorun combat exchange, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload passed.
 
-TESTS_RUN / TEST_RESULTS: run 76 `34771015107` stopped before Godot on one static documentation phrase mismatch. Run 77 `34771120281` SUCCESS. Static/manifest gates, Godot 4.7.2 parse/import, AppShell/Region-01 smokes, production integration, extended basic autorun combat exchange, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload passed.
+REPOSITORY_HEAD_AT_VERIFICATION: `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
 
-REPOSITORY_HEAD_AT_VERIFICATION: `b270ef14787043252648c18ff02df31936e2f9a2`.
-
-ARTIFACT: ID `10321349678`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,504,703 bytes; SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
+ARTIFACT: ID `10322166858`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,504,706 bytes; SHA-256 `a092e435471bd7411fd63902e67cb44608c7c1c1e8ff98e4401bbf969b6db6ff`.
 
 EXTERNAL_REFERENCES: none required for this verification-only slice.
 

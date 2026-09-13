@@ -17,16 +17,17 @@ World/tracking/encounter remain the continuous 440×440 m Hunt-01 foundation thr
 
 Combat is deterministic and includes tactical movement, Hunter Measured Cut, Mudcrest anatomy, shared reaction/Block flow, Head Sweep, Hunter health/injury, generic Bleeding/Staggered/Off-Balance status ownership/timing, Hunter Downed/defeat terminal execution, and Mudcrest Tail Sweep with CLEAN→generic Staggered producer integration.
 
-The CI/development autorun boots the real Region-01 scene twice in one Godot process. Each cycle starts from fresh tracking/encounter state, drives all seven clues to `OBSERVATION_READY`, reaches the physical engagement zone, stages same-location ENGAGE, verifies current combat owners, advances the initial out-of-range Monster idle to Round 2, follows authored tactical movement N01→N02→N05→N08→N10, resolves a real `M01_TAIL_SWEEP` through the existing Field Poleblade Block reaction, verifies deterministic SOLID / `BLOCK_STRONG`, Hunter Health 100→98, no strong-Block status request, and returns the scheduler to Round 3 Hunter. It then tears the world down and proves the second fresh instance produces the same signature with no Hunt-01 group leakage. This remains verification automation, not player-facing autoplay.
+The CI/development autorun boots the real Region-01 scene twice in one Godot process. Each cycle starts fresh, drives seven-clue tracking to `OBSERVATION_READY`, reaches ENGAGE, proves the initial Monster idle scheduler path, follows N01→N02→N05→N08→N10, resolves real `M01_TAIL_SWEEP` through existing `POLEBLADE_BLOCK`, verifies SOLID / `BLOCK_STRONG`, Hunter Health 100→98, no strong-Block status request, Round-3 Hunter return, clean teardown and a matching second-cycle signature. This is verification automation, not player-facing autoplay.
 
 ## Current verified baseline
 
-Latest full production-verified revision: `b270ef14787043252648c18ff02df31936e2f9a2`.
-Combat-exchange autorun implementation: `c85db3c152dc798ed1a03508a77f5066c50f0e2c`.
-Documentation contract repair / verified source: `b270ef14787043252648c18ff02df31936e2f9a2`.
-Production workflow `34771120281`: SUCCESS.
-Job `103760780223`: SUCCESS.
-Artifact `10321349678`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,703 bytes, SHA-256 `898292db86fd3df24d213ef77e9d17e0c0a2e1d211ee4e8d3d20a67b59c659e8`.
+Latest full production-verified revision: `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
+Combat-exchange implementation: `c85db3c152dc798ed1a03508a77f5066c50f0e2c`.
+Contract repair: `b270ef14787043252648c18ff02df31936e2f9a2`.
+Promotion/tested source: `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
+Production workflow `34771386938`: SUCCESS.
+Job `103761502217`: SUCCESS.
+Artifact `10322166858`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,504,706 bytes, SHA-256 `a092e435471bd7411fd63902e67cb44608c7c1c1e8ff98e4401bbf969b6db6ff`.
 
 Verification labels:
 - stack through basic autorun combat exchange: IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED;
@@ -38,7 +39,7 @@ Latest specialized handoff:
 
 ## Completed work
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION` is complete. Run 76 exposed only a documentation/static contract mismatch (`combat exchange` wording), which was repaired without changing runtime behavior or weakening the gate. Run 77 passed the extended two-cycle autorun, every pre-existing production regression and Android export.
+`FIRST_SLICE_HUNT01_BASIC_AUTORUN_COMBAT_EXCHANGE_REGRESSION` is complete. Run 76 exposed only a documentation/static contract mismatch (`combat exchange` wording), repaired without runtime changes or gate weakening. Run 77 verified the implementation. Run 78 verified the promoted authority/package state at exact source revision `c541c735fe93b049cc25d8c29a2c048ceb6139fe`.
 
 ## Explicitly incomplete
 
