@@ -1,7 +1,7 @@
 # Hunt-01 Combat Runtime
 
-Status: HUNTER DOWNED OUTCOME STATIC/HEADLESS/ANDROID BUILD VERIFIED / TAIL SWEEP NEXT
-Last reconciled: 2026-09-06
+Status: HUNTER DOWNED OUTCOME STATIC/HEADLESS/ANDROID BUILD VERIFIED / TAIL SWEEP IMPLEMENTED / AUTOMATED TAIL VERIFICATION PENDING
+Last reconciled: 2026-09-13
 
 Purpose: own the generic production combat-domain runtime stack after explicit same-location ENGAGE while delegating species-specific anatomy and Monster attack packets to the Monster package.
 
@@ -17,9 +17,17 @@ Purpose: own the generic production combat-domain runtime stack after explicit s
 - `hunt01_status_timing_runtime.gd` — TURN_START_PRE_RECOVERY / TURN_END / ROUND_END lifecycle timing, Off-Balance natural recovery and pending Bleeding periodic-event cadence.
 - `hunt01_encounter_outcome_runtime.gd` — exactly-once Hunter zero-Health defeat consumption, `DOWNED`, `HUNTERS_DEFEATED`, and terminal handoff to the existing scheduler.
 - `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd` — species anatomy consequence owner; generic combat does not absorb it.
-- Monster normal attacks remain species-owned under `game/scripts/gameplay/monsters/monster_01/`.
+- Monster normal attack runtime remains species-owned under `game/scripts/gameplay/monsters/monster_01/`; the generic combat shell owns no Monster attack packet.
 
 Stable combatants: encounter `enc_r01_ef02_m01_0001`; Hunter `hunter_player_0001`; Monster `monster_r01_m01_0001`.
+
+## Ownership boundaries preserved by the combat shell
+
+Species anatomy remains delegated to `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd`.
+
+The generic turn shell deliberately does not own final damage/health arithmetic, species crack/break/sever transitions, status consequences, or Monster normal attack runtime selection/resolution. Those layers remain in their documented consequence/content owners. Adjacent tactical-node movement is explicitly owned by `hunt01_tactical_movement_runtime.gd` and spends resources through the shell.
+
+Current initiative attributes are the reversible `PROVISIONAL_CONTRACT_EXAMPLE_FIXTURE`; they exist to make deterministic ordering executable and are not final character/Monster balance.
 
 ## Verified Hunter Downed outcome boundary
 
@@ -34,6 +42,12 @@ Selected path:
 
 The outcome owner consumes the stable pending defeat handoff exactly once. The shell remains the only scheduler: terminal commitment ends the current authoritative activation/status boundary, removes still-pending slots, stops round advancement and blocks new normal/reaction commitments. The living Mudcrest remains persistent and is not reset by Hunter defeat.
 
+## Tail Sweep verification boundary
+
+`M01_TAIL_SWEEP` is now implemented in the existing species-owned Mudcrest attack driver. It reuses the shared shell, reaction, Poleblade Block, Hunter defense/health, status and encounter-outcome owners rather than adding another scheduler or activation driver.
+
+Automated static/headless/Android verification is still pending the production workflow. Until that run is green, Tail Sweep is not promoted as a build-verified baseline.
+
 ## Explicitly not implemented yet
 
 - forced recovery/respawn destination, costs or penalties;
@@ -45,13 +59,14 @@ The outcome owner consumes the stable pending defeat handoff exactly once. The s
 - forced movement/final Block balance;
 - structural crack/break/sever/tail detachment; thresholds remain open;
 - Dodge/Parry/Brace resolution;
-- Horn Charge / Shoulder Ram / Foreleg Stomp / Tail Sweep;
+- Horn Charge / Shoulder Ram / Foreleg Stomp;
+- final Tail Sweep reach/control balance and Tail sever capability transition;
 - deterministic multi-attack Monster behavior and Berserk;
 - harvest/inventory/crafting/settlement/persistence;
 - Sprint/Dodge/forced-displacement movement.
 
-## Next production slice
+## Current production slice
 
 `FIRST_SLICE_MUDCREST_TAIL_SWEEP_ATTACK_RUNTIME_IMPLEMENTATION`.
 
-Tail Sweep remains species-owned. Reuse the existing scheduler/reaction/Block/status owners and preserve the current attached-tail capability fact without inventing structural thresholds. Phone/user acceptance remains deferred-batch; sustained performance remains unverified.
+Tail Sweep remains species-owned. It reuses the existing scheduler/reaction/Block/status owners and preserves the current attached-tail capability fact without inventing structural thresholds. Phone/user acceptance remains deferred-batch; sustained performance remains unverified.
