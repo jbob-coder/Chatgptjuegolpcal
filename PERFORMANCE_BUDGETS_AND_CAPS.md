@@ -1,14 +1,30 @@
 # Unnamed Hunt RPG — Performance Budgets and Caps
 
-Status: PLANNING CONTRACT / STAGE 1 TELEMETRY PREPARED / SUSTAINED TARGET-DEVICE CALIBRATION PENDING
-Last reconciled: 2026-09-03
+Status: PLANNING CONTRACT / 2 GB GAME STORAGE CAP SELECTED / STAGE 1 TELEMETRY PREPARED / SUSTAINED TARGET-DEVICE CALIBRATION PENDING
+Last reconciled: 2026-09-14
 
 ## Purpose
 
-Prevent the project from becoming slow, unstable or impossible to debug as content grows. These are guardrails, not final measured device limits. Every cap must eventually be confirmed or replaced by target-device evidence.
+Prevent the project from becoming slow, unstable or impossible to debug as content grows. These are guardrails, not final measured device limits. Every performance cap must eventually be confirmed or replaced by target-device evidence. The total shipped-game storage cap below is a user-selected hard product constraint and is not waiting on device calibration.
 
 Primary rule:
 **performance is a feature and a design constraint, not cleanup at the end.**
+
+## Hard game-storage cap
+
+`TOTAL_PLAYER_REQUIRED_GAME_STORAGE_CAP = 2 GB`
+`TOTAL_PLAYER_REQUIRED_GAME_STORAGE_CAP_BYTES = 2000000000`
+`TOTAL_GAME_STORAGE_CAP_SELECTED = YES`
+
+The complete player-required installed/runtime game footprint must not exceed `2,000,000,000` bytes. Treat `2 GB` as the hard ceiling; do not reinterpret it as `2 GiB` to gain extra headroom.
+
+The cap includes all files/assets/data that a player must have installed for the base game to function, including packaged runtime assets and any required split/downloaded runtime content. Splitting required content across APK/AAB asset packs or later mandatory downloads does not bypass the cap.
+
+The cap excludes development-only source masters, repository history, CI artifacts, debug symbols and other files that are never shipped or required on the player's device.
+
+The packaged Android build itself must remain below the same ceiling, but APK/AAB artifact size alone is not proof that the installed footprint is below the cap because compression and platform installation can change on-device size. A future release/storage gate must measure the complete player-required installed footprint. Current debug-artifact size is evidence of package size only.
+
+This storage ceiling does not replace RAM, frame-time, streaming or target-device performance budgets. Runtime memory and sustained-performance limits remain separately evidence-driven.
 
 ## 1. Budget hierarchy
 
@@ -293,5 +309,6 @@ The controlled transition segment performs exactly `20` aerial↔first-person tr
 `STAGE1_SUSTAINED_PHONE_RUN_EXECUTED = NO / DEFERRED`
 `PERFORMANCE_VERIFIED = NO`
 `FINAL_PRODUCTION_CAPS_MEASURED = NO`
+`TOTAL_GAME_STORAGE_CAP_SELECTED = YES / 2_GB`
 
 Do not preemptively reduce shadows, render scale, camera behavior, controls, Monster readability or gameplay. If the phone gate reveals a failure, isolate and measure one cost family at a time before approving a change.
