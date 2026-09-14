@@ -33,6 +33,7 @@ concurrency:
 env:
   PROJECT_PATH: game
   APK_NAME: UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug.apk
+  MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
   build-production-hunt01:
@@ -239,6 +240,25 @@ jobs:
           unzip -t "build/android/$APK_NAME" | tee build-evidence/apk-integrity.txt
           sha256sum "build/android/$APK_NAME" | tee build-evidence/apk-sha256.txt
           stat -c 'bytes=%s' "build/android/$APK_NAME" | tee build-evidence/apk-size.txt
+      - name: Verify Android package under 2 GB storage cap
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_path="build/android/$APK_NAME"
+          package_bytes=$(stat -c '%s' "$package_path")
+          cap_bytes="$MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES"
+          {
+            echo "scope=ANDROID_APK_PACKAGE_ONLY"
+            echo "package=$APK_NAME"
+            echo "package_bytes=$package_bytes"
+            echo "cap_bytes=$cap_bytes"
+            echo "installed_footprint_verified=NO"
+          } | tee build-evidence/android-package-storage-cap.txt
+          if [ "$package_bytes" -gt "$cap_bytes" ]; then
+            echo "Gate: ANDROID_PACKAGE_2GB_STORAGE_CAP_FAILED" | tee -a build-evidence/android-package-storage-cap.txt
+            exit 1
+          fi
+          echo "Gate: ANDROID_PACKAGE_2GB_STORAGE_CAP_VERIFIED" | tee -a build-evidence/android-package-storage-cap.txt
       - name: Upload production APK and evidence
         uses: actions/upload-artifact@v4
         with:
