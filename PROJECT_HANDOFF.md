@@ -1,83 +1,70 @@
 # PROJECT HANDOFF — Unnamed Hunt RPG
 
-Status: PRODUCTION HUNT-01 THROUGH REAL STATUS LIFECYCLE ANDROID BUILD VERIFIED / HUNTER DEFEAT TERMINAL AUTORUN NEXT / PHONE QA DEFERRED-BATCH
-Last reconciled: 2026-09-13
+Status: PRODUCTION HUNT-01 THROUGH HUNTER DEFEAT TERMINAL ANDROID BUILD VERIFIED / 2 GB STORAGE CAP SELECTED / PACKAGE CAP CI GATE NEXT / PHONE QA DEFERRED-BATCH
+Last reconciled: 2026-09-14
 
 CURRENT_OBJECTIVE: build the smallest reliable playable Hunt-01 foundation and continuously fold already-implemented basics into one deterministic fresh-instance production smoke without creating player-facing autoplay.
 
-CURRENT_STATE: the real production Region-01 scene now repeats tracking→ENGAGE, the real Tail Sweep/Poleblade Block combat exchange, authored reposition, the real Dorsal Measured Cut/anatomy exchange, and a real hostile Bleeding application/timing lifecycle across two independent fresh instances. Dedicated regressions also verify Hunter Downed/`HUNTERS_DEFEATED` terminal execution.
+CURRENT_STATE: the real production Region-01 scene now repeats tracking→ENGAGE, Tail Sweep/Poleblade Block, authored reposition, Dorsal Measured Cut/anatomy, a real hostile Bleeding lifecycle and a real Hunter defeat-terminal chain across two independent fresh instances. The user has also selected a hard 2 GB total player-required game-storage ceiling.
 
-LAST_VERIFIED_STATE: revision `83dc865064980eaa3d29c5928b0f59e9a4132c79` passed full production workflow `34779563368`, job `103783955039`.
+LAST_VERIFIED_STATE: revision `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c` passed full production workflow `34880096112`, job `104096962757`.
 
 COMPLETED_WORK:
 - continuous 440×440 m Hunt-01 world/tracking/physical ENGAGE foundation;
 - protected 6.25 m/s exploration and ~115° first-person control foundation;
-- deterministic turn shell, resources and authored tactical movement;
-- Hunter Measured Cut, Mudcrest anatomy, reaction/Block, Head Sweep and Tail Sweep;
-- Hunter defense, health/injury and generic encounter outcome;
-- species wound/contact classification;
-- generic Bleeding/Staggered/Off-Balance application and timing;
-- Staggered→Off-Balance exact-once transition and Off-Balance expiry;
-- CLEAN Tail Sweep→generic Staggered producer integration;
-- Hunter Downed/defeat terminal chain in its dedicated production regression;
-- two-cycle basic autorun with tracking/ENGAGE and clean teardown;
-- integrated Tail Sweep/Block combat exchange: SOLID / `BLOCK_STRONG`, Hunter Health 100→98;
-- integrated Hunter attack/anatomy exchange: real Dorsal Measured Cut, CLEAN selected contact, anatomy 100→95;
-- integrated real status lifecycle: real Round-4 CLEAN/no-guard Head Sweep changes Health 96→84, establishes provisional horn penetration, emits one real Bleeding +1 request, dispatches through the generic status owner, and schedules first tick Round 5;
-- real Round-5 `ROUND_END` timing emits exactly one `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE` with `NOT_SELECTED_PENDING_AUTHORITY`, no damage amount and no direct Health mutation; after the real Round-5 strong Block Health is 82 and Round 6 returns normally with 4 AP / 1 RP;
-- both fresh instances reproduce the same integrated signature;
-- run 81 verified the implementation;
-- run 82 exposed one promotion-only documentation phrase regression before Godot;
-- repair commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored the required `combat exchange` governance wording only;
-- run 83 re-passed the complete production pipeline and Android export on that exact repair revision.
+- deterministic turns/resources/tactical movement;
+- Hunter Measured Cut, Mudcrest anatomy, Block/reaction, Head Sweep and Tail Sweep;
+- Hunter defense, health/injury, generic encounter outcome, wound/contact and generic statuses;
+- exact-once Staggered→Off-Balance timing and CLEAN Tail Sweep→Staggered producer in dedicated regressions;
+- two-cycle fresh-instance autorun through the Monster exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
+- integrated defeat-terminal extension: test-only Health preparation stops at 10, then real Round-6 Head Sweep action sequence 5 causes 10→0, commits Hunter `ACTIVE → DOWNED`, keeps living Mudcrest `ACTIVE`, commits `HUNTERS_DEFEATED`, freezes the scheduler with no current actor, rejects post-terminal advancement and preserves idempotent outcome readback;
+- run 84 passed the entire current production pipeline and Android export;
+- hard player-required storage ceiling selected at exactly 2,000,000,000 bytes.
 
-IN_PROGRESS: none for the real-status lifecycle slice.
+IN_PROGRESS: package/front-door promotion of run-84 evidence.
 
-NEXT_ACTION: `FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION` — extend the same verification-only fresh-instance smoke through the already-implemented Hunter Downed/`HUNTERS_DEFEATED` terminal chain.
+NEXT_ACTION: `FIRST_SLICE_ANDROID_PACKAGE_2GB_STORAGE_CAP_CI_GATE` — add a production Android workflow check that fails if the exported APK exceeds 2,000,000,000 bytes and records package-size evidence.
 
-BLOCKERS: none for that verification-only extension. Forced recovery/respawn remains blocked downstream because destination/time/cost authority is still open.
+BLOCKERS: none for the package-size CI gate. Installed-footprint verification remains a separate future device/release task. Forced recovery/respawn remains blocked because destination/time/cost authority is open.
 
-OPEN_QUESTIONS: Bleeding periodic HP magnitude; Braced/Guarded runtime integration details; structural crack/break/sever thresholds; exact Hunter escape-node geometry; forced recovery destination/time/costs; Monster terminal/escape execution; downstream harvest/inventory/crafting/persistence.
+OPEN_QUESTIONS: installed-footprint measurement method on release/target device; Bleeding periodic HP magnitude; Braced/Guarded runtime integration; structural crack/break/sever thresholds; Hunter escape-node geometry; forced recovery destination/time/costs; Monster terminal/escape execution; harvest/inventory/crafting/persistence.
 
 IMPORTANT_DECISIONS:
-- autorun is CI/development verification, not player-facing autoplay;
-- normal movement/look controls remain protected and unchanged;
-- no new gameplay RNG or balance values;
-- two fresh scene instances must remain independent;
-- status application/timing in the integrated smoke comes through real producers and scheduler hooks, not direct synthetic status calls;
-- Bleeding periodic event remains pending only while HP magnitude is unresolved;
-- next terminal integration must use existing health/outcome/scheduler owners and a real final hostile contact; test-only health preparation may only shorten setup to the already-verified zero-Health boundary;
-- recovery/respawn is not part of that next slice.
+- total player-required game footprint hard cap = `2,000,000,000` bytes;
+- mandatory split/downloaded runtime content counts toward that cap;
+- dev-only source/repo/CI-only files do not count;
+- APK size evidence does not equal installed-footprint evidence;
+- autorun remains verification only, never player-facing autoplay;
+- normal controls remain protected;
+- no new gameplay RNG/balance values;
+- defeat final transition must come from a real hostile attack; recovery remains separate and unresolved.
 
-KNOWN_RISKS: full hunt loop remains partial; automated Android export is not phone acceptance; no sustained-performance evidence exists; Monster structural defeat/escape and downstream harvest/inventory/crafting are not implemented end-to-end.
+KNOWN_RISKS: full hunt loop remains partial; automated Android export is not phone acceptance; no sustained-performance or complete installed-footprint measurement exists; structural/withdrawal/harvest/inventory/crafting remain incomplete.
 
-FILES_CHANGED for real-status autorun implementation:
+FILES_CHANGED for the verified user-requested continuation:
+- `PERFORMANCE_BUDGETS_AND_CAPS.md`;
 - `game/tests/hunt01_basic_runtime_autorun_test.gd`;
 - `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py`;
 - `game/docs/HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION.md`.
 
-IMPLEMENTATION_SOURCE: `9e854599780301e3e9c045b1bac73de9e27b5238`.
-PROMOTION_COMMIT: `0f38ac3c18667e53efa89d6eeaebf0f2dcb41745`.
-GOVERNANCE_REPAIR_AND_LATEST_TESTED_SOURCE: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+STORAGE_POLICY_COMMIT: `f3b5dfb672127fa90303e689466f41a3cbe439ff`.
+DEFEAT_TERMINAL_IMPLEMENTATION_SOURCE: `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
 
-TESTS_RUN / TEST_RESULTS: run 81 `34779190819` SUCCESS verified the implementation. Run 82 `34779452988` failed before Godot only on one autorun-documentation phrase check. Run 83 `34779563368` SUCCESS verified the repaired promoted state: static/manifest gates, Godot 4.7.2 parse/import, production smokes/integration, both fresh-instance integrated cycles, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
+TESTS_RUN / TEST_RESULTS: run 84 `34880096112` SUCCESS: authoritative/static gates, Godot 4.7.2 parse/import, AppShell and Region-01 smokes, production integration, extended two-fresh-instance basic autorun through Hunter defeat terminal, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
 
-REPOSITORY_HEAD_AT_VERIFICATION: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+REPOSITORY_HEAD_AT_VERIFICATION: `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
 
-ARTIFACT: ID `10324451154`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,526,677 bytes; SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
+ARTIFACT: ID `10362706279`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,536,941 bytes; SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
 
-EXTERNAL_REFERENCES: none required for this verification-only slice.
+EXTERNAL_REFERENCES: none required for these verification/governance slices.
 
-ASSUMPTIONS: none added to gameplay semantics; current provisional combat/health/status fixtures remain exactly as owned by existing production runtimes.
+ASSUMPTIONS: none added to gameplay semantics; the 2 GB cap is interpreted as decimal 2,000,000,000 bytes for player-required shipped/runtime content.
 
-UNKNOWNS: phone acceptance, sustained performance, final Bleeding periodic HP magnitude and post-defeat recovery remain unverified/unselected.
+UNKNOWNS: phone acceptance, sustained performance, full installed footprint, Bleeding periodic HP magnitude and post-defeat recovery remain unverified/unselected.
 
 READ_FIRST_NEXT_SLICE:
-- `game/tests/hunt01_basic_runtime_autorun_test.gd`;
-- `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py`;
-- `game/tests/hunt01_hunter_downed_encounter_outcome_runtime_test.gd`;
-- `game/scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd`;
-- `game/scripts/gameplay/combat/hunt01_encounter_outcome_runtime.gd`;
-- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
-- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
-- `.github/workflows/production-hunt01-graybox-android.yml`.
+- `PERFORMANCE_BUDGETS_AND_CAPS.md`;
+- `.github/workflows/production-hunt01-graybox-android.yml`;
+- `game/export_presets.cfg`;
+- current run-84 APK evidence;
+- root/build-readiness authority files.

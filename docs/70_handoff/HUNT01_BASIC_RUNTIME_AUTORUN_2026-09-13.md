@@ -1,87 +1,76 @@
 # Hunt-01 Basic Runtime Autorun Handoff — 2026-09-13
 
-Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED THROUGH REAL BLEEDING STATUS LIFECYCLE
+Status: IMPLEMENTED / STATIC VERIFIED / HEADLESS VERIFIED / ANDROID BUILD VERIFIED THROUGH HUNTER DEFEAT TERMINAL
+Last reconciled: 2026-09-14
 
-CURRENT_OBJECTIVE: make the already-implemented basic Hunt-01 runtime automatically repeatable and regression-gated without creating player-facing autoplay.
+CURRENT_OBJECTIVE: keep the already-implemented basic Hunt-01 runtime automatically repeatable and regression-gated without creating player-facing autoplay.
 
-CURRENT_STATE: complete through one deterministic Monster combat exchange, one deterministic Hunter attack/anatomy exchange and one real hostile Bleeding application/timing lifecycle. The real production Region-01 scene executes two fresh-instance boot/run/teardown cycles in one Godot process and reproduces the same integrated runtime signature.
+CURRENT_STATE: complete through one deterministic Monster combat exchange, one Hunter attack/anatomy exchange, one real hostile Bleeding lifecycle and one real Hunter defeat-terminal chain. The production Region-01 scene executes two fresh boot/run/teardown cycles and reproduces the same integrated signature.
 
-LAST_VERIFIED_STATE: revision `83dc865064980eaa3d29c5928b0f59e9a4132c79` passed full production workflow `34779563368`, job `103783955039`.
+LAST_VERIFIED_STATE: revision `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c` passed workflow `34880096112`, job `104096962757`.
 
 COMPLETED_WORK:
-- retained `game/tests/hunt01_basic_runtime_autorun_test.gd` as the test-only integration owner;
-- retained static preflight `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py` and the existing production workflow gate;
-- preserved fresh world identity, zeroed tracking/encounter state, seven-clue `OBSERVATION_READY`, physical ENGAGE and combat-owner attachment;
-- preserved initial deterministic out-of-range Monster idle proof;
-- preserved authored N01→N02→N05→N08→N10 movement and real `M01_TAIL_SWEEP`→Poleblade Block combat exchange;
-- preserved Tail Sweep deterministic SOLID / `BLOCK_STRONG`, Hunter Health 100→98 and no strong-Block status request;
-- preserved authored N10→N08→N05→N07→N09 reposition through normal AP economy;
-- preserved real Head Sweep/Block scheduler bridge and Round-4 Dorsal `POLEBLADE_MEASURED_CUT`, CLEAN selected-part contact and anatomy 100→95;
-- added real status lifecycle integration without modifying production runtime code;
-- after Measured Cut, Round-4 Hunter end opens real Head Sweep action sequence 3;
-- explicit decline resolves existing deterministic CLEAN/no-guard path, applying real Health 96→84;
-- species wound/contact owner establishes provisional horn penetration and emits exactly one Bleeding +1 request;
-- request dispatches synchronously through existing generic status application owner; stored Bleeding intensity is 1 and first tick is Round 5;
-- Round-4 end does not tick the status early;
-- Round-5 Head Sweep + strong Block preserves one Bleeding stack and applies only its existing 2-load attack consequence, Health 84→82;
-- real Round-5 `ROUND_END` timing emits exactly one `PENDING_BLEEDING_PERIODIC_HEALTH_CONSEQUENCE`;
-- pending event contains `NOT_SELECTED_PENDING_AUTHORITY`, no `damage_amount`, retains real producer identity and does not mutate Health;
-- Bleeding persists at intensity 1 and Round 6 starts normally on Hunter with 4 AP / 1 RP;
-- teardown rejects tactical/evidence/Monster/telegraph group leakage and the second fresh instance matches the first;
-- protected player movement/look behavior is untouched;
-- run 81 verified the implementation and Android export;
-- promotion commit `0f38ac3c18667e53efa89d6eeaebf0f2dcb41745` reconciled package/front doors;
-- run 82 failed before Godot only because the promoted regression contract lost the exact `combat exchange` phrase required by the unchanged static preflight;
-- repair commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored that documentation wording only;
-- run 83 passed all current production gates and Android export on the exact repaired promoted revision.
+- fresh world identity, zeroed tracking/encounter, seven-clue `OBSERVATION_READY`, physical ENGAGE and combat-owner attachment;
+- initial out-of-range Monster idle proof;
+- authored N01→N02→N05→N08→N10 movement and real Tail Sweep→Poleblade Block exchange;
+- deterministic SOLID / `BLOCK_STRONG`, Hunter Health 100→98 and no strong-Block status request;
+- authored N10→N08→N05→N07→N09 reposition through normal AP economy;
+- real Head Sweep/Block bridge and Round-4 Dorsal `POLEBLADE_MEASURED_CUT`, CLEAN selected contact and anatomy 100→95;
+- real Round-4 unguarded Head Sweep produces Bleeding through wound/contact→generic application; Health 96→84;
+- Round-5 strong Block leaves Health 82 and Round-5 `ROUND_END` emits one pending Bleeding consequence with no selected HP magnitude or direct Health mutation;
+- Round 6 begins normally at 4 AP / 1 RP;
+- Hunter defeat-terminal extension uses test-only existing health handoffs only to prepare 82→10 without committing outcome;
+- real Round-6 Head Sweep action sequence 5, existing decline path and deterministic CLEAN result provide the final 10→0 Health transition;
+- existing health owner emits pending defeat handoff; outcome owner commits Hunter `DOWNED`, living Mudcrest remains `ACTIVE`, `HUNTERS_DEFEATED` commits, scheduler freezes in Round 6 with current actor empty;
+- post-terminal Hunter turn/end and external Monster completion are rejected;
+- no synthetic Round-6 Bleeding round-end tick occurs after terminal commitment;
+- defeat replay remains idempotent and preserved Mudcrest anatomy remains unchanged;
+- teardown rejects group leakage; second fresh instance matches first;
+- protected player movement/look behavior remains untouched;
+- run 84 passed full current static/headless/build regression and Android export.
 
-IN_PROGRESS: none for the real-status lifecycle autorun slice.
+IN_PROGRESS: none for the Hunter defeat-terminal autorun slice.
 
-NEXT_ACTION: `FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION` — extend the same test-only fresh-instance smoke through the already-implemented Hunter Downed/`HUNTERS_DEFEATED` terminal chain.
+NEXT_ACTION: `FIRST_SLICE_ANDROID_PACKAGE_2GB_STORAGE_CAP_CI_GATE` — enforce the user-selected 2,000,000,000-byte ceiling at the exported Android package layer.
 
-BLOCKERS: none for that verification-only extension. Forced recovery/respawn is explicitly downstream and blocked because destination/time/cost authority is still open.
+BLOCKERS: none for the package gate. Installed-footprint verification remains separate. Forced recovery/respawn remains downstream and blocked because destination/time/cost authority is open.
 
-OPEN_QUESTIONS: Bleeding periodic HP magnitude; Braced/Guarded runtime integration; structural crack/break/sever thresholds; exact Hunter escape-node geometry; forced recovery destination/time/costs; Monster escape/death execution; downstream harvest/inventory/crafting/persistence.
+OPEN_QUESTIONS: full installed-footprint measurement; Bleeding periodic HP magnitude; Braced/Guarded runtime; structural thresholds; Hunter escape geometry; recovery destination/time/costs; Monster escape/death; harvest/inventory/crafting/persistence.
 
 IMPORTANT_DECISIONS:
 - autorun is CI/development verification, not player-facing autoplay;
 - no synthesized normal gameplay input or automatic locomotion;
 - no new gameplay RNG or balance values;
-- two fresh scene instances must remain independent;
-- status application/timing is exercised only through real producer/scheduler paths in the integrated smoke;
-- pending Bleeding event remains non-damaging until a separate HP magnitude authority exists;
-- next terminal integration may use test-only health preparation only to approach the already-verified zero-Health boundary; a real hostile production attack must cause the final defeat;
-- recovery/respawn is excluded from that next slice.
+- defeat final transition comes from a real hostile production attack;
+- recovery/respawn remains excluded;
+- total player-required game footprint hard cap is 2,000,000,000 bytes;
+- package-size verification and installed-footprint verification are separate evidence layers.
 
-KNOWN_RISKS: full hunt loop remains partial; automated Android export is not phone acceptance; no sustained-performance evidence exists; structural/withdrawal/harvest/inventory/crafting remain incomplete.
+KNOWN_RISKS: full hunt loop remains partial; Android export is not phone acceptance; no sustained-performance or installed-footprint evidence exists; structural/withdrawal/harvest/inventory/crafting remain incomplete.
 
-FILES_CHANGED for real-status lifecycle implementation:
+FILES_CHANGED for defeat-terminal implementation:
 - `game/tests/hunt01_basic_runtime_autorun_test.gd`;
 - `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py`;
 - `game/docs/HUNT01_BASIC_RUNTIME_AUTORUN_REGRESSION.md`.
 
-IMPLEMENTATION_SOURCE: `9e854599780301e3e9c045b1bac73de9e27b5238`.
-PROMOTION_COMMIT: `0f38ac3c18667e53efa89d6eeaebf0f2dcb41745`.
-GOVERNANCE_REPAIR_AND_LATEST_TESTED_SOURCE: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+STORAGE_POLICY_COMMIT: `f3b5dfb672127fa90303e689466f41a3cbe439ff`.
+DEFEAT_TERMINAL_IMPLEMENTATION_SOURCE: `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
 
-TESTS_RUN / TEST_RESULTS: run 81 `34779190819` SUCCESS verified the implementation. Run 82 `34779452988` stopped before Godot on one documentation-governance phrase check. Run 83 `34779563368` SUCCESS verified the repaired promoted state: static/manifest gates, Godot 4.7.2 parse/import, production smokes/integration, both fresh-instance integrated cycles, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
+TESTS_RUN / TEST_RESULTS: run 84 `34880096112` SUCCESS verified authoritative/static gates, Godot 4.7.2 parse/import, production smokes/integration, both fresh-instance integrated cycles through terminal defeat, all current combat/anatomy/status/outcome regressions, Android debug export and artifact upload.
 
-REPOSITORY_HEAD_AT_VERIFICATION: `83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+REPOSITORY_HEAD_AT_VERIFICATION: `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
 
-ARTIFACT: ID `10324451154`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,526,677 bytes; SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
+ARTIFACT: ID `10362706279`; `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`; 57,536,941 bytes; SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
 
-EXTERNAL_REFERENCES: none required for this verification-only slice.
+EXTERNAL_REFERENCES: none required.
 
-ASSUMPTIONS: none added to gameplay semantics; the autorun consumes already-verified runtime APIs and provisional fixtures exactly as owned.
+ASSUMPTIONS: no new gameplay semantics; current provisional runtime fixtures remain owned by existing production systems.
 
-UNKNOWNS: phone acceptance, sustained performance, Bleeding periodic HP magnitude and post-defeat recovery remain unverified/unselected.
+UNKNOWNS: phone acceptance, sustained performance, installed footprint, Bleeding periodic HP magnitude and post-defeat recovery.
 
 READ_FIRST_NEXT_SLICE:
-- `game/tests/hunt01_basic_runtime_autorun_test.gd`;
-- `tests/quality/hunt01/hunt01_basic_runtime_autorun_preflight.py`;
-- `game/tests/hunt01_hunter_downed_encounter_outcome_runtime_test.gd`;
-- `game/scripts/gameplay/combat/hunt01_hunter_health_injury_runtime.gd`;
-- `game/scripts/gameplay/combat/hunt01_encounter_outcome_runtime.gd`;
-- `game/scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd`;
-- `game/scripts/gameplay/monsters/monster_01/hunt01_mudcrest_attack_runtime.gd`;
-- `.github/workflows/production-hunt01-graybox-android.yml`.
+- `PERFORMANCE_BUDGETS_AND_CAPS.md`;
+- `.github/workflows/production-hunt01-graybox-android.yml`;
+- `game/export_presets.cfg`;
+- run-84 APK size evidence;
+- current build-readiness authority.

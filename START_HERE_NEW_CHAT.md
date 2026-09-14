@@ -1,83 +1,65 @@
 # START HERE — Unnamed Hunt RPG — New Chat Bootstrap
 
-Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 BASIC AUTORUN REAL STATUS LIFECYCLE ANDROID BUILD VERIFIED / HUNTER DEFEAT TERMINAL AUTORUN NEXT
-Last reconciled: 2026-09-13
+Status: ACTIVE NEW-CHAT BOOTSTRAP / HUNT-01 BASIC AUTORUN HUNTER DEFEAT TERMINAL ANDROID BUILD VERIFIED / 2 GB STORAGE CAP SELECTED / PACKAGE CAP CI GATE NEXT
+Last reconciled: 2026-09-14
 
 Android-targeted monster-hunting tactical RPG. WorldLife RPG is abandoned and must not be used as the implementation base.
 
-## Purpose
-
-This file is the mandatory bootstrap procedure for any new ChatGPT/AI development chat working on this repository. It is navigation/procedure, not a substitute for reconstructing live state. Current source, tests, workflow/build evidence and device evidence outrank copied summaries.
-
-## Hard startup rule — do not start work before this is complete
+## Mandatory bootstrap
 
 1. Confirm repository `jbob-coder/Chatgptjuegolpcal` and branch `worldlife-reference-docs`.
-2. Fetch the live branch HEAD and record the SHA before reading project state.
-3. Read from that same live revision, in order:
-   1. `EVOLVE_ALIGNMENT.md`
-   2. `PROJECT_HANDOFF.md`
-   3. `START_HERE_NEW_CHAT.md`
-   4. `DOCUMENTATION_INDEX.md`
-   5. root `README.md`
-   6. `docs/README.md`
-   7. `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`
-   8. newest relevant `docs/70_handoff/`
-   9. `game/README.md`
-   10. exact owning package/source/data/tests/static gates/workflow for the current bounded piece.
-4. Re-check branch HEAD after reading. If it changed materially, restart the relevant state read from the new HEAD rather than mixing revisions.
-5. Reconstruct real state from live source/tests/build evidence; Markdown labels alone are not proof.
-6. Resolve conflicts by: current explicit user instruction → current source/tests/build/device evidence → EVOLVE/PROJECT_HANDOFF → narrow owning authority → package docs → older handoffs/chat/memory.
-7. Identify exactly one bounded next piece and its owning files.
-8. Before implementation report: `LIVE_REPOSITORY_HEAD`, `LAST_VERIFIED_SOURCE_BASELINE`, `CURRENT_OBJECTIVE`, `CURRENT_VERIFIED_STATE`, `EXACT_NEXT_BOUNDED_PIECE`, `OWNING_FILES`, `TESTS_AND_GATES`, `BLOCKERS`, `OPEN_QUESTIONS / UNKNOWNS`, and contradictions/stale front doors.
-9. If the user already requested continuation and no genuine blocker exists, proceed with that one piece without asking permission again.
+2. Fetch live branch HEAD and record it.
+3. Read at that same revision, in order: `EVOLVE_ALIGNMENT.md`, `PROJECT_HANDOFF.md`, `START_HERE_NEW_CHAT.md`, `DOCUMENTATION_INDEX.md`, root `README.md`, `docs/README.md`, `docs/00_project/BUILD_READINESS_GATE_MATRIX.md`, newest relevant `docs/70_handoff/`, `game/README.md`, then exact owning source/tests/gates/workflow.
+4. Re-check HEAD after reading; restart relevant state reconstruction if it changed.
+5. Current source/tests/build/device evidence outranks Markdown labels and old chat memory.
+6. Conflict order: current explicit user instruction → current source/tests/build/device evidence → EVOLVE/HANDOFF → narrow owner → package docs → older handoffs/chat.
+7. Work exactly one bounded piece at a time.
+8. Before implementation report live HEAD, last verified source, objective, verified state, exact next piece, owners/gates, blockers, unknowns and stale contradictions.
+9. If continuation was already requested and no genuine blocker exists, proceed without asking again.
 
-## Development law after startup
+## Development law
 
 `READ LIVE STATE → VERIFY → ONE BOUNDED LAYER → IMPLEMENT → STATIC/HEADLESS/BUILD QA → FIX SAME-LAYER FAILURES → RECORD → COMMIT → READ BACK → CONTINUE`.
 
-Use normal fast-forward Git updates only. Never force-push. Do not weaken invariants to make tests green. Do not call CI/headless/APK evidence `PHONE_VERIFIED`. Phone validation remains batched unless current authority changes it.
+Use normal fast-forward updates only. Never weaken gates. Never convert CI/headless/APK evidence into phone, sustained-performance or installed-footprint proof.
 
-Protected Android controls remain continuous direct analog left-stick movement, independent right-side look, simultaneous movement/look, no forced joystick release/center/rebase, approximately 115° first-person FOV and approximately 6.25 m/s exploration speed. `probes/android_stage1/` is evidence/testing infrastructure only.
+Protected controls: continuous direct analog left-stick movement, independent right-side look, simultaneous movement/look, no forced joystick release/center/rebase, ~115° FOV, ~6.25 m/s exploration speed.
 
 ## Current verified snapshot — discovery aid only
 
-The automated-build verified stack includes the continuous Hunt-01 world/tracking/ENGAGE foundation, deterministic combat/resources/tactical movement, Hunter Measured Cut, Mudcrest anatomy, reaction/Block, Head Sweep, Tail Sweep, defense/health/injury, generic Bleeding/Staggered/Off-Balance application/timing, Hunter Downed/defeat terminal execution in its dedicated regression, CLEAN Tail Sweep→generic Staggered producer integration, and a two-cycle fresh-instance basic autorun through a real Monster combat exchange, a real Hunter Measured Cut/anatomy exchange and a real Bleeding application/timing lifecycle.
+Run 84 fully verified source `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c` through the real two-cycle Region-01 path: tracking/ENGAGE, Tail Sweep/Block, Hunter Dorsal Measured Cut/anatomy, real Bleeding lifecycle, then a real final Round-6 Head Sweep causing Hunter 10→0, `DOWNED`, `HUNTERS_DEFEATED` and terminal scheduler freeze.
 
-Latest full production-verified source revision:
-`83dc865064980eaa3d29c5928b0f59e9a4132c79`.
+Production verification:
+- workflow `34880096112`: SUCCESS;
+- job `104096962757`: SUCCESS;
+- artifact `10362706279`;
+- size `57,536,941` bytes;
+- SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
 
-Latest production verification:
-- workflow `34779563368`: SUCCESS;
-- job `103783955039`: SUCCESS;
-- artifact `10324451154`;
-- name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,526,677` bytes;
-- SHA-256 `411bb42819510e84d0f84d8c03033a49e86d3b35ab4cdc9b3251a3f320f22c6d`.
-
-Run 82 failed before Godot on one promoted documentation wording check only. Commit `83dc865064980eaa3d29c5928b0f59e9a4132c79` restored the exact `combat exchange` governance wording without runtime/test changes, and run 83 then passed the full pipeline.
-
-These are historical evidence only; a new chat must still fetch current live HEAD and check for newer runs.
+User-selected storage law:
+- total player-required installed/runtime game footprint cap = `2 GB` exactly;
+- cap bytes = `2,000,000,000`;
+- mandatory split/downloaded runtime content counts;
+- package size and installed footprint remain distinct evidence layers.
 
 `PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`.
 `PERFORMANCE_VERIFIED = NO`.
-`FINAL_ENGINE_SELECTED = NO`.
+`INSTALLED_FOOTPRINT_2GB_CAP_VERIFIED = NO`.
 
-Latest specialized handoff at this reconciliation:
-`docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.
+Latest specialized handoff: `docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.
 
 ## Current recorded next bounded piece
 
-`FIRST_SLICE_HUNT01_BASIC_AUTORUN_HUNTER_DEFEAT_TERMINAL_REGRESSION`.
+`FIRST_SLICE_ANDROID_PACKAGE_2GB_STORAGE_CAP_CI_GATE`.
 
-Current authority for this piece:
-- verification automation only; no player-facing autoplay;
-- preserve the current two-cycle tracking/ENGAGE, Monster combat exchange, Hunter attack/anatomy exchange and real Bleeding lifecycle;
-- consume existing Hunter health, encounter-outcome and scheduler owners;
-- test-only health preparation may shorten setup, but the final zero-Health/terminal transition must be caused by a real hostile production attack transaction;
-- verify `ACTIVE → DOWNED`, `HUNTERS_DEFEATED`, terminal scheduler freeze and idempotent outcome readback;
-- do not invent recovery/respawn costs or destination, voluntary withdrawal, Monster escape/death, Bleeding HP magnitude, structural thresholds, RNG or balance values;
-- keep the full Android workflow green.
+Boundary:
+- workflow/package verification only;
+- check exported production APK after successful export and before upload;
+- exact maximum `2,000,000,000` bytes;
+- record measured bytes and cap in build evidence;
+- fail if package exceeds the cap;
+- state explicitly that APK compliance does not prove installed-footprint compliance;
+- no production gameplay/control/balance/content changes;
+- keep all current Hunt-01 gates green.
 
-## New-chat completion standard
-
-A new chat is bootstrapped only after it has fetched live HEAD, read the current authority chain, inspected exact owning source/tests, reconciled contradictions, distinguished live documentation HEAD from the last source SHA actually proven by build evidence, and stated the bounded change plus protected behavior.
+A new chat is bootstrapped only after live state, exact owners and verified-source/live-HEAD distinction have been reconstructed.
