@@ -342,6 +342,120 @@ func _drive_real_status_lifecycle(
 		"post_lifecycle_rp": int(round6_resources.get("rp", -1)),
 	}
 
+func _drive_hunter_defeat_terminal(
+	cycle_index: int,
+	shell: Node,
+	reaction: Node,
+	anatomy: Node,
+	mudcrest_attack: Node
+) -> Dictionary:
+	var defense := mudcrest_attack.call("get_hunter_defense_runtime") as Node
+	var wound_contact := mudcrest_attack.call("get_wound_contact_runtime") as Node
+	var outcome := mudcrest_attack.call("get_encounter_outcome_runtime") as Node
+	var health: Node = null
+	var status_timing: Node = null
+	if defense != null:
+		health = defense.call("get_hunter_health_runtime") as Node
+	if wound_contact != null:
+		status_timing = wound_contact.call("get_status_timing_runtime") as Node
+	_cycle_check(cycle_index, "defeat-terminal owners exist", defense != null and wound_contact != null and health != null and status_timing != null and outcome != null)
+	if defense == null or wound_contact == null or health == null or status_timing == null or outcome == null:
+		return {}
+
+	var state: Dictionary = shell.call("get_current_state")
+	var health_before_prep: Dictionary = health.call("get_health_state") as Dictionary
+	_cycle_check(cycle_index, "defeat extension starts on preserved Round-6 Hunter", int(state.get("round_id", 0)) == 6 and String(state.get("current_actor_id", "")) == HUNTER_ID and not bool(shell.call("is_encounter_terminal")), str(state))
+	_cycle_check(cycle_index, "defeat extension starts from preserved 82 Health", int(health_before_prep.get("health", -1)) == 82, str(health_before_prep))
+	_cycle_check(cycle_index, "Hunter and living Mudcrest remain ACTIVE before defeat prep", String(outcome.call("get_participation_state", HUNTER_ID)) == "ACTIVE" and String(outcome.call("get_participation_state", MONSTER_ID)) == "ACTIVE")
+	_cycle_check(cycle_index, "only the Round-5 Bleeding periodic event exists before terminal prep", int(status_timing.call("get_periodic_event_count")) == 1)
+	var outcome_count_before_prep := int(outcome.call("get_resolution_count"))
+
+	# Test-only preparation shortens setup but cannot commit an encounter outcome.
+	# Six already-verified CLEAN health handoffs move 82 -> 10. The final zero-Health
+	# transition must still come from the real Round-6 production Head Sweep below.
+	for index in range(6):
+		var prep_handoff := {
+			"status": "PENDING_HUNTER_HEALTH_INJURY_RUNTIME",
+			"resolution_id": "%s:AUTORUN_DEFEAT_PREP:CLEAN:%02d" % [ENCOUNTER_ID, index],
+			"encounter_id": ENCOUNTER_ID,
+			"attacker_id": MONSTER_ID,
+			"defender_id": HUNTER_ID,
+			"attack_id": HEAD_SWEEP_ATTACK_ID,
+			"attack_profile": "GORE_SWEEP",
+			"damage_channels": ["PIERCING", "IMPACT"],
+			"contact_class": "HUNTER_BODY_CONTACT",
+			"hit_quality": "CLEAN",
+			"defense_outcome": "NO_ACTIVE_GUARD",
+			"residual_force_status": "HUNTER_BODY_CONTACT",
+			"final_damage_amount_status": "NOT_SELECTED",
+		}
+		var prep: Dictionary = health.call("resolve_health_handoff", prep_handoff)
+		_cycle_check(cycle_index, "defeat preparation CLEAN %d resolves" % index, bool(prep.get("success", false)), str(prep))
+	var prepared_health: Dictionary = health.call("get_health_state") as Dictionary
+	_cycle_check(cycle_index, "test-only defeat preparation stops at exactly 10 Health", int(prepared_health.get("health", -1)) == 10, str(prepared_health))
+	_cycle_check(cycle_index, "health preparation cannot commit outcome or terminal state", int(outcome.call("get_resolution_count")) == outcome_count_before_prep and not bool(shell.call("is_encounter_terminal")))
+	var dorsal_before: Dictionary = anatomy.call("get_target_state", DORSAL_TARGET_GROUP) as Dictionary
+
+	_cycle_check(cycle_index, "Round-6 Hunter end-turn delegates the real final Monster activation", bool(shell.call("end_player_turn")))
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "Round-6 Monster stays current while final reaction is open", int(state.get("round_id", 0)) == 6 and String(state.get("current_actor_id", "")) == MONSTER_ID, str(state))
+	var active_attack: Dictionary = mudcrest_attack.call("get_active_attack")
+	_cycle_check(cycle_index, "real final hostile transaction is Head Sweep action sequence 5", String(active_attack.get("attack_id", "")) == HEAD_SWEEP_ATTACK_ID and int(active_attack.get("action_sequence", -1)) == 5 and String(active_attack.get("state", "")) == "WAITING_REACTION_DECISION", str(active_attack))
+	var window: Dictionary = reaction.call("get_active_window")
+	var window_id := String(window.get("window_id", ""))
+	_cycle_check(cycle_index, "final Head Sweep opens the existing reaction window", String(window.get("source_action_id", "")) == HEAD_SWEEP_ATTACK_ID and not window_id.is_empty(), str(window))
+	var declined: Dictionary = reaction.call("decline_reaction", window_id)
+	_cycle_check(cycle_index, "final hostile contact uses the existing decline path", bool(declined.get("success", false)), str(declined))
+	await process_frame
+	await process_frame
+
+	var final_attack: Dictionary = mudcrest_attack.call("get_last_resolution")
+	var final_defense: Dictionary = final_attack.get("defense_consequence", {}) as Dictionary
+	var final_health: Dictionary = final_defense.get("health_injury_consequence", {}) as Dictionary
+	var defeat_handoff: Dictionary = final_health.get("defeat_handoff", {}) as Dictionary
+	var final_outcome: Dictionary = final_attack.get("encounter_outcome_consequence", {}) as Dictionary
+	_cycle_check(cycle_index, "Round-6 final Head Sweep is deterministic CLEAN", String(final_attack.get("attack_id", "")) == HEAD_SWEEP_ATTACK_ID and int(final_attack.get("round_id", -1)) == 6 and int(final_attack.get("action_sequence", -1)) == 5 and String(final_attack.get("hit_quality", "")) == "CLEAN" and int(final_attack.get("variance_sample", 99)) == 4, str(final_attack))
+	_cycle_check(cycle_index, "real hostile final contact supplies 10 -> 0 Health transition", bool(final_health.get("success", false)) and int(final_health.get("health_before", -1)) == 10 and int(final_health.get("health_after", -1)) == 0, str(final_health))
+	_cycle_check(cycle_index, "health owner emits the existing pending defeat handoff", String(defeat_handoff.get("status", "")) == "PENDING_HUNTER_DEFEAT_OUTCOME_RUNTIME" and String(defeat_handoff.get("actor_id", "")) == HUNTER_ID, str(defeat_handoff))
+	_cycle_check(cycle_index, "production outcome owner commits HUNTERS_DEFEATED", bool(final_outcome.get("success", false)) and String(final_outcome.get("status", "")) == "HUNTER_DEFEAT_OUTCOME_COMMITTED" and String(final_outcome.get("outcome", "")) == "HUNTERS_DEFEATED", str(final_outcome))
+	_cycle_check(cycle_index, "Hunter becomes DOWNED while living Mudcrest remains ACTIVE", String(outcome.call("get_participation_state", HUNTER_ID)) == "DOWNED" and String(outcome.call("get_participation_state", MONSTER_ID)) == "ACTIVE")
+
+	var terminal: Dictionary = shell.call("get_terminal_state") as Dictionary
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "terminal state commits from the same defeat resolution", bool(terminal.get("success", false)) and bool(terminal.get("encounter_terminal", false)) and String(terminal.get("outcome", "")) == "HUNTERS_DEFEATED" and String(terminal.get("source_resolution_id", "")) == String(defeat_handoff.get("resolution_id", "")), str(terminal))
+	_cycle_check(cycle_index, "terminal commit freezes current actor in Round 6", bool(state.get("encounter_terminal", false)) and int(state.get("round_id", 0)) == 6 and String(state.get("current_actor_id", "")) == "", str(state))
+	_cycle_check(cycle_index, "reaction and telegraph are closed before terminal freeze", (reaction.call("get_active_window") as Dictionary).is_empty() and not bool(mudcrest_attack.call("is_telegraph_visible")))
+	_cycle_check(cycle_index, "terminal attack does not execute a Round-6 Bleeding timing hook", int(status_timing.call("get_periodic_event_count")) == 1)
+
+	for _frame in range(4):
+		await process_frame
+	state = shell.call("get_current_state")
+	_cycle_check(cycle_index, "terminal scheduler cannot advance beyond Round 6", int(state.get("round_id", 0)) == 6 and String(state.get("current_actor_id", "")) == "" and bool(state.get("encounter_terminal", false)), str(state))
+	_cycle_check(cycle_index, "new Hunter turn commitment is rejected after terminal", not bool(shell.call("end_player_turn")))
+	_cycle_check(cycle_index, "external Monster completion is rejected after terminal", not bool(shell.call("complete_external_activation", MONSTER_ID, "AUTORUN_SHOULD_NOT_ADVANCE")))
+	_cycle_check(cycle_index, "Hunter defeat does not reset preserved Mudcrest anatomy", anatomy.call("get_target_state", DORSAL_TARGET_GROUP) == dorsal_before, str(anatomy.call("get_target_state", DORSAL_TARGET_GROUP)))
+
+	var outcome_count := int(outcome.call("get_resolution_count"))
+	var replay: Dictionary = outcome.call("resolve_hunter_defeat_handoff", defeat_handoff)
+	_cycle_check(cycle_index, "defeat handoff replay returns the stored result", replay == final_outcome, str(replay))
+	_cycle_check(cycle_index, "defeat outcome replay is idempotent", int(outcome.call("get_resolution_count")) == outcome_count and shell.call("get_terminal_state") == terminal)
+
+	return {
+		"final_attack_id": String(final_attack.get("attack_id", "")),
+		"final_round": int(final_attack.get("round_id", -1)),
+		"final_action_sequence": int(final_attack.get("action_sequence", -1)),
+		"final_hit_quality": String(final_attack.get("hit_quality", "")),
+		"final_variance_sample": int(final_attack.get("variance_sample", 99)),
+		"prepared_health": int(prepared_health.get("health", -1)),
+		"final_health": int(final_health.get("health_after", -1)),
+		"outcome": String(final_outcome.get("outcome", "")),
+		"hunter_participation": String(outcome.call("get_participation_state", HUNTER_ID)),
+		"monster_participation": String(outcome.call("get_participation_state", MONSTER_ID)),
+		"terminal_round": int(state.get("round_id", 0)),
+		"terminal_actor": String(state.get("current_actor_id", "")),
+		"periodic_event_count": int(status_timing.call("get_periodic_event_count")),
+	}
+
 func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	var world := packed.instantiate() as Node3D
 	_cycle_check(cycle_index, "production Region-01 instance created", world != null)
@@ -412,6 +526,8 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 	_cycle_check(cycle_index, "one real deterministic Hunter attack/anatomy exchange completes", not hunter_attack_signature.is_empty(), str(hunter_attack_signature))
 	var status_lifecycle_signature: Dictionary = await _drive_real_status_lifecycle(cycle_index, shell, reaction, mudcrest_attack)
 	_cycle_check(cycle_index, "one real hostile status lifecycle completes", not status_lifecycle_signature.is_empty(), str(status_lifecycle_signature))
+	var defeat_terminal_signature: Dictionary = await _drive_hunter_defeat_terminal(cycle_index, shell, reaction, anatomy, mudcrest_attack)
+	_cycle_check(cycle_index, "one real Hunter defeat terminal chain completes", not defeat_terminal_signature.is_empty(), str(defeat_terminal_signature))
 
 	var signature := {
 		"scenario": String(identity.get("scenario", "")),
@@ -430,12 +546,13 @@ func _run_cycle(packed: PackedScene, cycle_index: int) -> Dictionary:
 		"combat_exchange": exchange_signature,
 		"hunter_attack_exchange": hunter_attack_signature,
 		"real_status_lifecycle": status_lifecycle_signature,
+		"hunter_defeat_terminal": defeat_terminal_signature,
 	}
 	await _teardown_world(world, cycle_index)
 	return signature
 
 func _run() -> void:
-	print("Hunt-01 basic runtime autorun repeatability + Monster/Hunter combat exchanges + real status lifecycle regression")
+	print("Hunt-01 basic runtime autorun repeatability + Monster/Hunter combat exchanges + real status lifecycle + Hunter defeat terminal regression")
 	var packed := load("res://scenes/regions/region_01_hunt01_graybox.tscn") as PackedScene
 	_check("production Region-01 scene loads", packed != null)
 	if packed == null:
@@ -456,10 +573,12 @@ func _finish() -> void:
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_VERIFIED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_VERIFIED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_REAL_STATUS_LIFECYCLE_VERIFIED")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_DEFEAT_TERMINAL_VERIFIED")
 	else:
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_FAILED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_COMBAT_EXCHANGE_FAILED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_ATTACK_EXCHANGE_FAILED")
 		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_REAL_STATUS_LIFECYCLE_FAILED")
-	print("This gate verifies development/CI repeatability only. It does not select Bleeding periodic Health magnitude, implement player-facing autoplay, establish phone acceptance or verify sustained performance.")
+		print("Gate: HUNT01_BASIC_RUNTIME_AUTORUN_HUNTER_DEFEAT_TERMINAL_FAILED")
+	print("This gate verifies development/CI repeatability only. It does not select Bleeding periodic Health magnitude, implement player-facing autoplay, define forced recovery/respawn, establish phone acceptance or verify sustained performance.")
 	quit(0 if failures.is_empty() else 1)
