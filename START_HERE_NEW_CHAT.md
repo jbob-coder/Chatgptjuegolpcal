@@ -1,6 +1,6 @@
 # START HERE — Shooter RPG — New Chat Bootstrap
 
-Status: ACTIVE BOOTSTRAP / FOUNDATION 001 LOCKED / SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX 001 STATIC VERIFIED / ENGINE RUNTIME GATE NEXT
+Status: ACTIVE / FIRST-PERSON 115 HFOV / WALL-JUMP + MOBILE TOUCH HEADLESS VERIFIED
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -16,111 +16,73 @@ Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01 or inherited files/code/bu
 2. Fetch current branch HEAD and record it.
 3. Read, in order:
    1. `SHOOTER_RPG_PROJECT_IDENTITY.md`;
-   2. `README.md`;
-   3. `EVOLVE_ALIGNMENT.md`;
-   4. `PROJECT_HANDOFF.md`;
-   5. `START_HERE_NEW_CHAT.md`;
-   6. `DOCUMENTATION_INDEX.md`;
-   7. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
-   8. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-   9. `shooter_game/README.md`;
-   10. `shooter_game/docs/ARCHITECTURE.md`;
-   11. `shooter_game/docs/VERIFICATION.md`;
-   12. `shooter_game/scripts/player/player_controller.gd`;
-   13. `shooter_game/scenes/graybox/player_camera_graybox.tscn`;
-   14. exact tests/files for the bounded task.
-4. Ignore inherited previous-game design/source as authority unless a current Shooter RPG authority explicitly imports a specific piece.
-5. Re-check branch HEAD after reconstruction.
-6. Work one bounded Shooter RPG piece at a time.
-7. Never use old-game tests/builds as proof for Shooter RPG.
+   2. `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`;
+   3. `SHOOTER_RPG_PERSPECTIVE_DECISION_002.md`;
+   4. `SHOOTER_RPG_MOVEMENT_TECHNIQUES_001.md`;
+   5. `README.md`;
+   6. `EVOLVE_ALIGNMENT.md`;
+   7. `PROJECT_HANDOFF.md`;
+   8. `DOCUMENTATION_INDEX.md`;
+   9. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
+   10. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
+   11. `shooter_game/README.md`;
+   12. `shooter_game/docs/ARCHITECTURE.md`;
+   13. `shooter_game/docs/VERIFICATION.md`;
+   14. current player/mobile input source and tests.
+4. Treat `SHOOTER_RPG_PERSPECTIVE_DECISION_002.md` as superseding old third-person camera wording.
+5. Treat `SHOOTER_RPG_MOVEMENT_TECHNIQUES_001.md` as current movement-technique authority.
+6. Ignore inherited previous-game design/source unless a current Shooter RPG authority explicitly imports a specific piece.
+7. Work one bounded piece at a time and record actual verification evidence.
 
-## Authority order
+## Current authority summary
 
-1. current explicit user instruction;
-2. current Shooter-RPG-specific source/tests/build/device evidence;
-3. `SHOOTER_RPG_PROJECT_IDENTITY.md`;
-4. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md` for gameplay foundation;
-5. `SHOOTER_RPG_VISUAL_DIRECTION.md` for visual/presentation direction;
-6. `EVOLVE_ALIGNMENT.md` / `PROJECT_HANDOFF.md`;
-7. Shooter-RPG runtime-local docs under `shooter_game/`;
-8. inherited previous-project material = legacy/reference only unless explicitly imported.
-
-## Locked first-prototype foundation
-
-- single-player offline-first;
-- third-person over-the-shoulder;
-- real-time shooter loop;
-- first firearm = semi-automatic carbine;
-- reticle/hit geometry determines hits;
-- physical cover;
-- compact connected zones;
-- first hostile = placeholder ranged Sentry Automaton;
-- Vigor / Handling / Mobility RPG layer;
-- one permanent upgrade choice after first objective;
-- pixel-styled real 3D world;
-- low-resolution world render + separately readable UI;
+Current explicit direction:
+- standalone Shooter RPG;
+- internal 21+ mature creative target;
+- first-person perspective;
+- target horizontal FOV = 115 degrees;
+- camera-relative movement;
+- ground jump;
+- wall jump;
+- mobile left-side movement;
+- mobile right-side drag look;
+- dedicated mobile JUMP action;
+- pixel-styled real 3D;
 - Android landscape-first;
-- Godot `4.7.2-stable`;
-- independent runtime root `shooter_game/`.
+- Godot 4.7.2-stable.
 
-## Current implemented layer
+Foundation Design 001 remains active only where not superseded by newer Shooter RPG authorities.
 
-Player-Camera Graybox 001 currently includes:
-- small 3D collision graybox;
-- `CharacterBody3D` player;
-- gravity + camera-relative movement;
-- tunable movement acceleration/speed;
-- yaw/pitch + `SpringArm3D` + `Camera3D` hierarchy;
-- player collider exclusion from the spring arm;
-- desktop W/A/S/D + mouse debug mappings;
-- boot connection to the graybox;
-- static and prepared Godot smoke verification.
+## Current runtime evidence
 
-It does NOT yet include shooter behavior, enemy AI, mobile touch UI, RPG systems, saves or final pixel rendering.
+Most recent verified runtime source SHA:
+`393ff872f2623f98f07c6216d6d29dc5ed64e5fb`.
 
-## Verification boundary
+GitHub Actions:
+- run `35056976187`;
+- job `104669095724`;
+- result: SUCCESS.
 
-Executed:
-- scaffold static preflight → PASS;
-- player-camera static preflight → PASS.
+Verified in Godot 4.7.2 headless execution:
+- project import/parse;
+- scaffold smoke;
+- first-person camera/movement smoke;
+- mobile-touch smoke.
 
-Not executed:
-- Godot 4.7.2 parse/import;
-- scaffold headless smoke;
-- player-camera headless smoke;
-- interactive runtime;
-- Android export;
-- phone runtime;
-- performance/visual-quality acceptance.
+Static preflights also passed.
 
-Do not infer engine/runtime success from the static checks.
+## Verification limits
 
-## Visual reference
-
-Primary original PNG:
-- `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
-- Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
-
-Working JPEG:
-- `Shooter RPG - Pixel Visual Reference.jpg`
-- Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
-
-The image is visual inspiration, not canonical lore.
-
-## Development law
-
-`READ SHOOTER STATE → VERIFY → ONE BOUNDED PIECE → IMPLEMENT → TEST → RECORD → CONTINUE`.
-
-Do not stack new runtime systems on top of an unparsed layer when a real engine verification gate is pending.
+Still unverified:
+- Android export/install;
+- real-phone input ergonomics;
+- wall-jump feel;
+- 115-HFOV comfort;
+- visual-quality acceptance;
+- performance/frame pacing.
 
 ## Current bounded piece
 
-`SHOOTER_RPG_GRAYBOX_RUNTIME_GATE_001`.
+`SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`.
 
-Use Godot 4.7.2-stable to parse/import/start the project and execute:
-- `res://tests/scaffold_smoke.gd`;
-- `res://tests/player_camera_smoke.gd`.
-
-Fix only same-layer parse/resource/runtime ownership defects. If graphical execution is available, inspect movement/gravity/camera collision without treating tuning as final. Do not add mobile touch or shooting until this runtime gate passes.
-
-Current environment blocker: no executable Godot 4.7.2 runtime is available here.
+Export/install the current graybox on Android and validate first-person move + look + ground jump + wall jump + 115 HFOV + safe-area layout. Tune only what real device evidence shows is wrong before implementing firearm behavior.
