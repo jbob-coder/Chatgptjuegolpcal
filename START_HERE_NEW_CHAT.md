@@ -1,6 +1,6 @@
 # START HERE — Shooter RPG — New Chat Bootstrap
 
-Status: ACTIVE BOOTSTRAP / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD NEXT
+Status: ACTIVE BOOTSTRAP / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -23,8 +23,11 @@ Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01 or inherited files/code/bu
    6. `DOCUMENTATION_INDEX.md`;
    7. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
    8. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-   9. newest Shooter-RPG-specific handoff;
-   10. exact Shooter-RPG-specific files for the bounded task.
+   9. `shooter_game/README.md`;
+   10. `shooter_game/docs/ARCHITECTURE.md`;
+   11. `shooter_game/docs/VERIFICATION.md`;
+   12. newest Shooter-RPG-specific handoff;
+   13. exact Shooter-RPG-specific files for the bounded task.
 4. Ignore inherited previous-game design/source as authority unless a current Shooter RPG authority explicitly imports a specific piece.
 5. Re-check branch HEAD after reconstruction.
 6. Work one bounded Shooter RPG piece at a time.
@@ -38,7 +41,7 @@ Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01 or inherited files/code/bu
 4. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md` for gameplay foundation;
 5. `SHOOTER_RPG_VISUAL_DIRECTION.md` for visual/presentation direction;
 6. `EVOLVE_ALIGNMENT.md` / `PROJECT_HANDOFF.md`;
-7. Shooter-RPG-specific package/system docs created after the standalone reset;
+7. Shooter-RPG-specific runtime-local docs under `shooter_game/`;
 8. inherited previous-project material = legacy/reference only unless explicitly imported.
 
 ## Locked first-prototype foundation
@@ -57,9 +60,21 @@ Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01 or inherited files/code/bu
 - low-resolution world render + separately readable UI;
 - Android landscape-first;
 - Godot `4.7.2-stable`;
-- independent implementation root `shooter_game/`.
+- independent runtime root `shooter_game/`.
 
 Prototype-tuned values such as camera FOV/distance, movement speed, recoil, damage, enemy timing, pixel resolution and exact control positions are not final.
+
+## Current runtime scaffold
+
+`shooter_game/` exists and currently contains only the standalone project scaffold, boot scene/script, project contract, semantic input actions, tests/docs and version ownership.
+
+Executed verification:
+`python shooter_game/tests/scaffold_static_preflight.py`
+
+Observed:
+`SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
+
+Godot headless smoke exists but has not yet been executed. Android, phone, visual-quality and performance verification remain open.
 
 ## Visual reference
 
@@ -84,8 +99,10 @@ Do not build the entire vertical slice in one uncontrolled rewrite.
 `STANDALONE_PROJECT_IDENTITY = RECORDED`
 `PIXEL_REFERENCE = SAVED`
 `FOUNDATION_DESIGN_001 = LOCKED`
-`SHOOTER_GAME_PROJECT_ROOT = NOT_CREATED`
-`SOURCE_IMPLEMENTATION = NOT_STARTED`
+`SHOOTER_GAME_PROJECT_ROOT = CREATED`
+`SCAFFOLD_STATIC_VERIFIED = YES`
+`SCAFFOLD_HEADLESS_VERIFIED = NO`
+`SOURCE_IMPLEMENTATION = SCAFFOLD_ONLY`
 `BUILD_VERIFIED = NO`
 `PHONE_RUNTIME_VERIFIED = NO`
 `VISUAL_QUALITY_VERIFIED = NO`
@@ -93,6 +110,6 @@ Do not build the entire vertical slice in one uncontrolled rewrite.
 
 ## Current bounded piece
 
-`SHOOTER_RPG_PROJECT_SCAFFOLD_001`.
+`SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`.
 
-Create the independent `shooter_game/` Godot 4.7.2 project skeleton, minimal boot scene, first-slice input ownership, Shooter-RPG-specific test/docs structure and sanity verification. Do not import old-game runtime code or implement the complete combat/world/progression loop in this scaffold pass.
+Create one tiny 3D graybox scene, one `CharacterBody3D` player with gravity and camera-relative locomotion, one third-person pivot/spring-arm camera rig, and desktop keyboard/mouse debug bindings through the existing semantic input actions. Do not add shooting, enemies, RPG progression, mobile joystick UI or final pixel rendering in this slice.
