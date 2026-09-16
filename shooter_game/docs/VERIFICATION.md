@@ -1,70 +1,80 @@
 # Shooter RPG — Verification Record
 
-Status: SCAFFOLD 001 + PLAYER-CAMERA GRAYBOX 001 HEADLESS VERIFIED
+Status: FIRST-PERSON 115 HFOV / WALL-JUMP + MOBILE TOUCH HEADLESS VERIFIED
 Last reconciled: 2026-09-16
 
-## Executed static verification
-
-### Scaffold preflight
-`python shooter_game/tests/scaffold_static_preflight.py`
-
-Observed:
-`SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
-
-### Player-camera preflight
-`python shooter_game/tests/player_camera_static_preflight.py`
-
-Observed:
-`SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS`
-
-## Executed Godot 4.7.2 runtime gate
-
-GitHub Actions workflow:
-`.github/workflows/shooter-rpg-graybox-runtime.yml`
+## Current verified runtime slice
 
 Verified source SHA:
-`9d17874fd1c6f30ddff8cb9e870af33e3f297925`
+`393ff872f2623f98f07c6216d6d29dc5ed64e5fb`
 
-Workflow run:
-`35056360247`
+Workflow:
+`.github/workflows/shooter-rpg-graybox-runtime.yml`
+
+GitHub Actions run:
+`35056976187`
 
 Job:
-`104667287029`
+`104669095724`
 
 Result: **SUCCESS**.
 
-Observed successful steps:
-- static preflights;
-- official Godot 4.7.2-stable download + SHA-256 verification;
+Successful steps:
+- scaffold static preflight;
+- first-person player-camera/movement static preflight;
+- mobile-touch static preflight;
+- official Godot 4.7.2-stable download + SHA-256 check;
 - Godot version check;
 - project import/parse;
 - scaffold headless smoke;
-- player-camera headless smoke.
+- first-person camera/movement headless smoke;
+- mobile-touch headless smoke.
 
-Commands represented by the gate include:
-- `godot --headless --editor --path shooter_game --quit-after 2`;
-- `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`;
-- `godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`.
+## Static markers
 
-Therefore:
-- scaffold static: VERIFIED;
-- player-camera static: VERIFIED;
-- Godot project parse/import: VERIFIED;
-- scaffold headless smoke: VERIFIED;
-- player-camera headless smoke: VERIFIED.
+Expected current markers include:
+- `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=11 version=0.0.0-scaffold.001`;
+- `SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS perspective=first_person hfov=115 wall_jump=yes`;
+- `SHOOTER_RPG_MOBILE_TOUCH_STATIC_PASS move_look_jump=yes`.
 
-## Still NOT verified
+## Headless markers
+
+Expected current markers include:
+- `SHOOTER_RPG_SCAFFOLD_SMOKE_PASS actions=11`;
+- `SHOOTER_RPG_PLAYER_CAMERA_SMOKE_PASS perspective=first_person hfov=115 wall_jump=yes`;
+- `SHOOTER_RPG_MOBILE_TOUCH_SMOKE_PASS move_look_jump=yes`.
+
+## What this proves
+
+Current evidence proves that Godot 4.7.2 can parse/import the project and instantiate/check the current first-person movement/mobile-input foundation under headless execution.
+
+It also verifies the configured presence/ownership of:
+- first-person camera hierarchy;
+- 115-HFOV target data;
+- jump semantic action;
+- wall-jump tuning/state path;
+- mobile movement/look plumbing;
+- mobile JUMP semantic button.
+
+## What this does NOT prove
 
 Headless success does not prove:
-- interactive movement feel;
-- mouse/touch sensitivity quality;
-- spring-arm visual behavior under real play;
-- phone runtime;
-- Android export/install;
-- mobile touch ergonomics;
-- final visual quality;
-- sustained frame pacing/performance.
+- wall jump feels good under real play;
+- 115 horizontal FOV is comfortable on the target phone;
+- touch sensitivity is correct;
+- move/look/jump are ergonomically reachable simultaneously;
+- Android export/install succeeds;
+- frame pacing/performance;
+- final pixel visual quality;
+- camera motion sickness/accessibility comfort.
 
-## Next verification target
+## Next verification gate
 
-`SHOOTER_RPG_MOBILE_TOUCH_INPUT_001` should add touch-input plumbing through the same gameplay input contract, then receive its own static/headless checks before Android/device acceptance is claimed.
+`SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`:
+- export current slice to Android;
+- install on real hardware;
+- verify launch/orientation;
+- test move + look + jump/wall jump;
+- inspect safe areas/control overlap;
+- evaluate 115 HFOV;
+- capture only evidence-backed tuning changes.
