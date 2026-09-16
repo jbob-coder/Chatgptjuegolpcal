@@ -1,122 +1,105 @@
 # PROJECT HANDOFF — Shooter RPG
 
-Status: STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: STANDALONE GAME / FOUNDATION 001 LOCKED / SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX 001 STATIC VERIFIED / ENGINE RUNTIME GATE NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
-CURRENT_OBJECTIVE: build Shooter RPG as an independent third-person pixel shooter RPG, proving the foundation in small executable slices. The standalone Godot project scaffold now exists; the next bounded piece is the first player/camera graybox.
+CURRENT_OBJECTIVE: prove the independent third-person Shooter RPG foundation in small layers. Scaffold 001 and the first player-camera graybox are now statically verified; the next required layer is real Godot 4.7.2 parse/headless/runtime validation before adding mobile touch or shooting.
 
-CURRENT_STATE: Shooter RPG is isolated from previous games by explicit authority. Foundation Design 001 is locked. A new independent runtime root now exists at `shooter_game/` with its own Godot project, semantic input actions, boot scene, project contract, tests, docs and version marker. No combat, enemy AI, progression, save system or final pixel pipeline is implemented yet.
+CURRENT_STATE: all Shooter RPG runtime work lives under `shooter_game/`. The project owns its own Godot config, boot path, semantic actions, project contract, tests and documentation. Player-Camera Graybox 001 adds one `CharacterBody3D` player with gravity/camera-relative movement, a yaw/pitch/spring-arm third-person camera rig, simple collision geometry and desktop-only debug mappings. No previous-game runtime code is an implementation dependency.
 
-LAST_VERIFIED_STATE: Scaffold 001 static preflight executed successfully. Godot headless/runtime/build/device verification remains unexecuted.
+LAST_VERIFIED_STATE:
+- static scaffold preflight PASS;
+- player-camera static preflight PASS;
+- Godot/headless/Android/phone/performance verification NOT EXECUTED.
 
 COMPLETED_WORK:
-- created and isolated branch/project identity for Shooter RPG;
-- saved original PNG and working JPEG visual references to Google Drive;
+- recorded standalone/no-inheritance identity;
+- saved original PNG + working JPEG visual references to Drive;
 - locked `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
-- selected third-person over-shoulder real-time shooter presentation;
-- selected semi-automatic carbine as first weapon;
-- selected deterministic reticle-based hit behavior;
-- selected compact connected-zone structure;
-- selected placeholder ranged Sentry Automaton first enemy;
-- selected shallow Vigor / Handling / Mobility progression;
-- selected low-resolution 3D pixel world rendering with separate readable UI;
-- independently selected Godot 4.7.2-stable;
-- created `shooter_game/project.godot`;
-- created minimal `shooter_game/scenes/boot/boot.tscn` and boot script;
-- created project identity/input contract;
-- reserved ten semantic first-slice input actions;
-- created `shooter_game/tests/scaffold_static_preflight.py` and Godot headless smoke;
-- created runtime-local README/architecture/verification docs;
-- added generated-file `.gitignore` and version marker `0.0.0-scaffold.001`.
+- selected Godot 4.7.2-stable and independent `shooter_game/` root;
+- created Scaffold 001 project/config/input/boot/test/docs ownership;
+- created Player-Camera Graybox 001 scene;
+- created player controller with gravity, camera-relative movement and tunable acceleration/speed;
+- created third-person camera yaw/pitch + `SpringArm3D` + `Camera3D` hierarchy;
+- excluded the player collider from spring-arm collision;
+- created desktop debug input mappings without changing the semantic input contract;
+- routed boot into the active graybox;
+- created `player_camera_static_preflight.py`;
+- created prepared `player_camera_smoke.gd` for later Godot execution;
+- corrected graybox scene resource `load_steps` after read-back review.
 
-IN_PROGRESS: close Scaffold 001 documentation and promote the verified scaffold into the active `shooter-rpg` branch.
+IN_PROGRESS: close documentation for Graybox 001 and fast-forward it into `shooter-rpg` after final diff review.
 
-NEXT_ACTION: `SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`.
+NEXT_ACTION: `SHOOTER_RPG_GRAYBOX_RUNTIME_GATE_001`.
 
-NEXT SLICE BOUNDARY:
-- one tiny graybox 3D test scene;
-- one `CharacterBody3D` player;
-- gravity + camera-relative horizontal locomotion;
-- third-person camera pivot + spring-arm/boom collision handling;
-- desktop keyboard/mouse debug bindings using existing semantic actions;
-- provisional camera/movement tuning values clearly isolated;
-- no shooting, enemy AI, RPG progression, mobile joystick UI or final pixel-render pipeline yet.
+RUNTIME GATE BOUNDARY:
+- Godot 4.7.2 parse/import/startup;
+- execute scaffold and player-camera headless smokes;
+- fix only same-layer parse/resource/runtime ownership defects;
+- optionally inspect desktop movement/camera behavior if graphical runtime is available;
+- do not add mobile touch, shooting, enemy AI or RPG progression until the gate passes.
 
-BLOCKERS: no design blocker. Runtime verification quality is limited until Godot 4.7.2 can actually be executed in an available environment.
+BLOCKERS: the current execution environment does not contain Godot 4.7.2. Attempts to obtain the official Linux editor binary were blocked by the environment's network/download restrictions. This blocks real engine verification here, not the design/source record.
 
-OPEN_QUESTIONS THAT MAY AFFECT LATER SLICES:
+OPEN_QUESTIONS FOR LATER PROTOTYPE TUNING:
 - final camera FOV/distance/pitch/shoulder offset;
-- exact movement/dodge values;
-- exact carbine recoil/spread/damage/reload values;
-- enemy detection/fire timing;
-- final low-resolution world viewport dimensions across phone aspect ratios;
-- final Android package ID;
-- final setting/location/enemy names;
-- final target-phone performance budget.
+- movement/dodge values;
+- carbine recoil/spread/damage/reload;
+- enemy timing;
+- internal pixel render resolution;
+- exact touch layout;
+- final Android package ID and target-device budgets.
 
 IMPORTANT_DECISIONS:
-- single-player offline-first foundation;
-- third-person over-shoulder camera;
-- physical world traversal;
-- real-time shooting;
-- good aim is not invalidated by invisible RPG accuracy dice;
-- physical cover instead of sticky cover;
-- one semi-auto carbine first;
-- one ranged Sentry Automaton first;
-- RPG growth remains bounded so shooter skill remains relevant;
-- compact connected world, not massive open world;
-- no inherited prior-game runtime/build evidence;
-- Godot 4.7.2-stable baseline;
-- all runtime work lives under `shooter_game/`.
+- single-player offline-first;
+- third-person over-shoulder;
+- real-time shooting later;
+- visibly correct aim must not be invalidated by hidden RPG miss rolls;
+- physical cover, no sticky-cover foundation;
+- compact connected world;
+- semi-auto carbine first;
+- placeholder Sentry Automaton first hostile;
+- bounded Vigor / Handling / Mobility progression;
+- pixel-styled real 3D;
+- Android landscape-first;
+- old-game runtime/build evidence never counts as Shooter RPG verification.
 
-KNOWN_RISKS:
-- overbuilding before control feel is proven;
-- mobile aim/fire ergonomics becoming cluttered;
-- pixel treatment looking like a filter rather than authored pixel 3D;
-- low-resolution rendering reducing distant-threat readability;
-- third-person camera collision/occlusion;
-- RPG stat growth creating bullet-sponge balance;
-- inherited repository files misleading future work;
-- static verification catching structure but not engine parse/runtime behavior.
-
-FILES CHANGED / CREATED IN SCAFFOLD 001:
-- `shooter_game/project.godot`;
-- `shooter_game/.gitignore`;
-- `shooter_game/VERSION`;
-- `shooter_game/README.md`;
+FILES ADDED/CHANGED IN PLAYER-CAMERA GRAYBOX 001:
+- `shooter_game/scripts/input/debug_input_bindings.gd`;
+- `shooter_game/scripts/player/player_controller.gd`;
+- `shooter_game/scenes/graybox/player_camera_graybox.tscn`;
 - `shooter_game/scenes/boot/boot.tscn`;
 - `shooter_game/scripts/boot/boot.gd`;
-- `shooter_game/scripts/core/project_contract.gd`;
+- `shooter_game/tests/player_camera_static_preflight.py`;
+- `shooter_game/tests/player_camera_smoke.gd`;
 - `shooter_game/tests/scaffold_static_preflight.py`;
-- `shooter_game/tests/scaffold_smoke.gd`;
+- `shooter_game/README.md`;
 - `shooter_game/docs/ARCHITECTURE.md`;
 - `shooter_game/docs/VERIFICATION.md`;
-- root continuity docs updated for current state.
+- root continuity docs.
 
-TESTS_RUN / TEST_RESULTS:
-- `python shooter_game/tests/scaffold_static_preflight.py` → PASS: `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`.
-- Godot 4.7.2 headless smoke → NOT EXECUTED.
-- Android export → NOT EXECUTED.
-- phone runtime → NOT EXECUTED.
-- performance → NOT EXECUTED.
+TESTS_RUN / RESULTS:
+- `python shooter_game/tests/scaffold_static_preflight.py` → PASS, `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`;
+- `python shooter_game/tests/player_camera_static_preflight.py` → PASS, `SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS`;
+- `godot --headless ... scaffold_smoke.gd` → NOT EXECUTED;
+- `godot --headless ... player_camera_smoke.gd` → NOT EXECUTED;
+- Android/phone/performance → NOT EXECUTED.
 
-EXTERNAL_REFERENCE:
-- original PNG Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
-- working JPEG Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`;
-- official Godot release archive confirmed 4.7.2-stable as current stable during this pass.
-
-ASSUMPTIONS: selected pixel reference remains the visual anchor; working world/enemy names are replaceable and not final lore.
-
-UNKNOWNS: engine parse/runtime of the newly written scaffold, phone feel, final visuals, performance and Android packaging remain unverified.
+KNOWN_RISKS:
+- GDScript/scene parse remains unproven until engine execution;
+- third-person camera collision/feel is not statically verifiable;
+- stacking more runtime layers before this gate could multiply defects;
+- pixel treatment and touch controls remain completely unverified.
 
 READ_FIRST_NEXT_SLICE:
 1. `SHOOTER_RPG_PROJECT_IDENTITY.md`;
 2. `EVOLVE_ALIGNMENT.md`;
 3. `PROJECT_HANDOFF.md`;
 4. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
-5. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-6. `shooter_game/README.md`;
-7. `shooter_game/docs/ARCHITECTURE.md`;
-8. `shooter_game/docs/VERIFICATION.md`;
-9. exact files created for the player-camera graybox.
+5. `shooter_game/README.md`;
+6. `shooter_game/docs/ARCHITECTURE.md`;
+7. `shooter_game/docs/VERIFICATION.md`;
+8. `shooter_game/scripts/player/player_controller.gd`;
+9. `shooter_game/scenes/graybox/player_camera_graybox.tscn`;
+10. both Godot smoke tests.
