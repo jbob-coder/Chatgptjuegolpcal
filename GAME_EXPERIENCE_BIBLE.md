@@ -1,445 +1,397 @@
 # Unnamed Hunt RPG — Game Experience Bible
 
-Status: DESIGN CONTRACT / NO IMPLEMENTATION
-Last reconciled: 2026-09-02
+Status: ACTIVE PLAYER-EXPERIENCE CONTRACT / SHOOTER-RPG PIXEL DIRECTION
+Last reconciled: 2026-09-15
+Branch: `shooter-rpg`
+
+## Authority
+
+This file is reconciled with `SHOOTER_RPG_VISUAL_DIRECTION.md`, which is the current visual/presentation authority.
+
+When older documents still describe aerial exploration or mandatory first-person combat, those presentation assumptions are superseded on this branch.
 
 ## Purpose
 
-Define how the game should feel from the instant it launches through exploration, combat, harvesting and return to the hub. This is the player-facing layer above the mechanical and technical documents.
+Define how the game should feel from launch through settlement life, exploration, hunting, combat, harvesting, return, relationships and progression.
 
-The goal is to prevent a technically correct game from becoming visually incoherent, menu-heavy, slow, or emotionally flat.
+The objective is a game that feels physically explorable, visually distinctive, consequential and understandable on a phone without becoming an enormous open-world burden.
 
 # 1. Experience statement
 
-The player should feel like a hunter entering a beautiful but dangerous living wilderness, reading physical evidence, choosing how to approach enormous creatures, fighting them tactically at close range, and carrying the physical consequences of that fight into harvesting and progression.
+The player should feel like a hunter living inside a dangerous frontier world where settlements survive through cooperation, hunting, mining and control of energy-bearing crystals.
+
+The game should combine:
+- third-person physical exploration;
+- readable pixel-styled presentation;
+- large monsters that exist in the world rather than only in battle screens;
+- body-part-focused combat;
+- meaningful harvesting;
+- NPC relationships and memory;
+- time, schedules and aging;
+- settlement/faction consequences;
+- earned progression rather than runaway stat inflation.
 
 The game should not feel like:
-- a mobile menu game with a decorative map;
-- a Paper Mario imitation;
-- a real-time FPS paused between attacks;
-- a loot machine where anatomy does not matter;
-- a giant simulation spreadsheet hidden behind combat.
+- a menu game with decorative travel buttons;
+- a disconnected combat minigame;
+- a giant empty open world;
+- a stat treadmill where level alone trivializes monsters;
+- a simulation spreadsheet the player must micromanage;
+- smooth generic 3D with a cosmetic pixel filter pasted on top.
 
-The intended identity is:
-**an illustrated hunting world brought to life.**
+Core identity:
+
+**a living third-person pixel hunting RPG with persistent consequences.**
 
 # 2. Boot and introduction flow
 
-Target player flow:
+Target flow:
 
-`APP LAUNCH → SHORT STUDIO/GAME MARK → TITLE SCENE → CONTINUE / NEW HUNT / SETTINGS → INTRODUCTION → FIRST HUB/OUTPOST → FIRST TRAINING/CONTRACT → FIRST REGION`
+`APP LAUNCH → TITLE → CONTINUE / NEW GAME / SETTINGS → FIRST SETTLEMENT → BASIC MOVEMENT/INTERACTION → FIRST TASK → LEAVE SETTLEMENT PHYSICALLY → TRACK/OBSERVE → FIRST ENCOUNTER → BODY-PART COMBAT → HARVEST → RETURN → CONSEQUENCE/UPGRADE`
 
-## 2.1 Launch
-
-Launch should be fast and restrained.
-
-Avoid:
-- long unskippable logos;
-- mandatory network waits for an offline game;
-- heavy cinematic loading before the player can reach the menu.
-
-Performance target must later be measured on the actual phone.
-
-## 2.2 Title screen
-
-The title screen should communicate the game's world immediately.
-
-Candidate composition:
-- distant wilderness panorama or living diorama scene;
-- one large creature silhouette or signs of a creature rather than constant action;
-- hunter equipment/camp elements in foreground;
-- ambient environmental movement;
-- understated title treatment;
-- music establishing the frontier/wilderness tone.
-
-Menu:
-- Continue;
-- New Game;
-- Load/Profiles if supported;
-- Settings;
-- Credits;
-- Admin/Developer entry only in development builds or behind an explicit developer mode.
-
-## 2.3 New-game introduction
-
-The introduction should teach the world through play rather than dumping lore.
-
-Preferred structure:
-1. establish the hunter/player role;
-2. establish the settlement/hunting culture;
-3. introduce basic movement and interaction;
-4. give a simple assignment or disturbance;
-5. teach physical tracks/signs;
-6. reveal the first monster from the aerial perspective;
-7. enter a controlled first tactical encounter;
-8. teach target selection and one defensive/movement decision;
-9. show visible anatomy consequence;
-10. harvest one meaningful material;
-11. return and craft/repair/upgrade something useful.
-
-This teaches the complete loop early.
-
-Do not expose every combat mechanic in the tutorial.
+The first session should teach the complete loop without exposing every system.
 
 # 3. Camera language
 
-## Exploration camera
+## Core camera
 
-Current target:
-- angled aerial overview;
-- roughly 40–50° downward angle;
-- player and nearby monster silhouettes readable on a phone;
-- enough forward visibility to read terrain and evidence;
-- limited camera freedom rather than unrestricted orbit by default;
-- projection to be proven with orthographic vs long-lens perspective tests.
+The selected core presentation is third-person behind the character.
 
-The camera should create a dimensional/diorama overview feeling without paper-craft visuals.
+Goals:
+- player character remains visible;
+- forward terrain is readable;
+- monsters can feel large;
+- settlement streets and buildings feel physical;
+- camera supports exploration and combat without a perspective swap;
+- right-side mobile look input remains useful and responsive.
 
-## Combat camera
+Exact camera distance, pitch, FOV, collision behavior and shoulder offset remain prototype-tunable.
 
-- first-person;
-- grounded around hunter eye level;
-- tactical position changes move the viewpoint physically;
-- looking can inspect, but looking alone does not change tactical position;
-- monster framing prioritizes anatomy and attack telegraphs;
-- camera motion remains comfortable on phone.
+## No mandatory perspective swap
 
-## Encounter transition
+The game should not normally transition from aerial exploration into first-person combat.
 
-Signature sequence:
-`AERIAL WORLD → THREAT/ENGAGEMENT CONFIRMED → CAMERA DESCENDS/APPROACHES HUNTER → FIRST-PERSON VIEW SETTLES → COMBAT HUD APPEARS → TURN STATE BEGINS`
+Combat happens in the same world and perspective family so terrain, approach direction, monster position and environmental context remain continuous.
 
-The same environment and monster must visually survive the transition.
+# 4. Pixel visual identity
 
-# 4. World scale
+The selected visual target is pixel-styled third-person 3D.
 
-The world should feel larger than the currently loaded space.
+Desired feeling:
+- crisp readable pixels;
+- strong silhouettes;
+- warm practical settlement detail;
+- lush but controlled wilderness;
+- large readable monster forms;
+- cohesive pixel UI;
+- atmospheric depth without photoreal rendering cost.
 
-Use region-based design:
-- compact but dense playable hunting regions;
-- surrounding inaccessible/distant geography extends the visual horizon;
-- regions connect through paths, travel transitions or world map depending on later design;
-- settlements/hubs are separate spaces or dedicated region areas;
-- do not render the whole future world at once.
+The visual reference saved in Google Drive is the current composition/style anchor. It is a concept reference, not proof of implementation and not automatic canon for visible names/text.
 
-Scale priorities:
-1. readable traversal;
-2. meaningful hunting distance;
-3. enough space for monster territories and tracking;
-4. combat-capable terrain;
-5. streaming/performance safety.
+# 5. World scale and traversal
 
-Avoid huge empty terrain created only to claim map size.
+The player physically walks through local world spaces.
 
-# 5. Environmental composition
+Do not make ordinary exploration a sequence of location buttons.
 
-A region is built in layers.
-
-## Layer A — gameplay structure
-- traversable ground;
-- cliffs/water/blockers;
-- encounter-capable areas;
-- cover;
+Use world compression:
+- connected routes;
+- short but meaningful travel distances;
+- landmarks;
+- hunting signs;
+- gatherables;
+- NPCs/events;
 - hazards;
-- monster paths/territories;
-- camps;
-- exits;
-- important gathering nodes.
+- optional side paths;
+- no large stretches of empty terrain merely to imply scale.
 
-## Layer B — navigation identity
-- landmark trees;
-- rock formations;
-- ruins;
-- rivers;
-- ridgelines;
-- nests;
-- constructed markers;
-- distinctive vegetation clusters.
+The world may be streamed in chunks/regions while appearing coherent to the player.
 
-## Layer C — hunting information
+Fast travel, if added, is an earned convenience after discovery rather than a replacement for exploration.
+
+# 6. Settlement experience
+
+Settlements are playable social/survival spaces.
+
+They should contain a small number of strong locations such as:
+- smith/crafter;
+- market/supply area;
+- clinic/healer;
+- hunter/contract authority;
+- mining/licensing authority where relevant;
+- homes/households;
+- gate/watch structures;
+- processing/harvest area.
+
+NPCs should visibly use the space according to schedules and events.
+
+A compact settlement with meaningful activity is preferred over a giant empty city.
+
+# 7. Exploration experience
+
+Exploration should involve:
+- movement through the world;
+- observing terrain;
+- finding tracks/signs;
+- hearing/seeing distant threats;
+- discovering routes and resources;
+- deciding whether to approach, avoid or investigate;
+- encountering NPCs outside settlements;
+- making choices that cost time.
+
+The player should sometimes detect a monster long before combat through:
 - tracks;
-- scratches;
-- broken plants;
-- dung/shedding;
-- blood;
+- damaged vegetation;
+- carcasses;
 - calls/sounds;
-- feeding remains;
-- territorial markings.
+- crystal traces;
+- territorial marks;
+- NPC warnings;
+- distant silhouettes.
 
-## Layer D — atmosphere
-- small vegetation;
-- insects;
-- particles;
-- distant wildlife;
-- decorative debris;
-- subtle environmental motion.
+# 8. Combat experience
 
-If performance is constrained, reduce Layer D before A–C.
+Combat remains spatial and body-part focused in third person.
 
-# 6. Visual theme
+The player should be able to make decisions such as:
+- move/reposition;
+- attack selected anatomy;
+- defend/block/react;
+- dodge/evade where supported;
+- use cover/terrain;
+- use item/tool;
+- observe/inspect;
+- withdraw/escape.
 
-Current accepted direction:
-**grounded stylized frontier wilderness fantasy.**
+The terrain used before combat should still matter during combat.
 
-Not photorealistic.
-Not childish.
-Not paper/cardboard.
-Not maximal grimdark.
+A rock, bridge, slope, ruin, tree line or narrow route can become tactical geometry.
 
-Materials:
-- wood;
-- stone;
-- canvas;
-- rope;
-- leather;
-- iron/steel;
-- ceramic;
-- bone;
-- shell;
-- hide;
-- monster-derived crafted materials.
+Body-part targeting is contextual. Avoid permanently outlining every body part.
 
-Nature should frequently appear stronger/larger than human construction.
+# 9. Monster presentation
 
-# 7. Character readability
+Monsters are primary hero assets.
 
-From aerial view:
-- hunter silhouette must remain recognizable;
-- weapons may be slightly exaggerated for readability;
-- movement animations should be clear at small screen size;
-- clothing/material color separation should survive distance.
+They should communicate:
+- mass;
+- locomotion;
+- attack anatomy;
+- injury state;
+- ecological role;
+- possible harvest structures;
+- crystal/mutation influence when relevant.
 
-From combat view:
-- player body/hands/weapon presentation should communicate current equipment where feasible;
-- weapon should not obscure most of the monster;
-- first-person presentation should prioritize target visibility over cinematic weapon size.
+Damage should remain visually persistent through the hunt.
 
-# 8. Monster presentation
+Breaks/severs must match authoritative anatomy state.
 
-Monsters are the visual centerpiece.
+# 10. NPC / SIM experience
 
-Design priorities:
-- recognizable silhouette from aerial view;
-- major combat anatomy visible in first person;
-- readable anticipation poses;
-- believable scale;
-- clear locomotion identity;
-- body-part damage visibly changes appearance/function;
-- damaged states persist through the hunt.
+NPCs should feel persistent without requiring generative AI.
 
-A monster should look like the same individual in aerial exploration and first-person combat.
+Important characters may remember meaningful events and react later.
 
-# 9. Music structure
+Relationships should affect:
+- dialogue;
+- willingness to help;
+- information shared;
+- access to services/resources;
+- future scenes;
+- faction/settlement consequences;
+- companionship/rivalry;
+- long-term family/community outcomes.
 
-Music should support hunting state rather than play one constant loop.
+Most relationship numbers stay hidden. The player experiences changed behavior rather than visible `+5 friendship` popups.
 
-Proposed music layers/states:
+NPCs may have relationships with each other, not only with the player.
 
-## Title theme
-Establishes identity: wilderness, frontier, mystery, scale.
+# 11. Time, schedules and aging
 
-## Hub theme
-Safer, warmer instrumentation; human activity and recovery.
+Time is part of gameplay.
 
-## Region ambient exploration
-Sparse enough that environmental sounds and tracking matter.
+Actions consume believable time:
+- walking;
+- conversation;
+- gathering;
+- harvesting;
+- crafting;
+- hunting;
+- resting;
+- travel.
 
-## Suspicion / nearby threat layer
-Subtle tension when evidence/awareness indicates proximity.
+Time affects:
+- NPC schedules;
+- monster activity;
+- daylight;
+- availability of services;
+- events/contracts;
+- long-term aging.
 
-## Encounter transition sting
-Short identity cue when battle authority begins.
+Over sufficiently long campaigns, NPCs may age, form households, have children, inherit roles, retire or die. This should create continuity and legacy without requiring every citizen to be simulated every frame.
 
-## Combat base
-Rhythmic but leaves room for telegraph sounds.
+# 12. Crystal / mining / settlement survival experience
 
-## Monster phase/enrage layer
-Can add percussion/harmony/intensity without replacing every track.
+Energy-bearing crystals/diamonds connect world systems.
 
-## Critical/player danger layer
-Use sparingly; should not become constant alarm music.
+They may come from:
+- mines/veins;
+- rare formations;
+- selected monsters/ecologies.
 
-## Victory/downed-monster resolution
-Short release, then return toward environmental sound/harvest state.
+Their importance can drive:
+- mining licenses;
+- protected territory;
+- settlement power/energy;
+- factions and survivor groups;
+- economy;
+- difficult moral/resource decisions.
 
-## Harvest/post-hunt
-Low-intensity reflective layer or ambient-only depending on scene.
+The resource should create world tension, not exist only as another crafting currency.
 
-Music system should support stems/layers later if engine/audio budget permits, but a simpler state-based transition system is acceptable first.
+# 13. Diamond Watch experience
 
-# 10. Audio information hierarchy
+The Diamond Watch can function as a recurring recognizable interface object across projects while each game retains its own lore.
 
-Gameplay-important sounds outrank decorative sounds.
+Potential functions:
+- time/date;
+- map;
+- contracts;
+- hunter journal/bestiary;
+- discovered places;
+- notes;
+- mining licenses;
+- faction notices;
+- selected relationship/settlement information.
 
-Priority:
+It should reduce HUD clutter by housing deeper information outside the normal exploration view.
+
+# 14. Progression experience
+
+Progression must feel earned.
+
+Power comes from multiple layers:
+- level;
+- attributes;
+- mastery;
+- equipment;
+- monster knowledge;
+- harvesting/crafting expertise;
+- relationships/access;
+- tactical options.
+
+Level should increase capability without making early bosses meaningless.
+
+A normal racial/species cap may exist. Human level 20 remains a provisional design anchor only. Beyond-cap growth can require rare materials, conditions and uncertain breakthrough attempts.
+
+Failed breakthroughs should still produce some form of adaptation/learning/partial progress rather than deleting major progress.
+
+# 15. Story and consequences
+
+The story should use difficult choices with real benefits and costs.
+
+Possible consequence targets:
+- save a person versus secure critical settlement resources;
+- protect a settlement versus pursue a rare monster/material;
+- obey or violate mining restrictions;
+- support one group and damage trust with another;
+- preserve a dangerous creature/ecosystem versus exploit it;
+- spend scarce time helping an NPC versus pursuing a contract.
+
+Consequences may be immediate or delayed.
+
+The strongest outcomes should be shown through world changes, character behavior, availability, loss, survival, inheritance and future opportunities rather than only text summaries.
+
+# 16. Exploration HUD
+
+Normal exploration HUD should remain compact.
+
+Preferred layout family:
+- upper-left: health/stamina/essential player state;
+- upper-right: mini-map/compass/time access;
+- collapsible objective panel;
+- lower-left: bounded quick items;
+- lower-right: contextual touch actions;
+- world-space markers only when relevant.
+
+The generated reference image is composition inspiration, not a requirement to permanently display every element shown there.
+
+# 17. Combat HUD
+
+Combat UI can expand contextually without hiding the monster.
+
+Possible information:
+- current target anatomy;
+- health/stamina/action resources;
+- reaction availability;
+- range/position;
+- known monster condition;
+- telegraphed threat;
+- contextual action choices.
+
+Avoid giant fixed panels and permanent target overlays.
+
+# 18. UI usability rules
+
+- landscape-first;
+- safe-area aware;
+- anchors/containers rather than hard-coded fixed coordinates;
+- readable on supported Android aspect ratios;
+- large touch targets;
+- no control/sprite overlap;
+- no critical action hidden beneath phone cutouts/rounded corners;
+- pixel styling must not make text hard to read;
+- scalable UI/text options planned from the beginning.
+
+# 19. Music and audio
+
+Music should follow state rather than run at maximum intensity continuously.
+
+Useful states:
+- title;
+- settlement;
+- wilderness exploration;
+- nearby threat;
+- combat;
+- critical danger;
+- victory/resolution;
+- harvest/return.
+
+Gameplay-critical sounds outrank decorative ambience:
 1. monster attack telegraphs;
 2. player danger/status cues;
-3. hit/impact/material feedback;
+3. impacts/material feedback;
 4. monster movement/calls;
-5. tracking/evidence interactions;
+5. tracking interactions;
 6. environment;
 7. decorative ambience.
 
-Do not let music mask critical telegraphs.
+# 20. First-session target
 
-Potential material impact differentiation:
-- hide/flesh;
-- bone;
-- shell/plate;
-- horn;
-- metal;
-- wood/stone cover.
+The first session should communicate:
+1. the player lives in a functioning settlement;
+2. movement/camera feel good on a phone;
+3. the world is physically explorable;
+4. NPCs are persistent people, not menu entries;
+5. monsters leave readable evidence;
+6. combat happens in the same spatial world;
+7. anatomy targeting changes monster capability;
+8. damage changes harvest results;
+9. the player returns to a settlement that reacts;
+10. progression gives a reason to hunt again.
 
-# 11. Exploration HUD
+# 21. First visual prototype acceptance questions
 
-Keep light.
+Before calling the new direction successful:
+- Does the third-person camera feel good on a phone?
+- Does the pixel style look intentional rather than filtered/blurry?
+- Can the player move and look simultaneously without control conflict?
+- Does the HUD stay inside safe areas and avoid sprite overlap?
+- Is the character readable against the environment?
+- Can NPCs/interactables be recognized without excessive floating markers?
+- Does one monster feel large and readable in the same camera?
+- Can body-part targeting work without switching to first person?
+- Does the settlement feel alive despite small scope?
+- Does the game launch and run reliably on the target Android device?
 
-Potential persistent elements:
-- health/stamina only when relevant;
-- compact objective/hunt state;
-- interaction prompt;
-- optional directional/map information;
-- quick tool access;
-- awareness/threat cue.
-
-Bestiary/map/inventory open as deliberate overlays rather than permanently occupying the screen.
-
-# 12. Combat HUD
-
-Combat UI expands because tactical decisions require information.
-
-Core categories:
-- MOVE;
-- ATTACK;
-- DEFEND;
-- ITEM/TOOL;
-- INSPECT;
-- ESCAPE.
-
-Supporting information:
-- health;
-- stamina;
-- AP/action resource;
-- reaction availability;
-- current cover;
-- current range/bearing;
-- known monster condition;
-- telegraphed threat;
-- turn order where useful.
-
-Targetable body parts appear contextually in targeting mode, not as permanent neon outlines.
-
-# 13. Menu and information theme
-
-Use a restrained hunter-field-tool visual language.
-
-Good references conceptually:
-- field notebook;
-- annotated map;
-- equipment bench;
-- anatomical sketch;
-- specimen/research catalog.
-
-Avoid coating every panel in fake parchment or heavy ornament.
-
-Function/readability comes first.
-
-# 14. Bestiary presentation
-
-Bestiary pages can evolve visually with knowledge.
-
-Unknown creature:
-- silhouette/partial entry;
-- uncertain notes.
-
-Observed:
-- rough sketch;
-- tracks/habitat clues.
-
-Researched:
-- labeled anatomy;
-- attack tells;
-- known materials;
-- known resistance/weakness information.
-
-Mastered:
-- complete field knowledge and advanced hunting notes.
-
-# 15. Harvest presentation
-
-The harvest view should preserve physical context.
-
-Potential approach:
-- carcass/severed-part overview;
-- selectable available anatomy;
-- tool/method choice;
-- visible condition and expected recovery range where knowledge allows;
-- clear explanation of damaged/lost material;
-- extracted resources visibly leave remaining capacity if persistent carcasses are supported.
-
-Avoid a disconnected slot-machine loot explosion.
-
-# 16. Crafting presentation
-
-Crafting should show the physical connection between monster material and equipment.
-
-Useful UI:
-- recipe silhouette/model;
-- required materials grouped by source;
-- quality requirement;
-- what the upgrade changes mechanically;
-- where unknown material can be researched/found once knowledge allows.
-
-# 17. Pacing
-
-The game loop should alternate:
-- quiet observation;
-- rising tension;
-- tactical conflict;
-- relief/reward;
-- preparation/decision.
-
-Do not make every minute combat.
-Do not make tracking a long empty walk.
-Do not make harvesting/crafting slower than the decisions justify.
-
-# 18. Accessibility/usability targets
-
-Plan from the beginning for:
-- scalable UI/text;
-- large touch targets;
-- remappable/adjustable controls where practical;
-- camera sensitivity;
-- screen shake toggle/strength;
-- motion reduction;
-- subtitle/caption support;
-- contrast/readability options;
-- color not being the sole carrier of critical combat information;
-- audio cue redundancy for essential telegraphs where practical.
-
-# 19. First-session target
-
-The first session should communicate, in order:
-1. who/what the player is;
-2. this is a hunting frontier;
-3. the aerial world is physically explorable;
-4. monsters leave readable evidence;
-5. combat changes perspective and becomes tactical;
-6. anatomy targeting changes monster capability;
-7. what you damage changes what you can harvest;
-8. harvesting leads to tangible progression;
-9. there is a larger world/creature mystery or progression goal worth continuing.
-
-# 20. Experience verification questions
-
-Before calling a vertical slice successful:
-- Can a new player understand where they can move without excessive markers?
-- Can they recognize the monster from aerial view?
-- Does the camera transition make spatial sense?
-- Does combat feel like facing the creature rather than selecting menu commands over a picture?
-- Does repositioning change tactical options?
-- Is body damage readable?
-- Can the player explain why harvest yield changed?
-- Does one crafted upgrade create a reason to hunt again?
-- Does the world feel coherent across exploration, combat and hub?
-- Does it run responsively on the target Android phone?
+Current status of this player-facing direction: `DESIGNED`, not yet `VISUAL_QUALITY_VERIFIED`.
