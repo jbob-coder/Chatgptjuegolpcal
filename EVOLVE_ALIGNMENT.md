@@ -1,12 +1,12 @@
 # EVOLVE ALIGNMENT — Shooter RPG
 
-Status: NEW STANDALONE GAME / DESIGN RESET / PIXEL REFERENCE SELECTED / IMPLEMENTATION NOT YET AUTHORIZED BY DESIGN
+Status: NEW STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
 ## Operating law
 
-`Shooter RPG` is a new standalone game.
+Shooter RPG is a new standalone game.
 
 Current explicit user instruction outranks inherited repository content. Repository ancestry does not imply game-design inheritance.
 
@@ -18,44 +18,47 @@ Never claim Shooter RPG inherited a verified mechanic, build, performance result
 ## Project isolation law
 
 The following are NOT Shooter RPG authority unless explicitly imported later:
-- Unnamed Hunt RPG design documents and source;
-- WorldLife RPG design documents and source;
-- Hunt-01 source/tests/build evidence;
-- previous monsters, anatomy, body-part combat, harvesting or crafting;
-- previous settlements, factions, mining/crystal economy or lore;
-- previous progression/level-cap rules;
-- Diamond Watch;
-- previous NPC relationship/aging/generation systems;
-- previous save schemas;
-- previous storage caps/performance budgets;
-- previous APK/workflow verification.
+- Unnamed Hunt RPG or WorldLife design/source;
+- prior monsters, combat, crafting, mining, progression, NPC simulation or lore;
+- prior saves/schema;
+- prior tests/build evidence;
+- prior technical budgets or Android package identity.
 
-Inherited files remain historical repository material only.
+Inherited files are repository history only.
 
-## Confirmed Shooter RPG facts
+Authoritative identity contract:
+`SHOOTER_RPG_PROJECT_IDENTITY.md`.
 
-CONFIRMED:
-- new standalone project;
-- branch: `shooter-rpg`;
-- pixel visual direction;
-- the generated pixel reference image is the current visual inspiration;
-- this game must receive its own design, implementation, tests, builds and verification.
+## Confirmed Shooter RPG foundation
 
-NOT YET CONFIRMED:
-- exact setting/lore;
-- exact shooter mechanics;
-- firearm vs other projectile/weapon mix;
-- camera perspective and distance;
-- real-time vs hybrid combat timing;
-- RPG stat/progression model;
-- world scale;
-- NPC simulation depth;
-- multiplayer/online requirements;
-- final engine/project folder;
-- storage/performance caps;
-- exact Android control layout.
+Foundation owner:
+`SHOOTER_RPG_FOUNDATION_DESIGN_001.md`.
 
-Do not resolve those by copying the old game.
+LOCKED FOR FIRST PROTOTYPE:
+- standalone single-player offline-first Shooter RPG;
+- third-person over-the-shoulder camera;
+- real-time aiming/shooting;
+- semi-automatic carbine as first firearm;
+- reticle/hit geometry is authoritative; RPG stats do not arbitrarily invalidate visibly correct shots;
+- physical environmental cover rather than sticky cover mode;
+- compact connected zones instead of massive open world or menu-only travel;
+- first hostile archetype: placeholder Sentry Automaton;
+- shallow RPG foundation: Vigor / Handling / Mobility;
+- one permanent upgrade choice after the first objective;
+- pixel-styled real 3D world;
+- low-resolution world rendering with separately readable UI;
+- landscape Android-first controls;
+- Godot `4.7.2-stable` selected independently for this project;
+- new implementation root: `shooter_game/`.
+
+PROVISIONAL / MUST BE TUNED BY PROTOTYPE:
+- camera FOV, pitch, distance and shoulder offset;
+- movement and dodge values;
+- recoil/spread/damage;
+- enemy ranges/timing;
+- internal render dimensions;
+- exact touch-control sizes/positions;
+- final setting names, palette and lore.
 
 ## Canonical visual reference
 
@@ -63,69 +66,64 @@ Primary original reference:
 - `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
 - Google Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
 
-Working JPEG reference:
+Working JPEG:
 - `Shooter RPG - Pixel Visual Reference.jpg`
 - Google Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
 
-The image establishes visual mood, pixel treatment, camera/composition ideas and UI inspiration only. Visible names, quests, characters, locations, inventory values and monster details are placeholders.
+The image provides visual/composition inspiration only. Visible names, quests, NPCs, locations, inventory values and monster details are placeholders.
 
-## Architecture separation
+## First vertical-slice loop
 
-When implementation begins, Shooter RPG should use a separate root such as:
-`shooter_game/`
+`GATE DISTRICT → OUTER ROAD → BROKEN CHECKPOINT → SENTRY FIGHT → REWARD → RETURN → CHOOSE UPGRADE → SAVE/LOAD`
 
-Do not build the new game inside inherited previous-game runtime folders unless the user explicitly approves reuse after a file-level review.
+Working place/enemy names remain replaceable.
 
-Shooter RPG needs its own:
-- project configuration;
-- source tree;
-- asset pipeline;
-- save lineage;
-- tests;
-- CI/build evidence;
-- documentation authority;
-- Android package/application identity when packaging begins.
+Vertical Slice 001 proves:
+- mobile movement/camera;
+- aim/fire/reload;
+- one enemy;
+- physical cover;
+- damage/healing;
+- reward pickup;
+- one persistent RPG upgrade;
+- save/load;
+- Android packaging/runtime;
+- pixel visual coherence on phone.
 
-## Scope principle
+## Scope guardrail
 
 Build the smallest strong game first.
 
-Use:
-**clear core loop → strong controls → readable combat → good pixel presentation → one complete playable slice → expand**.
-
-Avoid adding broad simulation/lore systems before the shooter loop and presentation are proven.
+Do not add multiplayer, large social simulation, crafting trees, open-world streaming, procedural world generation, multiple weapon families, companions, vehicles or live-service architecture before the first shooter loop is proven.
 
 ## Current verification boundary
 
 `SHOOTER_RPG_STANDALONE_IDENTITY_RECORDED = YES`
 `PIXEL_REFERENCE_SAVED = YES`
-`CORE_GAMEPLAY_DESIGN_LOCKED = NO`
+`SHOOTER_RPG_FOUNDATION_DESIGN_001_LOCKED = YES`
+`GODOT_4_7_2_SELECTED = YES`
+`SHOOTER_GAME_PROJECT_ROOT_CREATED = NO`
 `SHOOTER_RPG_SOURCE_IMPLEMENTED = NO`
 `SHOOTER_RPG_BUILD_VERIFIED = NO`
 `SHOOTER_RPG_PHONE_RUNTIME_VERIFIED = NO`
 `SHOOTER_RPG_VISUAL_QUALITY_VERIFIED = NO`
 `SHOOTER_RPG_PERFORMANCE_VERIFIED = NO`
 
-Old game verification does not change these states.
+Old-game verification does not change these states.
 
 ## Exact next bounded piece
 
-`SHOOTER_RPG_FOUNDATION_DESIGN_001`
+`SHOOTER_RPG_PROJECT_SCAFFOLD_001`
 
-Before coding, define only:
-1. core player fantasy;
-2. camera/perspective;
-3. movement;
-4. aiming/shooting;
-5. damage/health baseline;
-6. weapon categories for the first slice;
-7. basic enemy interaction;
-8. RPG progression depth for the first slice;
-9. world/travel structure;
-10. mobile HUD/control layout;
-11. pixel-art/rendering approach;
-12. exact smallest playable vertical slice.
+Boundary:
+1. create independent `shooter_game/` root;
+2. create Godot 4.7.2 project configuration;
+3. establish minimal scene/script/test/docs directories;
+4. define only the input actions needed by the first slice;
+5. add a boot scene that can launch without depending on inherited runtime folders;
+6. add basic project/readme/version ownership;
+7. add new Shooter-RPG-specific static/headless sanity verification where practical;
+8. do not implement full combat, progression or world content in this slice;
+9. do not import old-game source as a shortcut.
 
-Do not import old-game systems as defaults.
-
-NEXT THING: `SHOOTER_RPG_FOUNDATION_DESIGN_001`.
+NEXT THING: `SHOOTER_RPG_PROJECT_SCAFFOLD_001`.
