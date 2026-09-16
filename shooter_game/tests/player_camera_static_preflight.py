@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +24,16 @@ controller = read("scripts/player/player_controller.gd")
 bindings = read("scripts/input/debug_input_bindings.gd")
 boot_scene = read("scenes/boot/boot.tscn")
 boot_script = read("scripts/boot/boot.gd")
+
+header_match = re.search(r"^\[gd_scene load_steps=(\d+) format=3\]$", scene, flags=re.MULTILINE)
+require(header_match is not None, "graybox scene header/load_steps is missing")
+if header_match is not None:
+    declared_steps = int(header_match.group(1))
+    referenced_resources = scene.count("[ext_resource ") + scene.count("[sub_resource ")
+    require(
+        declared_steps == referenced_resources + 1,
+        f"graybox load_steps mismatch: declared={declared_steps} expected={referenced_resources + 1}",
+    )
 
 for required_scene_token in (
     '[node name="Player" type="CharacterBody3D"',
