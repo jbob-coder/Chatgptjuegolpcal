@@ -17,8 +17,8 @@ concurrency:
 env:
   PROJECT_PATH: monster_choice_rpg_v0026
   APK_NAME: MonsterChoiceRPG-v0.0.26-debug.apk
-  SOURCE_SHA256: 1cb636240c0c7ec416e232d01673020d4f3c608549a320dc457658ce62593013
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-41ec-81f6-b8a1-6e4e8fa78354/raw?se=2026-09-16T03%3A16%3A46Z&sp=r&sv=2026-02-06&sr=b&scid=72203fea-070b-5189-8eb1-e3920e766068&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-15T18%3A00%3A12Z&ske=2026-09-16T18%3A00%3A12Z&sks=b&skv=2026-02-06&sig=DJqR9yNebLgGJNkArlk%2BmLo61L51fXnyExMR3/otfH0%3D"
+  SOURCE_SHA256: 85e9764f3d977338225a9e63076bbfdbd00d19e4426659f8fa6b6d13ed7fecfb
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-25f8-81f6-b7da-fa62f0e21ad1/raw?se=2026-09-16T03%3A21%3A53Z&sp=r&sv=2026-02-06&sr=b&scid=70f0cf18-f9f5-5715-a5d9-6d647585d15a&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-15T11%3A12%3A29Z&ske=2026-09-16T11%3A12%3A29Z&sks=b&skv=2026-02-06&sig=gem6kd69Kn3fjq2FTxzAHh/xCT7fO2kxwGeq%2B%2BhUWVQ%3D"
 
 jobs:
   build-android-debug:
@@ -148,6 +148,7 @@ jobs:
           grep -q "package: name='com.jackwilson.monsterchoicerpg'" build-evidence/apk-badging.txt
           grep -q "versionCode='26'" build-evidence/apk-badging.txt
           grep -q "versionName='0.0.26'" build-evidence/apk-badging.txt
+          grep -q "sdkVersion:'24'" build-evidence/apk-badging.txt
 
       - name: Upload APK and evidence
         uses: actions/upload-artifact@v4
