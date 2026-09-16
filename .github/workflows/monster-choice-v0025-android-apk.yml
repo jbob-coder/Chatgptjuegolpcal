@@ -1,4 +1,4 @@
-name: Monster Choice RPG v0.0.26 Android APK
+name: Monster Choice RPG v0.0.26 Final Android APK
 
 on:
   push:
@@ -16,13 +16,13 @@ concurrency:
 
 env:
   PROJECT_PATH: monster_choice_rpg_v0026
-  APK_NAME: MonsterChoiceRPG-v0.0.26-debug.apk
-  SOURCE_SHA256: 85e9764f3d977338225a9e63076bbfdbd00d19e4426659f8fa6b6d13ed7fecfb
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-25f8-81f6-b7da-fa62f0e21ad1/raw?se=2026-09-16T03%3A21%3A53Z&sp=r&sv=2026-02-06&sr=b&scid=70f0cf18-f9f5-5715-a5d9-6d647585d15a&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-15T11%3A12%3A29Z&ske=2026-09-16T11%3A12%3A29Z&sks=b&skv=2026-02-06&sig=gem6kd69Kn3fjq2FTxzAHh/xCT7fO2kxwGeq%2B%2BhUWVQ%3D"
+  APK_NAME: MonsterChoiceRPG-v0.0.26-final-debug.apk
+  SOURCE_SHA256: 555e9706802eae2b788f0016998426efcaba2a4ac7d0a6729fc6ee096a217017
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-1654-81f6-aef6-8a7407a3411b/raw?se=2026-09-16T03%3A35%3A03Z&sp=r&sv=2026-02-06&sr=b&scid=37f969bd-c077-5183-bfe0-ad41c17c5259&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-15T17%3A53%3A52Z&ske=2026-09-16T17%3A53%3A52Z&sks=b&skv=2026-02-06&sig=q7ySie94XxTewLODMCzOySHwQehhukSdhCe/eZwyWl8%3D"
 
 jobs:
   build-android-debug:
-    name: Verify Godot 4.7.2 and export Android APK
+    name: Verify exact final source in Godot 4.7.2 and export Android APK
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout build branch
         uses: actions/checkout@v4
 
-      - name: Fetch exact v0.0.26 runtime candidate from Drive
+      - name: Fetch exact frozen v0.0.26 source from Drive
         shell: bash
         run: |
           set -euo pipefail
@@ -153,9 +153,9 @@ jobs:
       - name: Upload APK and evidence
         uses: actions/upload-artifact@v4
         with:
-          name: MonsterChoiceRPG-v0.0.26-debug
+          name: MonsterChoiceRPG-v0.0.26-final-debug
           path: |
-            build/android/MonsterChoiceRPG-v0.0.26-debug.apk
+            build/android/MonsterChoiceRPG-v0.0.26-final-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 1
