@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Shooter RPG
 
-Status: NEW STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX 001 STATIC VERIFIED / ENGINE RUNTIME GATE NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -45,25 +45,47 @@ LOCKED FOR FIRST PROTOTYPE:
 - low-resolution world rendering with separately readable UI;
 - landscape Android-first controls;
 - Godot `4.7.2-stable`;
-- new runtime root `shooter_game/`.
+- runtime root `shooter_game/`.
 
 ## Current implementation state
 
-`SHOOTER_RPG_PROJECT_SCAFFOLD_001` has been created under `shooter_game/`.
+### Scaffold 001
 
-Current scaffold owns:
-- standalone `project.godot`;
+Implemented under `shooter_game/`:
+- standalone Godot project config;
 - mobile renderer baseline;
 - 1280×720 design viewport with expand stretch behavior;
-- semantic actions: move_left/right/forward/back, aim, fire, reload, dodge, interact, pause_game;
-- minimal independent boot scene/script;
-- project identity contract;
-- standalone runtime README/architecture/verification docs;
-- version marker `0.0.0-scaffold.001`;
-- no-cost static preflight;
-- planned Godot headless smoke.
+- ten semantic first-slice input actions;
+- independent boot path;
+- project identity/input contract;
+- runtime-local docs/tests/version marker.
 
-No combat, enemy AI, progression, save system, world content or final pixel rendering pipeline is implemented by the scaffold.
+### Player-Camera Graybox 001
+
+Implemented:
+- tiny 3D graybox test scene with ground, obstacle and wall collision geometry;
+- `CharacterBody3D` player capsule;
+- gravity and camera-relative horizontal locomotion;
+- provisional movement acceleration/speed parameters;
+- third-person hierarchy `CameraYaw → CameraPitch → SpringArm3D → Camera3D`;
+- spring-arm exclusion of the player collider;
+- provisional camera distance/FOV/pitch/sensitivity parameters;
+- desktop-only debug mappings for W/A/S/D, mouse look, Esc capture toggle and reserved semantic action keys/buttons;
+- boot scene now instantiates the graybox;
+- dedicated static and prepared Godot smoke verification.
+
+Explicitly NOT implemented yet:
+- firing/reload behavior;
+- aim/ADS behavior;
+- enemy AI;
+- damage/health;
+- dodge behavior;
+- RPG progression;
+- save/load;
+- mobile touch controls;
+- final HUD;
+- final pixel rendering;
+- production world content.
 
 ## Verification boundary
 
@@ -73,20 +95,28 @@ No combat, enemy AI, progression, save system, world content or final pixel rend
 `GODOT_4_7_2_SELECTED = YES`
 `SHOOTER_GAME_PROJECT_ROOT_CREATED = YES`
 `SHOOTER_RPG_SCAFFOLD_STATIC_VERIFIED = YES`
+`SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_IMPLEMENTED = YES`
+`SHOOTER_RPG_PLAYER_CAMERA_STATIC_VERIFIED = YES`
 `SHOOTER_RPG_SCAFFOLD_HEADLESS_VERIFIED = NO`
-`SHOOTER_RPG_SOURCE_IMPLEMENTED = SCAFFOLD_ONLY`
+`SHOOTER_RPG_PLAYER_CAMERA_HEADLESS_VERIFIED = NO`
 `SHOOTER_RPG_BUILD_VERIFIED = NO`
 `SHOOTER_RPG_PHONE_RUNTIME_VERIFIED = NO`
 `SHOOTER_RPG_VISUAL_QUALITY_VERIFIED = NO`
 `SHOOTER_RPG_PERFORMANCE_VERIFIED = NO`
 
-Static command executed during Scaffold 001:
-`python shooter_game/tests/scaffold_static_preflight.py`
+Executed static commands:
+- `python shooter_game/tests/scaffold_static_preflight.py`
+  → `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
+- `python shooter_game/tests/player_camera_static_preflight.py`
+  → `SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS`
 
-Observed result:
-`SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
+Prepared Godot smoke tests:
+- `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
+- `godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`
 
-Godot headless smoke exists but was not executed in this pass because no Godot executable was available in the local execution environment. Do not promote it to verified until actually run.
+They are NOT executed. A Godot 4.7.2 executable was not available in the local execution environment, and attempts to obtain the official binary were blocked by that environment's network/download restrictions.
+
+Static verification does not prove GDScript parse, scene import, physics behavior, camera collision, camera feel or runtime stability.
 
 ## Canonical visual reference
 
@@ -111,18 +141,20 @@ Build the smallest strong game first. Do not add multiplayer, large social simul
 
 ## Exact next bounded piece
 
-`SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`
+`SHOOTER_RPG_GRAYBOX_RUNTIME_GATE_001`
 
 Boundary:
-1. keep all implementation inside `shooter_game/`;
-2. create one tiny 3D graybox test scene, not the final settlement;
-3. add a `CharacterBody3D` player controller with gravity and camera-relative horizontal movement;
-4. add a third-person camera rig with pivot + collision-safe boom/spring arm;
-5. add desktop keyboard/mouse debug bindings to the existing semantic actions so development is testable before touch UI exists;
-6. implement mouse-look/debug camera input through the same controller contract that mobile look will later feed;
-7. keep camera distance, pitch limits, FOV and move speed clearly provisional/tunable;
-8. add static/headless ownership tests where practical;
-9. do NOT implement shooting, enemy AI, RPG progression, mobile joystick UI or final pixel rendering in this slice;
-10. record exactly what is static-verified vs headless/runtime-verified.
+1. add no new gameplay system;
+2. execute Godot 4.7.2-stable against `shooter_game/`;
+3. run project parse/import/headless startup checks;
+4. execute `scaffold_smoke.gd`;
+5. execute `player_camera_smoke.gd`;
+6. fix only parse/resource/runtime ownership failures in the scaffold/player-camera layer;
+7. if an interactive desktop run is available, inspect movement, gravity, mouse capture, camera pitch/yaw and spring-arm collision without treating subjective tuning as final;
+8. record exact observed output;
+9. do not claim phone/control-feel/performance/visual-quality verification from headless success;
+10. only after the runtime gate passes move to `SHOOTER_RPG_MOBILE_TOUCH_INPUT_001`.
 
-NEXT THING: `SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`.
+BLOCKER IN CURRENT EXECUTION ENVIRONMENT: Godot 4.7.2 binary unavailable.
+
+NEXT THING: `SHOOTER_RPG_GRAYBOX_RUNTIME_GATE_001`.
