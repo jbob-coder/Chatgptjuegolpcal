@@ -7,9 +7,6 @@ on:
     paths:
       - ".github/workflows/pixel-rpg-prototype-android.yml"
       - "game/**"
-      - "PIXEL_RPG_VISUAL_DIRECTION.md"
-      - "EVOLVE_ALIGNMENT.md"
-      - "PROJECT_HANDOFF.md"
   workflow_dispatch:
 
 permissions:
