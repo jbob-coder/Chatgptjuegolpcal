@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/mobile_controls.tscn" id="2_mobile"]
 
 [sub_resource type="BoxMesh" id="GroundMesh"]
 size = Vector3(20, 0.5, 20)
@@ -86,3 +87,5 @@ current = true
 fov = 70.0
 near = 0.1
 far = 200.0
+
+[node name="MobileControls" parent="." instance=ExtResource("2_mobile")]
