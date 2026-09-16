@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / THIRD-PERSON PIXEL DIRECTION / FIRST VISUAL PROTOTYPE NEXT
+Status: ACTIVE PIXEL RPG BOOTSTRAP / PROTOTYPE 001 ANDROID BUILD VERIFIED / PIXEL-CAMERA-HUD POLISH NEXT
 Last reconciled: 2026-09-16
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -17,12 +17,10 @@ WorldLife is abandoned. The later standalone first-person Shooter RPG is also no
    3. `START_HERE_NEW_CHAT.md`;
    4. `DOCUMENTATION_INDEX.md`;
    5. `PIXEL_RPG_VISUAL_DIRECTION.md`;
-   6. `GAME_EXPERIENCE_BIBLE.md`;
-   7. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`;
-   8. root `README.md`;
-   9. newest relevant Pixel RPG handoff under `docs/70_handoff/`;
-   10. `game/README.md`;
-   11. exact owning source/tests/workflows for the bounded task.
+   6. newest relevant Pixel RPG handoff under `docs/70_handoff/`;
+   7. root `README.md`;
+   8. `game/README.md`;
+   9. exact owning source/tests/workflows for the bounded task.
 3. Re-check HEAD after reconstruction. If it changed materially, do not mix revisions.
 4. Current source/tests/build/device evidence outranks Markdown labels and chat memory.
 5. Conflict order: current explicit user instruction → current source/tests/build/device evidence → `PIXEL_RPG_VISUAL_DIRECTION.md` for presentation → EVOLVE/HANDOFF → narrow owner → package docs → older handoffs/chat.
@@ -61,16 +59,28 @@ Visible concept names/text are placeholders.
 
 Never weaken legitimate gates to force success.
 
-## Historical evidence boundary
+## Current Pixel RPG verified baseline
 
-Previously recorded production-verified monster-hunting source:
-`01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
+Source:
+`8d0c21018c396ec1943d0930a867273e4753ba6c`.
 
-Recorded workflow `34880096112`: SUCCESS.
-Recorded job `104096962757`: SUCCESS.
-Recorded artifact `10362706279`, 57,536,941 bytes, SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
+Workflow `35062091768`: SUCCESS.
+Job `104684371733`: SUCCESS.
 
-This evidence predates the Pixel RPG visual prototype and does not verify that presentation.
+Passed:
+- Godot 4.7.2 import/parse;
+- AppShell smoke;
+- Pixel RPG prototype scene smoke;
+- selected deterministic combat-domain regressions;
+- Android debug export;
+- 2,000,000,000-byte package ceiling;
+- APK and build-evidence uploads.
+
+Artifacts:
+- APK `10432014296` — `PixelRPG-prototype-001-debug`;
+- evidence `10433105552` — `PixelRPG-prototype-001-build-evidence`.
+
+This does not establish phone runtime, final visual quality, sustained performance or installed-footprint compliance.
 
 ## Storage law
 
@@ -82,25 +92,24 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 
 `PIXEL_RPG_VISUAL_DIRECTION_DESIGNED = YES`
 `PIXEL_RPG_REFERENCE_IMAGE_SAVED = YES`
-`PIXEL_RPG_THIRD_PERSON_PROTOTYPE_IMPLEMENTED = NO`
-`PIXEL_RPG_ANDROID_BUILD_VERIFIED = NO`
+`PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_IMPLEMENTED = YES`
+`PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_HEADLESS_SMOKE_VERIFIED = YES`
+`PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
+`PIXEL_RPG_ANDROID_BUILD_VERIFIED = YES`
 `PIXEL_RPG_PHONE_RUNTIME_VERIFIED = NO`
 `PIXEL_RPG_VISUAL_QUALITY_VERIFIED = NO`
 `PIXEL_RPG_PERFORMANCE_VERIFIED = NO`
 
 ## Current bounded piece
 
-`PIXEL_RPG_THIRD_PERSON_VISUAL_PROTOTYPE_001`.
+`PIXEL_RPG_PROTOTYPE_001_PIXEL_RENDER_CAMERA_UI_POLISH`.
 
 Boundary:
-- inspect current owning player/camera/HUD/presentation source first;
-- one small settlement gate/street;
-- one third-person player controller;
-- left-stick move + independent right-side look;
-- one NPC interaction;
-- one short route outside town;
-- one monster/proxy;
-- coherent pixel-style treatment;
-- safe-area responsive HUD;
-- static/headless/build verification where available;
-- no whole-project rewrite before the slice is accepted.
+- intentional pixel render/upscale treatment;
+- third-person camera collision/occlusion around settlement structures;
+- anchored/safe-area responsive HUD cleanup;
+- preserve movement/right-look semantics;
+- preserve current NPC/monster interactions;
+- preserve selected deterministic gameplay regressions;
+- rerun parse/smokes/Android export/package gate;
+- no unrelated gameplay-system expansion in this slice.
