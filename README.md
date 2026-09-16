@@ -1,85 +1,97 @@
 # Shooter RPG — Standalone New Game
 
-Status: NEW PROJECT / DESIGN RESET / PIXEL VISUAL REFERENCE SELECTED / NO GAMEPLAY IMPLEMENTATION CLAIMED
+Status: FOUNDATION DESIGN 001 LOCKED / INDEPENDENT GODOT PROJECT SCAFFOLD NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
 ## Project identity
 
-`Shooter RPG` is a **new standalone game**.
+`Shooter RPG` is a new standalone game.
 
-It is NOT a visual branch, remake, migration, sequel, subsystem, or continuation of Unnamed Hunt RPG, WorldLife RPG, or any other previous game in this repository.
+It is NOT a visual branch, remake, migration, sequel, subsystem or continuation of Unnamed Hunt RPG, WorldLife RPG, or any other prior game in this repository.
 
-The `shooter-rpg` branch was technically created from an older repository branch, so inherited files and Git history are present. That ancestry is a repository fact only. It does not make the projects related.
+Repository ancestry is not design inheritance.
 
-## Hard separation rule
+Primary identity authority:
+`SHOOTER_RPG_PROJECT_IDENTITY.md`.
 
-Do not automatically reuse or inherit previous-game:
-- gameplay code;
-- combat rules;
-- monster/anatomy systems;
-- body-part break/sever systems;
-- harvesting/crafting;
-- lore, factions, settlements, characters or creatures;
-- save formats;
-- progression/level rules;
-- mining/crystal systems;
-- Diamond Watch;
-- NPC relationship systems;
-- world maps;
-- UI structure;
-- performance/storage limits;
-- build evidence;
-- test results;
-- Android artifacts.
+## Current foundation
 
-Any previous-game concept may enter Shooter RPG only after the user explicitly chooses to import it or a new Shooter RPG design document independently adopts it.
+Primary gameplay owner:
+`SHOOTER_RPG_FOUNDATION_DESIGN_001.md`.
 
-## Confirmed Shooter RPG direction
+First-prototype direction:
+- single-player offline-first;
+- third-person over-the-shoulder camera;
+- real-time shooting;
+- semi-automatic carbine first;
+- good reticle placement produces real hits rather than hidden RPG random misses;
+- physical environmental cover;
+- compact connected spaces;
+- one placeholder ranged Sentry Automaton enemy;
+- compact Vigor / Handling / Mobility progression;
+- one permanent upgrade choice after the first objective;
+- pixel-styled real 3D world;
+- low-resolution world render with separately readable UI;
+- Android landscape-first;
+- Godot `4.7.2-stable` selected independently for this game;
+- new implementation root: `shooter_game/`.
 
-Currently confirmed:
-- standalone new game;
-- working project/branch name: `Shooter RPG` / `shooter-rpg`;
-- pixel-style visual direction;
-- the saved generated pixel image is the primary visual mood/composition reference;
-- Android/mobile considerations remain relevant because the user is developing for phone, but Shooter RPG must establish its own technical requirements rather than inherit another game's limits.
+## First playable loop
 
-Everything else remains open until designed for this game.
+Working structure:
+
+`GATE DISTRICT → OUTER ROAD → BROKEN CHECKPOINT → SENTRY FIGHT → REWARD → RETURN → CHOOSE UPGRADE → SAVE/LOAD`
+
+Working names are replaceable and not final lore.
+
+The first vertical slice must prove movement, camera, aim/fire/reload, one enemy, physical cover, damage/healing, reward collection, one persistent RPG choice, save/load, Android packaging/runtime and readable pixel presentation on a phone.
 
 ## Canonical visual reference
 
-Original PNG saved in Google Drive:
+Original PNG in Google Drive:
 - `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
-- Drive file ID: `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
+- Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
 
-Working JPEG copy:
+Working JPEG:
 - `Shooter RPG - Pixel Visual Reference.jpg`
-- Drive file ID: `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
+- Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
 
-Names, quests, NPC names, item counts, settlement names, monster details and button text visible in the generated image are concept placeholders unless separately approved.
+The generated image provides art/composition inspiration only. Visible names, quests, NPCs, locations, item values and monster details are placeholders.
 
-## Source isolation
+## Hard separation rule
 
-Existing inherited `game/`, Hunt-01 files, old design bibles, old workflows and old build evidence belong to previous projects unless a future Shooter RPG decision explicitly imports a specific piece.
+Do not automatically reuse old-game:
+- runtime code;
+- mechanics;
+- saves;
+- characters/lore/world;
+- progression;
+- UI;
+- tests;
+- build evidence;
+- Android artifacts;
+- performance/storage budgets.
 
-A new Shooter RPG implementation should use its own project root/package namespace and its own tests/build evidence. Do not silently treat old green CI as proof for Shooter RPG.
+A specific old idea can enter Shooter RPG only through a new explicit Shooter RPG decision.
 
-Recommended future implementation root: `shooter_game/`.
+## Current verification status
 
-## Current objective
+- standalone identity: RECORDED;
+- pixel reference: SAVED;
+- Foundation Design 001: LOCKED;
+- Shooter RPG source: NOT YET CREATED;
+- build verified: NO;
+- phone runtime verified: NO;
+- visual quality verified: NO;
+- performance verified: NO.
 
-Before coding, define Shooter RPG from zero at the player-experience level:
-1. exact camera/perspective;
-2. movement and aiming model;
-3. what makes it a shooter;
-4. weapon/combat loop;
-5. RPG progression depth;
-6. world structure and travel;
-7. interaction/NPC scope;
-8. UI/HUD on phone;
-9. pixel rendering/art pipeline;
-10. smallest complete playable vertical slice.
+Old project CI/APK evidence does not count.
 
-Do not import previous-game mechanics to fill gaps.
+## Current next bounded piece
 
-For continuation, start with `START_HERE_NEW_CHAT.md`.
+`SHOOTER_RPG_PROJECT_SCAFFOLD_001`
+
+Create the independent `shooter_game/` Godot project skeleton, minimal boot scene, input ownership, Shooter-RPG-specific tests/docs and sanity verification. Do not implement the entire vertical slice in the scaffold pass.
+
+For continuation, start with `START_HERE_NEW_CHAT.md` and current live branch evidence.
