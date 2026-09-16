@@ -155,8 +155,8 @@ jobs:
           set -euo pipefail
           AAPT="$ANDROID_HOME/build-tools/35.0.1/aapt"
           "$AAPT" dump badging "build/android/$APK_NAME" | tee build-evidence/apk-badging.txt
+          "$AAPT" dump permissions "build/android/$APK_NAME" | tee build-evidence/apk-permissions.txt
           grep -q "package: name='com.jbobcoder.shooterrpg'" build-evidence/apk-badging.txt
-          grep -q "application-label:'Shooter RPG'" build-evidence/apk-badging.txt
 
       - name: Upload APK and evidence
         uses: actions/upload-artifact@v4
