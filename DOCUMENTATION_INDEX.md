@@ -1,25 +1,26 @@
 # Shooter RPG — Documentation Index
 
-Status: ACTIVE / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: ACTIVE / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / INTERNAL 21+ MATURE TARGET / PLAYER-CAMERA GRAYBOX NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
 ## Mandatory read order
 
 1. `SHOOTER_RPG_PROJECT_IDENTITY.md`
-2. `README.md`
-3. `EVOLVE_ALIGNMENT.md`
-4. `PROJECT_HANDOFF.md`
-5. `START_HERE_NEW_CHAT.md`
-6. this index
-7. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`
-8. `SHOOTER_RPG_VISUAL_DIRECTION.md`
-9. `VISUAL_REFERENCE_ASSETS.md`
-10. `shooter_game/README.md`
-11. `shooter_game/docs/ARCHITECTURE.md`
-12. `shooter_game/docs/VERIFICATION.md`
-13. newest Shooter-RPG-specific handoff/document created after the standalone reset
-14. exact Shooter RPG source/tests for the current bounded piece
+2. `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`
+3. `README.md`
+4. `EVOLVE_ALIGNMENT.md`
+5. `PROJECT_HANDOFF.md`
+6. `START_HERE_NEW_CHAT.md`
+7. this index
+8. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`
+9. `SHOOTER_RPG_VISUAL_DIRECTION.md`
+10. `VISUAL_REFERENCE_ASSETS.md`
+11. `shooter_game/README.md`
+12. `shooter_game/docs/ARCHITECTURE.md`
+13. `shooter_game/docs/VERIFICATION.md`
+14. newest Shooter-RPG-specific handoff/document created after the standalone reset
+15. exact Shooter RPG source/tests for the current bounded piece
 
 ## Critical separation rule
 
@@ -32,6 +33,7 @@ Old `game/`, old workflows, old builds/APKs, old saves, old mechanics and old de
 ## Current Shooter RPG authorities
 
 - project identity/isolation: `SHOOTER_RPG_PROJECT_IDENTITY.md`;
+- adult audience/tone: `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`;
 - project front door: `README.md`;
 - operating law + exact next slice: `EVOLVE_ALIGNMENT.md`;
 - continuity/status: `PROJECT_HANDOFF.md`;
@@ -43,6 +45,12 @@ Old `game/`, old workflows, old builds/APKs, old saves, old mechanics and old de
 - runtime-local architecture: `shooter_game/docs/ARCHITECTURE.md`;
 - verification boundary: `shooter_game/docs/VERIFICATION.md`;
 - runtime truth: Shooter-RPG-specific source/tests/build/device evidence under `shooter_game/`.
+
+## Mature content target
+
+Internal creative target: **21+ mature**.
+
+This is not an official ESRB/PEGI/store rating claim. Strong firearm violence, blood/injury, harsh language, adult themes and difficult consequences are permitted when they support the game. Any future romantic/sexual participant must be canonically at least 21 years old.
 
 ## Locked gameplay foundation
 
@@ -94,6 +102,7 @@ The image controls visual inspiration only. Its names, quests, item counts, char
 ## Current project state
 
 `SHOOTER_RPG_STANDALONE_IDENTITY_RECORDED = YES`
+`SHOOTER_RPG_MATURE_21_PLUS_TARGET_RECORDED = YES`
 `PIXEL_REFERENCE_SAVED = YES`
 `SHOOTER_RPG_FOUNDATION_DESIGN_001_LOCKED = YES`
 `SHOOTER_GAME_PROJECT_ROOT_CREATED = YES`
