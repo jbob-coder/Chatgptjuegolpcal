@@ -1,12 +1,12 @@
 # PROJECT HANDOFF — Shooter RPG
 
-Status: STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / INTERNAL 21+ MATURE TARGET RECORDED / PLAYER-CAMERA GRAYBOX NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
-CURRENT_OBJECTIVE: build Shooter RPG as an independent third-person pixel shooter RPG, proving the foundation in small executable slices. The standalone Godot project scaffold now exists; the next bounded piece is the first player/camera graybox.
+CURRENT_OBJECTIVE: build Shooter RPG as an independent third-person pixel shooter RPG, proving the foundation in small executable slices. The standalone Godot project scaffold exists; the next bounded piece is the first player/camera graybox.
 
-CURRENT_STATE: Shooter RPG is isolated from previous games by explicit authority. Foundation Design 001 is locked. A new independent runtime root now exists at `shooter_game/` with its own Godot project, semantic input actions, boot scene, project contract, tests, docs and version marker. No combat, enemy AI, progression, save system or final pixel pipeline is implemented yet.
+CURRENT_STATE: Shooter RPG is isolated from previous games by explicit authority. Foundation Design 001 is locked. A new independent runtime root exists at `shooter_game/` with its own Godot project, semantic input actions, boot scene, project contract, tests, docs and version marker. The project now also has an explicit internal 21+ mature audience/tone authority. No combat, enemy AI, progression, save system or final pixel pipeline is implemented yet.
 
 LAST_VERIFIED_STATE: Scaffold 001 static preflight executed successfully. Godot headless/runtime/build/device verification remains unexecuted.
 
@@ -14,6 +14,7 @@ COMPLETED_WORK:
 - created and isolated branch/project identity for Shooter RPG;
 - saved original PNG and working JPEG visual references to Google Drive;
 - locked `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
+- recorded `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md` as the internal 21+ creative target;
 - selected third-person over-shoulder real-time shooter presentation;
 - selected semi-automatic carbine as first weapon;
 - selected deterministic reticle-based hit behavior;
@@ -53,10 +54,15 @@ OPEN_QUESTIONS THAT MAY AFFECT LATER SLICES:
 - final low-resolution world viewport dimensions across phone aspect ratios;
 - final Android package ID;
 - final setting/location/enemy names;
-- final target-phone performance budget.
+- final target-phone performance budget;
+- exact mature-content intensity for blood/gore/dialogue after the core loop is proven.
 
 IMPORTANT_DECISIONS:
 - single-player offline-first foundation;
+- internal 21+ mature creative target, not an official ratings-board claim;
+- strong violence/blood/injury/harsh language/adult themes are allowed when useful to the game;
+- any future romantic/sexual participant must be canonically at least 21;
+- mature content is not required to block or complicate the first technical slice;
 - third-person over-shoulder camera;
 - physical world traversal;
 - real-time shooting;
@@ -78,9 +84,11 @@ KNOWN_RISKS:
 - third-person camera collision/occlusion;
 - RPG stat growth creating bullet-sponge balance;
 - inherited repository files misleading future work;
-- static verification catching structure but not engine parse/runtime behavior.
+- static verification catching structure but not engine parse/runtime behavior;
+- mature presentation becoming gratuitous and harming readability if not kept subordinate to gameplay.
 
-FILES CHANGED / CREATED IN SCAFFOLD 001:
+FILES CHANGED / CREATED IN SCAFFOLD 001 + MATURE-TONE RECORD:
+- `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`;
 - `shooter_game/project.godot`;
 - `shooter_game/.gitignore`;
 - `shooter_game/VERSION`;
@@ -103,8 +111,7 @@ TESTS_RUN / TEST_RESULTS:
 
 EXTERNAL_REFERENCE:
 - original PNG Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
-- working JPEG Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`;
-- official Godot release archive confirmed 4.7.2-stable as current stable during this pass.
+- working JPEG Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
 
 ASSUMPTIONS: selected pixel reference remains the visual anchor; working world/enemy names are replaceable and not final lore.
 
@@ -112,11 +119,12 @@ UNKNOWNS: engine parse/runtime of the newly written scaffold, phone feel, final 
 
 READ_FIRST_NEXT_SLICE:
 1. `SHOOTER_RPG_PROJECT_IDENTITY.md`;
-2. `EVOLVE_ALIGNMENT.md`;
-3. `PROJECT_HANDOFF.md`;
-4. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
-5. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-6. `shooter_game/README.md`;
-7. `shooter_game/docs/ARCHITECTURE.md`;
-8. `shooter_game/docs/VERIFICATION.md`;
-9. exact files created for the player-camera graybox.
+2. `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`;
+3. `EVOLVE_ALIGNMENT.md`;
+4. `PROJECT_HANDOFF.md`;
+5. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
+6. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
+7. `shooter_game/README.md`;
+8. `shooter_game/docs/ARCHITECTURE.md`;
+9. `shooter_game/docs/VERIFICATION.md`;
+10. exact files created for the player-camera graybox.
