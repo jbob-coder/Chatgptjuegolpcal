@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Shooter RPG
 
-Status: STANDALONE GAME / FOUNDATION 001 LOCKED / PLAYER-CAMERA GRAYBOX 001 HEADLESS VERIFIED / INTERNAL 21+ MATURE TARGET / MOBILE TOUCH INPUT NEXT
+Status: STANDALONE GAME / FIRST-PERSON 115 HFOV / WALL-JUMP + MOBILE TOUCH HEADLESS VERIFIED / INTERNAL 21+ MATURE TARGET
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -19,97 +19,109 @@ Internal creative target: **21+ mature**.
 
 Authority: `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`.
 
-This is not an official ratings-board/storefront classification. Mature violence, blood/injury, strong language and adult themes may be used when they support gameplay/story. Any future romantic/sexual participant must be canonically at least 21 years old. Mature-content scope must not distract from proving the core shooter first.
+This is not an official ratings-board/storefront classification.
 
-## Locked foundation
+## Perspective authority
 
-Owner: `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`.
+Shooter RPG is **FIRST-PERSON**.
 
-Locked for first prototype:
+Authority: `SHOOTER_RPG_PERSPECTIVE_DECISION_002.md`.
+
+Current camera rules:
+- target horizontal FOV = `115°`;
+- controller converts horizontal target to Godot vertical FOV for current aspect ratio;
+- `Player → CameraYaw → CameraPitch → Camera3D`;
+- no third-person spring arm;
+- first-person body mesh hidden in graybox;
+- shared mouse/touch look contract.
+
+Any older third-person or over-the-shoulder wording is superseded for perspective/camera behavior.
+
+## Movement authority
+
+Authority: `SHOOTER_RPG_MOVEMENT_TECHNIQUES_001.md`.
+
+Implemented foundation:
+- camera-relative movement;
+- gravity;
+- ground jump;
+- air steering;
+- wall jump using wall normal;
+- short steering-lock window after wall jump;
+- desktop Space jump;
+- mobile JUMP button;
+- Shift reserved for future dodge.
+
+Current wall-jump values are prototype tuning, not final balance.
+
+## Remaining gameplay foundation
+
+`SHOOTER_RPG_FOUNDATION_DESIGN_001.md` still controls non-camera foundation unless explicitly superseded:
 - single-player offline-first;
-- third-person over-the-shoulder;
 - real-time shooting in later combat slice;
 - semi-automatic carbine first;
-- reticle/hit geometry authoritative;
+- valid reticle/hit geometry is authoritative;
 - physical cover;
 - compact connected zones;
-- placeholder ranged Sentry Automaton;
-- Vigor / Handling / Mobility progression;
+- bounded Vigor / Handling / Mobility progression;
 - pixel-styled real 3D;
-- low-resolution world render + separate readable UI;
 - Android landscape-first;
-- Godot 4.7.2-stable;
-- runtime root `shooter_game/`.
+- Godot 4.7.2-stable.
 
-## Implemented foundation
+## Mobile touch implementation
 
-Scaffold 001 and Player-Camera Graybox 001 are implemented under `shooter_game/`.
+Implemented under `shooter_game/`:
+- dynamic left-side movement touch region;
+- right-side drag-to-look;
+- safe-area-aware root;
+- JUMP button;
+- reserved AIM/FIRE/DODGE buttons;
+- shared semantic input actions rather than duplicate movement logic.
 
-Current player-camera layer includes:
-- tiny collision graybox;
-- `CharacterBody3D` player;
-- gravity;
-- camera-relative horizontal locomotion;
-- tunable speed/acceleration;
-- `CameraYaw → CameraPitch → SpringArm3D → Camera3D`;
-- player exclusion from spring-arm collision;
-- desktop W/A/S/D + mouse debug input mapped through semantic actions;
-- boot routing into graybox.
-
-Not implemented yet:
-- mobile touch input;
-- actual aim/ADS behavior;
-- firing/reload behavior;
-- enemy AI;
-- health/damage;
-- dodge behavior;
-- RPG progression runtime;
-- save/load;
-- final HUD;
-- final pixel render pipeline;
-- production world content.
+AIM/FIRE/DODGE gameplay mechanics remain unimplemented.
 
 ## Verification boundary
 
 `SHOOTER_RPG_STANDALONE_IDENTITY_RECORDED = YES`
 `SHOOTER_RPG_MATURE_21_PLUS_TARGET_RECORDED = YES`
-`PIXEL_REFERENCE_SAVED = YES`
-`SHOOTER_RPG_FOUNDATION_DESIGN_001_LOCKED = YES`
-`SHOOTER_RPG_SCAFFOLD_STATIC_VERIFIED = YES`
-`SHOOTER_RPG_PLAYER_CAMERA_STATIC_VERIFIED = YES`
-`SHOOTER_RPG_SCAFFOLD_HEADLESS_VERIFIED = YES`
-`SHOOTER_RPG_PLAYER_CAMERA_HEADLESS_VERIFIED = YES`
+`SHOOTER_RPG_FIRST_PERSON_RECORDED = YES`
+`SHOOTER_RPG_TARGET_HFOV_115 = YES`
+`SHOOTER_RPG_WALL_JUMP_IMPLEMENTED = YES`
+`SHOOTER_RPG_MOBILE_TOUCH_IMPLEMENTED = YES`
+`SHOOTER_RPG_STATIC_VERIFIED = YES`
+`SHOOTER_RPG_HEADLESS_VERIFIED = YES`
 `SHOOTER_RPG_ANDROID_BUILD_VERIFIED = NO`
 `SHOOTER_RPG_PHONE_RUNTIME_VERIFIED = NO`
 `SHOOTER_RPG_VISUAL_QUALITY_VERIFIED = NO`
 `SHOOTER_RPG_PERFORMANCE_VERIFIED = NO`
 
-Runtime evidence:
-- source SHA `9d17874fd1c6f30ddff8cb9e870af33e3f297925`;
-- workflow `Shooter RPG Graybox Runtime Gate`;
-- run `35056360247` — SUCCESS;
-- job `104667287029` — SUCCESS;
-- Godot 4.7.2 download/version check — SUCCESS;
+Most recent verified runtime evidence:
+- source SHA `393ff872f2623f98f07c6216d6d29dc5ed64e5fb`;
+- workflow `Shooter RPG Runtime Gate`;
+- run `35056976187` — SUCCESS;
+- job `104669095724` — SUCCESS;
+- Godot 4.7.2 download/version — SUCCESS;
 - project import/parse — SUCCESS;
-- scaffold headless smoke — SUCCESS;
-- player-camera headless smoke — SUCCESS.
+- scaffold smoke — SUCCESS;
+- first-person camera/movement smoke — SUCCESS;
+- mobile touch smoke — SUCCESS.
 
-Headless verification does not prove phone controls, subjective camera feel, visual quality or performance.
+Headless success does not prove real-phone ergonomics, wall-jump feel, 115-HFOV comfort, visual quality or frame pacing.
 
 ## Exact next bounded piece
 
-`SHOOTER_RPG_MOBILE_TOUCH_INPUT_001`
+`SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`
 
 Boundary:
-1. keep all implementation inside `shooter_game/`;
-2. preserve desktop debug controls;
-3. introduce one mobile input adapter that feeds movement/look intent into the existing player-controller contract rather than duplicating locomotion logic;
-4. add a left thumb movement joystick with a generous drift region;
-5. add a right-side look surface supporting drag-to-look;
-6. reserve safe, thumb-reachable action controls, but do not implement shooting/reload/dodge gameplay logic in this slice;
-7. use anchors/containers/safe-area-aware layout rather than fixed one-device coordinates;
-8. ensure simultaneous move + look input is structurally possible;
-9. add static/headless verification for ownership, isolation and event plumbing;
-10. do not claim phone ergonomics until real device testing.
+1. do not add another large gameplay system first;
+2. export the current Shooter RPG graybox to Android;
+3. install on a real phone;
+4. verify launch/orientation;
+5. verify left movement + right look simultaneously;
+6. verify ground jump and wall jump;
+7. verify 115 horizontal FOV feels correct on the target aspect ratio;
+8. inspect safe-area/button overlap;
+9. measure obvious performance/frame-pacing problems;
+10. tune only evidence-backed control/camera values before beginning firearm behavior.
 
-NEXT THING: `SHOOTER_RPG_MOBILE_TOUCH_INPUT_001`.
+NEXT THING: `SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`.
