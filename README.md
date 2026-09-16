@@ -1,30 +1,28 @@
-# Unnamed Hunt RPG — Shooter RPG Visual Branch
+# Pixel RPG
 
-Status: ACTIVE DESIGN/DEVELOPMENT BRANCH / THIRD-PERSON PIXEL DIRECTION SELECTED / NEW VISUAL PROTOTYPE NEXT
-Last reconciled: 2026-09-15
-Branch: `shooter-rpg`
+Status: ACTIVE ANDROID MONSTER-HUNTING RPG / THIRD-PERSON PIXEL DIRECTION / FIRST VISUAL PROTOTYPE NEXT
+Last reconciled: 2026-09-16
+Branch: `pixel-rpg`
 
-Android-targeted monster-hunting RPG. WorldLife RPG is abandoned and is not the implementation base.
+Pixel RPG is the active game in this branch. WorldLife is abandoned, and the later standalone first-person Shooter RPG is not the implementation base.
 
-## Selected game presentation
+## Selected player-facing identity
 
-The current player-facing target is:
+**Third-person pixel-styled 3D monster-hunting RPG with mobile move/look controls, physical exploration, body-part combat, harvesting and persistent world/NPC consequences.**
 
-**third-person pixel-styled 3D monster-hunting RPG with shooter-style mobile controls, physical exploration, persistent NPC/world consequences and body-part combat.**
+Primary presentation authority: `PIXEL_RPG_VISUAL_DIRECTION.md`.
 
-Primary visual authority: `SHOOTER_RPG_VISUAL_DIRECTION.md`.
+Visual references in Google Drive:
+- `Pixel RPG - Visual Reference ORIGINAL.png` — `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
+- `Pixel RPG - Visual Reference.jpg` — `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
 
-Saved concept reference:
-- `Shooter RPG - Pixel Visual Reference.jpg`;
-- Google Drive file ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
-
-Names/text visible in that generated image are placeholders unless separately approved.
+Names/text shown in the generated concept image are placeholders unless separately approved.
 
 ## Main loop target
 
 `SETTLEMENT → PREPARE → PHYSICALLY LEAVE SETTLEMENT → EXPLORE/TRACK → OBSERVE/APPROACH → THIRD-PERSON SPATIAL COMBAT → TARGET ANATOMY → BREAK/SEVER/DEFEAT/ESCAPE → HARVEST → RETURN → NPC/SETTLEMENT CONSEQUENCES → PROCESS/CRAFT/EQUIP/LEARN → NEXT HUNT`
 
-Normal traversal should not collapse into simple location buttons. Use compact connected spaces and world compression rather than a huge empty open world.
+Use compact connected spaces and world compression rather than a huge empty open world or normal menu teleportation.
 
 ## Controls target
 
@@ -35,69 +33,64 @@ Normal traversal should not collapse into simple location buttons. Use compact c
 - contextual action controls;
 - safe-area responsive HUD.
 
-Historical first-person camera values are not automatically valid for the new third-person camera and must be re-prototyped.
+The phrase “shooter-style controls” describes the familiar mobile control layout only. Pixel RPG is not the standalone Shooter RPG.
 
 ## Art target
 
-Pixel-styled third-person 3D:
+Pixel-styled real 3D:
 - real spatial world/collision/camera;
 - pixel-authored/pixel-consistent textures and UI;
-- controlled low-resolution rendering/upscale treatment where useful;
+- controlled low-resolution rendering/upscale where useful;
 - strong silhouettes and readable monster anatomy;
 - intentional lighting/material simplification;
-- not a generic smooth 3D scene with a cosmetic pixel filter.
+- no generic smooth 3D scene with a cosmetic pixel filter.
 
-## Supporting systems being designed
+## Gameplay foundations to preserve where compatible
 
-Gradual, bounded additions include:
-- Diamond Watch information device;
-- hunter journal/bestiary knowledge progression;
-- persistent NPC relationships/memories;
-- NPC-to-NPC relationships;
-- schedules, aging and generational continuity;
-- difficult decisions affecting people and settlements;
-- crystal/diamond mining and energy economy;
-- mining licenses and factions/survivor settlements;
-- multi-layer progression with difficult post-cap breakthroughs.
+- deterministic combat/action resolution;
+- monster anatomy/body-part ownership;
+- wounds/statuses;
+- break/sever/harvest consequences;
+- tracking/encounter continuity;
+- stable IDs/data-driven content;
+- test/regression infrastructure.
 
-These are design targets, not claims of completed implementation.
+## Supporting systems
+
+Gradual targets include Diamond Watch, hunter journal/bestiary, relationships/memories, NPC schedules/aging, settlements/factions, crystal/diamond mining and energy economy, meaningful long-term decisions, and multi-layer progression. These are not implementation claims unless source/tests prove them.
 
 ## Hard storage ceiling
 
-The user-selected total player-required game footprint cap remains exactly:
-`2 GB = 2,000,000,000 bytes`.
+Player-required installed/runtime footprint cap remains exactly `2 GB = 2,000,000,000 bytes`.
 
-Required split/downloaded runtime content counts toward the same cap. Development-only source/repository/CI files do not. Package-size evidence does not by itself prove installed-footprint compliance.
+Required runtime downloads count. Development-only source/repository/CI files do not. Package-size evidence does not by itself prove installed-footprint compliance.
 
-## Historical production evidence
+## Historical verification boundary
 
-This branch was created from:
-`worldlife-reference-docs@7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`.
-
-Previously recorded full production-verified gameplay source:
+Previously recorded fully production-verified monster-hunting source:
 `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
 
-Recorded workflow `34880096112`: SUCCESS.
-Recorded job `104096962757`: SUCCESS.
-Recorded artifact `10362706279`: 57,536,941 bytes, SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
+Workflow `34880096112`: SUCCESS.
+Job `104096962757`: SUCCESS.
+Artifact `10362706279`: 57,536,941 bytes; SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
 
-That evidence applies to the older presentation/build state. It does not prove the new third-person pixel direction is implemented, visually accepted or phone-verified.
+This verifies the older production state only. It does not prove the Pixel RPG presentation is implemented or accepted.
 
 ## Current bounded piece
 
-`SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`.
+`PIXEL_RPG_THIRD_PERSON_VISUAL_PROTOTYPE_001`.
 
-First prove one bounded slice:
-- one small settlement gate/street;
+First prove:
+- one compact settlement gate/street;
 - one controllable third-person player;
-- left-stick movement + right-side look;
+- left-stick movement + right-side camera/look;
 - one NPC interaction;
-- one short route outside town;
-- one monster/proxy;
-- pixel rendering/art treatment;
+- one short physical route;
+- one visible monster/proxy;
+- coherent pixel rendering/art treatment;
 - responsive safe-area HUD;
-- Android launch/runtime evidence.
+- static/headless/build verification available to the slice.
 
 Do not rewrite the entire game before this slice is accepted.
 
-For continuation, begin with `START_HERE_NEW_CHAT.md` and reconstruct the live branch before implementation.
+For continuation, begin with `START_HERE_NEW_CHAT.md` and reconstruct live `pixel-rpg` state before implementation.
