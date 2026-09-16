@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / THIRD-PERSON PROTOTYPE IMPLEMENTED + ANDROID BUILD VERIFIED / PIXEL-CAMERA-HUD POLISH NEXT
+Status: ACTIVE PIXEL RPG / PROTOTYPE 001 PIXEL-CAMERA-HUD POLISH ANDROID BUILD VERIFIED / WORLD COMPOSITION NEXT
 Last reconciled: 2026-09-16
 Branch: `pixel-rpg`
 
@@ -81,15 +81,15 @@ Historical artifact `10362706279`, 57,536,941 bytes, SHA-256 `ba02d634d1435ed294
 
 This historical evidence does not prove the Pixel RPG presentation.
 
-## Pixel RPG prototype 001 — verified implementation
+## Pixel RPG prototype 001 — current build-verified implementation
 
-Android-build-verified source:
-`8d0c21018c396ec1943d0930a867273e4753ba6c`.
+Current pixel/camera/HUD-polished gameplay source:
+`88d19d733a579e326d7bdf3ebd8e002ef413d86a`.
 
-Workflow `35062091768`: SUCCESS.
-Job `104684371733`: SUCCESS.
+Workflow `35062722630`: SUCCESS.
+Job `104686283219`: SUCCESS.
 
-Verified gates in that run:
+Verified gates:
 - Godot 4.7.2 import/parse;
 - Pixel RPG AppShell smoke;
 - Pixel RPG prototype scene smoke;
@@ -100,21 +100,28 @@ Verified gates in that run:
 - build-evidence upload.
 
 Artifacts:
-- `PixelRPG-prototype-001-debug` — artifact ID `10432014296`;
-- `PixelRPG-prototype-001-build-evidence` — artifact ID `10433105552`.
+- `PixelRPG-prototype-001-debug` — artifact ID `10432264323`;
+- `PixelRPG-prototype-001-build-evidence` — artifact ID `10433305640`.
 
-Implemented prototype content:
-- third-person player-visible controller;
-- camera-relative movement;
-- mobile left-stick movement;
+Implemented and verified presentation layer now includes:
+- third-person visible hunter;
+- mobile left-stick direct movement;
 - independent right-side touch look;
-- compact settlement street and north gate;
-- short physical trail beyond settlement;
-- one NPC interaction target;
-- one distant monster proxy/observation interaction;
+- low-resolution 800×360 3D SubViewport stretched with nearest filtering for intentional pixel presentation;
+- per-vertex/nearest material treatment for prototype primitives;
+- SpringArm camera collision/occlusion behavior;
+- responsive safe-area HUD positioning logic;
+- compact settlement street/gate and physical trail;
+- Gate Warden interaction;
+- distant monster observation proxy;
 - Diamond Watch prototype panel;
-- basic contextual objective/journal feedback;
-- Android export metadata renamed to Pixel RPG.
+- preserved selected deterministic combat-domain regressions.
+
+The visible environment and monster remain prototype geometry, not final art.
+
+## CI cost/control decision
+
+The Pixel RPG Android workflow now triggers only for `game/**` changes or changes to its own workflow file. Documentation-only EVOLVE/HANDOFF updates no longer start a full Android export, reducing unnecessary CI use.
 
 ## Supporting design targets
 
@@ -137,7 +144,10 @@ These remain design targets unless current source proves implementation.
 `PIXEL_RPG_VISUAL_DIRECTION_DESIGNED = YES`
 `PIXEL_RPG_REFERENCE_IMAGE_SAVED = YES`
 `PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_IMPLEMENTED = YES`
-`PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_HEADLESS_SMOKE_VERIFIED = YES`
+`PIXEL_RPG_PIXEL_RENDER_PATH_IMPLEMENTED = YES`
+`PIXEL_RPG_SPRING_ARM_CAMERA_COLLISION_IMPLEMENTED = YES`
+`PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
+`PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
 `PIXEL_RPG_ANDROID_BUILD_VERIFIED = YES`
 `PIXEL_RPG_PACKAGE_2GB_CAP_GATE_PASSED = YES`
@@ -148,17 +158,16 @@ These remain design targets unless current source proves implementation.
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_PROTOTYPE_001_PIXEL_RENDER_CAMERA_UI_POLISH`
+`PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`
 
 Boundary:
-1. keep prototype gameplay/domain behavior unchanged unless a same-layer defect requires correction;
-2. establish an intentional pixel render/upscale path rather than relying on smooth default rendering;
-3. improve third-person camera collision/occlusion behavior around settlement walls/gate;
-4. replace remaining brittle fixed HUD offsets with anchored/safe-area responsive layout behavior;
-5. keep left-stick movement + independent right-side look semantics intact;
-6. preserve NPC/monster prototype interactions;
-7. preserve selected deterministic combat-domain regressions;
-8. rerun Godot parse/smokes and Android export/package gate;
-9. do not claim phone visual quality/performance until actual device evidence exists.
+1. keep current controller/camera/pixel-render/HUD behavior stable;
+2. improve the settlement gate/street composition toward the saved concept reference using inexpensive reusable primitive/modular forms;
+3. add stronger building silhouettes, market/service cues, fencing/signage and environmental depth without creating a large city;
+4. improve the trail/forest transition and distant monster framing;
+5. do not add unrelated progression/combat systems in this slice;
+6. preserve NPC/monster interactions and deterministic domain regressions;
+7. rerun Godot parse/smokes and Android export/package gate;
+8. keep phone visual quality/performance acceptance open until actual device evidence exists.
 
-NEXT THING: `PIXEL_RPG_PROTOTYPE_001_PIXEL_RENDER_CAMERA_UI_POLISH`.
+NEXT THING: `PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`.
