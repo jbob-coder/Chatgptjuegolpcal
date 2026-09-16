@@ -1,6 +1,6 @@
 # Shooter RPG — Standalone New Game
 
-Status: FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: FOUNDATION 001 LOCKED / SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX 001 STATIC VERIFIED / ENGINE RUNTIME GATE NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -8,69 +8,76 @@ Branch: `shooter-rpg`
 
 `Shooter RPG` is a new standalone game.
 
-It is NOT a visual branch, remake, migration, sequel, subsystem or continuation of Unnamed Hunt RPG, WorldLife RPG, or any other prior game in this repository.
+It is NOT a visual branch, remake, migration, sequel, subsystem or continuation of Unnamed Hunt RPG, WorldLife RPG or any prior game in this repository.
 
 Repository ancestry is not design inheritance.
 
 Primary identity authority:
 `SHOOTER_RPG_PROJECT_IDENTITY.md`.
 
-## Current foundation
+## Locked first-prototype foundation
 
-Primary gameplay owner:
+Gameplay owner:
 `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`.
 
-First-prototype direction:
+Selected direction:
 - single-player offline-first;
 - third-person over-the-shoulder camera;
-- real-time shooting;
+- real-time shooting in later combat slice;
 - semi-automatic carbine first;
-- good reticle placement produces real hits rather than hidden RPG random misses;
+- valid reticle/hit geometry is not invalidated by hidden RPG random misses;
 - physical environmental cover;
 - compact connected spaces;
-- one placeholder ranged Sentry Automaton enemy;
+- placeholder ranged Sentry Automaton first hostile;
 - compact Vigor / Handling / Mobility progression;
-- one permanent upgrade choice after the first objective;
+- one permanent upgrade choice after first objective;
 - pixel-styled real 3D world;
 - low-resolution world render with separately readable UI;
 - Android landscape-first;
-- Godot `4.7.2-stable` selected independently for this game;
-- independent runtime root: `shooter_game/`.
+- Godot `4.7.2-stable`;
+- independent runtime root `shooter_game/`.
 
-## Independent runtime scaffold
+## Current implementation
 
-`shooter_game/` now exists and owns:
-- standalone `project.godot`;
-- minimal boot scene/script;
-- Shooter RPG project identity/input contract;
-- ten semantic first-slice input actions;
-- runtime-local docs;
-- version marker `0.0.0-scaffold.001`;
-- no-cost static preflight;
-- planned Godot headless smoke.
+Scaffold 001 exists and is statically verified.
 
-No combat, enemy AI, progression, save system, world content or final pixel pipeline is claimed implemented by Scaffold 001.
+Player-Camera Graybox 001 now adds:
+- a tiny 3D test environment;
+- `CharacterBody3D` player;
+- gravity;
+- camera-relative horizontal movement;
+- provisional acceleration/speed tuning;
+- yaw/pitch third-person camera rig;
+- `SpringArm3D` camera collision structure;
+- desktop-only W/A/S/D + mouse debug input mappings;
+- boot routing into the graybox;
+- dedicated static and prepared Godot smoke tests.
+
+No shooting, enemy AI, damage, RPG progression, save/load, mobile touch controls, final HUD or final pixel-render pipeline is implemented yet.
 
 ## Verification
 
 Executed:
+- `python shooter_game/tests/scaffold_static_preflight.py`
+  → `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
+- `python shooter_game/tests/player_camera_static_preflight.py`
+  → `SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS`
 
-`python shooter_game/tests/scaffold_static_preflight.py`
+Prepared but NOT executed because Godot 4.7.2 is unavailable in the current execution environment:
+- `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
+- `godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`
 
-Observed:
-
-`SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
-
-Not yet executed:
-- Godot 4.7.2 headless smoke;
-- Android export;
-- phone runtime;
-- visual-quality acceptance;
-- performance profiling.
+Therefore:
+- GDScript/scene engine parse: NOT VERIFIED;
+- graybox runtime: NOT VERIFIED;
+- Android build: NOT VERIFIED;
+- phone runtime: NOT VERIFIED;
+- visual quality: NOT VERIFIED;
+- performance: NOT VERIFIED.
 
 Old project CI/APK evidence does not count.
 
-## First playable loop
+## First playable loop target
 
 Working structure:
 
@@ -98,8 +105,10 @@ A specific old idea can enter Shooter RPG only through a new explicit Shooter RP
 
 ## Current next bounded piece
 
-`SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`
+`SHOOTER_RPG_GRAYBOX_RUNTIME_GATE_001`
 
-Create one tiny 3D graybox scene with a `CharacterBody3D` player, gravity, camera-relative movement, third-person camera pivot/boom collision behavior and desktop keyboard/mouse debug bindings through the existing semantic input actions. Do not add shooting, enemies, RPG systems, mobile joystick UI or final pixel rendering in that slice.
+Run Godot 4.7.2 against the current standalone project, execute the prepared headless smokes, fix only same-layer parse/resource/runtime defects, and record the observed result. Do not add another gameplay layer before the player-camera foundation passes real engine validation.
+
+After that gate passes, the intended next implementation layer is `SHOOTER_RPG_MOBILE_TOUCH_INPUT_001`.
 
 For continuation, start with `START_HERE_NEW_CHAT.md` and current live branch evidence.
