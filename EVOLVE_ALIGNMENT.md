@@ -1,160 +1,131 @@
-# EVOLVE ALIGNMENT — Unnamed Hunt RPG / Shooter RPG Branch
+# EVOLVE ALIGNMENT — Shooter RPG
 
-Status: ACTIVE DESIGN PIVOT / THIRD-PERSON PIXEL DIRECTION SELECTED / HISTORICAL HUNT-01 ANDROID BUILD EVIDENCE PRESERVED / NEW VISUAL PROTOTYPE NOT YET VERIFIED
-Last reconciled: 2026-09-15
+Status: NEW STANDALONE GAME / DESIGN RESET / PIXEL REFERENCE SELECTED / IMPLEMENTATION NOT YET AUTHORIZED BY DESIGN
+Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
 ## Operating law
 
-The game is the objective. Documentation preserves ownership, evidence and continuation.
+`Shooter RPG` is a new standalone game.
 
-`READ LIVE STATE → VERIFY → ONE BOUNDED LAYER → IMPLEMENT → STATIC/HEADLESS/BUILD QA → FIX SAME-LAYER FAILURES → RECORD → CONTINUE`.
+Current explicit user instruction outranks inherited repository content. Repository ancestry does not imply game-design inheritance.
 
-Current source/tests/build/device evidence outranks chat memory and older handoffs.
+Development loop:
+`READ CURRENT SHOOTER STATE → VERIFY → ONE BOUNDED PIECE → IMPLEMENT → TEST → RECORD → CONTINUE`.
 
-## Current user direction
+Never claim Shooter RPG inherited a verified mechanic, build, performance result, save system, or gameplay foundation merely because this branch was created from another game's branch.
 
-The user rejected the current visual quality and selected a new presentation direction:
-- third-person behind-the-character gameplay;
-- shooter-style mobile movement/look controls;
-- pixel-style visual presentation;
-- physical exploration rather than menu-only travel;
-- combat in the same third-person spatial world;
-- small, dense, expandable world scope rather than a massive open world.
+## Project isolation law
 
-Primary authority: `SHOOTER_RPG_VISUAL_DIRECTION.md`.
+The following are NOT Shooter RPG authority unless explicitly imported later:
+- Unnamed Hunt RPG design documents and source;
+- WorldLife RPG design documents and source;
+- Hunt-01 source/tests/build evidence;
+- previous monsters, anatomy, body-part combat, harvesting or crafting;
+- previous settlements, factions, mining/crystal economy or lore;
+- previous progression/level-cap rules;
+- Diamond Watch;
+- previous NPC relationship/aging/generation systems;
+- previous save schemas;
+- previous storage caps/performance budgets;
+- previous APK/workflow verification.
 
-Primary visual reference is saved in Google Drive as `Shooter RPG - Pixel Visual Reference.jpg`, file ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
+Inherited files remain historical repository material only.
 
-The visible names/text in the concept image are placeholders unless separately approved.
+## Confirmed Shooter RPG facts
 
-## Autonomous design authorization
+CONFIRMED:
+- new standalone project;
+- branch: `shooter-rpg`;
+- pixel visual direction;
+- the generated pixel reference image is the current visual inspiration;
+- this game must receive its own design, implementation, tests, builds and verification.
 
-The assistant may make normal game-development/design decisions involving gameplay, UI/UX, world structure, story flow, relationships, NPC simulation, mining, factions, progression, equipment, monsters, economy and supporting rules without pausing for approval.
+NOT YET CONFIRMED:
+- exact setting/lore;
+- exact shooter mechanics;
+- firearm vs other projectile/weapon mix;
+- camera perspective and distance;
+- real-time vs hybrid combat timing;
+- RPG stat/progression model;
+- world scale;
+- NPC simulation depth;
+- multiplayer/online requirements;
+- final engine/project folder;
+- storage/performance caps;
+- exact Android control layout.
 
-Constraint: **deep, coherent, expandable — not massive or overwhelming.**
+Do not resolve those by copying the old game.
 
-## Selected presentation law
+## Canonical visual reference
 
-Core presentation target:
-- third-person player-visible camera;
-- direct continuous left-stick movement;
-- independent right-side look;
-- simultaneous movement/look;
-- landscape Android-first ergonomics;
-- pixel-styled 3D world and UI;
-- responsive safe-area-aware HUD;
-- exploration and combat share the same spatial world/perspective family.
+Primary original reference:
+- `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
+- Google Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
 
-Older aerial/isometric-primary and mandatory first-person-combat guidance is superseded on `shooter-rpg` where it conflicts with the new visual authority.
+Working JPEG reference:
+- `Shooter RPG - Pixel Visual Reference.jpg`
+- Google Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
 
-## User-selected storage law
+The image establishes visual mood, pixel treatment, camera/composition ideas and UI inspiration only. Visible names, quests, characters, locations, inventory values and monster details are placeholders.
 
-`TOTAL_PLAYER_REQUIRED_GAME_STORAGE_CAP = 2 GB`
-`TOTAL_PLAYER_REQUIRED_GAME_STORAGE_CAP_BYTES = 2000000000`
-`TOTAL_GAME_STORAGE_CAP_SELECTED = YES`
+## Architecture separation
 
-The complete player-required installed/runtime base-game footprint must stay at or below 2,000,000,000 bytes. Mandatory split/downloaded runtime content counts toward the same ceiling. Development-only source masters, repository history, CI artifacts and debug-only files that never ship do not count. APK/AAB size is necessary package evidence but is not proof of installed footprint.
+When implementation begins, Shooter RPG should use a separate root such as:
+`shooter_game/`
 
-## Protected controls foundation
+Do not build the new game inside inherited previous-game runtime folders unless the user explicitly approves reuse after a file-level review.
 
-The existing protected shooter-style control principle remains useful:
-- direct continuous analog left-stick movement;
-- independent right-side look;
-- simultaneous movement/look;
-- no forced joystick release/center/rebase.
+Shooter RPG needs its own:
+- project configuration;
+- source tree;
+- asset pipeline;
+- save lineage;
+- tests;
+- CI/build evidence;
+- documentation authority;
+- Android package/application identity when packaging begins.
 
-Historical first-person values such as ~115° FOV are not automatically authoritative for the new third-person camera. Third-person FOV, pitch, distance, shoulder offset and collision behavior must be re-prototyped.
+## Scope principle
 
-## Historical verified production baseline
+Build the smallest strong game first.
 
-The branch was created from `worldlife-reference-docs` revision:
-`7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`.
+Use:
+**clear core loop → strong controls → readable combat → good pixel presentation → one complete playable slice → expand**.
 
-The latest previously recorded fully production-verified gameplay source remains:
-`01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
-
-Recorded production verification:
-- workflow `34880096112` — SUCCESS;
-- job `104096962757` — SUCCESS;
-- artifact ID `10362706279`;
-- artifact name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- artifact size `57,536,941` bytes;
-- SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
-
-That evidence proves the older production pipeline/build at that revision. It does **not** prove the new pixel third-person direction works or looks good on a phone.
-
-## Existing gameplay systems worth preserving unless later evidence rejects them
-
-- deterministic combat foundation;
-- body-part/anatomy ownership;
-- break/sever/harvest design direction;
-- monster wound/status handling;
-- persistent world-state principles;
-- stable IDs/data-driven content;
-- Android-first storage/performance constraints;
-- physical tracking/engagement foundation where reusable;
-- verification-only autorun/test infrastructure.
-
-Presentation may change without discarding mechanically useful domain logic.
-
-## New design additions to integrate gradually
-
-- Diamond Watch as diegetic information interface;
-- crystal/diamond mining and energy economy;
-- mining licenses and territorial permissions;
-- survivor groups/factions and small defended settlements;
-- persistent NPC relationships and selected memories;
-- NPC-to-NPC relationships;
-- schedules, aging and generational continuity;
-- difficult decisions affecting characters and settlements;
-- multi-layer progression with earned post-cap breakthroughs;
-- hunter journal/bestiary knowledge progression.
-
-These are design targets, not implementation claims.
+Avoid adding broad simulation/lore systems before the shooter loop and presentation are proven.
 
 ## Current verification boundary
 
-`SHOOTER_RPG_VISUAL_DIRECTION_DESIGNED = YES`
-`REFERENCE_IMAGE_SAVED = YES`
-`THIRD_PERSON_PIXEL_PROTOTYPE_IMPLEMENTED = NO`
-`THIRD_PERSON_PIXEL_PROTOTYPE_ANDROID_BUILD_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_PROTOTYPE_PHONE_RUNTIME_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_VISUAL_QUALITY_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_PERFORMANCE_VERIFIED = NO`
-`INSTALLED_FOOTPRINT_2GB_CAP_VERIFIED = NO`
+`SHOOTER_RPG_STANDALONE_IDENTITY_RECORDED = YES`
+`PIXEL_REFERENCE_SAVED = YES`
+`CORE_GAMEPLAY_DESIGN_LOCKED = NO`
+`SHOOTER_RPG_SOURCE_IMPLEMENTED = NO`
+`SHOOTER_RPG_BUILD_VERIFIED = NO`
+`SHOOTER_RPG_PHONE_RUNTIME_VERIFIED = NO`
+`SHOOTER_RPG_VISUAL_QUALITY_VERIFIED = NO`
+`SHOOTER_RPG_PERFORMANCE_VERIFIED = NO`
 
-Historical Hunt-01 verification remains historical evidence only.
+Old game verification does not change these states.
 
-## Exact next bounded piece for this branch
+## Exact next bounded piece
 
-`SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`
+`SHOOTER_RPG_FOUNDATION_DESIGN_001`
 
-Required boundary:
-1. do not rewrite the entire game;
-2. reuse authoritative gameplay/domain code where it remains compatible;
-3. prototype one small settlement gate/street area;
-4. add one controllable third-person player using the protected mobile movement/look scheme;
-5. add one NPC interaction target;
-6. add one short physical route outside the settlement;
-7. add one monster/proxy at meaningful scale;
-8. apply the selected pixel rendering/art treatment;
-9. build a responsive safe-area HUD inspired by the saved visual reference;
-10. prove Android launch/runtime before broader migration;
-11. record visual/runtime/performance evidence separately.
+Before coding, define only:
+1. core player fantasy;
+2. camera/perspective;
+3. movement;
+4. aiming/shooting;
+5. damage/health baseline;
+6. weapon categories for the first slice;
+7. basic enemy interaction;
+8. RPG progression depth for the first slice;
+9. world/travel structure;
+10. mobile HUD/control layout;
+11. pixel-art/rendering approach;
+12. exact smallest playable vertical slice.
 
-## Quality gate
+Do not import old-game systems as defaults.
 
-The new direction is not accepted merely because it compiles.
-
-Promotion requires evidence for:
-- launch reliability;
-- control feel;
-- camera readability;
-- no HUD overlap;
-- pixel-style coherence;
-- monster/player readability;
-- Android performance;
-- user visual acceptance.
-
-NEXT THING FOR THIS BRANCH: `SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`.
+NEXT THING: `SHOOTER_RPG_FOUNDATION_DESIGN_001`.
