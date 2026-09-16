@@ -37,15 +37,29 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Verify runner Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "${ANDROID_HOME:-}"
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ] && [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          fi
+          if [ -z "$SDKMANAGER" ]; then
+            echo 'sdkmanager is not available on the GitHub runner.'
+            exit 1
+          fi
+          echo "SDKMANAGER=$SDKMANAGER" >> "$GITHUB_ENV"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          "$SDKMANAGER" --version
 
       - name: Install Android SDK export tools
         shell: bash
         run: |
           set -euo pipefail
-          yes | sdkmanager --licenses >/dev/null || true
-          sdkmanager 'platform-tools' 'build-tools;35.0.1' 'platforms;android-35'
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;35.0.1' 'platforms;android-35'
 
       - name: Set up Godot 4.7.2 and export templates
         uses: chickensoft-games/setup-godot@v2
@@ -91,7 +105,7 @@ jobs:
             godot --version
             java -version 2>&1 | head -n 1
             echo "ANDROID_HOME=${ANDROID_HOME}"
-            sdkmanager --list_installed | grep -E 'platform-tools|build-tools;35.0.1|platforms;android-35' || true
+            "$SDKMANAGER" --list_installed | grep -E 'platform-tools|build-tools;35.0.1|platforms;android-35' || true
           } | tee build-evidence/build-identity.txt
 
       - name: Shooter RPG static gates
