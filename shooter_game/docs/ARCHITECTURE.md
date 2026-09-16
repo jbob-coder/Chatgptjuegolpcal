@@ -1,6 +1,7 @@
-# Shooter RPG — Scaffold Architecture
+# Shooter RPG — Runtime Architecture
 
-Status: SCAFFOLD 001
+Status: SCAFFOLD 001 + PLAYER-CAMERA GRAYBOX 001
+Last reconciled: 2026-09-16
 
 ## Ownership
 
@@ -8,16 +9,16 @@ Status: SCAFFOLD 001
 
 Inherited root-level project folders are not dependencies.
 
-## Initial directories
+## Directory ownership
 
-- `scenes/` owns Godot scenes.
+- `scenes/` owns Shooter-RPG-specific Godot scenes.
 - `scripts/` owns Shooter-RPG-specific GDScript.
 - `tests/` owns Shooter-RPG-specific automated checks.
 - `docs/` owns runtime-local technical documentation.
 
-## First-slice input contract
+## Semantic input contract
 
-Actions reserved now:
+Reserved actions:
 - `move_left`
 - `move_right`
 - `move_forward`
@@ -29,16 +30,51 @@ Actions reserved now:
 - `interact`
 - `pause_game`
 
-These are semantic actions. Touch controls, keyboard/mouse debug bindings and gamepad bindings may map to them later without changing gameplay code ownership.
+Gameplay code should consume these actions rather than device-specific keys/buttons.
 
-## Scaffold boundary
+Desktop keyboard/mouse mappings in `scripts/input/debug_input_bindings.gd` exist only to make development testable before mobile touch controls are implemented. Future touch controls should feed the same semantic gameplay contract.
 
-Scaffold 001 must not contain:
-- combat implementation;
+## Player-camera graybox ownership
+
+`scenes/graybox/player_camera_graybox.tscn` owns only the small test environment and node composition required to prove the first third-person controller/camera layer.
+
+`Player` is a `CharacterBody3D` using `scripts/player/player_controller.gd`.
+
+The controller currently owns:
+- gravity;
+- horizontal camera-relative movement;
+- acceleration toward desired horizontal velocity;
+- desktop mouse capture/release;
+- yaw/pitch look;
+- provisional camera pitch limits;
+- exclusion of the player collider from the `SpringArm3D` camera collision test.
+
+Camera composition:
+`Player → CameraYaw → CameraPitch → SpringArm3D → Camera3D`.
+
+`SpringArm3D` is responsible for shortening camera distance around graybox collision geometry. The exact camera FOV, spring length, pitch range, sensitivity and movement speeds are explicitly provisional.
+
+## Current scene flow
+
+`project.godot`
+→ `scenes/boot/boot.tscn`
+→ instances `scenes/graybox/player_camera_graybox.tscn`.
+
+This is an early proof path, not the final game-shell architecture.
+
+## Current boundary
+
+Player-Camera Graybox 001 intentionally does NOT implement:
+- firearm firing/reload behavior;
+- aim/ADS behavior beyond reserving the semantic action;
 - enemy AI;
-- progression;
-- save system;
-- world content;
-- final pixel render pipeline.
+- player/enemy damage;
+- dodge gameplay;
+- RPG progression;
+- save/load;
+- mobile joystick/look controls;
+- final HUD;
+- final pixel render pipeline;
+- production world content.
 
 Those belong to later bounded slices.
