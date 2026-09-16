@@ -79,38 +79,60 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="PixelRPGPrototype001" type="Node3D"]
+[node name="PixelRPGPrototype001" type="Node"]
 script = ExtResource("1_script")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
+[node name="WorldDisplay" type="SubViewportContainer" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 1
+stretch = true
+
+[node name="WorldViewport" type="SubViewport" parent="WorldDisplay"]
+size = Vector2i(800, 360)
+render_target_update_mode = 4
+own_world_3d = true
+
+[node name="World" type="Node3D" parent="WorldDisplay/WorldViewport"]
+
+[node name="Sun" type="DirectionalLight3D" parent="WorldDisplay/WorldViewport/World"]
 rotation_degrees = Vector3(-48, -34, 0)
 light_color = Color(1, 0.88, 0.70, 1)
 light_energy = 1.15
 shadow_enabled = true
 directional_shadow_max_distance = 90.0
 
-[node name="WorldGeometry" type="Node3D" parent="."]
+[node name="WorldGeometry" type="Node3D" parent="WorldDisplay/WorldViewport/World"]
 
-[node name="Hunter" type="CharacterBody3D" parent="."]
+[node name="Hunter" type="CharacterBody3D" parent="WorldDisplay/WorldViewport/World"]
 position = Vector3(0, 0.9, 13)
 collision_layer = 1
 collision_mask = 1
 floor_snap_length = 0.4
 floor_max_angle = 0.785398
 
-[node name="Visual" parent="Hunter" instance=ExtResource("2_hunter")]
+[node name="Visual" parent="WorldDisplay/WorldViewport/World/Hunter" instance=ExtResource("2_hunter")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hunter"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldDisplay/WorldViewport/World/Hunter"]
 shape = SubResource("HunterShape")
 
-[node name="CameraYaw" type="Node3D" parent="Hunter"]
+[node name="CameraYaw" type="Node3D" parent="WorldDisplay/WorldViewport/World/Hunter"]
 
-[node name="CameraPitch" type="Node3D" parent="Hunter/CameraYaw"]
-position = Vector3(0, 1.25, 0)
+[node name="CameraPitch" type="Node3D" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw"]
+position = Vector3(0, 1.5, 0)
 rotation_degrees = Vector3(-11, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Hunter/CameraYaw/CameraPitch"]
-position = Vector3(0, 1.15, 5.8)
+[node name="SpringArm3D" type="SpringArm3D" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch"]
+spring_length = 5.8
+margin = 0.18
+collision_mask = 1
+
+[node name="Camera3D" type="Camera3D" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/SpringArm3D"]
 current = true
 fov = 66.0
 near = 0.08
@@ -121,7 +143,7 @@ far = 180.0
 [node name="TopLeft" type="PanelContainer" parent="HUD"]
 offset_left = 24.0
 offset_top = 22.0
-offset_right = 260.0
+offset_right = 274.0
 offset_bottom = 104.0
 theme_override_styles/panel = SubResource("StatusPanel")
 
@@ -134,8 +156,8 @@ text = "HP 100   ST 100\nX 0  Z 13"
 [node name="ObjectivePanel" type="PanelContainer" parent="HUD"]
 offset_left = 24.0
 offset_top = 118.0
-offset_right = 470.0
-offset_bottom = 188.0
+offset_right = 494.0
+offset_bottom = 196.0
 theme_override_styles/panel = SubResource("ObjectivePanel")
 
 [node name="Objective" type="Label" parent="HUD/ObjectivePanel"]
@@ -147,10 +169,13 @@ autowrap_mode = 2
 
 [node name="InteractionPrompt" type="Label" parent="HUD"]
 visible = false
-offset_left = 575.0
-offset_top = 575.0
-offset_right = 1030.0
-offset_bottom = 620.0
+layout_mode = 0
+anchor_left = 0.32
+anchor_top = 1.0
+anchor_right = 0.68
+anchor_bottom = 1.0
+offset_top = -142.0
+offset_bottom = -96.0
 theme_override_colors/font_color = Color(1, 0.87, 0.47, 1)
 theme_override_font_sizes/font_size = 20
 text = "Talk"
@@ -170,9 +195,9 @@ layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 34.0
-offset_top = -238.0
+offset_top = -228.0
 offset_right = 238.0
-offset_bottom = -34.0
+offset_bottom = -24.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("JoystickPanel")
 
@@ -192,10 +217,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -262.0
-offset_top = -180.0
-offset_right = -44.0
-offset_bottom = -86.0
+offset_left = -242.0
+offset_top = -174.0
+offset_right = -24.0
+offset_bottom = -80.0
 theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("ActionButton")
 text = "ACTION"
@@ -204,19 +229,24 @@ text = "ACTION"
 layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -205.0
-offset_top = 24.0
-offset_right = -44.0
-offset_bottom = 88.0
+offset_left = -204.0
+offset_top = 22.0
+offset_right = -24.0
+offset_bottom = 86.0
 theme_override_font_sizes/font_size = 18
 text = "DIAMOND WATCH"
 
 [node name="WatchPanel" type="PanelContainer" parent="HUD"]
 visible = false
-offset_left = 470.0
-offset_top = 125.0
-offset_right = 1130.0
-offset_bottom = 585.0
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -230.0
+offset_right = 330.0
+offset_bottom = 230.0
 theme_override_styles/panel = SubResource("WatchPanel")
 
 [node name="Layout" type="VBoxContainer" parent="HUD/WatchPanel"]
