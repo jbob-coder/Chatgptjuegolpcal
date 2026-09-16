@@ -1,6 +1,6 @@
 # Shooter RPG — Documentation Index
 
-Status: ACTIVE / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD NEXT
+Status: ACTIVE / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -15,8 +15,11 @@ Branch: `shooter-rpg`
 7. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`
 8. `SHOOTER_RPG_VISUAL_DIRECTION.md`
 9. `VISUAL_REFERENCE_ASSETS.md`
-10. newest Shooter-RPG-specific handoff/document created after the standalone reset
-11. exact Shooter RPG source/tests under `shooter_game/` once implementation exists
+10. `shooter_game/README.md`
+11. `shooter_game/docs/ARCHITECTURE.md`
+12. `shooter_game/docs/VERIFICATION.md`
+13. newest Shooter-RPG-specific handoff/document created after the standalone reset
+14. exact Shooter RPG source/tests for the current bounded piece
 
 ## Critical separation rule
 
@@ -36,7 +39,10 @@ Old `game/`, old workflows, old builds/APKs, old saves, old mechanics and old de
 - gameplay foundation: `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
 - visual direction: `SHOOTER_RPG_VISUAL_DIRECTION.md`;
 - visual references: `VISUAL_REFERENCE_ASSETS.md`;
-- future runtime truth: Shooter-RPG-specific source/tests/build/device evidence under the new project lineage.
+- runtime root: `shooter_game/`;
+- runtime-local architecture: `shooter_game/docs/ARCHITECTURE.md`;
+- verification boundary: `shooter_game/docs/VERIFICATION.md`;
+- runtime truth: Shooter-RPG-specific source/tests/build/device evidence under `shooter_game/`.
 
 ## Locked gameplay foundation
 
@@ -56,7 +62,23 @@ Foundation Design 001 establishes:
 - Godot `4.7.2-stable`;
 - independent root `shooter_game/`.
 
-See `SHOOTER_RPG_FOUNDATION_DESIGN_001.md` for exact scope and deferred systems.
+## Current runtime scaffold
+
+Scaffold 001 currently contains:
+- standalone Godot project config;
+- minimal boot scene/script;
+- semantic input actions;
+- project identity contract;
+- version marker `0.0.0-scaffold.001`;
+- generated-file ignore rules;
+- static preflight;
+- Godot headless smoke;
+- runtime-local README/architecture/verification docs.
+
+Static verification executed and passed:
+`SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`.
+
+Godot headless/runtime, Android, phone, visual and performance verification remain open.
 
 ## Canonical visual reference
 
@@ -74,8 +96,10 @@ The image controls visual inspiration only. Its names, quests, item counts, char
 `SHOOTER_RPG_STANDALONE_IDENTITY_RECORDED = YES`
 `PIXEL_REFERENCE_SAVED = YES`
 `SHOOTER_RPG_FOUNDATION_DESIGN_001_LOCKED = YES`
-`SHOOTER_GAME_PROJECT_ROOT_CREATED = NO`
-`SHOOTER_RPG_SOURCE_IMPLEMENTED = NO`
+`SHOOTER_GAME_PROJECT_ROOT_CREATED = YES`
+`SHOOTER_RPG_SCAFFOLD_STATIC_VERIFIED = YES`
+`SHOOTER_RPG_SCAFFOLD_HEADLESS_VERIFIED = NO`
+`SHOOTER_RPG_SOURCE_IMPLEMENTED = SCAFFOLD_ONLY`
 `SHOOTER_RPG_BUILD_VERIFIED = NO`
 `SHOOTER_RPG_PHONE_RUNTIME_VERIFIED = NO`
 `SHOOTER_RPG_VISUAL_QUALITY_VERIFIED = NO`
@@ -83,6 +107,6 @@ The image controls visual inspiration only. Its names, quests, item counts, char
 
 ## Exact continuation
 
-`SHOOTER_RPG_PROJECT_SCAFFOLD_001`.
+`SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`.
 
-Create only the independent `shooter_game/` Godot project skeleton, minimal boot scene, first-slice input map, Shooter-RPG-specific docs/tests and sanity verification. Do not build the full vertical slice or import inherited old-game runtime code in the scaffold pass.
+Create one tiny 3D graybox scene, one `CharacterBody3D` player, gravity and camera-relative movement, one third-person pivot/spring-arm camera rig, and desktop keyboard/mouse debug bindings through the existing semantic actions. Do not add shooting, enemies, RPG progression, mobile joystick UI or final pixel rendering in this slice.
