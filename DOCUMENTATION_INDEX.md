@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / PROTOTYPE 001 ANDROID BUILD VERIFIED / PIXEL-CAMERA-HUD POLISH NEXT
+Status: ACTIVE GLOBAL MAP / PIXEL-CAMERA-HUD POLISH ANDROID BUILD VERIFIED / WORLD COMPOSITION NEXT
 Last reconciled: 2026-09-16
 Branch: `pixel-rpg`
 
@@ -31,8 +31,6 @@ Fetch live branch HEAD before reading and re-check it afterward. Keep documentat
 
 Conflicting older aerial/isometric-primary, mandatory first-person-combat, smooth illustrated-realism, and standalone Shooter RPG passages are subordinate for current presentation decisions.
 
-Historical documents remain historical evidence; do not rewrite them to claim an older build used Pixel RPG presentation.
-
 ## Visual reference authority
 
 Google Drive:
@@ -51,6 +49,16 @@ Prototype presentation:
 - Android export: `game/export_presets.cfg`;
 - CI: `.github/workflows/pixel-rpg-prototype-android.yml`.
 
+Implemented presentation layer includes:
+- 800×360 low-resolution 3D SubViewport + nearest stretch;
+- per-vertex/nearest primitive material treatment;
+- SpringArm third-person camera collision;
+- responsive safe-area HUD positioning;
+- settlement gate/street/trail prototype;
+- Gate Warden interaction;
+- distant monster observation proxy;
+- Diamond Watch prototype panel.
+
 Existing reusable monster-hunting runtime remains primarily under `game/`:
 - generic combat/status/outcome under `game/scripts/gameplay/combat/`;
 - encounter logic under `game/scripts/gameplay/encounter/`;
@@ -58,13 +66,11 @@ Existing reusable monster-hunting runtime remains primarily under `game/`:
 - tracking under `game/scripts/gameplay/tracking/`;
 - tests under `game/tests/` and `tests/quality/hunt01/`.
 
-Reuse compatible domain logic instead of rewriting it solely because presentation changed.
-
 ## Shooter separation
 
 The later standalone first-person Shooter RPG is not Pixel RPG authority. Its `shooter_game/` runtime, first-person 115° camera, firearm-first progression, wall-jump implementation and shooter APK evidence must not be merged into Pixel RPG unless the user explicitly chooses a specific reusable element later.
 
-The `shooter-rpg` branch ref is still physically present because the connected GitHub actions do not expose branch deletion. It is non-authoritative.
+The `shooter-rpg` ref is still physically present because the connected GitHub actions do not expose branch deletion. It is non-authoritative.
 
 ## Storage authority
 
@@ -75,10 +81,14 @@ Required runtime downloads count. Development-only repo/source/CI files do not. 
 ## Current Pixel RPG verified baseline
 
 Source:
-`8d0c21018c396ec1943d0930a867273e4753ba6c`.
+`88d19d733a579e326d7bdf3ebd8e002ef413d86a`.
 
-Workflow `35062091768`: SUCCESS.
-Job `104684371733`: SUCCESS.
+Workflow `35062722630`: SUCCESS.
+Job `104686283219`: SUCCESS.
+
+Artifacts:
+- `10432264323` — `PixelRPG-prototype-001-debug`;
+- `10433305640` — `PixelRPG-prototype-001-build-evidence`.
 
 Passed:
 - Godot 4.7.2 import/parse;
@@ -89,16 +99,19 @@ Passed:
 - package-size ceiling;
 - artifact uploads.
 
-Artifacts:
-- `10432014296` — `PixelRPG-prototype-001-debug`;
-- `10433105552` — `PixelRPG-prototype-001-build-evidence`.
+## CI trigger policy
+
+Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Documentation-only updates should not trigger a full Android export.
 
 ## Verification boundary
 
 `PIXEL_RPG_VISUAL_DIRECTION_DESIGNED = YES`
 `PIXEL_RPG_REFERENCE_IMAGE_SAVED = YES`
 `PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_IMPLEMENTED = YES`
-`PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_HEADLESS_SMOKE_VERIFIED = YES`
+`PIXEL_RPG_PIXEL_RENDER_PATH_IMPLEMENTED = YES`
+`PIXEL_RPG_SPRING_ARM_CAMERA_COLLISION_IMPLEMENTED = YES`
+`PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
+`PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
 `PIXEL_RPG_ANDROID_BUILD_VERIFIED = YES`
 `PIXEL_RPG_PHONE_RUNTIME_VERIFIED = NO`
@@ -108,6 +121,6 @@ Artifacts:
 
 ## Exact continuation
 
-`PIXEL_RPG_PROTOTYPE_001_PIXEL_RENDER_CAMERA_UI_POLISH`.
+`PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`.
 
-Improve intentional pixel render/upscale behavior, third-person camera collision/occlusion and safe-area responsive HUD layout while preserving controller semantics, prototype interactions, deterministic domain regressions and Android build verification.
+Improve the compact settlement/trail visual composition toward the selected concept reference using inexpensive reusable silhouettes, market/service cues, fencing/signage and environmental depth while preserving controller/camera/pixel-render/HUD behavior, interactions, deterministic domain regressions and Android build verification.
