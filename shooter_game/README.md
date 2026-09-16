@@ -1,83 +1,84 @@
 # Shooter RPG — Standalone Runtime Root
 
-Status: SCAFFOLD 001 + PLAYER-CAMERA GRAYBOX 001 STATIC VERIFIED
+Status: FIRST-PERSON 115 HFOV / WALL-JUMP + MOBILE TOUCH HEADLESS VERIFIED
 Engine baseline: Godot 4.7.2-stable
 
-This directory is the independent runtime root for Shooter RPG.
+`shooter_game/` is the independent runtime root for Shooter RPG.
 
-It must not depend on inherited previous-game runtime folders unless a future Shooter RPG authority explicitly imports a reviewed piece.
+## Active runtime foundation
 
-## Current contents
+Camera:
+- first-person;
+- `Player → CameraYaw → CameraPitch → Camera3D`;
+- target horizontal FOV = `115°`;
+- aspect-aware conversion to Godot vertical FOV;
+- no `SpringArm3D` in the active camera.
 
-Foundation:
-- `project.godot` — standalone Godot project and semantic input-action ownership.
-- `scripts/core/project_contract.gd` — project identity and required action contract.
-- `VERSION` — current early-development version marker.
+Movement:
+- camera-relative movement;
+- gravity;
+- ground jump;
+- air steering;
+- wall jump;
+- short steering lock after wall-jump impulse.
 
-Boot / graybox:
-- `scenes/boot/boot.tscn` — entry scene that instances the active player-camera graybox.
-- `scripts/boot/boot.gd` — boot status marker only.
-- `scenes/graybox/player_camera_graybox.tscn` — tiny 3D movement/camera test space.
-- `scripts/player/player_controller.gd` — provisional gravity, camera-relative locomotion and third-person mouse look.
-- `scripts/input/debug_input_bindings.gd` — desktop-only debug mappings for the semantic actions.
+Input:
+- desktop `W/A/S/D` movement;
+- desktop mouse look;
+- `Space` jump;
+- `Shift` reserved for dodge;
+- left-side mobile movement region;
+- right-side mobile drag look;
+- mobile JUMP button;
+- AIM/FIRE/DODGE buttons reserved for later gameplay slices.
 
-Verification:
-- `tests/scaffold_static_preflight.py` — structural/isolation preflight.
-- `tests/player_camera_static_preflight.py` — graybox ownership/scope preflight.
-- `tests/scaffold_smoke.gd` — Godot headless project/input/boot smoke; not yet executed.
-- `tests/player_camera_smoke.gd` — Godot scene-instantiation/type/property smoke; not yet executed.
-- `docs/VERIFICATION.md` — exact verification boundary.
+## Semantic input contract
 
-No shooting, enemy AI, RPG progression, mobile touch UI, save system or final pixel-render pipeline is claimed implemented by the graybox.
+Current required actions: 11.
 
-## Static verification
+- `move_left`
+- `move_right`
+- `move_forward`
+- `move_back`
+- `jump`
+- `aim`
+- `fire`
+- `reload`
+- `dodge`
+- `interact`
+- `pause_game`
 
-From repository root:
+## Verification
 
-`python shooter_game/tests/scaffold_static_preflight.py`
+Most recent runtime-gate evidence:
+- source SHA `393ff872f2623f98f07c6216d6d29dc5ed64e5fb`;
+- GitHub Actions run `35056976187`;
+- job `104669095724`;
+- result: SUCCESS.
 
-Expected marker:
+Executed successfully in that gate:
+- `python shooter_game/tests/scaffold_static_preflight.py`;
+- `python shooter_game/tests/player_camera_static_preflight.py`;
+- `python shooter_game/tests/mobile_touch_static_preflight.py`;
+- Godot 4.7.2 project import/parse;
+- `res://tests/scaffold_smoke.gd`;
+- `res://tests/player_camera_smoke.gd`;
+- `res://tests/mobile_touch_smoke.gd`.
 
-`SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
+Headless/runtime verification does NOT yet prove Android export, phone ergonomics, wall-jump feel, FOV comfort, final visuals or performance.
 
-Then:
+## Current boundary
 
-`python shooter_game/tests/player_camera_static_preflight.py`
+Still not implemented:
+- firearm firing/reload behavior;
+- ADS behavior;
+- enemy AI;
+- damage/health;
+- actual dodge behavior;
+- RPG progression runtime;
+- save/load;
+- final HUD;
+- final pixel-render pipeline;
+- production world content.
 
-Expected marker:
-
-`SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS`
-
-Both static checks were executed successfully for Player-Camera Graybox 001.
-
-## Desktop graybox controls — debug only
-
-When a Godot runtime is available:
-- `W/A/S/D` = movement;
-- mouse = camera look while captured;
-- `Esc` = release/capture mouse;
-- right mouse = semantic AIM action reservation;
-- left mouse = semantic FIRE action reservation;
-- `R`, `Space`, `E` reserve reload/dodge/interact for later slices.
-
-AIM/FIRE/RELOAD/DODGE/INTERACT gameplay behavior is intentionally not implemented yet.
-
-## Godot headless verification commands
-
-Project scaffold smoke:
-
-`godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
-
-Expected marker:
-
-`SHOOTER_RPG_SCAFFOLD_SMOKE_PASS actions=10`
-
-Player-camera graybox smoke:
-
-`godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`
-
-Expected marker:
-
-`SHOOTER_RPG_PLAYER_CAMERA_SMOKE_PASS`
-
-Both Godot smoke commands remain unverified until Godot 4.7.2-stable is actually executed and the results are observed.
+Next gate: real Android control-feel verification before adding firearm mechanics.
