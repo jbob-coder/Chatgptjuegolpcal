@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / PROTOTYPE 001 ANDROID BUILD VERIFIED / PIXEL-CAMERA-HUD POLISH NEXT
+Status: ACTIVE PIXEL RPG BOOTSTRAP / PIXEL-CAMERA-HUD POLISH ANDROID BUILD VERIFIED / WORLD COMPOSITION NEXT
 Last reconciled: 2026-09-16
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -32,7 +32,7 @@ WorldLife is abandoned. The later standalone first-person Shooter RPG is also no
 
 Pixel RPG target:
 - third-person behind-character gameplay;
-- pixel-styled 3D world/UI;
+- pixel-styled real 3D world/UI;
 - Android landscape-first;
 - left-stick movement;
 - independent right-side camera/look;
@@ -61,11 +61,11 @@ Never weaken legitimate gates to force success.
 
 ## Current Pixel RPG verified baseline
 
-Source:
-`8d0c21018c396ec1943d0930a867273e4753ba6c`.
+Current verified gameplay/presentation source:
+`88d19d733a579e326d7bdf3ebd8e002ef413d86a`.
 
-Workflow `35062091768`: SUCCESS.
-Job `104684371733`: SUCCESS.
+Workflow `35062722630`: SUCCESS.
+Job `104686283219`: SUCCESS.
 
 Passed:
 - Godot 4.7.2 import/parse;
@@ -77,10 +77,16 @@ Passed:
 - APK and build-evidence uploads.
 
 Artifacts:
-- APK `10432014296` — `PixelRPG-prototype-001-debug`;
-- evidence `10433105552` — `PixelRPG-prototype-001-build-evidence`.
+- APK `10432264323` — `PixelRPG-prototype-001-debug`;
+- evidence `10433305640` — `PixelRPG-prototype-001-build-evidence`.
+
+Implemented presentation includes an 800×360 low-resolution 3D SubViewport with nearest stretch, SpringArm camera obstruction handling and responsive safe-area HUD logic.
 
 This does not establish phone runtime, final visual quality, sustained performance or installed-footprint compliance.
+
+## CI trigger policy
+
+The Pixel RPG Android workflow runs for `game/**` changes or changes to the workflow itself. Documentation-only updates must not consume a full Android export run.
 
 ## Storage law
 
@@ -93,7 +99,10 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 `PIXEL_RPG_VISUAL_DIRECTION_DESIGNED = YES`
 `PIXEL_RPG_REFERENCE_IMAGE_SAVED = YES`
 `PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_IMPLEMENTED = YES`
-`PIXEL_RPG_THIRD_PERSON_PROTOTYPE_001_HEADLESS_SMOKE_VERIFIED = YES`
+`PIXEL_RPG_PIXEL_RENDER_PATH_IMPLEMENTED = YES`
+`PIXEL_RPG_SPRING_ARM_CAMERA_COLLISION_IMPLEMENTED = YES`
+`PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
+`PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
 `PIXEL_RPG_ANDROID_BUILD_VERIFIED = YES`
 `PIXEL_RPG_PHONE_RUNTIME_VERIFIED = NO`
@@ -102,14 +111,13 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 
 ## Current bounded piece
 
-`PIXEL_RPG_PROTOTYPE_001_PIXEL_RENDER_CAMERA_UI_POLISH`.
+`PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`.
 
 Boundary:
-- intentional pixel render/upscale treatment;
-- third-person camera collision/occlusion around settlement structures;
-- anchored/safe-area responsive HUD cleanup;
-- preserve movement/right-look semantics;
-- preserve current NPC/monster interactions;
-- preserve selected deterministic gameplay regressions;
+- preserve current controller/camera/pixel-render/HUD behavior;
+- improve compact settlement street/gate visual composition toward the saved reference;
+- add reusable lightweight market/service silhouettes, fences/signage and environmental depth;
+- improve settlement-to-trail transition and distant monster framing;
+- preserve current NPC/monster interactions and deterministic gameplay regressions;
 - rerun parse/smokes/Android export/package gate;
 - no unrelated gameplay-system expansion in this slice.
