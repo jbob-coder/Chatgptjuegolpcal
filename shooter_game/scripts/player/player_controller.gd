@@ -18,6 +18,7 @@ extends CharacterBody3D
 
 var _pitch_radians := 0.0
 
+
 func _ready() -> void:
 	ShooterDebugInputBindings.install()
 	_pitch_radians = deg_to_rad(initial_pitch_degrees)
@@ -25,6 +26,7 @@ func _ready() -> void:
 	spring_arm.add_excluded_object(get_rid())
 	if not OS.has_feature("mobile"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -52,6 +54,17 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+
+func apply_look_delta(screen_delta: Vector2, sensitivity_multiplier := 1.0) -> void:
+	camera_yaw.rotate_y(-screen_delta.x * mouse_sensitivity * sensitivity_multiplier)
+	_pitch_radians = clamp(
+		_pitch_radians - (screen_delta.y * mouse_sensitivity * sensitivity_multiplier),
+		deg_to_rad(min_pitch_degrees),
+		deg_to_rad(max_pitch_degrees)
+	)
+	camera_pitch.rotation.x = _pitch_radians
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if OS.has_feature("mobile"):
 		return
@@ -67,10 +80,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		camera_yaw.rotate_y(-event.screen_relative.x * mouse_sensitivity)
-		_pitch_radians = clamp(
-			_pitch_radians - (event.screen_relative.y * mouse_sensitivity),
-			deg_to_rad(min_pitch_degrees),
-			deg_to_rad(max_pitch_degrees)
-		)
-		camera_pitch.rotation.x = _pitch_radians
+		apply_look_delta(event.screen_relative)
