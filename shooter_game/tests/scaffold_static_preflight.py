@@ -11,6 +11,7 @@ REQUIRED_ACTIONS = (
     "move_right",
     "move_forward",
     "move_back",
+    "jump",
     "aim",
     "fire",
     "reload",
