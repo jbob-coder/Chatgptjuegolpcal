@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Shooter RPG
 
-Status: STANDALONE GAME / FIRST-PERSON 115 HFOV / WALL-JUMP + MOBILE TOUCH HEADLESS VERIFIED / INTERNAL 21+ MATURE TARGET
+Status: STANDALONE GAME / FIRST-PERSON 115 HFOV / WALL-JUMP + MOBILE TOUCH HEADLESS VERIFIED / ANDROID DEBUG APK VERIFIED / PHONE TEST NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -29,7 +29,7 @@ Authority: `SHOOTER_RPG_PERSPECTIVE_DECISION_002.md`.
 
 Current camera rules:
 - target horizontal FOV = `115°`;
-- controller converts horizontal target to Godot vertical FOV for current aspect ratio;
+- controller converts horizontal target to Godot vertical FOV for the current aspect ratio;
 - `Player → CameraYaw → CameraPitch → Camera3D`;
 - no third-person spring arm;
 - first-person body mesh hidden in graybox;
@@ -80,6 +80,51 @@ Implemented under `shooter_game/`:
 
 AIM/FIRE/DODGE gameplay mechanics remain unimplemented.
 
+## Android device-build evidence
+
+Android debug export now exists and is verified as a build artifact.
+
+APK source SHA:
+`bb1231d3b7942aa3d6b8391998a9ffef3229be8f`
+
+Workflow:
+`Shooter RPG Android Device APK`
+
+Run:
+`35059066037` — **SUCCESS**
+
+Job:
+`104675333172` — **SUCCESS**
+
+Verified build steps:
+- Android SDK/JDK setup;
+- Godot 4.7.2 + export templates;
+- Shooter RPG static gates;
+- Godot import/parse;
+- scaffold smoke;
+- first-person camera/movement smoke;
+- mobile-touch smoke;
+- Android debug APK export;
+- APK ZIP-integrity check;
+- metadata inspection;
+- artifact upload.
+
+APK:
+- file: `ShooterRPG-AndroidDevice001-debug.apk`;
+- package: `com.jbobcoder.shooterrpg`;
+- version: `0.0.1-device-probe` / code `1`;
+- min SDK reported by APK: `24`;
+- target SDK reported by APK: `36`;
+- size: `57,580,078` bytes;
+- SHA-256: `b78a706184ecd87ce190f9348a96943ea9df54a86ab0ebaa246bb68609b348ef`.
+
+GitHub artifact:
+- ID `10431432477`;
+- name `ShooterRPG-AndroidDevice001-debug`.
+
+Drive backup ZIP:
+- ID `1JIBdDjOm65jRmCGcCmz8ENI_0sgrXccF`.
+
 ## Verification boundary
 
 `SHOOTER_RPG_STANDALONE_IDENTITY_RECORDED = YES`
@@ -90,38 +135,28 @@ AIM/FIRE/DODGE gameplay mechanics remain unimplemented.
 `SHOOTER_RPG_MOBILE_TOUCH_IMPLEMENTED = YES`
 `SHOOTER_RPG_STATIC_VERIFIED = YES`
 `SHOOTER_RPG_HEADLESS_VERIFIED = YES`
-`SHOOTER_RPG_ANDROID_BUILD_VERIFIED = NO`
+`SHOOTER_RPG_ANDROID_BUILD_VERIFIED = YES`
+`SHOOTER_RPG_APK_INTEGRITY_VERIFIED = YES`
 `SHOOTER_RPG_PHONE_RUNTIME_VERIFIED = NO`
 `SHOOTER_RPG_VISUAL_QUALITY_VERIFIED = NO`
 `SHOOTER_RPG_PERFORMANCE_VERIFIED = NO`
 
-Most recent verified runtime evidence:
-- source SHA `393ff872f2623f98f07c6216d6d29dc5ed64e5fb`;
-- workflow `Shooter RPG Runtime Gate`;
-- run `35056976187` — SUCCESS;
-- job `104669095724` — SUCCESS;
-- Godot 4.7.2 download/version — SUCCESS;
-- project import/parse — SUCCESS;
-- scaffold smoke — SUCCESS;
-- first-person camera/movement smoke — SUCCESS;
-- mobile touch smoke — SUCCESS.
-
-Headless success does not prove real-phone ergonomics, wall-jump feel, 115-HFOV comfort, visual quality or frame pacing.
+Build/headless success does not prove real-phone ergonomics, wall-jump feel, 115-HFOV comfort, visual quality or frame pacing.
 
 ## Exact next bounded piece
 
 `SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`
 
 Boundary:
-1. do not add another large gameplay system first;
-2. export the current Shooter RPG graybox to Android;
-3. install on a real phone;
-4. verify launch/orientation;
-5. verify left movement + right look simultaneously;
-6. verify ground jump and wall jump;
-7. verify 115 horizontal FOV feels correct on the target aspect ratio;
-8. inspect safe-area/button overlap;
-9. measure obvious performance/frame-pacing problems;
-10. tune only evidence-backed control/camera values before beginning firearm behavior.
+1. install the verified debug APK on a real Android phone;
+2. verify clean launch and landscape orientation;
+3. verify left movement + right look simultaneously;
+4. verify ground jump and wall jump;
+5. verify 115 horizontal FOV on the real display;
+6. inspect safe-area/button overlap;
+7. observe obvious frame-pacing/performance problems;
+8. record exact phone/device evidence;
+9. tune only evidence-backed control/camera values;
+10. do not begin full firearm mechanics until this gate is usable.
 
 NEXT THING: `SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`.
