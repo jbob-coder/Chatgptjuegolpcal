@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_player"]
+
+[sub_resource type="BoxMesh" id="GroundMesh"]
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="BoxShape3D" id="GroundShape"]
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="BoxMesh" id="ObstacleMesh"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="ObstacleShape"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="CapsuleMesh" id="PlayerMesh"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="BoxMesh" id="WallMesh"]
+size = Vector3(6, 2.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallShape"]
+size = Vector3(6, 2.5, 0.5)
+
+[node name="PlayerCameraGraybox" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-50, -35, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.25, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("GroundMesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("GroundShape")
+
+[node name="Obstacle" type="StaticBody3D" parent="."]
+position = Vector3(2.5, 1, -2.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle"]
+mesh = SubResource("ObstacleMesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle"]
+shape = SubResource("ObstacleShape")
+
+[node name="Wall" type="StaticBody3D" parent="."]
+position = Vector3(-1.5, 1.25, -6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+mesh = SubResource("WallMesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("WallShape")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+position = Vector3(0, 1, 4)
+script = ExtResource("1_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("PlayerShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("PlayerMesh")
+
+[node name="CameraYaw" type="Node3D" parent="Player"]
+position = Vector3(0, 1.25, 0)
+
+[node name="CameraPitch" type="Node3D" parent="Player/CameraYaw"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraYaw/CameraPitch"]
+spring_length = 4.5
+margin = 0.15
+collision_mask = 1
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraYaw/CameraPitch/SpringArm3D"]
+current = true
+fov = 70.0
+near = 0.1
+far = 200.0
