@@ -1,106 +1,77 @@
-# PROJECT HANDOFF — Unnamed Hunt RPG / Shooter RPG Branch
+# PROJECT HANDOFF — Shooter RPG
 
-Status: THIRD-PERSON PIXEL VISUAL DIRECTION SELECTED / REFERENCE IMAGE SAVED / HISTORICAL HUNT-01 ANDROID BUILD EVIDENCE PRESERVED / NEW VISUAL PROTOTYPE NOT YET IMPLEMENTED
-Last reconciled: 2026-09-15
+Status: NEW STANDALONE GAME / PIXEL REFERENCE SELECTED / DESIGN FOUNDATION NEXT / NO SHOOTER GAMEPLAY IMPLEMENTATION CLAIMED
+Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
-CURRENT_OBJECTIVE: re-present the existing monster-hunting RPG as a high-quality third-person pixel-style Android game without discarding proven gameplay/domain work. First prove one small visually accepted, phone-safe third-person slice before broader migration.
+CURRENT_OBJECTIVE: define Shooter RPG from zero as a standalone game using the selected pixel visual reference, then build the smallest playable shooter/RPG vertical slice without inheriting previous-game mechanics by default.
 
-CURRENT_STATE: `shooter-rpg` was created from `worldlife-reference-docs` at revision `7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`. The new visual direction is documented but not yet implemented or phone-verified. The older Hunt-01 deterministic combat/anatomy/status/outcome work and Android build evidence remain historical verified foundations where compatible.
+CURRENT_STATE: the `shooter-rpg` branch exists and contains inherited repository history/files because of how the branch was created. Those inherited files do not define this game. Shooter RPG currently has a selected pixel visual reference and a corrected standalone-project identity, but its gameplay foundation is not yet locked or implemented.
 
-LAST_VERIFIED_STATE: historical fully production-verified gameplay source `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c` passed workflow `34880096112`, job `104096962757`. That evidence does not validate the new third-person pixel presentation.
+LAST_VERIFIED_STATE: no Shooter RPG runtime/build verification exists yet. Older Hunt-01/Unnamed Hunt RPG CI and APK evidence belongs to the previous game and must not be used as Shooter RPG proof.
 
 COMPLETED_WORK:
-- created branch `shooter-rpg` from live `worldlife-reference-docs` revision `7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`;
-- saved the selected visual reference to Google Drive as `Shooter RPG - Pixel Visual Reference.jpg`, file ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`;
-- established `SHOOTER_RPG_VISUAL_DIRECTION.md` as the current visual/presentation authority;
-- selected third-person behind-character gameplay with shooter-style mobile move/look controls;
-- selected pixel-styled 3D presentation rather than smooth illustrated-realism as the target;
-- selected physical exploration instead of menu-only travel;
-- selected same-world third-person combat presentation instead of mandatory first-person combat;
-- preserved the 2 GB player-required game-footprint ceiling;
-- documented NPC relationship/memory, time/aging, Diamond Watch, crystal/mining/faction, consequence and progression directions as gradual expandable systems;
-- preserved historical deterministic combat/anatomy/status/outcome verification as reusable domain evidence where compatible.
+- created branch `shooter-rpg`;
+- saved the selected pixel visual reference in Google Drive in original PNG and working JPEG forms;
+- corrected project authority so Shooter RPG is explicitly independent from all previous games;
+- established that inherited source/docs/build evidence are legacy repository material only;
+- prevented automatic inheritance of old mechanics, lore, saves, progression, performance caps or tests.
 
-IN_PROGRESS: documentation reconciliation for the new visual direction. No claim is made that gameplay code has already been converted to the new presentation.
+IN_PROGRESS: documentation cleanup so future chats do not accidentally merge Shooter RPG with the previous monster-hunting project.
 
-NEXT_ACTION: `SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`.
+NEXT_ACTION: `SHOOTER_RPG_FOUNDATION_DESIGN_001`.
 
-Prototype boundary:
-- one small settlement gate/street;
-- one third-person controllable player;
-- protected left-stick movement + independent right-side look;
-- one NPC interaction;
-- one short route outside the settlement;
-- one monster or monster proxy at readable scale;
-- pixel rendering/art treatment;
-- responsive phone-safe HUD inspired by the saved reference;
-- Android launch/runtime evidence before broad migration.
-
-BLOCKERS: no design blocker. The main implementation risk is rewriting too much before the new visual/camera/HUD direction is proven on the target phone.
+BLOCKERS: none for design. Implementation should not begin until the core shooter/RPG experience is defined well enough to avoid building the wrong game.
 
 OPEN_QUESTIONS:
-- exact third-person camera pitch/distance/FOV/shoulder offset;
-- exact low-resolution render scale/pixel size;
-- texture/pixel density standards;
-- lighting/shadow method for the pixel aesthetic;
-- exact combat timing presentation in third person while preserving authoritative combat rules;
-- final button layout and whether lock-on/body-part selection uses tap, cycle, radial or reticle interaction;
-- target-device sustained performance;
-- installed-footprint verification;
-- final names/lore for concept-image placeholders.
+- exact player fantasy and setting;
+- third-person vs first-person vs another camera approach;
+- what weapons define the shooter loop;
+- aiming model and mobile control scheme;
+- enemy type for the first vertical slice;
+- exact RPG progression layer;
+- world structure and travel;
+- whether NPC/social simulation is part of this game at all;
+- exact pixel rendering technique;
+- engine/project root/package identity.
 
 IMPORTANT_DECISIONS:
-- third-person pixel presentation is selected for this branch;
-- concept-image names/text are placeholders, not canon;
-- older aerial/isometric-primary and mandatory first-person-combat presentation guidance is superseded where conflicting;
-- gameplay domain systems should be reused rather than discarded when compatible;
-- normal exploration is physical, compact and meaningful rather than menu teleportation;
-- world scope remains deep but deliberately bounded;
-- AI-generated runtime dialogue is not required for the NPC/SIM system;
-- total player-required game footprint hard cap remains `2,000,000,000` bytes;
-- build success alone does not equal phone acceptance or visual-quality acceptance.
+- Shooter RPG is a new standalone project;
+- no previous-game code or design is automatically reusable;
+- old branch/build evidence is historical only;
+- visual reference remains useful, but its names/content are placeholders;
+- Shooter RPG must generate its own tests and verification;
+- safest future implementation location is a separate root such as `shooter_game/`.
 
 KNOWN_RISKS:
-- visually converting every old system at once would create high regression risk;
-- a simple full-screen pixel shader may look poor if assets/UI/lighting are not designed for the same style;
-- third-person camera can create occlusion/collision/readability issues in dense settlements;
-- large HUD blocks can recreate the overlap/scaling problems already disliked by the user;
-- too many simulation systems added before the core presentation works would overwhelm development scope.
+- inherited files can mislead future assistants into assuming continuity;
+- copying old systems would create hidden coupling and contradict the user's project separation;
+- coding before camera/combat/control decisions are settled can create another expensive visual/gameplay rework;
+- treating the concept image as literal content could accidentally canonize placeholder names and systems.
 
-FILES_CHANGED / CREATED ON `shooter-rpg` SO FAR:
-- `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-- `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`;
-- `GAME_EXPERIENCE_BIBLE.md`;
+FILES CHANGED FOR THIS CORRECTION:
+- `README.md`;
 - `EVOLVE_ALIGNMENT.md`;
-- `PROJECT_HANDOFF.md`.
+- `PROJECT_HANDOFF.md`;
+- additional front-door/authority files should be kept consistent with this separation.
 
-TESTS_RUN / TEST_RESULTS: no new runtime/build tests were executed for the visual pivot. Documentation-only work must not be represented as engine/runtime verification.
+TESTS_RUN / TEST_RESULTS: documentation-only correction. No Shooter RPG engine, build, APK or phone tests have been run.
 
-HISTORICAL_VERIFIED_BUILD:
-- source `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`;
-- workflow `34880096112` SUCCESS;
-- job `104096962757` SUCCESS;
-- artifact `10362706279`;
-- size `57,536,941` bytes;
-- SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
+REPOSITORY_ANCESTRY_NOTE: branch ancestry may still point to older game commits. That is not design or implementation inheritance.
 
-EXTERNAL_REFERENCES:
-- Google Drive visual reference ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
+EXTERNAL_REFERENCE:
+- original PNG visual reference Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
+- working JPEG Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
 
-ASSUMPTIONS:
-- branch name uses `shooter-rpg` because Git refs cannot contain spaces;
-- `shooter` describes the direct mobile control/camera language and does not force a firearms-focused game;
-- the selected concept image defines direction/composition, not exact final assets/content.
+ASSUMPTIONS: the user still wants the Shooter RPG to follow the pixel-style image direction. Everything beyond that should be designed for Shooter RPG rather than inherited.
 
-UNKNOWNS: phone feel, camera acceptance, pixel-render quality, third-person monster targeting UX and performance remain unverified until an actual prototype runs on the target device.
+UNKNOWNS: all gameplay details not explicitly established for Shooter RPG remain open.
 
 READ_FIRST_NEXT_SLICE:
-1. `EVOLVE_ALIGNMENT.md`;
-2. `PROJECT_HANDOFF.md`;
-3. `START_HERE_NEW_CHAT.md`;
-4. `DOCUMENTATION_INDEX.md`;
-5. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-6. `GAME_EXPERIENCE_BIBLE.md`;
-7. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`;
-8. exact current player/camera/HUD source and Android project configuration before implementation.
+1. `README.md`;
+2. `EVOLVE_ALIGNMENT.md`;
+3. `PROJECT_HANDOFF.md`;
+4. `START_HERE_NEW_CHAT.md`;
+5. `DOCUMENTATION_INDEX.md`;
+6. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
+7. then only Shooter RPG-specific files created after the standalone reset.
