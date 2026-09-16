@@ -39,22 +39,27 @@ for required_scene_token in (
     '[node name="Player" type="CharacterBody3D"',
     '[node name="CameraYaw" type="Node3D" parent="Player"]',
     '[node name="CameraPitch" type="Node3D" parent="Player/CameraYaw"]',
-    '[node name="SpringArm3D" type="SpringArm3D"',
-    '[node name="Camera3D" type="Camera3D"',
+    '[node name="Camera3D" type="Camera3D" parent="Player/CameraYaw/CameraPitch"]',
+    'visible = false',
     '[node name="Ground" type="StaticBody3D"',
     '[node name="Obstacle" type="StaticBody3D"',
 ):
     require(required_scene_token in scene, f"graybox scene missing: {required_scene_token}")
+
+require("SpringArm3D" not in scene, "first-person graybox must not contain a third-person spring arm")
 
 for required_controller_token in (
     "extends CharacterBody3D",
     "velocity += get_gravity() * delta",
     'Input.get_vector("move_left", "move_right", "move_forward", "move_back")',
     "move_and_slide()",
-    "spring_arm.add_excluded_object(get_rid())",
+    "func apply_look_delta(",
     "event.screen_relative",
+    '$CameraYaw/CameraPitch/Camera3D',
 ):
     require(required_controller_token in controller, f"player controller missing: {required_controller_token}")
+
+require("spring_arm" not in controller, "first-person controller still references third-person spring arm")
 
 for required_binding_token in (
     'KEY_W',
@@ -89,4 +94,4 @@ if failures:
         print(f" - {failure}")
     sys.exit(1)
 
-print("SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS")
+print("SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS perspective=first_person")
