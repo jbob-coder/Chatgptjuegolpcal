@@ -1,8 +1,8 @@
-# EVOLVE ALIGNMENT — Unnamed Hunt RPG / Shooter RPG Branch
+# EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE DESIGN PIVOT / THIRD-PERSON PIXEL DIRECTION SELECTED / HISTORICAL HUNT-01 ANDROID BUILD EVIDENCE PRESERVED / NEW VISUAL PROTOTYPE NOT YET VERIFIED
-Last reconciled: 2026-09-15
-Branch: `shooter-rpg`
+Status: ACTIVE PIXEL RPG / THIRD-PERSON PIXEL DIRECTION SELECTED / SHOOTER GAME REJECTED / PIXEL PROTOTYPE NEXT
+Last reconciled: 2026-09-16
+Branch: `pixel-rpg`
 
 ## Operating law
 
@@ -14,147 +14,114 @@ Current source/tests/build/device evidence outranks chat memory and older handof
 
 ## Current user direction
 
-The user rejected the current visual quality and selected a new presentation direction:
-- third-person behind-the-character gameplay;
-- shooter-style mobile movement/look controls;
-- pixel-style visual presentation;
-- physical exploration rather than menu-only travel;
-- combat in the same third-person spatial world;
-- small, dense, expandable world scope rather than a massive open world.
+The active game is **Pixel RPG**, not the separate standalone Shooter RPG.
 
-Primary authority: `SHOOTER_RPG_VISUAL_DIRECTION.md`.
+Selected direction:
+- third-person behind-character gameplay;
+- pixel-styled real 3D presentation;
+- Android landscape-first;
+- direct left-stick movement;
+- independent right-side camera/look;
+- physical exploration through compact connected spaces;
+- monster-hunting combat in the same third-person spatial world;
+- body-part damage/break/sever/harvest identity preserved;
+- small, coherent, expandable scope rather than a massive open world.
 
-Primary visual reference is saved in Google Drive as `Shooter RPG - Pixel Visual Reference.jpg`, file ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
+Primary visual/presentation authority: `PIXEL_RPG_VISUAL_DIRECTION.md`.
 
-The visible names/text in the concept image are placeholders unless separately approved.
+## Visual reference authority
+
+Google Drive:
+- `Pixel RPG - Visual Reference ORIGINAL.png` — ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
+- `Pixel RPG - Visual Reference.jpg` — ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
+
+Visible names/text in the concept image are placeholders unless separately approved.
+
+## Shooter separation law
+
+The later standalone first-person Shooter RPG direction is rejected for this project.
+
+Do not import its first-person 115° HFOV contract, firearm-first identity, wall-jump progression, `shooter_game/` runtime root, package identity, or shooter-specific build evidence into Pixel RPG.
+
+The `pixel-rpg` branch was recovered to revision `7ac7e84a6b0e8249ea8c869cf96171b834b2363c`, before the later standalone Shooter rewrite, then received Pixel RPG authority updates.
 
 ## Autonomous design authorization
 
-The assistant may make normal game-development/design decisions involving gameplay, UI/UX, world structure, story flow, relationships, NPC simulation, mining, factions, progression, equipment, monsters, economy and supporting rules without pausing for approval.
+The assistant may make normal game-development decisions involving gameplay, UI/UX, world structure, story flow, relationships, NPC simulation, mining, factions, progression, equipment, monsters, economy and supporting rules without pausing for approval.
 
 Constraint: **deep, coherent, expandable — not massive or overwhelming.**
 
-## Selected presentation law
-
-Core presentation target:
-- third-person player-visible camera;
-- direct continuous left-stick movement;
-- independent right-side look;
-- simultaneous movement/look;
-- landscape Android-first ergonomics;
-- pixel-styled 3D world and UI;
-- responsive safe-area-aware HUD;
-- exploration and combat share the same spatial world/perspective family.
-
-Older aerial/isometric-primary and mandatory first-person-combat guidance is superseded on `shooter-rpg` where it conflicts with the new visual authority.
-
-## User-selected storage law
+## Storage law
 
 `TOTAL_PLAYER_REQUIRED_GAME_STORAGE_CAP = 2 GB`
 `TOTAL_PLAYER_REQUIRED_GAME_STORAGE_CAP_BYTES = 2000000000`
-`TOTAL_GAME_STORAGE_CAP_SELECTED = YES`
 
-The complete player-required installed/runtime base-game footprint must stay at or below 2,000,000,000 bytes. Mandatory split/downloaded runtime content counts toward the same ceiling. Development-only source masters, repository history, CI artifacts and debug-only files that never ship do not count. APK/AAB size is necessary package evidence but is not proof of installed footprint.
+Required runtime downloads count toward the same ceiling. Development-only source/repository/CI files do not. Package size evidence does not prove installed-footprint compliance.
 
-## Protected controls foundation
+## Reusable verified domain foundations
 
-The existing protected shooter-style control principle remains useful:
-- direct continuous analog left-stick movement;
-- independent right-side look;
-- simultaneous movement/look;
-- no forced joystick release/center/rebase.
+Preserve where compatible:
+- deterministic combat foundation;
+- monster anatomy/body-part ownership;
+- wound/status handling;
+- break/sever/harvest direction;
+- stable IDs/data-driven content;
+- physical tracking/engagement concepts;
+- Android build/test infrastructure;
+- verification-only autorun/regression infrastructure.
 
-Historical first-person values such as ~115° FOV are not automatically authoritative for the new third-person camera. Third-person FOV, pitch, distance, shoulder offset and collision behavior must be re-prototyped.
-
-## Historical verified production baseline
-
-The branch was created from `worldlife-reference-docs` revision:
-`7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`.
-
-The latest previously recorded fully production-verified gameplay source remains:
+Previously recorded fully production-verified gameplay source:
 `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
 
-Recorded production verification:
-- workflow `34880096112` — SUCCESS;
-- job `104096962757` — SUCCESS;
-- artifact ID `10362706279`;
-- artifact name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- artifact size `57,536,941` bytes;
-- SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
+Recorded historical workflow `34880096112`: SUCCESS.
+Recorded job `104096962757`: SUCCESS.
+Recorded artifact `10362706279`, 57,536,941 bytes, SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
 
-That evidence proves the older production pipeline/build at that revision. It does **not** prove the new pixel third-person direction works or looks good on a phone.
+This historical evidence does not prove the Pixel RPG presentation.
 
-## Existing gameplay systems worth preserving unless later evidence rejects them
+## Supporting design targets
 
-- deterministic combat foundation;
-- body-part/anatomy ownership;
-- break/sever/harvest design direction;
-- monster wound/status handling;
-- persistent world-state principles;
-- stable IDs/data-driven content;
-- Android-first storage/performance constraints;
-- physical tracking/engagement foundation where reusable;
-- verification-only autorun/test infrastructure.
-
-Presentation may change without discarding mechanically useful domain logic.
-
-## New design additions to integrate gradually
-
-- Diamond Watch as diegetic information interface;
+Gradually integrate only where they reinforce the core loop:
+- Diamond Watch diegetic information interface;
+- hunter journal/bestiary knowledge progression;
 - crystal/diamond mining and energy economy;
-- mining licenses and territorial permissions;
-- survivor groups/factions and small defended settlements;
+- mining licenses/territorial permissions;
+- small survivor settlements/factions;
 - persistent NPC relationships and selected memories;
 - NPC-to-NPC relationships;
 - schedules, aging and generational continuity;
-- difficult decisions affecting characters and settlements;
-- multi-layer progression with earned post-cap breakthroughs;
-- hunter journal/bestiary knowledge progression.
+- meaningful decisions affecting people/settlements;
+- multi-layer progression with difficult post-cap breakthroughs.
 
-These are design targets, not implementation claims.
+These remain design targets unless current source proves implementation.
 
 ## Current verification boundary
 
-`SHOOTER_RPG_VISUAL_DIRECTION_DESIGNED = YES`
-`REFERENCE_IMAGE_SAVED = YES`
-`THIRD_PERSON_PIXEL_PROTOTYPE_IMPLEMENTED = NO`
-`THIRD_PERSON_PIXEL_PROTOTYPE_ANDROID_BUILD_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_PROTOTYPE_PHONE_RUNTIME_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_VISUAL_QUALITY_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_PERFORMANCE_VERIFIED = NO`
+`PIXEL_RPG_VISUAL_DIRECTION_DESIGNED = YES`
+`PIXEL_RPG_REFERENCE_IMAGE_SAVED = YES`
+`PIXEL_RPG_THIRD_PERSON_PROTOTYPE_IMPLEMENTED = NO`
+`PIXEL_RPG_ANDROID_BUILD_VERIFIED = NO`
+`PIXEL_RPG_PHONE_RUNTIME_VERIFIED = NO`
+`PIXEL_RPG_VISUAL_QUALITY_VERIFIED = NO`
+`PIXEL_RPG_PERFORMANCE_VERIFIED = NO`
 `INSTALLED_FOOTPRINT_2GB_CAP_VERIFIED = NO`
 
-Historical Hunt-01 verification remains historical evidence only.
+## Exact next bounded piece
 
-## Exact next bounded piece for this branch
+`PIXEL_RPG_THIRD_PERSON_VISUAL_PROTOTYPE_001`
 
-`SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`
+Boundary:
+1. inspect current `game/` presentation/controller source before modification;
+2. preserve reusable gameplay/domain logic;
+3. build one small settlement gate/street prototype;
+4. one controllable third-person player;
+5. left-stick movement + independent right-side look;
+6. one NPC interaction target;
+7. one short physical route outside settlement;
+8. one visible monster/proxy at meaningful scale;
+9. coherent pixel rendering/art treatment;
+10. safe-area responsive HUD;
+11. run static/headless/build verification available for the bounded slice;
+12. do not claim phone/visual/performance acceptance without actual device evidence.
 
-Required boundary:
-1. do not rewrite the entire game;
-2. reuse authoritative gameplay/domain code where it remains compatible;
-3. prototype one small settlement gate/street area;
-4. add one controllable third-person player using the protected mobile movement/look scheme;
-5. add one NPC interaction target;
-6. add one short physical route outside the settlement;
-7. add one monster/proxy at meaningful scale;
-8. apply the selected pixel rendering/art treatment;
-9. build a responsive safe-area HUD inspired by the saved visual reference;
-10. prove Android launch/runtime before broader migration;
-11. record visual/runtime/performance evidence separately.
-
-## Quality gate
-
-The new direction is not accepted merely because it compiles.
-
-Promotion requires evidence for:
-- launch reliability;
-- control feel;
-- camera readability;
-- no HUD overlap;
-- pixel-style coherence;
-- monster/player readability;
-- Android performance;
-- user visual acceptance.
-
-NEXT THING FOR THIS BRANCH: `SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`.
+NEXT THING: `PIXEL_RPG_THIRD_PERSON_VISUAL_PROTOTYPE_001`.
