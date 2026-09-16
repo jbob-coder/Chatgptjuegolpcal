@@ -22,6 +22,7 @@ def read(relative: str) -> str:
 scene = read("scenes/graybox/player_camera_graybox.tscn")
 controller = read("scripts/player/player_controller.gd")
 bindings = read("scripts/input/debug_input_bindings.gd")
+mobile_scene = read("scenes/ui/mobile_controls.tscn")
 boot_scene = read("scenes/boot/boot.tscn")
 boot_script = read("scripts/boot/boot.gd")
 
@@ -41,8 +42,10 @@ for required_scene_token in (
     '[node name="CameraPitch" type="Node3D" parent="Player/CameraYaw"]',
     '[node name="Camera3D" type="Camera3D" parent="Player/CameraYaw/CameraPitch"]',
     'visible = false',
+    'fov = 82.8857',
     '[node name="Ground" type="StaticBody3D"',
     '[node name="Obstacle" type="StaticBody3D"',
+    '[node name="Wall" type="StaticBody3D"',
 ):
     require(required_scene_token in scene, f"graybox scene missing: {required_scene_token}")
 
@@ -52,8 +55,14 @@ for required_controller_token in (
     "extends CharacterBody3D",
     "velocity += get_gravity() * delta",
     'Input.get_vector("move_left", "move_right", "move_forward", "move_back")',
+    'Input.is_action_just_pressed("jump")',
+    "get_wall_normal()",
+    "wall_jump_vertical_speed_mps",
+    "wall_jump_horizontal_speed_mps",
     "move_and_slide()",
     "func apply_look_delta(",
+    "target_horizontal_fov_degrees := 115.0",
+    "vertical_radians := 2.0 * atan(tan(horizontal_radians * 0.5) / aspect)",
     "event.screen_relative",
     '$CameraYaw/CameraPitch/Camera3D',
 ):
@@ -66,16 +75,19 @@ for required_binding_token in (
     'KEY_A',
     'KEY_S',
     'KEY_D',
+    '_ensure_key("jump", KEY_SPACE)',
+    '_ensure_key("dodge", KEY_SHIFT)',
     'KEY_ESCAPE',
     '_ensure_mouse_button("aim", MOUSE_BUTTON_RIGHT)',
     '_ensure_mouse_button("fire", MOUSE_BUTTON_LEFT)',
 ):
     require(required_binding_token in bindings, f"debug binding missing: {required_binding_token}")
 
+require('action_name = &"jump"' in mobile_scene, "mobile controls must expose jump")
 require('res://scenes/graybox/player_camera_graybox.tscn' in boot_scene, "boot scene does not instance player-camera graybox")
 require('SHOOTER_RPG_BOOT_OK scaffold=001 graybox=player_camera_001' in boot_script, "graybox boot marker missing")
 
-combined = "\n".join((scene, controller, bindings, boot_scene, boot_script))
+combined = "\n".join((scene, controller, bindings, mobile_scene, boot_scene, boot_script))
 for forbidden in (
     "raycast_shoot",
     "apply_damage",
@@ -94,4 +106,4 @@ if failures:
         print(f" - {failure}")
     sys.exit(1)
 
-print("SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS perspective=first_person")
+print("SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS perspective=first_person hfov=115 wall_jump=yes")
