@@ -57,7 +57,8 @@ for action in REQUIRED_ACTIONS:
     require(f'"{action}"' in smoke, f"headless smoke missing action: {action}")
 
 require('res://scripts/boot/boot.gd' in boot_scene, "boot scene does not own boot.gd")
-require('[node name="Boot" type="Control"]' in boot_scene, "boot root must be Control")
+require('[node name="Boot" type="Node"]' in boot_scene, "boot root must be Node")
+require('res://scenes/graybox/player_camera_graybox.tscn' in boot_scene, "boot scene must instance the active graybox")
 require('SHOOTER_RPG_BOOT_OK scaffold=001' in boot_script, "boot marker missing")
 require('const PROJECT_ID := "shooter_rpg"' in contract, "project identity contract missing")
 require(version == "0.0.0-scaffold.001", f"unexpected VERSION: {version!r}")
