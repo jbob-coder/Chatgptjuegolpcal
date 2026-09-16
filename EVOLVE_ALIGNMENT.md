@@ -1,7 +1,8 @@
-# EVOLVE ALIGNMENT — Unnamed Hunt RPG
+# EVOLVE ALIGNMENT — Unnamed Hunt RPG / Shooter RPG Branch
 
-Status: PRODUCTION DEVELOPMENT ACTIVE / HUNT-01 BASIC AUTORUN HUNTER DEFEAT TERMINAL ANDROID BUILD VERIFIED / 2 GB GAME STORAGE CAP SELECTED / PACKAGE CAP CI GATE NEXT / PHONE VALIDATION BATCHED
-Last reconciled: 2026-09-14
+Status: ACTIVE DESIGN PIVOT / THIRD-PERSON PIXEL DIRECTION SELECTED / HISTORICAL HUNT-01 ANDROID BUILD EVIDENCE PRESERVED / NEW VISUAL PROTOTYPE NOT YET VERIFIED
+Last reconciled: 2026-09-15
+Branch: `shooter-rpg`
 
 ## Operating law
 
@@ -9,7 +10,43 @@ The game is the objective. Documentation preserves ownership, evidence and conti
 
 `READ LIVE STATE → VERIFY → ONE BOUNDED LAYER → IMPLEMENT → STATIC/HEADLESS/BUILD QA → FIX SAME-LAYER FAILURES → RECORD → CONTINUE`.
 
-Current repository/source/build evidence outranks chat memory and older handoffs.
+Current source/tests/build/device evidence outranks chat memory and older handoffs.
+
+## Current user direction
+
+The user rejected the current visual quality and selected a new presentation direction:
+- third-person behind-the-character gameplay;
+- shooter-style mobile movement/look controls;
+- pixel-style visual presentation;
+- physical exploration rather than menu-only travel;
+- combat in the same third-person spatial world;
+- small, dense, expandable world scope rather than a massive open world.
+
+Primary authority: `SHOOTER_RPG_VISUAL_DIRECTION.md`.
+
+Primary visual reference is saved in Google Drive as `Shooter RPG - Pixel Visual Reference.jpg`, file ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
+
+The visible names/text in the concept image are placeholders unless separately approved.
+
+## Autonomous design authorization
+
+The assistant may make normal game-development/design decisions involving gameplay, UI/UX, world structure, story flow, relationships, NPC simulation, mining, factions, progression, equipment, monsters, economy and supporting rules without pausing for approval.
+
+Constraint: **deep, coherent, expandable — not massive or overwhelming.**
+
+## Selected presentation law
+
+Core presentation target:
+- third-person player-visible camera;
+- direct continuous left-stick movement;
+- independent right-side look;
+- simultaneous movement/look;
+- landscape Android-first ergonomics;
+- pixel-styled 3D world and UI;
+- responsive safe-area-aware HUD;
+- exploration and combat share the same spatial world/perspective family.
+
+Older aerial/isometric-primary and mandatory first-person-combat guidance is superseded on `shooter-rpg` where it conflicts with the new visual authority.
 
 ## User-selected storage law
 
@@ -17,86 +54,107 @@ Current repository/source/build evidence outranks chat memory and older handoffs
 `TOTAL_PLAYER_REQUIRED_GAME_STORAGE_CAP_BYTES = 2000000000`
 `TOTAL_GAME_STORAGE_CAP_SELECTED = YES`
 
-The complete player-required installed/runtime base-game footprint must stay at or below 2,000,000,000 bytes. Mandatory split/downloaded runtime content counts toward the same ceiling. Development-only source masters, repository history, CI artifacts and debug-only files that never ship do not count. APK/AAB size is a necessary package constraint but is not proof of installed footprint.
+The complete player-required installed/runtime base-game footprint must stay at or below 2,000,000,000 bytes. Mandatory split/downloaded runtime content counts toward the same ceiling. Development-only source masters, repository history, CI artifacts and debug-only files that never ship do not count. APK/AAB size is necessary package evidence but is not proof of installed footprint.
 
-## User validation policy
+## Protected controls foundation
 
-`USER_PHONE_VALIDATION_POLICY = DEFERRED_BATCH`
-`PHONE_ACCEPTANCE_DOES_NOT_BLOCK_INDEPENDENT_LAYER_DEVELOPMENT = YES`
+The existing protected shooter-style control principle remains useful:
+- direct continuous analog left-stick movement;
+- independent right-side look;
+- simultaneous movement/look;
+- no forced joystick release/center/rebase.
 
-Do not convert CI/headless/APK evidence into phone, installed-footprint or sustained-performance proof.
+Historical first-person values such as ~115° FOV are not automatically authoritative for the new third-person camera. Third-person FOV, pitch, distance, shoulder offset and collision behavior must be re-prototyped.
 
-## Protected controls / world foundation
+## Historical verified production baseline
 
-Protected shooter-style controls remain direct continuous analog left-stick movement, independent right-side look, simultaneous movement/look, no forced joystick release/center/rebase, approximately 115° first-person FOV and approximately 6.25 m/s exploration speed.
+The branch was created from `worldlife-reference-docs` revision:
+`7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`.
 
-Production world remains the continuous 440×440 m Hunt-01 foundation. `probes/android_stage1/` remains evidence only.
-
-## Verified production stack
-
-IMPLEMENTED / STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED:
-- continuous Hunt-01 tracking through `OBSERVATION_READY` and same-location ENGAGE;
-- deterministic combat shell/resources/authored tactical movement;
-- Hunter `POLEBLADE_MEASURED_CUT`, Mudcrest anatomy, reaction/Block, Head Sweep and Tail Sweep;
-- Hunter defense, health/injury and generic encounter-outcome ownership;
-- species wound/contact classification;
-- generic Bleeding/Off-Balance/Staggered application and lifecycle timing;
-- exact-once Staggered→Off-Balance transition and CLEAN Tail Sweep→Staggered producer in dedicated regressions;
-- deterministic two-fresh-instance basic autorun with clean teardown;
-- integrated Tail Sweep/Poleblade Block exchange, Hunter Measured Cut/anatomy transaction and real Bleeding lifecycle;
-- integrated Hunter defeat terminal chain: after test-only Health preparation stops at 10, real Round-6 Head Sweep action sequence 5 causes the final 10→0 transition, Hunter becomes `DOWNED`, outcome commits `HUNTERS_DEFEATED`, current actor freezes empty in Round 6, further scheduler commitments are rejected and outcome replay is idempotent.
-
-## Current verified automated baseline
-
-Latest full production-verified revision:
+The latest previously recorded fully production-verified gameplay source remains:
 `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
 
-Storage-cap policy commit:
-`f3b5dfb672127fa90303e689466f41a3cbe439ff`.
-
-Hunter defeat-terminal autorun implementation commit:
-`01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
-
-Production verification workflow:
-`34880096112` — SUCCESS.
-
-Workflow job:
-`104096962757` — SUCCESS.
-
-Artifact:
-- ID `10362706279`;
-- name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
-- size `57,536,941` bytes;
+Recorded production verification:
+- workflow `34880096112` — SUCCESS;
+- job `104096962757` — SUCCESS;
+- artifact ID `10362706279`;
+- artifact name `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`;
+- artifact size `57,536,941` bytes;
 - SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
 
-Run 84 passed static/manifest governance, Godot 4.7.2 parse/import, production smokes, the extended two-cycle autorun through `HUNTERS_DEFEATED`, every current combat/anatomy/status/outcome regression, Android debug export and artifact upload.
+That evidence proves the older production pipeline/build at that revision. It does **not** prove the new pixel third-person direction works or looks good on a phone.
 
-The artifact is far below the 2 GB cap, but package size alone does not establish installed-footprint compliance.
+## Existing gameplay systems worth preserving unless later evidence rejects them
 
-## Verification boundary
+- deterministic combat foundation;
+- body-part/anatomy ownership;
+- break/sever/harvest design direction;
+- monster wound/status handling;
+- persistent world-state principles;
+- stable IDs/data-driven content;
+- Android-first storage/performance constraints;
+- physical tracking/engagement foundation where reusable;
+- verification-only autorun/test infrastructure.
 
-`PHONE_VERIFIED_NEWER_PRODUCTION_LAYERS = NO / DEFERRED_BATCH`
-`PERFORMANCE_VERIFIED = NO`
-`FINAL_ENGINE_SELECTED = NO`
-`H01VAL005_FINAL_SMOOTHED_ROUTE_LENGTH = NOT_EXECUTED`
+Presentation may change without discarding mechanically useful domain logic.
+
+## New design additions to integrate gradually
+
+- Diamond Watch as diegetic information interface;
+- crystal/diamond mining and energy economy;
+- mining licenses and territorial permissions;
+- survivor groups/factions and small defended settlements;
+- persistent NPC relationships and selected memories;
+- NPC-to-NPC relationships;
+- schedules, aging and generational continuity;
+- difficult decisions affecting characters and settlements;
+- multi-layer progression with earned post-cap breakthroughs;
+- hunter journal/bestiary knowledge progression.
+
+These are design targets, not implementation claims.
+
+## Current verification boundary
+
+`SHOOTER_RPG_VISUAL_DIRECTION_DESIGNED = YES`
+`REFERENCE_IMAGE_SAVED = YES`
+`THIRD_PERSON_PIXEL_PROTOTYPE_IMPLEMENTED = NO`
+`THIRD_PERSON_PIXEL_PROTOTYPE_ANDROID_BUILD_VERIFIED = NO`
+`THIRD_PERSON_PIXEL_PROTOTYPE_PHONE_RUNTIME_VERIFIED = NO`
+`THIRD_PERSON_PIXEL_VISUAL_QUALITY_VERIFIED = NO`
+`THIRD_PERSON_PIXEL_PERFORMANCE_VERIFIED = NO`
 `INSTALLED_FOOTPRINT_2GB_CAP_VERIFIED = NO`
 
-Still intentionally open: forced-recovery destination/timing/costs; Bleeding periodic Health magnitude; Braced/Guarded runtime; Mudcrest structural crack/break/sever thresholds; Hunter withdrawal geometry; Monster escape/death execution; harvest/inventory/crafting/settlement/persistence; final combat tuning; target-device installed-footprint measurement.
+Historical Hunt-01 verification remains historical evidence only.
 
-Latest specialized handoff:
-`docs/70_handoff/HUNT01_BASIC_RUNTIME_AUTORUN_2026-09-13.md`.
+## Exact next bounded piece for this branch
 
-## Exact next bounded piece
-
-`FIRST_SLICE_ANDROID_PACKAGE_2GB_STORAGE_CAP_CI_GATE`
+`SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`
 
 Required boundary:
-1. add a production-workflow package-size gate after Android export and before artifact upload;
-2. hard limit is exactly `2,000,000,000` bytes;
-3. fail the workflow if the exported production APK exceeds the cap;
-4. record measured APK bytes and cap bytes in build evidence;
-5. explicitly label this as package-size evidence only, not installed-footprint proof;
-6. do not alter production gameplay, controls, balance, assets or runtime behavior;
-7. keep every existing Hunt-01 static/headless regression and Android export green.
+1. do not rewrite the entire game;
+2. reuse authoritative gameplay/domain code where it remains compatible;
+3. prototype one small settlement gate/street area;
+4. add one controllable third-person player using the protected mobile movement/look scheme;
+5. add one NPC interaction target;
+6. add one short physical route outside the settlement;
+7. add one monster/proxy at meaningful scale;
+8. apply the selected pixel rendering/art treatment;
+9. build a responsive safe-area HUD inspired by the saved visual reference;
+10. prove Android launch/runtime before broader migration;
+11. record visual/runtime/performance evidence separately.
 
-NEXT THING I WILL DO: `FIRST_SLICE_ANDROID_PACKAGE_2GB_STORAGE_CAP_CI_GATE` — enforce the newly selected storage ceiling at the Android package layer while preserving the separate future installed-footprint gate.
+## Quality gate
+
+The new direction is not accepted merely because it compiles.
+
+Promotion requires evidence for:
+- launch reliability;
+- control feel;
+- camera readability;
+- no HUD overlap;
+- pixel-style coherence;
+- monster/player readability;
+- Android performance;
+- user visual acceptance.
+
+NEXT THING FOR THIS BRANCH: `SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`.
