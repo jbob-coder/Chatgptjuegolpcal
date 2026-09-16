@@ -17,31 +17,50 @@ func _initialize() -> void:
 	root.add_child(instance)
 
 	var player := instance.get_node_or_null("Player") as CharacterBody3D
-	var spring_arm := instance.get_node_or_null("Player/CameraYaw/CameraPitch/SpringArm3D") as SpringArm3D
-	var camera := instance.get_node_or_null("Player/CameraYaw/CameraPitch/SpringArm3D/Camera3D") as Camera3D
+	var camera_yaw := instance.get_node_or_null("Player/CameraYaw") as Node3D
+	var camera_pitch := instance.get_node_or_null("Player/CameraYaw/CameraPitch") as Node3D
+	var camera := instance.get_node_or_null("Player/CameraYaw/CameraPitch/Camera3D") as Camera3D
+	var spring_arm := instance.get_node_or_null("Player/CameraYaw/CameraPitch/SpringArm3D")
 	var ground := instance.get_node_or_null("Ground") as StaticBody3D
-	var obstacle := instance.get_node_or_null("Obstacle") as StaticBody3D
+	var wall := instance.get_node_or_null("Wall") as StaticBody3D
+	var mobile_controls := instance.get_node_or_null("MobileControls") as CanvasLayer
 
 	if player == null:
 		failures.append("Player must be CharacterBody3D")
-	if spring_arm == null:
-		failures.append("camera boom must be SpringArm3D")
+	if camera_yaw == null:
+		failures.append("CameraYaw must exist")
+	if camera_pitch == null:
+		failures.append("CameraPitch must exist")
 	if camera == null:
-		failures.append("camera must be Camera3D")
+		failures.append("first-person camera must be Camera3D")
+	if spring_arm != null:
+		failures.append("first-person camera must not use SpringArm3D")
 	if ground == null:
 		failures.append("Ground must be StaticBody3D")
-	if obstacle == null:
-		failures.append("Obstacle must be StaticBody3D")
+	if wall == null:
+		failures.append("Wall must be StaticBody3D for wall-jump testing")
+	if mobile_controls == null:
+		failures.append("MobileControls must be instanced")
 
-	if spring_arm != null and not is_equal_approx(spring_arm.spring_length, 4.5):
-		failures.append("unexpected provisional spring length")
+	if player != null:
+		var target_hfov := float(player.get("target_horizontal_fov_degrees"))
+		if not is_equal_approx(target_hfov, 115.0):
+			failures.append("target horizontal FOV must be 115 degrees")
+		if float(player.get("wall_jump_vertical_speed_mps")) <= 0.0:
+			failures.append("wall jump vertical speed must be positive")
+		if float(player.get("wall_jump_horizontal_speed_mps")) <= 0.0:
+			failures.append("wall jump horizontal speed must be positive")
+
 	if camera != null and not camera.current:
-		failures.append("graybox camera must be current")
+		failures.append("first-person graybox camera must be current")
+
+	if not InputMap.has_action("jump"):
+		failures.append("jump input action must exist")
 
 	instance.queue_free()
 
 	if failures.is_empty():
-		print("SHOOTER_RPG_PLAYER_CAMERA_SMOKE_PASS")
+		print("SHOOTER_RPG_PLAYER_CAMERA_SMOKE_PASS perspective=first_person hfov=115 wall_jump=yes")
 		quit(0)
 		return
 
