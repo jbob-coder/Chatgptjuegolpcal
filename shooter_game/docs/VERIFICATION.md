@@ -37,18 +37,31 @@ This verifies the checked graybox structure and scope markers, including:
 
 Static verification does NOT prove GDScript parse success, physics behavior, camera feel or runtime camera collision.
 
-## Not executed
+## Prepared but not executed
 
-### Godot 4.7.2 headless smoke
+### Godot scaffold smoke
 
-Planned command:
+Command:
 `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
 
-Status: NOT EXECUTED in this pass because a Godot executable was not available in the local execution environment and direct engine download was unavailable there.
+Expected marker:
+`SHOOTER_RPG_SCAFFOLD_SMOKE_PASS actions=10`
 
-Do not upgrade this status to HEADLESS_VERIFIED until the command is actually executed and its result observed.
+### Godot player-camera smoke
 
-### Player-camera engine/runtime validation
+Command:
+`godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`
+
+Expected marker:
+`SHOOTER_RPG_PLAYER_CAMERA_SMOKE_PASS`
+
+This smoke loads/instantiates the graybox and checks runtime node types plus selected provisional camera properties.
+
+Status for both Godot smoke tests: NOT EXECUTED in this pass because a Godot executable was not available in the local execution environment. Attempts to obtain the official Godot 4.7.2 Linux binary were blocked by that environment's network/download restrictions.
+
+Do not upgrade these states to HEADLESS_VERIFIED until the commands are actually executed and their results observed.
+
+## Player-camera runtime validation still required
 
 Not yet executed:
 - Godot project parse/import;
@@ -60,7 +73,7 @@ Not yet executed:
 - camera clipping inspection;
 - control feel/tuning.
 
-### Android / phone / performance
+## Android / phone / performance
 
 - Android export: NOT EXECUTED.
 - APK install: NOT EXECUTED.
