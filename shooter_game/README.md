@@ -25,6 +25,7 @@ Verification:
 - `tests/scaffold_static_preflight.py` — structural/isolation preflight.
 - `tests/player_camera_static_preflight.py` — graybox ownership/scope preflight.
 - `tests/scaffold_smoke.gd` — Godot headless project/input/boot smoke; not yet executed.
+- `tests/player_camera_smoke.gd` — Godot scene-instantiation/type/property smoke; not yet executed.
 - `docs/VERIFICATION.md` — exact verification boundary.
 
 No shooting, enemy AI, RPG progression, mobile touch UI, save system or final pixel-render pipeline is claimed implemented by the graybox.
@@ -61,9 +62,9 @@ When a Godot runtime is available:
 
 AIM/FIRE/RELOAD/DODGE/INTERACT gameplay behavior is intentionally not implemented yet.
 
-## Godot headless smoke
+## Godot headless verification commands
 
-Planned command with Godot 4.7.2-stable:
+Project scaffold smoke:
 
 `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
 
@@ -71,4 +72,12 @@ Expected marker:
 
 `SHOOTER_RPG_SCAFFOLD_SMOKE_PASS actions=10`
 
-This remains unverified until the engine is actually executed and the result observed.
+Player-camera graybox smoke:
+
+`godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`
+
+Expected marker:
+
+`SHOOTER_RPG_PLAYER_CAMERA_SMOKE_PASS`
+
+Both Godot smoke commands remain unverified until Godot 4.7.2-stable is actually executed and the results are observed.
