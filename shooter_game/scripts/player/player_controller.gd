@@ -6,15 +6,15 @@ extends CharacterBody3D
 @export var ground_acceleration_mps2 := 22.0
 @export var air_acceleration_mps2 := 7.0
 
-@export_category("Camera — provisional graybox tuning")
+@export_category("Camera — provisional first-person tuning")
 @export var mouse_sensitivity := 0.0025
 @export_range(-80.0, 0.0, 1.0) var min_pitch_degrees := -55.0
 @export_range(0.0, 80.0, 1.0) var max_pitch_degrees := 35.0
-@export_range(-60.0, 30.0, 1.0) var initial_pitch_degrees := -12.0
+@export_range(-60.0, 30.0, 1.0) var initial_pitch_degrees := -6.0
 
 @onready var camera_yaw: Node3D = $CameraYaw
 @onready var camera_pitch: Node3D = $CameraYaw/CameraPitch
-@onready var spring_arm: SpringArm3D = $CameraYaw/CameraPitch/SpringArm3D
+@onready var camera: Camera3D = $CameraYaw/CameraPitch/Camera3D
 
 var _pitch_radians := 0.0
 
@@ -23,7 +23,6 @@ func _ready() -> void:
 	ShooterDebugInputBindings.install()
 	_pitch_radians = deg_to_rad(initial_pitch_degrees)
 	camera_pitch.rotation.x = _pitch_radians
-	spring_arm.add_excluded_object(get_rid())
 	if not OS.has_feature("mobile"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -63,6 +62,10 @@ func apply_look_delta(screen_delta: Vector2, sensitivity_multiplier := 1.0) -> v
 		deg_to_rad(max_pitch_degrees)
 	)
 	camera_pitch.rotation.x = _pitch_radians
+
+
+func get_view_camera() -> Camera3D:
+	return camera
 
 
 func _unhandled_input(event: InputEvent) -> void:
