@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Shooter RPG
 
-Status: NEW STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: NEW STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / INTERNAL 21+ MATURE TARGET RECORDED / PLAYER-CAMERA GRAYBOX NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -24,6 +24,17 @@ Authoritative identity contract:
 
 Independent runtime root:
 `shooter_game/`.
+
+## Mature audience law
+
+Shooter RPG uses an **internal 21+ mature creative target**.
+
+Authority:
+`SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`.
+
+This is not an official storefront/ratings-board classification. Mature material may include strong firearm violence, blood/injury, harsh language, adult subject matter and difficult moral consequences. Romance/sexual themes are optional later systems, not foundation requirements; any character involved in them must be canonically at least 21 years old.
+
+Mature tone must not delay the core shooter prototype. The first vertical slice proves movement, camera, shooting, combat readability, pixel presentation and phone usability first.
 
 ## Confirmed Shooter RPG foundation
 
@@ -68,6 +79,7 @@ No combat, enemy AI, progression, save system, world content or final pixel rend
 ## Verification boundary
 
 `SHOOTER_RPG_STANDALONE_IDENTITY_RECORDED = YES`
+`SHOOTER_RPG_MATURE_21_PLUS_TARGET_RECORDED = YES`
 `PIXEL_REFERENCE_SAVED = YES`
 `SHOOTER_RPG_FOUNDATION_DESIGN_001_LOCKED = YES`
 `GODOT_4_7_2_SELECTED = YES`
@@ -86,7 +98,7 @@ Static command executed during Scaffold 001:
 Observed result:
 `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
 
-Godot headless smoke exists but was not executed in this pass because no Godot executable was available in the local execution environment. Do not promote it to verified until actually run.
+Godot headless smoke exists but was not executed in that pass because no Godot executable was available in the execution environment. Do not promote it to verified until actually run.
 
 ## Canonical visual reference
 
