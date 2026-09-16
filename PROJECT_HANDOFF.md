@@ -1,44 +1,49 @@
 # PROJECT HANDOFF — Shooter RPG
 
-Status: STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD NEXT / NO RUNTIME IMPLEMENTATION YET
+Status: STANDALONE GAME / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
-CURRENT_OBJECTIVE: build Shooter RPG as an independent third-person pixel shooter RPG, starting with a minimal Android-first project scaffold and then one complete playable vertical slice.
+CURRENT_OBJECTIVE: build Shooter RPG as an independent third-person pixel shooter RPG, proving the foundation in small executable slices. The standalone Godot project scaffold now exists; the next bounded piece is the first player/camera graybox.
 
-CURRENT_STATE: Shooter RPG is isolated from previous games by explicit authority. Its first gameplay foundation is now defined in `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`. No Shooter RPG runtime source/build/phone verification exists yet.
+CURRENT_STATE: Shooter RPG is isolated from previous games by explicit authority. Foundation Design 001 is locked. A new independent runtime root now exists at `shooter_game/` with its own Godot project, semantic input actions, boot scene, project contract, tests, docs and version marker. No combat, enemy AI, progression, save system or final pixel pipeline is implemented yet.
 
-LAST_VERIFIED_STATE: design/documentation only. No Shooter RPG engine, APK, runtime, phone or performance test has been executed.
+LAST_VERIFIED_STATE: Scaffold 001 static preflight executed successfully. Godot headless/runtime/build/device verification remains unexecuted.
 
 COMPLETED_WORK:
-- created branch `shooter-rpg`;
-- saved original PNG and working JPEG pixel visual references to Google Drive;
-- recorded standalone project identity and no-inheritance rule;
+- created and isolated branch/project identity for Shooter RPG;
+- saved original PNG and working JPEG visual references to Google Drive;
+- locked `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
 - selected third-person over-shoulder real-time shooter presentation;
 - selected semi-automatic carbine as first weapon;
-- selected deterministic reticle-based shooting rather than RPG random-miss behavior;
-- selected compact connected world structure;
-- selected one placeholder Sentry Automaton enemy for the first slice;
-- selected shallow Vigor / Handling / Mobility progression foundation;
+- selected deterministic reticle-based hit behavior;
+- selected compact connected-zone structure;
+- selected placeholder ranged Sentry Automaton first enemy;
+- selected shallow Vigor / Handling / Mobility progression;
 - selected low-resolution 3D pixel world rendering with separate readable UI;
-- selected Godot 4.7.2-stable independently for Shooter RPG;
-- selected `shooter_game/` as the new implementation root;
-- defined the exact Vertical Slice 001 loop and quality gates.
+- independently selected Godot 4.7.2-stable;
+- created `shooter_game/project.godot`;
+- created minimal `shooter_game/scenes/boot/boot.tscn` and boot script;
+- created project identity/input contract;
+- reserved ten semantic first-slice input actions;
+- created `shooter_game/tests/scaffold_static_preflight.py` and Godot headless smoke;
+- created runtime-local README/architecture/verification docs;
+- added generated-file `.gitignore` and version marker `0.0.0-scaffold.001`.
 
-IN_PROGRESS: reconcile current Shooter RPG front-door documentation around the newly locked foundation.
+IN_PROGRESS: close Scaffold 001 documentation and promote the verified scaffold into the active `shooter-rpg` branch.
 
-NEXT_ACTION: `SHOOTER_RPG_PROJECT_SCAFFOLD_001`.
+NEXT_ACTION: `SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`.
 
 NEXT SLICE BOUNDARY:
-- create `shooter_game/` only;
-- add standalone Godot project configuration;
-- add minimal boot scene and source/test/docs ownership;
-- add first-slice input actions only;
-- add Shooter-RPG-specific sanity verification;
-- do not import old-game runtime code;
-- do not implement the full combat/world/progression loop in the scaffold commit.
+- one tiny graybox 3D test scene;
+- one `CharacterBody3D` player;
+- gravity + camera-relative horizontal locomotion;
+- third-person camera pivot + spring-arm/boom collision handling;
+- desktop keyboard/mouse debug bindings using existing semantic actions;
+- provisional camera/movement tuning values clearly isolated;
+- no shooting, enemy AI, RPG progression, mobile joystick UI or final pixel-render pipeline yet.
 
-BLOCKERS: none for scaffold creation.
+BLOCKERS: no design blocker. Runtime verification quality is limited until Godot 4.7.2 can actually be executed in an available environment.
 
 OPEN_QUESTIONS THAT MAY AFFECT LATER SLICES:
 - final camera FOV/distance/pitch/shoulder offset;
@@ -51,44 +56,59 @@ OPEN_QUESTIONS THAT MAY AFFECT LATER SLICES:
 - final target-phone performance budget.
 
 IMPORTANT_DECISIONS:
-- Shooter RPG is single-player offline-first for the foundation;
+- single-player offline-first foundation;
 - third-person over-shoulder camera;
 - physical world traversal;
 - real-time shooting;
-- good aim must not be invalidated by invisible RPG accuracy dice;
+- good aim is not invalidated by invisible RPG accuracy dice;
 - physical cover instead of sticky cover;
 - one semi-auto carbine first;
 - one ranged Sentry Automaton first;
 - RPG growth remains bounded so shooter skill remains relevant;
-- no massive open world in the foundation;
-- no inherited prior-game source/build evidence;
-- Godot 4.7.2-stable is the selected engine baseline;
-- project root is `shooter_game/`.
+- compact connected world, not massive open world;
+- no inherited prior-game runtime/build evidence;
+- Godot 4.7.2-stable baseline;
+- all runtime work lives under `shooter_game/`.
 
 KNOWN_RISKS:
 - overbuilding before control feel is proven;
 - mobile aim/fire ergonomics becoming cluttered;
-- pixel effect looking like a cheap filter rather than authored pixel 3D;
-- low-resolution world rendering making distant enemies unreadable;
-- camera collision/occlusion in dense environments;
-- RPG stat growth accidentally creating bullet-sponge balance;
-- inherited repository files misleading future work.
+- pixel treatment looking like a filter rather than authored pixel 3D;
+- low-resolution rendering reducing distant-threat readability;
+- third-person camera collision/occlusion;
+- RPG stat growth creating bullet-sponge balance;
+- inherited repository files misleading future work;
+- static verification catching structure but not engine parse/runtime behavior.
 
-FILES CHANGED IN FOUNDATION DESIGN PASS:
-- `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
-- `EVOLVE_ALIGNMENT.md`;
-- `PROJECT_HANDOFF.md`.
+FILES CHANGED / CREATED IN SCAFFOLD 001:
+- `shooter_game/project.godot`;
+- `shooter_game/.gitignore`;
+- `shooter_game/VERSION`;
+- `shooter_game/README.md`;
+- `shooter_game/scenes/boot/boot.tscn`;
+- `shooter_game/scripts/boot/boot.gd`;
+- `shooter_game/scripts/core/project_contract.gd`;
+- `shooter_game/tests/scaffold_static_preflight.py`;
+- `shooter_game/tests/scaffold_smoke.gd`;
+- `shooter_game/docs/ARCHITECTURE.md`;
+- `shooter_game/docs/VERIFICATION.md`;
+- root continuity docs updated for current state.
 
-TESTS_RUN / TEST_RESULTS: none; design/documentation pass only.
+TESTS_RUN / TEST_RESULTS:
+- `python shooter_game/tests/scaffold_static_preflight.py` → PASS: `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`.
+- Godot 4.7.2 headless smoke → NOT EXECUTED.
+- Android export → NOT EXECUTED.
+- phone runtime → NOT EXECUTED.
+- performance → NOT EXECUTED.
 
 EXTERNAL_REFERENCE:
 - original PNG Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
 - working JPEG Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`;
-- Godot official release archive confirmed `4.7.2-stable` as the current stable release during this design pass.
+- official Godot release archive confirmed 4.7.2-stable as current stable during this pass.
 
-ASSUMPTIONS: the selected pixel-style reference remains the art-direction anchor; working location/enemy names in the foundation doc are replaceable and not final lore.
+ASSUMPTIONS: selected pixel reference remains the visual anchor; working world/enemy names are replaceable and not final lore.
 
-UNKNOWNS: all runtime feel, performance, packaging and phone-quality claims remain unverified until source exists and is executed.
+UNKNOWNS: engine parse/runtime of the newly written scaffold, phone feel, final visuals, performance and Android packaging remain unverified.
 
 READ_FIRST_NEXT_SLICE:
 1. `SHOOTER_RPG_PROJECT_IDENTITY.md`;
@@ -96,4 +116,7 @@ READ_FIRST_NEXT_SLICE:
 3. `PROJECT_HANDOFF.md`;
 4. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
 5. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-6. then only Shooter-RPG-specific files under the new `shooter_game/` root once created.
+6. `shooter_game/README.md`;
+7. `shooter_game/docs/ARCHITECTURE.md`;
+8. `shooter_game/docs/VERIFICATION.md`;
+9. exact files created for the player-camera graybox.
