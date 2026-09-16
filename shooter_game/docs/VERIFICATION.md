@@ -1,35 +1,48 @@
-# Shooter RPG — Verification Record
+# Shooter RPG — Verification
 
-Status: SCAFFOLD 001
+Status: SCAFFOLD 001 STATIC VERIFIED / ENGINE RUNTIME OPEN
 Last reconciled: 2026-09-16
 
-## Executed
+## Evidence rules
 
-### Static scaffold preflight
+Keep these states separate:
+- DESIGNED;
+- IMPLEMENTED;
+- STATIC_VERIFIED;
+- HEADLESS_VERIFIED;
+- ANDROID_BUILD_VERIFIED;
+- PHONE_RUNTIME_VERIFIED;
+- VISUAL_QUALITY_VERIFIED;
+- PERFORMANCE_VERIFIED.
 
-Command:
+Do not promote one state into another without observed evidence.
+
+## Scaffold 001
+
+Executed static preflight:
+
 `python shooter_game/tests/scaffold_static_preflight.py`
 
-Observed result:
+Recorded observed result:
+
 `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
 
-This verifies the checked scaffold structure, project identity strings, main-scene ownership, display/render settings expected by the preflight, semantic InputMap actions, boot resource references, version marker, and absence of selected legacy runtime references.
+Godot headless smoke command:
 
-## Not executed
-
-### Godot 4.7.2 headless smoke
-
-Planned command:
 `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
 
-Status: NOT EXECUTED in this pass because a Godot executable was not available in the local execution environment and direct engine download was unavailable there.
+Expected success marker:
 
-Do not upgrade this status to HEADLESS_VERIFIED until the command is actually executed and its result observed.
+`SHOOTER_RPG_SCAFFOLD_SMOKE_PASS actions=10`
 
-### Android / phone / performance
+Current state:
+- static structure: VERIFIED;
+- Godot parse/headless runtime: NOT YET VERIFIED;
+- Android build: NOT YET VERIFIED;
+- phone runtime: NOT YET VERIFIED;
+- visual quality: NOT YET VERIFIED;
+- performance: NOT YET VERIFIED.
 
-- Android export: NOT EXECUTED.
-- APK install: NOT EXECUTED.
-- Phone runtime: NOT EXECUTED.
-- Performance: NOT EXECUTED.
-- Visual quality: NOT VERIFIED.
+## Mature content note
+
+The internal 21+ mature target is a creative/content authority, not a runtime verification result and not an official ratings-board classification. It does not alter these technical evidence gates.
