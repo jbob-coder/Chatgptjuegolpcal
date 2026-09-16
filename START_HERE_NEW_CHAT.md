@@ -1,112 +1,94 @@
-# START HERE — Unnamed Hunt RPG / Shooter RPG Branch — New Chat Bootstrap
+# START HERE — Shooter RPG — New Chat Bootstrap
 
-Status: ACTIVE BOOTSTRAP / THIRD-PERSON PIXEL VISUAL PIVOT SELECTED / NEW VISUAL PROTOTYPE NEXT
-Last reconciled: 2026-09-15
+Status: ACTIVE BOOTSTRAP / STANDALONE NEW GAME / PIXEL REFERENCE SELECTED / FOUNDATION DESIGN NEXT
+Last reconciled: 2026-09-16
+Branch: `shooter-rpg`
 
-Android-targeted monster-hunting RPG. WorldLife RPG is abandoned and must not be used as the implementation base.
+## Project identity
 
-Active visual-development branch: `shooter-rpg`.
+Shooter RPG is a new standalone game.
+
+Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01, or any inherited file/code/build artifact as Shooter RPG authority merely because this branch was created from an older branch.
 
 ## Mandatory bootstrap
 
 1. Confirm repository `jbob-coder/Chatgptjuegolpcal` and branch `shooter-rpg`.
-2. Fetch live branch HEAD and record it.
-3. Read at that same revision, in order:
-   1. `EVOLVE_ALIGNMENT.md`;
-   2. `PROJECT_HANDOFF.md`;
-   3. `START_HERE_NEW_CHAT.md`;
-   4. `DOCUMENTATION_INDEX.md`;
-   5. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
-   6. `GAME_EXPERIENCE_BIBLE.md`;
-   7. `NEW_GAME_ARCHITECTURE_VISUAL_BIBLE.md`;
-   8. root `README.md`;
-   9. newest relevant `docs/70_handoff/`;
-   10. exact owning source/tests/workflows for the bounded task.
-4. Re-check HEAD after reading; restart relevant reconstruction if it changed.
-5. Current source/tests/build/device evidence outranks Markdown labels and old chat memory.
-6. Conflict order: current explicit user instruction → current source/tests/build/device evidence → `SHOOTER_RPG_VISUAL_DIRECTION.md` for visual/presentation decisions → EVOLVE/HANDOFF → narrow owner → package docs → older handoffs/chat.
-7. Work one bounded piece at a time.
-8. Never claim a visual/runtime state is implemented or phone-verified only because design documents exist.
-9. Preserve reusable proven domain logic unless current evidence shows it is incompatible with the new presentation.
+2. Fetch the current branch HEAD and record it.
+3. Read, in order:
+   1. `README.md`;
+   2. `EVOLVE_ALIGNMENT.md`;
+   3. `PROJECT_HANDOFF.md`;
+   4. `START_HERE_NEW_CHAT.md`;
+   5. `DOCUMENTATION_INDEX.md`;
+   6. `SHOOTER_RPG_VISUAL_DIRECTION.md`;
+   7. newest Shooter RPG-specific handoff.
+4. Ignore inherited previous-game design/source as authority unless a current Shooter RPG document explicitly imports a specific piece.
+5. Re-check branch HEAD after reconstruction.
+6. Work one bounded Shooter RPG piece at a time.
+7. Never use old game tests/builds as proof for Shooter RPG.
 
-## Selected presentation direction
+## Authority order
 
-The branch target is:
-- third-person behind-the-character gameplay;
-- shooter-style mobile control language;
-- direct left-stick movement;
-- independent right-side look;
-- simultaneous movement/look;
-- pixel-styled 3D world and UI;
-- physical exploration through compact connected spaces;
-- combat in the same third-person spatial world;
-- Android-first safe-area responsive HUD;
-- small, coherent, expandable scope rather than a massive open world.
+For Shooter RPG:
+1. current explicit user instruction;
+2. current Shooter RPG-specific source/tests/build/device evidence;
+3. current Shooter RPG authority docs (`README`, `EVOLVE_ALIGNMENT`, `PROJECT_HANDOFF`, `SHOOTER_RPG_VISUAL_DIRECTION`);
+4. Shooter RPG-specific package/system docs created after the standalone reset;
+5. everything inherited from previous projects = reference/legacy only unless explicitly imported.
 
-Older aerial/isometric-primary and mandatory first-person-combat guidance is superseded where it conflicts with `SHOOTER_RPG_VISUAL_DIRECTION.md`.
+## Confirmed direction
+
+Confirmed:
+- standalone Shooter RPG;
+- pixel-style visual direction;
+- saved pixel image as visual inspiration;
+- no automatic relation to previous game systems.
+
+Not yet confirmed:
+- exact setting;
+- exact perspective;
+- exact shooter mechanics;
+- weapons;
+- enemies;
+- RPG stats/progression;
+- world structure;
+- NPC/social systems;
+- final engine/project root;
+- technical budgets.
+
+Do not fill those gaps using old-game assumptions.
 
 ## Visual reference
 
-Saved Google Drive reference:
-- `Shooter RPG - Pixel Visual Reference.jpg`;
-- file ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
+Primary original PNG:
+- `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
+- Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
 
-Treat visible concept-image names/text as placeholders unless separately approved.
+Working JPEG:
+- `Shooter RPG - Pixel Visual Reference.jpg`
+- Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
+
+The image is not canonical lore. Visible names, quests, items and creature details are placeholders unless separately approved.
 
 ## Development law
 
-`READ LIVE STATE → VERIFY → ONE BOUNDED LAYER → IMPLEMENT → STATIC/HEADLESS/BUILD QA → FIX SAME-LAYER FAILURES → RECORD → COMMIT → READ BACK → CONTINUE`.
+`READ SHOOTER STATE → VERIFY → DEFINE ONE BOUNDED PIECE → IMPLEMENT ONLY WHEN READY → TEST → RECORD → CONTINUE`.
 
-Use normal fast-forward updates only. Never weaken gates. Never convert CI/headless/APK evidence into phone, sustained-performance, installed-footprint or visual-quality proof.
+Never force Shooter RPG into the architecture of the old game.
 
-## Historical baseline — evidence only
+## Current verification boundary
 
-The `shooter-rpg` branch was created from `worldlife-reference-docs` revision:
-`7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`.
-
-Previously recorded fully production-verified source:
-`01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
-
-Recorded production workflow:
-- workflow `34880096112`: SUCCESS;
-- job `104096962757`: SUCCESS;
-- artifact `10362706279`;
-- size `57,536,941` bytes;
-- SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
-
-That evidence does not validate the new third-person pixel direction.
-
-## Storage law
-
-Total player-required installed/runtime game footprint cap remains:
-`2 GB = 2,000,000,000 bytes`.
-
-Required runtime downloads count. Development-only repository/CI/source files do not. Package size and installed footprint remain separate evidence layers.
-
-## Current branch verification boundary
-
-`SHOOTER_RPG_VISUAL_DIRECTION_DESIGNED = YES`
-`REFERENCE_IMAGE_SAVED = YES`
-`THIRD_PERSON_PIXEL_PROTOTYPE_IMPLEMENTED = NO`
-`THIRD_PERSON_PIXEL_ANDROID_BUILD_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_PHONE_RUNTIME_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_VISUAL_QUALITY_VERIFIED = NO`
-`THIRD_PERSON_PIXEL_PERFORMANCE_VERIFIED = NO`
+`STANDALONE_PROJECT_IDENTITY = RECORDED`
+`PIXEL_REFERENCE = SAVED`
+`CORE_GAMEPLAY_DESIGN = OPEN`
+`SOURCE_IMPLEMENTATION = NOT_STARTED`
+`BUILD_VERIFIED = NO`
+`PHONE_RUNTIME_VERIFIED = NO`
+`VISUAL_QUALITY_VERIFIED = NO`
+`PERFORMANCE_VERIFIED = NO`
 
 ## Current bounded piece
 
-`SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`.
+`SHOOTER_RPG_FOUNDATION_DESIGN_001`.
 
-Boundary:
-- one small settlement gate/street;
-- one third-person player controller;
-- left-stick move + independent right-side look;
-- one NPC interaction;
-- one short route outside town;
-- one monster/proxy;
-- pixel-style rendering/art treatment;
-- safe-area responsive HUD based on the selected concept direction;
-- Android launch/runtime verification;
-- no whole-project rewrite before this slice is visually and technically accepted.
-
-A new chat is bootstrapped only after current branch state and exact owners are reconstructed from live files.
+Define the core fantasy, perspective, movement/aiming/shooting model, first weapon/enemy set, RPG depth, world structure, phone HUD/control scheme, pixel rendering approach and smallest complete vertical slice before coding.
