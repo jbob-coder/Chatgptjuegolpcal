@@ -1,97 +1,102 @@
 # PROJECT HANDOFF — Shooter RPG
 
-Status: STANDALONE GAME / FOUNDATION 001 LOCKED / PLAYER-CAMERA GRAYBOX 001 HEADLESS VERIFIED / INTERNAL 21+ MATURE TARGET / MOBILE TOUCH INPUT NEXT
+Status: STANDALONE GAME / FIRST-PERSON 115 HFOV / WALL-JUMP + MOBILE TOUCH HEADLESS VERIFIED / INTERNAL 21+ MATURE TARGET
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
-CURRENT_OBJECTIVE: build Shooter RPG as an independent third-person pixel shooter RPG in bounded executable slices. The scaffold and first player-camera graybox now pass real Godot 4.7.2 headless verification. The next piece is mobile touch input plumbing without adding shooting behavior yet.
+CURRENT_OBJECTIVE: build Shooter RPG as an independent first-person pixel shooter RPG in bounded executable slices. The current foundation now includes 115-degree horizontal FOV, ground/wall jump movement and mobile move/look input. The next required gate is real Android/device control-feel verification before firearm behavior is layered on top.
 
-CURRENT_STATE: all Shooter RPG runtime work lives under `shooter_game/`. The project owns its own Godot config, boot path, semantic actions, project contract, tests and docs. Player-Camera Graybox 001 provides a `CharacterBody3D` player with gravity/camera-relative movement and a yaw/pitch/spring-arm camera. The project also has an internal 21+ mature creative standard in `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`.
+CURRENT_STATE: all Shooter RPG runtime work lives under `shooter_game/`. The active camera is first-person: `Player → CameraYaw → CameraPitch → Camera3D`. The controller maintains a 115-degree horizontal FOV by converting it to Godot vertical FOV for the current aspect ratio. Movement includes gravity, ground jump, air control and wall jump. Mobile controls include left-side movement, right-side drag-to-look, safe-area handling and a dedicated JUMP button. AIM/FIRE/DODGE buttons are still semantic reservations, not implemented combat mechanics.
 
 LAST_VERIFIED_STATE:
-- verified source SHA: `9d17874fd1c6f30ddff8cb9e870af33e3f297925`;
-- GitHub Actions run `35056360247`: SUCCESS;
-- job `104667287029`: SUCCESS;
-- Godot 4.7.2 version/download gate: SUCCESS;
+- verified runtime source SHA: `393ff872f2623f98f07c6216d6d29dc5ed64e5fb`;
+- GitHub Actions run `35056976187`: SUCCESS;
+- job `104669095724`: SUCCESS;
+- Godot 4.7.2 download/version: SUCCESS;
 - project import/parse: SUCCESS;
-- scaffold headless smoke: SUCCESS;
-- player-camera headless smoke: SUCCESS.
+- scaffold smoke: SUCCESS;
+- first-person camera/movement smoke: SUCCESS;
+- mobile touch smoke: SUCCESS.
 
 COMPLETED_WORK:
 - standalone/no-inheritance identity recorded;
-- visual references saved to Drive;
-- Foundation Design 001 locked;
 - internal 21+ mature content standard recorded;
-- Godot 4.7.2 standalone root created under `shooter_game/`;
-- Scaffold 001 statically/headlessly verified;
-- Player-Camera Graybox 001 statically/headlessly verified;
-- graybox has CharacterBody3D locomotion, gravity, camera-relative movement, third-person yaw/pitch/spring-arm composition and desktop debug input;
-- dedicated Shooter RPG runtime workflow added for reproducible Godot verification.
+- first-person perspective authority recorded in `SHOOTER_RPG_PERSPECTIVE_DECISION_002.md`;
+- 115 horizontal FOV implemented with aspect-aware conversion;
+- third-person spring arm removed from active graybox;
+- ground jump implemented;
+- wall jump implemented using current wall normal;
+- short wall-jump steering-lock implemented;
+- semantic `jump` action added to project contract;
+- desktop Space jump / Shift dodge reservation;
+- mobile JUMP button added;
+- left mobile movement region and right drag-look input added;
+- safe-area-aware mobile root added;
+- mobile touch and player-camera static/headless tests added;
+- reproducible Godot 4.7.2 runtime workflow passed.
 
-IN_PROGRESS: documentation reconciliation after the successful runtime gate.
+IN_PROGRESS: documentation reconciliation and promotion of this verified slice into the active `shooter-rpg` branch.
 
-NEXT_ACTION: `SHOOTER_RPG_MOBILE_TOUCH_INPUT_001`.
+NEXT_ACTION: `SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`.
 
 NEXT SLICE BOUNDARY:
-- one mobile-input adapter under `shooter_game/`;
-- left virtual joystick for movement intent;
-- right-side drag surface for camera/look intent;
-- simultaneous movement + look structurally supported;
-- safe-area-aware landscape UI;
-- preserve desktop debug input;
-- reserve contextual action-button zones without implementing firearm/reload/dodge mechanics;
-- static/headless tests;
-- no phone ergonomics claim before device evidence.
+- export current graybox to Android;
+- install on real phone;
+- verify launch and landscape orientation;
+- verify simultaneous move + look;
+- verify ground jump + wall jump;
+- evaluate 115 HFOV on the actual phone aspect ratio;
+- inspect control overlap / safe areas;
+- record device/runtime evidence;
+- tune only demonstrated control/camera problems;
+- do not start full firearm mechanics until this gate is usable.
 
-BLOCKERS: none for implementation. Phone feel and actual touch ergonomics remain unverified until device testing.
+BLOCKERS: no source-level blocker. Real mobile feel, FOV comfort, wall-jump feel, Android packaging and performance still require device evidence.
 
-IMPORTANT DECISIONS:
-- standalone Shooter RPG, not related to previous games by default;
+IMPORTANT_DECISIONS:
+- Shooter RPG is standalone;
 - internal 21+ mature creative target, not an official rating;
-- any future romantic/sexual participant must be canonically 21+;
-- single-player offline-first;
-- third-person over-shoulder;
-- real-time shooting in its later bounded slice;
-- correct aim will not be invalidated by invisible RPG miss rolls;
+- first-person perspective supersedes earlier third-person wording;
+- target horizontal FOV = 115 degrees;
+- technique-driven traversal includes wall jump;
+- mobile scheme = left movement + right look + contextual right-side action controls;
+- real-time shooting will be added after control-feel gate;
+- valid reticle/hit geometry will not be invalidated by hidden RPG miss rolls;
 - physical cover;
 - compact connected world;
 - semi-auto carbine first;
-- bounded Vigor / Handling / Mobility progression;
+- bounded RPG progression;
 - pixel-styled real 3D;
 - Android landscape-first;
-- Godot 4.7.2-stable;
-- no old-game build evidence counts for Shooter RPG.
+- Godot 4.7.2-stable.
 
-KNOWN RISKS:
-- touch controls becoming cluttered or fighting camera input;
-- overlapping touch regions consuming one another;
-- safe-area/aspect-ratio errors;
-- camera feel still unverified interactively;
-- pixel treatment and performance remain unverified;
-- adding combat before touch input is stable would multiply debugging variables.
+KNOWN_RISKS:
+- 115 HFOV may feel too distorted or too visually dense on some phone aspect ratios despite being mathematically correct;
+- wall jump could enable level-boundary exploits if geometry is not designed for it;
+- touch look and action buttons can compete for right-thumb input;
+- movement speed/air control may need phone-specific tuning;
+- pixel readability and performance remain unverified on device.
 
 TESTS RUN / RESULTS:
 - scaffold static preflight: PASS;
 - player-camera static preflight: PASS;
-- Godot project import/parse: PASS via run `35056360247`;
+- mobile-touch static preflight: PASS;
+- Godot 4.7.2 import/parse: PASS;
 - scaffold headless smoke: PASS;
-- player-camera headless smoke: PASS;
+- first-person camera/movement headless smoke: PASS;
+- mobile touch headless smoke: PASS;
 - Android export: NOT EXECUTED;
 - phone runtime: NOT EXECUTED;
 - visual quality/performance: NOT VERIFIED.
 
-EXTERNAL REFERENCE:
-- original PNG Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
-- working JPEG Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
-
 READ_FIRST_NEXT_SLICE:
 1. `SHOOTER_RPG_PROJECT_IDENTITY.md`;
 2. `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`;
-3. `EVOLVE_ALIGNMENT.md`;
-4. `PROJECT_HANDOFF.md`;
-5. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md`;
-6. `shooter_game/docs/ARCHITECTURE.md`;
-7. `shooter_game/docs/VERIFICATION.md`;
-8. `shooter_game/scripts/player/player_controller.gd`;
-9. `shooter_game/scripts/input/debug_input_bindings.gd`;
-10. current graybox scene/tests.
+3. `SHOOTER_RPG_PERSPECTIVE_DECISION_002.md`;
+4. `SHOOTER_RPG_MOVEMENT_TECHNIQUES_001.md`;
+5. `EVOLVE_ALIGNMENT.md`;
+6. `PROJECT_HANDOFF.md`;
+7. `shooter_game/docs/ARCHITECTURE.md`;
+8. `shooter_game/docs/VERIFICATION.md`;
+9. `shooter_game/scripts/player/player_controller.gd`;
+10. current mobile input files and tests.
