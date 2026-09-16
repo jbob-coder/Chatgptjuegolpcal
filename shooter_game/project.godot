@@ -33,6 +33,10 @@ move_back={
 "deadzone": 0.2,
 "events": []
 }
+jump={
+"deadzone": 0.2,
+"events": []
+}
 aim={
 "deadzone": 0.2,
 "events": []
