@@ -1,56 +1,51 @@
 # PROJECT HANDOFF — Pixel RPG
 
-Status: PIXEL RPG ACTIVE / THIRD-PERSON PROTOTYPE ANDROID BUILD VERIFIED / PIXEL-CAMERA-HUD POLISH NEXT
+Status: PIXEL RPG ACTIVE / PROTOTYPE 001 PIXEL-CAMERA-HUD POLISH ANDROID BUILD VERIFIED / WORLD COMPOSITION NEXT
 Last reconciled: 2026-09-16
 Branch: `pixel-rpg`
 
-CURRENT_OBJECTIVE: continue the Android monster-hunting RPG as a third-person pixel-styled 3D game, improving one small proven slice before broader migration.
+CURRENT_OBJECTIVE: continue the Android monster-hunting RPG as a third-person pixel-styled 3D game, improving the proven compact slice toward the selected reference before broader mechanics/content expansion.
 
-CURRENT_STATE: `pixel-rpg` is the active authority. It was recovered to the last intended third-person pixel-RPG pivot before the later standalone first-person Shooter rewrite, then received dedicated Pixel RPG authority and a new third-person prototype. The prototype now boots through the production app shell, renders a compact settlement/trail slice, supports third-person movement/look, contains one NPC interaction and one monster observation proxy, and exports successfully to Android in CI.
+CURRENT_STATE: `pixel-rpg` is the active authority. The first prototype now boots through the app shell, renders the world through an 800×360 low-resolution 3D SubViewport with nearest upscaling, supports third-person movement/look, uses SpringArm camera collision, applies responsive safe-area HUD positioning, contains one NPC interaction and one monster observation proxy, and exports successfully to Android in CI.
 
-LAST_VERIFIED_STATE: source `8d0c21018c396ec1943d0930a867273e4753ba6c` passed Pixel RPG workflow `35062091768`, job `104684371733`.
+LAST_VERIFIED_STATE: source `88d19d733a579e326d7bdf3ebd8e002ef413d86a` passed Pixel RPG workflow `35062722630`, job `104686283219`.
 
 COMPLETED_WORK:
-- established active branch `pixel-rpg`;
-- recovered branch content to pre-standalone-shooter revision `7ac7e84a6b0e8249ea8c869cf96171b834b2363c`;
-- created `PIXEL_RPG_VISUAL_DIRECTION.md` as presentation authority;
-- saved and renamed canonical visual references in Google Drive;
+- established active branch `pixel-rpg` and Pixel RPG authority;
+- recovered away from the later standalone first-person Shooter rewrite;
+- saved/renamed visual references in Google Drive;
 - removed obsolete Shooter visual authority/handoff files from Pixel RPG;
-- created `game/scripts/presentation/pixel_rpg/pixel_rpg_prototype_001.gd`;
-- created `game/scenes/prototypes/pixel_rpg_prototype_001.tscn`;
-- routed `game/scripts/app_shell.gd` to the Pixel RPG prototype;
-- renamed Godot project display identity to Pixel RPG;
-- retargeted Android debug export metadata/path to Pixel RPG prototype;
-- implemented third-person player-visible movement/camera shell;
-- implemented mobile left-stick movement and independent right-side touch look;
-- created compact settlement street/gate and physical trail;
-- added one Gate Warden NPC interaction;
-- added one distant monster proxy with observation interaction;
+- built third-person player controller with left-stick movement and independent right-side look;
+- built compact settlement gate/street and physical trail;
+- added Gate Warden interaction and distant monster observation proxy;
 - added Diamond Watch prototype panel and journal/objective feedback;
-- added `.github/workflows/pixel-rpg-prototype-android.yml`;
-- fixed the Android SDK setup after the first workflow infrastructure-only failure;
-- verified Godot 4.7.2 import/parse, AppShell smoke, prototype scene smoke, selected deterministic combat-domain tests, Android export and package-size ceiling.
+- implemented low-resolution 800×360 3D render viewport with nearest stretch for deliberate pixel presentation;
+- applied per-vertex/nearest material treatment to prototype primitive materials;
+- replaced direct trailing camera with SpringArm collision/occlusion handling;
+- added responsive safe-area HUD positioning logic;
+- kept selected deterministic combat-domain regressions green;
+- verified Android debug export and 2 GB package ceiling;
+- restricted Pixel RPG Android CI triggers to `game/**` and its workflow file so documentation-only updates no longer run expensive full Android exports.
 
-IN_PROGRESS: post-build prototype polish. The current implementation is build-verified but not yet phone/visual/performance accepted.
+IN_PROGRESS: visual/world composition improvement. The current environment is still prototype geometry and has not received phone visual-quality acceptance.
 
-NEXT_ACTION: `PIXEL_RPG_PROTOTYPE_001_PIXEL_RENDER_CAMERA_UI_POLISH`.
+NEXT_ACTION: `PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`.
 
 Next-slice boundary:
-- intentional pixel render/upscale treatment;
-- camera collision/occlusion around walls/gate;
-- safe-area/anchor responsive HUD cleanup;
+- preserve current controller/camera/pixel-render/HUD behavior;
+- improve building/gate/street silhouettes toward the saved reference using reusable lightweight forms;
+- add compact market/service cues, fencing/signage and environmental layering;
+- improve settlement-to-trail transition and distant monster framing;
 - no unrelated gameplay-system expansion;
-- preserve direct movement/right-look behavior;
-- preserve current NPC/monster interactions and deterministic domain tests;
+- preserve current interactions/domain regressions;
 - rerun parse/smoke/Android export/package gate.
 
-BLOCKERS: no blocker for the next Pixel RPG slice. Physical deletion of the obsolete `shooter-rpg` Git ref is not available through the currently exposed GitHub connector actions. It is non-authoritative and can be deleted through GitHub UI/CLI. During attempted connector cleanup, extra non-authoritative helper refs were also created and should be deleted with the same external cleanup: `pixel-rpg-temp-guard`, `pixel-rpg-authority`, `pixel-rpg-working`, `pixel-rpg-docs`, `pixel-rpg-notes`, `pixel-rpg-final`. Only `pixel-rpg` is active.
+BLOCKERS: no blocker for the next implementation slice. Physical deletion of `shooter-rpg` is not supported by the currently exposed GitHub connector actions. It remains non-authoritative and should be deleted through GitHub UI/CLI. Extra non-authoritative refs accidentally created during attempted connector cleanup should also be removed externally: `pixel-rpg-temp-guard`, `pixel-rpg-authority`, `pixel-rpg-working`, `pixel-rpg-docs`, `pixel-rpg-notes`, `pixel-rpg-final`. Only `pixel-rpg` is active.
 
 OPEN_QUESTIONS:
 - final third-person camera distance/FOV/pitch after phone testing;
-- internal pixel render resolution/pixel density;
-- exact camera obstruction strategy;
-- final third-person body-part targeting UX;
+- whether 800×360 is the final internal 3D pixel resolution;
+- exact body-part targeting UX in third person;
 - target-device sustained performance;
 - installed-footprint verification;
 - final canon names for concept-image placeholders.
@@ -60,19 +55,20 @@ IMPORTANT_DECISIONS:
 - standalone first-person Shooter RPG is not part of Pixel RPG;
 - `PIXEL_RPG_VISUAL_DIRECTION.md` supersedes conflicting visual/camera presentation guidance;
 - concept-image names/text are placeholders;
-- working monster-hunting domain systems should be reused rather than discarded where compatible;
 - normal exploration is physical, compact and meaningful rather than menu teleportation;
+- reusable deterministic monster-hunting domain logic remains preserved where compatible;
 - total player-required footprint cap remains 2,000,000,000 bytes;
-- build success does not equal phone, performance or visual-quality acceptance.
+- documentation-only changes do not need full Android CI;
+- build success does not equal phone, sustained-performance or visual-quality acceptance.
 
 KNOWN_RISKS:
-- pixel styling can look like a filter instead of authored pixel presentation if render/UI/assets are not aligned;
-- camera can clip/occlude the player in dense settlement geometry;
-- current HUD prototype contains fixed offsets that can fail across aspect ratios/safe areas;
-- accidental re-import of standalone Shooter assumptions through stale docs;
-- current visual slice uses prototype geometry and is not final art.
+- current geometry is functional but still too graybox-like to judge against the selected concept image;
+- pixel styling can still look synthetic if final assets/UI do not share pixel density/value language;
+- camera behavior needs real phone feel testing;
+- current visual slice has not yet exercised actual body-part combat in third person;
+- stale older docs can still contain superseded presentation language.
 
-FILES_CHANGED / CREATED FOR PROTOTYPE 001:
+FILES_CHANGED / CREATED FOR CURRENT PIXEL PROTOTYPE:
 - `game/scripts/presentation/pixel_rpg/pixel_rpg_prototype_001.gd`;
 - `game/scenes/prototypes/pixel_rpg_prototype_001.tscn`;
 - `game/scripts/app_shell.gd`;
@@ -81,9 +77,9 @@ FILES_CHANGED / CREATED FOR PROTOTYPE 001:
 - `.github/workflows/pixel-rpg-prototype-android.yml`;
 - Pixel RPG front-door/design/handoff documentation.
 
-TESTS_RUN / TEST_RESULTS:
-- workflow `35062091768`: SUCCESS;
-- job `104684371733`: SUCCESS;
+TESTS_RUN / TEST_RESULTS — CURRENT POLISHED SOURCE:
+- workflow `35062722630`: SUCCESS;
+- job `104686283219`: SUCCESS;
 - Godot 4.7.2 import/parse: PASS;
 - AppShell smoke: PASS;
 - prototype scene smoke: PASS;
@@ -93,11 +89,11 @@ TESTS_RUN / TEST_RESULTS:
 - APK artifact upload: PASS;
 - build-evidence upload: PASS.
 
-PIXEL_RPG_VERIFIED_SOURCE: `8d0c21018c396ec1943d0930a867273e4753ba6c`.
+PIXEL_RPG_VERIFIED_SOURCE: `88d19d733a579e326d7bdf3ebd8e002ef413d86a`.
 
 PIXEL_RPG_ARTIFACTS:
-- APK artifact `10432014296`, name `PixelRPG-prototype-001-debug`;
-- evidence artifact `10433105552`, name `PixelRPG-prototype-001-build-evidence`.
+- APK artifact `10432264323`, name `PixelRPG-prototype-001-debug`;
+- evidence artifact `10433305640`, name `PixelRPG-prototype-001-build-evidence`.
 
 HISTORICAL_MONSTER_HUNTING_BASELINE:
 - source `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`;
@@ -111,7 +107,7 @@ EXTERNAL_REFERENCES:
 
 ASSUMPTIONS: none about phone feel, visual acceptance, sustained performance or installed footprint are promoted from CI.
 
-UNKNOWNS: phone feel, camera acceptance, pixel-render quality, targeting UX and sustained performance remain unverified.
+UNKNOWNS: phone feel, final pixel density, visual acceptance, targeting UX and sustained performance remain unverified.
 
 READ_FIRST_NEXT_SLICE:
 1. `EVOLVE_ALIGNMENT.md`;
@@ -122,5 +118,4 @@ READ_FIRST_NEXT_SLICE:
 6. newest Pixel RPG handoff;
 7. `game/scripts/presentation/pixel_rpg/pixel_rpg_prototype_001.gd`;
 8. `game/scenes/prototypes/pixel_rpg_prototype_001.tscn`;
-9. `game/project.godot`;
-10. `.github/workflows/pixel-rpg-prototype-android.yml`.
+9. `.github/workflows/pixel-rpg-prototype-android.yml`.
