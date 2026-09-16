@@ -1,12 +1,12 @@
 # Shooter RPG — Standalone New Game
 
-Status: FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / INTERNAL 21+ MATURE TARGET RECORDED / PLAYER-CAMERA GRAYBOX NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
 ## Project identity
 
-`Shooter RPG` is a new standalone game.
+`Shooter RPG` is a **new standalone game**.
 
 It is NOT a visual branch, remake, migration, sequel, subsystem or continuation of Unnamed Hunt RPG, WorldLife RPG, or any other prior game in this repository.
 
@@ -14,6 +14,17 @@ Repository ancestry is not design inheritance.
 
 Primary identity authority:
 `SHOOTER_RPG_PROJECT_IDENTITY.md`.
+
+## Audience / tone
+
+Shooter RPG targets a **mature 21+ audience** as an internal creative standard.
+
+Primary tone authority:
+`SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`.
+
+This is not an official ESRB/PEGI/store rating claim. The intended game may include strong gun violence, blood/injury, harsh language, adult themes and difficult moral consequences when they support the world and characters. Any romantic/sexual content added later is adult-only; characters involved must be canonically at least 21.
+
+The first vertical slice does not need explicit sexual content or heavy gore. Control feel, combat readability, pixel presentation and Android usability remain the immediate priorities.
 
 ## Current foundation
 
@@ -53,7 +64,7 @@ No combat, enemy AI, progression, save system, world content or final pixel pipe
 
 ## Verification
 
-Executed:
+Executed and recorded in current project evidence:
 
 `python shooter_game/tests/scaffold_static_preflight.py`
 
