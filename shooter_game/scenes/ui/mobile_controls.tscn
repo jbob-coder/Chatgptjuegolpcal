@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/input/mobile_touch_input.gd" id="1_touch"]
+[ext_resource type="Script" path="res://scripts/input/mobile_action_button.gd" id="2_button"]
+
+[node name="MobileControls" type="CanvasLayer"]
+layer = 10
+
+[node name="TouchSurface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_touch")
+player_path = NodePath("../../Player")
+
+[node name="SafeArea" type="Control" parent="TouchSurface"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="AimButton" type="Button" parent="TouchSurface/SafeArea"]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.74
+anchor_top = 0.58
+anchor_right = 0.86
+anchor_bottom = 0.78
+focus_mode = 0
+text = "AIM"
+script = ExtResource("2_button")
+action_name = &"aim"
+
+[node name="DodgeButton" type="Button" parent="TouchSurface/SafeArea"]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.70
+anchor_top = 0.78
+anchor_right = 0.82
+anchor_bottom = 0.96
+focus_mode = 0
+text = "DODGE"
+script = ExtResource("2_button")
+action_name = &"dodge"
+
+[node name="FireButton" type="Button" parent="TouchSurface/SafeArea"]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.84
+anchor_top = 0.73
+anchor_right = 0.98
+anchor_bottom = 0.96
+focus_mode = 0
+text = "FIRE"
+script = ExtResource("2_button")
+action_name = &"fire"
