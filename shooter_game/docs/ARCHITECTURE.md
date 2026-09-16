@@ -1,44 +1,35 @@
-# Shooter RPG — Scaffold Architecture
+# Shooter RPG — Runtime Architecture
 
 Status: SCAFFOLD 001
+Last reconciled: 2026-09-16
 
-## Ownership
+## Isolation
 
-`shooter_game/` is the only runtime root for Shooter RPG at this stage.
+`shooter_game/` is the standalone runtime root for Shooter RPG.
 
-Inherited root-level project folders are not dependencies.
+Do not import runtime code from inherited previous-game folders unless a future Shooter RPG authority explicitly reviews and imports a specific file/system.
 
-## Initial directories
+## Current ownership
 
-- `scenes/` owns Godot scenes.
-- `scripts/` owns Shooter-RPG-specific GDScript.
-- `tests/` owns Shooter-RPG-specific automated checks.
-- `docs/` owns runtime-local technical documentation.
+- `project.godot` owns engine/project settings and semantic input actions.
+- `scenes/boot/boot.tscn` owns minimal startup presentation.
+- `scripts/boot/boot.gd` owns the scaffold boot marker.
+- `scripts/core/project_contract.gd` owns the stable project identity and required semantic actions.
+- `tests/` owns Shooter-RPG-specific static/headless verification.
+- `docs/` owns runtime-local architecture and verification notes.
 
-## First-slice input contract
+## Planned structure
 
-Actions reserved now:
-- `move_left`
-- `move_right`
-- `move_forward`
-- `move_back`
-- `aim`
-- `fire`
-- `reload`
-- `dodge`
-- `interact`
-- `pause_game`
+Next bounded slice may add:
+- `scenes/graybox/player_camera_graybox.tscn`;
+- `scripts/player/player_controller.gd`;
+- `scripts/camera/third_person_camera.gd` or equivalent camera-rig ownership;
+- bounded graybox tests.
 
-These are semantic actions. Touch controls, keyboard/mouse debug bindings and gamepad bindings may map to them later without changing gameplay code ownership.
+Do not add shooting, enemy AI, progression, save systems or final pixel rendering until their own bounded slices.
 
-## Scaffold boundary
+## Content/tone separation
 
-Scaffold 001 must not contain:
-- combat implementation;
-- enemy AI;
-- progression;
-- save system;
-- world content;
-- final pixel render pipeline.
+The internal 21+ mature target is owned at repository level by `SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`.
 
-Those belong to later bounded slices.
+Combat authority and presentation intensity should remain separable where practical so blood/gore presentation can be tuned without changing hit/damage truth.
