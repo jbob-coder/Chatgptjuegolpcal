@@ -1,12 +1,12 @@
-# Shooter RPG — Visual Reference Assets
+# Pixel RPG — Visual Reference Assets
 
 Status: ACTIVE REFERENCE MAP
-Last reconciled: 2026-09-15
-Branch: `shooter-rpg`
+Last reconciled: 2026-09-16
+Branch: `pixel-rpg`
 
 ## Primary original image
 
-- Google Drive title: `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
+- Google Drive title: `Pixel RPG - Visual Reference ORIGINAL.png`
 - Drive file ID: `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
 - URL: `https://drive.google.com/file/d/1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp/view?usp=drivesdk`
 - Format: PNG
@@ -14,7 +14,7 @@ Branch: `shooter-rpg`
 
 ## Secondary compressed reference
 
-- Google Drive title: `Shooter RPG - Pixel Visual Reference.jpg`
+- Google Drive title: `Pixel RPG - Visual Reference.jpg`
 - Drive file ID: `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
 - URL: `https://drive.google.com/file/d/1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b/view?usp=drivesdk`
 - Format: JPEG
@@ -22,15 +22,15 @@ Branch: `shooter-rpg`
 
 ## Interpretation law
 
-The image defines visual direction and composition inspiration, including:
+The image defines direction/composition inspiration:
 - third-person behind-character perspective;
-- pixel-style world rendering;
+- pixel-style real 3D world presentation;
 - compact dense settlement foreground;
 - wilderness depth beyond settlement boundaries;
 - visible monster threat at distance;
 - readable pathing and service locations;
-- bounded HUD zones.
+- bounded mobile HUD zones.
 
-The image does **not** automatically canonize visible names, labels, quests, item counts, settlement names, NPC names, button letters or exact monster design.
+The image does not automatically canonize visible names, labels, quests, item counts, settlement names, NPC names, button letters or exact monster design.
 
-Use `SHOOTER_RPG_VISUAL_DIRECTION.md` for the authoritative interpretation of this image.
+Use `PIXEL_RPG_VISUAL_DIRECTION.md` for the authoritative interpretation.
