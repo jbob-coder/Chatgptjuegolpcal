@@ -1,9 +1,10 @@
-name: Shooter RPG Graybox Runtime Gate
+name: Shooter RPG Runtime Gate
 
 on:
   push:
     branches:
       - shooter-rpg
+      - shooter-rpg-mobile-touch-input-001
     paths:
       - 'shooter_game/**'
       - '.github/workflows/shooter-rpg-graybox-runtime.yml'
@@ -13,7 +14,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: shooter-rpg-graybox-runtime-${{ github.ref }}
+  group: shooter-rpg-runtime-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -29,6 +30,7 @@ jobs:
         run: |
           python shooter_game/tests/scaffold_static_preflight.py
           python shooter_game/tests/player_camera_static_preflight.py
+          python shooter_game/tests/mobile_touch_static_preflight.py
 
       - name: Download Godot 4.7.2 stable
         shell: bash
@@ -58,19 +60,27 @@ jobs:
           set -euo pipefail
           "$GODOT_BIN" --headless --path shooter_game --script res://tests/scaffold_smoke.gd
 
-      - name: Player camera headless smoke
+      - name: Player camera and movement headless smoke
         run: |
           set -euo pipefail
           "$GODOT_BIN" --headless --path shooter_game --script res://tests/player_camera_smoke.gd
+
+      - name: Mobile touch headless smoke
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --path shooter_game --script res://tests/mobile_touch_smoke.gd
 
       - name: Runtime gate summary
         if: always()
         run: |
           {
-            echo '## Shooter RPG Graybox Runtime Gate'
+            echo '## Shooter RPG Runtime Gate'
             echo ''
             echo '- Engine target: Godot 4.7.2-stable'
             echo '- Project: shooter_game/'
-            echo '- Scope: parse/import + scaffold smoke + player-camera smoke'
-            echo '- This workflow does not prove phone controls, visual quality, frame pacing, or Android export.'
+            echo '- Perspective: first-person'
+            echo '- Target horizontal FOV: 115 degrees'
+            echo '- Movement: ground jump + wall jump'
+            echo '- Mobile input: left movement + right look + semantic action buttons'
+            echo '- This workflow does not prove real-phone ergonomics, visual quality, frame pacing, or Android export.'
           } >> "$GITHUB_STEP_SUMMARY"
