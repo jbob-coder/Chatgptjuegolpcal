@@ -1,6 +1,6 @@
 # START HERE — Shooter RPG — New Chat Bootstrap
 
-Status: ACTIVE BOOTSTRAP / FOUNDATION DESIGN 001 LOCKED / PROJECT SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX NEXT
+Status: ACTIVE BOOTSTRAP / FOUNDATION 001 LOCKED / SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX 001 STATIC VERIFIED / ENGINE RUNTIME GATE NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -26,8 +26,9 @@ Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01 or inherited files/code/bu
    9. `shooter_game/README.md`;
    10. `shooter_game/docs/ARCHITECTURE.md`;
    11. `shooter_game/docs/VERIFICATION.md`;
-   12. newest Shooter-RPG-specific handoff;
-   13. exact Shooter-RPG-specific files for the bounded task.
+   12. `shooter_game/scripts/player/player_controller.gd`;
+   13. `shooter_game/scenes/graybox/player_camera_graybox.tscn`;
+   14. exact tests/files for the bounded task.
 4. Ignore inherited previous-game design/source as authority unless a current Shooter RPG authority explicitly imports a specific piece.
 5. Re-check branch HEAD after reconstruction.
 6. Work one bounded Shooter RPG piece at a time.
@@ -41,20 +42,20 @@ Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01 or inherited files/code/bu
 4. `SHOOTER_RPG_FOUNDATION_DESIGN_001.md` for gameplay foundation;
 5. `SHOOTER_RPG_VISUAL_DIRECTION.md` for visual/presentation direction;
 6. `EVOLVE_ALIGNMENT.md` / `PROJECT_HANDOFF.md`;
-7. Shooter-RPG-specific runtime-local docs under `shooter_game/`;
+7. Shooter-RPG runtime-local docs under `shooter_game/`;
 8. inherited previous-project material = legacy/reference only unless explicitly imported.
 
 ## Locked first-prototype foundation
 
 - single-player offline-first;
-- third-person over-the-shoulder camera;
+- third-person over-the-shoulder;
 - real-time shooter loop;
 - first firearm = semi-automatic carbine;
-- reticle/hit geometry determines hits; no hidden random RPG miss on a visibly valid shot;
-- physical environmental cover;
+- reticle/hit geometry determines hits;
+- physical cover;
 - compact connected zones;
 - first hostile = placeholder ranged Sentry Automaton;
-- compact Vigor / Handling / Mobility RPG layer;
+- Vigor / Handling / Mobility RPG layer;
 - one permanent upgrade choice after first objective;
 - pixel-styled real 3D world;
 - low-resolution world render + separately readable UI;
@@ -62,19 +63,37 @@ Do not treat Unnamed Hunt RPG, WorldLife RPG, Hunt-01 or inherited files/code/bu
 - Godot `4.7.2-stable`;
 - independent runtime root `shooter_game/`.
 
-Prototype-tuned values such as camera FOV/distance, movement speed, recoil, damage, enemy timing, pixel resolution and exact control positions are not final.
+## Current implemented layer
 
-## Current runtime scaffold
+Player-Camera Graybox 001 currently includes:
+- small 3D collision graybox;
+- `CharacterBody3D` player;
+- gravity + camera-relative movement;
+- tunable movement acceleration/speed;
+- yaw/pitch + `SpringArm3D` + `Camera3D` hierarchy;
+- player collider exclusion from the spring arm;
+- desktop W/A/S/D + mouse debug mappings;
+- boot connection to the graybox;
+- static and prepared Godot smoke verification.
 
-`shooter_game/` exists and currently contains only the standalone project scaffold, boot scene/script, project contract, semantic input actions, tests/docs and version ownership.
+It does NOT yet include shooter behavior, enemy AI, mobile touch UI, RPG systems, saves or final pixel rendering.
 
-Executed verification:
-`python shooter_game/tests/scaffold_static_preflight.py`
+## Verification boundary
 
-Observed:
-`SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
+Executed:
+- scaffold static preflight → PASS;
+- player-camera static preflight → PASS.
 
-Godot headless smoke exists but has not yet been executed. Android, phone, visual-quality and performance verification remain open.
+Not executed:
+- Godot 4.7.2 parse/import;
+- scaffold headless smoke;
+- player-camera headless smoke;
+- interactive runtime;
+- Android export;
+- phone runtime;
+- performance/visual-quality acceptance.
+
+Do not infer engine/runtime success from the static checks.
 
 ## Visual reference
 
@@ -92,24 +111,16 @@ The image is visual inspiration, not canonical lore.
 
 `READ SHOOTER STATE → VERIFY → ONE BOUNDED PIECE → IMPLEMENT → TEST → RECORD → CONTINUE`.
 
-Do not build the entire vertical slice in one uncontrolled rewrite.
-
-## Current verification boundary
-
-`STANDALONE_PROJECT_IDENTITY = RECORDED`
-`PIXEL_REFERENCE = SAVED`
-`FOUNDATION_DESIGN_001 = LOCKED`
-`SHOOTER_GAME_PROJECT_ROOT = CREATED`
-`SCAFFOLD_STATIC_VERIFIED = YES`
-`SCAFFOLD_HEADLESS_VERIFIED = NO`
-`SOURCE_IMPLEMENTATION = SCAFFOLD_ONLY`
-`BUILD_VERIFIED = NO`
-`PHONE_RUNTIME_VERIFIED = NO`
-`VISUAL_QUALITY_VERIFIED = NO`
-`PERFORMANCE_VERIFIED = NO`
+Do not stack new runtime systems on top of an unparsed layer when a real engine verification gate is pending.
 
 ## Current bounded piece
 
-`SHOOTER_RPG_PLAYER_CAMERA_GRAYBOX_001`.
+`SHOOTER_RPG_GRAYBOX_RUNTIME_GATE_001`.
 
-Create one tiny 3D graybox scene, one `CharacterBody3D` player with gravity and camera-relative locomotion, one third-person pivot/spring-arm camera rig, and desktop keyboard/mouse debug bindings through the existing semantic input actions. Do not add shooting, enemies, RPG progression, mobile joystick UI or final pixel rendering in this slice.
+Use Godot 4.7.2-stable to parse/import/start the project and execute:
+- `res://tests/scaffold_smoke.gd`;
+- `res://tests/player_camera_smoke.gd`.
+
+Fix only same-layer parse/resource/runtime ownership defects. If graphical execution is available, inspect movement/gravity/camera collision without treating tuning as final. Do not add mobile touch or shooting until this runtime gate passes.
+
+Current environment blocker: no executable Godot 4.7.2 runtime is available here.
