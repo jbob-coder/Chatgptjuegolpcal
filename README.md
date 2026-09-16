@@ -1,103 +1,85 @@
-# Unnamed Hunt RPG — Shooter RPG Visual Branch
+# Shooter RPG — Standalone New Game
 
-Status: ACTIVE DESIGN/DEVELOPMENT BRANCH / THIRD-PERSON PIXEL DIRECTION SELECTED / NEW VISUAL PROTOTYPE NEXT
-Last reconciled: 2026-09-15
+Status: NEW PROJECT / DESIGN RESET / PIXEL VISUAL REFERENCE SELECTED / NO GAMEPLAY IMPLEMENTATION CLAIMED
+Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
-Android-targeted monster-hunting RPG. WorldLife RPG is abandoned and is not the implementation base.
+## Project identity
 
-## Selected game presentation
+`Shooter RPG` is a **new standalone game**.
 
-The current player-facing target is:
+It is NOT a visual branch, remake, migration, sequel, subsystem, or continuation of Unnamed Hunt RPG, WorldLife RPG, or any other previous game in this repository.
 
-**third-person pixel-styled 3D monster-hunting RPG with shooter-style mobile controls, physical exploration, persistent NPC/world consequences and body-part combat.**
+The `shooter-rpg` branch was technically created from an older repository branch, so inherited files and Git history are present. That ancestry is a repository fact only. It does not make the projects related.
 
-Primary visual authority: `SHOOTER_RPG_VISUAL_DIRECTION.md`.
+## Hard separation rule
 
-Saved concept reference:
-- `Shooter RPG - Pixel Visual Reference.jpg`;
-- Google Drive file ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
+Do not automatically reuse or inherit previous-game:
+- gameplay code;
+- combat rules;
+- monster/anatomy systems;
+- body-part break/sever systems;
+- harvesting/crafting;
+- lore, factions, settlements, characters or creatures;
+- save formats;
+- progression/level rules;
+- mining/crystal systems;
+- Diamond Watch;
+- NPC relationship systems;
+- world maps;
+- UI structure;
+- performance/storage limits;
+- build evidence;
+- test results;
+- Android artifacts.
 
-Names/text visible in that generated image are placeholders unless separately approved.
+Any previous-game concept may enter Shooter RPG only after the user explicitly chooses to import it or a new Shooter RPG design document independently adopts it.
 
-## Main loop target
+## Confirmed Shooter RPG direction
 
-`SETTLEMENT → PREPARE → PHYSICALLY LEAVE SETTLEMENT → EXPLORE/TRACK → OBSERVE/APPROACH → THIRD-PERSON SPATIAL COMBAT → TARGET ANATOMY → BREAK/SEVER/DEFEAT/ESCAPE → HARVEST → RETURN → NPC/SETTLEMENT CONSEQUENCES → PROCESS/CRAFT/EQUIP/LEARN → NEXT HUNT`
+Currently confirmed:
+- standalone new game;
+- working project/branch name: `Shooter RPG` / `shooter-rpg`;
+- pixel-style visual direction;
+- the saved generated pixel image is the primary visual mood/composition reference;
+- Android/mobile considerations remain relevant because the user is developing for phone, but Shooter RPG must establish its own technical requirements rather than inherit another game's limits.
 
-Normal traversal should not collapse into simple location buttons. Use compact connected spaces and world compression rather than a huge empty open world.
+Everything else remains open until designed for this game.
 
-## Controls target
+## Canonical visual reference
 
-- landscape Android-first;
-- left virtual stick = direct continuous movement;
-- right side = independent camera/look;
-- simultaneous movement/look;
-- contextual action controls;
-- safe-area responsive HUD.
+Original PNG saved in Google Drive:
+- `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
+- Drive file ID: `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
 
-Historical first-person camera values are not automatically valid for the new third-person camera and must be re-prototyped.
+Working JPEG copy:
+- `Shooter RPG - Pixel Visual Reference.jpg`
+- Drive file ID: `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
 
-## Art target
+Names, quests, NPC names, item counts, settlement names, monster details and button text visible in the generated image are concept placeholders unless separately approved.
 
-Pixel-styled third-person 3D:
-- real spatial world/collision/camera;
-- pixel-authored/pixel-consistent textures and UI;
-- controlled low-resolution rendering/upscale treatment where useful;
-- strong silhouettes and readable monster anatomy;
-- intentional lighting/material simplification;
-- not a generic smooth 3D scene with a cosmetic pixel filter.
+## Source isolation
 
-## Supporting systems being designed
+Existing inherited `game/`, Hunt-01 files, old design bibles, old workflows and old build evidence belong to previous projects unless a future Shooter RPG decision explicitly imports a specific piece.
 
-Gradual, bounded additions include:
-- Diamond Watch information device;
-- hunter journal/bestiary knowledge progression;
-- persistent NPC relationships/memories;
-- NPC-to-NPC relationships;
-- schedules, aging and generational continuity;
-- difficult decisions affecting people and settlements;
-- crystal/diamond mining and energy economy;
-- mining licenses and factions/survivor settlements;
-- multi-layer progression with difficult post-cap breakthroughs.
+A new Shooter RPG implementation should use its own project root/package namespace and its own tests/build evidence. Do not silently treat old green CI as proof for Shooter RPG.
 
-These are design targets, not claims of completed implementation.
+Recommended future implementation root: `shooter_game/`.
 
-## Hard storage ceiling
+## Current objective
 
-The user-selected total player-required game footprint cap remains exactly:
-`2 GB = 2,000,000,000 bytes`.
+Before coding, define Shooter RPG from zero at the player-experience level:
+1. exact camera/perspective;
+2. movement and aiming model;
+3. what makes it a shooter;
+4. weapon/combat loop;
+5. RPG progression depth;
+6. world structure and travel;
+7. interaction/NPC scope;
+8. UI/HUD on phone;
+9. pixel rendering/art pipeline;
+10. smallest complete playable vertical slice.
 
-Required split/downloaded runtime content counts toward the same cap. Development-only source/repository/CI files do not. Package-size evidence does not by itself prove installed-footprint compliance.
+Do not import previous-game mechanics to fill gaps.
 
-## Historical production evidence
-
-This branch was created from:
-`worldlife-reference-docs@7e36c136f68f89980bb29b5c2b8fed3ae3e9c89c`.
-
-Previously recorded full production-verified gameplay source:
-`01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
-
-Recorded workflow `34880096112`: SUCCESS.
-Recorded job `104096962757`: SUCCESS.
-Recorded artifact `10362706279`: 57,536,941 bytes, SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
-
-That evidence applies to the older presentation/build state. It does not prove the new third-person pixel direction is implemented, visually accepted or phone-verified.
-
-## Current bounded piece
-
-`SHOOTER_RPG_PIXEL_THIRD_PERSON_VISUAL_PROTOTYPE`.
-
-First prove one bounded slice:
-- one small settlement gate/street;
-- one controllable third-person player;
-- left-stick movement + right-side look;
-- one NPC interaction;
-- one short route outside town;
-- one monster/proxy;
-- pixel rendering/art treatment;
-- responsive safe-area HUD;
-- Android launch/runtime evidence.
-
-Do not rewrite the entire game before this slice is accepted.
-
-For continuation, begin with `START_HERE_NEW_CHAT.md` and reconstruct the live branch before implementation.
+For continuation, start with `START_HERE_NEW_CHAT.md`.
