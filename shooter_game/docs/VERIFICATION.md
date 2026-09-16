@@ -1,83 +1,70 @@
 # Shooter RPG — Verification Record
 
-Status: SCAFFOLD 001 + PLAYER-CAMERA GRAYBOX 001
+Status: SCAFFOLD 001 + PLAYER-CAMERA GRAYBOX 001 HEADLESS VERIFIED
 Last reconciled: 2026-09-16
 
-## Executed
+## Executed static verification
 
-### Static scaffold preflight
-
-Command:
+### Scaffold preflight
 `python shooter_game/tests/scaffold_static_preflight.py`
 
-Observed result:
+Observed:
 `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
 
-This verifies the checked project structure, project identity strings, main-scene ownership, display/render settings expected by the preflight, semantic InputMap actions, boot resource references, version marker, and absence of selected legacy runtime references.
-
-### Player-camera static preflight
-
-Command:
+### Player-camera preflight
 `python shooter_game/tests/player_camera_static_preflight.py`
 
-Observed result:
+Observed:
 `SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS`
 
-This verifies the checked graybox structure and scope markers, including:
-- `CharacterBody3D` player ownership;
-- camera yaw/pitch hierarchy;
-- `SpringArm3D` + `Camera3D` composition;
-- camera-relative movement path;
-- Godot gravity call and `move_and_slide()` ownership;
-- player exclusion from spring-arm collision;
-- current desktop debug bindings;
-- use of mouse `screen_relative` for look input;
-- boot scene connection to the graybox;
-- absence of selected out-of-scope combat/enemy/progression/save markers and legacy-project references.
+## Executed Godot 4.7.2 runtime gate
 
-Static verification does NOT prove GDScript parse success, physics behavior, camera feel or runtime camera collision.
+GitHub Actions workflow:
+`.github/workflows/shooter-rpg-graybox-runtime.yml`
 
-## Prepared but not executed
+Verified source SHA:
+`9d17874fd1c6f30ddff8cb9e870af33e3f297925`
 
-### Godot scaffold smoke
+Workflow run:
+`35056360247`
 
-Command:
-`godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
+Job:
+`104667287029`
 
-Expected marker:
-`SHOOTER_RPG_SCAFFOLD_SMOKE_PASS actions=10`
+Result: **SUCCESS**.
 
-### Godot player-camera smoke
+Observed successful steps:
+- static preflights;
+- official Godot 4.7.2-stable download + SHA-256 verification;
+- Godot version check;
+- project import/parse;
+- scaffold headless smoke;
+- player-camera headless smoke.
 
-Command:
-`godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`
+Commands represented by the gate include:
+- `godot --headless --editor --path shooter_game --quit-after 2`;
+- `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`;
+- `godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`.
 
-Expected marker:
-`SHOOTER_RPG_PLAYER_CAMERA_SMOKE_PASS`
+Therefore:
+- scaffold static: VERIFIED;
+- player-camera static: VERIFIED;
+- Godot project parse/import: VERIFIED;
+- scaffold headless smoke: VERIFIED;
+- player-camera headless smoke: VERIFIED.
 
-This smoke loads/instantiates the graybox and checks runtime node types plus selected provisional camera properties.
+## Still NOT verified
 
-Status for both Godot smoke tests: NOT EXECUTED in this pass because a Godot executable was not available in the local execution environment. Attempts to obtain the official Godot 4.7.2 Linux binary were blocked by that environment's network/download restrictions.
+Headless success does not prove:
+- interactive movement feel;
+- mouse/touch sensitivity quality;
+- spring-arm visual behavior under real play;
+- phone runtime;
+- Android export/install;
+- mobile touch ergonomics;
+- final visual quality;
+- sustained frame pacing/performance.
 
-Do not upgrade these states to HEADLESS_VERIFIED until the commands are actually executed and their results observed.
+## Next verification target
 
-## Player-camera runtime validation still required
-
-Not yet executed:
-- Godot project parse/import;
-- boot into graybox under Godot;
-- `CharacterBody3D` movement behavior;
-- gravity/floor behavior;
-- spring-arm collision response;
-- mouse capture/look behavior;
-- camera clipping inspection;
-- control feel/tuning.
-
-## Android / phone / performance
-
-- Android export: NOT EXECUTED.
-- APK install: NOT EXECUTED.
-- Phone runtime: NOT EXECUTED.
-- Touch controls: NOT IMPLEMENTED.
-- Performance: NOT EXECUTED.
-- Visual quality: NOT VERIFIED.
+`SHOOTER_RPG_MOBILE_TOUCH_INPUT_001` should add touch-input plumbing through the same gameplay input contract, then receive its own static/headless checks before Android/device acceptance is claimed.
