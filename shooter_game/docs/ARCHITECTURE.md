@@ -1,13 +1,13 @@
 # Shooter RPG — Runtime Architecture
 
-Status: SCAFFOLD 001 + PLAYER-CAMERA GRAYBOX 001
+Status: FIRST-PERSON + MOVEMENT TECHNIQUES + MOBILE TOUCH FOUNDATION
 Last reconciled: 2026-09-16
 
 ## Ownership
 
-`shooter_game/` is the only runtime root for Shooter RPG at this stage.
+`shooter_game/` is the only active runtime root for Shooter RPG.
 
-Inherited root-level project folders are not dependencies.
+Inherited root-level game folders are not dependencies.
 
 ## Directory ownership
 
@@ -18,11 +18,12 @@ Inherited root-level project folders are not dependencies.
 
 ## Semantic input contract
 
-Reserved actions:
+Current required actions:
 - `move_left`
 - `move_right`
 - `move_forward`
 - `move_back`
+- `jump`
 - `aim`
 - `fire`
 - `reload`
@@ -30,51 +31,78 @@ Reserved actions:
 - `interact`
 - `pause_game`
 
-Gameplay code should consume these actions rather than device-specific keys/buttons.
+Device adapters feed this contract. Gameplay logic must not be duplicated separately for desktop and touch.
 
-Desktop keyboard/mouse mappings in `scripts/input/debug_input_bindings.gd` exist only to make development testable before mobile touch controls are implemented. Future touch controls should feed the same semantic gameplay contract.
+## First-person player/camera ownership
 
-## Player-camera graybox ownership
-
-`scenes/graybox/player_camera_graybox.tscn` owns only the small test environment and node composition required to prove the first third-person controller/camera layer.
+`scenes/graybox/player_camera_graybox.tscn` owns the current movement/camera test space.
 
 `Player` is a `CharacterBody3D` using `scripts/player/player_controller.gd`.
 
-The controller currently owns:
-- gravity;
-- horizontal camera-relative movement;
-- acceleration toward desired horizontal velocity;
-- desktop mouse capture/release;
-- yaw/pitch look;
-- provisional camera pitch limits;
-- exclusion of the player collider from the `SpringArm3D` camera collision test.
-
 Camera composition:
-`Player → CameraYaw → CameraPitch → SpringArm3D → Camera3D`.
+`Player → CameraYaw → CameraPitch → Camera3D`.
 
-`SpringArm3D` is responsible for shortening camera distance around graybox collision geometry. The exact camera FOV, spring length, pitch range, sensitivity and movement speeds are explicitly provisional.
+The player controller owns:
+- gravity;
+- camera-relative locomotion;
+- ground/air acceleration;
+- ground jump;
+- wall jump using the wall normal reported by `CharacterBody3D`;
+- short post-wall-jump steering lock;
+- shared look-delta application;
+- pitch clamp;
+- target horizontal FOV conversion.
 
-## Current scene flow
+## FOV architecture
+
+Player-facing target is `115° horizontal`.
+
+Godot `Camera3D.fov` is driven as vertical FOV with `KEEP_HEIGHT`, so the controller converts the horizontal target using the current viewport aspect ratio. At 16:9, 115 horizontal degrees is approximately `82.8857` vertical degrees.
+
+The conversion runs initially and again when viewport size changes.
+
+## Input adapters
+
+Desktop adapter:
+`scripts/input/debug_input_bindings.gd`.
+
+Mobile adapter:
+`scripts/input/mobile_touch_input.gd`.
+
+Mobile semantic button adapter:
+`scripts/input/mobile_action_button.gd`.
+
+Mobile control scene:
+`scenes/ui/mobile_controls.tscn`.
+
+Current mobile behavior:
+- dynamic left-side movement touch;
+- right-side drag look;
+- safe-area-aware control root;
+- JUMP action button;
+- AIM/FIRE/DODGE action reservations.
+
+The mobile adapter converts movement touch into InputMap action strengths, so the same player movement code handles keyboard and touch.
+
+## Scene flow
 
 `project.godot`
 → `scenes/boot/boot.tscn`
-→ instances `scenes/graybox/player_camera_graybox.tscn`.
-
-This is an early proof path, not the final game-shell architecture.
+→ `scenes/graybox/player_camera_graybox.tscn`
+→ `scenes/ui/mobile_controls.tscn`.
 
 ## Current boundary
 
-Player-Camera Graybox 001 intentionally does NOT implement:
+Not yet implemented:
 - firearm firing/reload behavior;
-- aim/ADS behavior beyond reserving the semantic action;
-- enemy AI;
-- player/enemy damage;
-- dodge gameplay;
-- RPG progression;
+- ADS mechanics;
+- enemies/damage;
+- actual dodge behavior;
+- advanced techniques beyond current jump/wall jump;
+- RPG progression runtime;
 - save/load;
-- mobile joystick/look controls;
 - final HUD;
 - final pixel render pipeline;
 - production world content.
 
-Those belong to later bounded slices.
+New movement techniques must be added one bounded/tested mechanic at a time.
