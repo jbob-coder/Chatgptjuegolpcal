@@ -16,26 +16,26 @@ func _initialize() -> void:
 
 	root.add_child(instance)
 
-	var player := instance.get_node_or_null("Player")
-	var spring_arm := instance.get_node_or_null("Player/CameraYaw/CameraPitch/SpringArm3D")
-	var camera := instance.get_node_or_null("Player/CameraYaw/CameraPitch/SpringArm3D/Camera3D")
-	var ground := instance.get_node_or_null("Ground")
-	var obstacle := instance.get_node_or_null("Obstacle")
+	var player := instance.get_node_or_null("Player") as CharacterBody3D
+	var spring_arm := instance.get_node_or_null("Player/CameraYaw/CameraPitch/SpringArm3D") as SpringArm3D
+	var camera := instance.get_node_or_null("Player/CameraYaw/CameraPitch/SpringArm3D/Camera3D") as Camera3D
+	var ground := instance.get_node_or_null("Ground") as StaticBody3D
+	var obstacle := instance.get_node_or_null("Obstacle") as StaticBody3D
 
-	if not player is CharacterBody3D:
+	if player == null:
 		failures.append("Player must be CharacterBody3D")
-	if not spring_arm is SpringArm3D:
+	if spring_arm == null:
 		failures.append("camera boom must be SpringArm3D")
-	if not camera is Camera3D:
+	if camera == null:
 		failures.append("camera must be Camera3D")
-	if not ground is StaticBody3D:
+	if ground == null:
 		failures.append("Ground must be StaticBody3D")
-	if not obstacle is StaticBody3D:
+	if obstacle == null:
 		failures.append("Obstacle must be StaticBody3D")
 
-	if spring_arm is SpringArm3D and not is_equal_approx(spring_arm.spring_length, 4.5):
+	if spring_arm != null and not is_equal_approx(spring_arm.spring_length, 4.5):
 		failures.append("unexpected provisional spring length")
-	if camera is Camera3D and not camera.current:
+	if camera != null and not camera.current:
 		failures.append("graybox camera must be current")
 
 	instance.queue_free()
