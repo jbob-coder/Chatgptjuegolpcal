@@ -5,6 +5,7 @@ const REQUIRED_ACTIONS: PackedStringArray = [
 	"move_right",
 	"move_forward",
 	"move_back",
+	"jump",
 	"aim",
 	"fire",
 	"reload",
