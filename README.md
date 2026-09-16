@@ -1,6 +1,6 @@
 # Shooter RPG — Standalone New Game
 
-Status: FIRST-PERSON / 115 HFOV / WALL-JUMP + MOBILE TOUCH FOUNDATION HEADLESS VERIFIED
+Status: FIRST-PERSON / 115 HFOV / WALL-JUMP + MOBILE TOUCH FOUNDATION / ANDROID DEBUG APK VERIFIED / PHONE TEST NEXT
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -32,14 +32,14 @@ Authority:
 `SHOOTER_RPG_PERSPECTIVE_DECISION_002.md`.
 
 Current camera target:
-- 115 degrees **horizontal** FOV;
+- 115 degrees horizontal FOV;
 - runtime aspect-aware conversion to Godot vertical FOV;
 - first-person yaw/pitch camera;
 - no third-person spring arm;
 - hidden graybox player body mesh;
 - future first-person weapon/arms view model belongs to a later slice.
 
-Earlier third-person wording in Foundation Design 001 is superseded only for perspective/camera behavior.
+Earlier third-person wording in Foundation Design 001 is superseded for perspective/camera behavior.
 
 ## Movement foundation
 
@@ -81,32 +81,47 @@ Engine baseline:
 
 ## Verification
 
-Most recent verified runtime source SHA:
-`393ff872f2623f98f07c6216d6d29dc5ed64e5fb`.
+Runtime/headless gate: **PASS**.
 
-GitHub Actions run:
-`35056976187`.
+Android build gate: **PASS**.
 
-Result: **SUCCESS**.
+Verified Android build source SHA:
+`bb1231d3b7942aa3d6b8391998a9ffef3229be8f`.
 
-Verified in that run:
-- static scaffold preflight;
-- first-person/player-camera static preflight;
-- mobile touch static preflight;
-- official Godot 4.7.2 download/version gate;
+GitHub Actions Android build run:
+`35059066037`.
+
+Verified in that build:
+- Android SDK/JDK setup;
+- Godot 4.7.2 + export templates;
+- Shooter RPG static gates;
 - Godot project import/parse;
 - scaffold headless smoke;
 - first-person camera/movement headless smoke;
-- mobile touch headless smoke.
+- mobile-touch headless smoke;
+- Android debug APK export;
+- APK ZIP-integrity check;
+- metadata inspection;
+- artifact upload.
 
-Not yet verified:
-- Android export;
-- APK installation;
+APK evidence:
+- `ShooterRPG-AndroidDevice001-debug.apk`;
+- package `com.jbobcoder.shooterrpg`;
+- version `0.0.1-device-probe`;
+- min SDK `24`;
+- target SDK `36`;
+- size `57,580,078` bytes;
+- SHA-256 `b78a706184ecd87ce190f9348a96943ea9df54a86ab0ebaa246bb68609b348ef`;
+- GitHub artifact ID `10431432477`;
+- Drive backup ZIP ID `1JIBdDjOm65jRmCGcCmz8ENI_0sgrXccF`.
+
+Still NOT verified:
+- installation on the user's Android phone;
 - real-phone touch feel;
 - wall-jump feel under human play;
-- 115-HFOV comfort on target phones;
+- 115-HFOV comfort on the target phone;
 - visual-quality acceptance;
-- performance/frame pacing.
+- sustained performance/frame pacing.
 
 ## Gameplay foundation still planned
 
@@ -123,6 +138,6 @@ Foundation Design 001 still provides the non-camera gameplay direction unless su
 
 ## Current next bounded piece
 
-Before implementing full combat, the next practical gate is an Android/device control-feel slice: export the current first-person graybox, install it on a phone, verify 115 HFOV, movement, look, jump/wall-jump and touch-region ergonomics, then tune only what device evidence shows is wrong.
+`SHOOTER_RPG_ANDROID_CONTROL_FEEL_GATE_001`.
 
-Do not claim mobile feel or performance from headless success alone.
+Install the verified APK on real Android hardware and check launch/orientation, simultaneous move + look, jump/wall-jump, 115 HFOV, touch overlap and frame pacing. Tune only what real device evidence shows is wrong before full firearm behavior is added.
