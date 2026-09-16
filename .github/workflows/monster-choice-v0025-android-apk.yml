@@ -18,7 +18,7 @@ env:
   PROJECT_PATH: monster_choice_rpg_v0026
   APK_NAME: MonsterChoiceRPG-v0.0.26-final-debug.apk
   SOURCE_SHA256: 555e9706802eae2b788f0016998426efcaba2a4ac7d0a6729fc6ee096a217017
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-1654-81f6-aef6-8a7407a3411b/raw?se=2026-09-16T03%3A35%3A03Z&sp=r&sv=2026-02-06&sr=b&scid=37f969bd-c077-5183-bfe0-ad41c17c5259&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-15T17%3A53%3A52Z&ske=2026-09-16T17%3A53%3A52Z&sks=b&skv=2026-02-06&sig=q7ySie94XxTewLODMCzOySHwQehhukSdhCe/eZwyWl8%3D"
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-6d18-81f6-8f9d-26722bdc2f4a/raw?se=2026-09-16T03%3A39%3A22Z&sp=r&sv=2026-02-06&sr=b&scid=27627505-5b24-5ed5-98ae-ee219d58112e&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-15T17%3A58%3A01Z&ske=2026-09-16T17%3A58%3A01Z&sks=b&skv=2026-02-06&sig=XjRc4pSAs8f3qWCwOJ6dH3BeJFJ0084RdMHlZ8JTpVY%3D"
 
 jobs:
   build-android-debug:
@@ -129,6 +129,16 @@ jobs:
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-tests.log
           grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-tests.log
+
+      - name: Run main scene headless boot smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --quit-after 10 2>&1 | tee build-evidence/main-scene-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/main-scene-boot.log; then
+            echo "Main scene boot log contains a blocking runtime error."
+            exit 1
+          fi
 
       - name: Export Android debug APK
         shell: bash
