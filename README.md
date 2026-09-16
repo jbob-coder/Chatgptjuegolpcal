@@ -1,6 +1,6 @@
 # Shooter RPG — Standalone New Game
 
-Status: FOUNDATION 001 LOCKED / SCAFFOLD 001 STATIC VERIFIED / PLAYER-CAMERA GRAYBOX 001 STATIC VERIFIED / ENGINE RUNTIME GATE NEXT
+Status: FIRST-PERSON / 115 HFOV / WALL-JUMP + MOBILE TOUCH FOUNDATION HEADLESS VERIFIED
 Last reconciled: 2026-09-16
 Branch: `shooter-rpg`
 
@@ -8,107 +8,121 @@ Branch: `shooter-rpg`
 
 `Shooter RPG` is a new standalone game.
 
-It is NOT a visual branch, remake, migration, sequel, subsystem or continuation of Unnamed Hunt RPG, WorldLife RPG or any prior game in this repository.
+It is NOT a continuation, remake, visual branch or subsystem of Unnamed Hunt RPG, WorldLife RPG or any prior game in this repository.
 
 Repository ancestry is not design inheritance.
 
 Primary identity authority:
 `SHOOTER_RPG_PROJECT_IDENTITY.md`.
 
-## Locked first-prototype foundation
+## Audience / tone
 
-Gameplay owner:
-`SHOOTER_RPG_FOUNDATION_DESIGN_001.md`.
+Internal creative target: **21+ mature**.
 
-Selected direction:
-- single-player offline-first;
-- third-person over-the-shoulder camera;
-- real-time shooting in later combat slice;
-- semi-automatic carbine first;
-- valid reticle/hit geometry is not invalidated by hidden RPG random misses;
-- physical environmental cover;
-- compact connected spaces;
-- placeholder ranged Sentry Automaton first hostile;
-- compact Vigor / Handling / Mobility progression;
-- one permanent upgrade choice after first objective;
-- pixel-styled real 3D world;
-- low-resolution world render with separately readable UI;
-- Android landscape-first;
-- Godot `4.7.2-stable`;
-- independent runtime root `shooter_game/`.
+Authority:
+`SHOOTER_RPG_MATURE_CONTENT_STANDARD.md`.
 
-## Current implementation
+This is not an official ESRB/PEGI/store rating claim.
 
-Scaffold 001 exists and is statically verified.
+## Current perspective authority
 
-Player-Camera Graybox 001 now adds:
-- a tiny 3D test environment;
-- `CharacterBody3D` player;
+Shooter RPG is **first-person**.
+
+Authority:
+`SHOOTER_RPG_PERSPECTIVE_DECISION_002.md`.
+
+Current camera target:
+- 115 degrees **horizontal** FOV;
+- runtime aspect-aware conversion to Godot vertical FOV;
+- first-person yaw/pitch camera;
+- no third-person spring arm;
+- hidden graybox player body mesh;
+- future first-person weapon/arms view model belongs to a later slice.
+
+Earlier third-person wording in Foundation Design 001 is superseded only for perspective/camera behavior.
+
+## Movement foundation
+
+Authority:
+`SHOOTER_RPG_MOVEMENT_TECHNIQUES_001.md`.
+
+Implemented foundation:
+- camera-relative movement;
 - gravity;
-- camera-relative horizontal movement;
-- provisional acceleration/speed tuning;
-- yaw/pitch third-person camera rig;
-- `SpringArm3D` camera collision structure;
-- desktop-only W/A/S/D + mouse debug input mappings;
-- boot routing into the graybox;
-- dedicated static and prepared Godot smoke tests.
+- ground jump;
+- air steering;
+- wall jump;
+- short wall-jump steering lock;
+- mobile JUMP action;
+- desktop `Space` jump;
+- desktop `Shift` reserved for dodge.
 
-No shooting, enemy AI, damage, RPG progression, save/load, mobile touch controls, final HUD or final pixel-render pipeline is implemented yet.
+Current wall-jump values are provisional and tunable.
+
+## Mobile control foundation
+
+Implemented:
+- left-side dynamic movement touch region / joystick;
+- right-side drag-to-look surface;
+- safe-area-aware control root;
+- semantic action buttons including JUMP, AIM, FIRE and DODGE reservation;
+- shared look contract for mouse and touch;
+- simultaneous movement/look structure.
+
+AIM/FIRE/DODGE gameplay behavior is still reserved, not implemented as combat mechanics.
+
+## Current runtime root
+
+All active Shooter RPG runtime work lives under:
+`shooter_game/`.
+
+Engine baseline:
+`Godot 4.7.2-stable`.
 
 ## Verification
 
-Executed:
-- `python shooter_game/tests/scaffold_static_preflight.py`
-  → `SHOOTER_RPG_SCAFFOLD_STATIC_PASS actions=10 version=0.0.0-scaffold.001`
-- `python shooter_game/tests/player_camera_static_preflight.py`
-  → `SHOOTER_RPG_PLAYER_CAMERA_STATIC_PASS`
+Most recent verified runtime source SHA:
+`393ff872f2623f98f07c6216d6d29dc5ed64e5fb`.
 
-Prepared but NOT executed because Godot 4.7.2 is unavailable in the current execution environment:
-- `godot --headless --path shooter_game --script res://tests/scaffold_smoke.gd`
-- `godot --headless --path shooter_game --script res://tests/player_camera_smoke.gd`
+GitHub Actions run:
+`35056976187`.
 
-Therefore:
-- GDScript/scene engine parse: NOT VERIFIED;
-- graybox runtime: NOT VERIFIED;
-- Android build: NOT VERIFIED;
-- phone runtime: NOT VERIFIED;
-- visual quality: NOT VERIFIED;
-- performance: NOT VERIFIED.
+Result: **SUCCESS**.
 
-Old project CI/APK evidence does not count.
+Verified in that run:
+- static scaffold preflight;
+- first-person/player-camera static preflight;
+- mobile touch static preflight;
+- official Godot 4.7.2 download/version gate;
+- Godot project import/parse;
+- scaffold headless smoke;
+- first-person camera/movement headless smoke;
+- mobile touch headless smoke.
 
-## First playable loop target
+Not yet verified:
+- Android export;
+- APK installation;
+- real-phone touch feel;
+- wall-jump feel under human play;
+- 115-HFOV comfort on target phones;
+- visual-quality acceptance;
+- performance/frame pacing.
 
-Working structure:
+## Gameplay foundation still planned
 
-`GATE DISTRICT → OUTER ROAD → BROKEN CHECKPOINT → SENTRY FIGHT → REWARD → RETURN → CHOOSE UPGRADE → SAVE/LOAD`
-
-Working names are replaceable and not final lore.
-
-## Canonical visual reference
-
-Original PNG in Google Drive:
-- `Shooter RPG - Pixel Visual Reference ORIGINAL.png`
-- Drive ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`
-
-Working JPEG:
-- `Shooter RPG - Pixel Visual Reference.jpg`
-- Drive ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`
-
-The generated image provides art/composition inspiration only. Visible names, quests, NPCs, locations, item values and monster details are placeholders.
-
-## Hard separation rule
-
-Do not automatically reuse old-game runtime code, mechanics, saves, characters/lore/world, progression, UI, tests, build evidence, Android artifacts or technical budgets.
-
-A specific old idea can enter Shooter RPG only through a new explicit Shooter RPG decision.
+Foundation Design 001 still provides the non-camera gameplay direction unless superseded later:
+- single-player offline-first;
+- real-time shooter;
+- semi-automatic carbine first;
+- valid reticle/hit geometry should not be invalidated by hidden RPG random misses;
+- physical environmental cover;
+- compact connected spaces;
+- bounded RPG progression;
+- pixel-styled real 3D world;
+- Android landscape-first.
 
 ## Current next bounded piece
 
-`SHOOTER_RPG_GRAYBOX_RUNTIME_GATE_001`
+Before implementing full combat, the next practical gate is an Android/device control-feel slice: export the current first-person graybox, install it on a phone, verify 115 HFOV, movement, look, jump/wall-jump and touch-region ergonomics, then tune only what device evidence shows is wrong.
 
-Run Godot 4.7.2 against the current standalone project, execute the prepared headless smokes, fix only same-layer parse/resource/runtime defects, and record the observed result. Do not add another gameplay layer before the player-camera foundation passes real engine validation.
-
-After that gate passes, the intended next implementation layer is `SHOOTER_RPG_MOBILE_TOUCH_INPUT_001`.
-
-For continuation, start with `START_HERE_NEW_CHAT.md` and current live branch evidence.
+Do not claim mobile feel or performance from headless success alone.
