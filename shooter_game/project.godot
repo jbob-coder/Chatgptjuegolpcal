@@ -14,6 +14,8 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=0
+window/frame_pacing/android/enable_frame_pacing=true
 
 [input]
 
@@ -65,4 +67,5 @@ pause_game={
 [rendering]
 renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="mobile"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.031, 0.035, 0.043, 1)
