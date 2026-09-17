@@ -16,8 +16,8 @@ concurrency:
 
 env:
   PROJECT_PATH: monster_choice_rpg_rework007
-  SOURCE_SHA256: 9844dc73dfe5287c613dacf2e26f206bb828e3c7ae80f6fbd4dd0be4bf80feb3
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-c438-81f6-a24c-9df1cfc9e0ea/raw?se=2026-09-17T05%3A08%3A13Z&sp=r&sv=2026-02-06&sr=b&scid=13ec1c6f-a4cd-530f-8116-3b49f94a8ada&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A49%3A23Z&ske=2026-09-18T02%3A49%3A23Z&sks=b&skv=2026-02-06&sig=9EUGu7l8fNQnVE/uSC4y01tYQBW5nCcIrvBFMxnjk%2BA%3D"
+  SOURCE_SHA256: fe4a98247ddc6a3af3a9f4f9473248b1c9734ab9f557abe8f1e3473ea4b929cb
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-ef3c-81f6-89d4-645a7b230091/raw?se=2026-09-17T05%3A15%3A42Z&sp=r&sv=2026-02-06&sr=b&scid=fd51cbd8-f6c1-5bd7-b7bd-da6f1e70b484&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A53%3A39Z&ske=2026-09-18T02%3A53%3A39Z&sks=b&skv=2026-02-06&sig=rTIweCjc1wFhSivOJJ%2B9xjQQK0kIV%2Bir6AlRD0kusME%3D"
 
 jobs:
   verify-rework007:
@@ -95,6 +95,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_scene_smoke.gd 2>&1 | tee build-evidence/rework002-scene-smoke.log
           grep -q "PASS: REWORK-002 Godot scene smoke" build-evidence/rework002-scene-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework002-scene-smoke.log; then exit 1; fi
 
       - name: Run REWORK-003 exploration smoke
         shell: bash
@@ -102,6 +103,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_exploration_smoke.gd 2>&1 | tee build-evidence/rework003-exploration-smoke.log
           grep -q "PASS: REWORK-003 exploration-to-hunt Godot smoke" build-evidence/rework003-exploration-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework003-exploration-smoke.log; then exit 1; fi
 
       - name: Run REWORK-004 return persistence smoke
         shell: bash
@@ -109,6 +111,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_return_persistence_smoke.gd 2>&1 | tee build-evidence/rework004-return-persistence-smoke.log
           grep -q "PASS: REWORK-004 return/persistence Godot smoke" build-evidence/rework004-return-persistence-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework004-return-persistence-smoke.log; then exit 1; fi
 
       - name: Run REWORK-005 visual foundation smoke
         shell: bash
@@ -116,6 +119,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_foundation_smoke.gd 2>&1 | tee build-evidence/rework005-visual-smoke.log
           grep -q "PASS: REWORK-005 visual foundation Godot smoke" build-evidence/rework005-visual-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework005-visual-smoke.log; then exit 1; fi
 
       - name: Run REWORK-006 embodied world smoke
         shell: bash
@@ -123,6 +127,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_embodied_world_smoke.gd 2>&1 | tee build-evidence/rework006-embodied-world-smoke.log
           grep -q "PASS: REWORK-006 embodied world Godot smoke" build-evidence/rework006-embodied-world-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework006-embodied-world-smoke.log; then exit 1; fi
 
       - name: Run REWORK-007 visual convergence smoke
         shell: bash
@@ -130,6 +135,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_convergence_smoke.gd 2>&1 | tee build-evidence/rework007-visual-convergence-smoke.log
           grep -q "PASS: REWORK-007 visual convergence Godot smoke" build-evidence/rework007-visual-convergence-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework007-visual-convergence-smoke.log; then exit 1; fi
 
       - name: Boot promoted Stoneveil scene directly
         shell: bash
@@ -148,7 +154,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-rework007-evidence
+          name: monster-choice-rework007-repaired-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
