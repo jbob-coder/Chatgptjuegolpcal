@@ -99,7 +99,7 @@ jobs:
         run: |
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script tests/rework_exploration_smoke.gd 2>&1 | tee build-evidence/rework003-exploration-smoke.log
-          grep -q "PASS: REWORK-003 Godot exploration smoke" build-evidence/rework003-exploration-smoke.log
+          grep -q "PASS: REWORK-003 exploration-to-hunt Godot smoke" build-evidence/rework003-exploration-smoke.log
 
       - name: Boot REWORK-003 field scene directly
         shell: bash
