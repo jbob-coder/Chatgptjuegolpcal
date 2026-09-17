@@ -1,4 +1,4 @@
-name: Monster Choice RPG REWORK-004 Android APK
+name: Monster Choice RPG REWORK-005 Android APK
 
 on:
   push:
@@ -11,18 +11,18 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-rework004-android-apk
+  group: monster-choice-rework005-android-apk
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_rework004_android
-  APK_NAME: MonsterChoiceRPG-REWORK-004-debug.apk
-  SOURCE_SHA256: b87ada7c8c04b006d2b117a00f7d6a9a0cc637c325c52acc078530c0674c08bc
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-ec1c-81f6-b590-f6a7a37b238b/raw?se=2026-09-17T02%3A45%3A13Z&sp=r&sv=2026-02-06&sr=b&scid=d369e469-41da-58c3-aa09-de84a8747968&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T18%3A38%3A51Z&ske=2026-09-17T18%3A38%3A51Z&sks=b&skv=2026-02-06&sig=QZguaNqb3tdUQWX8koSWU9N68lr5eGhC%2B9QNEZTwFcw%3D"
+  PROJECT_PATH: monster_choice_rpg_rework005_android
+  APK_NAME: MonsterChoiceRPG-REWORK-005-debug.apk
+  SOURCE_SHA256: cb9b4866ce67d1287b3590807142ae3e84d46a577835c3c8c99e4f6625c2322d
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-9870-81f6-8dea-2ca75243e572/raw?se=2026-09-17T03%3A14%3A34Z&sp=r&sv=2026-02-06&sr=b&scid=5ac4f579-92e5-5457-bd23-d0637bfe0cda&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A53%3A49Z&ske=2026-09-18T02%3A53%3A49Z&sks=b&skv=2026-02-06&sig=kvIsXnyx/e3v4HlOrrADiI%2BfgMidFMYyAQ7b7CIrujY%3D"
 
 jobs:
   build-android-debug:
-    name: Verify promoted REWORK-004 source and export Android APK
+    name: Verify persisted REWORK-005 source and export Android APK
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout temporary build branch
         uses: actions/checkout@v4
 
-      - name: Fetch exact promoted workspace from Drive
+      - name: Fetch exact persisted workspace from Drive
         shell: bash
         run: |
           set -euo pipefail
@@ -42,13 +42,19 @@ jobs:
           test -f "$PROJECT_PATH/export_presets.cfg"
           test -f "$PROJECT_PATH/scenes/rework/stoneveil_exploration.tscn"
           test -f "$PROJECT_PATH/scenes/rework/immersive_hunt.tscn"
+          test -f "$PROJECT_PATH/src/ui/rework/stoneveil_visual_foundation.gd"
           test -f "$PROJECT_PATH/tests/rework_scene_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_exploration_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_return_persistence_smoke.gd"
+          test -f "$PROJECT_PATH/tests/rework_visual_foundation_smoke.gd"
           grep -q 'run/main_scene="res://scenes/rework/stoneveil_exploration.tscn"' "$PROJECT_PATH/project.godot"
           grep -q 'version/code=26' "$PROJECT_PATH/export_presets.cfg"
           grep -q 'version/name="0.0.26"' "$PROJECT_PATH/export_presets.cfg"
           grep -q 'package/unique_name="com.jackwilson.monsterchoicerpg"' "$PROJECT_PATH/export_presets.cfg"
+          (
+            cd "$PROJECT_PATH"
+            sha256sum -c MANIFEST.sha256
+          ) > build-evidence/manifest-check.log
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
@@ -157,6 +163,13 @@ jobs:
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_return_persistence_smoke.gd 2>&1 | tee build-evidence/rework004-return-persistence-smoke.log
           grep -q "PASS: REWORK-004 return/persistence Godot smoke" build-evidence/rework004-return-persistence-smoke.log
 
+      - name: Run REWORK-005 visual foundation smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_foundation_smoke.gd 2>&1 | tee build-evidence/rework005-visual-foundation-smoke.log
+          grep -q "PASS: REWORK-005 visual foundation Godot smoke" build-evidence/rework005-visual-foundation-smoke.log
+
       - name: Boot promoted main scene headlessly
         shell: bash
         run: |
@@ -191,9 +204,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: MonsterChoiceRPG-REWORK-004-Android-debug
+          name: MonsterChoiceRPG-REWORK-005-Android-debug
           path: |
-            build/android/MonsterChoiceRPG-REWORK-004-debug.apk
+            build/android/MonsterChoiceRPG-REWORK-005-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 1
