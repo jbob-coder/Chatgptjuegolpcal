@@ -17,7 +17,7 @@ concurrency:
 env:
   PROJECT_PATH: monster_choice_rpg_rework002
   SOURCE_SHA256: 4f1e61183c8c52ff941ec889de498fe2873cdff5507aa52c99d78c787e96016f
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-5504-81f6-999f-4d9b5443a39c/raw?se=2026-09-17T01%3A25%3A05Z&sp=r&sv=2026-02-06&sr=b&scid=966d7c2e-6549-5bb7-bf9d-ec225d7fd557&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T18%3A43%3A01Z&ske=2026-09-17T18%3A43%3A01Z&sks=b&skv=2026-02-06&sig=3a7XJUGoSP8sTzO7XoxHnS3DaHYB/RtIEieak9%2BR4tw%3D"
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-ac8c-81f6-92c4-94078076aebb/raw?se=2026-09-17T01%3A26%3A33Z&sp=r&sv=2026-02-06&sr=b&scid=8def821c-96c5-58fb-ac2a-6483fdd838c1&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T18%3A36%3A36Z&ske=2026-09-17T18%3A36%3A36Z&sks=b&skv=2026-02-06&sig=sNNgoiqxxIfVMfoOivz0BLoqXPkgcyt24WfE3RYVUTo%3D"
 
 jobs:
   verify-rework002b:
@@ -89,7 +89,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          godot --headless --path "$PROJECT_PATH" --path "$PROJECT_PATH" res://scenes/rework/immersive_hunt.tscn --quit-after 8 2>&1 | tee build-evidence/rework002-candidate-boot.log
+          (
+            cd "$PROJECT_PATH"
+            godot --headless --path . res://scenes/rework/immersive_hunt.tscn --quit-after 8
+          ) 2>&1 | tee build-evidence/rework002-candidate-boot.log
           if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/rework002-candidate-boot.log; then
             echo "Blocking candidate runtime error detected."
             exit 1
