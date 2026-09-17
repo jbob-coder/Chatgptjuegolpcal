@@ -1,4 +1,4 @@
-name: Monster Choice RPG REWORK-002B Godot Verification
+name: Monster Choice RPG REWORK-003B Godot Verification
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-rework002b-godot-verify
+  group: monster-choice-rework003b-godot-verify
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_rework002
-  SOURCE_SHA256: 4f1e61183c8c52ff941ec889de498fe2873cdff5507aa52c99d78c787e96016f
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-ac8c-81f6-92c4-94078076aebb/raw?se=2026-09-17T01%3A26%3A33Z&sp=r&sv=2026-02-06&sr=b&scid=8def821c-96c5-58fb-ac2a-6483fdd838c1&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T18%3A36%3A36Z&ske=2026-09-17T18%3A36%3A36Z&sks=b&skv=2026-02-06&sig=sNNgoiqxxIfVMfoOivz0BLoqXPkgcyt24WfE3RYVUTo%3D"
+  PROJECT_PATH: monster_choice_rpg_rework003
+  SOURCE_SHA256: b92ce42ab9fc27f349cc3d6cd145d246e3529fb4d0ec6a4145b7cbce45685fcf
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-51fc-81f6-a2c7-f9350c34f16b/raw?se=2026-09-17T01%3A51%3A59Z&sp=r&sv=2026-02-06&sr=b&scid=31647f9e-f419-5008-8149-c86fdfa88839&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T18%3A47%3A12Z&ske=2026-09-17T18%3A47%3A12Z&sks=b&skv=2026-02-06&sig=99w%2BnNr9/xPXsFlV5F3/nTx0/mql4rh9JkHKTYeZsa0%3D"
 
 jobs:
-  verify-rework002b:
-    name: Verify REWORK-002 candidate under Godot 4.7.2
+  verify-rework003b:
+    name: Verify REWORK-003 exact source under Godot 4.7.2
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -34,13 +34,22 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$PROJECT_PATH" build-evidence
-          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-rework002.zip
-          echo "$SOURCE_SHA256  source-rework002.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
-          unzip -q source-rework002.zip -d "$PROJECT_PATH"
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-rework003.zip
+          echo "$SOURCE_SHA256  source-rework003.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-rework003.zip -d "$PROJECT_PATH"
           test -f "$PROJECT_PATH/project.godot"
+          test -f "$PROJECT_PATH/MANIFEST.sha256"
           test -f "$PROJECT_PATH/scenes/rework/immersive_hunt.tscn"
+          test -f "$PROJECT_PATH/scenes/rework/stoneveil_exploration.tscn"
           test -f "$PROJECT_PATH/src/ui/rework/immersive_hunt.gd"
+          test -f "$PROJECT_PATH/src/ui/rework/stoneveil_exploration.gd"
+          test -f "$PROJECT_PATH/src/world/exploration_engine.gd"
           test -f "$PROJECT_PATH/tests/rework_scene_smoke.gd"
+          test -f "$PROJECT_PATH/tests/rework_exploration_smoke.gd"
+          (
+            cd "$PROJECT_PATH"
+            sha256sum -c MANIFEST.sha256
+          ) > build-evidence/manifest-check.log
 
       - name: Set up Godot 4.7.2
         uses: chickensoft-games/setup-godot@v2
@@ -78,30 +87,38 @@ jobs:
           godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-core-tests.log
           grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-core-tests.log
 
-      - name: Run REWORK-002 candidate scene smoke
+      - name: Run REWORK-002 encounter smoke
         shell: bash
         run: |
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script tests/rework_scene_smoke.gd 2>&1 | tee build-evidence/rework002-scene-smoke.log
           grep -q "PASS: REWORK-002 Godot scene smoke" build-evidence/rework002-scene-smoke.log
 
-      - name: Boot candidate scene directly
+      - name: Run REWORK-003 exploration smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script tests/rework_exploration_smoke.gd 2>&1 | tee build-evidence/rework003-exploration-smoke.log
+          grep -q "PASS: REWORK-003 Godot exploration smoke" build-evidence/rework003-exploration-smoke.log
+
+      - name: Boot REWORK-003 field scene directly
         shell: bash
         run: |
           set -euo pipefail
           (
             cd "$PROJECT_PATH"
-            godot --headless --path . res://scenes/rework/immersive_hunt.tscn --quit-after 8
-          ) 2>&1 | tee build-evidence/rework002-candidate-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/rework002-candidate-boot.log; then
-            echo "Blocking candidate runtime error detected."
+            godot --headless --path . res://scenes/rework/stoneveil_exploration.tscn --quit-after 8
+          ) 2>&1 | tee build-evidence/rework003-field-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/rework003-field-boot.log; then
+            echo "Blocking REWORK-003 runtime error detected."
             exit 1
           fi
 
       - name: Upload short-lived verification evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-rework002b-evidence
+          name: monster-choice-rework003b-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
