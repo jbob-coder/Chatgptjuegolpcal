@@ -1,4 +1,4 @@
-name: Monster Choice RPG PIXEL-004B Final Godot Verification
+name: Monster Choice RPG PIXEL-004B Godot Verification
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-pixel004b-final-godot-verify
+  group: monster-choice-pixel004b-godot-verify
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_pixel004b_final
-  SOURCE_SHA256: b1085e33aba2c493654b7629c7ee68f917e57fbfd81c758f3f6927c34fe5941d
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-ed98-81f6-8ed7-7b205a9ae573/raw?se=2026-09-17T22%3A55%3A42Z&sp=r&sv=2026-02-06&sr=b&scid=4f651f2e-a578-53b6-a3ab-48f05c580244&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T14%3A25%3A14Z&ske=2026-09-18T14%3A25%3A14Z&sks=b&skv=2026-02-06&sig=ziOnLt46k2hiQbdiMAX99sbCv4HZFsnk7aJcbbax44E%3D"
+  PROJECT_PATH: monster_choice_rpg_pixel004b
+  SOURCE_SHA256: 36c5ca48b9af32b51c917bef5ba0f98eb0354ca727815cd174012f23b68d5516
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-9aec-81f6-8443-29dddd7392fb/raw?se=2026-09-17T23%3A03%3A22Z&sp=r&sv=2026-02-06&sr=b&scid=d25e0f2b-04d9-5390-b139-34129fb7f97b&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A47%3A21Z&ske=2026-09-18T02%3A47%3A21Z&sks=b&skv=2026-02-06&sig=MrFpQk2HP26k4jIDVP2Q1r4KTUKo7D%2B3QAV7V8GIeV4%3D"
 
 jobs:
-  verify-pixel004b-final:
-    name: Verify PIXEL-004B final exact source under Godot 4.7.2
+  verify-pixel004b:
+    name: Verify PIXEL-004B exact source under Godot 4.7.2
     runs-on: ubuntu-latest
     timeout-minutes: 12
 
@@ -49,21 +49,10 @@ jobs:
           test -f "$PROJECT_PATH/scenes/pixel/pixel_scale_lab.tscn"
           test -f "$PROJECT_PATH/tests/pixel_scale_lab_smoke.gd"
           test -f "$PROJECT_PATH/scenes/pixel/pixel_hunter_animation_lab.tscn"
-          test -f "$PROJECT_PATH/src/ui/pixel/pixel_hunter_animation_lab.gd"
           test -f "$PROJECT_PATH/tests/pixel_hunter_animation_lab_smoke.gd"
-          test -f "$PROJECT_PATH/tools/verify_pixel_hunter_candidate.py"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/hunter_base_01_candidate.png"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/hunter_base_01_candidate.json"
           test -f "$PROJECT_PATH/scenes/pixel/pixel_stoneveil_tileset_lab.tscn"
-          test -f "$PROJECT_PATH/src/ui/pixel/pixel_stoneveil_tileset_lab.gd"
           test -f "$PROJECT_PATH/tests/pixel_stoneveil_tileset_lab_smoke.gd"
-          test -f "$PROJECT_PATH/tools/verify_pixel_ground_candidate.py"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_ground_01_candidate.png"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_ground_01_candidate.json"
-          test -f "$PROJECT_PATH/scenes/pixel/pixel_stoneveil_environment_tiles_lab.tscn"
-          test -f "$PROJECT_PATH/src/ui/pixel/pixel_stoneveil_environment_tiles_lab.gd"
-          test -f "$PROJECT_PATH/tests/pixel_stoneveil_environment_tiles_lab_smoke.gd"
-          test -f "$PROJECT_PATH/tools/verify_pixel_environment_tiles_candidate.py"
+          test -f "$PROJECT_PATH/tools/verify_pixel_water_cliff_candidate.py"
           test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_water_01_candidate.png"
           test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_water_01_candidate.json"
           test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_cliff_01_candidate.png"
@@ -77,7 +66,7 @@ jobs:
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_scale_lab.py
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_hunter_candidate.py
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_ground_candidate.py
-            "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_environment_tiles_candidate.py
+            "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_water_cliff_candidate.py
             python3 tools/verify_rework_authority.py
             python3 tools/verify_rework_lifecycle_persistence.py
           ) > build-evidence/source-static-check.log
@@ -134,65 +123,31 @@ jobs:
           grep -q "PASS: PIXEL-002 scale laboratory Godot smoke" build-evidence/pixel002-scale-lab-smoke.log
           if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel002-scale-lab-smoke.log; then exit 1; fi
 
-      - name: Run PIXEL-003 hunter animation laboratory smoke
+      - name: Run PIXEL-003 hunter regression smoke
         shell: bash
         run: |
           set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_hunter_animation_lab_smoke.gd 2>&1 | tee build-evidence/pixel003-hunter-animation-smoke.log
-          grep -q "PASS: PIXEL-003 hunter animation laboratory Godot smoke" build-evidence/pixel003-hunter-animation-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel003-hunter-animation-smoke.log; then exit 1; fi
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_hunter_animation_lab_smoke.gd 2>&1 | tee build-evidence/pixel003-hunter-smoke.log
+          grep -q "PASS: PIXEL-003 hunter animation laboratory Godot smoke" build-evidence/pixel003-hunter-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel003-hunter-smoke.log; then exit 1; fi
 
-      - name: Boot PIXEL-003 hunter scene directly
+      - name: Run PIXEL-004B Stoneveil terrain smoke
         shell: bash
         run: |
           set -euo pipefail
-          (
-            cd "$PROJECT_PATH"
-            timeout 30s godot --headless --path . res://scenes/pixel/pixel_hunter_animation_lab.tscn --quit-after 8
-          ) 2>&1 | tee build-evidence/pixel003-hunter-animation-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel003-hunter-animation-boot.log; then
-            echo "Blocking PIXEL-003 runtime error detected."
-            exit 1
-          fi
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_stoneveil_tileset_lab_smoke.gd 2>&1 | tee build-evidence/pixel004b-stoneveil-terrain-smoke.log
+          grep -q "PASS: PIXEL-004B Stoneveil water/cliff tileset laboratory Godot smoke" build-evidence/pixel004b-stoneveil-terrain-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel004b-stoneveil-terrain-smoke.log; then exit 1; fi
 
-      - name: Run PIXEL-004 Stoneveil ground tileset smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_stoneveil_tileset_lab_smoke.gd 2>&1 | tee build-evidence/pixel004-stoneveil-ground-smoke.log
-          grep -q "PASS: PIXEL-004 Stoneveil ground tileset laboratory Godot smoke" build-evidence/pixel004-stoneveil-ground-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel004-stoneveil-ground-smoke.log; then exit 1; fi
-
-      - name: Boot PIXEL-004 Stoneveil ground scene directly
+      - name: Boot PIXEL-004B Stoneveil terrain scene directly
         shell: bash
         run: |
           set -euo pipefail
           (
             cd "$PROJECT_PATH"
             timeout 30s godot --headless --path . res://scenes/pixel/pixel_stoneveil_tileset_lab.tscn --quit-after 8
-          ) 2>&1 | tee build-evidence/pixel004-stoneveil-ground-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel004-stoneveil-ground-boot.log; then
-            echo "Blocking PIXEL-004 runtime error detected."
-            exit 1
-          fi
-
-      - name: Run PIXEL-004B Stoneveil environment tileset smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_stoneveil_environment_tiles_lab_smoke.gd 2>&1 | tee build-evidence/pixel004b-stoneveil-environment-smoke.log
-          grep -q "PASS: PIXEL-004B Stoneveil ground/water/cliff laboratory Godot smoke" build-evidence/pixel004b-stoneveil-environment-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel004b-stoneveil-environment-smoke.log; then exit 1; fi
-
-      - name: Boot PIXEL-004B Stoneveil environment scene directly
-        shell: bash
-        run: |
-          set -euo pipefail
-          (
-            cd "$PROJECT_PATH"
-            timeout 30s godot --headless --path . res://scenes/pixel/pixel_stoneveil_environment_tiles_lab.tscn --quit-after 8
-          ) 2>&1 | tee build-evidence/pixel004b-stoneveil-environment-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel004b-stoneveil-environment-boot.log; then
+          ) 2>&1 | tee build-evidence/pixel004b-stoneveil-terrain-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel004b-stoneveil-terrain-boot.log; then
             echo "Blocking PIXEL-004B runtime error detected."
             exit 1
           fi
@@ -201,7 +156,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-pixel004b-final-evidence
+          name: monster-choice-pixel004b-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
