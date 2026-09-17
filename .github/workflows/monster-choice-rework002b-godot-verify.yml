@@ -146,8 +146,8 @@ jobs:
         run: |
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_ashhorn_animation_lab_smoke.gd 2>&1 | tee build-evidence/pixel005b-ashhorn-smoke.log
-          grep -q "PASS: PIXEL-005B Ashhorn tail-readability laboratory Godot smoke" build-evidence/pixel005-ashhorn-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel005-ashhorn-smoke.log; then exit 1; fi
+          grep -q "PASS: PIXEL-005B Ashhorn tail-readability laboratory Godot smoke" build-evidence/pixel005b-ashhorn-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel005b-ashhorn-smoke.log; then exit 1; fi
 
       - name: Boot PIXEL-005B Ashhorn scene directly
         shell: bash
