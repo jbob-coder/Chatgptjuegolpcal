@@ -16,8 +16,8 @@ concurrency:
 
 env:
   PROJECT_PATH: monster_choice_rpg_rework005
-  SOURCE_SHA256: d049ee871530c23afc309ba7406f8eb39bb6bee2766a15df8c4eddf8827f64a3
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-1eb8-81f6-801b-77cc4c952125/raw?se=2026-09-17T03%3A06%3A12Z&sp=r&sv=2026-02-06&sr=b&scid=8e1a413f-a761-53c2-89c4-4253e56a01f8&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A41%3A06Z&ske=2026-09-18T02%3A41%3A06Z&sks=b&skv=2026-02-06&sig=RJwcdOyRbawLtR4SMX9452RgUVuCZSYw%2BG6ke%2BIdnS8%3D"
+  SOURCE_SHA256: ea6d567a206b2a28a2bcae98fced2b3ee5f9ebefa743e6597c28ad97ea3c3c9b
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-0ec0-81f6-84f8-ce1e597f37b4/raw?se=2026-09-17T03%3A11%3A00Z&sp=r&sv=2026-02-06&sr=b&scid=9a177d7c-de40-5e0e-94f9-2da3b97a0c25&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A45%3A01Z&ske=2026-09-18T02%3A45%3A01Z&sks=b&skv=2026-02-06&sig=RgUHVs03TOlTsUAgu07EAIbIboZnu1/at8VF15BEmaU%3D"
 
 jobs:
   verify-rework005:
