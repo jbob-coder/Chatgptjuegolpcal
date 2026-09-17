@@ -1,4 +1,4 @@
-name: Monster Choice RPG REWORK-006 Android APK
+name: Monster Choice RPG REWORK-007 Android APK
 
 on:
   push:
@@ -11,18 +11,18 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-rework006-android-apk
+  group: monster-choice-rework007-android-apk
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_rework006_android
-  APK_NAME: MonsterChoiceRPG-REWORK-006-debug.apk
-  SOURCE_SHA256: c235609f005018f60479dc7cc9895387c87a8a52e187156629b74e727da99efa
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-7998-81f6-9bfe-4c3ec1c615d1/raw?se=2026-09-17T04%3A50%3A04Z&sp=r&sv=2026-02-06&sr=b&scid=458ed616-77ff-5663-a286-e731d79cf153&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A45%3A06Z&ske=2026-09-18T02%3A45%3A06Z&sks=b&skv=2026-02-06&sig=99V5qKZ2W/RGD5E%2BPCvx36dSVaTnW%2BDESep8QoEJ8aI%3D"
+  PROJECT_PATH: monster_choice_rpg_rework007_android
+  APK_NAME: MonsterChoiceRPG-REWORK-007-debug.apk
+  SOURCE_SHA256: fe4a98247ddc6a3af3a9f4f9473248b1c9734ab9f557abe8f1e3473ea4b929cb
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-16a8-81f6-9d79-b3dd4a213039/raw?se=2026-09-17T05%3A17%3A49Z&sp=r&sv=2026-02-06&sr=b&scid=fade70d9-8d7a-5198-acb4-49b024b07fc4&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A47%3A21Z&ske=2026-09-18T02%3A47%3A21Z&sks=b&skv=2026-02-06&sig=KyLbetOnk9eysgs6HaVVSrUv%2Bcg10FSTwIQwIidauas%3D"
 
 jobs:
   build-android-debug:
-    name: Verify persisted REWORK-006 source and export Android APK
+    name: Verify persisted REWORK-007 source and export Android APK
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -43,11 +43,13 @@ jobs:
           test -f "$PROJECT_PATH/scenes/rework/stoneveil_exploration.tscn"
           test -f "$PROJECT_PATH/scenes/rework/immersive_hunt.tscn"
           test -f "$PROJECT_PATH/src/ui/rework/stoneveil_visual_foundation.gd"
+          test -f "$PROJECT_PATH/src/ui/rework/stoneveil_visual_convergence.gd"
           test -f "$PROJECT_PATH/tests/rework_scene_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_exploration_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_return_persistence_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_visual_foundation_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_embodied_world_smoke.gd"
+          test -f "$PROJECT_PATH/tests/rework_visual_convergence_smoke.gd"
           grep -q 'run/main_scene="res://scenes/rework/stoneveil_exploration.tscn"' "$PROJECT_PATH/project.godot"
           grep -q 'version/code=26' "$PROJECT_PATH/export_presets.cfg"
           grep -q 'version/name="0.0.26"' "$PROJECT_PATH/export_presets.cfg"
@@ -55,8 +57,10 @@ jobs:
           (
             cd "$PROJECT_PATH"
             sha256sum -c MANIFEST.sha256
+            python3 tools/verify_rework_authority.py
             python3 tools/verify_rework_visual_foundation.py
             python3 tools/verify_rework_embodied_world.py
+            python3 tools/verify_rework_visual_convergence.py
           ) > build-evidence/source-static-check.log
 
       - name: Set up JDK 17
@@ -151,6 +155,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_scene_smoke.gd 2>&1 | tee build-evidence/rework002-scene-smoke.log
           grep -q "PASS: REWORK-002 Godot scene smoke" build-evidence/rework002-scene-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework002-scene-smoke.log; then exit 1; fi
 
       - name: Run REWORK-003 exploration smoke
         shell: bash
@@ -158,6 +163,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_exploration_smoke.gd 2>&1 | tee build-evidence/rework003-exploration-smoke.log
           grep -q "PASS: REWORK-003 exploration-to-hunt Godot smoke" build-evidence/rework003-exploration-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework003-exploration-smoke.log; then exit 1; fi
 
       - name: Run REWORK-004 return persistence smoke
         shell: bash
@@ -165,6 +171,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_return_persistence_smoke.gd 2>&1 | tee build-evidence/rework004-return-persistence-smoke.log
           grep -q "PASS: REWORK-004 return/persistence Godot smoke" build-evidence/rework004-return-persistence-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework004-return-persistence-smoke.log; then exit 1; fi
 
       - name: Run REWORK-005 visual foundation smoke
         shell: bash
@@ -172,6 +179,7 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_foundation_smoke.gd 2>&1 | tee build-evidence/rework005-visual-foundation-smoke.log
           grep -q "PASS: REWORK-005 visual foundation Godot smoke" build-evidence/rework005-visual-foundation-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework005-visual-foundation-smoke.log; then exit 1; fi
 
       - name: Run REWORK-006 embodied world smoke
         shell: bash
@@ -179,6 +187,15 @@ jobs:
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_embodied_world_smoke.gd 2>&1 | tee build-evidence/rework006-embodied-world-smoke.log
           grep -q "PASS: REWORK-006 embodied world Godot smoke" build-evidence/rework006-embodied-world-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework006-embodied-world-smoke.log; then exit 1; fi
+
+      - name: Run REWORK-007 visual convergence smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_convergence_smoke.gd 2>&1 | tee build-evidence/rework007-visual-convergence-smoke.log
+          grep -q "PASS: REWORK-007 visual convergence Godot smoke" build-evidence/rework007-visual-convergence-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework007-visual-convergence-smoke.log; then exit 1; fi
 
       - name: Boot promoted main scene headlessly
         shell: bash
@@ -214,9 +231,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: MonsterChoiceRPG-REWORK-006-Android-debug
+          name: MonsterChoiceRPG-REWORK-007-Android-debug
           path: |
-            build/android/MonsterChoiceRPG-REWORK-006-debug.apk
+            build/android/MonsterChoiceRPG-REWORK-007-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 1
