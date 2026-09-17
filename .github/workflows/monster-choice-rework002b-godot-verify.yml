@@ -1,4 +1,4 @@
-name: Monster Choice RPG REWORK-005 Godot Verification
+name: Monster Choice RPG REWORK-006 Godot Verification
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-rework005-godot-verify
+  group: monster-choice-rework006-godot-verify
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_rework005
-  SOURCE_SHA256: cb9b4866ce67d1287b3590807142ae3e84d46a577835c3c8c99e4f6625c2322d
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-6dac-81f6-8a57-aed42ff6a82a/raw?se=2026-09-17T03%3A13%3A02Z&sp=r&sv=2026-02-06&sr=b&scid=57c7724f-8388-55b8-a4dc-6127567dde52&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A55%3A46Z&ske=2026-09-18T02%3A55%3A46Z&sks=b&skv=2026-02-06&sig=/lMXhaIlW%2B6%2BMFta%2B%2BU7apMK1D9rY8nby4DiFl%2Bl/Qg%3D"
+  PROJECT_PATH: monster_choice_rpg_rework006
+  SOURCE_SHA256: f1e4d43d94fc2e59f8210f729873a8b087bc83b797922f96e9d7b4a03fd0e9d1
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-a8b0-81f6-a034-55070a394850/raw?se=2026-09-17T03%3A32%3A42Z&sp=r&sv=2026-02-06&sr=b&scid=22e63a8f-fc39-554f-8b2d-1d5da6defb5e&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A53%3A47Z&ske=2026-09-18T02%3A53%3A47Z&sks=b&skv=2026-02-06&sig=kdE2xvzO2F01bKQZXAFl4qMmxj8Ge7B1zdKhmrFlBOM%3D"
 
 jobs:
-  verify-rework005:
-    name: Verify REWORK-005 exact source under Godot 4.7.2
+  verify-rework006:
+    name: Verify REWORK-006 exact source under Godot 4.7.2
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -34,19 +34,20 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$PROJECT_PATH" build-evidence
-          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-rework005.zip
-          echo "$SOURCE_SHA256  source-rework005.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
-          unzip -q source-rework005.zip -d "$PROJECT_PATH"
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-rework006.zip
+          echo "$SOURCE_SHA256  source-rework006.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-rework006.zip -d "$PROJECT_PATH"
           test -f "$PROJECT_PATH/project.godot"
           test -f "$PROJECT_PATH/MANIFEST.sha256"
           test -f "$PROJECT_PATH/scenes/rework/stoneveil_exploration.tscn"
           test -f "$PROJECT_PATH/src/ui/rework/stoneveil_visual_foundation.gd"
-          test -f "$PROJECT_PATH/tests/rework_visual_foundation_smoke.gd"
-          test -f "$PROJECT_PATH/tools/verify_rework_visual_foundation.py"
+          test -f "$PROJECT_PATH/tests/rework_embodied_world_smoke.gd"
+          test -f "$PROJECT_PATH/tools/verify_rework_embodied_world.py"
           (
             cd "$PROJECT_PATH"
             sha256sum -c MANIFEST.sha256
             python3 tools/verify_rework_visual_foundation.py
+            python3 tools/verify_rework_embodied_world.py
           ) > build-evidence/source-static-check.log
 
       - name: Set up Godot 4.7.2
@@ -113,6 +114,13 @@ jobs:
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_foundation_smoke.gd 2>&1 | tee build-evidence/rework005-visual-smoke.log
           grep -q "PASS: REWORK-005 visual foundation Godot smoke" build-evidence/rework005-visual-smoke.log
 
+      - name: Run REWORK-006 embodied world smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_embodied_world_smoke.gd 2>&1 | tee build-evidence/rework006-embodied-world-smoke.log
+          grep -q "PASS: REWORK-006 embodied-world Godot smoke" build-evidence/rework006-embodied-world-smoke.log
+
       - name: Boot promoted Stoneveil scene directly
         shell: bash
         run: |
@@ -120,9 +128,9 @@ jobs:
           (
             cd "$PROJECT_PATH"
             timeout 30s godot --headless --path . res://scenes/rework/stoneveil_exploration.tscn --quit-after 8
-          ) 2>&1 | tee build-evidence/rework005-field-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/rework005-field-boot.log; then
-            echo "Blocking REWORK-005 runtime error detected."
+          ) 2>&1 | tee build-evidence/rework006-field-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/rework006-field-boot.log; then
+            echo "Blocking REWORK-006 runtime error detected."
             exit 1
           fi
 
@@ -130,7 +138,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-rework005-final-evidence
+          name: monster-choice-rework006-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
