@@ -16,8 +16,8 @@ concurrency:
 
 env:
   PROJECT_PATH: monster_choice_rpg_pixel002
-  SOURCE_SHA256: 8750f023061dd044d113c0be665c6ce4acf1248404c19ee2871d648aafc77cfe
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-0e34-81f6-930a-27c3cdec7187/raw?se=2026-09-17T19%3A54%3A14Z&sp=r&sv=2026-02-06&sr=b&scid=785d3099-4f2d-592a-93e9-0da04676ceec&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T13%3A09%3A10Z&ske=2026-09-18T13%3A09%3A10Z&sks=b&skv=2026-02-06&sig=OhS/1b/Kpw/gCBI1G%2BRBsz26ygVLUNb4oToHNUil9ms%3D"
+  SOURCE_SHA256: e6c6481b816ea7b7b5a86617b0b0b06c28ab002958d962e195ff5eeb4f46fe3b
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-9c60-81f6-acc4-60359e5a11af/raw?se=2026-09-17T19%3A57%3A23Z&sp=r&sv=2026-02-06&sr=b&scid=bd0d48dc-f37b-5116-866c-19f3655a05fb&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A38%3A51Z&ske=2026-09-18T02%3A38%3A51Z&sks=b&skv=2026-02-06&sig=u7yosKng9jbnoduEdH5ZwPNGy5GrsfqxqniAQui%2BLxE%3D"
 
 jobs:
   verify-pixel002:
@@ -132,7 +132,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-pixel002-repaired-evidence
+          name: monster-choice-pixel002-final-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
