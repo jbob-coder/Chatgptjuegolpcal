@@ -119,7 +119,7 @@ jobs:
         run: |
           set -euo pipefail
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_embodied_world_smoke.gd 2>&1 | tee build-evidence/rework006-embodied-world-smoke.log
-          grep -q "PASS: REWORK-006 embodied-world Godot smoke" build-evidence/rework006-embodied-world-smoke.log
+          grep -q "PASS: REWORK-006 embodied world Godot smoke" build-evidence/rework006-embodied-world-smoke.log
 
       - name: Boot promoted Stoneveil scene directly
         shell: bash
