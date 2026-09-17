@@ -1,0 +1,104 @@
+name: Monster Choice RPG REWORK-002B Godot Verification
+
+on:
+  push:
+    branches:
+      - monster-choice-v0025-apk-build
+    paths:
+      - ".github/workflows/monster-choice-rework002b-godot-verify.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: monster-choice-rework002b-godot-verify
+  cancel-in-progress: true
+
+env:
+  PROJECT_PATH: monster_choice_rpg_rework002
+  SOURCE_SHA256: 4f1e61183c8c52ff941ec889de498fe2873cdff5507aa52c99d78c787e96016f
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-5504-81f6-999f-4d9b5443a39c/raw?se=2026-09-17T01%3A25%3A05Z&sp=r&sv=2026-02-06&sr=b&scid=966d7c2e-6549-5bb7-bf9d-ec225d7fd557&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T18%3A43%3A01Z&ske=2026-09-17T18%3A43%3A01Z&sks=b&skv=2026-02-06&sig=3a7XJUGoSP8sTzO7XoxHnS3DaHYB/RtIEieak9%2BR4tw%3D"
+
+jobs:
+  verify-rework002b:
+    name: Verify REWORK-002 candidate under Godot 4.7.2
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout temporary verification branch
+        uses: actions/checkout@v4
+
+      - name: Fetch exact Drive workspace
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$PROJECT_PATH" build-evidence
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-rework002.zip
+          echo "$SOURCE_SHA256  source-rework002.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-rework002.zip -d "$PROJECT_PATH"
+          test -f "$PROJECT_PATH/project.godot"
+          test -f "$PROJECT_PATH/scenes/rework/immersive_hunt.tscn"
+          test -f "$PROJECT_PATH/src/ui/rework/immersive_hunt.gd"
+          test -f "$PROJECT_PATH/tests/rework_scene_smoke.gd"
+
+      - name: Set up Godot 4.7.2
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+          cache: false
+
+      - name: Record engine identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "branch=${GITHUB_REF_NAME}"
+            echo "commit=${GITHUB_SHA}"
+            echo "source_sha256=${SOURCE_SHA256}"
+            godot --version
+          } | tee build-evidence/identity.txt
+
+      - name: Godot import and parse gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --verbose --editor --path "$PROJECT_PATH" --quit 2>&1 | tee build-evidence/godot-import-parse.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|ERROR:.*(parse|load|resource)" build-evidence/godot-import-parse.log; then
+            echo "Blocking Godot import/parse error detected."
+            exit 1
+          fi
+
+      - name: Run existing core Godot suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-core-tests.log
+          grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-core-tests.log
+
+      - name: Run REWORK-002 candidate scene smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script tests/rework_scene_smoke.gd 2>&1 | tee build-evidence/rework002-scene-smoke.log
+          grep -q "PASS: REWORK-002 Godot scene smoke" build-evidence/rework002-scene-smoke.log
+
+      - name: Boot candidate scene directly
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --path "$PROJECT_PATH" res://scenes/rework/immersive_hunt.tscn --quit-after 8 2>&1 | tee build-evidence/rework002-candidate-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/rework002-candidate-boot.log; then
+            echo "Blocking candidate runtime error detected."
+            exit 1
+          fi
+
+      - name: Upload short-lived verification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: monster-choice-rework002b-evidence
+          path: build-evidence/
+          if-no-files-found: error
+          retention-days: 1
