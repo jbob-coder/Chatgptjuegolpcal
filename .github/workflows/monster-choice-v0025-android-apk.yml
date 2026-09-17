@@ -1,4 +1,4 @@
-name: Monster Choice RPG REWORK-007 Android APK
+name: Monster Choice RPG REWORK-008 Android APK
 
 on:
   push:
@@ -11,18 +11,18 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-rework007-android-apk
+  group: monster-choice-rework008-android-apk
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_rework007_android
-  APK_NAME: MonsterChoiceRPG-REWORK-007-debug.apk
-  SOURCE_SHA256: fe4a98247ddc6a3af3a9f4f9473248b1c9734ab9f557abe8f1e3473ea4b929cb
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-16a8-81f6-9d79-b3dd4a213039/raw?se=2026-09-17T05%3A17%3A49Z&sp=r&sv=2026-02-06&sr=b&scid=fade70d9-8d7a-5198-acb4-49b024b07fc4&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A47%3A21Z&ske=2026-09-18T02%3A47%3A21Z&sks=b&skv=2026-02-06&sig=KyLbetOnk9eysgs6HaVVSrUv%2Bcg10FSTwIQwIidauas%3D"
+  PROJECT_PATH: monster_choice_rpg_rework008_android
+  APK_NAME: MonsterChoiceRPG-REWORK-008-debug.apk
+  SOURCE_SHA256: 813043bbbef2c368a671923f55b5a6aa62d7bf29f2beaad91a1a73141748fdb0
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-bb6c-81f6-93a2-590a51defd5c/raw?se=2026-09-17T05%3A51%3A03Z&sp=r&sv=2026-02-06&sr=b&scid=c02d3a00-517d-5a91-89c0-8c2959a90846&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A53%3A39Z&ske=2026-09-18T02%3A53%3A39Z&sks=b&skv=2026-02-06&sig=%2Bf31QzF%2BASeRCs8pej0E0SBHBmYu/NJ428g1ZFccJiA%3D"
 
 jobs:
   build-android-debug:
-    name: Verify persisted REWORK-007 source and export Android APK
+    name: Verify persisted REWORK-008 source and export Android APK
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -42,14 +42,9 @@ jobs:
           test -f "$PROJECT_PATH/export_presets.cfg"
           test -f "$PROJECT_PATH/scenes/rework/stoneveil_exploration.tscn"
           test -f "$PROJECT_PATH/scenes/rework/immersive_hunt.tscn"
-          test -f "$PROJECT_PATH/src/ui/rework/stoneveil_visual_foundation.gd"
-          test -f "$PROJECT_PATH/src/ui/rework/stoneveil_visual_convergence.gd"
-          test -f "$PROJECT_PATH/tests/rework_scene_smoke.gd"
-          test -f "$PROJECT_PATH/tests/rework_exploration_smoke.gd"
-          test -f "$PROJECT_PATH/tests/rework_return_persistence_smoke.gd"
-          test -f "$PROJECT_PATH/tests/rework_visual_foundation_smoke.gd"
-          test -f "$PROJECT_PATH/tests/rework_embodied_world_smoke.gd"
-          test -f "$PROJECT_PATH/tests/rework_visual_convergence_smoke.gd"
+          test -f "$PROJECT_PATH/src/world/campaign_state.gd"
+          test -f "$PROJECT_PATH/tests/rework_lifecycle_persistence_smoke.gd"
+          test -f "$PROJECT_PATH/tools/verify_rework_lifecycle_persistence.py"
           grep -q 'run/main_scene="res://scenes/rework/stoneveil_exploration.tscn"' "$PROJECT_PATH/project.godot"
           grep -q 'version/code=26' "$PROJECT_PATH/export_presets.cfg"
           grep -q 'version/name="0.0.26"' "$PROJECT_PATH/export_presets.cfg"
@@ -61,6 +56,7 @@ jobs:
             python3 tools/verify_rework_visual_foundation.py
             python3 tools/verify_rework_embodied_world.py
             python3 tools/verify_rework_visual_convergence.py
+            python3 tools/verify_rework_lifecycle_persistence.py
           ) > build-evidence/source-static-check.log
 
       - name: Set up JDK 17
@@ -197,6 +193,14 @@ jobs:
           grep -q "PASS: REWORK-007 visual convergence Godot smoke" build-evidence/rework007-visual-convergence-smoke.log
           if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework007-visual-convergence-smoke.log; then exit 1; fi
 
+      - name: Run REWORK-008 lifecycle persistence smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_lifecycle_persistence_smoke.gd 2>&1 | tee build-evidence/rework008-lifecycle-persistence-smoke.log
+          grep -q "PASS: REWORK-008 unified lifecycle persistence Godot smoke" build-evidence/rework008-lifecycle-persistence-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework008-lifecycle-persistence-smoke.log; then exit 1; fi
+
       - name: Boot promoted main scene headlessly
         shell: bash
         run: |
@@ -231,9 +235,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: MonsterChoiceRPG-REWORK-007-Android-debug
+          name: MonsterChoiceRPG-REWORK-008-Android-debug
           path: |
-            build/android/MonsterChoiceRPG-REWORK-007-debug.apk
+            build/android/MonsterChoiceRPG-REWORK-008-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 1
