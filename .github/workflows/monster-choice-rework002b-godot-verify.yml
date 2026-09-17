@@ -1,4 +1,4 @@
-name: Monster Choice RPG REWORK-008 Godot Verification
+name: Monster Choice RPG PIXEL-002 Godot Verification
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-rework008-godot-verify
+  group: monster-choice-pixel002-godot-verify
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_rework008
-  SOURCE_SHA256: 813043bbbef2c368a671923f55b5a6aa62d7bf29f2beaad91a1a73141748fdb0
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-c53c-81f6-a332-0274b92acc69/raw?se=2026-09-17T05%3A48%3A25Z&sp=r&sv=2026-02-06&sr=b&scid=f3f589a8-4a06-59cd-bc81-9eb0ff09f3ac&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A43%3A06Z&ske=2026-09-18T02%3A43%3A06Z&sks=b&skv=2026-02-06&sig=VIRZSMcI7gM/YifX7PM8Cq8gBPMGCLx%2B1C5qCrvuZ9E%3D"
+  PROJECT_PATH: monster_choice_rpg_pixel002
+  SOURCE_SHA256: 53b352a790eb323c9add1b06ea6ec11c0a115b704da1da109452357e23e467cb
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-4af4-81f6-9751-39ded202ba0b/raw?se=2026-09-17T19%3A49%3A32Z&sp=r&sv=2026-02-06&sr=b&scid=b8edc596-f634-54f5-be66-2b42b2dd8749&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T11%3A59%3A59Z&ske=2026-09-18T11%3A59%3A59Z&sks=b&skv=2026-02-06&sig=8rSkrUKpsABh/usfVTGXIu2PCynqg3SEuLQFpyDCf2Y%3D"
 
 jobs:
-  verify-rework008:
-    name: Verify REWORK-008 exact source under Godot 4.7.2
+  verify-pixel002:
+    name: Verify PIXEL-002 exact source under Godot 4.7.2
     runs-on: ubuntu-latest
     timeout-minutes: 12
 
@@ -34,29 +34,25 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$PROJECT_PATH" build-evidence
-          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-rework008.zip
-          echo "$SOURCE_SHA256  source-rework008.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
-          unzip -q source-rework008.zip -d "$PROJECT_PATH"
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-pixel002.zip
+          echo "$SOURCE_SHA256  source-pixel002.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-pixel002.zip -d "$PROJECT_PATH"
           test -f "$PROJECT_PATH/project.godot"
           test -f "$PROJECT_PATH/MANIFEST.sha256"
-          test -f "$PROJECT_PATH/scenes/rework/stoneveil_exploration.tscn"
-          test -f "$PROJECT_PATH/src/world/campaign_state.gd"
-          test -f "$PROJECT_PATH/src/ui/rework/immersive_hunt.gd"
-          test -f "$PROJECT_PATH/src/ui/rework/stoneveil_exploration.gd"
-          test -f "$PROJECT_PATH/tests/rework_lifecycle_persistence_smoke.gd"
-          test -f "$PROJECT_PATH/tools/verify_rework_lifecycle_persistence.py"
+          test -f "$PROJECT_PATH/scenes/pixel/pixel_scale_lab.tscn"
+          test -f "$PROJECT_PATH/src/ui/pixel/pixel_scale_lab.gd"
+          test -f "$PROJECT_PATH/tests/pixel_scale_lab_smoke.gd"
+          test -f "$PROJECT_PATH/tools/verify_pixel_scale_lab.py"
+          test -f "$PROJECT_PATH/assets/pixel_v2/lab/hunter_idle_probe.png"
+          test -f "$PROJECT_PATH/assets/pixel_v2/lab/ashhorn_idle_probe.png"
           (
             cd "$PROJECT_PATH"
             sha256sum -c MANIFEST.sha256
             python3 tools/verify_structure.py
             python3 tools/verify_android_config.py
+            python3 tools/verify_pixel_direction.py
+            python3 tools/verify_pixel_scale_lab.py
             python3 tools/verify_rework_authority.py
-            python3 tools/verify_rework_shell.py
-            python3 tools/verify_rework_exploration.py
-            python3 tools/verify_rework_return_persistence.py
-            python3 tools/verify_rework_visual_foundation.py
-            python3 tools/verify_rework_embodied_world.py
-            python3 tools/verify_rework_visual_convergence.py
             python3 tools/verify_rework_lifecycle_persistence.py
           ) > build-evidence/source-static-check.log
 
@@ -96,55 +92,7 @@ jobs:
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-core-tests.log
           grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-core-tests.log
 
-      - name: Run REWORK-002 encounter smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_scene_smoke.gd 2>&1 | tee build-evidence/rework002-scene-smoke.log
-          grep -q "PASS: REWORK-002 Godot scene smoke" build-evidence/rework002-scene-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework002-scene-smoke.log; then exit 1; fi
-
-      - name: Run REWORK-003 exploration smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_exploration_smoke.gd 2>&1 | tee build-evidence/rework003-exploration-smoke.log
-          grep -q "PASS: REWORK-003 exploration-to-hunt Godot smoke" build-evidence/rework003-exploration-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework003-exploration-smoke.log; then exit 1; fi
-
-      - name: Run REWORK-004 return persistence smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_return_persistence_smoke.gd 2>&1 | tee build-evidence/rework004-return-persistence-smoke.log
-          grep -q "PASS: REWORK-004 return/persistence Godot smoke" build-evidence/rework004-return-persistence-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework004-return-persistence-smoke.log; then exit 1; fi
-
-      - name: Run REWORK-005 visual foundation smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_foundation_smoke.gd 2>&1 | tee build-evidence/rework005-visual-smoke.log
-          grep -q "PASS: REWORK-005 visual foundation Godot smoke" build-evidence/rework005-visual-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework005-visual-smoke.log; then exit 1; fi
-
-      - name: Run REWORK-006 embodied world smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_embodied_world_smoke.gd 2>&1 | tee build-evidence/rework006-embodied-world-smoke.log
-          grep -q "PASS: REWORK-006 embodied world Godot smoke" build-evidence/rework006-embodied-world-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework006-embodied-world-smoke.log; then exit 1; fi
-
-      - name: Run REWORK-007 visual convergence smoke
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_convergence_smoke.gd 2>&1 | tee build-evidence/rework007-visual-convergence-smoke.log
-          grep -q "PASS: REWORK-007 visual convergence Godot smoke" build-evidence/rework007-visual-convergence-smoke.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework007-visual-convergence-smoke.log; then exit 1; fi
-
-      - name: Run REWORK-008 lifecycle persistence smoke
+      - name: Run REWORK-008 lifecycle persistence regression smoke
         shell: bash
         run: |
           set -euo pipefail
@@ -152,16 +100,24 @@ jobs:
           grep -q "PASS: REWORK-008 unified lifecycle persistence Godot smoke" build-evidence/rework008-lifecycle-persistence-smoke.log
           if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/rework008-lifecycle-persistence-smoke.log; then exit 1; fi
 
-      - name: Boot promoted Stoneveil scene directly
+      - name: Run PIXEL-002 scale laboratory smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_scale_lab_smoke.gd 2>&1 | tee build-evidence/pixel002-scale-lab-smoke.log
+          grep -q "PASS: PIXEL-002 scale laboratory Godot smoke" build-evidence/pixel002-scale-lab-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel002-scale-lab-smoke.log; then exit 1; fi
+
+      - name: Boot pixel scale laboratory scene directly
         shell: bash
         run: |
           set -euo pipefail
           (
             cd "$PROJECT_PATH"
-            timeout 30s godot --headless --path . res://scenes/rework/stoneveil_exploration.tscn --quit-after 8
-          ) 2>&1 | tee build-evidence/rework008-field-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/rework008-field-boot.log; then
-            echo "Blocking REWORK-008 runtime error detected."
+            timeout 30s godot --headless --path . res://scenes/pixel/pixel_scale_lab.tscn --quit-after 8
+          ) 2>&1 | tee build-evidence/pixel002-scale-lab-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel002-scale-lab-boot.log; then
+            echo "Blocking PIXEL-002 runtime error detected."
             exit 1
           fi
 
@@ -169,7 +125,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-rework008-evidence
+          name: monster-choice-pixel002-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
