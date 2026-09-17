@@ -1,4 +1,4 @@
-name: Monster Choice RPG PIXEL-005B Final Godot Verification
+name: Monster Choice RPG PIXEL-006 Godot Verification
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-pixel005b-final-godot-verify
+  group: monster-choice-pixel006-godot-verify
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_pixel005b_final
-  SOURCE_SHA256: ff7817fdf829d97322aa539efd0ea3d40f16440782277dfa873ce651097a39a6
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-1df4-81f6-b00f-05f79642c730/raw?se=2026-09-17T23%3A34%3A48Z&sp=r&sv=2026-02-06&sr=b&scid=b6bd1079-8823-53e1-ba49-960aa83ec3e7&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T14%3A25%3A14Z&ske=2026-09-18T14%3A25%3A14Z&sks=b&skv=2026-02-06&sig=WTDNlb51o6t0gRQ5yjtLpwzZXUJrGokv82/JXeHHTpA%3D"
+  PROJECT_PATH: monster_choice_rpg_pixel006
+  SOURCE_SHA256: 7588782dcc8e75e19f3f026012238b2b048a2952f5201b8c495c43db63ffcb1b
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-7cb0-81f6-814b-a43790733052/raw?se=2026-09-17T23%3A41%3A04Z&sp=r&sv=2026-02-06&sr=b&scid=793189a3-9c75-5687-8f0f-6cb34e4d03dc&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A55%3A59Z&ske=2026-09-18T02%3A55%3A59Z&sks=b&skv=2026-02-06&sig=/wizC2hH9utQCD832c%2BKfz7TTJNHVR1kPcpXoRaEuuE%3D"
 
 jobs:
-  verify-pixel005b-final:
-    name: Verify PIXEL-005B final exact source under Godot 4.7.2
+  verify-pixel006:
+    name: Verify PIXEL-006 exact source under Godot 4.7.2
     runs-on: ubuntu-latest
     timeout-minutes: 12
 
@@ -41,9 +41,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$PROJECT_PATH" build-evidence
-          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-pixel005b.zip
-          echo "$SOURCE_SHA256  source-pixel005b.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
-          unzip -q source-pixel005b.zip -d "$PROJECT_PATH"
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-pixel006.zip
+          echo "$SOURCE_SHA256  source-pixel006.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-pixel006.zip -d "$PROJECT_PATH"
           test -f "$PROJECT_PATH/project.godot"
           test -f "$PROJECT_PATH/MANIFEST.sha256"
           test -f "$PROJECT_PATH/scenes/pixel/pixel_scale_lab.tscn"
@@ -58,6 +58,10 @@ jobs:
           test -f "$PROJECT_PATH/tools/verify_pixel_ashhorn_candidate.py"
           test -f "$PROJECT_PATH/assets/pixel_v2/production/ashhorn_01_candidate.png"
           test -f "$PROJECT_PATH/assets/pixel_v2/production/ashhorn_01_candidate.json"
+          test -f "$PROJECT_PATH/scenes/pixel/pixel_vertical_slice_lab.tscn"
+          test -f "$PROJECT_PATH/src/ui/pixel/pixel_vertical_slice_lab.gd"
+          test -f "$PROJECT_PATH/tests/pixel_vertical_slice_lab_smoke.gd"
+          test -f "$PROJECT_PATH/tools/verify_pixel_vertical_slice_lab.py"
           (
             cd "$PROJECT_PATH"
             sha256sum -c MANIFEST.sha256
@@ -69,6 +73,7 @@ jobs:
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_ground_candidate.py
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_water_cliff_candidate.py
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_ashhorn_candidate.py
+            "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_vertical_slice_lab.py
             python3 tools/verify_rework_authority.py
             python3 tools/verify_rework_lifecycle_persistence.py
           ) > build-evidence/source-static-check.log
@@ -157,8 +162,29 @@ jobs:
             cd "$PROJECT_PATH"
             timeout 30s godot --headless --path . res://scenes/pixel/pixel_ashhorn_animation_lab.tscn --quit-after 8
           ) 2>&1 | tee build-evidence/pixel005b-ashhorn-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel005-ashhorn-boot.log; then
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel005b-ashhorn-boot.log; then
             echo "Blocking PIXEL-005B runtime error detected."
+            exit 1
+          fi
+
+      - name: Run PIXEL-006 vertical-slice integration smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_vertical_slice_lab_smoke.gd 2>&1 | tee build-evidence/pixel006-integration-smoke.log
+          grep -q "PASS: PIXEL-006 pixel vertical-slice integration laboratory Godot smoke" build-evidence/pixel006-integration-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel006-integration-smoke.log; then exit 1; fi
+
+      - name: Boot PIXEL-006 integration scene directly
+        shell: bash
+        run: |
+          set -euo pipefail
+          (
+            cd "$PROJECT_PATH"
+            timeout 30s godot --headless --path . res://scenes/pixel/pixel_vertical_slice_lab.tscn --quit-after 8
+          ) 2>&1 | tee build-evidence/pixel006-integration-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel006-integration-boot.log; then
+            echo "Blocking PIXEL-006 runtime error detected."
             exit 1
           fi
 
@@ -166,7 +192,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-pixel005b-final-evidence
+          name: monster-choice-pixel006-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
