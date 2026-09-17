@@ -1,4 +1,4 @@
-name: Monster Choice RPG PIXEL-005 Godot Verification
+name: Monster Choice RPG PIXEL-005 Final Godot Verification
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-pixel005-godot-verify
+  group: monster-choice-pixel005-final-godot-verify
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_pixel005
-  SOURCE_SHA256: 1bc1a8e29ca64c57ae2fca05d5b0e666811162de474b72634a4cde4606cd8455
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-2668-81f6-9f2f-fa7affec6983/raw?se=2026-09-17T23%3A15%3A37Z&sp=r&sv=2026-02-06&sr=b&scid=64a0519d-176e-5a28-8495-2901435d560f&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T11%3A59%3A59Z&ske=2026-09-18T11%3A59%3A59Z&sks=b&skv=2026-02-06&sig=yluM39eHg5s69CpabfnOf4uMGvtUI8/%2B4XrtdhdJNus%3D"
+  PROJECT_PATH: monster_choice_rpg_pixel005_final
+  SOURCE_SHA256: edb8826af40affeef65b3564fd2e25f89fd91bb7e07f5497e327f711865eef2e
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-8178-81f6-acdd-1a7c6fb05d64/raw?se=2026-09-17T23%3A18%3A29Z&sp=r&sv=2026-02-06&sr=b&scid=f8649da2-361c-51ae-87bd-cda7d0f49400&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A47%3A07Z&ske=2026-09-18T02%3A47%3A07Z&sks=b&skv=2026-02-06&sig=jZkZqIy6GJE2wJy2qF/4YcaXLXwcb8B78N/Ih3A0XWw%3D"
 
 jobs:
-  verify-pixel005:
-    name: Verify PIXEL-005 exact source under Godot 4.7.2
+  verify-pixel005-final:
+    name: Verify PIXEL-005 final exact source under Godot 4.7.2
     runs-on: ubuntu-latest
     timeout-minutes: 12
 
@@ -166,7 +166,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-pixel005-evidence
+          name: monster-choice-pixel005-final-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
