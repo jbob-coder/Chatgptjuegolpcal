@@ -1,4 +1,4 @@
-name: Monster Choice RPG REWORK-005 Android APK
+name: Monster Choice RPG REWORK-006 Android APK
 
 on:
   push:
@@ -11,18 +11,18 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-rework005-android-apk
+  group: monster-choice-rework006-android-apk
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_rework005_android
-  APK_NAME: MonsterChoiceRPG-REWORK-005-debug.apk
-  SOURCE_SHA256: cb9b4866ce67d1287b3590807142ae3e84d46a577835c3c8c99e4f6625c2322d
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-9870-81f6-8dea-2ca75243e572/raw?se=2026-09-17T03%3A14%3A34Z&sp=r&sv=2026-02-06&sr=b&scid=5ac4f579-92e5-5457-bd23-d0637bfe0cda&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A53%3A49Z&ske=2026-09-18T02%3A53%3A49Z&sks=b&skv=2026-02-06&sig=kvIsXnyx/e3v4HlOrrADiI%2BfgMidFMYyAQ7b7CIrujY%3D"
+  PROJECT_PATH: monster_choice_rpg_rework006_android
+  APK_NAME: MonsterChoiceRPG-REWORK-006-debug.apk
+  SOURCE_SHA256: c235609f005018f60479dc7cc9895387c87a8a52e187156629b74e727da99efa
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-7998-81f6-9bfe-4c3ec1c615d1/raw?se=2026-09-17T04%3A50%3A04Z&sp=r&sv=2026-02-06&sr=b&scid=458ed616-77ff-5663-a286-e731d79cf153&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A45%3A06Z&ske=2026-09-18T02%3A45%3A06Z&sks=b&skv=2026-02-06&sig=99V5qKZ2W/RGD5E%2BPCvx36dSVaTnW%2BDESep8QoEJ8aI%3D"
 
 jobs:
   build-android-debug:
-    name: Verify persisted REWORK-005 source and export Android APK
+    name: Verify persisted REWORK-006 source and export Android APK
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -47,6 +47,7 @@ jobs:
           test -f "$PROJECT_PATH/tests/rework_exploration_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_return_persistence_smoke.gd"
           test -f "$PROJECT_PATH/tests/rework_visual_foundation_smoke.gd"
+          test -f "$PROJECT_PATH/tests/rework_embodied_world_smoke.gd"
           grep -q 'run/main_scene="res://scenes/rework/stoneveil_exploration.tscn"' "$PROJECT_PATH/project.godot"
           grep -q 'version/code=26' "$PROJECT_PATH/export_presets.cfg"
           grep -q 'version/name="0.0.26"' "$PROJECT_PATH/export_presets.cfg"
@@ -54,7 +55,9 @@ jobs:
           (
             cd "$PROJECT_PATH"
             sha256sum -c MANIFEST.sha256
-          ) > build-evidence/manifest-check.log
+            python3 tools/verify_rework_visual_foundation.py
+            python3 tools/verify_rework_embodied_world.py
+          ) > build-evidence/source-static-check.log
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
@@ -170,6 +173,13 @@ jobs:
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_visual_foundation_smoke.gd 2>&1 | tee build-evidence/rework005-visual-foundation-smoke.log
           grep -q "PASS: REWORK-005 visual foundation Godot smoke" build-evidence/rework005-visual-foundation-smoke.log
 
+      - name: Run REWORK-006 embodied world smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_embodied_world_smoke.gd 2>&1 | tee build-evidence/rework006-embodied-world-smoke.log
+          grep -q "PASS: REWORK-006 embodied world Godot smoke" build-evidence/rework006-embodied-world-smoke.log
+
       - name: Boot promoted main scene headlessly
         shell: bash
         run: |
@@ -204,9 +214,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: MonsterChoiceRPG-REWORK-005-Android-debug
+          name: MonsterChoiceRPG-REWORK-006-Android-debug
           path: |
-            build/android/MonsterChoiceRPG-REWORK-005-debug.apk
+            build/android/MonsterChoiceRPG-REWORK-006-debug.apk
             build-evidence/
           if-no-files-found: error
           retention-days: 1
