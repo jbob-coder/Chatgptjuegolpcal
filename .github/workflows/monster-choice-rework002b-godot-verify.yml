@@ -29,6 +29,13 @@ jobs:
       - name: Checkout temporary verification branch
         uses: actions/checkout@v4
 
+      - name: Prepare verifier Python environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv .verify-venv
+          .verify-venv/bin/pip install --disable-pip-version-check pillow
+
       - name: Fetch exact Drive candidate
         shell: bash
         run: |
@@ -51,7 +58,7 @@ jobs:
             python3 tools/verify_structure.py
             python3 tools/verify_android_config.py
             python3 tools/verify_pixel_direction.py
-            python3 tools/verify_pixel_scale_lab.py
+            "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_scale_lab.py
             python3 tools/verify_rework_authority.py
             python3 tools/verify_rework_lifecycle_persistence.py
           ) > build-evidence/source-static-check.log
