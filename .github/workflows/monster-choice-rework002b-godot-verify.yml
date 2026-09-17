@@ -16,8 +16,8 @@ concurrency:
 
 env:
   PROJECT_PATH: monster_choice_rpg_pixel006
-  SOURCE_SHA256: 7588782dcc8e75e19f3f026012238b2b048a2952f5201b8c495c43db63ffcb1b
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-7cb0-81f6-814b-a43790733052/raw?se=2026-09-17T23%3A41%3A04Z&sp=r&sv=2026-02-06&sr=b&scid=793189a3-9c75-5687-8f0f-6cb34e4d03dc&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T02%3A55%3A59Z&ske=2026-09-18T02%3A55%3A59Z&sks=b&skv=2026-02-06&sig=/wizC2hH9utQCD832c%2BKfz7TTJNHVR1kPcpXoRaEuuE%3D"
+  SOURCE_SHA256: e541c3a3a7a654c2c959733a5724be1c6f33f8f5c6775637e1b16f195bde3e35
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-b1fc-81f6-b5fd-d4cb62b19a4f/raw?se=2026-09-17T23%3A47%3A11Z&sp=r&sv=2026-02-06&sr=b&scid=6abb4574-8525-570d-9a64-0c9d3d74277c&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T12%3A38%3A11Z&ske=2026-09-18T12%3A38%3A11Z&sks=b&skv=2026-02-06&sig=S1yrc9meQ6puOOAHWzWQFFxu4GXCGXVe1PsbPJ6aiSA%3D"
 
 jobs:
   verify-pixel006:
