@@ -1,4 +1,4 @@
-name: Monster Choice RPG PIXEL-004B Final Godot Verification
+name: Monster Choice RPG PIXEL-005 Godot Verification
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-pixel004b-final-godot-verify
+  group: monster-choice-pixel005-godot-verify
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_pixel004b_final
-  SOURCE_SHA256: 1407b0d7fe8e8ab465a44ca1d168d94bfb92e5278029d034fa7bca6db37cb047
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-9904-81f6-8419-e33ae6c2be6b/raw?se=2026-09-17T23%3A06%3A46Z&sp=r&sv=2026-02-06&sr=b&scid=ccb6a7f5-612f-5c74-8d90-244d5fd04a66&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T12%3A12%3A55Z&ske=2026-09-18T12%3A12%3A55Z&sks=b&skv=2026-02-06&sig=AyUf0/JONpKAh%2BkNrc5m4PNyTugEJ7GoG7R8%2BX8wNjI%3D"
+  PROJECT_PATH: monster_choice_rpg_pixel005
+  SOURCE_SHA256: 1bc1a8e29ca64c57ae2fca05d5b0e666811162de474b72634a4cde4606cd8455
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-2668-81f6-9f2f-fa7affec6983/raw?se=2026-09-17T23%3A15%3A37Z&sp=r&sv=2026-02-06&sr=b&scid=64a0519d-176e-5a28-8495-2901435d560f&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T11%3A59%3A59Z&ske=2026-09-18T11%3A59%3A59Z&sks=b&skv=2026-02-06&sig=yluM39eHg5s69CpabfnOf4uMGvtUI8/%2B4XrtdhdJNus%3D"
 
 jobs:
-  verify-pixel004b-final:
-    name: Verify PIXEL-004B final exact source under Godot 4.7.2
+  verify-pixel005:
+    name: Verify PIXEL-005 exact source under Godot 4.7.2
     runs-on: ubuntu-latest
     timeout-minutes: 12
 
@@ -41,9 +41,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$PROJECT_PATH" build-evidence
-          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-pixel004b.zip
-          echo "$SOURCE_SHA256  source-pixel004b.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
-          unzip -q source-pixel004b.zip -d "$PROJECT_PATH"
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-pixel005.zip
+          echo "$SOURCE_SHA256  source-pixel005.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-pixel005.zip -d "$PROJECT_PATH"
           test -f "$PROJECT_PATH/project.godot"
           test -f "$PROJECT_PATH/MANIFEST.sha256"
           test -f "$PROJECT_PATH/scenes/pixel/pixel_scale_lab.tscn"
@@ -52,11 +52,12 @@ jobs:
           test -f "$PROJECT_PATH/tests/pixel_hunter_animation_lab_smoke.gd"
           test -f "$PROJECT_PATH/scenes/pixel/pixel_stoneveil_tileset_lab.tscn"
           test -f "$PROJECT_PATH/tests/pixel_stoneveil_tileset_lab_smoke.gd"
-          test -f "$PROJECT_PATH/tools/verify_pixel_water_cliff_candidate.py"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_water_01_candidate.png"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_water_01_candidate.json"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_cliff_01_candidate.png"
-          test -f "$PROJECT_PATH/assets/pixel_v2/production/stoneveil_cliff_01_candidate.json"
+          test -f "$PROJECT_PATH/scenes/pixel/pixel_ashhorn_animation_lab.tscn"
+          test -f "$PROJECT_PATH/src/ui/pixel/pixel_ashhorn_animation_lab.gd"
+          test -f "$PROJECT_PATH/tests/pixel_ashhorn_animation_lab_smoke.gd"
+          test -f "$PROJECT_PATH/tools/verify_pixel_ashhorn_candidate.py"
+          test -f "$PROJECT_PATH/assets/pixel_v2/production/ashhorn_01_candidate.png"
+          test -f "$PROJECT_PATH/assets/pixel_v2/production/ashhorn_01_candidate.json"
           (
             cd "$PROJECT_PATH"
             sha256sum -c MANIFEST.sha256
@@ -67,6 +68,7 @@ jobs:
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_hunter_candidate.py
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_ground_candidate.py
             "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_water_cliff_candidate.py
+            "$GITHUB_WORKSPACE/.verify-venv/bin/python" tools/verify_pixel_ashhorn_candidate.py
             python3 tools/verify_rework_authority.py
             python3 tools/verify_rework_lifecycle_persistence.py
           ) > build-evidence/source-static-check.log
@@ -131,7 +133,7 @@ jobs:
           grep -q "PASS: PIXEL-003 hunter animation laboratory Godot smoke" build-evidence/pixel003-hunter-smoke.log
           if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel003-hunter-smoke.log; then exit 1; fi
 
-      - name: Run PIXEL-004B Stoneveil terrain smoke
+      - name: Run PIXEL-004B Stoneveil terrain regression smoke
         shell: bash
         run: |
           set -euo pipefail
@@ -139,16 +141,24 @@ jobs:
           grep -q "PASS: PIXEL-004B Stoneveil water/cliff tileset laboratory Godot smoke" build-evidence/pixel004b-stoneveil-terrain-smoke.log
           if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel004b-stoneveil-terrain-smoke.log; then exit 1; fi
 
-      - name: Boot PIXEL-004B Stoneveil terrain scene directly
+      - name: Run PIXEL-005 Ashhorn animation/anatomy smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_ashhorn_animation_lab_smoke.gd 2>&1 | tee build-evidence/pixel005-ashhorn-smoke.log
+          grep -q "PASS: PIXEL-005 Ashhorn animation/anatomy laboratory Godot smoke" build-evidence/pixel005-ashhorn-smoke.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found" build-evidence/pixel005-ashhorn-smoke.log; then exit 1; fi
+
+      - name: Boot PIXEL-005 Ashhorn scene directly
         shell: bash
         run: |
           set -euo pipefail
           (
             cd "$PROJECT_PATH"
-            timeout 30s godot --headless --path . res://scenes/pixel/pixel_stoneveil_tileset_lab.tscn --quit-after 8
-          ) 2>&1 | tee build-evidence/pixel004b-stoneveil-terrain-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel004b-stoneveil-terrain-boot.log; then
-            echo "Blocking PIXEL-004B runtime error detected."
+            timeout 30s godot --headless --path . res://scenes/pixel/pixel_ashhorn_animation_lab.tscn --quit-after 8
+          ) 2>&1 | tee build-evidence/pixel005-ashhorn-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/pixel005-ashhorn-boot.log; then
+            echo "Blocking PIXEL-005 runtime error detected."
             exit 1
           fi
 
@@ -156,7 +166,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monster-choice-pixel004b-final-evidence
+          name: monster-choice-pixel005-evidence
           path: build-evidence/
           if-no-files-found: error
           retention-days: 1
