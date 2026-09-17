@@ -1,4 +1,4 @@
-name: Monster Choice RPG v0.0.26 Final Android APK
+name: Monster Choice RPG REWORK-002 Godot Gate
 
 on:
   push:
@@ -11,94 +11,45 @@ permissions:
   contents: read
 
 concurrency:
-  group: monster-choice-runtime-apk
+  group: monster-choice-rework-runtime-gate
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: monster_choice_rpg_v0026
-  APK_NAME: MonsterChoiceRPG-v0.0.26-final-debug.apk
-  SOURCE_SHA256: 555e9706802eae2b788f0016998426efcaba2a4ac7d0a6729fc6ee096a217017
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-6d18-81f6-8f9d-26722bdc2f4a/raw?se=2026-09-16T03%3A39%3A22Z&sp=r&sv=2026-02-06&sr=b&scid=27627505-5b24-5ed5-98ae-ee219d58112e&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-15T17%3A58%3A01Z&ske=2026-09-16T17%3A58%3A01Z&sks=b&skv=2026-02-06&sig=XjRc4pSAs8f3qWCwOJ6dH3BeJFJ0084RdMHlZ8JTpVY%3D"
+  PROJECT_PATH: monster_choice_rpg_rework_002
+  SOURCE_SHA256: 4f1e61183c8c52ff941ec889de498fe2873cdff5507aa52c99d78c787e96016f
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-c9a0-81f6-9d22-51f95870cfdd/raw?se=2026-09-17T01%3A05%3A42Z&sp=r&sv=2026-02-06&sr=b&scid=f4ceefd5-9a3d-546a-8f73-293b7a82d541&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T18%3A45%3A19Z&ske=2026-09-17T18%3A45%3A19Z&sks=b&skv=2026-02-06&sig=ks%2BdpY9we%2BRn2fcg1xRLaqa7c7wuXk7V2r6eXOdzlkM%3D"
 
 jobs:
-  build-android-debug:
-    name: Verify exact final source in Godot 4.7.2 and export Android APK
+  verify-rework-002:
+    name: Verify REWORK-002 in Godot 4.7.2
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
 
     steps:
-      - name: Checkout build branch
+      - name: Checkout verification branch
         uses: actions/checkout@v4
 
-      - name: Fetch exact frozen v0.0.26 source from Drive
+      - name: Fetch exact current workspace from Drive
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p build-evidence "$PROJECT_PATH"
-          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-v0.0.26.zip
-          echo "$SOURCE_SHA256  source-v0.0.26.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
-          unzip -q source-v0.0.26.zip -d "$PROJECT_PATH"
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o current-workspace.zip
+          echo "$SOURCE_SHA256  current-workspace.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q current-workspace.zip -d "$PROJECT_PATH"
           test -f "$PROJECT_PATH/project.godot"
-          test -f "$PROJECT_PATH/export_presets.cfg"
-          grep -q 'version/code=26' "$PROJECT_PATH/export_presets.cfg"
-          grep -q 'version/name="0.0.26"' "$PROJECT_PATH/export_presets.cfg"
+          test -f "$PROJECT_PATH/scenes/rework/immersive_hunt.tscn"
+          test -f "$PROJECT_PATH/tests/rework_scene_smoke.gd"
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: "17"
-
-      - name: Install required Android SDK export tools
-        shell: bash
-        run: |
-          set -euo pipefail
-          ANDROID_SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
-          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
-          test -x "$SDKMANAGER"
-          echo "ANDROID_HOME=$ANDROID_SDK_ROOT"
-          yes | "$SDKMANAGER" --licenses >/dev/null || true
-          "$SDKMANAGER" "platform-tools" "build-tools;35.0.1" "platforms;android-35"
-          test -x "$ANDROID_SDK_ROOT/build-tools/35.0.1/aapt"
-          echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
-          echo "SDKMANAGER=$SDKMANAGER" >> "$GITHUB_ENV"
-
-      - name: Set up Godot 4.7.2 and export templates
+      - name: Set up Godot 4.7.2
         uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.7.2
           use-dotnet: false
-          include-templates: true
+          include-templates: false
           cache: false
 
-      - name: Configure Godot Android editor settings and debug keystore
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$HOME/.android" "$HOME/.config/godot" build-evidence
-          if [ ! -f "$HOME/.android/debug.keystore" ]; then
-            keytool -keyalg RSA -genkeypair \
-              -alias androiddebugkey \
-              -keypass android \
-              -keystore "$HOME/.android/debug.keystore" \
-              -storepass android \
-              -dname "CN=Android Debug,O=Android,C=US" \
-              -validity 10000
-          fi
-          cat > "$HOME/.config/godot/editor_settings-4.7.tres" <<EOF
-          [gd_resource type="EditorSettings" format=3]
-
-          [resource]
-          export/android/java_sdk_path = "$JAVA_HOME"
-          export/android/android_sdk_path = "$ANDROID_HOME"
-          export/android/debug_keystore = "$HOME/.android/debug.keystore"
-          export/android/debug_keystore_user = "androiddebugkey"
-          export/android/debug_keystore_pass = "android"
-          export/android/timestamping_authority_url = ""
-          EOF
-
-      - name: Record build identity
+      - name: Record verification identity
         shell: bash
         run: |
           set -euo pipefail
@@ -108,9 +59,6 @@ jobs:
             echo "source_sha256=${SOURCE_SHA256}"
             echo "runner=${RUNNER_OS}/${RUNNER_ARCH}"
             godot --version
-            java -version 2>&1 | head -n 1
-            echo "ANDROID_HOME=${ANDROID_HOME}"
-            "$SDKMANAGER" --list_installed | grep -E "platform-tools|build-tools;35.0.1|platforms;android-35" || true
           } | tee build-evidence/build-identity.txt
 
       - name: Godot import and parse gate
@@ -123,49 +71,25 @@ jobs:
             exit 1
           fi
 
-      - name: Run authored Godot test suite
+      - name: Run existing core Godot suite
         shell: bash
         run: |
           set -euo pipefail
-          godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-tests.log
-          grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-tests.log
+          godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-core-tests.log
+          grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-core-tests.log
 
-      - name: Run main scene headless boot smoke
+      - name: Run REWORK-002 candidate scene smoke
         shell: bash
         run: |
           set -euo pipefail
-          godot --headless --path "$PROJECT_PATH" --quit-after 10 2>&1 | tee build-evidence/main-scene-boot.log
-          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/main-scene-boot.log; then
-            echo "Main scene boot log contains a blocking runtime error."
-            exit 1
-          fi
+          godot --headless --path "$PROJECT_PATH" --script tests/rework_scene_smoke.gd 2>&1 | tee build-evidence/rework-scene-smoke.log
+          grep -q "PASS: REWORK-002 Godot scene smoke" build-evidence/rework-scene-smoke.log
 
-      - name: Export Android debug APK
-        shell: bash
-        env:
-          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: /home/runner/.android/debug.keystore
-          GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
-          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
-        run: |
-          set -euo pipefail
-          mkdir -p build/android
-          godot --headless --verbose --path "$PROJECT_PATH" --export-debug "Android" "$GITHUB_WORKSPACE/build/android/$APK_NAME" 2>&1 | tee build-evidence/android-export.log
-          test -s "build/android/$APK_NAME"
-          unzip -t "build/android/$APK_NAME" | tee build-evidence/apk-integrity.txt
-          sha256sum "build/android/$APK_NAME" | tee build-evidence/apk-sha256.txt
-          stat -c 'bytes=%s' "build/android/$APK_NAME" | tee build-evidence/apk-size.txt
-          "$ANDROID_HOME/build-tools/35.0.1/aapt" dump badging "build/android/$APK_NAME" | tee build-evidence/apk-badging.txt
-          grep -q "package: name='com.jackwilson.monsterchoicerpg'" build-evidence/apk-badging.txt
-          grep -q "versionCode='26'" build-evidence/apk-badging.txt
-          grep -q "versionName='0.0.26'" build-evidence/apk-badging.txt
-          grep -q "sdkVersion:'24'" build-evidence/apk-badging.txt
-
-      - name: Upload APK and evidence
+      - name: Upload verification evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: MonsterChoiceRPG-v0.0.26-final-debug
-          path: |
-            build/android/MonsterChoiceRPG-v0.0.26-final-debug.apk
-            build-evidence/
+          name: MonsterChoiceRPG-REWORK-002-Godot-gate
+          path: build-evidence/
           if-no-files-found: error
           retention-days: 1
