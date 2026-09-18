@@ -1,0 +1,122 @@
+name: Monster Choice RPG SRPG-003 Final Exact Source Verification
+
+on:
+  push:
+    branches:
+      - monster-choice-v0025-apk-build
+    paths:
+      - ".github/workflows/monster-choice-srpg003-final-godot-verify.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: monster-choice-srpg003-final-godot-verify
+  cancel-in-progress: true
+
+env:
+  PROJECT_PATH: monster_choice_rpg_srpg003_final
+  SOURCE_SHA256: 7d5b571283e4fc491aa842db5d6baa56e3eaa55c93c733094e8d281b79dffe92
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-c56c-81f6-aa1e-4211ed44145b/raw?se=2026-09-18T03%3A36%3A57Z&sp=r&sv=2026-02-06&sr=b&scid=55386188-ffb7-5e3e-9bf3-513bb5b21f16&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T15%3A31%3A05Z&ske=2026-09-18T15%3A31%3A05Z&sks=b&skv=2026-02-06&sig=xz15Io9sX1pbo5Wx9lpB/ozDeoprsprVcQVJsS%2BrB/k%3D"
+
+jobs:
+  verify-srpg003-final:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch exact final source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$PROJECT_PATH" build-evidence
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-srpg003-final.zip
+          echo "$SOURCE_SHA256  source-srpg003-final.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-srpg003-final.zip -d "$PROJECT_PATH"
+          (
+            cd "$PROJECT_PATH"
+            sha256sum -c MANIFEST.sha256
+            python3 tools/verify_srpg_reference.py
+            python3 tools/verify_monster_roster_seed.py
+            python3 tools/verify_srpg_candidate.py
+            python3 tools/verify_srpg_board_lab.py
+            python3 tools/verify_srpg_combat_bridge.py
+            python3 tools/verify_structure.py
+            python3 tools/verify_rework_lifecycle_persistence.py
+            python3 tools/verify_source_checkpoint_tool.py
+          ) > build-evidence/source-static-check.log
+
+      - name: Set up Godot 4.7.2
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+          cache: false
+
+      - name: Record identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "branch=$GITHUB_REF_NAME"
+            echo "commit=$GITHUB_SHA"
+            echo "source_sha256=$SOURCE_SHA256"
+            godot --version
+          } | tee build-evidence/identity.txt
+
+      - name: Import and parse
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 45s godot --headless --verbose --editor --path "$PROJECT_PATH" --quit 2>&1 | tee build-evidence/godot-import-parse.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|ERROR:.*(parse|load|resource)" build-evidence/godot-import-parse.log; then exit 1; fi
+
+      - name: Core regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-core-tests.log
+          grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-core-tests.log
+
+      - name: Lifecycle and pixel regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_lifecycle_persistence_smoke.gd 2>&1 | tee build-evidence/rework008-smoke.log
+          grep -q "PASS: REWORK-008 unified lifecycle persistence Godot smoke" build-evidence/rework008-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_stoneveil_slice_smoke.gd 2>&1 | tee build-evidence/pixel003-smoke.log
+          grep -q "PASS: PIXEL-003 Stoneveil terrain/camp slice Godot smoke" build-evidence/pixel003-smoke.log
+
+      - name: SRPG regression chain
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_grid_rules_smoke.gd 2>&1 | tee build-evidence/srpg001-grid-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/layered_actor_2d_smoke.gd 2>&1 | tee build-evidence/srpg001-layered-actor-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_ashhorn_board_lab_smoke.gd 2>&1 | tee build-evidence/srpg002-board-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_combat_bridge_smoke.gd 2>&1 | tee build-evidence/srpg003-combat-bridge-smoke.log
+          grep -q "PASS: SRPG-001 grid rules Godot smoke" build-evidence/srpg001-grid-smoke.log
+          grep -q "PASS: SRPG-001 layered actor Godot smoke" build-evidence/srpg001-layered-actor-smoke.log
+          grep -q "PASS: SRPG-002 Ashhorn board laboratory Godot smoke" build-evidence/srpg002-board-smoke.log
+          grep -q "PASS: SRPG-003 CombatEngine board bridge Godot smoke" build-evidence/srpg003-combat-bridge-smoke.log
+          if grep -Eiq "FAIL:|SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:" build-evidence/srpg001-grid-smoke.log build-evidence/srpg001-layered-actor-smoke.log build-evidence/srpg002-board-smoke.log build-evidence/srpg003-combat-bridge-smoke.log; then exit 1; fi
+
+      - name: Direct board and current main boot
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd "$PROJECT_PATH" && timeout 30s godot --headless --path . res://scenes/srpg/srpg_ashhorn_board_lab.tscn --quit-after 6) 2>&1 | tee build-evidence/srpg003-board-direct-boot.log
+          (cd "$PROJECT_PATH" && timeout 30s godot --headless --path . res://scenes/rework/stoneveil_exploration.tscn --quit-after 6) 2>&1 | tee build-evidence/main-scene-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:" build-evidence/srpg003-board-direct-boot.log; then exit 1; fi
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/main-scene-boot.log; then exit 1; fi
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monster-choice-srpg003-final-evidence
+          path: build-evidence/
+          if-no-files-found: error
+          retention-days: 1
