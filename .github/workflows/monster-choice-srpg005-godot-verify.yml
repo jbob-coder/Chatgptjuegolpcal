@@ -115,6 +115,7 @@ jobs:
           if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/main-scene-boot.log; then exit 1; fi
 
       - name: Upload evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: monster-choice-srpg005-evidence
@@ -122,15 +123,19 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-      - name: Write success marker
+      - name: Write verification marker
+        if: always()
         shell: bash
+        env:
+          RESULT_STATUS: ${{ job.status }}
         run: |
           mkdir -p .github/verification
-          printf '{"status":"success","run_id":"%s","source_sha256":"%s","workflow_commit":"%s","engine":"%s"}
-' "$GITHUB_RUN_ID" "$SOURCE_SHA256" "$GITHUB_SHA" "$(godot --version)" > .github/verification/srpg005-result.json
+          engine="$(godot --version 2>/dev/null || echo unavailable)"
+          printf '{"status":"%s","run_id":"%s","source_sha256":"%s","workflow_commit":"%s","engine":"%s"}\n' "$RESULT_STATUS" "$GITHUB_RUN_ID" "$SOURCE_SHA256" "$GITHUB_SHA" "$engine" > .github/verification/srpg005-result.json
 
-      - name: Commit success marker
+      - name: Commit verification marker
+        if: always()
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Record SRPG-005 verification success
+          commit_message: Record SRPG-005 verification result
           file_pattern: .github/verification/srpg005-result.json
