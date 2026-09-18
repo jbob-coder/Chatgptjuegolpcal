@@ -16,8 +16,8 @@ concurrency:
 
 env:
   PROJECT_PATH: monster_choice_rpg_srpg003
-  SOURCE_SHA256: a2d4868eca1a1f72510aa622ec6ca6a62c1af3f22022527e73ffbcbe094ea766
-  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-5054-81f6-8803-1b2f3593a24e/raw?se=2026-09-18T03%3A32%3A43Z&sp=r&sv=2026-02-06&sr=b&scid=bef7d1b5-b3a5-5535-bcf2-d878dbe5078d&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-18T01%3A53%3A39Z&ske=2026-09-19T01%3A53%3A39Z&sks=b&skv=2026-02-06&sig=tQL%2B9kSQTIjqRvtCFo%2BtAcsUBEA6XVKrI1Zef%2BU/Xd4%3D"
+  SOURCE_SHA256: a3c729fce81726ee5909fc2cb5ef88a9073cc820d544ba611c7794ecee153a3c
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-3228-81f6-b2ae-10ba4e0cf221/raw?se=2026-09-18T03%3A32%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=ad381374-9f1e-56fd-8b75-db0fae364a41&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-17T13%3A09%3A10Z&ske=2026-09-18T13%3A09%3A10Z&sks=b&skv=2026-02-06&sig=N10F7g8UwoVr4pQbGNssyu1ElvV9KQ4uOdW7n2s9CYM%3D"
 
 jobs:
   verify-srpg003:
@@ -102,7 +102,7 @@ jobs:
           timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_combat_bridge_smoke.gd 2>&1 | tee build-evidence/srpg003-combat-bridge-smoke.log
           grep -q "PASS: SRPG-001 grid rules Godot smoke" build-evidence/srpg001-grid-smoke.log
           grep -q "PASS: SRPG-001 layered actor Godot smoke" build-evidence/srpg001-layered-actor-smoke.log
-          grep -q "PASS: SRPG-002 Ashhorn board laboratory Godot smoke" build-evidence/srpg002-board-smoke.log
+          grep -q "PASS: SRPG-003 Ashhorn board combat bridge Godot smoke" build-evidence/srpg002-board-smoke.log
           grep -q "PASS: SRPG-003 CombatEngine board bridge Godot smoke" build-evidence/srpg003-combat-bridge-smoke.log
           if grep -Eiq "FAIL:|SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:" build-evidence/srpg001-grid-smoke.log build-evidence/srpg001-layered-actor-smoke.log build-evidence/srpg002-board-smoke.log build-evidence/srpg003-combat-bridge-smoke.log; then exit 1; fi
 
