@@ -1,0 +1,160 @@
+name: Monster Choice RPG CAMP-001 Exact Source Verification
+
+on:
+  push:
+    branches:
+      - monster-choice-v0025-apk-build
+    paths:
+      - ".github/workflows/monster-choice-camp001-godot-verify.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monster-choice-camp001-godot-verify
+  cancel-in-progress: true
+
+env:
+  PROJECT_PATH: monster_choice_rpg_camp001
+  SOURCE_SHA256: b63f0ca8053cc0167d6d87904ac337210b4fede4d6929c2061dfebd42768c4e6
+  SOURCE_URL: "https://sdmntpreastus2.oaiusercontent.com/files/00000000-8d48-81f6-8662-48de1381c63f/raw?se=2026-09-18T13%3A13%3A02Z&sp=r&sv=2026-02-06&sr=b&scid=1d432ab1-cd18-5ebd-81cd-85c4063be82d&skoid=dd316919-ffbf-4550-9c54-dfc99f412009&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-18T12%3A14%3A04Z&ske=2026-09-19T12%3A14%3A04Z&sks=b&skv=2026-02-06&sig=zc4eAZzqx/AatQa2CWln2H5mwEIYjnmOUAQSPPh1Tq4%3D"
+
+jobs:
+  verify-camp001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch exact source and run static gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$PROJECT_PATH" build-evidence
+          curl --fail --location --retry 3 --retry-delay 2 "$SOURCE_URL" -o source-camp001.zip
+          echo "$SOURCE_SHA256  source-camp001.zip" | sha256sum -c - | tee build-evidence/source-sha256.txt
+          unzip -q source-camp001.zip -d "$PROJECT_PATH"
+          (
+            cd "$PROJECT_PATH"
+            sha256sum -c MANIFEST.sha256
+            python3 tools/verify_reference_core.py
+            python3 tools/verify_rework_authority.py
+            python3 tools/verify_rework_lifecycle_persistence.py
+            python3 tools/verify_srpg_reference.py
+            python3 tools/verify_monster_roster_seed.py
+            python3 tools/verify_srpg_candidate.py
+            python3 tools/verify_srpg_board_lab.py
+            python3 tools/verify_srpg_combat_bridge.py
+            python3 tools/verify_srpg_tactical_persistence.py
+            python3 tools/verify_srpg_production_route.py
+            python3 tools/verify_srpg_layered_presentation.py
+            python3 tools/verify_srpg_ashhorn_presentation.py
+            python3 tools/verify_camp_grid_layout.py
+            python3 tools/verify_structure.py
+            python3 tools/verify_source_checkpoint_tool.py
+          ) > build-evidence/source-static-check.log
+
+      - name: Set up Godot 4.7.2
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+          cache: false
+
+      - name: Record identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "branch=$GITHUB_REF_NAME"
+            echo "commit=$GITHUB_SHA"
+            echo "source_sha256=$SOURCE_SHA256"
+            godot --version
+          } | tee build-evidence/identity.txt
+
+      - name: Import and parse
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 45s godot --headless --verbose --editor --path "$PROJECT_PATH" --quit 2>&1 | tee build-evidence/godot-import-parse.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|ERROR:.*(parse|load|resource)" build-evidence/godot-import-parse.log; then exit 1; fi
+
+      - name: Core and lifecycle regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/run_tests.gd 2>&1 | tee build-evidence/godot-core-tests.log
+          grep -q "PASS: 20/20 core prototype test groups" build-evidence/godot-core-tests.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/rework_lifecycle_persistence_smoke.gd 2>&1 | tee build-evidence/rework008-smoke.log
+          grep -q "PASS: REWORK-008 unified lifecycle persistence Godot smoke" build-evidence/rework008-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/pixel_stoneveil_slice_smoke.gd 2>&1 | tee build-evidence/pixel003-smoke.log
+          grep -q "PASS: PIXEL-003 Stoneveil terrain/camp slice Godot smoke" build-evidence/pixel003-smoke.log
+
+      - name: SRPG regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_grid_rules_smoke.gd 2>&1 | tee build-evidence/srpg001-grid-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/layered_actor_2d_smoke.gd 2>&1 | tee build-evidence/srpg001-layered-actor-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_ashhorn_board_lab_smoke.gd 2>&1 | tee build-evidence/srpg002-board-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_combat_bridge_smoke.gd 2>&1 | tee build-evidence/srpg003-combat-bridge-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/srpg_tactical_persistence_smoke.gd 2>&1 | tee build-evidence/srpg004-tactical-persistence-smoke.log
+          timeout 45s godot --headless --path "$PROJECT_PATH" --script tests/srpg_production_route_smoke.gd 2>&1 | tee build-evidence/srpg005-production-route-smoke.log
+          timeout 45s godot --headless --path "$PROJECT_PATH" --script tests/srpg_layered_hunter_presentation_smoke.gd 2>&1 | tee build-evidence/srpg006-layered-hunter-smoke.log
+          timeout 45s godot --headless --path "$PROJECT_PATH" --script tests/srpg_ashhorn_presentation_smoke.gd 2>&1 | tee build-evidence/srpg007-ashhorn-presentation-smoke.log
+          grep -q "PASS: SRPG-001 grid rules Godot smoke" build-evidence/srpg001-grid-smoke.log
+          grep -q "PASS: SRPG-001 layered actor Godot smoke" build-evidence/srpg001-layered-actor-smoke.log
+          grep -q "PASS: SRPG-002 Ashhorn board laboratory Godot smoke" build-evidence/srpg002-board-smoke.log
+          grep -q "PASS: SRPG-003 CombatEngine board bridge Godot smoke" build-evidence/srpg003-combat-bridge-smoke.log
+          grep -q "PASS: SRPG-004 tactical persistence Godot smoke" build-evidence/srpg004-tactical-persistence-smoke.log
+          grep -q "PASS: SRPG-005 production route lifecycle seam Godot smoke" build-evidence/srpg005-production-route-smoke.log
+          grep -q "PASS: SRPG-006 layered hunter presentation Godot smoke" build-evidence/srpg006-layered-hunter-smoke.log
+          grep -q "PASS: SRPG-007 Ashhorn telegraph/body-target presentation Godot smoke" build-evidence/srpg007-ashhorn-presentation-smoke.log
+          if grep -Eiq "FAIL:|SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:" build-evidence/srpg001-grid-smoke.log build-evidence/srpg001-layered-actor-smoke.log build-evidence/srpg002-board-smoke.log build-evidence/srpg003-combat-bridge-smoke.log build-evidence/srpg004-tactical-persistence-smoke.log build-evidence/srpg005-production-route-smoke.log build-evidence/srpg006-layered-hunter-smoke.log build-evidence/srpg007-ashhorn-presentation-smoke.log; then exit 1; fi
+
+      - name: CAMP-001 grid and camera smokes
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/camp_grid_layout_smoke.gd 2>&1 | tee build-evidence/camp001-grid-smoke.log
+          timeout 30s godot --headless --path "$PROJECT_PATH" --script tests/camp_grid_scene_smoke.gd 2>&1 | tee build-evidence/camp001-scene-smoke.log
+          grep -q "PASS: CAMP-001 Wayfarer grid/camera layout Godot smoke" build-evidence/camp001-grid-smoke.log
+          grep -q "PASS: CAMP-001 Wayfarer grid scene/camera Godot smoke" build-evidence/camp001-scene-smoke.log
+          if grep -Eiq "FAIL:|SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:" build-evidence/camp001-grid-smoke.log build-evidence/camp001-scene-smoke.log; then exit 1; fi
+
+      - name: Direct scene boots
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd "$PROJECT_PATH" && timeout 30s godot --headless --path . res://scenes/camp/wayfarer_camp_grid_lab.tscn --quit-after 6) 2>&1 | tee build-evidence/camp001-direct-boot.log
+          (cd "$PROJECT_PATH" && timeout 30s godot --headless --path . res://scenes/srpg/srpg_hunt_session.tscn --quit-after 6) 2>&1 | tee build-evidence/srpg-session-direct-boot.log
+          (cd "$PROJECT_PATH" && timeout 30s godot --headless --path . res://scenes/rework/stoneveil_exploration.tscn --quit-after 6) 2>&1 | tee build-evidence/main-scene-boot.log
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:" build-evidence/camp001-direct-boot.log build-evidence/srpg-session-direct-boot.log; then exit 1; fi
+          if grep -Eiq "SCRIPT ERROR|Parse Error|Compile Error|Failed to compile|Failed loading resource|Failed to load script|Invalid get index|Invalid call|Node not found|ERROR:.*(parse|load|resource)" build-evidence/main-scene-boot.log; then exit 1; fi
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monster-choice-camp001-evidence
+          path: build-evidence/
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Write verification marker
+        if: always()
+        shell: bash
+        env:
+          RESULT_STATUS: ${{ job.status }}
+        run: |
+          mkdir -p .github/verification
+          engine="$(godot --version 2>/dev/null || echo unavailable)"
+          printf '{"status":"%s","run_id":"%s","source_sha256":"%s","workflow_commit":"%s","engine":"%s"}\n' "$RESULT_STATUS" "$GITHUB_RUN_ID" "$SOURCE_SHA256" "$GITHUB_SHA" "$engine" > .github/verification/camp001-result.json
+
+      - name: Commit verification marker
+        if: always()
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Record CAMP-001 verification result
+          file_pattern: .github/verification/camp001-result.json
