@@ -1,5 +1,7 @@
 extends Node
 
+const WorldPack001 := preload("res://scripts/presentation/pixel_rpg/world_pack_001.gd")
+
 const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
 const JOYSTICK_DEADZONE := 0.12
@@ -316,13 +318,21 @@ func _build_prototype_world() -> void:
 	_add_box("Trail", Vector3(0, 0.04, -31), Vector3(4.2, 0.11, 34), Color(0.29, 0.24, 0.16), false)
 
 	_add_building(Vector3(-7.0, 1.7, 8.5), Vector3(7.0, 3.4, 7.0), Color(0.34, 0.22, 0.13))
-	_add_building(Vector3(7.2, 1.9, 6.0), Vector3(6.5, 3.8, 8.0), Color(0.39, 0.25, 0.14))
-	_add_building(Vector3(-7.4, 1.5, -1.5), Vector3(6.2, 3.0, 6.2), Color(0.31, 0.20, 0.12))
+	WorldPack001.add_market_stall(world_geometry, Vector3(7.0, 0.0, 6.0), -90.0)
+	WorldPack001.add_service_smith(world_geometry, Vector3(-7.4, 0.0, -1.5), 90.0)
+	_add_collision_box("SmithCollision", Vector3(-7.4, 1.5, -1.5), Vector3(6.2, 3.0, 6.2))
 	_add_building(Vector3(7.5, 1.6, -3.0), Vector3(6.8, 3.2, 6.4), Color(0.36, 0.23, 0.13))
 
-	_add_box("GateLeft", Vector3(-4.8, 2.2, -10.0), Vector3(2.2, 4.4, 2.2), Color(0.26, 0.20, 0.14), true)
-	_add_box("GateRight", Vector3(4.8, 2.2, -10.0), Vector3(2.2, 4.4, 2.2), Color(0.26, 0.20, 0.14), true)
-	_add_box("GateBeam", Vector3(0, 4.2, -10.0), Vector3(8.0, 0.6, 1.0), Color(0.29, 0.20, 0.12), true)
+	WorldPack001.add_settlement_gate(world_geometry, Vector3(0.0, 0.0, -10.0))
+	_add_collision_box("GateLeftCollision", Vector3(-4.8, 2.2, -10.0), Vector3(2.2, 4.4, 2.2))
+	_add_collision_box("GateRightCollision", Vector3(4.8, 2.2, -10.0), Vector3(2.2, 4.4, 2.2))
+	WorldPack001.add_service_clutter(world_geometry, Vector3(-3.8, 0.0, -5.5))
+	WorldPack001.add_lantern_post(world_geometry, Vector3(-3.1, 0.0, -7.0))
+	WorldPack001.add_lantern_post(world_geometry, Vector3(3.1, 0.0, -7.0), 180.0)
+	WorldPack001.add_banner_post(world_geometry, Vector3(-6.7, 0.0, -9.2))
+	WorldPack001.add_signpost(world_geometry, Vector3(2.9, 0.0, -13.0), -15.0)
+	WorldPack001.add_fence(world_geometry, Vector3(-4.0, 0.0, -16.5), 10.0)
+	WorldPack001.add_fence(world_geometry, Vector3(4.0, 0.0, -19.0), -12.0)
 
 	for z in [-18.0, -25.0, -33.0, -48.0]:
 		_add_tree(Vector3(-7.5, 0.0, z))
@@ -331,7 +341,9 @@ func _build_prototype_world() -> void:
 	_add_tree(Vector3(11.5, 0.0, -43.0))
 
 	_add_box("TrailRockL", Vector3(-3.8, 0.75, -29.0), Vector3(2.4, 1.5, 2.0), Color(0.28, 0.29, 0.27), true)
-	_add_box("TrailRockR", Vector3(4.4, 0.55, -36.0), Vector3(1.8, 1.1, 2.4), Color(0.25, 0.27, 0.25), true)
+	WorldPack001.add_vegetation_cluster(world_geometry, Vector3(-8.5, 0.0, -22.0))
+	WorldPack001.add_vegetation_cluster(world_geometry, Vector3(8.0, 0.0, -31.0), 120.0)
+	WorldPack001.add_rock_cluster(world_geometry, Vector3(4.8, 0.0, -34.0))
 
 	_npc_anchor = Node3D.new()
 	_npc_anchor.name = "GateWarden"
@@ -433,6 +445,17 @@ func _add_monster_proxy(parent: Node3D) -> void:
 		leg.position = Vector3(x, 0.7, -0.65)
 		leg.material_override = _material(Color(0.18, 0.25, 0.15))
 		parent.add_child(leg)
+
+func _add_collision_box(name: String, position: Vector3, size: Vector3) -> void:
+	var body := StaticBody3D.new()
+	body.name = name
+	body.position = position
+	world_geometry.add_child(body)
+	var collision := CollisionShape3D.new()
+	var shape := BoxShape3D.new()
+	shape.size = size
+	collision.shape = shape
+	body.add_child(collision)
 
 func _add_box(name: String, position: Vector3, size: Vector3, color: Color, collision_enabled: bool) -> void:
 	var holder: Node3D
