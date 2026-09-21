@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / PACKS 001–004 VERIFIED / THIRD-PERSON TARGETING BRIDGE NEXT
+Status: ACTIVE PIXEL RPG / COMBAT BRIDGE 001 VERIFIED / DOMAIN BOOTSTRAP NEXT
 Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
@@ -149,7 +149,7 @@ These remain design targets unless current source proves implementation.
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
-`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`\n`PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -162,17 +162,18 @@ These remain design targets unless current source proves implementation.
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`
+`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`
 
 Boundary:
-1. preserve current third-person camera, physical actor transforms and Packs 001–004;
-2. do not invoke the obsolete forced-first-person Region-01 encounter trigger;
-3. add current-world ENGAGE/target-acquisition near the live Mudcrest;
-4. expose current Mudcrest visual target groups through touch-safe targeting UI;
-5. map every selectable target to its Pack 002 visual node;
-6. exclude targeting controls from camera-look input;
-7. do not spend AP/Stamina, move actors or apply damage in this preview slice;
-8. preserve deterministic combat/anatomy domain files unchanged;
-9. add an explicit runtime gate and rerun all current verification.
+1. preserve Packs 001–004 and Bridge 001 third-person targeting;
+2. keep current gameplay-domain source files unchanged;
+3. add minimal current-World transient-control compatibility;
+4. provide current collidable monster body authority using ID `monster_r01_m01_0001`;
+5. after target lock, expose explicit START COMBAT DOMAIN;
+6. initialize CombatTurnShellRuntime and MudcrestAnatomyRuntime only;
+7. keep Hunter/Mudcrest visual transforms and third-person camera unchanged;
+8. do not initialize legacy tactical movement or hunter attack runtime;
+9. do not spend AP/Stamina or apply damage;
+10. add runtime and Android verification.
 
-NEXT THING: `PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`.
+NEXT THING: `PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
