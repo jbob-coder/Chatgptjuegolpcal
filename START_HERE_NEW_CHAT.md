@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / PACKS 001–003 VERIFIED / ENTERABLE SMITH NEXT
+Status: ACTIVE PIXEL RPG BOOTSTRAP / PACKS 001–004 VERIFIED / THIRD-PERSON TARGETING BRIDGE NEXT
 Last reconciled: 2026-09-21
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -61,11 +61,9 @@ Never weaken legitimate gates to force success.
 
 ## Current Pixel RPG verified baseline
 
-Current verified gameplay/presentation source:
-`449a409cdf812c7b36cfbb42e2298acdf5a5b082`.
+Current verified gameplay/presentation source:\n`47ade9413fe24f15453ee6fb0135b270b2d3ce8d`.
 
-Workflow `35565414747`: SUCCESS.
-Job `106226140792`: SUCCESS.
+Workflow `35566025131`: SUCCESS.\nJob `106227900327`: SUCCESS.
 
 Passed:
 - Godot `4.7.2.stable` import/parse;
@@ -109,7 +107,7 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
-`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -120,14 +118,14 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 
 ## Current bounded piece
 
-`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`.
+`PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`.
 
 Boundary:
-- preserve Packs 001–003 and current controller/camera/render/HUD/domain behavior;
-- keep the smith near its current 6.6 m × 6.4 m footprint;
-- create modular walls, real doorway and readable interior floor;
-- replace monolithic Smith collision with wall-aligned collision that leaves the doorway clear;
-- add a first smith-use station only, not the full crafting/economy stack;
-- hide/reveal roof elements as needed for third-person interior readability;
-- add a dedicated runtime gate;
-- rerun parse/smokes/Packs 002–003 gates/domain regressions/Android export/package gate.
+- preserve Packs 001–004 and current third-person controller/camera/render/HUD behavior;
+- do not use the old forced-first-person Region-01 encounter presentation;
+- add current-world Mudcrest ENGAGE/target acquisition;
+- expose actual visual anatomy target groups in a touch-safe panel;
+- keep actor transforms unchanged;
+- do not apply damage or spend combat resources yet;
+- preserve existing deterministic domain files;
+- add a dedicated runtime gate and rerun the full current verification stack.
