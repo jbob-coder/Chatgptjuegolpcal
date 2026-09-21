@@ -1,6 +1,7 @@
 extends Node
 
 const WorldPack001 := preload("res://scripts/presentation/pixel_rpg/world_pack_001.gd")
+const WorldPack004EnterableSmith := preload("res://scripts/presentation/pixel_rpg/world_pack_004_enterable_smith.gd")
 const MudcrestVisualScene: PackedScene = preload("res://assets/monsters/mudcrest_visual.tscn")
 
 const MOVE_SPEED_MPS := 5.2
@@ -15,6 +16,7 @@ const MINIMAP_WORLD_MAX_Z := 20.0
 const CAMERA_PITCH_MIN_DEG := -34.0
 const CAMERA_PITCH_MAX_DEG := 32.0
 const NPC_INTERACT_DISTANCE_M := 2.6
+const SMITH_INTERACT_DISTANCE_M := 2.2
 const MONSTER_OBSERVE_DISTANCE_M := 15.0
 const RESPAWN_Y_M := -8.0
 const PLAYER_START := Vector3(0.0, 0.9, 13.0)
@@ -55,6 +57,8 @@ var _camera_yaw_rad := 0.0
 var _camera_pitch_rad := deg_to_rad(-11.0)
 var _look_degrees_per_pixel := DEFAULT_LOOK_DEGREES_PER_PIXEL
 var _npc_anchor: Node3D
+var _smith_root: Node3D
+var _smith_use_anchor: Node3D
 var _monster_anchor: Node3D
 var _current_context := "NONE"
 var _world_ready := false
@@ -155,6 +159,7 @@ func _process(delta: float) -> void:
 	var pos := hunter.global_position
 	status_label.text = "HP 100   ST 100\nX %.0f  Z %.0f" % [pos.x, pos.z]
 	_update_minimap()
+	_update_smith_interior_visibility()
 
 func _camera_relative_movement(input_vector: Vector2) -> Vector3:
 	if input_vector.length_squared() <= 0.0001:
@@ -337,11 +342,26 @@ func _update_minimap() -> void:
 		normalized_z * maxf(map_size.y - marker_size.y, 0.0)
 	)
 
+func _update_smith_interior_visibility() -> void:
+	if _smith_root == null:
+		return
+	var local_player := _smith_root.to_local(hunter.global_position)
+	var inside := WorldPack004EnterableSmith.is_inside(local_player)
+	for roof_name in ["RoofA", "RoofB", "RidgeBeam"]:
+		var roof := _smith_root.get_node_or_null(NodePath(roof_name)) as GeometryInstance3D
+		if roof != null:
+			roof.visible = not inside
+
 func _update_contextual_action() -> void:
 	if _npc_anchor != null:
 		var npc_distance := hunter.global_position.distance_to(_npc_anchor.global_position)
 		if npc_distance <= NPC_INTERACT_DISTANCE_M:
 			_set_context("TALK", "Talk • Gate Warden")
+			return
+	if _smith_use_anchor != null:
+		var smith_distance := hunter.global_position.distance_to(_smith_use_anchor.global_position)
+		if smith_distance <= SMITH_INTERACT_DISTANCE_M:
+			_set_context("SMITH", "Use • Smithing station")
 			return
 	if _monster_anchor != null:
 		var monster_distance := hunter.global_position.distance_to(_monster_anchor.global_position)
@@ -359,6 +379,8 @@ func _set_context(context: String, prompt: String) -> void:
 	match context:
 		"TALK":
 			action_button.text = "TALK"
+		"SMITH":
+			action_button.text = "USE"
 		"OBSERVE":
 			action_button.text = "OBSERVE"
 		_:
@@ -369,6 +391,9 @@ func _on_action_button_pressed() -> void:
 		"TALK":
 			objective_label.text = "Warden: tracks crossed the north gate before dawn. Follow the damaged pines."
 			watch_text.text = "FIELD NOTE\nFresh heavy tracks north of the settlement.\nThe gate warden reports damaged pines along the trail."
+		"SMITH":
+			objective_label.text = "Smithing station inspected. Full crafting remains outside this prototype slice."
+			watch_text.text = "SMITHING NOTE\nThe settlement forge is accessible and operational.\nCrafting systems remain outside this prototype slice."
 		"OBSERVE":
 			objective_label.text = "Observation recorded: broad tail, armored dorsal ridge, heavy forequarters."
 			watch_text.text = "HUNTER JOURNAL\nObserved from the trail:\n• armored dorsal ridge\n• broad tail\n• heavy forequarters\nBody-part data remains provisional until combat."
@@ -405,8 +430,8 @@ func _build_prototype_world() -> void:
 
 	_add_building(Vector3(-7.0, 1.7, 8.5), Vector3(7.0, 3.4, 7.0), Color(0.34, 0.22, 0.13))
 	WorldPack001.add_market_stall(world_geometry, Vector3(7.0, 0.0, 6.0), -90.0)
-	WorldPack001.add_service_smith(world_geometry, Vector3(-7.4, 0.0, -1.5), 90.0)
-	_add_collision_box("SmithCollision", Vector3(-7.4, 1.5, -1.5), Vector3(6.2, 3.0, 6.2))
+	_smith_root = WorldPack004EnterableSmith.add_enterable_smith(world_geometry, Vector3(-7.4, 0.0, -1.5), 90.0)
+	_smith_use_anchor = _smith_root.get_node_or_null("UseAnchor") as Node3D
 	_add_building(Vector3(7.5, 1.6, -3.0), Vector3(6.8, 3.2, 6.4), Color(0.36, 0.23, 0.13))
 
 	WorldPack001.add_settlement_gate(world_geometry, Vector3(0.0, 0.0, -10.0))
