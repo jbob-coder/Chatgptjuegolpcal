@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / PACKS 001–004 VERIFIED / THIRD-PERSON TARGETING BRIDGE NEXT
+Status: ACTIVE PIXEL RPG BOOTSTRAP / COMBAT BRIDGE 001 VERIFIED / DOMAIN BOOTSTRAP NEXT
 Last reconciled: 2026-09-21
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -107,7 +107,7 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
-`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`\n`PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -118,14 +118,6 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 
 ## Current bounded piece
 
-`PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`.
+`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
 
-Boundary:
-- preserve Packs 001–004 and current third-person controller/camera/render/HUD behavior;
-- do not use the old forced-first-person Region-01 encounter presentation;
-- add current-world Mudcrest ENGAGE/target acquisition;
-- expose actual visual anatomy target groups in a touch-safe panel;
-- keep actor transforms unchanged;
-- do not apply damage or spend combat resources yet;
-- preserve existing deterministic domain files;
-- add a dedicated runtime gate and rerun the full current verification stack.
+Preserve current third-person target acquisition. Bootstrap only current turn-shell and anatomy state against the live Pixel RPG World, with a current collidable domain monster body alias and no legacy tactical movement/attack initialization, no damage and no resource spend.
