@@ -132,6 +132,13 @@ jobs:
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_002_runtime_test.gd" 2>&1 | tee build-evidence/visual-pack-002.log
           grep -q "Gate: PIXEL_RPG_VISUAL_PACK_002_RUNTIME_VERIFIED" build-evidence/visual-pack-002.log
 
+      - name: Pixel RPG Visual Pack 003 HUD runtime gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_003_hud_runtime_test.gd" 2>&1 | tee build-evidence/visual-pack-003-hud.log
+          grep -q "Gate: PIXEL_RPG_VISUAL_PACK_003_HUD_RUNTIME_VERIFIED" build-evidence/visual-pack-003-hud.log
+
       - name: Preserve deterministic combat domain tests
         shell: bash
         run: |

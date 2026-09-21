@@ -7,7 +7,11 @@ const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
 const JOYSTICK_DEADZONE := 0.12
 const LOOK_REGION_START_X_RATIO := 0.44
-const LOOK_DEGREES_PER_PIXEL := 0.105
+const DEFAULT_LOOK_DEGREES_PER_PIXEL := 0.105
+const MINIMAP_WORLD_MIN_X := -23.0
+const MINIMAP_WORLD_MAX_X := 23.0
+const MINIMAP_WORLD_MIN_Z := -57.0
+const MINIMAP_WORLD_MAX_Z := 20.0
 const CAMERA_PITCH_MIN_DEG := -34.0
 const CAMERA_PITCH_MAX_DEG := 32.0
 const NPC_INTERACT_DISTANCE_M := 2.6
@@ -28,6 +32,10 @@ const HUD_EDGE_MARGIN := 18.0
 @onready var joystick_knob: Control = $HUD/Touch/MoveJoystick/Knob
 @onready var action_button: Button = $HUD/Touch/ActionButton
 @onready var watch_button: Button = $HUD/Touch/WatchButton
+@onready var settings_button: Button = $HUD/Touch/SettingsButton
+@onready var minimap_panel: PanelContainer = $HUD/MinimapPanel
+@onready var minimap_canvas: Control = $HUD/MinimapPanel/Map
+@onready var minimap_player_marker: ColorRect = $HUD/MinimapPanel/Map/PlayerMarker
 @onready var status_panel: PanelContainer = $HUD/TopLeft
 @onready var status_label: Label = $HUD/TopLeft/Status
 @onready var objective_panel: PanelContainer = $HUD/ObjectivePanel
@@ -35,6 +43,9 @@ const HUD_EDGE_MARGIN := 18.0
 @onready var prompt_label: Label = $HUD/InteractionPrompt
 @onready var watch_panel: PanelContainer = $HUD/WatchPanel
 @onready var watch_text: Label = $HUD/WatchPanel/Layout/Body
+@onready var settings_panel: PanelContainer = $HUD/SettingsPanel
+@onready var settings_sensitivity_label: Label = $HUD/SettingsPanel/Layout/SensitivityLabel
+@onready var camera_sensitivity_slider: HSlider = $HUD/SettingsPanel/Layout/CameraSensitivity
 
 var _joystick_vector := Vector2.ZERO
 var _joystick_touch_id := -1
@@ -42,6 +53,7 @@ var _look_touch_id := -1
 var _look_last_position := Vector2.ZERO
 var _camera_yaw_rad := 0.0
 var _camera_pitch_rad := deg_to_rad(-11.0)
+var _look_degrees_per_pixel := DEFAULT_LOOK_DEGREES_PER_PIXEL
 var _npc_anchor: Node3D
 var _monster_anchor: Node3D
 var _current_context := "NONE"
@@ -61,10 +73,14 @@ func _ready() -> void:
 	spring_arm.add_excluded_object(hunter.get_rid())
 	camera.current = true
 	watch_panel.visible = false
+	settings_panel.visible = false
+	camera_sensitivity_slider.value = _look_degrees_per_pixel
+	_update_sensitivity_label()
 	prompt_label.visible = false
 	action_button.visible = false
 	get_viewport().size_changed.connect(_apply_safe_area_layout)
 	_apply_safe_area_layout()
+	_update_minimap()
 	_world_ready = true
 	_update_contextual_action()
 
@@ -138,6 +154,7 @@ func _process(delta: float) -> void:
 	_update_contextual_action()
 	var pos := hunter.global_position
 	status_label.text = "HP 100   ST 100\nX %.0f  Z %.0f" % [pos.x, pos.z]
+	_update_minimap()
 
 func _camera_relative_movement(input_vector: Vector2) -> Vector3:
 	if input_vector.length_squared() <= 0.0001:
@@ -152,8 +169,8 @@ func _camera_relative_movement(input_vector: Vector2) -> Vector3:
 	return (right * input_vector.x + forward * -input_vector.y).normalized()
 
 func _apply_look_delta(delta_px: Vector2) -> void:
-	_camera_yaw_rad -= deg_to_rad(delta_px.x * LOOK_DEGREES_PER_PIXEL)
-	_camera_pitch_rad -= deg_to_rad(delta_px.y * LOOK_DEGREES_PER_PIXEL)
+	_camera_yaw_rad -= deg_to_rad(delta_px.x * _look_degrees_per_pixel)
+	_camera_pitch_rad -= deg_to_rad(delta_px.y * _look_degrees_per_pixel)
 	_camera_pitch_rad = clampf(_camera_pitch_rad, deg_to_rad(CAMERA_PITCH_MIN_DEG), deg_to_rad(CAMERA_PITCH_MAX_DEG))
 	_apply_camera_rotation()
 
@@ -169,7 +186,13 @@ func _can_claim_look_touch(screen_position: Vector2) -> bool:
 		return false
 	if watch_button.get_global_rect().has_point(screen_position):
 		return false
+	if settings_button.get_global_rect().has_point(screen_position):
+		return false
+	if minimap_panel.get_global_rect().has_point(screen_position):
+		return false
 	if watch_panel.visible and watch_panel.get_global_rect().has_point(screen_position):
+		return false
+	if settings_panel.visible and settings_panel.get_global_rect().has_point(screen_position):
 		return false
 	return true
 
@@ -232,10 +255,28 @@ func _apply_safe_area_layout() -> void:
 	objective_panel.offset_right = left + minf(470.0, available_width * 0.48)
 	objective_panel.offset_bottom = top + 174.0
 
+	settings_button.anchor_left = 0.5
+	settings_button.anchor_right = 0.5
+	settings_button.anchor_top = 0.0
+	settings_button.anchor_bottom = 0.0
+	settings_button.offset_left = -86.0
+	settings_button.offset_right = 86.0
+	settings_button.offset_top = top
+	settings_button.offset_bottom = top + 60.0
+
+	minimap_panel.anchor_left = 1.0
+	minimap_panel.anchor_right = 1.0
+	minimap_panel.anchor_top = 0.0
+	minimap_panel.anchor_bottom = 0.0
+	minimap_panel.offset_left = -right - 222.0
+	minimap_panel.offset_right = -right
+	minimap_panel.offset_top = top
+	minimap_panel.offset_bottom = top + 166.0
+
 	watch_button.offset_left = -right - 180.0
 	watch_button.offset_right = -right
-	watch_button.offset_top = top
-	watch_button.offset_bottom = top + 64.0
+	watch_button.offset_top = top + 178.0
+	watch_button.offset_bottom = top + 242.0
 
 	joystick_base.offset_left = left + 10.0
 	joystick_base.offset_right = left + 214.0
@@ -267,7 +308,34 @@ func _apply_safe_area_layout() -> void:
 	watch_panel.offset_top = -panel_height * 0.5
 	watch_panel.offset_bottom = panel_height * 0.5
 
+	var settings_width := minf(520.0, available_width - 40.0)
+	var settings_height := minf(340.0, available_height - 36.0)
+	settings_panel.anchor_left = 0.5
+	settings_panel.anchor_right = 0.5
+	settings_panel.anchor_top = 0.5
+	settings_panel.anchor_bottom = 0.5
+	settings_panel.offset_left = -settings_width * 0.5
+	settings_panel.offset_right = settings_width * 0.5
+	settings_panel.offset_top = -settings_height * 0.5
+	settings_panel.offset_bottom = settings_height * 0.5
+
+	_update_minimap()
 	_reset_joystick()
+
+func _update_minimap() -> void:
+	if minimap_canvas == null or minimap_player_marker == null or hunter == null:
+		return
+	var map_size := minimap_canvas.size
+	var marker_size := minimap_player_marker.size
+	if map_size.x <= 1.0 or map_size.y <= 1.0:
+		return
+	var pos := hunter.global_position
+	var normalized_x := clampf(inverse_lerp(MINIMAP_WORLD_MIN_X, MINIMAP_WORLD_MAX_X, pos.x), 0.0, 1.0)
+	var normalized_z := clampf(inverse_lerp(MINIMAP_WORLD_MIN_Z, MINIMAP_WORLD_MAX_Z, pos.z), 0.0, 1.0)
+	minimap_player_marker.position = Vector2(
+		normalized_x * maxf(map_size.x - marker_size.x, 0.0),
+		normalized_z * maxf(map_size.y - marker_size.y, 0.0)
+	)
 
 func _update_contextual_action() -> void:
 	if _npc_anchor != null:
@@ -305,9 +373,26 @@ func _on_action_button_pressed() -> void:
 			objective_label.text = "Observation recorded: broad tail, armored dorsal ridge, heavy forequarters."
 			watch_text.text = "HUNTER JOURNAL\nObserved from the trail:\n• armored dorsal ridge\n• broad tail\n• heavy forequarters\nBody-part data remains provisional until combat."
 
+func _on_settings_button_pressed() -> void:
+	settings_panel.visible = not settings_panel.visible
+	if settings_panel.visible:
+		watch_panel.visible = false
+		_reset_transient_input()
+
+func _on_settings_close_pressed() -> void:
+	settings_panel.visible = false
+
+func _on_camera_sensitivity_changed(value: float) -> void:
+	_look_degrees_per_pixel = clampf(value, 0.06, 0.18)
+	_update_sensitivity_label()
+
+func _update_sensitivity_label() -> void:
+	settings_sensitivity_label.text = "CAMERA SENSITIVITY  %.3f" % _look_degrees_per_pixel
+
 func _on_watch_button_pressed() -> void:
 	watch_panel.visible = not watch_panel.visible
 	if watch_panel.visible:
+		settings_panel.visible = false
 		_reset_transient_input()
 
 func _on_watch_close_pressed() -> void:
