@@ -329,6 +329,64 @@ offset_bottom = 86.0
 theme_override_font_sizes/font_size = 18
 text = "DIAMOND WATCH"
 
+[node name="TargetingPanel" type="PanelContainer" parent="HUD"]
+visible = false
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -390.0
+offset_top = -205.0
+offset_right = -24.0
+offset_bottom = 205.0
+theme_override_styles/panel = SubResource("WatchPanel")
+
+[node name="Layout" type="VBoxContainer" parent="HUD/TargetingPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="HUD/TargetingPanel/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.76, 0.30, 1)
+theme_override_font_sizes/font_size = 24
+text = "MUDCREST TARGETING"
+horizontal_alignment = 1
+
+[node name="Mode" type="Label" parent="HUD/TargetingPanel/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.80, 0.70, 1)
+theme_override_font_sizes/font_size = 15
+text = "THIRD-PERSON TARGET PREVIEW\nNo AP, Stamina, damage, or actor teleport."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TargetGroup" type="OptionButton" parent="HUD/TargetingPanel/Layout"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="TargetStatus" type="Label" parent="HUD/TargetingPanel/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.89, 0.72, 1)
+theme_override_font_sizes/font_size = 17
+text = "SELECTED • DORSAL PLATES • preview only"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="LockTarget" type="Button" parent="HUD/TargetingPanel/Layout"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("ActionButton")
+text = "LOCK TARGET"
+
+[node name="Close" type="Button" parent="HUD/TargetingPanel/Layout"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "EXIT TARGETING"
+
 [node name="SettingsPanel" type="PanelContainer" parent="HUD"]
 visible = false
 layout_mode = 0
@@ -418,6 +476,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "CLOSE"
 
+[connection signal="item_selected" from="HUD/TargetingPanel/Layout/TargetGroup" to="." method="_on_target_group_selected"]
+[connection signal="pressed" from="HUD/TargetingPanel/Layout/LockTarget" to="." method="_on_lock_target_pressed"]
+[connection signal="pressed" from="HUD/TargetingPanel/Layout/Close" to="." method="_on_targeting_close_pressed"]
 [connection signal="pressed" from="HUD/Touch/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="value_changed" from="HUD/SettingsPanel/Layout/CameraSensitivity" to="." method="_on_camera_sensitivity_changed"]
 [connection signal="pressed" from="HUD/SettingsPanel/Layout/Close" to="." method="_on_settings_close_pressed"]
