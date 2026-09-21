@@ -80,13 +80,13 @@ Required runtime downloads count. Development-only repo/source/CI files do not. 
 
 ## Current Pixel RPG verified baseline
 
-Source:\n`47ade9413fe24f15453ee6fb0135b270b2d3ce8d`.
+Source:\n`977d4004625631d077856b5a49246fbf08313b64`.
 
-Workflow `35566025131`: SUCCESS.\nJob `106227900327`: SUCCESS.
+Workflow `35566594002`: SUCCESS.\nJob `106229556552`: SUCCESS.
 
 Artifacts:
-- `10624410805` — `PixelRPG-prototype-001-debug`;
-- `10624027197` — `PixelRPG-prototype-001-build-evidence`.
+- APK `10624343272`;
+- evidence `10623919419`.
 
 Passed:
 - Godot `4.7.2.stable` import/parse;
@@ -94,12 +94,19 @@ Passed:
 - prototype scene smoke;
 - Pack 002 runtime/anatomy-mapping gate `24/24`;
 - Pack 003 HUD runtime gate `19/19`;
+- Pack 004 enterable-smith runtime gate `19/19`;
+- Combat Bridge 001 targeting gate `32/32`;
 - selected deterministic combat/anatomy/status regressions;
 - Android debug export;
 - package-size ceiling;
 - artifact uploads.
 
-Latest specialized handoff:\n- `docs/70_handoff/PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE_2026-09-21.md`.
+Latest specialized handoff:
+- `docs/70_handoff/PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW_2026-09-21.md`.
+
+Master work register:
+- `docs/00_project/PIXEL_RPG_MASTER_WORK_REGISTER_2026-09-21.md`;
+- GitHub master tracker: issue #27.
 
 ## CI trigger policy
 
@@ -115,7 +122,9 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
-`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`\n`PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
+`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
+`PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
