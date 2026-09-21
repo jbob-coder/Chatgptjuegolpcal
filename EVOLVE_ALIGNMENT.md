@@ -1,7 +1,7 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / PROTOTYPE 001 PIXEL-CAMERA-HUD POLISH ANDROID BUILD VERIFIED / WORLD COMPOSITION NEXT
-Last reconciled: 2026-09-16
+Status: ACTIVE PIXEL RPG / WORLD PACK 001 + VISUAL PACK 002 VERIFIED / HUD ALIGNMENT NEXT
+Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
 ## Operating law
@@ -147,6 +147,9 @@ These remain design targets unless current source proves implementation.
 `PIXEL_RPG_PIXEL_RENDER_PATH_IMPLEMENTED = YES`
 `PIXEL_RPG_SPRING_ARM_CAMERA_COLLISION_IMPLEMENTED = YES`
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
+`PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
+`PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
 `PIXEL_RPG_ANDROID_BUILD_VERIFIED = YES`
@@ -158,16 +161,16 @@ These remain design targets unless current source proves implementation.
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT`
 
 Boundary:
-1. keep current controller/camera/pixel-render/HUD behavior stable;
-2. improve the settlement gate/street composition toward the saved concept reference using inexpensive reusable primitive/modular forms;
-3. add stronger building silhouettes, market/service cues, fencing/signage and environmental depth without creating a large city;
-4. improve the trail/forest transition and distant monster framing;
-5. do not add unrelated progression/combat systems in this slice;
-6. preserve NPC/monster interactions and deterministic domain regressions;
-7. rerun Godot parse/smokes and Android export/package gate;
-8. keep phone visual quality/performance acceptance open until actual device evidence exists.
+1. preserve the verified controller, SpringArm camera, 800×360 pixel-render path, Pack 001 world composition and Pack 002 hunter/Mudcrest visuals;
+2. keep objective/status presentation in the upper-left;
+3. add a Settings control centered toward the top;
+4. add a compact upper-right minimap/navigation presentation grounded in the physical prototype world;
+5. keep the movement joystick lower-left and contextual action controls on the right;
+6. keep Bag/inventory deferred and absent;
+7. preserve safe-area handling and current gameplay/domain behavior;
+8. add an explicit UI/runtime gate and rerun Godot parse/smokes, deterministic domain regressions and Android export/package verification.
 
-NEXT THING: `PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`.
+NEXT THING: `PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT`.
