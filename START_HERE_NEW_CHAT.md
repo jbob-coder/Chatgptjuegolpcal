@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / WORLD PACK 001 + VISUAL PACK 002 VERIFIED / HUD ALIGNMENT NEXT
+Status: ACTIVE PIXEL RPG BOOTSTRAP / PACKS 001–003 VERIFIED / ENTERABLE SMITH NEXT
 Last reconciled: 2026-09-21
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -62,29 +62,30 @@ Never weaken legitimate gates to force success.
 ## Current Pixel RPG verified baseline
 
 Current verified gameplay/presentation source:
-`43258bcad09040ece4b520fdbfa7dcd9a718c942`.
+`449a409cdf812c7b36cfbb42e2298acdf5a5b082`.
 
-Workflow `35564826300`: SUCCESS.
-Job `106224465180`: SUCCESS.
+Workflow `35565414747`: SUCCESS.
+Job `106226140792`: SUCCESS.
 
 Passed:
 - Godot `4.7.2.stable` import/parse;
 - AppShell smoke;
 - Pixel RPG prototype scene smoke;
 - Visual Pack 002 runtime/anatomy mapping gate: `24/24`;
+- Visual Pack 003 HUD runtime gate: `19/19`;
 - selected deterministic combat/anatomy/status regressions;
 - Android debug export;
 - `2,000,000,000`-byte package ceiling;
 - APK and build-evidence uploads.
 
 Artifacts:
-- APK `10623901334` — `PixelRPG-prototype-001-debug`;
-- evidence `10623886474` — `PixelRPG-prototype-001-build-evidence`.
+- APK `10624410805` — `PixelRPG-prototype-001-debug`;
+- evidence `10624027197` — `PixelRPG-prototype-001-build-evidence`.
 
 Measured exported APK:
-`57,980,948` bytes.
+`57,993,451` bytes.
 
-Implemented presentation includes the 800×360 nearest-upscaled 3D render path, SpringArm camera obstruction handling, responsive safe-area HUD logic, Pack 001 settlement/world composition, an upgraded existing hunter silhouette, and a reusable Mudcrest visual mapped to the current anatomy groups.
+Implemented presentation includes the 800×360 nearest-upscaled 3D render path, SpringArm camera, safe-area HUD, Pack 001 world composition, Pack 002 hunter/Mudcrest readability, functional top-center Settings and a physical-world minimap. Bag/inventory remains deferred and absent.
 
 This does not establish phone runtime, final visual quality, sustained performance or installed-footprint compliance.
 
@@ -108,6 +109,7 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -118,16 +120,14 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 
 ## Current bounded piece
 
-`PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT`.
+`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`.
 
 Boundary:
-- preserve current controller, camera, 800×360 render path, Pack 001 world composition and Pack 002 hero visuals;
-- preserve objective/status upper-left;
-- add Settings control at top center;
-- add compact upper-right minimap/navigation presentation grounded in the physical world;
-- preserve joystick lower-left and contextual actions right;
-- keep Bag/inventory deferred and absent;
-- retain safe-area behavior;
-- add an explicit UI/runtime verification gate;
-- rerun parse/smokes/domain regressions/Android export/package gate;
-- no unrelated gameplay-system expansion in this slice.
+- preserve Packs 001–003 and current controller/camera/render/HUD/domain behavior;
+- keep the smith near its current 6.6 m × 6.4 m footprint;
+- create modular walls, real doorway and readable interior floor;
+- replace monolithic Smith collision with wall-aligned collision that leaves the doorway clear;
+- add a first smith-use station only, not the full crafting/economy stack;
+- hide/reveal roof elements as needed for third-person interior readability;
+- add a dedicated runtime gate;
+- rerun parse/smokes/Packs 002–003 gates/domain regressions/Android export/package gate.
