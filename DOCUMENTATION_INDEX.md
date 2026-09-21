@@ -1,7 +1,7 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / PIXEL-CAMERA-HUD POLISH ANDROID BUILD VERIFIED / WORLD COMPOSITION NEXT
-Last reconciled: 2026-09-16
+Status: ACTIVE GLOBAL MAP / WORLD PACK 001 + VISUAL PACK 002 VERIFIED / HUD ALIGNMENT NEXT
+Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
 ## Mandatory read order
@@ -81,23 +81,27 @@ Required runtime downloads count. Development-only repo/source/CI files do not. 
 ## Current Pixel RPG verified baseline
 
 Source:
-`88d19d733a579e326d7bdf3ebd8e002ef413d86a`.
+`43258bcad09040ece4b520fdbfa7dcd9a718c942`.
 
-Workflow `35062722630`: SUCCESS.
-Job `104686283219`: SUCCESS.
+Workflow `35564826300`: SUCCESS.
+Job `106224465180`: SUCCESS.
 
 Artifacts:
-- `10432264323` — `PixelRPG-prototype-001-debug`;
-- `10433305640` — `PixelRPG-prototype-001-build-evidence`.
+- `10623901334` — `PixelRPG-prototype-001-debug`;
+- `10623886474` — `PixelRPG-prototype-001-build-evidence`.
 
 Passed:
-- Godot 4.7.2 import/parse;
+- Godot `4.7.2.stable` import/parse;
 - AppShell smoke;
 - prototype scene smoke;
-- selected deterministic combat-domain regressions;
+- Pack 002 runtime/anatomy-mapping gate `24/24`;
+- selected deterministic combat/anatomy/status regressions;
 - Android debug export;
 - package-size ceiling;
 - artifact uploads.
+
+Latest specialized handoff:
+- `docs/70_handoff/PIXEL_RPG_VISUAL_PACK_002_HUNTER_MONSTER_READABILITY_2026-09-21.md`.
 
 ## CI trigger policy
 
@@ -111,6 +115,9 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 `PIXEL_RPG_PIXEL_RENDER_PATH_IMPLEMENTED = YES`
 `PIXEL_RPG_SPRING_ARM_CAMERA_COLLISION_IMPLEMENTED = YES`
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
+`PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
+`PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
 `PIXEL_RPG_ANDROID_BUILD_VERIFIED = YES`
@@ -121,6 +128,6 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 
 ## Exact continuation
 
-`PIXEL_RPG_PROTOTYPE_002_WORLD_COMPOSITION`.
+`PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT`.
 
-Improve the compact settlement/trail visual composition toward the selected concept reference using inexpensive reusable silhouettes, market/service cues, fencing/signage and environmental depth while preserving controller/camera/pixel-render/HUD behavior, interactions, deterministic domain regressions and Android build verification.
+Keep Bag/inventory deferred. Preserve the verified controller/camera/render/world/hero-visual layers while aligning the HUD to the current Pixel RPG zoning: objective/status upper-left, Settings top-center, minimap/navigation upper-right, movement lower-left and contextual actions right.
