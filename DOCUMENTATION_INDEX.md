@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / PACKS 001–004 VERIFIED / THIRD-PERSON TARGETING BRIDGE NEXT
+Status: ACTIVE GLOBAL MAP / COMBAT BRIDGE 001 VERIFIED / DOMAIN BOOTSTRAP NEXT
 Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
@@ -115,7 +115,7 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
-`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`\n`PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -127,6 +127,6 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 
 ## Exact continuation
 
-`PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`.
+`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
 
-Preserve Packs 001–004. Establish the current third-person target-acquisition contract against the live Mudcrest visual without invoking obsolete first-person/legacy-coordinate encounter presentation and without applying combat damage/resources yet.
+Introduce only turn-shell/anatomy authoritative state behind the verified third-person target preview. Do not import legacy first-person, legacy tactical movement or legacy absolute spatial presentation.
