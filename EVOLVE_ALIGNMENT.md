@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / WORLD PACK 001 + VISUAL PACK 002 VERIFIED / HUD ALIGNMENT NEXT
+Status: ACTIVE PIXEL RPG / PACKS 001–003 VERIFIED / ENTERABLE SMITH NEXT
 Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
@@ -149,6 +149,7 @@ These remain design targets unless current source proves implementation.
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -161,16 +162,16 @@ These remain design targets unless current source proves implementation.
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT`
+`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`
 
 Boundary:
-1. preserve the verified controller, SpringArm camera, 800×360 pixel-render path, Pack 001 world composition and Pack 002 hunter/Mudcrest visuals;
-2. keep objective/status presentation in the upper-left;
-3. add a Settings control centered toward the top;
-4. add a compact upper-right minimap/navigation presentation grounded in the physical prototype world;
-5. keep the movement joystick lower-left and contextual action controls on the right;
-6. keep Bag/inventory deferred and absent;
-7. preserve safe-area handling and current gameplay/domain behavior;
-8. add an explicit UI/runtime gate and rerun Godot parse/smokes, deterministic domain regressions and Android export/package verification.
+1. preserve Packs 001–003, current controller/camera/render/HUD behavior and deterministic gameplay authority;
+2. keep the smith near its current 6.6 m × 6.4 m footprint and street-facing orientation;
+3. replace the solid shell/front with modular walls and a real navigable doorway;
+4. replace the monolithic Smith collision with wall-aligned collision that keeps the doorway clear;
+5. create a readable interior floor and first smith-use station without adding the full crafting/economy stack;
+6. make roof handling camera-readable while the hunter is inside;
+7. preserve Android-safe low-cost geometry and current world scale;
+8. add an explicit enterable-smith runtime gate and rerun Godot parse/smokes, Packs 002–003 gates, domain regressions and Android export/package verification.
 
-NEXT THING: `PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT`.
+NEXT THING: `PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`.
