@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / PACKS 001–003 VERIFIED / ENTERABLE SMITH NEXT
+Status: ACTIVE GLOBAL MAP / PACKS 001–004 VERIFIED / THIRD-PERSON TARGETING BRIDGE NEXT
 Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
@@ -80,11 +80,9 @@ Required runtime downloads count. Development-only repo/source/CI files do not. 
 
 ## Current Pixel RPG verified baseline
 
-Source:
-`449a409cdf812c7b36cfbb42e2298acdf5a5b082`.
+Source:\n`47ade9413fe24f15453ee6fb0135b270b2d3ce8d`.
 
-Workflow `35565414747`: SUCCESS.
-Job `106226140792`: SUCCESS.
+Workflow `35566025131`: SUCCESS.\nJob `106227900327`: SUCCESS.
 
 Artifacts:
 - `10624410805` — `PixelRPG-prototype-001-debug`;
@@ -101,8 +99,7 @@ Passed:
 - package-size ceiling;
 - artifact uploads.
 
-Latest specialized handoff:
-- `docs/70_handoff/PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT_2026-09-21.md`.
+Latest specialized handoff:\n- `docs/70_handoff/PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE_2026-09-21.md`.
 
 ## CI trigger policy
 
@@ -118,7 +115,7 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
-`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -130,6 +127,6 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 
 ## Exact continuation
 
-`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`.
+`PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`.
 
-Preserve Packs 001–003. Convert the current smith/service landmark from a blocked facade into the first verified important-building pattern: exterior, real doorway, navigable interior, wall-aligned collision, camera-readable roof behavior and one bounded smith-use station. Full crafting/economy remains outside this slice.
+Preserve Packs 001–004. Establish the current third-person target-acquisition contract against the live Mudcrest visual without invoking obsolete first-person/legacy-coordinate encounter presentation and without applying combat damage/resources yet.
