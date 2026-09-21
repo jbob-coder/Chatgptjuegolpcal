@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / PACKS 001–003 VERIFIED / ENTERABLE SMITH NEXT
+Status: ACTIVE PIXEL RPG / PACKS 001–004 VERIFIED / THIRD-PERSON TARGETING BRIDGE NEXT
 Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
@@ -149,7 +149,7 @@ These remain design targets unless current source proves implementation.
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
-`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -162,16 +162,17 @@ These remain design targets unless current source proves implementation.
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`
+`PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`
 
 Boundary:
-1. preserve Packs 001–003, current controller/camera/render/HUD behavior and deterministic gameplay authority;
-2. keep the smith near its current 6.6 m × 6.4 m footprint and street-facing orientation;
-3. replace the solid shell/front with modular walls and a real navigable doorway;
-4. replace the monolithic Smith collision with wall-aligned collision that keeps the doorway clear;
-5. create a readable interior floor and first smith-use station without adding the full crafting/economy stack;
-6. make roof handling camera-readable while the hunter is inside;
-7. preserve Android-safe low-cost geometry and current world scale;
-8. add an explicit enterable-smith runtime gate and rerun Godot parse/smokes, Packs 002–003 gates, domain regressions and Android export/package verification.
+1. preserve current third-person camera, physical actor transforms and Packs 001–004;
+2. do not invoke the obsolete forced-first-person Region-01 encounter trigger;
+3. add current-world ENGAGE/target-acquisition near the live Mudcrest;
+4. expose current Mudcrest visual target groups through touch-safe targeting UI;
+5. map every selectable target to its Pack 002 visual node;
+6. exclude targeting controls from camera-look input;
+7. do not spend AP/Stamina, move actors or apply damage in this preview slice;
+8. preserve deterministic combat/anatomy domain files unchanged;
+9. add an explicit runtime gate and rerun all current verification.
 
-NEXT THING: `PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`.
+NEXT THING: `PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW`.
