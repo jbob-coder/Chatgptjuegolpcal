@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / WORLD PACK 001 + VISUAL PACK 002 VERIFIED / HUD ALIGNMENT NEXT
+Status: ACTIVE GLOBAL MAP / PACKS 001–003 VERIFIED / ENTERABLE SMITH NEXT
 Last reconciled: 2026-09-21
 Branch: `pixel-rpg`
 
@@ -81,27 +81,28 @@ Required runtime downloads count. Development-only repo/source/CI files do not. 
 ## Current Pixel RPG verified baseline
 
 Source:
-`43258bcad09040ece4b520fdbfa7dcd9a718c942`.
+`449a409cdf812c7b36cfbb42e2298acdf5a5b082`.
 
-Workflow `35564826300`: SUCCESS.
-Job `106224465180`: SUCCESS.
+Workflow `35565414747`: SUCCESS.
+Job `106226140792`: SUCCESS.
 
 Artifacts:
-- `10623901334` — `PixelRPG-prototype-001-debug`;
-- `10623886474` — `PixelRPG-prototype-001-build-evidence`.
+- `10624410805` — `PixelRPG-prototype-001-debug`;
+- `10624027197` — `PixelRPG-prototype-001-build-evidence`.
 
 Passed:
 - Godot `4.7.2.stable` import/parse;
 - AppShell smoke;
 - prototype scene smoke;
 - Pack 002 runtime/anatomy-mapping gate `24/24`;
+- Pack 003 HUD runtime gate `19/19`;
 - selected deterministic combat/anatomy/status regressions;
 - Android debug export;
 - package-size ceiling;
 - artifact uploads.
 
 Latest specialized handoff:
-- `docs/70_handoff/PIXEL_RPG_VISUAL_PACK_002_HUNTER_MONSTER_READABILITY_2026-09-21.md`.
+- `docs/70_handoff/PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT_2026-09-21.md`.
 
 ## CI trigger policy
 
@@ -117,6 +118,7 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 `PIXEL_RPG_SAFE_AREA_HUD_LOGIC_IMPLEMENTED = YES`
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
+`PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -128,6 +130,6 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 
 ## Exact continuation
 
-`PIXEL_RPG_VISUAL_PACK_003_HUD_LAYOUT_ALIGNMENT`.
+`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERTICAL_SLICE`.
 
-Keep Bag/inventory deferred. Preserve the verified controller/camera/render/world/hero-visual layers while aligning the HUD to the current Pixel RPG zoning: objective/status upper-left, Settings top-center, minimap/navigation upper-right, movement lower-left and contextual actions right.
+Preserve Packs 001–003. Convert the current smith/service landmark from a blocked facade into the first verified important-building pattern: exterior, real doorway, navigable interior, wall-aligned collision, camera-readable roof behavior and one bounded smith-use station. Full crafting/economy remains outside this slice.
