@@ -225,6 +225,99 @@ theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("ActionButton")
 text = "ACTION"
 
+[node name="SettingsButton" type="Button" parent="HUD/Touch"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_top = 22.0
+offset_right = 86.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("ActionButton")
+text = "SETTINGS"
+
+[node name="MinimapPanel" type="PanelContainer" parent="HUD"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -246.0
+offset_top = 22.0
+offset_right = -24.0
+offset_bottom = 188.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("ObjectivePanel")
+
+[node name="Map" type="Control" parent="HUD/MinimapPanel"]
+custom_minimum_size = Vector2(210, 150)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="HUD/MinimapPanel/Map"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.055, 0.075, 0.05, 0.92)
+
+[node name="Settlement" type="ColorRect" parent="HUD/MinimapPanel/Map"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 93.0
+offset_right = 163.0
+offset_bottom = 139.0
+mouse_filter = 2
+color = Color(0.24, 0.18, 0.10, 1)
+
+[node name="Street" type="ColorRect" parent="HUD/MinimapPanel/Map"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 63.0
+offset_right = 116.0
+offset_bottom = 145.0
+mouse_filter = 2
+color = Color(0.48, 0.36, 0.20, 1)
+
+[node name="Trail" type="ColorRect" parent="HUD/MinimapPanel/Map"]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 12.0
+offset_right = 112.0
+offset_bottom = 72.0
+mouse_filter = 2
+color = Color(0.36, 0.29, 0.17, 1)
+
+[node name="Gate" type="ColorRect" parent="HUD/MinimapPanel/Map"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 70.0
+offset_right = 135.0
+offset_bottom = 75.0
+mouse_filter = 2
+color = Color(0.69, 0.52, 0.24, 1)
+
+[node name="North" type="Label" parent="HUD/MinimapPanel/Map"]
+layout_mode = 0
+offset_left = 91.0
+offset_top = -2.0
+offset_right = 121.0
+offset_bottom = 24.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.84, 0.59, 1)
+theme_override_font_sizes/font_size = 15
+text = "N ↑"
+horizontal_alignment = 1
+
+[node name="PlayerMarker" type="ColorRect" parent="HUD/MinimapPanel/Map"]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+mouse_filter = 2
+color = Color(0.96, 0.76, 0.26, 1)
+
 [node name="WatchButton" type="Button" parent="HUD/Touch"]
 layout_mode = 0
 anchor_left = 1.0
@@ -235,6 +328,58 @@ offset_right = -24.0
 offset_bottom = 86.0
 theme_override_font_sizes/font_size = 18
 text = "DIAMOND WATCH"
+
+[node name="SettingsPanel" type="PanelContainer" parent="HUD"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -170.0
+offset_right = 260.0
+offset_bottom = 170.0
+theme_override_styles/panel = SubResource("WatchPanel")
+
+[node name="Layout" type="VBoxContainer" parent="HUD/SettingsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="HUD/SettingsPanel/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.76, 0.30, 1)
+theme_override_font_sizes/font_size = 26
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="SessionNote" type="Label" parent="HUD/SettingsPanel/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.80, 0.70, 1)
+theme_override_font_sizes/font_size = 16
+text = "Prototype settings apply for this session."
+horizontal_alignment = 1
+
+[node name="SensitivityLabel" type="Label" parent="HUD/SettingsPanel/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.86, 0.70, 1)
+theme_override_font_sizes/font_size = 18
+text = "CAMERA SENSITIVITY  0.105"
+horizontal_alignment = 1
+
+[node name="CameraSensitivity" type="HSlider" parent="HUD/SettingsPanel/Layout"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+min_value = 0.06
+max_value = 0.18
+step = 0.005
+value = 0.105
+
+[node name="Close" type="Button" parent="HUD/SettingsPanel/Layout"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CLOSE"
 
 [node name="WatchPanel" type="PanelContainer" parent="HUD"]
 visible = false
@@ -273,6 +418,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "CLOSE"
 
+[connection signal="pressed" from="HUD/Touch/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="value_changed" from="HUD/SettingsPanel/Layout/CameraSensitivity" to="." method="_on_camera_sensitivity_changed"]
+[connection signal="pressed" from="HUD/SettingsPanel/Layout/Close" to="." method="_on_settings_close_pressed"]
 [connection signal="pressed" from="HUD/Touch/ActionButton" to="." method="_on_action_button_pressed"]
 [connection signal="pressed" from="HUD/Touch/WatchButton" to="." method="_on_watch_button_pressed"]
 [connection signal="pressed" from="HUD/WatchPanel/Layout/Close" to="." method="_on_watch_close_pressed"]
