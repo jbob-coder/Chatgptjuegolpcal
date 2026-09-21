@@ -146,6 +146,13 @@ jobs:
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_world_pack_004_enterable_smith_runtime_test.gd" 2>&1 | tee build-evidence/world-pack-004-enterable-smith.log
           grep -q "Gate: PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_RUNTIME_VERIFIED" build-evidence/world-pack-004-enterable-smith.log
 
+      - name: Pixel RPG Combat Bridge 001 targeting preview gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_combat_bridge_001_targeting_preview_test.gd" 2>&1 | tee build-evidence/combat-bridge-001-targeting-preview.log
+          grep -q "Gate: PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_PREVIEW_VERIFIED" build-evidence/combat-bridge-001-targeting-preview.log
+
       - name: Preserve deterministic combat domain tests
         shell: bash
         run: |
