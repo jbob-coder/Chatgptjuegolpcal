@@ -1,6 +1,7 @@
 extends Node
 
 const WorldPack001 := preload("res://scripts/presentation/pixel_rpg/world_pack_001.gd")
+const MudcrestVisualScene: PackedScene = preload("res://assets/monsters/mudcrest_visual.tscn")
 
 const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
@@ -409,42 +410,12 @@ func _add_npc_visual(parent: Node3D) -> void:
 	parent.add_child(head)
 
 func _add_monster_proxy(parent: Node3D) -> void:
-	var body := MeshInstance3D.new()
-	var mesh := CapsuleMesh.new()
-	mesh.radius = 1.25
-	mesh.height = 3.8
-	mesh.radial_segments = 10
-	mesh.rings = 5
-	body.mesh = mesh
-	body.rotation_degrees = Vector3(90, 0, 0)
-	body.position = Vector3(0, 1.35, 0)
-	body.scale = Vector3(1.45, 1.0, 1.0)
-	body.material_override = _material(Color(0.22, 0.29, 0.18))
-	parent.add_child(body)
-
-	var tail := MeshInstance3D.new()
-	var tail_mesh := CylinderMesh.new()
-	tail_mesh.top_radius = 0.12
-	tail_mesh.bottom_radius = 0.42
-	tail_mesh.height = 3.6
-	tail_mesh.radial_segments = 8
-	tail.mesh = tail_mesh
-	tail.position = Vector3(0, 1.1, 2.7)
-	tail.rotation_degrees = Vector3(90, 0, 0)
-	tail.material_override = _material(Color(0.17, 0.24, 0.14))
-	parent.add_child(tail)
-
-	for x in [-0.72, 0.72]:
-		var leg := MeshInstance3D.new()
-		var leg_mesh := CylinderMesh.new()
-		leg_mesh.top_radius = 0.22
-		leg_mesh.bottom_radius = 0.30
-		leg_mesh.height = 1.7
-		leg_mesh.radial_segments = 7
-		leg.mesh = leg_mesh
-		leg.position = Vector3(x, 0.7, -0.65)
-		leg.material_override = _material(Color(0.18, 0.25, 0.15))
-		parent.add_child(leg)
+	var visual := MudcrestVisualScene.instantiate() as Node3D
+	if visual == null:
+		push_error("Pixel RPG Pack 002 failed to instantiate Mudcrest visual")
+		return
+	visual.name = "MudcrestVisual"
+	parent.add_child(visual)
 
 func _add_collision_box(name: String, position: Vector3, size: Vector3) -> void:
 	var body := StaticBody3D.new()
