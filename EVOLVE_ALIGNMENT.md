@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / FIRST-PERSON + STARTING AREA ASSET PACK 004 BUILD-VERIFIED / SAFE VISUAL CONTINUATION
+Status: ACTIVE PIXEL RPG / FIRST-PERSON + STARTING AREA ASSET PACK 005 GATE WARDEN BUILD-VERIFIED / SAFE VISUAL CONTINUATION
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -385,6 +385,41 @@ Verified:
 
 Physical-device install, visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
 
+## Latest verified checkpoint — Starting Area Asset Pack 005 Gate Warden Visual
+
+- source SHA: `7c27495eec5ddc53d42d596bbe1c3a48dad799a8`;
+- workflow run: `35926969130` — SUCCESS;
+- job: `107404261711` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.12-starting-area-assets-005-gate-warden`;
+- APK: `PixelRPG-starting-area-assets-005-gate-warden-debug.apk`;
+- APK size: `58,189,449` bytes;
+- APK SHA-256: `cb215fc88ddb76f15f0fae6edb34243d220b9b387e56063019d67fa0437e9699`;
+- APK artifact ID: `10779836686`;
+- APK artifact digest: `855c1657bb5f714d60d127474ae3963da8b6123a148c31548513799a5ee68d5f`;
+- build-evidence artifact ID: `10779642325`;
+- build-evidence digest: `ee47cd37f6e7ebf242024bb41a06aa8b3244b602673097aaeee5acfd8a7a6df4`.
+
+Google Drive immutable folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35926969130_starting-area-assets-005-gate-warden/`
+- folder ID: `13M9eiLedJQ5es3NGJd6XdmckLmdrWooJ`;
+- APK ID: `1GFItfyM2yala4xYQaifqLyX8aQxtgQOb`;
+- BuildIdentity JSON ID: `1C5j-RovCh_c9RXqcEvuOk2Fvu05gXQzj`;
+- BuildIdentity Markdown ID: `10ARaoO7Sb2C944U_BumGYDHIvoQDpw_S`;
+- raw CI evidence ID: `18wSmXn6u3EDzQ9aj2NQEGkd_mbFP5dMy`;
+- canonical device checklist ID: `1pdPQexPApcqv681dGR6AtiQfxlqO2nsQ`.
+- Note: Drive contains a second same-named checklist from concurrent archival activity; it was not deleted.
+
+Implemented and verified:
+- reusable `gate_warden_visual_01.tscn`;
+- visual is presentation-only and adds no NPC collision/AI authority;
+- `GateWarden` anchor remains exactly `Vector3(-2.6, 0.0, -6.2)`;
+- TALK button/prompt and existing tracks/north-gate field-note result remain unchanged;
+- first-person camera, Pack 004 smith, Mudcrest anchor, targeting/combat bootstrap and State Ownership 001 remain preserved;
+- all prior asset/runtime/domain gates, Android export and package-size ceiling passed.
+
+Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
+
 ## Latest verified checkpoint — Starting Area Asset Pack 004 Host Environment Reuse
 
 - source SHA: `8d896285c04b3a55da5836b4e38d55684788ab1e`;
@@ -419,14 +454,14 @@ Physical-device install, visual acceptance, touch feel, sustained FPS/heat and i
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_STARTING_AREA_ASSET_PACK_005_GATE_WARDEN_VISUAL`.
+`PIXEL_RPG_STARTING_AREA_ASSET_PACK_006_SETTLEMENT_BUILDING_DETAILS`.
 
 Boundary:
-1. replace only the primitive Gate Warden visual with a reusable presentation-only scene;
-2. preserve the exact GateWarden anchor position and TALK interaction behavior;
-3. do not add NPC collision or AI authority in this slice;
-4. keep first-person camera/input/HUD, smith interaction, targeting/combat and State Ownership unchanged;
+1. improve only the two generic settlement building shell presentations;
+2. preserve their existing collision-body positions and dimensions exactly;
+3. add reusable presentation-only facade/roof/detail scenes without new gameplay collision;
+4. keep first-person camera/input/HUD, Gate Warden, smith interaction, targeting/combat and State Ownership unchanged;
 5. add focused runtime parity coverage and preserve every existing gate;
 6. no phone/performance claims without device evidence.
 
-NEXT THING: `PIXEL_RPG_STARTING_AREA_ASSET_PACK_005_GATE_WARDEN_VISUAL`.
+NEXT THING: `PIXEL_RPG_STARTING_AREA_ASSET_PACK_006_SETTLEMENT_BUILDING_DETAILS`.
