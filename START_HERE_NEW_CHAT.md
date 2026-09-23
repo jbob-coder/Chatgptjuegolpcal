@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / FIRST-PERSON CREATOR AUTHORITY
+Status: ACTIVE PIXEL RPG BOOTSTRAP / FIRST-PERSON + BRIDGE 002 + BUILDIDENTITY V1 VERIFIED
 Last reconciled: 2026-09-23
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -131,8 +131,33 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 `PIXEL_RPG_VISUAL_QUALITY_VERIFIED = NO`
 `PIXEL_RPG_PERFORMANCE_VERIFIED = NO`
 
+## Current exact build-verified checkpoint
+
+Latest exact verified source:
+`160d12cfabde025a383dd50f9bfcbb0e51ae87c6`.
+
+Workflow `35915818722`: SUCCESS.
+Job `107366883423`: SUCCESS.
+Godot `4.7.2.stable.official.ed1daf0bf`.
+
+APK: `PixelRPG-combat-bridge-002-debug.apk`
+Size: `58,039,909` bytes.
+SHA-256: `515148bb8ed35076664ef612f6b678f086929e75ecb34709014f018e665e5a55`.
+
+BuildIdentity v1 links exact source → workflow run → numeric job → immutable APK artifact → APK size/hash.
+
+Canonical Drive build folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35915818722_buildidentity-v1/`
+ID: `1zdvN-E1dJt8tgVV4c8g_tofS1eKaj172`.
+
+Combat Bridge 002 is verified under first-person authority. Issues #8 and #5 are closed.
+
+Physical-device install/runtime, touch feel, visual acceptance, sustained performance/heat and installed footprint remain NOT VERIFIED.
+
 ## Current bounded piece
 
-`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
+`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` — issue #7.
 
-The first-person camera checkpoint is now source/Godot/Android-build verified. Continue the current-world combat bridge without changing camera authority, teleporting actors, spending AP/Stamina or applying damage in this bootstrap slice.
+Do not add a giant singleton. Keep deterministic combat state in existing gameplay-domain owners, classify future durable player/world state explicitly, keep camera/input/HUD/targeting presentation transient unless deliberately promoted, define the persistence boundary before broad save/load, and preserve all current first-person/Bridge 002 regressions.
+
+Do not add hunter attack/damage or legacy Region-01 tactical coordinates in this slice.
