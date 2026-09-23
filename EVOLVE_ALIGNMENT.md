@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / FIRST-PERSON + STARTING AREA ASSET PACK 005 GATE WARDEN BUILD-VERIFIED / SAFE VISUAL CONTINUATION
+Status: ACTIVE PIXEL RPG / FIRST-PERSON + STARTING AREA ASSET PACK 006 BUILDINGS BUILD-VERIFIED / SAFE VISUAL CONTINUATION
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -385,6 +385,40 @@ Verified:
 
 Physical-device install, visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
 
+## Latest verified checkpoint — Starting Area Asset Pack 006 Settlement Building Details
+
+- source SHA: `d050799380bdad814673d2752c3768f12bef0718`;
+- workflow run: `35927524386` — SUCCESS;
+- job: `107406042641` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.13-starting-area-assets-006-buildings`;
+- APK: `PixelRPG-starting-area-assets-006-buildings-debug.apk`;
+- APK size: `58,202,290` bytes;
+- APK SHA-256: `073e2e0122e61028587291bd60791ca181083ab99c7fe5b6ed979798cac6f9bb`;
+- APK artifact ID: `10779503582`;
+- APK artifact digest: `f51fe0b945a9af18b3d7ccc2e8083deaaebe825e98de2a5f742a0b7d24e7fa3e`;
+- build-evidence artifact ID: `10780001656`;
+- build-evidence digest: `09671608f298e95deda0a20fcb65cc99735cb17d898ad0cd1e7b6382f1ba853f`.
+
+Google Drive immutable folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35927524386_starting-area-assets-006-buildings/`
+- folder ID: `1UzFo9xaWmKaGjcw0iFOgHVFwmJeXVS6Y`;
+- APK ID: `1mgS1RkhKnlv-c2hfcdCxogwga21ZSOa2`;
+- BuildIdentity JSON ID: `1Po6sAmm2RCM3kDiZVZaM3u9rOKSLytDO`;
+- BuildIdentity Markdown ID: `1mAJmbJMiiUL_xQDZFUU0U6EmuTnfIFj6`;
+- raw CI evidence ID: `1NyMNUDUa6KcCoA-7LfNMI0dQoplPAhIL`;
+- device checklist ID: `1rCZrglRxJgGuiBY1utaCUuM9e3ZAeIqx`.
+
+Implemented and verified:
+- reusable `settlement_building_details_01.tscn`;
+- exactly two presentation-only detail layers are attached to the two existing generic settlement buildings;
+- original colliding `Building` StaticBody3D nodes remain at `(-7.0, 1.7, 8.5)` / size `(7.0, 3.4, 7.0)` and `(7.5, 1.6, -3.0)` / size `(6.8, 3.2, 6.4)`;
+- facade details add door/frame, windows, structural beams, eaves and chimney without adding gameplay collision;
+- Gate Warden, first-person camera, smith, Mudcrest anchor, targeting/combat and State Ownership 001 remain preserved;
+- all prior asset/runtime/domain gates, Android export and package-size ceiling passed.
+
+Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
+
 ## Latest verified checkpoint — Starting Area Asset Pack 005 Gate Warden Visual
 
 - source SHA: `7c27495eec5ddc53d42d596bbe1c3a48dad799a8`;
@@ -454,14 +488,14 @@ Physical-device install, visual acceptance, touch feel, sustained FPS/heat and i
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_STARTING_AREA_ASSET_PACK_006_SETTLEMENT_BUILDING_DETAILS`.
+`PIXEL_RPG_STARTING_AREA_ASSET_PACK_007_PATH_SURFACE_DETAILS`.
 
 Boundary:
-1. improve only the two generic settlement building shell presentations;
-2. preserve their existing collision-body positions and dimensions exactly;
-3. add reusable presentation-only facade/roof/detail scenes without new gameplay collision;
-4. keep first-person camera/input/HUD, Gate Warden, smith interaction, targeting/combat and State Ownership unchanged;
+1. improve only Street and Trail surface presentation;
+2. preserve Street at Vector3(0, 0.03, 2) size Vector3(6.2, 0.10, 34) and Trail at Vector3(0, 0.04, -31) size Vector3(4.2, 0.11, 34);
+3. add presentation-only surface detail with no gameplay collision; Ground remains floor authority;
+4. keep first-person camera/input/HUD, Gate Warden, buildings, smith, targeting/combat and State Ownership unchanged;
 5. add focused runtime parity coverage and preserve every existing gate;
 6. no phone/performance claims without device evidence.
 
-NEXT THING: `PIXEL_RPG_STARTING_AREA_ASSET_PACK_006_SETTLEMENT_BUILDING_DETAILS`.
+NEXT THING: `PIXEL_RPG_STARTING_AREA_ASSET_PACK_007_PATH_SURFACE_DETAILS`.
