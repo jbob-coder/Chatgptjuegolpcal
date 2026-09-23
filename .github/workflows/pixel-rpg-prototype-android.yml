@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: pixel-rpg-prototype-${{ github.ref }}
@@ -207,11 +208,118 @@ jobs:
           fi
 
       - name: Upload Pixel RPG prototype APK
+        id: upload_apk
         uses: actions/upload-artifact@v4
         with:
           name: PixelRPG-combat-bridge-002-debug
           path: game/build/android/PixelRPG-combat-bridge-002-debug.apk
           if-no-files-found: error
+
+      - name: Finalize immutable BuildIdentity
+        shell: bash
+        env:
+          APK_ARTIFACT_ID: ${{ steps.upload_apk.outputs.artifact-id }}
+          APK_ARTIFACT_URL: ${{ steps.upload_apk.outputs.artifact-url }}
+          APK_ARTIFACT_DIGEST: ${{ steps.upload_apk.outputs.artifact-digest }}
+          GH_TOKEN: ${{ github.token }}
+          JOB_DISPLAY_NAME: "Parse, smoke, preserve domain tests, and export Pixel RPG APK"
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import re
+          import subprocess
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          run_id = os.environ["GITHUB_RUN_ID"]
+          api_url = f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/jobs?filter=latest&per_page=100"
+          request = urllib.request.Request(
+              api_url,
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                  "X-GitHub-Api-Version": "2022-11-28",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              jobs = json.load(response).get("jobs", [])
+          matches = [j for j in jobs if j.get("name") == os.environ["JOB_DISPLAY_NAME"]]
+          if len(matches) != 1:
+              raise SystemExit(f"Could not resolve unique numeric job id: matches={len(matches)}")
+          job_id = int(matches[0]["id"])
+
+          apk_path = Path(os.environ["APK_PATH"])
+          apk_bytes = apk_path.read_bytes()
+          apk_sha256 = hashlib.sha256(apk_bytes).hexdigest()
+
+          export_text = Path("game/export_presets.cfg").read_text(encoding="utf-8")
+          project_text = Path("game/project.godot").read_text(encoding="utf-8")
+
+          def quoted(text: str, key: str) -> str:
+              match = re.search(rf"(?m)^{re.escape(key)}=\"([^\"]*)\"$", text)
+              if not match:
+                  raise SystemExit(f"Missing quoted config key: {key}")
+              return match.group(1)
+
+          def integer(text: str, key: str) -> int:
+              match = re.search(rf"(?m)^{re.escape(key)}=(\d+)$", text)
+              if not match:
+                  raise SystemExit(f"Missing integer config key: {key}")
+              return int(match.group(1))
+
+          identity = {
+              "schema": "pixel_rpg.build_identity.v1",
+              "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+              "repository": repo,
+              "branch": os.environ["GITHUB_REF_NAME"],
+              "source_sha": os.environ["GITHUB_SHA"],
+              "workflow": os.environ["GITHUB_WORKFLOW"],
+              "workflow_run_id": int(run_id),
+              "workflow_run_attempt": int(os.environ["GITHUB_RUN_ATTEMPT"]),
+              "job_key": os.environ["GITHUB_JOB"],
+              "job_id": job_id,
+              "godot_version": subprocess.check_output(["godot", "--version"], text=True).strip(),
+              "project_name": quoted(project_text, "config/name"),
+              "export_preset": "Android Debug",
+              "package_unique_name": quoted(export_text, "package/unique_name"),
+              "package_name": quoted(export_text, "package/name"),
+              "version_code": integer(export_text, "version/code"),
+              "version_name": quoted(export_text, "version/name"),
+              "apk_filename": apk_path.name,
+              "apk_size_bytes": len(apk_bytes),
+              "apk_sha256": apk_sha256,
+              "apk_artifact_id": int(os.environ["APK_ARTIFACT_ID"]),
+              "apk_artifact_url": os.environ["APK_ARTIFACT_URL"],
+              "apk_artifact_digest": os.environ["APK_ARTIFACT_DIGEST"],
+              "build_result_at_identity_finalize": "success",
+          }
+
+          required = [
+              "source_sha", "workflow_run_id", "job_id", "godot_version",
+              "apk_filename", "apk_size_bytes", "apk_sha256",
+              "apk_artifact_id", "apk_artifact_digest",
+          ]
+          missing = [key for key in required if identity.get(key) in ("", None, 0)]
+          if missing:
+              raise SystemExit(f"BuildIdentity missing required fields: {missing}")
+
+          Path("build-evidence/BUILD_IDENTITY.json").write_text(
+              json.dumps(identity, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          Path("build-evidence/BUILD_IDENTITY.md").write_text(
+              "# Pixel RPG BuildIdentity\n\n"
+              + "\n".join(f"- **{key}:** \`{value}\`" for key, value in identity.items())
+              + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(identity, indent=2, sort_keys=True))
+          PY
 
       - name: Upload Pixel RPG build evidence
         uses: actions/upload-artifact@v4
