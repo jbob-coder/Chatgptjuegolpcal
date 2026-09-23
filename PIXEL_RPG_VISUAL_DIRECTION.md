@@ -1,9 +1,19 @@
 # Pixel RPG — Selected Visual / Play Presentation Direction
 
-Status: SELECTED DESIGN AUTHORITY / ACTIVE PIXEL RPG DIRECTION / IMPLEMENTATION NOT YET CLAIMED
-Last reconciled: 2026-09-16
+Status: CREATOR-AUTHORITATIVE FIRST-PERSON PIXEL RPG DIRECTION / IMPLEMENTATION CHECKPOINT IN PROGRESS
+Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 Recovery source: `7ac7e84a6b0e8249ea8c869cf96171b834b2363c`
+
+## Creator supersession — 2026-09-23
+
+The creator explicitly changed Pixel RPG exploration presentation to **FIRST-PERSON**. This supersedes every older Pixel RPG statement that makes third-person exploration/camera authoritative.
+
+Historical third-person source, tests, handoffs and APKs remain evidence of what previously existed; they are not retroactively rewritten as first-person evidence.
+
+This first-person decision does **not** import the abandoned standalone Shooter RPG. Firearm-first identity, wall-jump systems, Shooter-specific package/runtime assumptions and its old 115° HFOV contract remain non-authoritative.
+
+The migration rule is presentation-first and minimal: preserve the current Pixel RPG Hunter/controller, collision, world, HUD, targeting, deterministic domain and save/state authorities; bypass the SpringArm chase offset in the active camera path rather than rewriting gameplay.
 
 ## Purpose
 
@@ -17,9 +27,9 @@ Historical implementation/build evidence remains historical evidence. A presenta
 
 ## Core identity
 
-Pixel RPG is an Android-first third-person monster-hunting RPG with:
+Pixel RPG is an Android-first first-person monster-hunting RPG with:
 - pixel-styled 3D presentation;
-- a visible player character;
+- a first-person exploration camera with no third-person body obstructing normal view;
 - direct mobile movement and camera controls;
 - physical exploration through compact connected spaces;
 - body-part-focused monster combat;
@@ -38,7 +48,7 @@ The concept image defines direction/composition only. Names and exact text visib
 
 ## Perspective
 
-Core gameplay uses a third-person behind-the-character camera.
+Core exploration gameplay uses a first-person eye-height camera.
 
 The player should be able to read:
 - the player character and equipment;
@@ -50,7 +60,7 @@ The player should be able to read:
 - interactable objects;
 - usable tactical terrain.
 
-Pixel RPG is not a first-person shooter and must not inherit the standalone Shooter RPG camera contract.
+Pixel RPG uses first-person exploration but is not the abandoned standalone Shooter RPG and must not inherit that project's firearm/wall-jump identity or old camera constants.
 
 ## Controls
 
@@ -62,7 +72,7 @@ Mobile control law:
 - landscape-first Android layout;
 - no forced joystick release/center/rebase that interrupts continuous control.
 
-Third-person camera FOV, pitch, distance, shoulder offset, collision and sensitivity remain prototype values until verified on device.
+First-person FOV, pitch limits, eye height and sensitivity remain prototype values until verified on device. Normal exploration must not depend on a SpringArm chase distance.
 
 ## Pixel presentation
 
@@ -92,9 +102,9 @@ Fast travel may exist later as earned convenience; it must not replace initial d
 
 ## Combat presentation
 
-Combat remains in the same third-person spatial world/perspective family.
+Combat remains in the same physical world. First-person presentation should remain continuous unless a later explicit creator directive authorizes another camera mode.
 
-Do not switch core combat into a mandatory separate first-person scene.
+Do not switch combat into a separate legacy encounter scene merely to reuse older presentation code.
 
 Preserve the monster-hunting identity:
 - select/target meaningful anatomy;
@@ -217,7 +227,7 @@ A normal human/species cap around level 20 remains provisional, not final balanc
 Do not convert the entire project at once.
 
 First prove one bounded Pixel RPG prototype:
-1. third-person player controller;
+1. first-person presentation using the existing player controller;
 2. one small settlement street/gate;
 3. one NPC interaction target;
 4. one short physical route outside settlement;
@@ -231,7 +241,7 @@ First prove one bounded Pixel RPG prototype:
 
 On `pixel-rpg`, conflicting older assumptions are not authoritative:
 - aerial/isometric exploration as the required primary camera;
-- mandatory first-person combat;
+- old mandatory separate first-person combat scenes/legacy coordinate presentation;
 - smooth illustrated-realism as the selected final style;
 - standalone first-person Shooter RPG mechanics/identity;
 - teleport/menu travel as the normal exploration loop.

@@ -124,18 +124,18 @@ shape = SubResource("HunterShape")
 [node name="CameraYaw" type="Node3D" parent="WorldDisplay/WorldViewport/World/Hunter"]
 
 [node name="CameraPitch" type="Node3D" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw"]
-position = Vector3(0, 1.5, 0)
-rotation_degrees = Vector3(-11, 0, 0)
+position = Vector3(0, 0.65, 0)
+rotation_degrees = Vector3(0, 0, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch"]
 spring_length = 5.8
 margin = 0.18
 collision_mask = 1
 
-[node name="Camera3D" type="Camera3D" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch"]
 current = true
-fov = 66.0
-near = 0.08
+fov = 70.0
+near = 0.04
 far = 180.0
 
 [node name="HUD" type="CanvasLayer" parent="."]

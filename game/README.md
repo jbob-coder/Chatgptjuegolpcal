@@ -1,40 +1,36 @@
-# Production Game Root
+# Pixel RPG — Production Godot Root
 
-Status: HUNT-01 BASIC AUTORUN HUNTER DEFEAT TERMINAL STATIC/HEADLESS/ANDROID BUILD VERIFIED / 2 GB STORAGE CAP SELECTED / PACKAGE CAP CI GATE NEXT
-Last reconciled: 2026-09-14
+Status: ACTIVE PIXEL RPG / FIRST-PERSON CREATOR REALIGNMENT
+Last reconciled: 2026-09-23
 
-This folder is the production Godot project for Unnamed Hunt RPG. `probes/android_stage1/` remains Stage-1 evidence/testing infrastructure only.
+This `game/` directory is the active Pixel RPG Godot 4.7.2 project on branch `pixel-rpg`.
 
-## Current production stack
+## Current presentation authority
 
-World/exploration: continuous `440 x 440 m` Hunt-01 foundation; Hunter speed `6.25 m/s`; first-person FOV `115°`; protected analog movement + independent look.
+Creator directive dated 2026-09-23 makes normal exploration FIRST-PERSON.
 
-Tracking/encounter: physical evidence through `OBSERVATION_READY`, physical engagement and same-location combat staging.
+This supersedes older Pixel RPG third-person chase-camera documentation and also supersedes older Unnamed Hunt/Region-01 presentation assumptions in this README. Historical files/tests may remain for deterministic domain regression and audit; they are not current presentation authority.
 
-Generic combat `scripts/gameplay/combat/`: deterministic turn/resources/tactical movement, Hunter attack/reaction/defense/health, generic Bleeding/Staggered/Off-Balance application/timing and generic encounter-outcome ownership.
+The abandoned standalone Shooter RPG is still not a source/runtime authority. Do not import its firearm-first identity, wall-jump systems, package identity or 115° HFOV constant.
 
-Monster-01 `scripts/gameplay/monsters/monster_01/`: anatomy, Head Sweep, Tail Sweep, species wound/contact qualification and Tail Sweep CLEAN→generic Staggered producer integration.
+## Preserve
 
-Verification automation: `tests/hunt01_basic_runtime_autorun_test.gd` boots the real Region-01 scene twice and repeats tracking/ENGAGE, Tail Sweep/Poleblade Block, authored reposition, Dorsal Measured Cut/anatomy, real unguarded Head Sweep→Bleeding timing, then a real final Round-6 Head Sweep causing Hunter 10→0, `DOWNED`, `HUNTERS_DEFEATED` and terminal scheduler freeze. Test-only Health preparation stops at 10 and cannot commit the outcome itself. Teardown rejects state leakage. Normal gameplay input is not replaced with autoplay.
+- current Hunter CharacterBody3D movement/collision authority;
+- current Pixel RPG world and enterable-building work;
+- 800×360 low-resolution pixel render path and nearest scaling;
+- mobile left-stick movement + independent right-side look;
+- HUD safe-area behavior, Settings/minimap and contextual interaction;
+- Mudcrest anatomy/target mapping;
+- deterministic combat/anatomy/status domain files and verification suites.
 
-## Storage product constraint
+## Current bounded piece
 
-The player-required base-game installed/runtime footprint hard ceiling is `2 GB = 2,000,000,000 bytes`. Required runtime downloads count toward it. Development-only source/repository/CI files do not. Exported APK size is a package-level check only; full installed-footprint proof remains separate.
+`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`:
+- direct eye-height Camera3D under current yaw/pitch pivots;
+- no active SpringArm chase distance;
+- no third-person body obstruction in normal view;
+- preserve interactions/targeting;
+- dedicated first-person regression;
+- exact-source Godot/Android build evidence.
 
-## Verification status
-
-Latest fully verified production source `01a19b2811cfc5e3f9c0edb0e9264bc997161c7c`.
-Workflow `34880096112`: SUCCESS.
-Job `104096962757`: SUCCESS.
-Artifact `10362706279`: `UnnamedHuntRPG-Hunt01-MudcrestTailSweep-debug`, 57,536,941 bytes, SHA-256 `ba02d634d1435ed294f42bf5db8e2c55470265da4026aa1488e4b2ce30792917`.
-
-Stack through integrated Hunter defeat terminal is STATIC VERIFIED where gated / HEADLESS VERIFIED / ANDROID BUILD VERIFIED.
-Post-tracking phone acceptance remains `DEFERRED_BATCH`. `PERFORMANCE_VERIFIED = NO`. `INSTALLED_FOOTPRINT_2GB_CAP_VERIFIED = NO`.
-
-New chats must use root `START_HERE_NEW_CHAT.md` and reconstruct live branch state before changing this production tree.
-
-## Current bounded production piece
-
-`FIRST_SLICE_ANDROID_PACKAGE_2GB_STORAGE_CAP_CI_GATE`.
-
-Add a workflow-only guard after Android export and before artifact upload. It must record package bytes and the 2,000,000,000-byte ceiling, fail if the exported APK exceeds that ceiling, and preserve the distinction between package size and installed footprint. No production gameplay, controls, balance or content changes belong in this slice.
+Phone runtime, visual quality, sustained performance and installed-footprint verification remain separate evidence layers.

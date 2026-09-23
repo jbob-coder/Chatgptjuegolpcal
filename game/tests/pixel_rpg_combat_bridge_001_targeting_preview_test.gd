@@ -43,7 +43,7 @@ func _xz(position: Vector3) -> Vector2:
 	return Vector2(position.x, position.z)
 
 func _run() -> void:
-	print("Pixel RPG Combat Bridge 001 third-person targeting preview runtime gate")
+	print("Pixel RPG Combat Bridge 001 first-person targeting preview regression gate")
 
 	var prototype := PROTOTYPE_SCENE.instantiate()
 	_check("prototype scene instantiates", prototype != null)
@@ -58,7 +58,9 @@ func _run() -> void:
 
 	var world := prototype.get_node_or_null("WorldDisplay/WorldViewport/World") as Node3D
 	var hunter := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/Hunter") as CharacterBody3D
-	var camera := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/SpringArm3D/Camera3D") as Camera3D
+	var camera := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/Camera3D") as Camera3D
+	var spring_arm := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/SpringArm3D") as SpringArm3D
+	var hunter_visual := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/Hunter/Visual") as Node3D
 	var monster_anchor := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/WorldGeometry/MonsterProxy") as Node3D
 	var monster_visual := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/WorldGeometry/MonsterProxy/MudcrestVisual") as Node3D
 	var panel := prototype.get_node_or_null("HUD/TargetingPanel") as PanelContainer
@@ -68,9 +70,11 @@ func _run() -> void:
 	var joystick := prototype.get_node_or_null("HUD/Touch/MoveJoystick") as Control
 
 	_check("current Pixel RPG world/hunter/Mudcrest exist", world != null and hunter != null and monster_anchor != null and monster_visual != null)
-	_check("third-person targeting HUD nodes exist", panel != null and selector != null and status != null)
-	_check("current third-person SpringArm camera remains authoritative", camera != null and camera.current)
-	_check("no legacy FirstPersonCamera exists in current prototype", hunter != null and hunter.get_node_or_null("FirstPersonCamera") == null)
+	_check("targeting HUD nodes exist", panel != null and selector != null and status != null)
+	_check("first-person direct camera is authoritative", camera != null and camera.current)
+	_check("legacy SpringArm remains inert and outside active camera path", spring_arm != null and spring_arm.get_node_or_null("Camera3D") == null)
+	_check("third-person hunter visual is hidden in normal first-person presentation", hunter_visual != null and not hunter_visual.visible)
+	_check("no duplicate legacy FirstPersonCamera controller exists", hunter != null and hunter.get_node_or_null("FirstPersonCamera") == null)
 	_check("targeting panel starts closed", panel != null and not panel.visible)
 
 	if hunter == null or monster_anchor == null or monster_visual == null or panel == null or selector == null or action_button == null:
@@ -94,7 +98,7 @@ func _run() -> void:
 	prototype.call("_on_action_button_pressed")
 	var state: Dictionary = prototype.call("get_targeting_preview_state")
 	_check("ENGAGE opens targeting preview", bool(state.get("open", false)) and panel.visible, str(state))
-	_check("targeting preview keeps third-person camera current", bool(state.get("third_person_camera_current", false)) and camera.current)
+	_check("targeting preview keeps first-person camera current", String(state.get("camera_mode", "")) == "first_person" and bool(state.get("first_person_camera_current", false)) and camera.current)
 	_check("ENGAGE preserves Hunter transform", hunter.global_transform.is_equal_approx(hunter_before), str(hunter.global_position))
 	_check("ENGAGE preserves Mudcrest transform", monster_anchor.global_transform.is_equal_approx(monster_before), str(monster_anchor.global_position))
 	_check("exploration joystick hides only after explicit ENGAGE", joystick != null and not joystick.visible)
@@ -145,7 +149,7 @@ func _run() -> void:
 	var yaw_before := (prototype.get_node("WorldDisplay/WorldViewport/World/Hunter/CameraYaw") as Node3D).rotation.y
 	prototype.call("_apply_look_delta", Vector2(18.0, 0.0))
 	var yaw_after := (prototype.get_node("WorldDisplay/WorldViewport/World/Hunter/CameraYaw") as Node3D).rotation.y
-	_check("third-person camera can still rotate during targeting", not is_equal_approx(yaw_before, yaw_after))
+	_check("first-person camera can still rotate during targeting", not is_equal_approx(yaw_before, yaw_after))
 
 	prototype.set("_joystick_vector", Vector2(1.0, 0.0))
 	var xz_before := _xz(hunter.global_position)
@@ -170,5 +174,5 @@ func _finish() -> void:
 		print("Gate: PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_PREVIEW_VERIFIED")
 	else:
 		print("Gate: PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_PREVIEW_FAILED")
-	print("This gate verifies current-world third-person target acquisition only; AP/Stamina/damage and legacy combat-coordinate adaptation remain outside this bridge slice.")
+	print("This gate verifies current-world target acquisition remains compatible with the creator-authoritative first-person presentation; AP/Stamina/damage and legacy combat-coordinate adaptation remain outside this bridge slice.")
 	quit(0 if failures.is_empty() else 1)

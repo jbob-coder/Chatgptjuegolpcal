@@ -13,8 +13,8 @@ const MINIMAP_WORLD_MIN_X := -23.0
 const MINIMAP_WORLD_MAX_X := 23.0
 const MINIMAP_WORLD_MIN_Z := -57.0
 const MINIMAP_WORLD_MAX_Z := 20.0
-const CAMERA_PITCH_MIN_DEG := -34.0
-const CAMERA_PITCH_MAX_DEG := 32.0
+const CAMERA_PITCH_MIN_DEG := -78.0
+const CAMERA_PITCH_MAX_DEG := 78.0
 const NPC_INTERACT_DISTANCE_M := 2.6
 const SMITH_INTERACT_DISTANCE_M := 2.2
 const MONSTER_ENGAGE_DISTANCE_M := 8.0
@@ -40,7 +40,7 @@ const HUD_EDGE_MARGIN := 18.0
 @onready var camera_yaw: Node3D = $WorldDisplay/WorldViewport/World/Hunter/CameraYaw
 @onready var camera_pitch: Node3D = $WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch
 @onready var spring_arm: SpringArm3D = $WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/SpringArm3D
-@onready var camera: Camera3D = $WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/SpringArm3D/Camera3D
+@onready var camera: Camera3D = $WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/Camera3D
 @onready var joystick_base: Control = $HUD/Touch/MoveJoystick
 @onready var joystick_knob: Control = $HUD/Touch/MoveJoystick/Knob
 @onready var action_button: Button = $HUD/Touch/ActionButton
@@ -69,7 +69,7 @@ var _joystick_touch_id := -1
 var _look_touch_id := -1
 var _look_last_position := Vector2.ZERO
 var _camera_yaw_rad := 0.0
-var _camera_pitch_rad := deg_to_rad(-11.0)
+var _camera_pitch_rad := 0.0
 var _look_degrees_per_pixel := DEFAULT_LOOK_DEGREES_PER_PIXEL
 var _npc_anchor: Node3D
 var _smith_root: Node3D
@@ -92,9 +92,9 @@ func _notification(what: int) -> void:
 func _ready() -> void:
 	_build_prototype_world()
 	_camera_yaw_rad = 0.0
-	_camera_pitch_rad = deg_to_rad(-11.0)
+	_camera_pitch_rad = 0.0
 	_apply_camera_rotation()
-	spring_arm.add_excluded_object(hunter.get_rid())
+	hunter_visual.visible = false
 	camera.current = true
 	watch_panel.visible = false
 	settings_panel.visible = false
@@ -446,7 +446,7 @@ func _open_targeting_preview() -> bool:
 	_reset_transient_input()
 	_apply_target_highlight(_selected_target_group)
 	_refresh_targeting_status()
-	objective_label.text = "Third-person target acquisition active. Select a Mudcrest body part; no combat resources or damage are committed."
+	objective_label.text = "First-person target acquisition active. Select a Mudcrest body part; no combat resources or damage are committed."
 	return true
 
 func _close_targeting_preview() -> void:
@@ -490,7 +490,9 @@ func get_targeting_preview_state() -> Dictionary:
 		"selected_target_group": _selected_target_group,
 		"locked_target_group": _locked_target_group,
 		"target_count": MUDCREST_TARGETABLE_GROUPS.size(),
-		"third_person_camera_current": camera.current,
+		"camera_mode": "first_person",
+		"first_person_camera_current": camera.current,
+		"third_person_camera_current": false,
 		"monster_visual_ready": _monster_visual != null,
 	}
 

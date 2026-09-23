@@ -1,7 +1,7 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / COMBAT BRIDGE 001 VERIFIED / DOMAIN BOOTSTRAP NEXT
-Last reconciled: 2026-09-21
+Status: ACTIVE PIXEL RPG BOOTSTRAP / FIRST-PERSON CREATOR AUTHORITY
+Last reconciled: 2026-09-23
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
 Active branch: `pixel-rpg`
@@ -31,19 +31,19 @@ WorldLife is abandoned. The later standalone first-person Shooter RPG is also no
 ## Active identity
 
 Pixel RPG target:
-- third-person behind-character gameplay;
+- first-person exploration using the existing Pixel RPG player/controller;
 - pixel-styled real 3D world/UI;
 - Android landscape-first;
 - left-stick movement;
 - independent right-side camera/look;
 - simultaneous movement/look;
 - physical compact exploration;
-- same-world third-person monster combat;
+- same-world monster combat with first-person presentation unless superseded later;
 - body-part targeting/break/sever/harvest identity;
 - persistent NPC/world consequences;
 - deep but deliberately bounded scope.
 
-Do not import standalone Shooter RPG first-person camera/firearm/wall-jump/runtime/package assumptions.
+Do not import abandoned Shooter RPG firearm/wall-jump/runtime/package assumptions or its old 115° camera constant. Pixel RPG being first-person does not make Shooter RPG authoritative.
 
 ## Visual references
 
@@ -118,6 +118,6 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 
 ## Current bounded piece
 
-`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
+`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`.
 
-Preserve current third-person target acquisition. Bootstrap only current turn-shell and anatomy state against the live Pixel RPG World, with a current collidable domain monster body alias and no legacy tactical movement/attack initialization, no damage and no resource spend.
+Preserve the existing controller/world/HUD/targeting/domain systems while making first-person exploration authoritative. Verify camera path, eye height, yaw/pitch, interaction/targeting regressions and Android export before resuming the deferred combat-domain bootstrap.

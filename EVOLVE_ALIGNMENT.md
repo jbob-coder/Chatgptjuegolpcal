@@ -1,7 +1,7 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / COMBAT BRIDGE 001 VERIFIED / DOMAIN BOOTSTRAP NEXT
-Last reconciled: 2026-09-21
+Status: ACTIVE PIXEL RPG / FIRST-PERSON CREATOR REALIGNMENT IN PROGRESS
+Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
 ## Operating law
@@ -17,13 +17,13 @@ Current source/tests/build/device evidence outranks chat memory and older handof
 The active game is **Pixel RPG**, not the separate standalone Shooter RPG.
 
 Selected direction:
-- third-person behind-character gameplay;
+- creator-authoritative first-person exploration gameplay;
 - pixel-styled real 3D presentation;
 - Android landscape-first;
 - direct left-stick movement;
 - independent right-side camera/look;
 - physical exploration through compact connected spaces;
-- monster-hunting combat in the same third-person spatial world;
+- monster-hunting combat in the same physical world without resurrecting obsolete presentation;
 - body-part damage/break/sever/harvest identity preserved;
 - small, coherent, expandable scope rather than a massive open world.
 
@@ -39,9 +39,9 @@ Visible names/text in the concept image are placeholders unless separately appro
 
 ## Shooter separation law
 
-The later standalone first-person Shooter RPG direction is rejected for this project.
+The abandoned standalone Shooter RPG remains rejected as a project/runtime authority. Pixel RPG itself is now first-person by creator directive.
 
-Do not import its first-person 115° HFOV contract, firearm-first identity, wall-jump progression, `shooter_game/` runtime root, package identity, or shooter-specific build evidence into Pixel RPG.
+Do not import its 115° HFOV constant, firearm-first identity, wall-jump progression, `shooter_game/` runtime root, package identity, or shooter-specific build evidence into Pixel RPG.
 
 The `pixel-rpg` branch was recovered to revision `7ac7e84a6b0e8249ea8c869cf96171b834b2363c`, before the later standalone Shooter rewrite, then received Pixel RPG authority updates.
 
@@ -162,7 +162,11 @@ These remain design targets unless current source proves implementation.
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`
+`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`
+
+Creator directive supersedes the previously queued domain-bootstrap slice until first-person camera/controller presentation is implemented, regression-tested, Android-built and documented. After that checkpoint, resume the next bounded gameplay slice from current repository evidence.
+
+Previous next slice (deferred, not deleted): `PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`
 
 Boundary:
 1. preserve Packs 001–004 and Bridge 001 third-person targeting;

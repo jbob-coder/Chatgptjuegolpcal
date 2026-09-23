@@ -1,14 +1,14 @@
 # Pixel RPG
 
-Status: ACTIVE ANDROID MONSTER-HUNTING RPG / THIRD-PERSON PIXEL DIRECTION / FIRST VISUAL PROTOTYPE NEXT
-Last reconciled: 2026-09-16
+Status: ACTIVE ANDROID MONSTER-HUNTING RPG / FIRST-PERSON PIXEL DIRECTION
+Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
 Pixel RPG is the active game in this branch. WorldLife is abandoned, and the later standalone first-person Shooter RPG is not the implementation base.
 
 ## Selected player-facing identity
 
-**Third-person pixel-styled 3D monster-hunting RPG with mobile move/look controls, physical exploration, body-part combat, harvesting and persistent world/NPC consequences.**
+**First-person pixel-styled real-3D monster-hunting RPG with mobile move/look controls, physical exploration, body-part combat, harvesting and persistent world/NPC consequences.**
 
 Primary presentation authority: `PIXEL_RPG_VISUAL_DIRECTION.md`.
 
@@ -20,7 +20,7 @@ Names/text shown in the generated concept image are placeholders unless separate
 
 ## Main loop target
 
-`SETTLEMENT → PREPARE → PHYSICALLY LEAVE SETTLEMENT → EXPLORE/TRACK → OBSERVE/APPROACH → THIRD-PERSON SPATIAL COMBAT → TARGET ANATOMY → BREAK/SEVER/DEFEAT/ESCAPE → HARVEST → RETURN → NPC/SETTLEMENT CONSEQUENCES → PROCESS/CRAFT/EQUIP/LEARN → NEXT HUNT`
+`SETTLEMENT → PREPARE → PHYSICALLY LEAVE SETTLEMENT → EXPLORE/TRACK → OBSERVE/APPROACH → FIRST-PERSON SPATIAL COMBAT → TARGET ANATOMY → BREAK/SEVER/DEFEAT/ESCAPE → HARVEST → RETURN → NPC/SETTLEMENT CONSEQUENCES → PROCESS/CRAFT/EQUIP/LEARN → NEXT HUNT`
 
 Use compact connected spaces and world compression rather than a huge empty open world or normal menu teleportation.
 
@@ -78,11 +78,11 @@ This verifies the older production state only. It does not prove the Pixel RPG p
 
 ## Current bounded piece
 
-`PIXEL_RPG_THIRD_PERSON_VISUAL_PROTOTYPE_001`.
+`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`.
 
 First prove:
 - one compact settlement gate/street;
-- one controllable third-person player;
+- one controllable first-person presentation using the existing player controller;
 - left-stick movement + right-side camera/look;
 - one NPC interaction;
 - one short physical route;

@@ -1,7 +1,7 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / COMBAT BRIDGE 001 VERIFIED / DOMAIN BOOTSTRAP NEXT
-Last reconciled: 2026-09-21
+Status: ACTIVE GLOBAL MAP / FIRST-PERSON CREATOR AUTHORITY
+Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
 ## Mandatory read order
@@ -21,15 +21,15 @@ Fetch live branch HEAD before reading and re-check it afterward. Keep documentat
 ## Current visual/presentation authority
 
 `PIXEL_RPG_VISUAL_DIRECTION.md` owns:
-- third-person behind-character camera;
+- first-person eye-height exploration camera;
 - pixel-styled 3D presentation;
 - Android left-stick + independent right-look control layout without turning the game into a firearm shooter;
 - physical exploration through compact connected spaces;
-- same-world third-person monster combat;
+- same-world monster combat without legacy camera/coordinate resurrection;
 - safe-area responsive HUD target;
 - bounded, expandable world scope.
 
-Conflicting older aerial/isometric-primary, mandatory first-person-combat, smooth illustrated-realism, and standalone Shooter RPG passages are subordinate for current presentation decisions.
+Conflicting older third-person, aerial/isometric-primary, smooth illustrated-realism, and standalone Shooter RPG passages are subordinate for current presentation decisions. Historical evidence remains historical.
 
 ## Visual reference authority
 
@@ -52,7 +52,7 @@ Prototype presentation:
 Implemented presentation layer includes:
 - 800×360 low-resolution 3D SubViewport + nearest stretch;
 - per-vertex/nearest primitive material treatment;
-- SpringArm third-person camera collision;
+- legacy SpringArm chase camera exists in older evidence; creator-authoritative current work bypasses it for active first-person camera;
 - responsive safe-area HUD positioning;
 - settlement gate/street/trail prototype;
 - Gate Warden interaction;
@@ -136,6 +136,6 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 
 ## Exact continuation
 
-`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
+`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`.
 
-Introduce only turn-shell/anatomy authoritative state behind the verified third-person target preview. Do not import legacy first-person, legacy tactical movement or legacy absolute spatial presentation.
+Implement and verify first-person presentation around the existing Pixel RPG controller/world/HUD/targeting/domain systems. The prior Combat Bridge 002 slice is deferred until the camera realignment has exact-source Android evidence.

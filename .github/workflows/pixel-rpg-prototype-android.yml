@@ -18,7 +18,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-prototype-001-debug.apk
+  APK_PATH: game/build/android/PixelRPG-first-person-001-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -125,6 +125,13 @@ jobs:
           if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then exit "$code"; fi
           if grep -Eiq "SCRIPT ERROR|Parse Error|Failed loading resource|Cannot open file|Node not found" build-evidence/pixel-prototype-smoke.log; then exit 1; fi
 
+      - name: Pixel RPG first-person realignment runtime gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_first_person_realignment_runtime_test.gd" 2>&1 | tee build-evidence/first-person-realignment.log
+          grep -q "Gate: PIXEL_RPG_FIRST_PERSON_REALIGNMENT_RUNTIME_VERIFIED" build-evidence/first-person-realignment.log
+
       - name: Pixel RPG Visual Pack 002 runtime gate
         shell: bash
         run: |
@@ -195,8 +202,8 @@ jobs:
       - name: Upload Pixel RPG prototype APK
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-prototype-001-debug
-          path: game/build/android/PixelRPG-prototype-001-debug.apk
+          name: PixelRPG-first-person-001-debug
+          path: game/build/android/PixelRPG-first-person-001-debug.apk
           if-no-files-found: error
 
       - name: Upload Pixel RPG build evidence
