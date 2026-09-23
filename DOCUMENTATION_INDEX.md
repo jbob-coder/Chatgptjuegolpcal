@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / FIRST-PERSON CREATOR AUTHORITY
+Status: ACTIVE GLOBAL MAP / FIRST-PERSON + BRIDGE 002 + BUILDIDENTITY V1 CREATOR AUTHORITY
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -156,3 +156,17 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 `PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
 
 First-person presentation now has exact-source Android evidence. Bridge 002 must preserve the first-person camera and current-world actor transforms while bootstrapping only the approved combat/anatomy domain authorities.
+
+## Current exact verification checkpoint
+
+Latest Android-build-verified source is `160d12cfabde025a383dd50f9bfcbb0e51ae87c6`.
+Workflow/job: `35915818722` / `107366883423` — SUCCESS.
+Godot: `4.7.2.stable.official.ed1daf0bf`.
+APK: `PixelRPG-combat-bridge-002-debug.apk`, `58,039,909` bytes, SHA-256 `515148bb8ed35076664ef612f6b678f086929e75ecb34709014f018e665e5a55`.
+BuildIdentity v1 is present in the evidence artifact.
+Canonical Drive revision ID: `1zdvN-E1dJt8tgVV4c8g_tofS1eKaj172`.
+
+## Continuation
+
+Next bounded slice: `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` / issue #7.
+Preserve first-person camera authority, current world transforms, Packs 001–004, Bridge 001 targeting and Bridge 002 no-attack domain bootstrap. Define ownership/persistence eligibility before broad save/load or further combat execution wiring.
