@@ -59,6 +59,10 @@ Implemented presentation layer includes:
 - distant monster observation proxy;
 - Diamond Watch prototype panel.
 
+Current state/persistence ownership authority:
+- `game/scripts/state/pixel_rpg_state_ownership_contract.gd`;
+- `docs/50_technical/persistence/PIXEL_RPG_STATE_OWNERSHIP_CONTRACT.md`.
+
 Existing reusable monster-hunting runtime remains primarily under `game/`:
 - generic combat/status/outcome under `game/scripts/gameplay/combat/`;
 - encounter logic under `game/scripts/gameplay/encounter/`;
@@ -142,6 +146,7 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 `PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`
 `PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`
 `PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_VERIFIED = YES`
+`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -159,14 +164,19 @@ First-person presentation now has exact-source Android evidence. Bridge 002 must
 
 ## Current exact verification checkpoint
 
-Latest Android-build-verified source is `160d12cfabde025a383dd50f9bfcbb0e51ae87c6`.
-Workflow/job: `35915818722` / `107366883423` — SUCCESS.
-Godot: `4.7.2.stable.official.ed1daf0bf`.
-APK: `PixelRPG-combat-bridge-002-debug.apk`, `58,039,909` bytes, SHA-256 `515148bb8ed35076664ef612f6b678f086929e75ecb34709014f018e665e5a55`.
-BuildIdentity v1 is present in the evidence artifact.
-Canonical Drive revision ID: `1zdvN-E1dJt8tgVV4c8g_tofS1eKaj172`.
+Latest Android-build-verified source is `9b84000ca343dff0d4baa86accb024b9ebac4fb8`.  
+Workflow/job: `35917375696` / `107372326343` — SUCCESS.  
+Godot: `4.7.2.stable.official.ed1daf0bf`.  
+APK: `PixelRPG-state-ownership-001-debug.apk`, `58,052,621` bytes, SHA-256 `531498c45c6d2293d5d38d646ca277ca7d0968b43caedb390ed3d3806578c532`.  
+State Ownership Contract gate: `70/70` PASS.  
+BuildIdentity v1 is present in the evidence artifact.  
+Current immutable Drive revision ID: `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`.
+
+Latest specialized handoff:
+- `docs/70_handoff/PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001_2026-09-23.md`.
 
 ## Continuation
 
-Next bounded slice: `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` / issue #7.
-Preserve first-person camera authority, current world transforms, Packs 001–004, Bridge 001 targeting and Bridge 002 no-attack domain bootstrap. Define ownership/persistence eligibility before broad save/load or further combat execution wiring.
+Next bounded slice: `PIXEL_RPG_PROTOTYPE_DECOMPOSITION_001_WORLD_BASE` / issue #6.
+
+Preserve first-person camera authority, current world transforms, State Ownership 001, Packs 001–004, Bridge 001 targeting and Bridge 002 no-attack domain bootstrap. Extract only world-base construction mechanically; do not change coordinates or observable runtime behavior.

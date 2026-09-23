@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / FIRST-PERSON + COMBAT BRIDGE 002 BUILD-VERIFIED / BUILDIDENTITY V1 VERIFIED / STATE-OWNERSHIP CONTINUATION
+Status: ACTIVE PIXEL RPG / FIRST-PERSON + BRIDGE 002 + STATE OWNERSHIP 001 BUILD-VERIFIED / BUILDIDENTITY V1 VERIFIED / SAFE DECOMPOSITION CONTINUATION
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -176,6 +176,7 @@ The first failed run `35909468940` exposed a test defect: legitimate gravity/flo
 `PIXEL_RPG_FIRST_PERSON_REALIGNMENT_ENGINE_VERIFIED = YES`
 `PIXEL_RPG_FIRST_PERSON_ANDROID_BUILD_VERIFIED = YES`
 `PIXEL_RPG_FIRST_PERSON_DEVICE_VERIFIED = NO`
+`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001_VERIFIED = YES`
 
 ## Combat Bridge 002 + BuildIdentity v1 exact-source checkpoint
 
@@ -200,18 +201,61 @@ Issue #8 (Combat Bridge 002) and issue #5 (BuildIdentity/source authority) are c
 
 Phone runtime, touch feel, visual acceptance, sustained performance/heat and installed-footprint compliance remain NOT VERIFIED.
 
+## State Ownership Contract 001 exact-source checkpoint
+
+Latest Android-build-verified source:
+`9b84000ca343dff0d4baa86accb024b9ebac4fb8`.
+
+Workflow `35917375696`: SUCCESS.  
+Job `107372326343`: SUCCESS.  
+Godot `4.7.2.stable.official.ed1daf0bf`.
+
+APK `PixelRPG-state-ownership-001-debug.apk`.  
+APK size `58,052,621` bytes.  
+APK SHA-256 `531498c45c6d2293d5d38d646ca277ca7d0968b43caedb390ed3d3806578c532`.  
+APK artifact ID `10775601339`.  
+Build-evidence artifact ID `10775168943`.
+
+State Ownership gate: `70/70` PASS.
+
+Current ownership law is executable at:
+`game/scripts/state/pixel_rpg_state_ownership_contract.gd`.
+
+Current technical contract:
+`docs/50_technical/persistence/PIXEL_RPG_STATE_OWNERSHIP_CONTRACT.md`.
+
+Verified guarantees:
+- one declared owner per covered current/planned mutable datum;
+- combat round/resources remain owned by CombatTurnShellRuntime;
+- Mudcrest anatomy integrity/deduplication remains owned by MudcrestAnatomyRuntime;
+- Hunter/Mudcrest live transforms remain world-runtime state, not HUD state;
+- touch/camera/targeting/context/bootstrap latches remain transient and non-gameplay-persistent;
+- presentation state cannot qualify as durable gameplay ownership;
+- future durable player/world/inventory/NPC/economy state is split across bounded owner namespaces rather than one giant singleton;
+- broad save/load is still NOT IMPLEMENTED.
+
+Google Drive immutable revision:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35917375696_state-ownership-001/`  
+Folder ID `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`.  
+APK ID `10VDC-3g2VqiDkfx8r_Kvs6HRiPcFWZvq`.  
+BuildIdentity JSON ID `1hnTyW3XsDr8ktNtL-NdI1li0LoeNipVw`.  
+BuildIdentity Markdown ID `1ZsKoqVLpMdUL8wstaKY15KXcz1muxps_`.  
+Raw CI evidence ZIP ID `17t-ZHb0jRMrwicKy180i6oziduV-r9hb`.  
+Device checklist ID `1RHN5Jes9IZfRjAywdhbpfTnufAM6fxJx`.
+
+Phone runtime, touch feel, visual acceptance, sustained performance/heat and installed-footprint compliance remain NOT VERIFIED.
+
 ## Exact next bounded piece
 
-`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` — issue #7.
+`PIXEL_RPG_PROTOTYPE_DECOMPOSITION_001_WORLD_BASE` — issue #6.
 
 Boundary:
-1. define one owner for every mutable current-world gameplay datum without introducing a giant singleton;
-2. keep deterministic combat turn/anatomy/status state inside existing gameplay-domain authorities;
-3. classify future durable player/world/section state separately from transient runtime control state;
-4. keep camera, touch, targeting-panel and HUD presentation state non-durable unless explicitly promoted later;
-5. define the persistence boundary and serialization eligibility before broad save/load;
-6. add focused ownership/regression tests where executable behavior exists;
-7. preserve current first-person camera, Packs 001–004, Bridge 001 targeting and Bridge 002 no-attack bootstrap behavior;
-8. do not add hunter attack/damage or legacy Region-01 tactical coordinates in this ownership slice.
+1. mechanically extract only the world-base construction responsibility from `pixel_rpg_prototype_001.gd`;
+2. preserve every current coordinate, geometry/collision result and observable runtime behavior;
+3. do not move player/input/camera/HUD/targeting/combat ownership in this sub-slice;
+4. keep the State Ownership 001 contract unchanged unless a real owner changes;
+5. add focused parse/smoke/runtime parity coverage;
+6. preserve first-person camera, Packs 001–004, Bridge 001 targeting and Bridge 002 domain bootstrap;
+7. no attack/damage expansion and no legacy Region-01 coordinate resurrection.
 
-NEXT THING: `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001`.
+NEXT THING: `PIXEL_RPG_PROTOTYPE_DECOMPOSITION_001_WORLD_BASE`.

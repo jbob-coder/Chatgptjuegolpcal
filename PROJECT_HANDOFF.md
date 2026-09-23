@@ -1,72 +1,81 @@
 # PROJECT HANDOFF — Pixel RPG
 
-Status: PIXEL RPG ACTIVE / FIRST-PERSON + COMBAT BRIDGE 002 + BUILDIDENTITY V1 ANDROID-BUILD VERIFIED / DEVICE VERIFICATION PENDING
-Last reconciled: 2026-09-23
+Status: PIXEL RPG ACTIVE / FIRST-PERSON + COMBAT BRIDGE 002 + STATE OWNERSHIP 001 BUILD-VERIFIED / DEVICE VERIFICATION PENDING  
+Last reconciled: 2026-09-23  
 Branch: `pixel-rpg`
 
-CURRENT_OBJECTIVE: define the authoritative runtime/state ownership contract after the verified first-person + Combat Bridge 002 checkpoint, without creating a giant singleton or changing proven presentation/domain behavior.
+CURRENT_OBJECTIVE: continue Pixel RPG from the verified first-person/current-world combat baseline with explicit state ownership boundaries. State Ownership Contract 001 is complete and build-verified. Next is the first mechanical God-script decomposition sub-slice, world-base extraction only.
 
-CREATOR_AUTHORITY: FIRST-PERSON exploration is authoritative as of 2026-09-23. Older Pixel RPG third-person statements are STALE / SUPERSEDED for current presentation. Historical third-person builds remain valid historical evidence only.
+CREATOR_AUTHORITY: FIRST-PERSON exploration is authoritative. Older third-person statements are STALE / SUPERSEDED for current presentation; historical third-person builds remain historical evidence only.
 
-PRESERVED:
+CURRENT VERIFIED PLAYABLE/PRESENTATION BASELINE:
 - existing Hunter CharacterBody3D/controller and collision;
-- direct left-stick movement and right-side independent look;
-- 800×360 pixel-styled real-3D SubViewport + nearest presentation;
-- safe-area HUD, Settings, minimap and contextual interaction;
-- Pack 001–004 world/environment and enterable smith;
-- Mudcrest visual/anatomy target mapping;
-- Combat Bridge 001 OBSERVE/ENGAGE/target selection/lock semantics;
-- deterministic combat/anatomy/status source and regressions;
-- app-shell/main-scene flow.
+- direct left-stick movement + independent right-side look;
+- active Camera3D directly under eye-height CameraPitch;
+- third-person Hunter visual hidden in normal exploration;
+- legacy SpringArm retained inert for compatibility/audit only;
+- first-person FOV 70° and pitch clamp -78°..+78°;
+- 800×360 low-resolution 3D SubViewport + nearest scaling;
+- current world/environment, interactions, enterable smith and HUD;
+- Bridge 001 OBSERVE/ENGAGE/body-part targeting;
+- Bridge 002 explicit START COMBAT DOMAIN no-attack bootstrap;
+- deterministic turn/anatomy/status foundations preserved.
 
-CHANGED IN THIS SOURCE CHECKPOINT:
-- active Camera3D moved out of SpringArm chase path and is a direct child of the eye-height CameraPitch pivot;
-- eye pivot changed to 0.65 m above Hunter origin (about 1.55 m world eye height at the normal 0.9 m Hunter origin);
-- neutral initial pitch and first-person pitch clamp -78°..+78°;
-- first-person Camera3D FOV = 70°;
-- third-person Hunter visual hidden in normal exploration so it cannot obstruct view;
-- SpringArm3D retained as an inert legacy node for compatibility/audit, not used by the active camera;
-- targeting state now exposes `camera_mode=first_person` and `first_person_camera_current`;
-- Bridge 001 regression updated for first-person presentation;
-- dedicated first-person regression test added;
-- Android export renamed/versioned as first-person checkpoint.
+STATE OWNERSHIP 001:
+- executable schema: `pixel_rpg.state_ownership.v1`;
+- code: `game/scripts/state/pixel_rpg_state_ownership_contract.gd`;
+- technical contract: `docs/50_technical/persistence/PIXEL_RPG_STATE_OWNERSHIP_CONTRACT.md`;
+- current world transforms are world-runtime ownership;
+- combat round/resources are CombatTurnShellRuntime ownership;
+- Mudcrest anatomy integrity/dedupe is MudcrestAnatomyRuntime ownership;
+- input/camera/targeting/context/bootstrap latches are transient control/orchestration only;
+- HUD/highlights/derived display are presentation only;
+- broad persistence remains unimplemented;
+- future durable state is split across bounded owner namespaces, not a giant singleton.
 
-VERIFIED CHECKPOINT:
-- exact source SHA: `0a6e54ecdbc1c81043b6db5dd0f35e429cbb4ee9`;
-- workflow run: `35910688037` — SUCCESS;
-- job: `107349457171` — SUCCESS;
+LATEST BUILD-VERIFIED SOURCE:
+- source SHA: `9b84000ca343dff0d4baa86accb024b9ebac4fb8`;
+- workflow run: `35917375696` — SUCCESS;
+- job: `107372326343` — SUCCESS;
 - Godot: `4.7.2.stable.official.ed1daf0bf`;
-- APK: `PixelRPG-first-person-001-debug.apk`;
-- APK size: `58,023,057` bytes;
-- APK SHA-256: `d0ea93980e2e617d056a696183c6eced2d0df34cf3a6240e244f3524ced8e012`;
-- Drive APK: `1NwWuvKS_cXuz5o22r5taeTadnlgUiIYB`;
-- Drive immutable build folder: `1REno22ZSIUQnKxOB6pcZRaYS6W0aXFa1`;
-- Drive build evidence: `1mf8pyPyIyFlBHblJZ5mXE4yvtoIrccZx`;
-- Drive raw CI evidence ZIP: `1frUxEVieyzQedwJSkWLP7u8fvmVebZOo`;
-- Drive device checklist: `1zACUGQil9eU8Cwayk4gJs8SBiR8eSz3k`.
+- APK: `PixelRPG-state-ownership-001-debug.apk`;
+- APK size: `58,052,621` bytes;
+- APK SHA-256: `531498c45c6d2293d5d38d646ca277ca7d0968b43caedb390ed3d3806578c532`;
+- APK artifact ID: `10775601339`;
+- build-evidence artifact ID: `10775168943`.
 
-CURRENT_EXACT_BUILD_VERIFIED_CHECKPOINT:
-- source SHA: `160d12cfabde025a383dd50f9bfcbb0e51ae87c6`;
-- gameplay Bridge 002 source introduced at `31446466f10840bc3820a03b8d11d17a5433a149`;
-- workflow run: `35915818722` — SUCCESS;
-- job: `107366883423` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- APK: `PixelRPG-combat-bridge-002-debug.apk`;
-- APK size: `58,039,909` bytes;
-- APK SHA-256: `515148bb8ed35076664ef612f6b678f086929e75ecb34709014f018e665e5a55`;
-- BuildIdentity schema: `pixel_rpg.build_identity.v1`;
-- Drive canonical build folder: `1zdvN-E1dJt8tgVV4c8g_tofS1eKaj172`;
-- Drive canonical APK: `1AHIq0nhFfzOogk6movCyrPuw1HING4xX`.
+GOOGLE DRIVE IMMUTABLE BUILD:
+- path: `Pixel RPG/Builds/First Person/2026-09-23_run-35917375696_state-ownership-001/`;
+- folder ID: `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`;
+- APK ID: `10VDC-3g2VqiDkfx8r_Kvs6HRiPcFWZvq`;
+- BuildIdentity JSON: `1hnTyW3XsDr8ktNtL-NdI1li0LoeNipVw`;
+- BuildIdentity Markdown: `1ZsKoqVLpMdUL8wstaKY15KXcz1muxps_`;
+- raw CI evidence ZIP: `17t-ZHb0jRMrwicKy180i6oziduV-r9hb`;
+- device checklist: `1RHN5Jes9IZfRjAywdhbpfTnufAM6fxJx`.
 
-COMBAT_BRIDGE_002_VERIFIED:
-- explicit target lock → START COMBAT DOMAIN;
-- current CombatTurnShellRuntime + MudcrestAnatomyRuntime initialize against the live Mudcrest;
-- Hunter/Mudcrest transforms remain unchanged;
-- first-person camera/look remains authoritative;
-- no legacy tactical movement, attack/combat-resolution integration, AP/Stamina spend, damage or actor teleport.
+TEST_RESULTS:
+- import/parse PASS;
+- AppShell smoke PASS;
+- prototype scene smoke PASS;
+- first-person realignment `12/12` PASS;
+- Visual Pack 002 `24/24` PASS;
+- Visual Pack 003 HUD `19/19` PASS;
+- World Pack 004 enterable smith `19/19` PASS;
+- Combat Bridge 001 targeting `34/34` PASS;
+- Combat Bridge 002 no-attack bootstrap `28/28` PASS;
+- State Ownership Contract 001 `70/70` PASS;
+- preserved deterministic turn shell `76/76` PASS;
+- preserved Hunter attack `64/64` PASS;
+- preserved Mudcrest anatomy `20/20` PASS;
+- preserved status application `57/57` PASS;
+- preserved status timing `40/40` PASS;
+- Android debug export/signature verification PASS;
+- package-size ceiling PASS.
 
-TEST_RESULTS: import/parse PASS; AppShell PASS; prototype boot PASS; first-person runtime gate PASS; Visual Packs 002/003 PASS; World Pack 004 PASS; Combat Bridge 001 first-person targeting regression PASS; preserved deterministic combat/anatomy/status regressions PASS; Android export PASS; package-size gate PASS.
+APK_SIZE: no padding was added. The small package remains dominated by Godot Android runtime libraries; real production texture/audio/animation content is still limited.
 
-TRUTH_BOUNDARY: Godot/headless/build verification is complete for this checkpoint. Physical Android installation, touch feel, visual acceptance, sustained performance/heat and installed-footprint compliance remain NOT VERIFIED.
+TRUTH_BOUNDARY: CI/headless/build evidence is complete. Physical Android install, touch feel, visual acceptance, sustained FPS/heat and installed footprint remain NOT VERIFIED.
 
-NEXT_ACTION: implement `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` for issue #7; preserve first-person/Bridge 002 behavior and do not add attack/damage in this slice.
+KNOWN COMPATIBILITY RISK: the verified legacy Hunt01 tactical movement/attack legality still references legacy Region-01 coordinates/body envelope. Do not wire it directly into the compact live Pixel RPG world or teleport the Hunter. A later combat slice needs an explicit current-world spatial adapter.
+
+NEXT_ACTION: `PIXEL_RPG_PROTOTYPE_DECOMPOSITION_001_WORLD_BASE` — issue #6. Extract only world-base construction mechanically, preserve coordinates/behavior, keep current owners intact, and verify parity before any later controller/HUD extraction.

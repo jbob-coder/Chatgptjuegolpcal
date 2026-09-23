@@ -59,20 +59,28 @@ Visible concept names/text are placeholders.
 
 Never weaken legitimate gates to force success.
 
-## First-person checkpoint — current exact build-verified baseline
+## Current exact build-verified baseline
 
-Source: `0a6e54ecdbc1c81043b6db5dd0f35e429cbb4ee9`.
-Workflow `35910688037`: SUCCESS.
-Job `107349457171`: SUCCESS.
+Source: `9b84000ca343dff0d4baa86accb024b9ebac4fb8`.  
+Workflow `35917375696`: SUCCESS.  
+Job `107372326343`: SUCCESS.  
 Godot: `4.7.2.stable.official.ed1daf0bf`.
 
-APK: `PixelRPG-first-person-001-debug.apk`
-Size: `58,023,057` bytes.
-SHA-256: `d0ea93980e2e617d056a696183c6eced2d0df34cf3a6240e244f3524ced8e012`.
-Drive APK ID: `1NwWuvKS_cXuz5o22r5taeTadnlgUiIYB`.
-Drive build folder ID: `1REno22ZSIUQnKxOB6pcZRaYS6W0aXFa1`.
+APK: `PixelRPG-state-ownership-001-debug.apk`  
+Size: `58,052,621` bytes.  
+SHA-256: `531498c45c6d2293d5d38d646ca277ca7d0968b43caedb390ed3d3806578c532`.
 
-This supersedes the older third-person build as the current presentation/build baseline. It does not establish physical-phone runtime, visual-quality acceptance, sustained performance/heat, or installed-footprint compliance.
+Drive folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35917375696_state-ownership-001/`  
+Folder ID: `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`.  
+Drive APK ID: `10VDC-3g2VqiDkfx8r_Kvs6HRiPcFWZvq`.
+
+This baseline preserves creator-authoritative first-person presentation, Bridge 001 targeting, Bridge 002 no-attack domain bootstrap and State Ownership Contract 001.
+
+State ownership executable authority:
+`game/scripts/state/pixel_rpg_state_ownership_contract.gd`.
+
+Broad persistence is NOT IMPLEMENTED. Physical-phone runtime, visual-quality acceptance, sustained performance/heat and installed-footprint compliance remain NOT VERIFIED.
 
 ## Historical pre-first-person verified baseline
 
@@ -123,6 +131,7 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 `PIXEL_RPG_WORLD_COMPOSITION_PACK_001_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_002_VERIFIED = YES`
 `PIXEL_RPG_VISUAL_PACK_003_HUD_VERIFIED = YES`\n`PIXEL_RPG_WORLD_PACK_004_ENTERABLE_SMITH_VERIFIED = YES`\n`PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_VERIFIED = YES`
+`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001_VERIFIED = YES`
 `PIXEL_RPG_MUDCREST_ANATOMY_VISUAL_MAPPING_VERIFIED = YES`
 `PIXEL_RPG_PROTOTYPE_HEADLESS_SMOKE_VERIFIED = YES`
 `PIXEL_RPG_SELECTED_DOMAIN_REGRESSIONS_VERIFIED = YES`
@@ -156,8 +165,6 @@ Physical-device install/runtime, touch feel, visual acceptance, sustained perfor
 
 ## Current bounded piece
 
-`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` — issue #7.
+`PIXEL_RPG_PROTOTYPE_DECOMPOSITION_001_WORLD_BASE` — issue #6.
 
-Do not add a giant singleton. Keep deterministic combat state in existing gameplay-domain owners, classify future durable player/world state explicitly, keep camera/input/HUD/targeting presentation transient unless deliberately promoted, define the persistence boundary before broad save/load, and preserve all current first-person/Bridge 002 regressions.
-
-Do not add hunter attack/damage or legacy Region-01 tactical coordinates in this slice.
+State Ownership Contract 001 is exact-source Godot/headless/Android-build verified. Extract only world-base construction from the prototype God-script with coordinate/behavior parity. Do not move input/camera/HUD/targeting/combat ownership in this sub-slice, do not restore third-person presentation, and do not connect legacy Region-01 tactical coordinates.
