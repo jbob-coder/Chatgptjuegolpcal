@@ -13,7 +13,8 @@ Primary law:
 ## Local authorities
 
 - `README.md` — this package front door.
-- `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md` — schema/snapshot/safe-point/active-encounter/transaction continuity authority.
+- `FIRST_SLICE_PERSISTENCE_SAVE_RELOAD_CONTRACT.md` — historical first-slice schema/snapshot/safe-point/transaction continuity authority.
+- `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT.md` — current Pixel RPG single-owner/persistence-boundary contract; this outranks legacy coordinate/presentation assumptions for current runtime ownership.
 
 ## Selected first-slice model
 
@@ -62,3 +63,12 @@ Current project next action:
 `FIRST_SLICE_REGION01_TRACKING_TO_ENCOUNTER_GRAYBOX_INTEGRATION_CONTRACT`.
 
 That pass should consume the new spatial registry; Persistence remains a supporting owner for saved pursuit/encounter locations.
+
+## Current Pixel RPG ownership boundary
+
+Current Pixel RPG ownership is defined by `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT.md` and executable schema `pixel_rpg.state_ownership.v1`.
+
+The older first-slice persistence contract remains useful for safe-point and anti-replay principles, but it does not make legacy Region-01 tactical coordinates or old presentation owners authoritative in the compact current Pixel RPG world.
+
+`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001_IMPLEMENTED = YES`  
+`PIXEL_RPG_BROAD_PERSISTENCE_IMPLEMENTED = NO`
