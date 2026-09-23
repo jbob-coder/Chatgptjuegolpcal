@@ -52,6 +52,9 @@ func _run() -> void:
 		_finish()
 		return
 
+	var authored_hunter := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/Hunter") as CharacterBody3D
+	_check("authored Hunter spawn is unchanged before physics", authored_hunter != null and _vec3_equal(authored_hunter.position, Vector3(0.0, 0.9, 13.0)), str(authored_hunter.position) if authored_hunter != null else "missing")
+
 	root.add_child(prototype)
 	await process_frame
 	await physics_frame
@@ -101,7 +104,8 @@ func _run() -> void:
 	var monster := geometry.get_node_or_null("MonsterProxy") as Node3D if geometry != null else null
 	var domain_monster := geometry.get_node_or_null("monster_r01_m01_0001") as StaticBody3D if geometry != null else null
 
-	_check("Hunter start transform unchanged", hunter != null and _vec3_equal(hunter.position, Vector3(0.0, 0.9, 13.0)), str(hunter.position) if hunter != null else "missing")
+	_check("Hunter runtime X/Z remain at authored spawn", hunter != null and absf(hunter.position.x) <= 0.0001 and absf(hunter.position.z - 13.0) <= 0.0001, str(hunter.position) if hunter != null else "missing")
+	_check("Hunter vertical physics settle remains baseline-bounded", hunter != null and hunter.position.y <= 0.9001 and hunter.position.y >= 0.88, str(hunter.position) if hunter != null else "missing")
 	_check("first-person camera remains current", camera != null and camera.current)
 	_check("Street remains in host at same position", street != null and _vec3_equal(street.position, Vector3(0.0, 0.03, 2.0)), str(street.position) if street != null else "missing")
 	_check("Trail remains in host at same position", trail != null and _vec3_equal(trail.position, Vector3(0.0, 0.04, -31.0)), str(trail.position) if trail != null else "missing")
