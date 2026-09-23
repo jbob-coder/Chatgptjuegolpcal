@@ -19,7 +19,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-starting-area-assets-007-path-surfaces-debug.apk
+  APK_PATH: game/build/android/PixelRPG-visual-pack-008-mudcrest-refinement-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -139,6 +139,13 @@ jobs:
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_002_runtime_test.gd" 2>&1 | tee build-evidence/visual-pack-002.log
           grep -q "Gate: PIXEL_RPG_VISUAL_PACK_002_RUNTIME_VERIFIED" build-evidence/visual-pack-002.log
+
+      - name: Pixel RPG Visual Pack 008 Mudcrest refinement gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_008_mudcrest_refinement_test.gd" 2>&1 | tee build-evidence/visual-pack-008-mudcrest-refinement.log
+          grep -q "Gate: PIXEL_RPG_VISUAL_PACK_008_MUDCREST_REFINEMENT_VERIFIED" build-evidence/visual-pack-008-mudcrest-refinement.log
 
       - name: Pixel RPG Visual Pack 003 HUD runtime gate
         shell: bash
@@ -274,8 +281,8 @@ jobs:
         id: upload_apk
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-starting-area-assets-007-path-surfaces-debug
-          path: game/build/android/PixelRPG-starting-area-assets-007-path-surfaces-debug.apk
+          name: PixelRPG-visual-pack-008-mudcrest-refinement-debug
+          path: game/build/android/PixelRPG-visual-pack-008-mudcrest-refinement-debug.apk
           if-no-files-found: error
 
       - name: Finalize immutable BuildIdentity
@@ -387,6 +394,6 @@ jobs:
       - name: Upload Pixel RPG build evidence
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-starting-area-assets-007-path-surfaces-build-evidence
+          name: PixelRPG-visual-pack-008-mudcrest-refinement-build-evidence
           path: build-evidence/
           if-no-files-found: error
