@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / FIRST-PERSON CHECKPOINT BUILD-VERIFIED / COMBAT BRIDGE CONTINUATION
+Status: ACTIVE PIXEL RPG / FIRST-PERSON + COMBAT BRIDGE 002 BUILD-VERIFIED / BUILDIDENTITY V1 VERIFIED / STATE-OWNERSHIP CONTINUATION
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -177,20 +177,41 @@ The first failed run `35909468940` exposed a test defect: legitimate gravity/flo
 `PIXEL_RPG_FIRST_PERSON_ANDROID_BUILD_VERIFIED = YES`
 `PIXEL_RPG_FIRST_PERSON_DEVICE_VERIFIED = NO`
 
+## Combat Bridge 002 + BuildIdentity v1 exact-source checkpoint
+
+Latest Android-build-verified source:
+`160d12cfabde025a383dd50f9bfcbb0e51ae87c6`.
+
+This source contains the verified Combat Bridge 002 gameplay from `31446466f10840bc3820a03b8d11d17a5433a149` plus the additive BuildIdentity v1 workflow evidence layer.
+
+Workflow `35915818722`: SUCCESS.
+Job `107366883423`: SUCCESS.
+Godot `4.7.2.stable.official.ed1daf0bf`.
+APK `PixelRPG-combat-bridge-002-debug.apk`.
+APK size `58,039,909` bytes.
+APK SHA-256 `515148bb8ed35076664ef612f6b678f086929e75ecb34709014f018e665e5a55`.
+
+Canonical immutable Drive revision:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35915818722_buildidentity-v1/`
+folder ID `1zdvN-E1dJt8tgVV4c8g_tofS1eKaj172`;
+canonical APK ID `1AHIq0nhFfzOogk6movCyrPuw1HING4xX`.
+
+Issue #8 (Combat Bridge 002) and issue #5 (BuildIdentity/source authority) are closed with exact evidence.
+
+Phone runtime, touch feel, visual acceptance, sustained performance/heat and installed-footprint compliance remain NOT VERIFIED.
+
 ## Exact next bounded piece
 
-`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`
+`PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` — issue #7.
 
 Boundary:
-1. preserve Packs 001–004 and Bridge 001 targeting semantics under the authoritative first-person presentation;
-2. keep current gameplay-domain source files unchanged;
-3. add minimal current-World transient-control compatibility;
-4. provide current collidable monster body authority using ID `monster_r01_m01_0001`;
-5. after target lock, expose explicit START COMBAT DOMAIN;
-6. initialize CombatTurnShellRuntime and MudcrestAnatomyRuntime only;
-7. keep Hunter/Mudcrest visual transforms and first-person camera authority unchanged;
-8. do not initialize legacy tactical movement or hunter attack runtime;
-9. do not spend AP/Stamina or apply damage;
-10. add runtime and Android verification.
+1. define one owner for every mutable current-world gameplay datum without introducing a giant singleton;
+2. keep deterministic combat turn/anatomy/status state inside existing gameplay-domain authorities;
+3. classify future durable player/world/section state separately from transient runtime control state;
+4. keep camera, touch, targeting-panel and HUD presentation state non-durable unless explicitly promoted later;
+5. define the persistence boundary and serialization eligibility before broad save/load;
+6. add focused ownership/regression tests where executable behavior exists;
+7. preserve current first-person camera, Packs 001–004, Bridge 001 targeting and Bridge 002 no-attack bootstrap behavior;
+8. do not add hunter attack/damage or legacy Region-01 tactical coordinates in this ownership slice.
 
-NEXT THING: `PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
+NEXT THING: `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001`.
