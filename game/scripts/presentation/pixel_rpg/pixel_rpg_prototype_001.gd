@@ -8,6 +8,7 @@ const CombatTurnShellRuntime: Script = preload("res://scripts/gameplay/combat/hu
 const MudcrestAnatomyRuntime: Script = preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd")
 const TrailPineScene: PackedScene = preload("res://assets/environment/starting_area/trail_pine_01.tscn")
 const TrailRockVisualScene: PackedScene = preload("res://assets/environment/starting_area/trail_rock_visual_01.tscn")
+const GateWardenVisualScene: PackedScene = preload("res://assets/characters/gate_warden_visual_01.tscn")
 
 const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
@@ -755,27 +756,12 @@ func _add_trail_rock() -> void:
 	body.add_child(collision)
 
 func _add_npc_visual(parent: Node3D) -> void:
-	var body := MeshInstance3D.new()
-	var mesh := CapsuleMesh.new()
-	mesh.radius = 0.28
-	mesh.height = 1.5
-	mesh.radial_segments = 8
-	mesh.rings = 4
-	body.mesh = mesh
-	body.position = Vector3(0, 0.9, 0)
-	body.material_override = _material(Color(0.42, 0.22, 0.14))
-	parent.add_child(body)
-
-	var head := MeshInstance3D.new()
-	var head_mesh := SphereMesh.new()
-	head_mesh.radius = 0.18
-	head_mesh.height = 0.36
-	head_mesh.radial_segments = 8
-	head_mesh.rings = 4
-	head.mesh = head_mesh
-	head.position = Vector3(0, 1.7, 0)
-	head.material_override = _material(Color(0.57, 0.39, 0.27))
-	parent.add_child(head)
+	var visual := GateWardenVisualScene.instantiate() as Node3D
+	if visual == null:
+		push_error("Pixel RPG Pack 005 failed to instantiate Gate Warden visual")
+		return
+	visual.name = "GateWardenVisual"
+	parent.add_child(visual)
 
 func _add_monster_proxy(parent: Node3D) -> void:
 	var visual := MudcrestVisualScene.instantiate() as Node3D
