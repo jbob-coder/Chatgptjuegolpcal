@@ -1,5 +1,6 @@
 extends Node
 
+const WorldBase001 := preload("res://scripts/presentation/pixel_rpg/world_base_001.gd")
 const WorldPack001 := preload("res://scripts/presentation/pixel_rpg/world_pack_001.gd")
 const WorldPack004EnterableSmith := preload("res://scripts/presentation/pixel_rpg/world_pack_004_enterable_smith.gd")
 const MudcrestVisualScene: PackedScene = preload("res://assets/monsters/mudcrest_visual.tscn")
@@ -671,7 +672,7 @@ func _on_watch_close_pressed() -> void:
 	watch_panel.visible = false
 
 func _build_prototype_world() -> void:
-	_add_box("Ground", Vector3(0, -0.35, -18), Vector3(46, 0.7, 78), Color(0.19, 0.29, 0.16), true)
+	WorldBase001.add_world_base(world_geometry)
 	_add_box("Street", Vector3(0, 0.03, 2), Vector3(6.2, 0.10, 34), Color(0.38, 0.30, 0.20), false)
 	_add_box("Trail", Vector3(0, 0.04, -31), Vector3(4.2, 0.11, 34), Color(0.29, 0.24, 0.16), false)
 
