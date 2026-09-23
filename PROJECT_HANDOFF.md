@@ -1,10 +1,10 @@
 # PROJECT HANDOFF — Pixel RPG
 
-Status: PIXEL RPG ACTIVE / FIRST-PERSON CREATOR REALIGNMENT GODOT+ANDROID-BUILD VERIFIED / DEVICE VERIFICATION PENDING
+Status: PIXEL RPG ACTIVE / FIRST-PERSON + COMBAT BRIDGE 002 + BUILDIDENTITY V1 ANDROID-BUILD VERIFIED / DEVICE VERIFICATION PENDING
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
-CURRENT_OBJECTIVE: convert the existing Pixel RPG exploration presentation from third-person chase camera to first-person without replacing the proven Hunter/controller, collision, world, HUD, targeting or deterministic gameplay-domain foundations.
+CURRENT_OBJECTIVE: define the authoritative runtime/state ownership contract after the verified first-person + Combat Bridge 002 checkpoint, without creating a giant singleton or changing proven presentation/domain behavior.
 
 CREATOR_AUTHORITY: FIRST-PERSON exploration is authoritative as of 2026-09-23. Older Pixel RPG third-person statements are STALE / SUPERSEDED for current presentation. Historical third-person builds remain valid historical evidence only.
 
@@ -45,8 +45,28 @@ VERIFIED CHECKPOINT:
 - Drive raw CI evidence ZIP: `1frUxEVieyzQedwJSkWLP7u8fvmVebZOo`;
 - Drive device checklist: `1zACUGQil9eU8Cwayk4gJs8SBiR8eSz3k`.
 
+CURRENT_EXACT_BUILD_VERIFIED_CHECKPOINT:
+- source SHA: `160d12cfabde025a383dd50f9bfcbb0e51ae87c6`;
+- gameplay Bridge 002 source introduced at `31446466f10840bc3820a03b8d11d17a5433a149`;
+- workflow run: `35915818722` — SUCCESS;
+- job: `107366883423` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- APK: `PixelRPG-combat-bridge-002-debug.apk`;
+- APK size: `58,039,909` bytes;
+- APK SHA-256: `515148bb8ed35076664ef612f6b678f086929e75ecb34709014f018e665e5a55`;
+- BuildIdentity schema: `pixel_rpg.build_identity.v1`;
+- Drive canonical build folder: `1zdvN-E1dJt8tgVV4c8g_tofS1eKaj172`;
+- Drive canonical APK: `1AHIq0nhFfzOogk6movCyrPuw1HING4xX`.
+
+COMBAT_BRIDGE_002_VERIFIED:
+- explicit target lock → START COMBAT DOMAIN;
+- current CombatTurnShellRuntime + MudcrestAnatomyRuntime initialize against the live Mudcrest;
+- Hunter/Mudcrest transforms remain unchanged;
+- first-person camera/look remains authoritative;
+- no legacy tactical movement, attack/combat-resolution integration, AP/Stamina spend, damage or actor teleport.
+
 TEST_RESULTS: import/parse PASS; AppShell PASS; prototype boot PASS; first-person runtime gate PASS; Visual Packs 002/003 PASS; World Pack 004 PASS; Combat Bridge 001 first-person targeting regression PASS; preserved deterministic combat/anatomy/status regressions PASS; Android export PASS; package-size gate PASS.
 
 TRUTH_BOUNDARY: Godot/headless/build verification is complete for this checkpoint. Physical Android installation, touch feel, visual acceptance, sustained performance/heat and installed-footprint compliance remain NOT VERIFIED.
 
-NEXT_ACTION: resume `PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK` using the first-person presentation as authoritative. Do not restore third-person camera behavior.
+NEXT_ACTION: implement `PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001` for issue #7; preserve first-person/Bridge 002 behavior and do not add attack/damage in this slice.
