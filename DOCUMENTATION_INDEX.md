@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / FIRST-PERSON + STARTING AREA ASSET PACK 006 BUILDINGS BUILDIDENTITY AUTHORITY
+Status: ACTIVE GLOBAL MAP / FIRST-PERSON + STARTING AREA ASSET PACK 007 PATH SURFACES BUILDIDENTITY AUTHORITY
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -92,6 +92,43 @@ Physical phone install, touch feel, visual acceptance, sustained FPS/heat and in
 
 Latest specialized handoff:
 - `docs/70_handoff/PIXEL_RPG_STARTING_AREA_ASSET_PACK_001_2026-09-23.md`.
+
+## Starting Area Asset Pack 007 Path Surface Details — latest build-verified checkpoint
+
+## Latest verified checkpoint — Starting Area Asset Pack 007 Path Surface Details
+
+- source SHA: `8a2b061acd71f02ffecc2a7b738cd821ac4e6371`;
+- first failed test run: `35928162750` — failed only because the new gate incorrectly cast the historical Street/Trail holder nodes as MeshInstance3D; no APK exported;
+- corrected workflow run: `35928283662` — SUCCESS;
+- corrected job: `107408524350` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.14-starting-area-assets-007-path-surfaces`;
+- APK: `PixelRPG-starting-area-assets-007-path-surfaces-debug.apk`;
+- APK size: `58,219,471` bytes;
+- APK SHA-256: `42cb74a4500650db9167cd133c2aa3e8588c956c2052387b28a0e7b7ba472e44`;
+- APK artifact ID: `10779618297`;
+- APK artifact digest: `a226513cbd52ac0412d95c85320c2d34de1299a1200930d8d9be14d3c2eb0f7a`;
+- build-evidence artifact ID: `10779413781`;
+- build-evidence digest: `fec2740f4cb5f4ce7d9e3496acbd189c6a14d9ef4300b09ff7b1bf816f7bbaad`.
+
+Google Drive immutable folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35928283662_starting-area-assets-007-path-surfaces/`
+- folder ID: `1yz7_68oPoOMQnMHXnQzGqiSNDtsR7Nwo`;
+- APK ID: `1Vuae8OIZNpjhR8ihv2hXfX6_uA6J4-Dv`;
+- BuildIdentity JSON ID: `1VUSLYSb2hWX_EKpuiBxf6cB1e_NSdm2Z`;
+- BuildIdentity Markdown ID: `1SqJOqCS1sF1DPEvT6oDwlz5niFyv991o`;
+- raw CI evidence ID: `1AVNLQnGlode8AvGJt1f5EL4WXKaXSNQ4`;
+- device checklist ID: `1-qxdzstoLVoZ68UxVFqLZfMDTgjN0B_S`.
+
+Implemented and verified:
+- reusable `street_surface_details_01.tscn` and `trail_surface_details_01.tscn`;
+- existing Street holder remains at `Vector3(0, 0.03, 2)` with BoxMesh size `Vector3(6.2, 0.10, 34)`;
+- existing Trail holder remains at `Vector3(0, 0.04, -31)` with BoxMesh size `Vector3(4.2, 0.11, 34)`;
+- new rut/dirt/stone/moss detail is presentation-only and adds no physics;
+- Ground remains physical floor authority;
+- all prior asset/runtime/domain gates, Android export and package-size ceiling passed on the corrected exact source.
+
+Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
 
 ## Starting Area Asset Pack 006 Settlement Building Details — latest build-verified checkpoint
 
@@ -430,6 +467,6 @@ Latest specialized handoff:
 
 ## Continuation
 
-Next bounded slice: `PIXEL_RPG_STARTING_AREA_ASSET_PACK_007_PATH_SURFACE_DETAILS`.
+Next bounded slice: `PIXEL_RPG_VISUAL_PACK_008_MUDCREST_REFINEMENT`.
 
-Preserve creator-authoritative first-person presentation, Ground/world collision ownership, Gate Warden interaction, generic building collision, Pack 004 smith doorway/anchors, Bridge 001 targeting, Bridge 002 no-attack bootstrap and State Ownership 001. Improve only Street/Trail surface presentation.
+Preserve creator-authoritative first-person presentation, world/collision ownership, Gate Warden/building/smith contracts, Bridge 001 targeting, Bridge 002 no-attack bootstrap and State Ownership 001. Refine only Mudcrest visible presentation while preserving anatomy target roots.
