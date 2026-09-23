@@ -6,6 +6,8 @@ const WorldPack004EnterableSmith := preload("res://scripts/presentation/pixel_rp
 const MudcrestVisualScene: PackedScene = preload("res://assets/monsters/mudcrest_visual.tscn")
 const CombatTurnShellRuntime: Script = preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")
 const MudcrestAnatomyRuntime: Script = preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd")
+const TrailPineScene: PackedScene = preload("res://assets/environment/starting_area/trail_pine_01.tscn")
+const TrailRockVisualScene: PackedScene = preload("res://assets/environment/starting_area/trail_rock_visual_01.tscn")
 
 const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
@@ -699,7 +701,7 @@ func _build_prototype_world() -> void:
 	_add_tree(Vector3(-11.0, 0.0, -39.0))
 	_add_tree(Vector3(11.5, 0.0, -43.0))
 
-	_add_box("TrailRockL", Vector3(-3.8, 0.75, -29.0), Vector3(2.4, 1.5, 2.0), Color(0.28, 0.29, 0.27), true)
+	_add_trail_rock()
 	WorldPack001.add_vegetation_cluster(world_geometry, Vector3(-8.5, 0.0, -22.0))
 	WorldPack001.add_vegetation_cluster(world_geometry, Vector3(8.0, 0.0, -31.0), 120.0)
 	WorldPack001.add_rock_cluster(world_geometry, Vector3(4.8, 0.0, -34.0))
@@ -722,28 +724,35 @@ func _add_building(position: Vector3, size: Vector3, color: Color) -> void:
 	_add_box("Roof", position + Vector3(0, size.y * 0.5 + 0.45, 0), Vector3(size.x + 0.6, 0.9, size.z + 0.6), Color(0.20, 0.12, 0.08), false)
 
 func _add_tree(position: Vector3) -> void:
-	var trunk := MeshInstance3D.new()
-	var trunk_mesh := CylinderMesh.new()
-	trunk_mesh.top_radius = 0.22
-	trunk_mesh.bottom_radius = 0.32
-	trunk_mesh.height = 3.2
-	trunk_mesh.radial_segments = 6
-	trunk.mesh = trunk_mesh
-	trunk.position = position + Vector3(0, 1.6, 0)
-	trunk.material_override = _material(Color(0.22, 0.14, 0.08))
-	world_geometry.add_child(trunk)
+	var visual := TrailPineScene.instantiate() as Node3D
+	if visual == null:
+		push_error("Pixel RPG Pack 004 failed to instantiate trail pine visual")
+		return
+	visual.position = position
+	visual.set_meta("pixel_rpg_trail_pine_visual", true)
+	world_geometry.add_child(visual)
 
-	var canopy := MeshInstance3D.new()
-	var canopy_mesh := SphereMesh.new()
-	canopy_mesh.radius = 1.35
-	canopy_mesh.height = 2.7
-	canopy_mesh.radial_segments = 8
-	canopy_mesh.rings = 4
-	canopy.mesh = canopy_mesh
-	canopy.position = position + Vector3(0, 3.5, 0)
-	canopy.scale = Vector3(1.0, 1.25, 1.0)
-	canopy.material_override = _material(Color(0.12, 0.31, 0.16))
-	world_geometry.add_child(canopy)
+func _add_trail_rock() -> void:
+	var body := StaticBody3D.new()
+	body.name = "TrailRockL"
+	body.position = Vector3(-3.8, 0.75, -29.0)
+	body.collision_layer = 1
+	body.collision_mask = 1
+	world_geometry.add_child(body)
+
+	var visual := TrailRockVisualScene.instantiate() as MeshInstance3D
+	if visual == null:
+		push_error("Pixel RPG Pack 004 failed to instantiate TrailRockL visual")
+	else:
+		visual.name = "MeshInstance3D"
+		body.add_child(visual)
+
+	var collision := CollisionShape3D.new()
+	collision.name = "CollisionShape3D"
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(2.4, 1.5, 2.0)
+	collision.shape = shape
+	body.add_child(collision)
 
 func _add_npc_visual(parent: Node3D) -> void:
 	var body := MeshInstance3D.new()
