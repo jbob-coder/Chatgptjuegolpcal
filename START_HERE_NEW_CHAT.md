@@ -72,8 +72,8 @@ SHA-256: `531498c45c6d2293d5d38d646ca277ca7d0968b43caedb390ed3d3806578c532`.
 
 Drive folder:
 `Pixel RPG/Builds/First Person/2026-09-23_run-35917375696_state-ownership-001/`  
-Folder ID: `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`.  
-Drive APK ID: `10VDC-3g2VqiDkfx8r_Kvs6HRiPcFWZvq`.
+Folder ID: `1PODIl1OXJ5Rpz5CqjmueEfau-HLXasci`.  
+Drive APK ID: `1PGcW_okc1owdvuKxZuMNboICcRBoYKOd`.
 
 This baseline preserves creator-authoritative first-person presentation, Bridge 001 targeting, Bridge 002 no-attack domain bootstrap and State Ownership Contract 001.
 

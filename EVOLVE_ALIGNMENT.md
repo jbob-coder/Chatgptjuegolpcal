@@ -236,12 +236,12 @@ Verified guarantees:
 
 Google Drive immutable revision:
 `Pixel RPG/Builds/First Person/2026-09-23_run-35917375696_state-ownership-001/`  
-Folder ID `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`.  
-APK ID `10VDC-3g2VqiDkfx8r_Kvs6HRiPcFWZvq`.  
-BuildIdentity JSON ID `1hnTyW3XsDr8ktNtL-NdI1li0LoeNipVw`.  
-BuildIdentity Markdown ID `1ZsKoqVLpMdUL8wstaKY15KXcz1muxps_`.  
-Raw CI evidence ZIP ID `17t-ZHb0jRMrwicKy180i6oziduV-r9hb`.  
-Device checklist ID `1RHN5Jes9IZfRjAywdhbpfTnufAM6fxJx`.
+Folder ID `1PODIl1OXJ5Rpz5CqjmueEfau-HLXasci`.  
+APK ID `1PGcW_okc1owdvuKxZuMNboICcRBoYKOd`.  
+BuildIdentity JSON ID `18YieqdZBvYhzGshzBpFV2IJRQx_kZIu8`.  
+BuildIdentity Markdown ID `1XLkjc9ZtIKMXpLvTrx6C7uzJaQ15YYJU`.  
+Raw CI evidence ZIP ID `1xnZswS624jJ4DzsJh3KlfQFJn3Lb7sub`.  
+Device checklist ID `1PjOBSiRyfhsqEn_a3eVkdw_jibWZ7bVF`.
 
 Phone runtime, touch feel, visual acceptance, sustained performance/heat and installed-footprint compliance remain NOT VERIFIED.
 

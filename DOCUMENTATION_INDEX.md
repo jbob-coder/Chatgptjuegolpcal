@@ -170,7 +170,7 @@ Godot: `4.7.2.stable.official.ed1daf0bf`.
 APK: `PixelRPG-state-ownership-001-debug.apk`, `58,052,621` bytes, SHA-256 `531498c45c6d2293d5d38d646ca277ca7d0968b43caedb390ed3d3806578c532`.  
 State Ownership Contract gate: `70/70` PASS.  
 BuildIdentity v1 is present in the evidence artifact.  
-Current immutable Drive revision ID: `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`.
+Current immutable Drive revision ID: `1PODIl1OXJ5Rpz5CqjmueEfau-HLXasci`.
 
 Latest specialized handoff:
 - `docs/70_handoff/PIXEL_RPG_STATE_OWNERSHIP_CONTRACT_001_2026-09-23.md`.

@@ -46,12 +46,12 @@ LATEST BUILD-VERIFIED SOURCE:
 
 GOOGLE DRIVE IMMUTABLE BUILD:
 - path: `Pixel RPG/Builds/First Person/2026-09-23_run-35917375696_state-ownership-001/`;
-- folder ID: `1qoO5FFzkUdnFm-ksFhUKPpU9ZlMbwMMf`;
-- APK ID: `10VDC-3g2VqiDkfx8r_Kvs6HRiPcFWZvq`;
-- BuildIdentity JSON: `1hnTyW3XsDr8ktNtL-NdI1li0LoeNipVw`;
-- BuildIdentity Markdown: `1ZsKoqVLpMdUL8wstaKY15KXcz1muxps_`;
-- raw CI evidence ZIP: `17t-ZHb0jRMrwicKy180i6oziduV-r9hb`;
-- device checklist: `1RHN5Jes9IZfRjAywdhbpfTnufAM6fxJx`.
+- folder ID: `1PODIl1OXJ5Rpz5CqjmueEfau-HLXasci`;
+- APK ID: `1PGcW_okc1owdvuKxZuMNboICcRBoYKOd`;
+- BuildIdentity JSON: `18YieqdZBvYhzGshzBpFV2IJRQx_kZIu8`;
+- BuildIdentity Markdown: `1XLkjc9ZtIKMXpLvTrx6C7uzJaQ15YYJU`;
+- raw CI evidence ZIP: `1xnZswS624jJ4DzsJh3KlfQFJn3Lb7sub`;
+- device checklist: `1PjOBSiRyfhsqEn_a3eVkdw_jibWZ7bVF`.
 
 TEST_RESULTS:
 - import/parse PASS;
