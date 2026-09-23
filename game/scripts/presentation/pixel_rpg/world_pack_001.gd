@@ -18,6 +18,11 @@ const MarketStallScene: PackedScene = preload("res://assets/environment/starting
 const ServiceClutterScene: PackedScene = preload("res://assets/environment/starting_area/service_clutter_01.tscn")
 const SignpostScene: PackedScene = preload("res://assets/environment/starting_area/signpost_01.tscn")
 const LanternPostScene: PackedScene = preload("res://assets/environment/starting_area/lantern_post_01.tscn")
+const ENVIRONMENT_DRESSING_SCHEMA := "pixel_rpg.starting_area_asset_pack_003_environment_dressing.v1"
+const FenceScene: PackedScene = preload("res://assets/environment/starting_area/fence_01.tscn")
+const BannerPostScene: PackedScene = preload("res://assets/environment/starting_area/banner_post_01.tscn")
+const VegetationClusterScene: PackedScene = preload("res://assets/environment/starting_area/vegetation_cluster_01.tscn")
+const RockClusterScene: PackedScene = preload("res://assets/environment/starting_area/rock_cluster_01.tscn")
 
 static func add_settlement_gate(parent: Node3D, position: Vector3) -> Node3D:
 	return _instance_asset(parent, SettlementGateScene, "WorldPack001Gate", position)
@@ -46,35 +51,16 @@ static func add_lantern_post(parent: Node3D, position: Vector3, yaw_deg := 0.0) 
 	return _instance_asset(parent, LanternPostScene, "WorldPack001Lantern", position, yaw_deg)
 
 static func add_fence(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Fence", position, yaw_deg)
-	_box(root, "PostLeft", Vector3(-1.5, 0.78, 0.0), Vector3(0.22, 1.55, 0.22), WOOD_DARK)
-	_box(root, "PostRight", Vector3(1.5, 0.78, 0.0), Vector3(0.22, 1.55, 0.22), WOOD_DARK)
-	_box(root, "RailLow", Vector3(0.0, 0.55, 0.0), Vector3(3.2, 0.18, 0.16), WOOD_MID)
-	_box(root, "RailHigh", Vector3(0.0, 1.15, 0.0), Vector3(3.2, 0.18, 0.16), WOOD_MID)
-	return root
+	return _instance_asset(parent, FenceScene, "WorldPack001Fence", position, yaw_deg)
 
 static func add_banner_post(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Banner", position, yaw_deg)
-	_box(root, "Post", Vector3(0.0, 1.5, 0.0), Vector3(0.22, 3.0, 0.22), WOOD_DARK)
-	_box(root, "TopBar", Vector3(0.55, 2.85, 0.0), Vector3(1.35, 0.15, 0.15), WOOD_DARK)
-	_box(root, "Banner", Vector3(0.55, 1.85, 0.0), Vector3(1.0, 1.8, 0.08), CLOTH_RED)
-	return root
+	return _instance_asset(parent, BannerPostScene, "WorldPack001Banner", position, yaw_deg)
 
 static func add_vegetation_cluster(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Vegetation", position, yaw_deg)
-	_tree(root, "TreeA", Vector3(-1.25, 0.0, 0.3), 0.26, 2.5, 0.95)
-	_tree(root, "TreeB", Vector3(0.25, 0.0, -0.35), 0.32, 3.1, 1.15)
-	_tree(root, "TreeC", Vector3(1.35, 0.0, 0.25), 0.23, 2.3, 0.85)
-	_sphere(root, "BushA", Vector3(-0.55, 0.55, -1.05), 0.55, FOLIAGE_MID)
-	_sphere(root, "BushB", Vector3(0.65, 0.48, 1.0), 0.48, FOLIAGE_MID)
-	return root
+	return _instance_asset(parent, VegetationClusterScene, "WorldPack001Vegetation", position, yaw_deg)
 
 static func add_rock_cluster(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Rocks", position, yaw_deg)
-	_box(root, "RockA", Vector3(-0.8, 0.5, 0.0), Vector3(1.55, 1.0, 1.15), STONE, Vector3(0.0, 24.0, 10.0))
-	_box(root, "RockB", Vector3(0.45, 0.35, 0.2), Vector3(1.25, 0.7, 1.0), STONE, Vector3(0.0, -18.0, -6.0))
-	_box(root, "RockC", Vector3(1.1, 0.25, -0.5), Vector3(0.8, 0.5, 0.75), STONE, Vector3(0.0, 35.0, 8.0))
-	return root
+	return _instance_asset(parent, RockClusterScene, "WorldPack001Rocks", position, yaw_deg)
 
 static func _tree(parent: Node3D, name: String, position: Vector3, radius: float, height: float, crown_radius: float) -> void:
 	_cylinder(parent, name + "Trunk", position + Vector3(0.0, height * 0.5, 0.0), radius, height, WOOD_DARK, 6)
