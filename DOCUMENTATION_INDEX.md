@@ -78,7 +78,22 @@ Hard player-required installed/runtime footprint: ≤ `2,000,000,000` bytes.
 
 Required runtime downloads count. Development-only repo/source/CI files do not. APK/AAB size is package evidence only.
 
-## Current Pixel RPG verified baseline
+## First-person checkpoint — current exact build-verified baseline
+
+Source: `0a6e54ecdbc1c81043b6db5dd0f35e429cbb4ee9`.
+Workflow `35910688037`: SUCCESS.
+Job `107349457171`: SUCCESS.
+Godot: `4.7.2.stable.official.ed1daf0bf`.
+
+APK: `PixelRPG-first-person-001-debug.apk`
+Size: `58,023,057` bytes.
+SHA-256: `d0ea93980e2e617d056a696183c6eced2d0df34cf3a6240e244f3524ced8e012`.
+Drive APK ID: `1NwWuvKS_cXuz5o22r5taeTadnlgUiIYB`.
+Drive build folder ID: `1REno22ZSIUQnKxOB6pcZRaYS6W0aXFa1`.
+
+This supersedes the older third-person build as the current presentation/build baseline. It does not establish physical-phone runtime, visual-quality acceptance, sustained performance/heat, or installed-footprint compliance.
+
+## Historical pre-first-person verified baseline
 
 Source:\n`977d4004625631d077856b5a49246fbf08313b64`.
 
@@ -102,7 +117,9 @@ Passed:
 - artifact uploads.
 
 Latest specialized handoff:
-- `docs/70_handoff/PIXEL_RPG_COMBAT_BRIDGE_001_THIRD_PERSON_TARGETING_PREVIEW_2026-09-21.md`.
+- `docs/70_handoff/PIXEL_RPG_FIRST_PERSON_REALIGNMENT_2026-09-23.md`.
+
+Historical Bridge 001 handoff remains evidence for targeting behavior but its third-person presentation wording is superseded.
 
 Master work register:
 - `docs/00_project/PIXEL_RPG_MASTER_WORK_REGISTER_2026-09-21.md`;
@@ -136,6 +153,6 @@ Pixel RPG Android CI runs for `game/**` changes or workflow-file changes. Docume
 
 ## Exact continuation
 
-`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`.
+`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
 
-Implement and verify first-person presentation around the existing Pixel RPG controller/world/HUD/targeting/domain systems. The prior Combat Bridge 002 slice is deferred until the camera realignment has exact-source Android evidence.
+First-person presentation now has exact-source Android evidence. Bridge 002 must preserve the first-person camera and current-world actor transforms while bootstrapping only the approved combat/anatomy domain authorities.

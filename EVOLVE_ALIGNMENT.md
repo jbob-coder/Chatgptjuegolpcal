@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / FIRST-PERSON CREATOR REALIGNMENT IN PROGRESS
+Status: ACTIVE PIXEL RPG / FIRST-PERSON CHECKPOINT BUILD-VERIFIED / COMBAT BRIDGE CONTINUATION
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -81,7 +81,7 @@ Historical artifact `10362706279`, 57,536,941 bytes, SHA-256 `ba02d634d1435ed294
 
 This historical evidence does not prove the Pixel RPG presentation.
 
-## Pixel RPG prototype 001 — current build-verified implementation
+## Pixel RPG prototype 001 — historical third-person build-verified implementation
 
 Current pixel/camera/HUD-polished gameplay source:
 `88d19d733a579e326d7bdf3ebd8e002ef413d86a`.
@@ -160,22 +160,35 @@ These remain design targets unless current source proves implementation.
 `PIXEL_RPG_PERFORMANCE_VERIFIED = NO`
 `INSTALLED_FOOTPRINT_2GB_CAP_VERIFIED = NO`
 
+## First-person exact-source checkpoint
+
+Source `0a6e54ecdbc1c81043b6db5dd0f35e429cbb4ee9` is Godot/headless/Android-build verified.
+
+Workflow `35910688037`: SUCCESS.
+Job `107349457171`: SUCCESS.
+Godot `4.7.2.stable.official.ed1daf0bf`.
+APK size `58,023,057` bytes.
+APK SHA-256 `d0ea93980e2e617d056a696183c6eced2d0df34cf3a6240e244f3524ced8e012`.
+Drive APK ID `1NwWuvKS_cXuz5o22r5taeTadnlgUiIYB`.
+
+The first failed run `35909468940` exposed a test defect: legitimate gravity/floor settling changed global Hunter/camera height between physics frames. The repaired gate isolates presentation initialization and camera-local SpringArm independence without weakening the first-person contract.
+
+`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_ENGINE_VERIFIED = YES`
+`PIXEL_RPG_FIRST_PERSON_ANDROID_BUILD_VERIFIED = YES`
+`PIXEL_RPG_FIRST_PERSON_DEVICE_VERIFIED = NO`
+
 ## Exact next bounded piece
 
-`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`
-
-Creator directive supersedes the previously queued domain-bootstrap slice until first-person camera/controller presentation is implemented, regression-tested, Android-built and documented. After that checkpoint, resume the next bounded gameplay slice from current repository evidence.
-
-Previous next slice (deferred, not deleted): `PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`
+`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`
 
 Boundary:
-1. preserve Packs 001–004 and Bridge 001 third-person targeting;
+1. preserve Packs 001–004 and Bridge 001 targeting semantics under the authoritative first-person presentation;
 2. keep current gameplay-domain source files unchanged;
 3. add minimal current-World transient-control compatibility;
 4. provide current collidable monster body authority using ID `monster_r01_m01_0001`;
 5. after target lock, expose explicit START COMBAT DOMAIN;
 6. initialize CombatTurnShellRuntime and MudcrestAnatomyRuntime only;
-7. keep Hunter/Mudcrest visual transforms and third-person camera unchanged;
+7. keep Hunter/Mudcrest visual transforms and first-person camera authority unchanged;
 8. do not initialize legacy tactical movement or hunter attack runtime;
 9. do not spend AP/Stamina or apply damage;
 10. add runtime and Android verification.

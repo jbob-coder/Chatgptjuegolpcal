@@ -59,7 +59,22 @@ Visible concept names/text are placeholders.
 
 Never weaken legitimate gates to force success.
 
-## Current Pixel RPG verified baseline
+## First-person checkpoint — current exact build-verified baseline
+
+Source: `0a6e54ecdbc1c81043b6db5dd0f35e429cbb4ee9`.
+Workflow `35910688037`: SUCCESS.
+Job `107349457171`: SUCCESS.
+Godot: `4.7.2.stable.official.ed1daf0bf`.
+
+APK: `PixelRPG-first-person-001-debug.apk`
+Size: `58,023,057` bytes.
+SHA-256: `d0ea93980e2e617d056a696183c6eced2d0df34cf3a6240e244f3524ced8e012`.
+Drive APK ID: `1NwWuvKS_cXuz5o22r5taeTadnlgUiIYB`.
+Drive build folder ID: `1REno22ZSIUQnKxOB6pcZRaYS6W0aXFa1`.
+
+This supersedes the older third-person build as the current presentation/build baseline. It does not establish physical-phone runtime, visual-quality acceptance, sustained performance/heat, or installed-footprint compliance.
+
+## Historical pre-first-person verified baseline
 
 Current verified gameplay/presentation source:\n`47ade9413fe24f15453ee6fb0135b270b2d3ce8d`.
 
@@ -118,6 +133,6 @@ Required runtime downloads count. Dev-only repository/source/CI files do not. Pa
 
 ## Current bounded piece
 
-`PIXEL_RPG_FIRST_PERSON_REALIGNMENT_001`.
+`PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK`.
 
-Preserve the existing controller/world/HUD/targeting/domain systems while making first-person exploration authoritative. Verify camera path, eye height, yaw/pitch, interaction/targeting regressions and Android export before resuming the deferred combat-domain bootstrap.
+The first-person camera checkpoint is now source/Godot/Android-build verified. Continue the current-world combat bridge without changing camera authority, teleporting actors, spending AP/Stamina or applying damage in this bootstrap slice.
