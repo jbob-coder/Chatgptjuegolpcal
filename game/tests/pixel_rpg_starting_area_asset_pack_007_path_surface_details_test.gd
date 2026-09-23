@@ -24,10 +24,13 @@ func _contains_physics(node: Node) -> bool:
 			return true
 	return false
 
-func _box_size(node: MeshInstance3D) -> Vector3:
-	if node == null or not (node.mesh is BoxMesh):
+func _box_size(holder: Node3D) -> Vector3:
+	if holder == null:
 		return Vector3.ZERO
-	return (node.mesh as BoxMesh).size
+	for child in holder.get_children():
+		if child is MeshInstance3D and (child as MeshInstance3D).mesh is BoxMesh:
+			return ((child as MeshInstance3D).mesh as BoxMesh).size
+	return Vector3.ZERO
 
 func _run() -> void:
 	print("Pixel RPG Starting Area Asset Pack 007 path surface details runtime gate")
@@ -60,8 +63,8 @@ func _run() -> void:
 
 	var geometry := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/WorldGeometry") as Node3D
 	var camera := prototype.get_node_or_null("WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/Camera3D") as Camera3D
-	var street := geometry.get_node_or_null("Street") as MeshInstance3D if geometry != null else null
-	var trail := geometry.get_node_or_null("Trail") as MeshInstance3D if geometry != null else null
+	var street := geometry.get_node_or_null("Street") as Node3D if geometry != null else null
+	var trail := geometry.get_node_or_null("Trail") as Node3D if geometry != null else null
 	var ground := geometry.get_node_or_null("Ground") as StaticBody3D if geometry != null else null
 	var street_details := geometry.get_node_or_null("StreetSurfaceDetails") as Node3D if geometry != null else null
 	var trail_details := geometry.get_node_or_null("TrailSurfaceDetails") as Node3D if geometry != null else null
