@@ -46,7 +46,7 @@ func _run() -> void:
 		for root_name in TARGET_ROOTS:
 			var target := mudcrest.get_node_or_null(NodePath(root_name))
 			_check("anatomy target root preserved " + root_name, target != null and target is Node3D)
-		_check("anatomy target owns visible children " + root_name, target != null and target.get_child_count() > 0)
+			_check("anatomy target owns visible children " + root_name, target != null and target.get_child_count() > 0)
 
 		_check("HEAD gains eyes jaw and tusks", mudcrest.has_node("HEAD/EyeL") and mudcrest.has_node("HEAD/EyeR") and mudcrest.has_node("HEAD/JawLower") and mudcrest.has_node("HEAD/TuskL") and mudcrest.has_node("HEAD/TuskR"))
 		_check("HORN_CREST gains reinforced bases", mudcrest.has_node("HORN_CREST/CrestBaseL") and mudcrest.has_node("HORN_CREST/CrestBaseR"))
