@@ -357,7 +357,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.80, 0.70, 1)
 theme_override_font_sizes/font_size = 15
-text = "THIRD-PERSON TARGET PREVIEW\nNo AP, Stamina, damage, or actor teleport."
+text = "FIRST-PERSON TARGET PREVIEW\nNo AP, Stamina, damage, or actor teleport."
 horizontal_alignment = 1
 autowrap_mode = 2
 
