@@ -18,7 +18,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-first-person-001-debug.apk
+  APK_PATH: game/build/android/PixelRPG-combat-bridge-002-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -160,6 +160,13 @@ jobs:
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_combat_bridge_001_targeting_preview_test.gd" 2>&1 | tee build-evidence/combat-bridge-001-targeting-preview.log
           grep -q "Gate: PIXEL_RPG_COMBAT_BRIDGE_001_TARGETING_PREVIEW_VERIFIED" build-evidence/combat-bridge-001-targeting-preview.log
 
+      - name: Pixel RPG Combat Bridge 002 domain bootstrap no-attack gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_combat_bridge_002_domain_bootstrap_test.gd" 2>&1 | tee build-evidence/combat-bridge-002-domain-bootstrap.log
+          grep -q "Gate: PIXEL_RPG_COMBAT_BRIDGE_002_DOMAIN_BOOTSTRAP_NO_ATTACK_VERIFIED" build-evidence/combat-bridge-002-domain-bootstrap.log
+
       - name: Preserve deterministic combat domain tests
         shell: bash
         run: |
@@ -202,8 +209,8 @@ jobs:
       - name: Upload Pixel RPG prototype APK
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-first-person-001-debug
-          path: game/build/android/PixelRPG-first-person-001-debug.apk
+          name: PixelRPG-combat-bridge-002-debug
+          path: game/build/android/PixelRPG-combat-bridge-002-debug.apk
           if-no-files-found: error
 
       - name: Upload Pixel RPG build evidence

@@ -3,6 +3,8 @@ extends Node
 const WorldPack001 := preload("res://scripts/presentation/pixel_rpg/world_pack_001.gd")
 const WorldPack004EnterableSmith := preload("res://scripts/presentation/pixel_rpg/world_pack_004_enterable_smith.gd")
 const MudcrestVisualScene: PackedScene = preload("res://assets/monsters/mudcrest_visual.tscn")
+const CombatTurnShellRuntime: Script = preload("res://scripts/gameplay/combat/hunt01_combat_turn_shell_runtime.gd")
+const MudcrestAnatomyRuntime: Script = preload("res://scripts/gameplay/monsters/monster_01/hunt01_mudcrest_anatomy_runtime.gd")
 
 const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
@@ -32,8 +34,12 @@ const MUDCREST_TARGETABLE_GROUPS := [
 const RESPAWN_Y_M := -8.0
 const PLAYER_START := Vector3(0.0, 0.9, 13.0)
 const HUD_EDGE_MARGIN := 18.0
+const DOMAIN_ENCOUNTER_ID := "enc_r01_ef02_m01_0001"
+const DOMAIN_MONSTER_ID := "monster_r01_m01_0001"
+const DOMAIN_HUNTER_ID := "hunter_player_0001"
 
 @onready var world_viewport: SubViewport = $WorldDisplay/WorldViewport
+@onready var world: Node3D = $WorldDisplay/WorldViewport/World
 @onready var world_geometry: Node3D = $WorldDisplay/WorldViewport/World/WorldGeometry
 @onready var hunter: CharacterBody3D = $WorldDisplay/WorldViewport/World/Hunter
 @onready var hunter_visual: Node3D = $WorldDisplay/WorldViewport/World/Hunter/Visual
@@ -62,7 +68,10 @@ const HUD_EDGE_MARGIN := 18.0
 @onready var targeting_panel: PanelContainer = $HUD/TargetingPanel
 @onready var target_group_selector: OptionButton = $HUD/TargetingPanel/Layout/TargetGroup
 @onready var target_status_label: Label = $HUD/TargetingPanel/Layout/TargetStatus
+@onready var target_mode_label: Label = $HUD/TargetingPanel/Layout/Mode
 @onready var target_lock_button: Button = $HUD/TargetingPanel/Layout/LockTarget
+@onready var start_combat_domain_button: Button = $HUD/TargetingPanel/Layout/StartCombatDomain
+@onready var targeting_close_button: Button = $HUD/TargetingPanel/Layout/Close
 
 var _joystick_vector := Vector2.ZERO
 var _joystick_touch_id := -1
@@ -76,6 +85,10 @@ var _smith_root: Node3D
 var _smith_use_anchor: Node3D
 var _monster_anchor: Node3D
 var _monster_visual: Node3D
+var _domain_monster_body: StaticBody3D
+var _combat_turn_shell: Node
+var _mudcrest_anatomy: Node
+var _combat_domain_started := false
 var _targeting_open := false
 var _selected_target_group := "DORSAL_PLATES"
 var _locked_target_group := ""
@@ -351,7 +364,7 @@ func _apply_safe_area_layout() -> void:
 	settings_panel.offset_bottom = settings_height * 0.5
 
 	var targeting_width := minf(380.0, available_width * 0.44)
-	var targeting_height := minf(410.0, available_height - 36.0)
+	var targeting_height := minf(470.0, available_height - 36.0)
 	targeting_panel.anchor_left = 1.0
 	targeting_panel.anchor_right = 1.0
 	targeting_panel.anchor_top = 0.5
@@ -391,6 +404,7 @@ func _configure_targeting_preview() -> void:
 	_target_highlight_material.albedo_color = Color(1.0, 0.62, 0.16, 0.38)
 	_target_highlight_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_target_highlight_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	start_combat_domain_button.disabled = true
 	_refresh_targeting_status()
 
 func _set_material_overlay_recursive(node: Node, overlay: Material) -> void:
@@ -420,9 +434,26 @@ func _apply_target_highlight(target_group: String) -> bool:
 func _refresh_targeting_status() -> void:
 	if target_status_label == null:
 		return
+	if _combat_domain_started and _combat_turn_shell != null and _mudcrest_anatomy != null:
+		var shell_state: Dictionary = _combat_turn_shell.call("get_current_state")
+		var resources: Dictionary = _combat_turn_shell.call("get_resource_state", DOMAIN_HUNTER_ID)
+		var anatomy_state: Dictionary = _mudcrest_anatomy.call("get_target_state", _locked_target_group)
+		var actor := String(shell_state.get("current_actor_id", ""))
+		target_status_label.text = "DOMAIN ACTIVE • Round %d • %s\nAP %d/%d • Stamina %d/%d\n%s Integrity %d/%d • no attack runtime" % [
+			int(shell_state.get("round_id", 0)),
+			"HUNTER" if actor == DOMAIN_HUNTER_ID else actor,
+			int(resources.get("ap", 0)),
+			int(resources.get("max_ap", 0)),
+			int(resources.get("stamina", 0)),
+			int(resources.get("max_stamina", 0)),
+			_locked_target_group.replace("_", " "),
+			int(anatomy_state.get("integrity", 0)),
+			int(anatomy_state.get("max_integrity", 0)),
+		]
+		return
 	var readable := _selected_target_group.replace("_", " ")
 	if not _locked_target_group.is_empty():
-		target_status_label.text = "LOCKED • %s • preview only" % _locked_target_group.replace("_", " ")
+		target_status_label.text = "LOCKED • %s • ready for domain bootstrap" % _locked_target_group.replace("_", " ")
 	else:
 		target_status_label.text = "SELECTED • %s • preview only" % readable
 
@@ -434,6 +465,10 @@ func _open_targeting_preview() -> bool:
 		return false
 	_targeting_open = true
 	_locked_target_group = ""
+	start_combat_domain_button.disabled = true
+	target_group_selector.disabled = false
+	target_lock_button.disabled = false
+	targeting_close_button.disabled = false
 	_current_context = "TARGETING"
 	targeting_panel.visible = true
 	action_button.visible = false
@@ -450,7 +485,7 @@ func _open_targeting_preview() -> bool:
 	return true
 
 func _close_targeting_preview() -> void:
-	if not _targeting_open:
+	if not _targeting_open or _combat_domain_started:
 		return
 	_targeting_open = false
 	_locked_target_group = ""
@@ -463,23 +498,65 @@ func _close_targeting_preview() -> void:
 	_update_contextual_action()
 
 func _on_target_group_selected(index: int) -> void:
-	if index < 0 or index >= target_group_selector.item_count:
+	if _combat_domain_started or index < 0 or index >= target_group_selector.item_count:
 		return
 	var group := String(target_group_selector.get_item_metadata(index))
 	if not MUDCREST_TARGETABLE_GROUPS.has(group):
 		return
 	_selected_target_group = group
 	_locked_target_group = ""
+	start_combat_domain_button.disabled = true
 	_apply_target_highlight(group)
 	_refresh_targeting_status()
 
 func _on_lock_target_pressed() -> void:
-	if not _targeting_open or not MUDCREST_TARGETABLE_GROUPS.has(_selected_target_group):
+	if _combat_domain_started or not _targeting_open or not MUDCREST_TARGETABLE_GROUPS.has(_selected_target_group):
 		return
 	_locked_target_group = _selected_target_group
+	start_combat_domain_button.disabled = false
 	_apply_target_highlight(_locked_target_group)
 	_refresh_targeting_status()
-	objective_label.text = "Target locked: %s. Preview only; attack resolution is not active in this bridge slice." % _locked_target_group.replace("_", " ")
+	objective_label.text = "Target locked: %s. Domain bootstrap is available; no attack or damage is active." % _locked_target_group.replace("_", " ")
+
+func _on_start_combat_domain_pressed() -> void:
+	if _combat_domain_started or not _targeting_open or _locked_target_group.is_empty():
+		return
+	if _domain_monster_body == null or world == null:
+		objective_label.text = "Combat domain bootstrap blocked: current-world Monster authority unavailable."
+		return
+
+	var encounter_record := {
+		"encounter_id": DOMAIN_ENCOUNTER_ID,
+		"monster_id": DOMAIN_MONSTER_ID,
+	}
+
+	var anatomy := MudcrestAnatomyRuntime.new() as Node
+	anatomy.name = "MudcrestAnatomyRuntime"
+	world.add_child(anatomy)
+	if not bool(anatomy.call("initialize", world, encounter_record)):
+		anatomy.queue_free()
+		objective_label.text = "Combat domain bootstrap blocked: Mudcrest anatomy authority rejected initialization."
+		return
+
+	var shell := CombatTurnShellRuntime.new() as Node
+	shell.name = "CombatTurnShellRuntime"
+	world.add_child(shell)
+	if not bool(shell.call("initialize", world, encounter_record)):
+		shell.queue_free()
+		anatomy.queue_free()
+		objective_label.text = "Combat domain bootstrap blocked: turn-shell authority rejected initialization."
+		return
+
+	_mudcrest_anatomy = anatomy
+	_combat_turn_shell = shell
+	_combat_domain_started = true
+	target_group_selector.disabled = true
+	target_lock_button.disabled = true
+	start_combat_domain_button.disabled = true
+	targeting_close_button.disabled = true
+	target_mode_label.text = "FIRST-PERSON COMBAT DOMAIN BOOTSTRAP\nTurn/anatomy state initialized • no attack, damage, AP/Stamina spend, or actor teleport."
+	objective_label.text = "Combat domain initialized against live Mudcrest. Target %s remains locked; attack runtime is intentionally absent." % _locked_target_group.replace("_", " ")
+	_refresh_targeting_status()
 
 func _on_targeting_close_pressed() -> void:
 	_close_targeting_preview()
@@ -494,6 +571,10 @@ func get_targeting_preview_state() -> Dictionary:
 		"first_person_camera_current": camera.current,
 		"third_person_camera_current": false,
 		"monster_visual_ready": _monster_visual != null,
+		"domain_monster_body_ready": _domain_monster_body != null,
+		"combat_domain_started": _combat_domain_started,
+		"combat_turn_shell_ready": _combat_turn_shell != null,
+		"mudcrest_anatomy_ready": _mudcrest_anatomy != null,
 	}
 
 func _update_smith_interior_visibility() -> void:
@@ -633,6 +714,7 @@ func _build_prototype_world() -> void:
 	_monster_anchor.position = Vector3(0.0, 0.0, -49.0)
 	world_geometry.add_child(_monster_anchor)
 	_add_monster_proxy(_monster_anchor)
+	_add_domain_monster_body_alias(_monster_anchor.position)
 
 func _add_building(position: Vector3, size: Vector3, color: Color) -> void:
 	_add_box("Building", position, size, color, true)
@@ -693,6 +775,23 @@ func _add_monster_proxy(parent: Node3D) -> void:
 	visual.name = "MudcrestVisual"
 	parent.add_child(visual)
 	_monster_visual = visual
+
+func _add_domain_monster_body_alias(position: Vector3) -> void:
+	var body := StaticBody3D.new()
+	body.name = DOMAIN_MONSTER_ID
+	body.position = position
+	body.collision_layer = 1
+	body.collision_mask = 1
+	world_geometry.add_child(body)
+	var collision := CollisionShape3D.new()
+	collision.name = "CollisionShape3D"
+	collision.position = Vector3(0.0, 1.0, 0.0)
+	var shape := CapsuleShape3D.new()
+	shape.radius = 0.9
+	shape.height = 2.2
+	collision.shape = shape
+	body.add_child(collision)
+	_domain_monster_body = body
 
 func _add_collision_box(name: String, position: Vector3, size: Vector3) -> void:
 	var body := StaticBody3D.new()

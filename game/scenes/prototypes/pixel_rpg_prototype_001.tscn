@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/presentation/pixel_rpg/pixel_rpg_prototype_001.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://assets/characters/hunter_visual.tscn" id="2_hunter"]
+[ext_resource type="Script" path="res://scripts/presentation/pixel_rpg/pixel_rpg_world_combat_compat.gd" id="3_world_compat"]
 
 [sub_resource type="CapsuleShape3D" id="HunterShape"]
 radius = 0.32
@@ -99,6 +100,7 @@ render_target_update_mode = 4
 own_world_3d = true
 
 [node name="World" type="Node3D" parent="WorldDisplay/WorldViewport"]
+script = ExtResource("3_world_compat")
 
 [node name="Sun" type="DirectionalLight3D" parent="WorldDisplay/WorldViewport/World"]
 rotation_degrees = Vector3(-48, -34, 0)
@@ -381,8 +383,16 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("ActionButton")
 text = "LOCK TARGET"
 
-[node name="Close" type="Button" parent="HUD/TargetingPanel/Layout"]
+[node name="StartCombatDomain" type="Button" parent="HUD/TargetingPanel/Layout"]
 custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+disabled = true
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("ActionButton")
+text = "START COMBAT DOMAIN"
+
+[node name="Close" type="Button" parent="HUD/TargetingPanel/Layout"]
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "EXIT TARGETING"
@@ -478,6 +488,7 @@ text = "CLOSE"
 
 [connection signal="item_selected" from="HUD/TargetingPanel/Layout/TargetGroup" to="." method="_on_target_group_selected"]
 [connection signal="pressed" from="HUD/TargetingPanel/Layout/LockTarget" to="." method="_on_lock_target_pressed"]
+[connection signal="pressed" from="HUD/TargetingPanel/Layout/StartCombatDomain" to="." method="_on_start_combat_domain_pressed"]
 [connection signal="pressed" from="HUD/TargetingPanel/Layout/Close" to="." method="_on_targeting_close_pressed"]
 [connection signal="pressed" from="HUD/Touch/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="value_changed" from="HUD/SettingsPanel/Layout/CameraSensitivity" to="." method="_on_camera_sensitivity_changed"]
