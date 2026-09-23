@@ -18,6 +18,12 @@ const STEEL := Color(0.31, 0.33, 0.31)
 const ROOF := Color(0.20, 0.12, 0.08)
 const EMBER := Color(0.70, 0.24, 0.09)
 
+const SMITH_VISUAL_ASSET_PACK_SCHEMA := "pixel_rpg.starting_area_asset_pack_002_smith_visual.v1"
+const SmithForgeDetailScene: PackedScene = preload("res://assets/environment/starting_area/smith_forge_detail_01.tscn")
+const SmithAnvilDetailScene: PackedScene = preload("res://assets/environment/starting_area/smith_anvil_detail_01.tscn")
+const SmithBenchDetailScene: PackedScene = preload("res://assets/environment/starting_area/smith_bench_detail_01.tscn")
+const SmithFrontageDetailScene: PackedScene = preload("res://assets/environment/starting_area/smith_frontage_detail_01.tscn")
+
 static func add_enterable_smith(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
 	var root := Node3D.new()
 	root.name = "WorldPack004EnterableSmith"
@@ -61,6 +67,14 @@ static func add_enterable_smith(parent: Node3D, position: Vector3, yaw_deg := 0.
 	_box(root, "ToolRack", Vector3(-3.00, 1.55, -0.35), Vector3(0.14, 1.65, 1.85), WOOD_DARK)
 	_box(root, "SmithSign", Vector3(2.25, 2.25, front_z + 0.18), Vector3(1.25, 0.55, 0.12), WOOD_LIGHT)
 
+	var visual_details := Node3D.new()
+	visual_details.name = "SmithVisualDetails"
+	root.add_child(visual_details)
+	_instance_visual_detail(visual_details, SmithForgeDetailScene, "SmithForgeDetail01")
+	_instance_visual_detail(visual_details, SmithAnvilDetailScene, "SmithAnvilDetail01")
+	_instance_visual_detail(visual_details, SmithBenchDetailScene, "SmithBenchDetail01")
+	_instance_visual_detail(visual_details, SmithFrontageDetailScene, "SmithFrontageDetail01")
+
 	var entrance_anchor := Node3D.new()
 	entrance_anchor.name = "EntranceAnchor"
 	entrance_anchor.position = Vector3(0.0, 0.9, half_depth + 0.55)
@@ -83,6 +97,18 @@ static func add_enterable_smith(parent: Node3D, position: Vector3, yaw_deg := 0.
 	_collision_box(collision_root, "FrontLintelCollision", Vector3(0.0, lintel_y, front_z), Vector3(DOOR_WIDTH_M, lintel_height, WALL_THICKNESS_M))
 
 	return root
+
+static func _instance_visual_detail(parent: Node3D, scene: PackedScene, expected_name: String) -> Node3D:
+	if parent == null or scene == null:
+		push_error("Pixel RPG smith visual detail requires a valid parent and PackedScene.")
+		return null
+	var instance := scene.instantiate() as Node3D
+	if instance == null:
+		push_error("Pixel RPG smith visual detail failed to instantiate " + expected_name)
+		return null
+	instance.name = expected_name
+	parent.add_child(instance)
+	return instance
 
 static func is_inside(local_position: Vector3) -> bool:
 	return (
