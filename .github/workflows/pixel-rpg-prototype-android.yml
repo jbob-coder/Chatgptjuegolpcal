@@ -19,7 +19,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-starting-area-assets-005-gate-warden-debug.apk
+  APK_PATH: game/build/android/PixelRPG-starting-area-assets-006-buildings-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -217,6 +217,13 @@ jobs:
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_starting_area_asset_pack_005_gate_warden_visual_test.gd" 2>&1 | tee build-evidence/starting-area-asset-pack-005-gate-warden.log
           grep -q "Gate: PIXEL_RPG_STARTING_AREA_ASSET_PACK_005_GATE_WARDEN_VISUAL_VERIFIED" build-evidence/starting-area-asset-pack-005-gate-warden.log
 
+      - name: Pixel RPG Starting Area Asset Pack 006 settlement building details gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_starting_area_asset_pack_006_settlement_building_details_test.gd" 2>&1 | tee build-evidence/starting-area-asset-pack-006-buildings.log
+          grep -q "Gate: PIXEL_RPG_STARTING_AREA_ASSET_PACK_006_SETTLEMENT_BUILDING_DETAILS_VERIFIED" build-evidence/starting-area-asset-pack-006-buildings.log
+
       - name: Preserve deterministic combat domain tests
         shell: bash
         run: |
@@ -260,8 +267,8 @@ jobs:
         id: upload_apk
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-starting-area-assets-005-gate-warden-debug
-          path: game/build/android/PixelRPG-starting-area-assets-005-gate-warden-debug.apk
+          name: PixelRPG-starting-area-assets-006-buildings-debug
+          path: game/build/android/PixelRPG-starting-area-assets-006-buildings-debug.apk
           if-no-files-found: error
 
       - name: Finalize immutable BuildIdentity
@@ -373,6 +380,6 @@ jobs:
       - name: Upload Pixel RPG build evidence
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-starting-area-assets-005-gate-warden-build-evidence
+          name: PixelRPG-starting-area-assets-006-buildings-build-evidence
           path: build-evidence/
           if-no-files-found: error

@@ -9,6 +9,7 @@ const MudcrestAnatomyRuntime: Script = preload("res://scripts/gameplay/monsters/
 const TrailPineScene: PackedScene = preload("res://assets/environment/starting_area/trail_pine_01.tscn")
 const TrailRockVisualScene: PackedScene = preload("res://assets/environment/starting_area/trail_rock_visual_01.tscn")
 const GateWardenVisualScene: PackedScene = preload("res://assets/characters/gate_warden_visual_01.tscn")
+const SettlementBuildingDetailsScene: PackedScene = preload("res://assets/environment/starting_area/settlement_building_details_01.tscn")
 
 const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
@@ -723,6 +724,16 @@ func _build_prototype_world() -> void:
 func _add_building(position: Vector3, size: Vector3, color: Color) -> void:
 	_add_box("Building", position, size, color, true)
 	_add_box("Roof", position + Vector3(0, size.y * 0.5 + 0.45, 0), Vector3(size.x + 0.6, 0.9, size.z + 0.6), Color(0.20, 0.12, 0.08), false)
+
+	var details := SettlementBuildingDetailsScene.instantiate() as Node3D
+	if details == null:
+		push_error("Pixel RPG Pack 006 failed to instantiate settlement building details")
+		return
+	details.name = "SettlementBuildingDetails"
+	details.position = position
+	details.scale = Vector3(size.x / 7.0, size.y / 3.4, size.z / 7.0)
+	details.set_meta("pixel_rpg_settlement_building_details", true)
+	world_geometry.add_child(details)
 
 func _add_tree(position: Vector3) -> void:
 	var visual := TrailPineScene.instantiate() as Node3D
