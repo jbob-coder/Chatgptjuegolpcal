@@ -81,5 +81,5 @@ func _finish() -> void:
 		print("Gate: PIXEL_RPG_FIRST_PERSON_REALIGNMENT_RUNTIME_VERIFIED")
 	else:
 		print("Gate: PIXEL_RPG_FIRST_PERSON_REALIGNMENT_RUNTIME_FAILED")
-	print("This gate verifies presentation/controller realignment only; physical Android camera feel and final hands/weapon presentation remain unverified.")
+	print("This gate verifies presentation/controller realignment only; physical Android camera/viewmodel feel, obstruction and final visual acceptance remain unverified.")
 	quit(0 if failures.is_empty() else 1)

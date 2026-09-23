@@ -19,7 +19,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-visual-pack-008-mudcrest-refinement-debug.apk
+  APK_PATH: game/build/android/PixelRPG-visual-pack-009-first-person-viewmodel-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -132,6 +132,13 @@ jobs:
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_first_person_realignment_runtime_test.gd" 2>&1 | tee build-evidence/first-person-realignment.log
           grep -q "Gate: PIXEL_RPG_FIRST_PERSON_REALIGNMENT_RUNTIME_VERIFIED" build-evidence/first-person-realignment.log
+
+      - name: Pixel RPG Visual Pack 009 first-person viewmodel gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_009_first_person_viewmodel_test.gd" 2>&1 | tee build-evidence/visual-pack-009-first-person-viewmodel.log
+          grep -q "Gate: PIXEL_RPG_VISUAL_PACK_009_FIRST_PERSON_VIEWMODEL_VERIFIED" build-evidence/visual-pack-009-first-person-viewmodel.log
 
       - name: Pixel RPG Visual Pack 002 runtime gate
         shell: bash
@@ -281,8 +288,8 @@ jobs:
         id: upload_apk
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-visual-pack-008-mudcrest-refinement-debug
-          path: game/build/android/PixelRPG-visual-pack-008-mudcrest-refinement-debug.apk
+          name: PixelRPG-visual-pack-009-first-person-viewmodel-debug
+          path: game/build/android/PixelRPG-visual-pack-009-first-person-viewmodel-debug.apk
           if-no-files-found: error
 
       - name: Finalize immutable BuildIdentity
@@ -394,6 +401,6 @@ jobs:
       - name: Upload Pixel RPG build evidence
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-visual-pack-008-mudcrest-refinement-build-evidence
+          name: PixelRPG-visual-pack-009-first-person-viewmodel-build-evidence
           path: build-evidence/
           if-no-files-found: error

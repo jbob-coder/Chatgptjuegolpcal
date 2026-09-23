@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/presentation/pixel_rpg/pixel_rpg_prototype_001.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://assets/characters/hunter_visual.tscn" id="2_hunter"]
 [ext_resource type="Script" path="res://scripts/presentation/pixel_rpg/pixel_rpg_world_combat_compat.gd" id="3_world_compat"]
+[ext_resource type="PackedScene" path="res://assets/characters/first_person_viewmodel_01.tscn" id="4_fp_viewmodel"]
 
 [sub_resource type="CapsuleShape3D" id="HunterShape"]
 radius = 0.32
@@ -139,6 +140,8 @@ current = true
 fov = 70.0
 near = 0.04
 far = 180.0
+
+[node name="FirstPersonViewmodel" parent="WorldDisplay/WorldViewport/World/Hunter/CameraYaw/CameraPitch/Camera3D" instance=ExtResource("4_fp_viewmodel")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
