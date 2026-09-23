@@ -1,12 +1,50 @@
 # PROJECT HANDOFF — Pixel RPG
 
-Status: PIXEL RPG ACTIVE / FIRST-PERSON + STARTING AREA ASSET PACK 007 PATH SURFACES BUILD-VERIFIED / DEVICE VERIFICATION PENDING
+Status: PIXEL RPG ACTIVE / FIRST-PERSON + VISUAL PACK 008 MUDCREST BUILD-VERIFIED / DEVICE VERIFICATION PENDING
 Last reconciled: 2026-09-23  
 Branch: `pixel-rpg`
 
-CURRENT_OBJECTIVE: continue from verified Starting Area Asset Pack 007. Next bounded visual slice is `PIXEL_RPG_VISUAL_PACK_008_MUDCREST_REFINEMENT`: improve only the visible Mudcrest presentation while preserving every anatomy target root, MonsterProxy/world/domain anchors, targeting highlight traversal, combat bootstrap, collisions and state ownership.
+CURRENT_OBJECTIVE: continue from verified Visual Pack 008. Next bounded slice is `PIXEL_RPG_VISUAL_PACK_009_FIRST_PERSON_VIEWMODEL`: add a presentation-only first-person hands/poleblade viewmodel under the active Camera3D while preserving camera transform/FOV, locomotion, collision, targeting, combat bootstrap, damage/AP/Stamina authority and State Ownership 001.
 
 CREATOR_AUTHORITY: FIRST-PERSON exploration is authoritative. Older third-person statements are STALE / SUPERSEDED for current presentation; historical third-person builds remain historical evidence only.
+
+## Latest verified checkpoint — Visual Pack 008 Mudcrest Refinement
+
+- implementation source: `7da40b2b0e8d1d1c68a2a6144221c8a36628c4b8`;
+- first failed run: `35928797541` — failed only because the new Pack 008 test referenced loop-local variables outside their scope; Mudcrest resource import, prototype smoke, first-person and Visual Pack 002 had already passed;
+- corrected exact build source: `d280c2da7f434450930cf5950feb598a0f4f7462`;
+- corrected workflow run: `35928948805` — SUCCESS;
+- corrected job: `107410680490` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.15-visual-pack-008-mudcrest-refinement`;
+- APK: `PixelRPG-visual-pack-008-mudcrest-refinement-debug.apk`;
+- APK size: `58,227,894` bytes;
+- APK SHA-256: `7e980ed1a3e3d2de8c2f429c31b9ba1874c74273b0de839f4eaee1ffb28626d6`;
+- APK artifact ID: `10779319853`;
+- APK artifact digest: `085b812c198597cca68e57029c8c226e1b2d6eed3fa7bb1dbb974513d5276c4a`;
+- build-evidence artifact ID: `10780361021`;
+- build-evidence digest: `428cca2e20129acf995897a2121418e49f8332eff0039a63d3da91c6e9b5bba0`.
+
+Google Drive immutable folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35928948805_visual-pack-008-mudcrest-refinement/`
+- folder ID: `1dRhP6bwobMMIRhyCMSsUkORJwW-bbW_Z`;
+- APK ID: `1UGYE1JuYN3EGD4wzdZQYvAOKH8_5YpXj`;
+- BuildIdentity JSON ID: `10Eg_TJU0pAl0BXGthhOB5qGXKfznFvRG`;
+- BuildIdentity Markdown ID: `1ukZ9pfcih7jRTzOqqoM63KyKDXaDRF-X`;
+- canonical raw CI evidence ID: `1SGAhV_U4thFqI8-N3FN17UzSPEtAEUhj`;
+- device checklist ID: `1YnINOvGYd0mfkoDT5zqrfI_emxs_g_Sq`;
+- a duplicate same-byte raw evidence ZIP exists from concurrent archival activity and is intentionally left intact.
+
+Implemented and verified:
+- visible Mudcrest eyes/jaw/tusks, reinforced horn bases, shoulder/torso breakup, extra dorsal plates, claws and tail detail;
+- all existing target roots remain unchanged: `HEAD`, `HORN_CREST`, four leg roots, `DORSAL_PLATES`, `TAIL`, and `GENERAL_TORSO`;
+- Mudcrest visual remains presentation-only with no physics;
+- recursive target highlighting reaches new detail and clears correctly;
+- MonsterProxy remains exactly at `Vector3(0, 0, -49)` and domain-body alias remains co-located;
+- first-person camera, targeting/combat bootstrap, deterministic combat/anatomy/status systems, State Ownership 001 and all prior asset gates remain preserved;
+- Android export and package-size ceiling passed.
+
+Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
 
 ## Latest verified checkpoint — Starting Area Asset Pack 007 Path Surface Details
 
@@ -352,4 +390,4 @@ TRUTH_BOUNDARY: CI/headless/build evidence is complete. Physical Android install
 
 KNOWN COMPATIBILITY RISK: the verified legacy Hunt01 tactical movement/attack legality still references legacy Region-01 coordinates/body envelope. Do not wire it directly into the compact live Pixel RPG world or teleport the Hunter. A later combat slice needs an explicit current-world spatial adapter.
 
-NEXT_ACTION: `PIXEL_RPG_VISUAL_PACK_008_MUDCREST_REFINEMENT` — refine Mudcrest presentation only; preserve HEAD/HORN_CREST/FORELEG_L/FORELEG_R/HINDLEG_L/HINDLEG_R/DORSAL_PLATES/TAIL/GENERAL_TORSO target-node contracts and all combat/world authority.
+NEXT_ACTION: `PIXEL_RPG_VISUAL_PACK_009_FIRST_PERSON_VIEWMODEL` — add cosmetic first-person hands/poleblade only; no attack/collision/state authority and no active-camera replacement.

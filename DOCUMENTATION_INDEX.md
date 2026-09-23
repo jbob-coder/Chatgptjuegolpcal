@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / FIRST-PERSON + STARTING AREA ASSET PACK 007 PATH SURFACES BUILDIDENTITY AUTHORITY
+Status: ACTIVE GLOBAL MAP / FIRST-PERSON + VISUAL PACK 008 MUDCREST BUILDIDENTITY AUTHORITY
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -38,6 +38,44 @@ Google Drive:
 - `Pixel RPG - Visual Reference.jpg` — ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
 
 The image is a direction/composition reference. Visible names, quest text, counts and labels are placeholders unless separately approved.
+
+## Latest verified checkpoint — Visual Pack 008 Mudcrest Refinement
+
+- implementation source: `7da40b2b0e8d1d1c68a2a6144221c8a36628c4b8`;
+- first failed run: `35928797541` — failed only because the new Pack 008 test referenced loop-local variables outside their scope; Mudcrest resource import, prototype smoke, first-person and Visual Pack 002 had already passed;
+- corrected exact build source: `d280c2da7f434450930cf5950feb598a0f4f7462`;
+- corrected workflow run: `35928948805` — SUCCESS;
+- corrected job: `107410680490` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.15-visual-pack-008-mudcrest-refinement`;
+- APK: `PixelRPG-visual-pack-008-mudcrest-refinement-debug.apk`;
+- APK size: `58,227,894` bytes;
+- APK SHA-256: `7e980ed1a3e3d2de8c2f429c31b9ba1874c74273b0de839f4eaee1ffb28626d6`;
+- APK artifact ID: `10779319853`;
+- APK artifact digest: `085b812c198597cca68e57029c8c226e1b2d6eed3fa7bb1dbb974513d5276c4a`;
+- build-evidence artifact ID: `10780361021`;
+- build-evidence digest: `428cca2e20129acf995897a2121418e49f8332eff0039a63d3da91c6e9b5bba0`.
+
+Google Drive immutable folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35928948805_visual-pack-008-mudcrest-refinement/`
+- folder ID: `1dRhP6bwobMMIRhyCMSsUkORJwW-bbW_Z`;
+- APK ID: `1UGYE1JuYN3EGD4wzdZQYvAOKH8_5YpXj`;
+- BuildIdentity JSON ID: `10Eg_TJU0pAl0BXGthhOB5qGXKfznFvRG`;
+- BuildIdentity Markdown ID: `1ukZ9pfcih7jRTzOqqoM63KyKDXaDRF-X`;
+- canonical raw CI evidence ID: `1SGAhV_U4thFqI8-N3FN17UzSPEtAEUhj`;
+- device checklist ID: `1YnINOvGYd0mfkoDT5zqrfI_emxs_g_Sq`;
+- a duplicate same-byte raw evidence ZIP exists from concurrent archival activity and is intentionally left intact.
+
+Implemented and verified:
+- visible Mudcrest eyes/jaw/tusks, reinforced horn bases, shoulder/torso breakup, extra dorsal plates, claws and tail detail;
+- all existing target roots remain unchanged: `HEAD`, `HORN_CREST`, four leg roots, `DORSAL_PLATES`, `TAIL`, and `GENERAL_TORSO`;
+- Mudcrest visual remains presentation-only with no physics;
+- recursive target highlighting reaches new detail and clears correctly;
+- MonsterProxy remains exactly at `Vector3(0, 0, -49)` and domain-body alias remains co-located;
+- first-person camera, targeting/combat bootstrap, deterministic combat/anatomy/status systems, State Ownership 001 and all prior asset gates remain preserved;
+- Android export and package-size ceiling passed.
+
+Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
 
 ## Starting Area Asset Pack 001 — latest build-verified presentation checkpoint
 
@@ -467,6 +505,6 @@ Latest specialized handoff:
 
 ## Continuation
 
-Next bounded slice: `PIXEL_RPG_VISUAL_PACK_008_MUDCREST_REFINEMENT`.
+Next bounded slice: `PIXEL_RPG_VISUAL_PACK_009_FIRST_PERSON_VIEWMODEL`.
 
-Preserve creator-authoritative first-person presentation, world/collision ownership, Gate Warden/building/smith contracts, Bridge 001 targeting, Bridge 002 no-attack bootstrap and State Ownership 001. Refine only Mudcrest visible presentation while preserving anatomy target roots.
+Add presentation-only first-person hands/poleblade beneath the existing active Camera3D. Preserve all camera/controller/collision, targeting/combat, anatomy/domain and state-ownership authority. The viewmodel must not own attack or collision behavior.
