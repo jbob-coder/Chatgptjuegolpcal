@@ -12,16 +12,15 @@ const FOLIAGE_DARK := Color(0.12, 0.28, 0.15)
 const FOLIAGE_MID := Color(0.20, 0.38, 0.18)
 const LANTERN_GLOW := Color(0.95, 0.62, 0.20)
 
+const STARTING_AREA_ASSET_PACK_SCHEMA := "pixel_rpg.starting_area_asset_pack_001.v1"
+const SettlementGateScene: PackedScene = preload("res://assets/environment/starting_area/settlement_gate_01.tscn")
+const MarketStallScene: PackedScene = preload("res://assets/environment/starting_area/market_stall_01.tscn")
+const ServiceClutterScene: PackedScene = preload("res://assets/environment/starting_area/service_clutter_01.tscn")
+const SignpostScene: PackedScene = preload("res://assets/environment/starting_area/signpost_01.tscn")
+const LanternPostScene: PackedScene = preload("res://assets/environment/starting_area/lantern_post_01.tscn")
+
 static func add_settlement_gate(parent: Node3D, position: Vector3) -> Node3D:
-	var root := _root(parent, "WorldPack001Gate", position)
-	_box(root, "LeftTower", Vector3(-5.0, 2.4, 0.0), Vector3(2.1, 4.8, 2.4), WOOD_DARK)
-	_box(root, "RightTower", Vector3(5.0, 2.4, 0.0), Vector3(2.1, 4.8, 2.4), WOOD_DARK)
-	_box(root, "UpperBeam", Vector3(0.0, 4.45, 0.0), Vector3(8.2, 0.55, 1.2), WOOD_MID)
-	_box(root, "LeftCap", Vector3(-5.0, 4.95, 0.0), Vector3(2.6, 0.45, 2.8), ROOF)
-	_box(root, "RightCap", Vector3(5.0, 4.95, 0.0), Vector3(2.6, 0.45, 2.8), ROOF)
-	_box(root, "BraceLeft", Vector3(-2.75, 3.35, 0.0), Vector3(0.24, 3.0, 0.22), WOOD_LIGHT, Vector3(0.0, 0.0, -48.0))
-	_box(root, "BraceRight", Vector3(2.75, 3.35, 0.0), Vector3(0.24, 3.0, 0.22), WOOD_LIGHT, Vector3(0.0, 0.0, 48.0))
-	return root
+	return _instance_asset(parent, SettlementGateScene, "WorldPack001Gate", position)
 
 static func add_service_smith(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
 	var root := _root(parent, "WorldPack001Smith", position, yaw_deg)
@@ -35,36 +34,16 @@ static func add_service_smith(parent: Node3D, position: Vector3, yaw_deg := 0.0)
 	return root
 
 static func add_market_stall(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Market", position, yaw_deg)
-	_box(root, "Counter", Vector3(0.0, 0.9, 0.0), Vector3(3.2, 1.0, 1.15), WOOD_MID)
-	_box(root, "PostLeft", Vector3(-1.45, 1.55, 0.0), Vector3(0.18, 3.1, 0.18), WOOD_DARK)
-	_box(root, "PostRight", Vector3(1.45, 1.55, 0.0), Vector3(0.18, 3.1, 0.18), WOOD_DARK)
-	_box(root, "Canopy", Vector3(0.0, 2.75, 0.0), Vector3(3.6, 0.22, 2.5), CLOTH_BLUE)
-	_box(root, "CrateA", Vector3(-1.0, 0.35, -1.0), Vector3(0.7, 0.7, 0.7), WOOD_LIGHT)
-	_box(root, "CrateB", Vector3(0.9, 0.28, -0.95), Vector3(0.55, 0.55, 0.55), WOOD_LIGHT)
-	return root
+	return _instance_asset(parent, MarketStallScene, "WorldPack001Market", position, yaw_deg)
 
 static func add_service_clutter(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Clutter", position, yaw_deg)
-	_box(root, "Crate", Vector3(-0.55, 0.5, 0.0), Vector3(1.0, 1.0, 1.0), WOOD_MID)
-	_cylinder(root, "Barrel", Vector3(0.65, 0.58, 0.0), 0.45, 1.15, WOOD_DARK, 8)
-	return root
+	return _instance_asset(parent, ServiceClutterScene, "WorldPack001Clutter", position, yaw_deg)
 
 static func add_signpost(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Signpost", position, yaw_deg)
-	_box(root, "Post", Vector3(0.0, 1.25, 0.0), Vector3(0.22, 2.5, 0.22), WOOD_DARK)
-	_box(root, "SignA", Vector3(0.65, 2.05, 0.0), Vector3(1.6, 0.34, 0.16), WOOD_LIGHT, Vector3(0.0, 0.0, -7.0))
-	_box(root, "SignB", Vector3(-0.55, 1.65, 0.0), Vector3(1.35, 0.32, 0.16), WOOD_MID, Vector3(0.0, 0.0, 8.0))
-	_box(root, "SignC", Vector3(0.45, 1.3, 0.0), Vector3(1.1, 0.3, 0.16), WOOD_LIGHT, Vector3(0.0, 0.0, -4.0))
-	return root
+	return _instance_asset(parent, SignpostScene, "WorldPack001Signpost", position, yaw_deg)
 
 static func add_lantern_post(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
-	var root := _root(parent, "WorldPack001Lantern", position, yaw_deg)
-	_box(root, "Pole", Vector3(0.0, 1.35, 0.0), Vector3(0.18, 2.7, 0.18), WOOD_DARK)
-	_box(root, "Arm", Vector3(0.35, 2.55, 0.0), Vector3(0.9, 0.14, 0.14), WOOD_DARK)
-	_box(root, "Frame", Vector3(0.7, 2.28, 0.0), Vector3(0.38, 0.55, 0.38), STONE)
-	_box(root, "Glow", Vector3(0.7, 2.28, 0.0), Vector3(0.22, 0.34, 0.22), LANTERN_GLOW)
-	return root
+	return _instance_asset(parent, LanternPostScene, "WorldPack001Lantern", position, yaw_deg)
 
 static func add_fence(parent: Node3D, position: Vector3, yaw_deg := 0.0) -> Node3D:
 	var root := _root(parent, "WorldPack001Fence", position, yaw_deg)
@@ -100,6 +79,20 @@ static func add_rock_cluster(parent: Node3D, position: Vector3, yaw_deg := 0.0) 
 static func _tree(parent: Node3D, name: String, position: Vector3, radius: float, height: float, crown_radius: float) -> void:
 	_cylinder(parent, name + "Trunk", position + Vector3(0.0, height * 0.5, 0.0), radius, height, WOOD_DARK, 6)
 	_sphere(parent, name + "Canopy", position + Vector3(0.0, height + crown_radius * 0.55, 0.0), crown_radius, FOLIAGE_DARK)
+
+static func _instance_asset(parent: Node3D, scene: PackedScene, expected_name: String, position: Vector3, yaw_deg := 0.0) -> Node3D:
+	if parent == null or scene == null:
+		push_error("Pixel RPG Starting Area Asset Pack 001 requires a valid parent and PackedScene.")
+		return null
+	var instance := scene.instantiate() as Node3D
+	if instance == null:
+		push_error("Pixel RPG Starting Area Asset Pack 001 failed to instantiate " + expected_name)
+		return null
+	instance.name = expected_name
+	instance.position = position
+	instance.rotation_degrees.y = yaw_deg
+	parent.add_child(instance)
+	return instance
 
 static func _root(parent: Node3D, name: String, position: Vector3, yaw_deg := 0.0) -> Node3D:
 	var root := Node3D.new()

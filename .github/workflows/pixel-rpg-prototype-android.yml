@@ -19,7 +19,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-decomposition-001-world-base-debug.apk
+  APK_PATH: game/build/android/PixelRPG-starting-area-assets-001-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -182,6 +182,13 @@ jobs:
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_prototype_decomposition_001_world_base_test.gd" 2>&1 | tee build-evidence/prototype-decomposition-001-world-base.log
           grep -q "Gate: PIXEL_RPG_PROTOTYPE_DECOMPOSITION_001_WORLD_BASE_VERIFIED" build-evidence/prototype-decomposition-001-world-base.log
 
+      - name: Pixel RPG Starting Area Asset Pack 001 runtime gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_starting_area_asset_pack_001_runtime_test.gd" 2>&1 | tee build-evidence/starting-area-asset-pack-001.log
+          grep -q "Gate: PIXEL_RPG_STARTING_AREA_ASSET_PACK_001_VERIFIED" build-evidence/starting-area-asset-pack-001.log
+
       - name: Preserve deterministic combat domain tests
         shell: bash
         run: |
@@ -225,8 +232,8 @@ jobs:
         id: upload_apk
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-decomposition-001-world-base-debug
-          path: game/build/android/PixelRPG-decomposition-001-world-base-debug.apk
+          name: PixelRPG-starting-area-assets-001-debug
+          path: game/build/android/PixelRPG-starting-area-assets-001-debug.apk
           if-no-files-found: error
 
       - name: Finalize immutable BuildIdentity
@@ -338,6 +345,6 @@ jobs:
       - name: Upload Pixel RPG build evidence
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-prototype-001-build-evidence
+          name: PixelRPG-starting-area-assets-001-build-evidence
           path: build-evidence/
           if-no-files-found: error
