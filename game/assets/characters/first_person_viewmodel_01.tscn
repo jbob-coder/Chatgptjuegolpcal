@@ -1,33 +1,15 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=6 format=3]
 
-[sub_resource type="StandardMaterial3D" id="Cloth"]
-albedo_color = Color(0.10, 0.115, 0.10, 1)
-roughness = 0.97
+[ext_resource type="Texture2D" path="res://assets/characters/first_person/pixel_rpg_hunter_fp_hands_neutral_r001_runtime.svg" id="1_hands"]
 
 [sub_resource type="StandardMaterial3D" id="Leather"]
 albedo_color = Color(0.27, 0.155, 0.065, 1)
 roughness = 0.95
 
-[sub_resource type="StandardMaterial3D" id="Skin"]
-albedo_color = Color(0.54, 0.37, 0.25, 1)
-roughness = 0.94
-
 [sub_resource type="StandardMaterial3D" id="Steel"]
 albedo_color = Color(0.34, 0.36, 0.34, 1)
 metallic = 0.28
 roughness = 0.72
-
-[sub_resource type="CylinderMesh" id="ForearmMesh"]
-top_radius = 0.052
-bottom_radius = 0.068
-height = 0.34
-radial_segments = 6
-
-[sub_resource type="SphereMesh" id="HandMesh"]
-radius = 0.078
-height = 0.156
-radial_segments = 8
-rings = 4
 
 [sub_resource type="CylinderMesh" id="ShaftMesh"]
 top_radius = 0.016
@@ -40,48 +22,13 @@ size = Vector3(0.10, 0.27, 0.035)
 
 [node name="FirstPersonViewmodel01" type="Node3D"]
 
-[node name="LeftForearm" type="MeshInstance3D" parent="."]
-position = Vector3(-0.19, -0.27, -0.39)
-rotation_degrees = Vector3(70, 0, -10)
-mesh = SubResource("ForearmMesh")
-material_override = SubResource("Cloth")
-cast_shadow = 0
-
-[node name="LeftBracer" type="MeshInstance3D" parent="."]
-position = Vector3(-0.20, -0.22, -0.46)
-rotation_degrees = Vector3(70, 0, -10)
-scale = Vector3(1.32, 0.36, 1.32)
-mesh = SubResource("ForearmMesh")
-material_override = SubResource("Leather")
-cast_shadow = 0
-
-[node name="LeftHand" type="MeshInstance3D" parent="."]
-position = Vector3(-0.20, -0.18, -0.54)
-scale = Vector3(0.88, 0.78, 1.08)
-mesh = SubResource("HandMesh")
-material_override = SubResource("Skin")
-cast_shadow = 0
-
-[node name="RightForearm" type="MeshInstance3D" parent="."]
-position = Vector3(0.23, -0.28, -0.37)
-rotation_degrees = Vector3(68, 0, 10)
-mesh = SubResource("ForearmMesh")
-material_override = SubResource("Cloth")
-cast_shadow = 0
-
-[node name="RightBracer" type="MeshInstance3D" parent="."]
-position = Vector3(0.24, -0.22, -0.44)
-rotation_degrees = Vector3(68, 0, 10)
-scale = Vector3(1.32, 0.36, 1.32)
-mesh = SubResource("ForearmMesh")
-material_override = SubResource("Leather")
-cast_shadow = 0
-
-[node name="RightHand" type="MeshInstance3D" parent="."]
-position = Vector3(0.24, -0.16, -0.52)
-scale = Vector3(0.88, 0.78, 1.08)
-mesh = SubResource("HandMesh")
-material_override = SubResource("Skin")
+[node name="CanonicalHandsSprite" type="Sprite3D" parent="."]
+position = Vector3(0, -0.18, -0.56)
+pixel_size = 0.0065
+texture = ExtResource("1_hands")
+shaded = false
+no_depth_test = true
+texture_filter = 0
 cast_shadow = 0
 
 [node name="PolebladeShaft" type="MeshInstance3D" parent="."]
