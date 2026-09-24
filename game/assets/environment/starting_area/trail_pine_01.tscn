@@ -1,19 +1,30 @@
 [gd_scene load_steps=9 format=3]
 
+[ext_resource type="Texture2D" path="res://assets/textures/concept_derived/concept_wood_beam_01.svg" id="1_wood"]
+[ext_resource type="Texture2D" path="res://assets/textures/concept_derived/concept_foliage_01.svg" id="2_foliage"]
+
 [sub_resource type="StandardMaterial3D" id="Trunk"]
 albedo_color = Color(0.20, 0.12, 0.06, 1)
+albedo_texture = ExtResource("1_wood")
+texture_filter = 0
 roughness = 0.98
 
 [sub_resource type="StandardMaterial3D" id="TrunkLight"]
 albedo_color = Color(0.30, 0.18, 0.08, 1)
+albedo_texture = ExtResource("1_wood")
+texture_filter = 0
 roughness = 0.97
 
 [sub_resource type="StandardMaterial3D" id="NeedleDark"]
 albedo_color = Color(0.075, 0.22, 0.105, 1)
+albedo_texture = ExtResource("2_foliage")
+texture_filter = 0
 roughness = 0.96
 
 [sub_resource type="StandardMaterial3D" id="NeedleMid"]
 albedo_color = Color(0.12, 0.31, 0.14, 1)
+albedo_texture = ExtResource("2_foliage")
+texture_filter = 0
 roughness = 0.95
 
 [sub_resource type="CylinderMesh" id="TrunkMesh"]

@@ -19,7 +19,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-visual-pack-009-first-person-viewmodel-debug.apk
+  APK_PATH: game/build/android/PixelRPG-visual-pack-010-image-derived-assets-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -139,6 +139,13 @@ jobs:
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_009_first_person_viewmodel_test.gd" 2>&1 | tee build-evidence/visual-pack-009-first-person-viewmodel.log
           grep -q "Gate: PIXEL_RPG_VISUAL_PACK_009_FIRST_PERSON_VIEWMODEL_VERIFIED" build-evidence/visual-pack-009-first-person-viewmodel.log
+
+      - name: Pixel RPG Visual Pack 010 image-derived asset gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_010_image_derived_assets_test.gd" 2>&1 | tee build-evidence/visual-pack-010-image-derived-assets.log
+          grep -q "Gate: PIXEL_RPG_VISUAL_PACK_010_IMAGE_DERIVED_ASSETS_VERIFIED" build-evidence/visual-pack-010-image-derived-assets.log
 
       - name: Pixel RPG Visual Pack 002 runtime gate
         shell: bash
@@ -288,8 +295,8 @@ jobs:
         id: upload_apk
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-visual-pack-009-first-person-viewmodel-debug
-          path: game/build/android/PixelRPG-visual-pack-009-first-person-viewmodel-debug.apk
+          name: PixelRPG-visual-pack-010-image-derived-assets-debug
+          path: game/build/android/PixelRPG-visual-pack-010-image-derived-assets-debug.apk
           if-no-files-found: error
 
       - name: Finalize immutable BuildIdentity
@@ -401,6 +408,6 @@ jobs:
       - name: Upload Pixel RPG build evidence
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-visual-pack-009-first-person-viewmodel-build-evidence
+          name: PixelRPG-visual-pack-010-image-derived-assets-build-evidence
           path: build-evidence/
           if-no-files-found: error

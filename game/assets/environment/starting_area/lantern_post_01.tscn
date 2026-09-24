@@ -1,12 +1,19 @@
 [gd_scene load_steps=7 format=3]
 
+[ext_resource type="Texture2D" path="res://assets/textures/concept_derived/concept_wood_beam_01.svg" id="1_wood"]
+[ext_resource type="Texture2D" path="res://assets/textures/concept_derived/concept_metal_dark_01.svg" id="2_metal"]
+
 [sub_resource type="StandardMaterial3D" id="WoodDark"]
 albedo_color = Color(0.18, 0.105, 0.055, 1)
+albedo_texture = ExtResource("1_wood")
+texture_filter = 0
 roughness = 0.96
 
 [sub_resource type="StandardMaterial3D" id="Metal"]
 albedo_color = Color(0.22, 0.235, 0.22, 1)
 metallic = 0.22
+albedo_texture = ExtResource("2_metal")
+texture_filter = 0
 roughness = 0.78
 
 [sub_resource type="StandardMaterial3D" id="Glow"]
@@ -19,6 +26,8 @@ roughness = 0.72
 [sub_resource type="StandardMaterial3D" id="Cap"]
 albedo_color = Color(0.12, 0.13, 0.12, 1)
 metallic = 0.12
+albedo_texture = ExtResource("2_metal")
+texture_filter = 0
 roughness = 0.88
 
 [sub_resource type="BoxMesh" id="UnitBox"]

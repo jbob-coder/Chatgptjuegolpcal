@@ -1,19 +1,31 @@
 [gd_scene load_steps=7 format=3]
 
+[ext_resource type="Texture2D" path="res://assets/textures/concept_derived/concept_packed_dirt_01.svg" id="1_dirt"]
+[ext_resource type="Texture2D" path="res://assets/textures/concept_derived/concept_stone_block_01.svg" id="2_stone"]
+[ext_resource type="Texture2D" path="res://assets/textures/concept_derived/concept_foliage_01.svg" id="3_foliage"]
+
 [sub_resource type="StandardMaterial3D" id="PackedDirt"]
 albedo_color = Color(0.235, 0.185, 0.115, 1)
+albedo_texture = ExtResource("1_dirt")
+texture_filter = 0
 roughness = 1.0
 
 [sub_resource type="StandardMaterial3D" id="DryDirt"]
 albedo_color = Color(0.38, 0.29, 0.17, 1)
+albedo_texture = ExtResource("1_dirt")
+texture_filter = 0
 roughness = 0.99
 
 [sub_resource type="StandardMaterial3D" id="Stone"]
 albedo_color = Color(0.31, 0.32, 0.29, 1)
+albedo_texture = ExtResource("2_stone")
+texture_filter = 0
 roughness = 0.99
 
 [sub_resource type="StandardMaterial3D" id="Moss"]
 albedo_color = Color(0.16, 0.28, 0.12, 1)
+albedo_texture = ExtResource("3_foliage")
+texture_filter = 0
 roughness = 1.0
 
 [sub_resource type="BoxMesh" id="Box"]
