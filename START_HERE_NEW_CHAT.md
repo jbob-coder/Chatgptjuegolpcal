@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / FIRST-PERSON + VISUAL PACK 011 CONCEPT-PHOTO SPRITES BUILDIDENTITY VERIFIED
+Status: ACTIVE PIXEL RPG BOOTSTRAP / FIRST-PERSON + VISUAL PACK 011 DIRECT CONCEPT-PHOTO PNG ASSETS BUILDIDENTITY VERIFIED
 Last reconciled: 2026-09-23
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -30,9 +30,9 @@ WorldLife is abandoned. The later standalone first-person Shooter RPG is also no
 
 ## Pack 011 clarification
 
-Pack 010 is texture/material derivation from concept pixels. Pack 011 is the first verified checkpoint that renders concrete concept-photo-derived object sprites in the live world. Preserve this distinction. Pack 011 is 2.5D presentation over authoritative existing gameplay geometry; do not claim full 3D object reconstruction or phone visual acceptance.
+Pack 010 is texture/material derivation from concept pixels. Pack 011 now uses seven standalone RGBA PNG assets derived from exact concept-image crop pixels and loaded directly by the live game from `res://...png` paths. The earlier Pack 011 in-memory palette/row reconstruction is historical and superseded for current runtime art authority. Pack 011 remains 2.5D presentation over authoritative existing gameplay geometry; do not claim full 3D object reconstruction or phone visual acceptance.
 
-Latest built source: `444bae4da21c93fcaf975f93c6f09e29a65db3bf`. Run `35941955332`, job `107451563407`, APK SHA-256 `5a5b736801c076178df73aa40cf083e67a8b658d9bdba47968dc89df86fdbd7b`.
+Latest built source: `93978e1947fe8cffaeb0876574d8d761dcad90b2`. Run `35947488962`, job `107468585038`, APK SHA-256 `bec6ba206a293edab5ab6b5220090e444b110a3521f7f8a48c6e9b6cade40c7b`.
 
 ## Active identity
 
@@ -66,6 +66,55 @@ Visible concept names/text are placeholders.
 Never weaken legitimate gates to force success.
 
 ## Current exact build-verified baseline
+
+## Latest verified checkpoint — Visual Pack 011 Direct Concept-Photo PNG Assets
+
+- exact build source SHA: `93978e1947fe8cffaeb0876574d8d761dcad90b2`;
+- workflow run: `35947488962` — SUCCESS;
+- job: `107468585038` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.19-visual-pack-011-direct-photo-assets`;
+- APK: `PixelRPG-visual-pack-011-direct-photo-assets-debug.apk`;
+- APK size: `58,290,596` bytes;
+- APK SHA-256: `bec6ba206a293edab5ab6b5220090e444b110a3521f7f8a48c6e9b6cade40c7b`;
+- APK artifact ID: `10787297932`;
+- APK artifact digest: `f8392f06f850c459a8465c7e977e661c68b3230ac87a7f34be796d537db1b741`;
+- build-evidence artifact ID: `10787163398`;
+- build-evidence digest: `558dc4dd6b961db45d683ca4b6abbbf61374c314c811dcb85bba0cbf4805775c`.
+
+Concept source authority:
+- `voxel_fantasy_village_gate.png`, 1672 × 941;
+- source SHA-256 `766e16c7992699553842c7205eeef060a483e7c758f1ed3c3193c63ba0373b2b`;
+- seven standalone RGBA PNG game assets are now stored under `game/assets/environment/starting_area/concept_photo_sprites_011/`;
+- the live `ConceptPhotoReconstruction011` loads those files directly with `load(res://...png)`; Pack 011 no longer reconstructs their pixels from palette/row arrays in GDScript;
+- the Pack 011 CI gate checks each PNG path, imported dimensions, exact original-file SHA-256 bytes, live Sprite3D resource paths, nearest filtering, presentation-only ownership, first-person camera and hidden third-person body.
+
+Direct live PNG assets:
+- left gate banner;
+- right gate banner;
+- smith hanging banner;
+- smith forge panel;
+- direction signpost;
+- water trough;
+- fence segment.
+
+Preserved:
+- authoritative existing world/collision geometry;
+- first-person camera/input and Pack 009 viewmodel;
+- smith entry/roof/UseAnchor behavior;
+- Gate Warden interaction;
+- Mudcrest targeting/anatomy;
+- no-attack combat bootstrap;
+- State Ownership 001 and deterministic combat/status gates.
+
+Drive archival:
+- folder: `Pixel RPG/Builds/First Person/2026-09-23_run-35947488962_visual-pack-011-direct-photo-assets/`;
+- folder ID: `1wQEJac7nM8ym79w-KRTZ_chrsmPb5FPn`;
+- BuildIdentity Markdown, raw CI evidence and device checklist are verified present;
+- direct APK and BuildIdentity JSON Drive copies are NOT YET VERIFIED because the local-container handoff expired. Do not claim them present until a file-reference upload succeeds.
+
+Physical Android visual acceptance, billboard angle quality, touch feel, sustained FPS/heat and installed footprint remain NOT VERIFIED.
+
 
 ## Latest verified checkpoint — Visual Pack 010 Image-Derived Assets
 
