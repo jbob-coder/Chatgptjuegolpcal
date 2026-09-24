@@ -10,22 +10,20 @@ Parent: issue #28
 
 Pixel RPG is the only active project authority for this repository branch.
 
-For current design, visual direction, camera, sprites, assets, controls, gameplay presentation, runtime architecture and continuation decisions, use only:
-
+For current design, visual direction, camera, sprites, assets, controls, gameplay presentation, runtime architecture, and continuation decisions, use only:
 1. current explicit creator instruction;
-2. current `pixel-rpg` source, tests and build/device evidence;
+2. current `pixel-rpg` source, tests, and build/device evidence;
 3. current Pixel RPG authority documents on this branch;
-4. bounded current Pixel RPG package/handoff documentation.
+4. bounded current Pixel RPG package documentation that current source/tests still support.
 
-Any document, folder, branch, handoff, manifest, build, prototype or asset package belonging to another project is historical/non-authoritative unless the current Pixel RPG source or tests prove a specific technical dependency. A technical dependency does not grant design, visual, camera, sprite, asset or project-direction authority.
+Archived, quarantined, superseded, unrelated, or historical material is non-authoritative unless current Pixel RPG source/tests prove a specific technical dependency. A technical dependency never grants design, visual, camera, sprite, asset, or project-direction authority.
 
 ## No-reference barrier
 
-Do not use unrelated or quarantined project material to infer or propose Pixel RPG:
-
+Do not use non-current material to infer or propose Pixel RPG:
 - camera perspective or FOV;
 - player presentation;
-- sprite or viewmodel art;
+- sprite or ViewModel art;
 - weapons or combat identity;
 - movement mechanics;
 - package/runtime structure;
@@ -33,40 +31,45 @@ Do not use unrelated or quarantined project material to infer or propose Pixel R
 - UI/HUD direction;
 - asset-selection decisions.
 
-If an older Pixel RPG document contains names of unrelated projects only to reject or contrast them, treat those names as historical context, not as a source to follow. Do not recursively open or import those materials unless a current Pixel RPG task explicitly requires provenance investigation.
+Do not recursively open archived or quarantined material unless a current bounded task explicitly requires provenance or compatibility evidence.
 
 ## First-person lock
 
-Pixel RPG exploration is first-person by creator directive. Historical third-person implementation remains evidence only and cannot override current presentation authority.
+Pixel RPG exploration is first-person by creator directive. Superseded presentation implementations remain historical evidence only and cannot override current first-person authority.
 
 ## Preservation rule
 
-Do not delete working gameplay/domain systems merely because their history predates the current presentation direction. Preserve current proven behavior unless a bounded task and current evidence justify replacement.
+Do not delete proven gameplay/domain systems merely because their history predates the current presentation direction. Preserve current working behavior unless a bounded task and current evidence justify replacement.
 
 ## Quarantine rule
 
-Drive material already marked archived/non-authoritative stays outside the active Pixel RPG authority chain. No active bootstrap instruction may treat quarantined Drive material as required reading or design input.
+Drive material marked archived/non-authoritative stays outside the active Pixel RPG authority chain. No active bootstrap instruction may treat quarantined Drive material as required reading, asset authority, or design input.
 
 ## Current split of responsibility
 
 - Issue #29 — Sol: authority/documentation only.
-- Issue #30 — Nexo: canonical first-person hands PNG integration, tests and Android export only.
+- Issue #30 — Nexo: canonical first-person hands PNG integration, tests, and Android export only.
 - Issue #28 — common pipeline/root checkpoint.
 
-Sol must not modify the issue #30 runtime/viewmodel implementation. Nexo must not redefine project authority while executing issue #30, except for generated implementation/build evidence.
+Sol must not modify issue #30 runtime/ViewModel implementation while this split is active. Nexo must not redefine project authority while executing issue #30 except for implementation/build evidence.
 
 ## Audit result — 2026-09-24
 
-Audited active authority chain:
-
+Active authority chain reconciled:
 - `START_HERE_NEW_CHAT.md`;
+- `docs/00_authority/PIXEL_RPG_ACTIVE_AUTHORITY.md`;
 - `EVOLVE_ALIGNMENT.md`;
 - `PROJECT_HANDOFF.md`;
 - `DOCUMENTATION_INDEX.md`;
-- `PIXEL_RPG_VISUAL_DIRECTION.md`.
+- `PIXEL_RPG_VISUAL_DIRECTION.md`;
+- this authority lock.
 
-Finding: several active documents still contain names of unrelated projects in rejection/separation language. Those passages are now subordinate to this lock and cannot authorize opening, importing, copying or deriving Pixel RPG decisions from those projects. No active bootstrap pointer was found that requires quarantined Drive material as current Pixel RPG authority.
+The active documents now describe Pixel RPG directly instead of relying on unrelated project names as rejection/comparison context.
 
-This file is intentionally documentation-only. It changes no gameplay, camera, input, collision, combat, state, sprite rendering or viewmodel implementation.
+`docs/70_handoff/README.md` explicitly classifies the handoff directory as historical continuity evidence and prevents a handoff from becoming current authority merely because it exists there. Historical handoff filenames/content are retained for traceability and truthful evidence.
+
+Drive quarantine was verified directly on 2026-09-24. Archived historical material is marked non-authoritative and is not required by the active bootstrap.
+
+This task is documentation-only. It changes no gameplay, camera, input, collision, combat, state, sprite rendering, or ViewModel implementation.
 
 — Sol
