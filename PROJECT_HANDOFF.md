@@ -4,7 +4,7 @@ Status: PIXEL RPG ACTIVE / FIRST-PERSON + VISUAL PACK 010 IMAGE-DERIVED ASSETS B
 Last reconciled: 2026-09-23  
 Branch: `pixel-rpg`
 
-CURRENT_OBJECTIVE: continue from verified Visual Pack 010 Image-Derived Assets. Next bounded visual slice is `PIXEL_RPG_VISUAL_PACK_011_LIGHTING_ATMOSPHERE`: refine only ambient/environment lighting presentation while preserving the image-derived material authority, camera/input, all world coordinates/collision, interactions, targeting/combat and State Ownership 001.
+CURRENT_OBJECTIVE: continue from verified Visual Pack 010 Image-Derived Assets. Next bounded visual slice is `PIXEL_RPG_VISUAL_PACK_011_CONCEPT_OBJECT_RECONSTRUCTION`: reconstruct the concept image's major starting-area objects as reusable game assets, beginning with gate/smith/building/prop silhouettes, while preserving the Pack 010 image-derived texture authority, camera/input, world coordinates/collision, interactions, targeting/combat and State Ownership 001.
 
 CREATOR_AUTHORITY: FIRST-PERSON exploration is authoritative. Older third-person statements are STALE / SUPERSEDED for current presentation; historical third-person builds remain historical evidence only.
 
@@ -467,3 +467,5 @@ TRUTH_BOUNDARY: CI/headless/build evidence is complete. Physical Android install
 KNOWN COMPATIBILITY RISK: the verified legacy Hunt01 tactical movement/attack legality still references legacy Region-01 coordinates/body envelope. Do not wire it directly into the compact live Pixel RPG world or teleport the Hunter. A later combat slice needs an explicit current-world spatial adapter.
 
 NEXT_ACTION: `PIXEL_RPG_VISUAL_PACK_010_LIGHTING_ATMOSPHERE` — presentation-only ambient/lighting refinement; no time simulation, gameplay visibility modifiers, collision, camera/input, targeting/combat or state-owner changes.
+
+Object-reconstruction priority: Pack 010 proves real concept pixels are used. Pack 011 must now reconstruct the major pictured gate/smith/building/prop forms as reusable runtime assets; lighting/atmosphere comes only after this visual-source application is materially complete.

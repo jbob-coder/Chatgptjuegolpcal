@@ -597,7 +597,7 @@ Physical-device visual acceptance, touch feel, sustained performance/heat and in
 
 ## Exact next bounded piece
 
-`PIXEL_RPG_VISUAL_PACK_011_LIGHTING_ATMOSPHERE`.
+`PIXEL_RPG_VISUAL_PACK_011_CONCEPT_OBJECT_RECONSTRUCTION`.
 
 Boundary:
 1. add only a reusable first-person hands/poleblade presentation scene under the current active Camera3D;
@@ -607,7 +607,7 @@ Boundary:
 5. add focused runtime coverage and preserve every existing gate;
 6. physical-phone obstruction/readability/performance remains unverified until device testing.
 
-NEXT THING: `PIXEL_RPG_VISUAL_PACK_011_LIGHTING_ATMOSPHERE`.
+NEXT THING: `PIXEL_RPG_VISUAL_PACK_011_CONCEPT_OBJECT_RECONSTRUCTION` — object-by-object reconstruction from the generated concept before any lighting-atmosphere pass.
 
 ## Visual Pack 010 image-derived asset checkpoint
 
@@ -651,4 +651,6 @@ Physical Android visual acceptance, touch feel, sustained FPS/heat and installed
 
 Correction law: concept images must not be treated as applied game assets merely because procedural geometry resembles them. When the user asks for generated image assets to be applied, runtime files must derive from or directly use those image assets, and tests/evidence must prove the binding.
 
-NEXT THING: `PIXEL_RPG_VISUAL_PACK_011_LIGHTING_ATMOSPHERE`.
+NEXT THING: `PIXEL_RPG_VISUAL_PACK_011_CONCEPT_OBJECT_RECONSTRUCTION` — object-by-object reconstruction from the generated concept before any lighting-atmosphere pass.
+
+Object-reconstruction priority: Pack 010 proves real concept pixels are used. Pack 011 must now reconstruct the major pictured gate/smith/building/prop forms as reusable runtime assets; lighting/atmosphere comes only after this visual-source application is materially complete.

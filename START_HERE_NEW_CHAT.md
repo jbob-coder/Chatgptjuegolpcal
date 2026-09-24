@@ -535,6 +535,8 @@ Physical-device install/runtime, touch feel, visual acceptance, sustained perfor
 
 ## Current bounded piece
 
-`PIXEL_RPG_VISUAL_PACK_011_LIGHTING_ATMOSPHERE`.
+`PIXEL_RPG_VISUAL_PACK_011_CONCEPT_OBJECT_RECONSTRUCTION`.
 
 Add a reusable presentation-only first-person hands/poleblade scene as a child of the existing active Camera3D. Preserve the Camera3D node/path/transform/FOV/near/far values, Hunter collision/controller, left-stick/right-look behavior, targeting controls, current no-attack combat bootstrap, damage/AP/Stamina ownership and State Ownership 001. The viewmodel must contain no CollisionObject3D/CollisionShape3D and must not become weapon/combat authority. Physical-device obstruction/visual acceptance remains separate evidence.
+
+Object-reconstruction priority: Pack 010 proves real concept pixels are used. Pack 011 must now reconstruct the major pictured gate/smith/building/prop forms as reusable runtime assets; lighting/atmosphere comes only after this visual-source application is materially complete.

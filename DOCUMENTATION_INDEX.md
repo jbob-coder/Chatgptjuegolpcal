@@ -585,6 +585,8 @@ Latest specialized handoff:
 
 ## Continuation
 
-Next bounded slice: `PIXEL_RPG_VISUAL_PACK_011_LIGHTING_ATMOSPHERE`.
+Next bounded slice: `PIXEL_RPG_VISUAL_PACK_011_CONCEPT_OBJECT_RECONSTRUCTION`.
 
 Add presentation-only first-person hands/poleblade beneath the existing active Camera3D. Preserve all camera/controller/collision, targeting/combat, anatomy/domain and state-ownership authority. The viewmodel must not own attack or collision behavior.
+
+Object-reconstruction priority: Pack 010 proves real concept pixels are used. Pack 011 must now reconstruct the major pictured gate/smith/building/prop forms as reusable runtime assets; lighting/atmosphere comes only after this visual-source application is materially complete.
