@@ -19,7 +19,7 @@ concurrency:
 
 env:
   PROJECT_PATH: game
-  APK_PATH: game/build/android/PixelRPG-visual-pack-011-direct-photo-assets-debug.apk
+  APK_PATH: game/build/android/PixelRPG-visual-pack-012a-gate-pillars-debug.apk
   MAX_PLAYER_REQUIRED_GAME_STORAGE_BYTES: "2000000000"
 
 jobs:
@@ -153,6 +153,13 @@ jobs:
           set -euo pipefail
           godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_011_concept_photo_sprites_test.gd" 2>&1 | tee build-evidence/visual-pack-011-concept-photo-sprites.log
           grep -q "Gate: PIXEL_RPG_VISUAL_PACK_011_CONCEPT_PHOTO_SPRITES_VERIFIED" build-evidence/visual-pack-011-concept-photo-sprites.log
+
+      - name: Pixel RPG Visual Pack 012A direct-photo gate pillar gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path "$PROJECT_PATH" --script "$GITHUB_WORKSPACE/game/tests/pixel_rpg_visual_pack_012a_gate_pillars_test.gd" 2>&1 | tee build-evidence/visual-pack-012a-gate-pillars.log
+          grep -q "Gate: PIXEL_RPG_VISUAL_PACK_012A_GATE_PILLARS_VERIFIED" build-evidence/visual-pack-012a-gate-pillars.log
 
       - name: Pixel RPG Visual Pack 002 runtime gate
         shell: bash
@@ -302,8 +309,8 @@ jobs:
         id: upload_apk
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-visual-pack-011-direct-photo-assets-debug
-          path: game/build/android/PixelRPG-visual-pack-011-direct-photo-assets-debug.apk
+          name: PixelRPG-visual-pack-012a-gate-pillars-debug
+          path: game/build/android/PixelRPG-visual-pack-012a-gate-pillars-debug.apk
           if-no-files-found: error
 
       - name: Finalize immutable BuildIdentity
@@ -415,6 +422,6 @@ jobs:
       - name: Upload Pixel RPG build evidence
         uses: actions/upload-artifact@v4
         with:
-          name: PixelRPG-visual-pack-011-direct-photo-assets-build-evidence
+          name: PixelRPG-visual-pack-012a-gate-pillars-build-evidence
           path: build-evidence/
           if-no-files-found: error
