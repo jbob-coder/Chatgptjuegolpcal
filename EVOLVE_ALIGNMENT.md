@@ -1,6 +1,6 @@
 # EVOLVE ALIGNMENT — Pixel RPG
 
-Status: ACTIVE PIXEL RPG / FIRST-PERSON + VISUAL PACK 010 IMAGE-DERIVED ASSETS BUILD-VERIFIED / SAFE VISUAL CONTINUATION
+Status: ACTIVE PIXEL RPG / FIRST-PERSON + VISUAL PACK 011 CONCEPT-PHOTO SPRITES BUILD-VERIFIED / SAFE VISUAL CONTINUATION
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -654,3 +654,64 @@ Correction law: concept images must not be treated as applied game assets merely
 NEXT THING: `PIXEL_RPG_VISUAL_PACK_011_CONCEPT_OBJECT_RECONSTRUCTION` — object-by-object reconstruction from the generated concept before any lighting-atmosphere pass.
 
 Object-reconstruction priority: Pack 010 proves real concept pixels are used. Pack 011 must now reconstruct the major pictured gate/smith/building/prop forms as reusable runtime assets; lighting/atmosphere comes only after this visual-source application is materially complete.
+
+
+## Visual Pack 011 exact concept-photo checkpoint
+
+## Latest verified checkpoint — Visual Pack 011 Concept Photo Sprites
+
+- exact build source SHA: `444bae4da21c93fcaf975f93c6f09e29a65db3bf`;
+- workflow run: `35941955332` — SUCCESS;
+- job: `107451563407` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.18-visual-pack-011-concept-photo-sprites`;
+- APK: `PixelRPG-visual-pack-011-concept-photo-sprites-debug.apk`;
+- APK size: `58,276,380` bytes;
+- APK SHA-256: `5a5b736801c076178df73aa40cf083e67a8b658d9bdba47968dc89df86fdbd7b`;
+- APK artifact ID: `10785097119`;
+- APK artifact digest: `6374b38aa78757a39626fffe47bc5f95756ede79e2aeba77286bd15723d5d76c`;
+- build-evidence artifact ID: `10785690463`;
+- build-evidence digest: `e452c016616ec53e8e3224bfcb5343c8cec9e3e6749befde3d14b60798d69c02`.
+
+Concept source authority:
+- generated image: `voxel_fantasy_village_gate.png`;
+- dimensions: `1672 × 941`;
+- SHA-256: `766e16c7992699553842c7205eeef060a483e7c758f1ed3c3193c63ba0373b2b`;
+- Pack 010 sampled concept pixels into repeatable material textures only;
+- Pack 011 is the first checkpoint that reconstructs and renders concrete pictured objects from the concept pixel data.
+
+Applied live photo-derived objects:
+- left gate banner;
+- right gate banner;
+- smith hanging banner;
+- smith forge panel;
+- direction signpost;
+- water trough;
+- fence segment.
+
+Implementation boundary:
+- the photo-derived objects are runtime-generated `Sprite3D` presentation assets using palette-indexed pixel data derived from exact source-image crops;
+- they are instantiated under `WorldGeometry/ConceptPhotoReconstruction011`;
+- they own no collision, input, interaction, targeting, combat, save state or durable world state;
+- existing geometry/collision remains authoritative underneath so gameplay behavior is preserved;
+- this is a 2.5D concept-object reconstruction, not a claim that every pictured object has already become a full 3D mesh.
+
+Google Drive immutable folder:
+`Pixel RPG/Builds/First Person/2026-09-23_run-35941955332_visual-pack-011-concept-photo-sprites/`
+- folder ID: `1PqJNvEhIJkIlV23Y64MdWw_LwfEFGftK`;
+- APK ID: `1j5ZzFk81tHO8E28w1V4lFZNlCZXks2h1`;
+- BuildIdentity JSON ID: `1iBthD8jjScWp-jUEQZqBTmFEPE7R55_H`;
+- BuildIdentity Markdown ID: `1CyEJl8YNhsC2a0BULQIPLZx7TpTDhW2M`;
+- raw CI evidence ID: `1qZ9yHMwUrYfim1RH7AT9-glFYer9L0Q8`;
+- device checklist ID: `1RZEHACTSrlKenha4ziRAaC2soPnXdqu9`.
+
+Verification:
+- Pack 011 exact concept-photo sprite gate PASS;
+- all prior first-person, viewmodel, image-derived material, Mudcrest, HUD, smith, targeting/combat, State Ownership, world-base and Starting Area Pack gates PASS;
+- deterministic combat/anatomy/status regressions PASS;
+- Android export and package-size ceiling PASS.
+
+Physical Android visual acceptance, sprite alignment/occlusion quality, touch feel, sustained FPS/heat and installed footprint remain NOT VERIFIED.
+
+
+NEXT THING: `PIXEL_RPG_VISUAL_PACK_012_CONCEPT_OBJECT_REPLACEMENT` — continue replacing duplicated procedural presentation with concept-derived visible art while retaining the existing gameplay/collision owners.

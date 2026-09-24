@@ -1,6 +1,6 @@
 # START HERE — Pixel RPG — New Chat Bootstrap
 
-Status: ACTIVE PIXEL RPG BOOTSTRAP / FIRST-PERSON + VISUAL PACK 010 IMAGE-DERIVED ASSETS BUILDIDENTITY VERIFIED
+Status: ACTIVE PIXEL RPG BOOTSTRAP / FIRST-PERSON + VISUAL PACK 011 CONCEPT-PHOTO SPRITES BUILDIDENTITY VERIFIED
 Last reconciled: 2026-09-23
 
 Repository: `jbob-coder/Chatgptjuegolpcal`
@@ -27,6 +27,12 @@ WorldLife is abandoned. The later standalone first-person Shooter RPG is also no
 6. Work one bounded piece at a time.
 7. Never convert design documentation or CI/build success into phone/visual/performance proof.
 8. Preserve reusable monster-hunting domain logic unless current evidence shows it is incompatible.
+
+## Pack 011 clarification
+
+Pack 010 is texture/material derivation from concept pixels. Pack 011 is the first verified checkpoint that renders concrete concept-photo-derived object sprites in the live world. Preserve this distinction. Pack 011 is 2.5D presentation over authoritative existing gameplay geometry; do not claim full 3D object reconstruction or phone visual acceptance.
+
+Latest built source: `444bae4da21c93fcaf975f93c6f09e29a65db3bf`. Run `35941955332`, job `107451563407`, APK SHA-256 `5a5b736801c076178df73aa40cf083e67a8b658d9bdba47968dc89df86fdbd7b`.
 
 ## Active identity
 
