@@ -1,574 +1,148 @@
 # PROJECT HANDOFF — Pixel RPG
 
-Status: PIXEL RPG ACTIVE / FIRST-PERSON + VISUAL PACK 011 DIRECT CONCEPT-PHOTO PNG ASSETS BUILD-VERIFIED / DEVICE VERIFICATION PENDING
-Last reconciled: 2026-09-23  
+Status: ACTIVE / FIRST-PERSON / AUTHORITY CLEANUP + CANONICAL HANDS INTEGRATION IN PROGRESS
+Last reconciled: 2026-09-24
 Branch: `pixel-rpg`
 
-CURRENT_OBJECTIVE: continue from verified Visual Pack 011 Direct Concept-Photo PNG Assets. Next bounded visual slice is `PIXEL_RPG_VISUAL_PACK_012_CONCEPT_OBJECT_REPLACEMENT`: expand direct concept-derived structural/frontage assets (gate/smith first) and retire duplicated procedural presentation only where runtime parity is proven, while preserving authoritative collision/world geometry, first-person camera/input, interactions, targeting/combat and State Ownership 001.
+## CURRENT_OBJECTIVE
 
-CREATOR_AUTHORITY: FIRST-PERSON exploration is authoritative. Older third-person statements are STALE / SUPERSEDED for current presentation; historical third-person builds remain historical evidence only.
+Finish the current first-person presentation pipeline without changing proven gameplay/domain ownership:
+1. close authority/document cleanup under issue #29;
+2. integrate the canonical first-person hands PNG into the live ViewModel under issue #30;
+3. pass the required Godot/regression/Android build gates;
+4. preserve physical-device validation as a separate evidence stage.
 
-## Latest verified checkpoint — Visual Pack 011 Direct Concept-Photo PNG Assets
+Parent pipeline: issue #28.
 
-- exact build source SHA: `93978e1947fe8cffaeb0876574d8d761dcad90b2`;
+## CURRENT_STATE
+
+Pixel RPG is first-person.
+
+Current source keeps:
+- direct active `Camera3D` first-person path;
+- camera-relative movement and independent look;
+- hidden non-first-person presentation body;
+- existing world/collision authority;
+- targeting and Combat Bridge 002 no-attack bootstrap;
+- State Ownership 001;
+- deterministic combat/anatomy/status domain regressions;
+- Android build/export pipeline.
+
+The canonical first-person hands source is recorded as:
+`pixel_rpg_hunter_fp_hands_neutral_r001.png`.
+
+Repository source-identity records exist under:
+`game/assets/characters/first_person/`.
+
+Live ViewModel scene:
+`game/assets/characters/first_person_viewmodel_01.tscn`.
+
+Issue #30 remains open until the PNG is actually live in that ViewModel and all required gates pass.
+
+## AUTHORITY
+
+Active authority chain:
+1. explicit current creator instruction;
+2. current source/tests/build/device evidence;
+3. `docs/00_authority/PIXEL_RPG_ACTIVE_AUTHORITY.md`;
+4. `START_HERE_NEW_CHAT.md`;
+5. `PIXEL_RPG_VISUAL_DIRECTION.md`;
+6. `EVOLVE_ALIGNMENT.md` and this handoff;
+7. narrow owner/package docs.
+
+Archived, quarantined, superseded, or unrelated project material is outside this chain. It may remain for provenance or a proven technical dependency but cannot direct current camera, sprites, visual identity, gameplay identity, or priorities.
+
+## LAST VERIFIED VISUAL BASELINE
+
+Visual Pack 011 Direct Concept-Photo PNG Assets:
+- source SHA: `93978e1947fe8cffaeb0876574d8d761dcad90b2`;
 - workflow run: `35947488962` — SUCCESS;
 - job: `107468585038` — SUCCESS;
 - Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.19-visual-pack-011-direct-photo-assets`;
 - APK: `PixelRPG-visual-pack-011-direct-photo-assets-debug.apk`;
 - APK size: `58,290,596` bytes;
-- APK SHA-256: `bec6ba206a293edab5ab6b5220090e444b110a3521f7f8a48c6e9b6cade40c7b`;
-- APK artifact ID: `10787297932`;
-- APK artifact digest: `f8392f06f850c459a8465c7e977e661c68b3230ac87a7f34be796d537db1b741`;
-- build-evidence artifact ID: `10787163398`;
-- build-evidence digest: `558dc4dd6b961db45d683ca4b6abbbf61374c314c811dcb85bba0cbf4805775c`.
+- APK SHA-256: `bec6ba206a293edab5ab6b5220090e444b110a3521f7f8a48c6e9b6cade40c7b`.
 
-Concept source authority:
-- `voxel_fantasy_village_gate.png`, 1672 × 941;
-- source SHA-256 `766e16c7992699553842c7205eeef060a483e7c758f1ed3c3193c63ba0373b2b`;
-- seven standalone RGBA PNG game assets are now stored under `game/assets/environment/starting_area/concept_photo_sprites_011/`;
-- the live `ConceptPhotoReconstruction011` loads those files directly with `load(res://...png)`; Pack 011 no longer reconstructs their pixels from palette/row arrays in GDScript;
-- the Pack 011 CI gate checks each PNG path, imported dimensions, exact original-file SHA-256 bytes, live Sprite3D resource paths, nearest filtering, presentation-only ownership, first-person camera and hidden third-person body.
+That baseline includes seven standalone RGBA concept-derived environment assets under:
+`game/assets/environment/starting_area/concept_photo_sprites_011/`.
 
-Direct live PNG assets:
-- left gate banner;
-- right gate banner;
-- smith hanging banner;
-- smith forge panel;
-- direction signpost;
-- water trough;
-- fence segment.
+Their presentation layer owns no collision, input, targeting, combat, persistence, or durable world state.
 
-Preserved:
-- authoritative existing world/collision geometry;
-- first-person camera/input and Pack 009 viewmodel;
-- smith entry/roof/UseAnchor behavior;
-- Gate Warden interaction;
-- Mudcrest targeting/anatomy;
-- no-attack combat bootstrap;
-- State Ownership 001 and deterministic combat/status gates.
+## COMPLETED_WORK
 
-Drive archival:
-- folder: `Pixel RPG/Builds/First Person/2026-09-23_run-35947488962_visual-pack-011-direct-photo-assets/`;
-- folder ID: `1wQEJac7nM8ym79w-KRTZ_chrsmPb5FPn`;
-- BuildIdentity Markdown, raw CI evidence and device checklist are verified present;
-- direct APK and BuildIdentity JSON Drive copies are NOT YET VERIFIED because the local-container handoff expired. Do not claim them present until a file-reference upload succeeds.
-
-Physical Android visual acceptance, billboard angle quality, touch feel, sustained FPS/heat and installed footprint remain NOT VERIFIED.
-
-## Historical verified checkpoint — Visual Pack 011 Concept Photo Sprites
-
-- exact build source SHA: `444bae4da21c93fcaf975f93c6f09e29a65db3bf`;
-- workflow run: `35941955332` — SUCCESS;
-- job: `107451563407` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.18-visual-pack-011-concept-photo-sprites`;
-- APK: `PixelRPG-visual-pack-011-concept-photo-sprites-debug.apk`;
-- APK size: `58,276,380` bytes;
-- APK SHA-256: `5a5b736801c076178df73aa40cf083e67a8b658d9bdba47968dc89df86fdbd7b`;
-- APK artifact ID: `10785097119`;
-- APK artifact digest: `6374b38aa78757a39626fffe47bc5f95756ede79e2aeba77286bd15723d5d76c`;
-- build-evidence artifact ID: `10785690463`;
-- build-evidence digest: `e452c016616ec53e8e3224bfcb5343c8cec9e3e6749befde3d14b60798d69c02`.
-
-Concept source authority:
-- generated image: `voxel_fantasy_village_gate.png`;
-- dimensions: `1672 × 941`;
-- SHA-256: `766e16c7992699553842c7205eeef060a483e7c758f1ed3c3193c63ba0373b2b`;
-- Pack 010 sampled concept pixels into repeatable material textures only;
-- Pack 011 is the first checkpoint that reconstructs and renders concrete pictured objects from the concept pixel data.
-
-Applied live photo-derived objects:
-- left gate banner;
-- right gate banner;
-- smith hanging banner;
-- smith forge panel;
-- direction signpost;
-- water trough;
-- fence segment.
-
-Implementation boundary:
-- the photo-derived objects are runtime-generated `Sprite3D` presentation assets using palette-indexed pixel data derived from exact source-image crops;
-- they are instantiated under `WorldGeometry/ConceptPhotoReconstruction011`;
-- they own no collision, input, interaction, targeting, combat, save state or durable world state;
-- existing geometry/collision remains authoritative underneath so gameplay behavior is preserved;
-- this is a 2.5D concept-object reconstruction, not a claim that every pictured object has already become a full 3D mesh.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35941955332_visual-pack-011-concept-photo-sprites/`
-- folder ID: `1PqJNvEhIJkIlV23Y64MdWw_LwfEFGftK`;
-- APK ID: `1j5ZzFk81tHO8E28w1V4lFZNlCZXks2h1`;
-- BuildIdentity JSON ID: `1iBthD8jjScWp-jUEQZqBTmFEPE7R55_H`;
-- BuildIdentity Markdown ID: `1CyEJl8YNhsC2a0BULQIPLZx7TpTDhW2M`;
-- raw CI evidence ID: `1qZ9yHMwUrYfim1RH7AT9-glFYer9L0Q8`;
-- device checklist ID: `1RZEHACTSrlKenha4ziRAaC2soPnXdqu9`.
-
-Verification:
-- Pack 011 exact concept-photo sprite gate PASS;
-- all prior first-person, viewmodel, image-derived material, Mudcrest, HUD, smith, targeting/combat, State Ownership, world-base and Starting Area Pack gates PASS;
-- deterministic combat/anatomy/status regressions PASS;
-- Android export and package-size ceiling PASS.
-
-Physical Android visual acceptance, sprite alignment/occlusion quality, touch feel, sustained FPS/heat and installed footprint remain NOT VERIFIED.
-
-## Historical verified checkpoint — Visual Pack 010 Image-Derived Assets
-
-- exact source SHA: `5d6c26359f3fc69fbc787c05fce693e9a5492f45`;
-- workflow run: `35940008044` — SUCCESS;
-- job: `107445603048` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.17-visual-pack-010-image-derived-assets`;
-- APK: `PixelRPG-visual-pack-010-image-derived-assets-debug.apk`;
-- APK size: `58,259,273` bytes;
-- APK SHA-256: `6fcf9db2d7dcbfdad6b08185a951e8e3a15d7ec86faa6eece26b13c0c2f83b91`;
-- APK artifact ID: `10784433455`;
-- APK artifact digest: `a2d83a4eba660cd7dbf151abb3a584dbf1ed23963d4c43ef83b66f4e674a0891`;
-- build-evidence artifact ID: `10785025141`;
-- build-evidence digest: `3c2b5b794396d767b3948de13575d21ee2e0e7cbaa36d8c89b8c354585365809`.
-
-Concept source authority:
-- generated concept: `voxel_fantasy_village_gate.png`;
-- source dimensions: `1672 × 941`;
-- source SHA-256: `766e16c7992699553842c7205eeef060a483e7c758f1ed3c3193c63ba0373b2b`;
-- runtime textures are sampled from actual concept pixels for wood, stone, dirt, foliage, roof, banner cloth and metal;
-- `game/assets/textures/concept_derived/image_derived_asset_manifest.gd` records the exact source identity and crop regions;
-- Pack 010 runtime gate proves representative gate/smith/path/pine/rock/lantern materials reference those image-derived texture resources.
-
-Preserved:
-- first-person camera/controller and hidden third-person body;
-- world positions and collision ownership;
-- smith doorway/roof/UseAnchor contracts;
-- Gate Warden interaction;
-- Mudcrest targeting/anatomy;
-- no-attack combat bootstrap;
-- State Ownership 001 and deterministic combat/status regressions.
-
-Drive archival status:
-- immutable folder exists: `Pixel RPG/Builds/First Person/2026-09-23_run-35940008044_visual-pack-010-image-derived-assets/`;
-- folder ID: `137B3IVmt9A3WFRKUiMd4FfKctU_g1cEo`;
-- BuildIdentity Markdown, raw CI evidence and device checklist are uploaded;
-- direct APK and BuildIdentity JSON Drive copies are not yet verified because their file-handoff upload expired. Do not claim them present until verified.
-
-Physical Android visual acceptance, touch feel, sustained FPS/heat and installed footprint remain NOT VERIFIED.
-
-## Historical verified checkpoint — Visual Pack 009 First-Person Viewmodel
-
-- exact source SHA: `6e68a33df91b9d429d5c2fb1c913c3feb398c029`;
-- workflow run: `35929499121` — SUCCESS;
-- job: `107412442606` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.16-visual-pack-009-first-person-viewmodel`;
-- APK: `PixelRPG-visual-pack-009-first-person-viewmodel-debug.apk`;
-- APK size: `58,240,674` bytes;
-- APK SHA-256: `67bc2e044ae85bc30036aba3c2cc50dd65d8e8d169f4aa4b28fd38f2d46141b3`;
-- APK artifact ID: `10780781356`;
-- APK artifact digest: `544acafcd06a081c2383d02e6b2bdcbe0ddf9a053df73d7f1076debb232d1982`;
-- build-evidence artifact ID: `10780218824`;
-- build-evidence digest: `b06945809304fa1c1f74d59d343e49e90ae4d4cb188d003d3d4666e7bdce6891`.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35929499121_visual-pack-009-first-person-viewmodel/`
-- folder ID: `1Vgq-4_4Qj4WEpZg3NL89mP0fItT3PhN2`;
-- APK ID: `1kgYjaxiRJLUqL7iFH58fHR1L0OXdcHM2`;
-- BuildIdentity JSON ID: `1KBV8O_KpQoPmYB0BntdVByBgDwH9paen`;
-- BuildIdentity Markdown ID: `1IP1Vi4vG9XhteHOoGuF18tsOF1zzVxTe`;
-- raw CI evidence ID: `10jycXz76JRKgi76-dCitTv4JOg9VTY1o`;
-- device checklist ID: `1LG4B8xRlPp4GDlf7Le5a20SnHS_Rni1b`.
-
-Implemented and verified:
-- reusable `first_person_viewmodel_01.tscn` is a direct child of the active `Camera3D`;
-- visible lower-frame left/right forearms and hands plus a bounded poleblade shaft/head/hook;
-- viewmodel owns no scripts, Control nodes, physics, collision, input, targeting, damage, AP/Stamina or durable state;
-- active camera path remains unchanged, camera local transform remains identity, FOV `70`, near `0.04`, far `180`;
-- legacy SpringArm remains camera-free and third-person Hunter body remains hidden;
-- camera-relative movement, target-count contract and no-attack combat-domain state remain unchanged;
-- all prior asset/world/Mudcrest/combat/state/deterministic gates passed;
-- Android export and package-size ceiling passed.
-
-Physical-device viewmodel obstruction/readability, clipping, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
-
-## Latest verified checkpoint — Visual Pack 008 Mudcrest Refinement
-
-- implementation source: `7da40b2b0e8d1d1c68a2a6144221c8a36628c4b8`;
-- first failed run: `35928797541` — failed only because the new Pack 008 test referenced loop-local variables outside their scope; Mudcrest resource import, prototype smoke, first-person and Visual Pack 002 had already passed;
-- corrected exact build source: `d280c2da7f434450930cf5950feb598a0f4f7462`;
-- corrected workflow run: `35928948805` — SUCCESS;
-- corrected job: `107410680490` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.15-visual-pack-008-mudcrest-refinement`;
-- APK: `PixelRPG-visual-pack-008-mudcrest-refinement-debug.apk`;
-- APK size: `58,227,894` bytes;
-- APK SHA-256: `7e980ed1a3e3d2de8c2f429c31b9ba1874c74273b0de839f4eaee1ffb28626d6`;
-- APK artifact ID: `10779319853`;
-- APK artifact digest: `085b812c198597cca68e57029c8c226e1b2d6eed3fa7bb1dbb974513d5276c4a`;
-- build-evidence artifact ID: `10780361021`;
-- build-evidence digest: `428cca2e20129acf995897a2121418e49f8332eff0039a63d3da91c6e9b5bba0`.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35928948805_visual-pack-008-mudcrest-refinement/`
-- folder ID: `1dRhP6bwobMMIRhyCMSsUkORJwW-bbW_Z`;
-- APK ID: `1UGYE1JuYN3EGD4wzdZQYvAOKH8_5YpXj`;
-- BuildIdentity JSON ID: `10Eg_TJU0pAl0BXGthhOB5qGXKfznFvRG`;
-- BuildIdentity Markdown ID: `1ukZ9pfcih7jRTzOqqoM63KyKDXaDRF-X`;
-- canonical raw CI evidence ID: `1SGAhV_U4thFqI8-N3FN17UzSPEtAEUhj`;
-- device checklist ID: `1YnINOvGYd0mfkoDT5zqrfI_emxs_g_Sq`;
-- a duplicate same-byte raw evidence ZIP exists from concurrent archival activity and is intentionally left intact.
-
-Implemented and verified:
-- visible Mudcrest eyes/jaw/tusks, reinforced horn bases, shoulder/torso breakup, extra dorsal plates, claws and tail detail;
-- all existing target roots remain unchanged: `HEAD`, `HORN_CREST`, four leg roots, `DORSAL_PLATES`, `TAIL`, and `GENERAL_TORSO`;
-- Mudcrest visual remains presentation-only with no physics;
-- recursive target highlighting reaches new detail and clears correctly;
-- MonsterProxy remains exactly at `Vector3(0, 0, -49)` and domain-body alias remains co-located;
-- first-person camera, targeting/combat bootstrap, deterministic combat/anatomy/status systems, State Ownership 001 and all prior asset gates remain preserved;
-- Android export and package-size ceiling passed.
-
-Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
-
-## Latest verified checkpoint — Starting Area Asset Pack 007 Path Surface Details
-
-- source SHA: `8a2b061acd71f02ffecc2a7b738cd821ac4e6371`;
-- first failed test run: `35928162750` — failed only because the new gate incorrectly cast the historical Street/Trail holder nodes as MeshInstance3D; no APK exported;
-- corrected workflow run: `35928283662` — SUCCESS;
-- corrected job: `107408524350` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.14-starting-area-assets-007-path-surfaces`;
-- APK: `PixelRPG-starting-area-assets-007-path-surfaces-debug.apk`;
-- APK size: `58,219,471` bytes;
-- APK SHA-256: `42cb74a4500650db9167cd133c2aa3e8588c956c2052387b28a0e7b7ba472e44`;
-- APK artifact ID: `10779618297`;
-- APK artifact digest: `a226513cbd52ac0412d95c85320c2d34de1299a1200930d8d9be14d3c2eb0f7a`;
-- build-evidence artifact ID: `10779413781`;
-- build-evidence digest: `fec2740f4cb5f4ce7d9e3496acbd189c6a14d9ef4300b09ff7b1bf816f7bbaad`.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35928283662_starting-area-assets-007-path-surfaces/`
-- folder ID: `1yz7_68oPoOMQnMHXnQzGqiSNDtsR7Nwo`;
-- APK ID: `1Vuae8OIZNpjhR8ihv2hXfX6_uA6J4-Dv`;
-- BuildIdentity JSON ID: `1VUSLYSb2hWX_EKpuiBxf6cB1e_NSdm2Z`;
-- BuildIdentity Markdown ID: `1SqJOqCS1sF1DPEvT6oDwlz5niFyv991o`;
-- raw CI evidence ID: `1AVNLQnGlode8AvGJt1f5EL4WXKaXSNQ4`;
-- device checklist ID: `1-qxdzstoLVoZ68UxVFqLZfMDTgjN0B_S`.
-
-Implemented and verified:
-- reusable `street_surface_details_01.tscn` and `trail_surface_details_01.tscn`;
-- existing Street holder remains at `Vector3(0, 0.03, 2)` with BoxMesh size `Vector3(6.2, 0.10, 34)`;
-- existing Trail holder remains at `Vector3(0, 0.04, -31)` with BoxMesh size `Vector3(4.2, 0.11, 34)`;
-- new rut/dirt/stone/moss detail is presentation-only and adds no physics;
-- Ground remains physical floor authority;
-- all prior asset/runtime/domain gates, Android export and package-size ceiling passed on the corrected exact source.
-
-Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
-
-## Latest verified checkpoint — Starting Area Asset Pack 006 Settlement Building Details
-
-- source SHA: `d050799380bdad814673d2752c3768f12bef0718`;
-- workflow run: `35927524386` — SUCCESS;
-- job: `107406042641` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.13-starting-area-assets-006-buildings`;
-- APK: `PixelRPG-starting-area-assets-006-buildings-debug.apk`;
-- APK size: `58,202,290` bytes;
-- APK SHA-256: `073e2e0122e61028587291bd60791ca181083ab99c7fe5b6ed979798cac6f9bb`;
-- APK artifact ID: `10779503582`;
-- APK artifact digest: `f51fe0b945a9af18b3d7ccc2e8083deaaebe825e98de2a5f742a0b7d24e7fa3e`;
-- build-evidence artifact ID: `10780001656`;
-- build-evidence digest: `09671608f298e95deda0a20fcb65cc99735cb17d898ad0cd1e7b6382f1ba853f`.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35927524386_starting-area-assets-006-buildings/`
-- folder ID: `1UzFo9xaWmKaGjcw0iFOgHVFwmJeXVS6Y`;
-- APK ID: `1mgS1RkhKnlv-c2hfcdCxogwga21ZSOa2`;
-- BuildIdentity JSON ID: `1Po6sAmm2RCM3kDiZVZaM3u9rOKSLytDO`;
-- BuildIdentity Markdown ID: `1mAJmbJMiiUL_xQDZFUU0U6EmuTnfIFj6`;
-- raw CI evidence ID: `1NyMNUDUa6KcCoA-7LfNMI0dQoplPAhIL`;
-- device checklist ID: `1rCZrglRxJgGuiBY1utaCUuM9e3ZAeIqx`.
-
-Implemented and verified:
-- reusable `settlement_building_details_01.tscn`;
-- exactly two presentation-only detail layers are attached to the two existing generic settlement buildings;
-- original colliding `Building` StaticBody3D nodes remain at `(-7.0, 1.7, 8.5)` / size `(7.0, 3.4, 7.0)` and `(7.5, 1.6, -3.0)` / size `(6.8, 3.2, 6.4)`;
-- facade details add door/frame, windows, structural beams, eaves and chimney without adding gameplay collision;
-- Gate Warden, first-person camera, smith, Mudcrest anchor, targeting/combat and State Ownership 001 remain preserved;
-- all prior asset/runtime/domain gates, Android export and package-size ceiling passed.
-
-Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
-
-## Latest verified checkpoint — Starting Area Asset Pack 005 Gate Warden Visual
-
-- source SHA: `7c27495eec5ddc53d42d596bbe1c3a48dad799a8`;
-- workflow run: `35926969130` — SUCCESS;
-- job: `107404261711` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.12-starting-area-assets-005-gate-warden`;
-- APK: `PixelRPG-starting-area-assets-005-gate-warden-debug.apk`;
-- APK size: `58,189,449` bytes;
-- APK SHA-256: `cb215fc88ddb76f15f0fae6edb34243d220b9b387e56063019d67fa0437e9699`;
-- APK artifact ID: `10779836686`;
-- APK artifact digest: `855c1657bb5f714d60d127474ae3963da8b6123a148c31548513799a5ee68d5f`;
-- build-evidence artifact ID: `10779642325`;
-- build-evidence digest: `ee47cd37f6e7ebf242024bb41a06aa8b3244b602673097aaeee5acfd8a7a6df4`.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35926969130_starting-area-assets-005-gate-warden/`
-- folder ID: `13M9eiLedJQ5es3NGJd6XdmckLmdrWooJ`;
-- APK ID: `1GFItfyM2yala4xYQaifqLyX8aQxtgQOb`;
-- BuildIdentity JSON ID: `1C5j-RovCh_c9RXqcEvuOk2Fvu05gXQzj`;
-- BuildIdentity Markdown ID: `10ARaoO7Sb2C944U_BumGYDHIvoQDpw_S`;
-- raw CI evidence ID: `18wSmXn6u3EDzQ9aj2NQEGkd_mbFP5dMy`;
-- canonical device checklist ID: `1pdPQexPApcqv681dGR6AtiQfxlqO2nsQ`.
-- Note: Drive contains a second same-named checklist from concurrent archival activity; it was not deleted.
-
-Implemented and verified:
-- reusable `gate_warden_visual_01.tscn`;
-- visual is presentation-only and adds no NPC collision/AI authority;
-- `GateWarden` anchor remains exactly `Vector3(-2.6, 0.0, -6.2)`;
-- TALK button/prompt and existing tracks/north-gate field-note result remain unchanged;
-- first-person camera, Pack 004 smith, Mudcrest anchor, targeting/combat bootstrap and State Ownership 001 remain preserved;
-- all prior asset/runtime/domain gates, Android export and package-size ceiling passed.
-
-Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
-
-## Latest verified checkpoint — Starting Area Asset Pack 004 Host Environment Reuse
-
-- source SHA: `8d896285c04b3a55da5836b4e38d55684788ab1e`;
-- workflow run: `35926481868` — SUCCESS;
-- job: `107402676378` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.11-starting-area-assets-004-host-environment`;
-- APK: `PixelRPG-starting-area-assets-004-host-environment-debug.apk`;
-- APK size: `58,176,659` bytes;
-- APK SHA-256: `55e67fbca0ebc1956b05074a956e8baaf707bcfe0350e37aab635aaae707f12f`;
-- APK artifact ID: `10779695702`;
-- APK artifact digest: `0eae02f2bb571cbc890c7a911ae9f5f46da27e439549037da90fcc5d01a237eb`;
-- build-evidence artifact ID: `10778982480`;
-- build-evidence digest: `17bdd7971311185157b14b24365d0a928c12ee327c3f400bba547c50338e2367`.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35926481868_starting-area-assets-004-host-environment/`
-- folder ID: `1AgOfPLPerQ-lWeMDQczJgAhdQQlOerr5`;
-- APK ID: `1krztuQZnmioc2a_e8gFwWAT6JR-yn8cI`;
-- BuildIdentity JSON ID: `1qsGypUWP_CFg7SwHWKbm1Kdjlm-WgyAK`;
-- BuildIdentity Markdown ID: `1eWw8OL2bo4K63-qXN2UYZfJWvMapCt5D`;
-- raw CI evidence ID: `11a_fWLfY3aLOfAOY9y5S-JclmQ5BY2fi`;
-- canonical device checklist ID: `1dnZsFBehlj0FxAaw4mhQXXcXy-hHW3iB`.
-
-Implemented and verified:
-- the ten host-built trail trees now instantiate the reusable `trail_pine_01.tscn` visual while keeping their exact world positions;
-- `TrailRockL` keeps its `StaticBody3D`, collision layer/mask and exact `2.4 × 1.5 × 2.0` `BoxShape3D`, while its visible mesh is replaced by `trail_rock_visual_01.tscn`;
-- first-person camera, Pack 004 smith, Mudcrest anchor, targeting/combat bootstrap and State Ownership 001 remain preserved;
-- all prior runtime gates, deterministic combat/anatomy/status regressions, Android export and package-size ceiling passed.
-
-Physical-device install, visual acceptance, touch feel, sustained FPS/heat and installed footprint remain NOT VERIFIED.
-
-## Latest verified checkpoint — Starting Area Asset Pack 003 Environment Dressing
-
-- source SHA: `3b36ec42556d5603dc02ee1b07080c10670c2648`;
-- workflow run: `35925800678` — SUCCESS;
-- job: `107400485383` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.10-starting-area-assets-003-environment`;
-- APK: `PixelRPG-starting-area-assets-003-environment-debug.apk`;
-- APK size: `58,159,506` bytes;
-- APK SHA-256: `cfbeb649b1f7cc62279aef647c15cba924501f1a0edf4398242a66c19b0897b7`;
-- APK artifact ID: `10778896861`;
-- APK artifact digest: `c0ad67e554be95efa43cb8d2be1b8296d05be9b1e9cf130e7a631fc6b0ad904e`;
-- build-evidence artifact ID: `10779325700`;
-- build-evidence digest: `fd9a27fa2a2c1313495885a49d1e3e0fde4705ed1b7cb5f3b4392b12a40c8274`.
-
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35925800678_starting-area-assets-003-environment/`
-- folder ID: `1MroMvgM8a0j0bK1VvRH-6yehMqkYblnh`;
-- APK ID: `17Bq6x2mzuFlLssUIdvSRWCChINe-DUpq`;
-- BuildIdentity JSON ID: `1JnFgmM0VA9B9Cp7DQskNGVYjRlMrkqNE`;
-- BuildIdentity Markdown ID: `1gArFsYoKXecWHGrzSUM_rSvmz02aoGQ8`;
-- raw CI evidence ID: `1m6gKgn11Y28ji5f6LeBLJMy8QjbheYXu`;
-- device checklist ID: `1E-TJJCBb5kqd-OhFk49PR4tB-X_lU5g8`.
-
-Implemented:
-- reusable fence asset scene;
-- reusable banner-post asset scene;
-- reusable vegetation-cluster asset scene;
-- reusable rock-cluster asset scene;
-- existing WorldPack001 builder names/caller transforms preserved;
-- assets remain presentation-only with no new gameplay collision.
-
-Verified:
-- import/parse and app/prototype smoke;
-- first-person and HUD gates;
-- Pack 004 smith physics/interaction and Smith Visual Pack 002;
-- Combat Bridge 001/002;
+Current first-person foundation already has recorded engine/build evidence for:
+- first-person realignment;
+- Pack 009 camera-local ViewModel foundation;
+- image-derived environment presentation through Pack 011;
+- Gate Warden and smith interaction preservation;
+- Mudcrest targeting/anatomy preservation;
+- Combat Bridge 002 no-attack bootstrap;
 - State Ownership 001;
-- world-base decomposition parity;
-- Starting Area Asset Packs 001/002/003;
 - deterministic combat/anatomy/status regressions;
-- Android export and package-size ceiling.
+- Android debug export/package-size gate.
 
-Physical-device visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
+Authority cleanup completed so far:
+- canonical bootstrap barrier added;
+- active authority barrier added;
+- Drive legacy handoff/folder quarantine verified;
+- active alignment/index/visual-direction documents reconciled to current Pixel RPG authority;
+- historical evidence retained outside active bootstrap authority.
 
-## Latest verified checkpoint — Starting Area Asset Pack 002 Smith Visual
+## IN_PROGRESS
 
-- source SHA: `efd16b123ac41c2bcb1faf081e11dcb9f808f510`;
-- workflow run: `35925218965` — SUCCESS;
-- job: `107398569689` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.9-starting-area-assets-002-smith`;
-- APK: `PixelRPG-starting-area-assets-002-smith-debug.apk`;
-- APK size: `58,129,579` bytes;
-- APK SHA-256: `f037aa4a0f945d500b8dbfd91a1ce4437884ddbc604f7c83a5aef8271088d498`;
-- APK artifact ID: `10779151178`;
-- APK artifact digest: `b31c3bc97e13d2b0e79506394fdb5c4ab4afcf107db4f8c2236db573e26e929f`;
-- build-evidence artifact ID: `10778454296`;
-- build-evidence digest: `7cde1fa37fb76def892f746de2d8d572e78f6c915d8f7310c50324e5ba66fe2e`.
+Issue #29 — authority/document cleanup:
+- verify active bootstrap contains no path into quarantined Drive material;
+- keep handoff/manifests as provenance only unless current source proves dependency;
+- record exact intentionally retained history and justification;
+- report final evidence to issue #28.
 
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35925218965_starting-area-assets-002-smith/`
-- folder ID: `1Ql4bDhi1_mAbF714IhwKo4NNGs-Y4uIf`;
-- APK ID: `1iVq0udFb7e3mNCO5o5GqZhITdVwtObES`;
-- BuildIdentity JSON ID: `1HfaM_mCTK5iFf4LODQ99BsYZ_fZdkk8h`;
-- BuildIdentity Markdown ID: `1jVQLtb6NLppR2Eprh39kxlKSv8cONFGC`;
-- raw CI evidence ID: `16ddWis1BIHdxZ9bB_JCceECkpaDReUyk`;
-- device checklist ID: `1pE_7nwDa8i6gds-Tjc-IluX9_TKGKOCn`.
+Issue #30 — technical hands integration:
+- canonical PNG must be present in source;
+- wire it into the live ViewModel as presentation-only art;
+- preserve existing placeholder geometry as fallback until parity gates pass;
+- update owning tests without weakening first-person invariants;
+- run required build/regression gates;
+- record exact source/build evidence.
 
-Implemented:
-- reusable forge detail scene;
-- reusable anvil/workstation detail scene;
-- reusable bench/tool detail scene;
-- reusable smith frontage detail scene;
-- Pack 004 keeps its proven structural, collision, doorway, anchor and roof nodes;
-- new details are presentation-only under `SmithVisualDetails`.
+## REQUIRED GATES FOR ISSUE #30
 
-Verified:
-- import/parse and app/prototype smoke;
-- original Pack 004 doorway/physics/interaction gate;
-- new Asset Pack 002 smith visual gate;
-- first-person, Packs 001/002/003, Combat Bridge 001/002, State Ownership 001 and world-base decomposition parity;
+- Godot import/parse;
+- AppShell smoke;
+- prototype scene smoke;
+- first-person realignment runtime gate;
+- first-person ViewModel gate;
+- Combat Bridge 002 no-attack bootstrap;
+- State Ownership gate;
 - deterministic combat/anatomy/status regressions;
-- Android export and package-size ceiling.
+- Android debug export;
+- package-size ceiling.
 
-Physical-device install, visual acceptance, touch feel, sustained performance/heat and installed footprint remain NOT VERIFIED.
+## IMPORTANT_DECISIONS
 
+- Do not restart the game or replace proven domain systems for presentation work.
+- Approved image-derived art may replace duplicated visible procedural placeholders only after parity verification.
+- Gameplay/collision geometry may remain invisible technical support.
+- Presentation assets do not own gameplay state.
+- Documentation-only changes must not be presented as runtime verification.
+- Build success must not be presented as physical-device verification.
+- Use free/no-billing-risk tooling for normal project work.
 
-## Latest verified checkpoint — Starting Area Asset Pack 001
+## KNOWN_RISKS
 
-- source SHA: `51b7262264f3460842021f0a9edf874413d301ae`;
-- workflow run: `35924324641` — SUCCESS;
-- job: `107395641354` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- version: `0.8-starting-area-assets-001`;
-- APK: `PixelRPG-starting-area-assets-001-debug.apk`;
-- APK size: `58,099,610` bytes;
-- APK SHA-256: `f1320e91d1a0163e74f8ca0924be9dd741a33c1f2bde3110d1b187a598baf6fa`;
-- APK artifact ID: `10777838822`;
-- APK artifact digest: `40d17d92ef8eec4baf287b6dca5bb3bb5d2194ac7738cb7925cb03242fdae6eb`;
-- build-evidence artifact ID: `10777694345`;
-- build-evidence artifact digest: `c785004b82d847bbca5a8145fa56d459fe831cf7c6124e929de2e15ee21f56dd`.
+- Active source can move while documentation is being reconciled; always re-fetch HEAD before writes.
+- A PNG source record is not equivalent to live ViewModel integration.
+- Camera-local sprite placement can obstruct targeting or clip at phone aspect ratios even when headless gates pass.
+- Removing procedural geometry before parity proof can create regressions.
+- Historical evidence can contaminate current direction if treated as bootstrap authority.
 
-Google Drive immutable folder:
-`Pixel RPG/Builds/First Person/2026-09-23_run-35924324641_starting-area-assets-001/`
-- folder ID: `10uXMDW0Jy13ExHyI86oxbuoNaYHGdzGI`;
-- APK ID: `1wTTuw7NAfyB92eFv0COIj8btLg-_iwz8`;
-- BuildIdentity JSON ID: `1gz_bTBWwz_T2hBcCvY73CGtexCbbX8zc`;
-- BuildIdentity Markdown ID: `1g6BLUFATiYb9xSG0LcdGKyMqRv8unPLz`;
-- raw CI evidence ID: `1wzSVCxClGP1Z1ie851X4uUe1RcrQ4cPC`;
-- device checklist ID: `1fgNcnQqr0bjae9jEMOiJcfLRcNbh_jXV`.
+## TEST_RESULTS
 
-Implemented in this checkpoint:
-- reusable `settlement_gate_01.tscn`;
-- reusable `market_stall_01.tscn`;
-- reusable `service_clutter_01.tscn`;
-- reusable `signpost_01.tscn`;
-- reusable `lantern_post_01.tscn`;
-- `WorldPack001` now instantiates those assets behind the existing builder API;
-- existing world placement/collision ownership remains in the host;
-- first-person camera, smith, targeting, combat bootstrap and state ownership were not moved.
+Latest fully recorded visual baseline: PASS at source/Godot/headless/Android-build level as listed above.
 
-Verification:
-- import/parse PASS;
-- AppShell/prototype smoke PASS;
-- first-person gate PASS;
-- Visual Pack 002/003 PASS;
-- enterable smith gate PASS;
-- Combat Bridge 001/002 PASS;
-- State Ownership 001 PASS;
-- world-base decomposition parity PASS;
-- Starting Area Asset Pack 001 gate PASS;
-- deterministic combat/anatomy/status regression set PASS;
-- Android debug export and package-size ceiling PASS.
+Current canonical-hands integration: NOT YET COMPLETE until issue #30 records a live source commit and passing gates.
 
-Physical phone install, touch feel, visual acceptance, sustained FPS/heat and installed footprint remain NOT VERIFIED.
+Physical-device visual/touch/performance acceptance for the current hands work: NOT VERIFIED.
 
+## NEXT_ACTION
 
-CURRENT VERIFIED PLAYABLE/PRESENTATION BASELINE:
-- existing Hunter CharacterBody3D/controller and collision;
-- direct left-stick movement + independent right-side look;
-- active Camera3D directly under eye-height CameraPitch;
-- third-person Hunter visual hidden in normal exploration;
-- legacy SpringArm retained inert for compatibility/audit only;
-- first-person FOV 70° and pitch clamp -78°..+78°;
-- 800×360 low-resolution 3D SubViewport + nearest scaling;
-- current world/environment, interactions, enterable smith and HUD;
-- Bridge 001 OBSERVE/ENGAGE/body-part targeting;
-- Bridge 002 explicit START COMBAT DOMAIN no-attack bootstrap;
-- deterministic turn/anatomy/status foundations preserved.
-
-STATE OWNERSHIP 001:
-- executable schema: `pixel_rpg.state_ownership.v1`;
-- code: `game/scripts/state/pixel_rpg_state_ownership_contract.gd`;
-- technical contract: `docs/50_technical/persistence/PIXEL_RPG_STATE_OWNERSHIP_CONTRACT.md`;
-- current world transforms are world-runtime ownership;
-- combat round/resources are CombatTurnShellRuntime ownership;
-- Mudcrest anatomy integrity/dedupe is MudcrestAnatomyRuntime ownership;
-- input/camera/targeting/context/bootstrap latches are transient control/orchestration only;
-- HUD/highlights/derived display are presentation only;
-- broad persistence remains unimplemented;
-- future durable state is split across bounded owner namespaces, not a giant singleton.
-
-HISTORICAL STATE OWNERSHIP BUILD-VERIFIED SOURCE:
-- source SHA: `9b84000ca343dff0d4baa86accb024b9ebac4fb8`;
-- workflow run: `35917375696` — SUCCESS;
-- job: `107372326343` — SUCCESS;
-- Godot: `4.7.2.stable.official.ed1daf0bf`;
-- APK: `PixelRPG-state-ownership-001-debug.apk`;
-- APK size: `58,052,621` bytes;
-- APK SHA-256: `531498c45c6d2293d5d38d646ca277ca7d0968b43caedb390ed3d3806578c532`;
-- APK artifact ID: `10775601339`;
-- build-evidence artifact ID: `10775168943`.
-
-HISTORICAL STATE OWNERSHIP GOOGLE DRIVE BUILD:
-- path: `Pixel RPG/Builds/First Person/2026-09-23_run-35917375696_state-ownership-001/`;
-- folder ID: `1PODIl1OXJ5Rpz5CqjmueEfau-HLXasci`;
-- APK ID: `1PGcW_okc1owdvuKxZuMNboICcRBoYKOd`;
-- BuildIdentity JSON: `18YieqdZBvYhzGshzBpFV2IJRQx_kZIu8`;
-- BuildIdentity Markdown: `1XLkjc9ZtIKMXpLvTrx6C7uzJaQ15YYJU`;
-- raw CI evidence ZIP: `1xnZswS624jJ4DzsJh3KlfQFJn3Lb7sub`;
-- device checklist: `1PjOBSiRyfhsqEn_a3eVkdw_jibWZ7bVF`.
-
-TEST_RESULTS:
-- import/parse PASS;
-- AppShell smoke PASS;
-- prototype scene smoke PASS;
-- first-person realignment `12/12` PASS;
-- Visual Pack 002 `24/24` PASS;
-- Visual Pack 003 HUD `19/19` PASS;
-- World Pack 004 enterable smith `19/19` PASS;
-- Combat Bridge 001 targeting `34/34` PASS;
-- Combat Bridge 002 no-attack bootstrap `28/28` PASS;
-- State Ownership Contract 001 `70/70` PASS;
-- preserved deterministic turn shell `76/76` PASS;
-- preserved Hunter attack `64/64` PASS;
-- preserved Mudcrest anatomy `20/20` PASS;
-- preserved status application `57/57` PASS;
-- preserved status timing `40/40` PASS;
-- Android debug export/signature verification PASS;
-- package-size ceiling PASS.
-
-APK_SIZE: no padding was added. The small package remains dominated by Godot Android runtime libraries; real production texture/audio/animation content is still limited.
-
-TRUTH_BOUNDARY: CI/headless/build evidence is complete. Physical Android install, touch feel, visual acceptance, sustained FPS/heat and installed footprint remain NOT VERIFIED.
-
-KNOWN COMPATIBILITY RISK: the verified legacy Hunt01 tactical movement/attack legality still references legacy Region-01 coordinates/body envelope. Do not wire it directly into the compact live Pixel RPG world or teleport the Hunter. A later combat slice needs an explicit current-world spatial adapter.
-
-NEXT_ACTION: `PIXEL_RPG_VISUAL_PACK_010_LIGHTING_ATMOSPHERE` — presentation-only ambient/lighting refinement; no time simulation, gameplay visibility modifiers, collision, camera/input, targeting/combat or state-owner changes.
-
-Object-reconstruction priority: Pack 010 proves real concept pixels are used. Pack 011 must now reconstruct the major pictured gate/smith/building/prop forms as reusable runtime assets; lighting/atmosphere comes only after this visual-source application is materially complete.
+Finish #29 with readback evidence, then keep documentation stable while #30 completes the technical integration and build gates. After #30 passes, prepare a bounded physical Android validation checklist for first-person hands composition, clipping, touch controls, targeting, safe areas, sustained FPS/heat, and lifecycle behavior.
