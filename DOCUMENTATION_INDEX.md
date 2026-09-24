@@ -1,6 +1,6 @@
 # Pixel RPG — Documentation Index
 
-Status: ACTIVE GLOBAL MAP / FIRST-PERSON + VISUAL PACK 009 VIEWMODEL BUILDIDENTITY AUTHORITY
+Status: ACTIVE GLOBAL MAP / FIRST-PERSON + VISUAL PACK 010 IMAGE-DERIVED ASSET BUILDIDENTITY AUTHORITY
 Last reconciled: 2026-09-23
 Branch: `pixel-rpg`
 
@@ -37,9 +37,51 @@ Google Drive:
 - `Pixel RPG - Visual Reference ORIGINAL.png` — ID `1IcZDQAEPUVpSpvJsvaVZsLqAA0RJmaxp`;
 - `Pixel RPG - Visual Reference.jpg` — ID `1NYHm1Y_CPQOb22ZQsF9e45T5uFV3Mh_b`.
 
-The image is a direction/composition reference. Visible names, quest text, counts and labels are placeholders unless separately approved.
+The image is both a direction/composition reference and, for Visual Pack 010, an actual pixel source for derived runtime textures. Visible names, quest text, counts and labels remain placeholders unless separately approved.
 
-## Visual Pack 009 First-Person Viewmodel — latest build-verified checkpoint
+## Visual Pack 010 Image-Derived Assets — latest build-verified checkpoint
+
+## Latest verified checkpoint — Visual Pack 010 Image-Derived Assets
+
+- exact source SHA: `5d6c26359f3fc69fbc787c05fce693e9a5492f45`;
+- workflow run: `35940008044` — SUCCESS;
+- job: `107445603048` — SUCCESS;
+- Godot: `4.7.2.stable.official.ed1daf0bf`;
+- version: `0.17-visual-pack-010-image-derived-assets`;
+- APK: `PixelRPG-visual-pack-010-image-derived-assets-debug.apk`;
+- APK size: `58,259,273` bytes;
+- APK SHA-256: `6fcf9db2d7dcbfdad6b08185a951e8e3a15d7ec86faa6eece26b13c0c2f83b91`;
+- APK artifact ID: `10784433455`;
+- APK artifact digest: `a2d83a4eba660cd7dbf151abb3a584dbf1ed23963d4c43ef83b66f4e674a0891`;
+- build-evidence artifact ID: `10785025141`;
+- build-evidence digest: `3c2b5b794396d767b3948de13575d21ee2e0e7cbaa36d8c89b8c354585365809`.
+
+Concept source authority:
+- generated concept: `voxel_fantasy_village_gate.png`;
+- source dimensions: `1672 × 941`;
+- source SHA-256: `766e16c7992699553842c7205eeef060a483e7c758f1ed3c3193c63ba0373b2b`;
+- runtime textures are sampled from actual concept pixels for wood, stone, dirt, foliage, roof, banner cloth and metal;
+- `game/assets/textures/concept_derived/image_derived_asset_manifest.gd` records the exact source identity and crop regions;
+- Pack 010 runtime gate proves representative gate/smith/path/pine/rock/lantern materials reference those image-derived texture resources.
+
+Preserved:
+- first-person camera/controller and hidden third-person body;
+- world positions and collision ownership;
+- smith doorway/roof/UseAnchor contracts;
+- Gate Warden interaction;
+- Mudcrest targeting/anatomy;
+- no-attack combat bootstrap;
+- State Ownership 001 and deterministic combat/status regressions.
+
+Drive archival status:
+- immutable folder exists: `Pixel RPG/Builds/First Person/2026-09-23_run-35940008044_visual-pack-010-image-derived-assets/`;
+- folder ID: `137B3IVmt9A3WFRKUiMd4FfKctU_g1cEo`;
+- BuildIdentity Markdown, raw CI evidence and device checklist are uploaded;
+- direct APK and BuildIdentity JSON Drive copies are not yet verified because their file-handoff upload expired. Do not claim them present until verified.
+
+Physical Android visual acceptance, touch feel, sustained FPS/heat and installed footprint remain NOT VERIFIED.
+
+## Visual Pack 009 First-Person Viewmodel — historical build-verified checkpoint
 
 ## Latest verified checkpoint — Visual Pack 009 First-Person Viewmodel
 
@@ -543,6 +585,6 @@ Latest specialized handoff:
 
 ## Continuation
 
-Next bounded slice: `PIXEL_RPG_VISUAL_PACK_010_LIGHTING_ATMOSPHERE`.
+Next bounded slice: `PIXEL_RPG_VISUAL_PACK_011_LIGHTING_ATMOSPHERE`.
 
 Add presentation-only first-person hands/poleblade beneath the existing active Camera3D. Preserve all camera/controller/collision, targeting/combat, anatomy/domain and state-ownership authority. The viewmodel must not own attack or collision behavior.
