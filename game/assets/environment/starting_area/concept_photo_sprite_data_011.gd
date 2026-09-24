@@ -1,93 +1,70 @@
 class_name PixelRPGConceptPhotoSpriteData011
 extends RefCounted
 
-const SCHEMA := "pixel_rpg.concept_photo_sprite_data_011.v1"
+const SCHEMA := "pixel_rpg.concept_photo_sprite_data_011.v2"
+const SOURCE_FILENAME := "voxel_fantasy_village_gate.png"
 const SOURCE_SHA256 := "766e16c7992699553842c7205eeef060a483e7c758f1ed3c3193c63ba0373b2b"
 const SOURCE_DIMENSIONS := Vector2i(1672, 941)
-const DERIVATION := "Exact source-image crops/masks were nearest-resized and palette-quantized into runtime sprite pixels. No synthetic repaint."
+const DERIVATION := "Standalone RGBA PNG game assets exported from exact source-image crop pixels, nearest-downsampled/palette-quantized and hard-masked. Runtime loads these files directly; no in-memory synthetic reconstruction."
 
 const SPRITES := {
 	"gate_left": {
-		"source_file": "concept_gate_banner_left.png",
+		"path": "res://assets/environment/starting_area/concept_photo_sprites_011/concept_gate_banner_left.png",
 		"source_crop": Rect2i(900, 270, 115, 200),
-		"size": Vector2i(12, 20),
+		"size": Vector2i(24, 40),
 		"role": "left gate banner",
-		"palette": [Color8(0, 0, 0, 0), Color8(198, 157, 107, 255), Color8(150, 111, 74, 255), Color8(108, 130, 162, 255), Color8(104, 75, 56, 255), Color8(83, 72, 64, 255), Color8(67, 72, 81, 255), Color8(60, 62, 70, 255), Color8(86, 47, 38, 255), Color8(72, 55, 44, 255), Color8(86, 43, 36, 255), Color8(75, 40, 39, 255), Color8(62, 53, 50, 255), Color8(49, 38, 33, 255), Color8(47, 30, 29, 255), Color8(0, 0, 0, 255)],
-		"rows": ["000000000000", "000000000000", "000003333300", "0399C7333300", "035749269C00", "0C9E5D975D00", "0EDCCD3EDB00", "03599D5DB800", "005547DD2B00", "0055466E8B00", "004E476B8D00", "002F277AA2A0", "00BD266AAAA0", "0011167ABAB0", "00BD17C4A8B0", "001217ED5AB0", "002217ED8600", "000007ED6000", "0000000D0000", "000000000000"],
+		"sha256": "aa27f9ee80557e2ffc3b4b66f4fa01c9e951c7c012446701efa4115762cd92fd",
 	},
 	"gate_right": {
-		"source_file": "concept_gate_banner_right.png",
+		"path": "res://assets/environment/starting_area/concept_photo_sprites_011/concept_gate_banner_right.png",
 		"source_crop": Rect2i(1090, 255, 120, 205),
-		"size": Vector2i(12, 20),
+		"size": Vector2i(24, 41),
 		"role": "right gate banner",
-		"palette": [Color8(0, 0, 0, 0), Color8(159, 169, 175, 255), Color8(135, 147, 148, 255), Color8(126, 131, 126, 255), Color8(96, 129, 148, 255), Color8(134, 103, 72, 255), Color8(86, 117, 139, 255), Color8(71, 98, 111, 255), Color8(96, 63, 52, 255), Color8(94, 48, 36, 255), Color8(67, 55, 49, 255), Color8(85, 44, 39, 255), Color8(80, 40, 37, 255), Color8(74, 42, 39, 255), Color8(60, 35, 31, 255), Color8(0, 0, 0, 255)],
-		"rows": ["000000000000", "000000000000", "000127164400", "011642444400", "013558AAAE00", "0AAAA8EEE500", "0A11EC9EDD00", "0412DBBDDD00", "0022C5BD8700", "00639BB85BA0", "0067DE58CC40", "0067DB59BC40", "0076DC5BB920", "0072DD9DB940", "0076DC9DB9E0", "007737BBA600", "00077755DD00", "000000737000", "000000000000", "000000000000"],
+		"sha256": "4e3cceca5b80b7ba9adb0ebc95e98911e5a8c05b4fc0d15ecd4a98dbbac8c8d5",
 	},
 	"smith_banner": {
-		"source_file": "concept_smith_banner.png",
+		"path": "res://assets/environment/starting_area/concept_photo_sprites_011/concept_smith_banner.png",
 		"source_crop": Rect2i(500, 210, 165, 180),
-		"size": Vector2i(16, 18),
+		"size": Vector2i(32, 36),
 		"role": "smith hanging banner",
-		"palette": [Color8(0, 0, 0, 0), Color8(132, 114, 105, 255), Color8(112, 97, 92, 255), Color8(90, 75, 72, 255), Color8(65, 46, 37, 255), Color8(40, 41, 51, 255), Color8(53, 34, 23, 255), Color8(40, 32, 32, 255), Color8(35, 36, 45, 255), Color8(31, 33, 40, 255), Color8(29, 29, 34, 255), Color8(35, 22, 13, 255), Color8(25, 20, 17, 255), Color8(6, 4, 4, 255), Color8(2, 0, 0, 255), Color8(0, 0, 0, 255)],
-		"rows": ["0000000000000000", "00000004767B6600", "0B43CDB44B6DBB00", "04D963344EB6CB00", "00EA35C63DB4BB00", "00E98832C43ADB00", "00FA888552F37660", "00DA9C559899BBD0", "00DC241595896670", "00DA512312894C60", "00DA8512223A4D40", "00EA852299582C70", "00EA8112855A2B40", "00F485A3389A1C40", "00D5A595858A1630", "00BB25A58A7A1000", "0000000089580000", "0000000000000000"],
+		"sha256": "26381950b3fbdfd0e990b89413f6908f5d5bdf9020f3e71a8f9492d051ac09e5",
 	},
 	"signpost": {
-		"source_file": "concept_signpost.png",
+		"path": "res://assets/environment/starting_area/concept_photo_sprites_011/concept_signpost.png",
 		"source_crop": Rect2i(1290, 410, 215, 230),
-		"size": Vector2i(20, 22),
+		"size": Vector2i(40, 44),
 		"role": "direction signpost",
-		"palette": [Color8(0, 0, 0, 0), Color8(181, 188, 73, 255), Color8(172, 172, 81, 255), Color8(174, 148, 82, 255), Color8(127, 142, 71, 255), Color8(141, 97, 60, 255), Color8(107, 105, 56, 255), Color8(77, 93, 45, 255), Color8(99, 69, 45, 255), Color8(87, 56, 37, 255), Color8(63, 73, 42, 255), Color8(60, 55, 40, 255), Color8(78, 50, 32, 255), Color8(53, 47, 37, 255), Color8(47, 32, 21, 255), Color8(0, 0, 0, 255)],
-		"rows": ["00000000000000000000", "00000000000000000000", "00B43535000000000000", "00D7385859CC89EC4600", "00D43C399999999A6600", "004DEE84EF147A7AA700", "0007D99C99CCCCDDDB00", "0000000008E600000000", "000AE0000CCC00000000", "000AA211EE2764474000", "00022717CD771427A000", "0000147A5BAAA511E000", "0000A74A5D76A12A8000", "000000000B2300000000", "000000000C6600000000", "000000000BD900000000", "000000000EE100000000", "00000000015300000000", "00000000088900000000", "000000000E5200000000", "00000000024500000000", "00000000053300000000"],
+		"sha256": "8c3869de36cfe3497fdf03baef3835f23f582e5b2c7b33d2924add0404365ff5",
 	},
 	"water_trough": {
-		"source_file": "concept_water_trough.png",
+		"path": "res://assets/environment/starting_area/concept_photo_sprites_011/concept_water_trough.png",
 		"source_crop": Rect2i(1340, 600, 330, 305),
-		"size": Vector2i(24, 22),
+		"size": Vector2i(48, 44),
 		"role": "water trough assembly",
-		"palette": [Color8(0, 0, 0, 0), Color8(157, 187, 175, 255), Color8(174, 155, 99, 255), Color8(155, 129, 101, 255), Color8(132, 94, 67, 255), Color8(82, 94, 98, 255), Color8(104, 70, 44, 255), Color8(90, 65, 49, 255), Color8(87, 57, 36, 255), Color8(79, 55, 35, 255), Color8(63, 57, 52, 255), Color8(68, 45, 28, 255), Color8(54, 39, 30, 255), Color8(44, 33, 24, 255), Color8(35, 23, 15, 255), Color8(0, 0, 0, 255)],
-		"rows": ["000000000000000000000000", "000000000000000000462500", "00000000000CDBACB8FBBF00", "00004682236BDC5E74EB7C00", "002333322332243311E44A00", "006623EDDCDCCEC933234330", "00886223111AADA9C7773470", "0D866442321111555BA77760", "0C8EB66962331111AAA57C70", "0DCB9E688974441155AAA5C0", "0DD68C6998BB2343115555A0", "04D6896FBB9BBB6477555550", "0E22896E8BB9BB8634466430", "0EE6C96D8BEB99996DDD9970", "0264F96D8BEBC98D9DDD8840", "02294B8D6CDB9B9B9DDC8880", "0029469D88B99BC99DCC8C90", "0094E9BE989999CCBDDE8880", "0009E22EBCB919CBBDDDB888", "000024CDBD99C9C99DDDE889", "0000153555531D5555550000", "000002D00000000000000000"],
+		"sha256": "334cecb58f64db411dc140d169da0b24fb10d8bd09e35fc2e7a7616e394b3aab",
 	},
 	"fence": {
-		"source_file": "concept_fence_segment.png",
+		"path": "res://assets/environment/starting_area/concept_photo_sprites_011/concept_fence_segment.png",
 		"source_crop": Rect2i(1160, 535, 345, 290),
-		"size": Vector2i(28, 24),
+		"size": Vector2i(56, 48),
 		"role": "fence segment",
-		"palette": [Color8(0, 0, 0, 0), Color8(204, 198, 107, 255), Color8(188, 173, 76, 255), Color8(195, 147, 105, 255), Color8(146, 147, 49, 255), Color8(166, 120, 85, 255), Color8(150, 97, 60, 255), Color8(120, 111, 48, 255), Color8(118, 88, 51, 255), Color8(115, 76, 48, 255), Color8(96, 62, 41, 255), Color8(74, 56, 38, 255), Color8(66, 43, 28, 255), Color8(54, 40, 31, 255), Color8(47, 31, 20, 255), Color8(0, 0, 0, 255)],
-		"rows": ["0000000000000000000000000000", "00000000000000000000000000D0", "000000000000000000000009B630", "0000000000000000BDDCBBB9E650", "000026900135218AAD115159A660", "004815EA86BB59113568A95AB690", "0024D6C4C6E939CCE8000006B650", "00AB26DBA6E000DD6000000BECA0", "008016B0000000DCA9A3153BEBA0", "000029E0A8CEAACCBA89AAAC95A0", "0744422788CEA6DDE35533833650", "0044111318CCE6ECE0000000DDD0", "001C3335000000CCD0000000DED0", "00005370000000BEE00000005DD0", "00001740000000ACD00000003330", "000083700000006CE00000006650", "000032700000006CE0000000AAC0", "00007D700000006CD0000000BBC0", "000024200000008E20000000BCB0", "00002440000000AEE0000000DCC0", "00004440000000AAE00000000000", "000044200000004F200000000000", "0000544700000000000000000000", "0000470000000000000000000000"],
+		"sha256": "ee99df39405c8039bfd9ce8c988b6e0106c125c86bac75b6d54f4e7907983d2c",
 	},
 	"forge": {
-		"source_file": "concept_forge_panel.png",
+		"path": "res://assets/environment/starting_area/concept_photo_sprites_011/concept_forge_panel.png",
 		"source_crop": Rect2i(345, 405, 300, 265),
-		"size": Vector2i(28, 24),
+		"size": Vector2i(56, 48),
 		"role": "smith forge interior panel",
-		"palette": [Color8(0, 0, 0, 0), Color8(216, 150, 78, 255), Color8(145, 100, 70, 255), Color8(151, 81, 33, 255), Color8(94, 82, 78, 255), Color8(125, 66, 29, 255), Color8(101, 63, 39, 255), Color8(84, 59, 42, 255), Color8(64, 56, 52, 255), Color8(83, 42, 15, 255), Color8(71, 39, 18, 255), Color8(59, 38, 25, 255), Color8(57, 29, 12, 255), Color8(43, 34, 30, 255), Color8(38, 24, 16, 255), Color8(18, 11, 7, 255)],
-		"rows": ["35E1D11ECACFFCCFECFAFFFE9AE9", "11E1611AABBEECCCC9999AA9AAAC", "11C3E13FBABEECC999995339AFDE", "31369699ACBBEBFFB79BEAAA9AAC", "113DDFE97EF7CAECCCAA99A999AC", "13DDFFEDBFAEACCE7A76566676A6", "33DDEEEA7ABBBAAECBCBB5AE66A6", "35DDEEFAA67EEBEC76A5555366A6", "35EEFB6E75797DEC6EE55F5BE6F6", "55CFD993331397EC7AE55576E596", "6672EAC1133356C995F6955FFAF2", "66B2C351113315CC6553C35553F2", "66811131111119A1EC53355655F7", "66E7D61C9111159EEE539A5799F8", "76F6883CEAAC3533E7CFDDD4AEF5", "4244424C78A7A8C9FFF8D88DFE9C", "B428444FFBFFFD55F99FEDFC5BCF", "8874481FC7EEE89AECCEEDDCADAE", "4714444BCEBBF8FC95FF8DFACF5B", "4478444ECF8D88111EEFEDFDA7CF", "8848884FB7753278847746444744", "8E8D488414A67666666446624242", "4222448848D44444444842214887", "74444F888E4421442444B8447444"],
+		"sha256": "229563418e15e93c6b08bf0a0a878bbeafa91b1596815823efd0801e90b4d324",
 	},
 }
 
-static func make_texture(sprite_id: String) -> ImageTexture:
+static func load_texture(sprite_id: String) -> Texture2D:
 	if not SPRITES.has(sprite_id):
 		return null
-	var record: Dictionary = SPRITES[sprite_id]
-	var size: Vector2i = record["size"]
-	var palette: Array = record["palette"]
-	var rows: Array = record["rows"]
-	var image := Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
-	for y in range(size.y):
-		var row := String(rows[y])
-		for x in range(size.x):
-			var code := row.substr(x, 1)
-			var index := "0123456789ABCDEF".find(code)
-			image.set_pixel(x, y, palette[index] as Color)
-	return ImageTexture.create_from_image(image)
+	return load(String(SPRITES[sprite_id]["path"])) as Texture2D
 
-static func sprite_data_sha256(sprite_id: String) -> String:
+static func texture_path(sprite_id: String) -> String:
 	if not SPRITES.has(sprite_id):
 		return ""
-	var record: Dictionary = SPRITES[sprite_id]
-	var payload := sprite_id + "|" + str(record["source_crop"]) + "|" + str(record["size"]) + "|"
-	for color in record["palette"]:
-		payload += str(color) + ";"
-	for row in record["rows"]:
-		payload += String(row) + "/"
-	return payload.sha256_text()
+	return String(SPRITES[sprite_id]["path"])
