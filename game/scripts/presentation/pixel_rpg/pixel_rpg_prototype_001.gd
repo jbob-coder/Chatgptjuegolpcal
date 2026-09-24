@@ -12,6 +12,7 @@ const GateWardenVisualScene: PackedScene = preload("res://assets/characters/gate
 const SettlementBuildingDetailsScene: PackedScene = preload("res://assets/environment/starting_area/settlement_building_details_01.tscn")
 const StreetSurfaceDetailsScene: PackedScene = preload("res://assets/environment/starting_area/street_surface_details_01.tscn")
 const TrailSurfaceDetailsScene: PackedScene = preload("res://assets/environment/starting_area/trail_surface_details_01.tscn")
+const ConceptPhotoReconstruction011 := preload("res://scripts/presentation/pixel_rpg/concept_photo_reconstruction_011.gd")
 
 const MOVE_SPEED_MPS := 5.2
 const GRAVITY_MPS2 := 9.8
@@ -679,6 +680,8 @@ func _on_watch_close_pressed() -> void:
 
 func _build_prototype_world() -> void:
 	WorldBase001.add_world_base(world_geometry)
+	var concept_photo_reconstruction := ConceptPhotoReconstruction011.new() as Node3D
+	world_geometry.add_child(concept_photo_reconstruction)
 	_add_box("Street", Vector3(0, 0.03, 2), Vector3(6.2, 0.10, 34), Color(0.38, 0.30, 0.20), false)
 	_add_box("Trail", Vector3(0, 0.04, -31), Vector3(4.2, 0.11, 34), Color(0.29, 0.24, 0.16), false)
 	_add_path_surface_detail(StreetSurfaceDetailsScene, "StreetSurfaceDetails", Vector3(0, 0.03, 2))
